@@ -1,0 +1,27 @@
+{
+  "name": "ribn",
+  "version": "1.0.0",
+  "description": "Topl's Wallet",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Topl/ribn.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Topl/ribn/issues"
+  },
+  "homepage": "https://github.com/Topl/ribn#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}
