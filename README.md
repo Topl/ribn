@@ -1,15 +1,22 @@
-# ribn
-A new Flutter project.
+# Ribn
 
-## Getting Started
+## Description
+A lightweight flutter wallet to interact with the Topl blockchain.
 
-This project is a starting point for a Flutter application.
+## Project Setup
 
-A few resources to get you started if this is your first Flutter project:
+#### Flutter installation:
+* Follow instructions from Flutter's official docs for installation on your platform: https://flutter.dev/docs/get-started/install
+* Confirm that flutter has been installed on your system by typing in the command:
+```
+which flutter
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+#### NodeJS Version (NVM)
+* This application was likely be using a specific NodeJS version. In order to develop locally, ensure that the correct node version is running using NVM. There is a .nvmrc file in the project root. With NVM installed, type the following:
+```
+nvm use
+```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Launch
+* Once everything is installed, launch the application using `flutter run`
