@@ -13,5 +13,10 @@
         "ecmaVersion": 12,
         "sourceType": "module"
     },
-    "rules": {}
+    "rules": {
+        "quotes": "off",
+        "indent": "off",
+        "object-curly-spacing": "off",
+        "no-undef": "error"
+    }
 }
