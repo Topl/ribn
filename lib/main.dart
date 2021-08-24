@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/keys.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/router/root_router.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Ribn',
       onGenerateRoute: rootRouter.generateRoutes,
-      initialRoute: '/welcome',
+      initialRoute: Routes.welcome,
       navigatorKey: Keys.navigatorKey,
       theme: ThemeData(
         primarySwatch: Colors.lightGreen,

@@ -57,7 +57,7 @@ class RootRouter {
         {
           return MaterialPageRoute(
             settings: settings,
-            builder: (context) => const MyHomePage(title: "Ribn"),
+            builder: (context) => const HomePage(title: "Ribn"),
           );
         }
       default:

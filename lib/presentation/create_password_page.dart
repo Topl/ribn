@@ -74,7 +74,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
       constraints: const BoxConstraints(maxWidth: 300),
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: CheckboxListTile(
-        title: const Text("I have read and agree to the Terms”"),
+        title: const Text("I have read and agree to the Terms"),
         value: readTermsOfAgreement,
         onChanged: (isChecked) {
           setState(() {
