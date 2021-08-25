@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/keys.dart';
-import 'package:ribn/constants/routes.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn/actions/onboarding_actions.dart';
+import 'package:ribn/containers/create_password_container.dart';
+import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/base_appbar.dart';
 import 'package:ribn/widgets/continue_button.dart';
+import 'package:ribn/widgets/loading_spinner.dart';
 
 class CreatePasswordPage extends StatefulWidget {
   const CreatePasswordPage({Key? key}) : super(key: key);
@@ -23,28 +26,54 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: BaseAppBar(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text("Create Password Page -- Onboarding page #3"),
-            const SizedBox(
-              height: 10,
+    return CreatePasswordContainer(
+      builder: (context, vm) {
+        return Scaffold(
+          appBar: BaseAppBar(),
+          body: Center(
+            child: Stack(
+              children: [
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Create Password Page -- Onboarding page #3"),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _buildTextField(_enterPasswordController, "New password"),
+                      _buildTextField(_confirmPasswordController, "Confirm password"),
+                      _buildTermsOfAgreementCheck(),
+                      ContinueButton(
+                        onPressed: () {
+                          StoreProvider.of<AppState>(context).dispatch(
+                            CreatePasswordAction(
+                                _enterPasswordController.text, _confirmPasswordController.text),
+                          );
+                        },
+                        enabled: readTermsOfAgreement,
+                      ),
+                      vm.passwordMismatchError
+                          ? const Text(
+                              "Passwords don't match",
+                              style: TextStyle(color: Colors.red),
+                            )
+                          : const SizedBox(),
+                      vm.passwordTooShortError
+                          ? const Text(
+                              "Passwords must be at least 8 characters",
+                              style: TextStyle(color: Colors.red),
+                            )
+                          : const SizedBox(),
+                    ],
+                  ),
+                ),
+                vm.loadingPasswordValidation ? const LoadingSpinner() : const SizedBox(),
+              ],
             ),
-            _buildTextField(_enterPasswordController, "New password"),
-            _buildTextField(_confirmPasswordController, "Confirm password"),
-            _buildTermsOfAgreementCheck(),
-            ContinueButton(
-              onPressed: () {
-                Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhrase);
-              },
-              enabled: readTermsOfAgreement,
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 
