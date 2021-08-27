@@ -50,7 +50,7 @@ class RootRouter {
         {
           return MaterialPageRoute(
             settings: settings,
-            builder: (context) => const LoginPage(),
+            builder: (context) => LoginPage(),
           );
         }
       case Routes.home:
