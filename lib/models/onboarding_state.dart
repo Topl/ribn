@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -9,6 +9,9 @@ class OnboardingState {
   final bool loadingPasswordValidation;
   final String? keyStoreJson;
   final String? mnemonic;
+  final bool mnemonicMismatchError;
+  final List<String>? shuffledMnemonic;
+  final List<String>? userSelectedWords;
 
   const OnboardingState({
     required this.passwordMismatchError,
@@ -16,6 +19,9 @@ class OnboardingState {
     required this.loadingPasswordValidation,
     this.keyStoreJson,
     this.mnemonic,
+    required this.mnemonicMismatchError,
+    this.shuffledMnemonic,
+    this.userSelectedWords,
   });
 
   factory OnboardingState.initial() {
@@ -23,6 +29,7 @@ class OnboardingState {
       passwordMismatchError: false,
       passwordTooShortError: false,
       loadingPasswordValidation: false,
+      mnemonicMismatchError: false,
     );
   }
 
@@ -32,6 +39,9 @@ class OnboardingState {
     bool? loadingPasswordValidation,
     String? keyStoreJson,
     String? mnemonic,
+    bool? mnemonicMismatchError,
+    List<String>? shuffledMnemonic,
+    List<String>? userSelectedWords,
   }) {
     return OnboardingState(
       passwordMismatchError: passwordMismatchError ?? this.passwordMismatchError,
@@ -39,6 +49,9 @@ class OnboardingState {
       loadingPasswordValidation: loadingPasswordValidation ?? this.loadingPasswordValidation,
       keyStoreJson: keyStoreJson ?? this.keyStoreJson,
       mnemonic: mnemonic ?? this.mnemonic,
+      mnemonicMismatchError: mnemonicMismatchError ?? this.mnemonicMismatchError,
+      shuffledMnemonic: shuffledMnemonic ?? this.shuffledMnemonic,
+      userSelectedWords: userSelectedWords ?? this.userSelectedWords,
     );
   }
 
@@ -48,7 +61,7 @@ class OnboardingState {
       'passwordTooShortError': passwordTooShortError,
       'loadingPasswordValidation': loadingPasswordValidation,
       'keyStoreJson': keyStoreJson,
-      // mnemonic will never be persisted
+      'mnemonicMismatchError': mnemonicMismatchError,
     };
   }
 
@@ -58,6 +71,7 @@ class OnboardingState {
       passwordTooShortError: map['passwordTooShortError'],
       loadingPasswordValidation: map['loadingPasswordValidation'],
       keyStoreJson: map['keyStoreJson'],
+      mnemonicMismatchError: map['mnemonicMismatchError'],
     );
   }
 
@@ -67,7 +81,7 @@ class OnboardingState {
 
   @override
   String toString() {
-    return 'OnboardingState(passwordMismatchError: $passwordMismatchError, passwordTooShortError: $passwordTooShortError, loadingPasswordValidation: $loadingPasswordValidation, keyStoreJson: $keyStoreJson, mnemonic: $mnemonic)';
+    return 'OnboardingState(passwordMismatchError: $passwordMismatchError, passwordTooShortError: $passwordTooShortError, loadingPasswordValidation: $loadingPasswordValidation, keyStoreJson: $keyStoreJson, mnemonic: $mnemonic, mnemonicMismatchError: $mnemonicMismatchError, shuffledMnemonic: $shuffledMnemonic, userSelectedWords: $userSelectedWords)';
   }
 
   @override
@@ -79,7 +93,10 @@ class OnboardingState {
         other.passwordTooShortError == passwordTooShortError &&
         other.loadingPasswordValidation == loadingPasswordValidation &&
         other.keyStoreJson == keyStoreJson &&
-        other.mnemonic == mnemonic;
+        other.mnemonic == mnemonic &&
+        other.mnemonicMismatchError == mnemonicMismatchError &&
+        listEquals(other.shuffledMnemonic, shuffledMnemonic) &&
+        listEquals(other.userSelectedWords, userSelectedWords);
   }
 
   @override
@@ -88,6 +105,9 @@ class OnboardingState {
         passwordTooShortError.hashCode ^
         loadingPasswordValidation.hashCode ^
         keyStoreJson.hashCode ^
-        mnemonic.hashCode;
+        mnemonic.hashCode ^
+        mnemonicMismatchError.hashCode ^
+        shuffledMnemonic.hashCode ^
+        userSelectedWords.hashCode;
   }
 }
