@@ -6,7 +6,8 @@
  * @returns {void}
  */
 async function persistToStorage(obj) {
-  await chrome.storage.local.set({data: obj});
+  const parsedObj = JSON.parse(obj);
+  await chrome.storage.local.set({data: parsedObj});
 }
 
 /**
@@ -18,7 +19,8 @@ async function fetchData() {
   if (!result) {
     return "{}";
   }
-  return result;
+  const stringifiedJson = JSON.stringify(result);
+  return stringifiedJson;
 }
 
 /**
