@@ -73,15 +73,15 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
 
   Widget _buildWordContainer(String word, SeedPhraseConfirmationViewModel vm) {
     bool isSelectable = !vm.userSelectedWords.contains(word);
-    return Card(
-      color: isSelectable ? Colors.blue : Colors.blue[50],
-      child: Center(
-        child: GestureDetector(
+    return GestureDetector(
+      onTap: isSelectable ? () => vm.selectWord(word) : null,
+      child: Card(
+        color: isSelectable ? Colors.blue : Colors.blue[50],
+        child: Center(
           child: Text(
             word,
             style: const TextStyle(color: Colors.white),
           ),
-          onTap: isSelectable ? () => vm.selectWord(word) : null,
         ),
       ),
     );
