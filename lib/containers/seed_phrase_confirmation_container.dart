@@ -22,7 +22,6 @@ class SeedPhraseConfirmationContainer extends StatelessWidget {
 
 @immutable
 class SeedPhraseConfirmationViewModel {
-  final String mnemonic;
   final List<String> shuffledMnemonic;
   final bool mnemonicMismatchError;
   final List<String> userSelectedWords;
@@ -31,7 +30,6 @@ class SeedPhraseConfirmationViewModel {
   final Function(String) removeWord;
 
   const SeedPhraseConfirmationViewModel({
-    required this.mnemonic,
     this.mnemonicMismatchError = false,
     required this.verifyMnemonic,
     required this.shuffledMnemonic,
@@ -42,9 +40,8 @@ class SeedPhraseConfirmationViewModel {
 
   static SeedPhraseConfirmationViewModel fromStore(Store<AppState> store) {
     return SeedPhraseConfirmationViewModel(
-      mnemonic: store.state.onboardingState.mnemonic ?? "",
-      shuffledMnemonic: store.state.onboardingState.shuffledMnemonic ?? [],
-      userSelectedWords: store.state.onboardingState.userSelectedWords ?? [],
+      shuffledMnemonic: store.state.onboardingState.shuffledMnemonic!,
+      userSelectedWords: store.state.onboardingState.userSelectedWords!,
       mnemonicMismatchError: store.state.onboardingState.mnemonicMismatchError,
       verifyMnemonic: (words) => store.dispatch(VerifyMnemonicAction(words)),
       selectWord: (word) => store.dispatch(UserSelectedWordAction(word)),
@@ -57,7 +54,6 @@ class SeedPhraseConfirmationViewModel {
     if (identical(this, other)) return true;
 
     return other is SeedPhraseConfirmationViewModel &&
-        other.mnemonic == mnemonic &&
         listEquals(other.shuffledMnemonic, shuffledMnemonic) &&
         other.mnemonicMismatchError == mnemonicMismatchError &&
         other.verifyMnemonic == verifyMnemonic;
@@ -65,9 +61,6 @@ class SeedPhraseConfirmationViewModel {
 
   @override
   int get hashCode {
-    return mnemonic.hashCode ^
-        shuffledMnemonic.hashCode ^
-        mnemonicMismatchError.hashCode ^
-        verifyMnemonic.hashCode;
+    return shuffledMnemonic.hashCode ^ mnemonicMismatchError.hashCode ^ verifyMnemonic.hashCode;
   }
 }

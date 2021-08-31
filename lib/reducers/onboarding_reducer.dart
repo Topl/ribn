@@ -26,6 +26,7 @@ OnboardingState _onPasswordSuccessfullyCreated(
     loadingPasswordValidation: false,
     mnemonic: action.mnemonic,
     shuffledMnemonic: List.from(action.mnemonic.split(" "))..shuffle(Random.secure()),
+    userSelectedWords: [],
   );
 }
 
@@ -58,6 +59,7 @@ OnboardingState _onMnemonicSuccessfullyVerified(
     mnemonicMismatchError: false,
     mnemonic: null,
     shuffledMnemonic: null,
+    userSelectedWords: null,
   );
 }
 
