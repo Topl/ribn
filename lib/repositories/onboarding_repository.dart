@@ -14,7 +14,7 @@ class OnboardingRespository {
 
   /// Generates the mnemonic to be shown to the user.
   ///
-  /// Derives the Topl extended private key that follows the path described in [Rules.toplKeyPath]
+  /// Derives the Topl extended private key that follows the path described in [Rules.toplKeyPath].
   ///
   /// The user-provided [password] is used to encrypt the credentials and create a [KeyStore]
   Future<Map> generateMnemonicAndKeystore(String password) async {
