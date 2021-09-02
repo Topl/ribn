@@ -11,6 +11,11 @@ class OnboardingRespository {
   OnboardingRespository({
     required this.cip1852keyTree,
   });
+
+  /// Generates mnemonic to be shown to the user
+  /// Derives the Topl extended private key that follows the path described in [Rules.toplKeyPath]
+  ///
+  /// The user-provided [password] is used to encrypt the credentials and create a [KeyStore]
   Future<Map> generateMnemonicAndKeystore(String password) async {
     final Random random = Random.secure();
     const Base58Encoder base58Encoder = Base58Encoder.instance;
