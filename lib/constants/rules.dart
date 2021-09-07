@@ -1,5 +1,6 @@
 class Rules {
-  static int minPasswordLength = 8;
-  static int scryptN = 8192;
-  static String toplKeyPath = "m/1852'/7091'";
+  static const int minPasswordLength = 8;
+  static const int scryptN = 8192;
+  static const int extendedSecretKeySize = 64;
+  static const String toplKeyPath = "m/1852'/7091'";
 }
