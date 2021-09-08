@@ -50,7 +50,7 @@ class RootRouter {
         {
           return MaterialPageRoute(
             settings: settings,
-            builder: (context) => LoginPage(),
+            builder: (context) => const LoginPage(),
           );
         }
       case Routes.home:
@@ -60,14 +60,27 @@ class RootRouter {
             builder: (context) => const HomePage(title: "Ribn"),
           );
         }
+      case Routes.error:
+        {
+          String errorMessage = (settings.arguments ?? "Unknown error occurred") as String;
+          return errorRoute(errorMsg: errorMessage);
+        }
       default:
         return errorRoute();
     }
   }
 
-  Route<MaterialPageRoute> errorRoute() {
+  Route<MaterialPageRoute> errorRoute({String errorMsg = "Unknown error occurred"}) {
     return MaterialPageRoute(builder: (context) {
-      return const Text("Invalid Route");
+      return Center(
+        child: Text(
+          errorMsg,
+          style: const TextStyle(
+            color: Colors.red,
+            fontSize: 12,
+          ),
+        ),
+      );
     });
   }
 }
