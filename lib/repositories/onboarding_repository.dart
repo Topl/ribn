@@ -24,17 +24,17 @@ class OnboardingRespository {
     final Bip32Key rootBip32Key = cip1852keyTree.master(mnemonicToSeed(mnemonic));
     cip1852keyTree.root = rootBip32Key;
     final Bip32Key toplExtendedPrvKey = cip1852keyTree.pathToKey(Rules.toplKeyPath);
-    final String base58EncodedToplExtendedPrvKey = base58Encoder.encode(
-      Uint8List.fromList(
-        [...toplExtendedPrvKey.keyBytes, ...toplExtendedPrvKey.chainCode],
-      ),
+    Uint8List toplExtendedPrvKeyUint8List = Uint8List.fromList(
+      [...toplExtendedPrvKey.keyBytes, ...toplExtendedPrvKey.chainCode],
     );
+    final String base58EncodedToplExtendedPrvKey = base58Encoder.encode(toplExtendedPrvKeyUint8List);
     final KeyStore keyStore =
         KeyStore.createNew(base58EncodedToplExtendedPrvKey, password, random, scryptN: 4);
     final String keyStoreJson = keyStore.toJson();
     return {
       'mnemonic': mnemonic,
       'keyStoreJson': keyStoreJson,
+      'toplExtendedPrvKeyUint8List': toplExtendedPrvKeyUint8List,
     };
   }
 }

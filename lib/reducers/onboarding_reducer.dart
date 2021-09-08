@@ -20,7 +20,6 @@ final onboardingReducer = combineReducers<OnboardingState>(
 OnboardingState _onPasswordSuccessfullyCreated(
     OnboardingState onboardingState, PasswordSuccessfullyCreatedAction action) {
   return onboardingState.copyWith(
-    keyStoreJson: action.keyStoreJson,
     passwordMismatchError: false,
     passwordTooShortError: false,
     loadingPasswordValidation: false,

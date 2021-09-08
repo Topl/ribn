@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:redux/redux.dart';
 import 'package:ribn/actions/login_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
@@ -21,13 +20,21 @@ void Function(Store<AppState> store, AttemptLoginAction action, NextDispatcher n
     next(LoginLoadingAction());
     Future.delayed(const Duration(seconds: 2));
     try {
-      Uint8List toplExtendedPrvKeyUint8List =
-          loginRepository.decryptKeyStore(store.state.onboardingState.keyStoreJson!, action.password);
+      Uint8List toplExtendedPrvKeyUint8List = loginRepository.decryptKeyStore(
+        store.state.keyChainState.keyStoreJson!,
+        action.password,
+      );
       next(LoginSuccessAction(toplExtendedPrvKeyUint8List));
+      // AppState persisted after successful login
       next(PersistAppState());
       Keys.navigatorKey.currentState!.pushNamed(Routes.home);
     } catch (e) {
-      next(LoginFailureAction());
+      if (e.runtimeType == ArgumentError &&
+          (e as ArgumentError).message.toString().contains("supplied the wrong password")) {
+        next(LoginFailureAction());
+      } else {
+        next(ApiErrorAction(e.toString()));
+      }
     }
   };
 }
