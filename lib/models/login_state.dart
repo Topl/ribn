@@ -2,14 +2,17 @@ import 'dart:convert';
 
 class LoginState {
   final bool incorrectPasswordError;
-  final bool isLoggedIn;
+  final bool isLoggedIn; // never persisted
   final String? lastLogin;
+  final String? firstTimeLogin;
   final bool loadingPasswordCheck;
+
   LoginState({
-    required this.incorrectPasswordError,
-    required this.isLoggedIn,
+    this.incorrectPasswordError = false,
+    this.isLoggedIn = false,
     this.lastLogin,
-    required this.loadingPasswordCheck,
+    this.firstTimeLogin,
+    this.loadingPasswordCheck = false,
   });
 
   factory LoginState.initial() {
@@ -20,12 +23,14 @@ class LoginState {
     bool? incorrectPasswordError,
     bool? isLoggedIn,
     String? lastLogin,
+    String? firstTimeLogin,
     bool? loadingPasswordCheck,
   }) {
     return LoginState(
       incorrectPasswordError: incorrectPasswordError ?? this.incorrectPasswordError,
       isLoggedIn: isLoggedIn ?? this.isLoggedIn,
       lastLogin: lastLogin ?? this.lastLogin,
+      firstTimeLogin: firstTimeLogin ?? this.firstTimeLogin,
       loadingPasswordCheck: loadingPasswordCheck ?? this.loadingPasswordCheck,
     );
   }
@@ -33,8 +38,8 @@ class LoginState {
   Map<String, dynamic> toMap() {
     return {
       'incorrectPasswordError': incorrectPasswordError,
-      'isLoggedIn': isLoggedIn,
       'lastLogin': lastLogin,
+      'firstTimeLogin': firstTimeLogin,
       'loadingPasswordCheck': loadingPasswordCheck,
     };
   }
@@ -42,8 +47,8 @@ class LoginState {
   factory LoginState.fromMap(Map<String, dynamic> map) {
     return LoginState(
       incorrectPasswordError: map['incorrectPasswordError'],
-      isLoggedIn: map['isLoggedIn'],
       lastLogin: map['lastLogin'],
+      firstTimeLogin: map['firstTimeLogin'],
       loadingPasswordCheck: map['loadingPasswordCheck'],
     );
   }
@@ -54,7 +59,7 @@ class LoginState {
 
   @override
   String toString() {
-    return 'LoginState(incorrectPasswordError: $incorrectPasswordError, isLoggedIn: $isLoggedIn, lastLogin: $lastLogin, loadingPasswordCheck: $loadingPasswordCheck)';
+    return 'LoginState(incorrectPasswordError: $incorrectPasswordError, isLoggedIn: $isLoggedIn, lastLogin: $lastLogin, firstTimeLogin: $firstTimeLogin, loadingPasswordCheck: $loadingPasswordCheck)';
   }
 
   @override
@@ -65,6 +70,7 @@ class LoginState {
         other.incorrectPasswordError == incorrectPasswordError &&
         other.isLoggedIn == isLoggedIn &&
         other.lastLogin == lastLogin &&
+        other.firstTimeLogin == firstTimeLogin &&
         other.loadingPasswordCheck == loadingPasswordCheck;
   }
 
@@ -73,6 +79,7 @@ class LoginState {
     return incorrectPasswordError.hashCode ^
         isLoggedIn.hashCode ^
         lastLogin.hashCode ^
+        firstTimeLogin.hashCode ^
         loadingPasswordCheck.hashCode;
   }
 }

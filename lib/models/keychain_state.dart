@@ -4,7 +4,7 @@ import 'package:bip_topl/bip_topl.dart';
 
 class KeyChainState {
   final String? keyStoreJson;
-  final Cip1852KeyTree? cip1852keyTree;
+  final Cip1852KeyTree? cip1852keyTree; // never persisted
 
   KeyChainState({
     this.keyStoreJson,

@@ -27,7 +27,7 @@ class AppState {
   }
 
   bool keyStoreExists() {
-    return (onboardingState.keyStoreJson ?? "").isNotEmpty;
+    return (keyChainState.keyStoreJson ?? "").isNotEmpty;
   }
 
   @override
@@ -59,6 +59,7 @@ class AppState {
     return {
       'onboardingState': onboardingState.toMap(),
       'loginState': loginState.toMap(),
+      'keyChainState': keyChainState.toMap(),
     };
   }
 
@@ -66,9 +67,7 @@ class AppState {
     return AppState(
       onboardingState: OnboardingState.fromMap(map['onboardingState']),
       loginState: LoginState.fromMap(map['loginState']),
-      keyChainState: map.containsKey("keyChainState")
-          ? KeyChainState.fromMap(map['keyChainState'])
-          : KeyChainState.initial(),
+      keyChainState: KeyChainState.fromMap(map['keyChainState']),
     );
   }
 
