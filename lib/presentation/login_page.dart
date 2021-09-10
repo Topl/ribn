@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/actions/onboarding_actions.dart';
+import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/base_appbar.dart';
 
@@ -26,17 +27,17 @@ class LoginPage extends StatelessWidget {
 
   Widget _buildTextField(TextEditingController textEditingController, String label) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: UIConstants.generalPadding),
       child: Column(
         children: [
           SizedBox(
-            width: 200,
+            width: UIConstants.textFieldSize,
             child: TextField(
               controller: textEditingController,
               decoration: InputDecoration(
                 labelText: label,
                 isDense: true,
-                contentPadding: const EdgeInsets.all(8),
+                contentPadding: const EdgeInsets.all(UIConstants.generalPadding),
               ),
             ),
           ),
@@ -50,7 +51,7 @@ class LoginPage extends StatelessWidget {
       color: Colors.blueAccent,
       child: const Text(
         "Unlock",
-        style: TextStyle(fontSize: 11, color: Colors.white),
+        style: TextStyle(fontSize: UIConstants.smallTextSize, color: Colors.white),
       ),
       onPressed: () {
         StoreProvider.of<AppState>(context).dispatch(PasswordMismatchAction());

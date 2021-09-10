@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
+import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/widgets/base_appbar.dart';
 
 class SelectActionPage extends StatelessWidget {
@@ -15,18 +16,14 @@ class SelectActionPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text("Select action page -- Onboarding page #2"),
-            const SizedBox(
-              height: 10,
-            ),
+            UIConstants.sizedBox,
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _buildButton("Create wallet", () {
                   Keys.navigatorKey.currentState?.pushNamed(Routes.createPassword);
                 }),
-                const SizedBox(
-                  width: 10,
-                ),
+                UIConstants.sizedBox,
                 _buildButton("Restore wallet", () {
                   Keys.navigatorKey.currentState?.pushNamed(Routes.createPassword);
                 }),
