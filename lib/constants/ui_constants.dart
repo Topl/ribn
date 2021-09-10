@@ -9,4 +9,5 @@ class UIConstants {
   static const double maxWidth = 200;
   static const double mnemonicTileMaxWidth = 250;
   static const double mnemonicTileMaxHeight = 200;
+  static const double mnemonicDisplayDimensions = 150;
 }
