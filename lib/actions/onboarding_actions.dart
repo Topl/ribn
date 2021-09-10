@@ -17,3 +17,22 @@ class PasswordTooShortAction {}
 class LoadingPasswordValidationAction {}
 
 class ErrorCreatingPasswordAction {}
+
+class VerifyMnemonicAction {
+  final String userInput;
+  const VerifyMnemonicAction(this.userInput);
+}
+
+class MnemonicSuccessfullyVerifiedAction {}
+
+class MnemonicMismatchAction {}
+
+class UserSelectedWordAction {
+  final String word;
+  const UserSelectedWordAction(this.word);
+}
+
+class UserRemovedWordAction {
+  final String word;
+  const UserRemovedWordAction(this.word);
+}

@@ -36,12 +36,19 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.8.2"
+  bip32_ed25519:
+    dependency: transitive
+    description:
+      name: bip32_ed25519
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.1"
   bip_topl:
     dependency: "direct main"
     description:
       path: "."
-      ref: INFRA-379
-      resolved-ref: b3729da98ee30681fc88a928787f60c61925194f
+      ref: dev
+      resolved-ref: "98416517fce74046a7139a35ee7f715b236f535c"
       url: "https://github.com/Topl/bip-topl.git"
     source: git
     version: "0.0.1"
@@ -192,6 +199,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+  cryptography:
+    dependency: transitive
+    description:
+      name: cryptography
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -213,6 +227,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
+  ed25519_edwards:
+    dependency: transitive
+    description:
+      name: ed25519_edwards
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.1"
   fake_async:
     dependency: transitive
     description:
@@ -388,8 +409,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: ribn_testing
-      resolved-ref: "3a05b6a955d3bbe165bcb24d2fe8ee420760c4eb"
+      ref: dev
+      resolved-ref: c6a9979d1be6c80ebb493877a9961cae7f6952b4
       url: "https://github.com/Topl/BramblDart.git"
     source: git
     version: "1.0.0"
@@ -600,7 +621,7 @@ packages:
       name: test
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.17.12"
+    version: "1.17.11"
   test_api:
     dependency: transitive
     description:
@@ -614,7 +635,7 @@ packages:
       name: test_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.2"
+    version: "0.4.1"
   test_process:
     dependency: transitive
     description:
@@ -663,7 +684,7 @@ packages:
       name: vm_service
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.3.0"
+    version: "7.2.0"
   watcher:
     dependency: transitive
     description:

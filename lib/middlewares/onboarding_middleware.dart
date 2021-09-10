@@ -10,6 +10,7 @@ import 'package:ribn/repositories/onboarding_repository.dart';
 List<Middleware<AppState>> createOnboardingMiddleware(OnboardingRespository onboardingRespository) {
   return <Middleware<AppState>>[
     TypedMiddleware<AppState, CreatePasswordAction>(_checkPassword(onboardingRespository)),
+    TypedMiddleware<AppState, VerifyMnemonicAction>(_verifyMnemonic(onboardingRespository)),
   ];
 }
 
@@ -36,6 +37,18 @@ void Function(Store<AppState> store, CreatePasswordAction action, NextDispatcher
       } catch (e) {
         next(ErrorCreatingPasswordAction());
       }
+    }
+  };
+}
+
+void Function(Store<AppState> store, VerifyMnemonicAction action, NextDispatcher next) _verifyMnemonic(
+    OnboardingRespository onboardingRespository) {
+  return (store, action, next) {
+    if (action.userInput == store.state.onboardingState.mnemonic) {
+      next(MnemonicSuccessfullyVerifiedAction());
+      Keys.navigatorKey.currentState?.pushNamed(Routes.home);
+    } else {
+      next(MnemonicMismatchAction());
     }
   };
 }

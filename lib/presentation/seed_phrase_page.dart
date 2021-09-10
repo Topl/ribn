@@ -11,6 +11,7 @@ class SeedPhrasePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String seedPhrase = StoreProvider.of<AppState>(context).state.onboardingState.mnemonic ?? "";
     return Scaffold(
       appBar: AppBar(
         title: const Text("Ribn"),
@@ -24,7 +25,15 @@ class SeedPhrasePage extends StatelessWidget {
             UIConstants.sizedBox,
             const Text("This is a seed phrase"),
             const Text("Please write it down. You will be asked to re-enter it on the next screen"),
-            Text(StoreProvider.of<AppState>(context).state.onboardingState.mnemonic ?? ""),
+            Container(
+              height: UIConstants.mnemonicDisplayDimensions,
+              width: UIConstants.mnemonicDisplayDimensions,
+              color: Colors.white70,
+              child: Text(
+                seedPhrase,
+                style: const TextStyle(color: Colors.grey),
+              ),
+            ),
             ContinueButton(
               onPressed: () => Keys.navigatorKey.currentState!.pushNamed(Routes.seedPhraseConfirm),
             )

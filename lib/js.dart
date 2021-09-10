@@ -21,3 +21,9 @@ void initMessageListener(Function msgHandler) {
 Future<String> getDataFromLocalStorage() {
   return promiseToFuture(fetchData());
 }
+
+/// Calls the JS function [persistToStorage] defined in "utils.js" to persist [data] to local storage
+/// [promiseToFuture] converts a javascript promise into a dart [Future]
+Future<void> persistAppState(String data) async {
+  await promiseToFuture(persistToStorage(data));
+}
