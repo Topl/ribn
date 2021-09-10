@@ -14,6 +14,10 @@ class AppState {
     return AppState(onboardingState: OnboardingState.initial());
   }
 
+  bool keyStoreExists() {
+    return (onboardingState.keyStoreJson ?? "").isNotEmpty;
+  }
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

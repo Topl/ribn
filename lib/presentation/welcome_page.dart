@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
+import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/widgets/base_appbar.dart';
 import 'package:ribn/widgets/continue_button.dart';
 
@@ -16,9 +17,7 @@ class WelcomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text("Welcome Page -- Onboarding page #1"),
-            const SizedBox(
-              height: 10,
-            ),
+            UIConstants.sizedBox,
             ContinueButton(
               onPressed: () {
                 Keys.navigatorKey.currentState?.pushNamed(Routes.selectAction);

@@ -1,0 +1,3 @@
+class PersistAppState {}
+
+class FailedToPersistAppStateAction {}

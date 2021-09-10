@@ -24,6 +24,6 @@
     "48": "/icons/Icon-192.png",
     "128": "/icons/Icon-192.png"
   },
-  "permissions": ["unlimitedStorage"],
+  "permissions": ["storage"],
   "manifest_version": 3
 }

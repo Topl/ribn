@@ -39,6 +39,15 @@ dependencies:
   redux: ^5.0.0
   redux_epics: ^0.15.0
   rxdart: ^0.26.0
+  mubrambl:
+    git:
+      url: https://github.com/Topl/BramblDart.git
+      ref: dev
+  bip_topl: ^0.0.2 
+
+  # bip_topl: ^0.0.1
+  js: ^0.6.3
+  fast_base58: ^0.2.0
 
 dev_dependencies:
   flutter_test:
