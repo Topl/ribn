@@ -26,8 +26,8 @@ class SeedPhrasePage extends StatelessWidget {
             const Text("This is a seed phrase"),
             const Text("Please write it down. You will be asked to re-enter it on the next screen"),
             Container(
-              height: 150,
-              width: 150,
+              height: UIConstants.mnemonicDisplayDimensions,
+              width: UIConstants.mnemonicDisplayDimensions,
               color: Colors.white70,
               child: Text(
                 seedPhrase,
