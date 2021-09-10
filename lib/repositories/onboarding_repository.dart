@@ -30,7 +30,7 @@ class OnboardingRespository {
       ),
     );
     final KeyStore keyStore =
-        KeyStore.createNew(base58EncodedToplExtendedPrvKey, password, random, scryptN: 4);
+        KeyStore.createNew(base58EncodedToplExtendedPrvKey, password, random, scryptN: Rules.scryptN);
     final String keyStoreJson = keyStore.toJson();
     return {
       'mnemonic': mnemonic,
