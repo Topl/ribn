@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
+import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/widgets/base_appbar.dart';
 import 'package:ribn/widgets/continue_button.dart';
 
@@ -16,9 +17,7 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text("Seed phrase confirmation page -- Onboarding page #5"),
-            const SizedBox(
-              height: 10,
-            ),
+            UIConstants.sizedBox,
             const Text("Confirm seed phrase here"),
             ContinueButton(
               onPressed: () {

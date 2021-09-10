@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/actions/onboarding_actions.dart';
+import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/create_password_container.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/base_appbar.dart';
@@ -38,9 +39,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text("Create Password Page -- Onboarding page #3"),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      UIConstants.sizedBox,
                       _buildTextField(_enterPasswordController, "New password"),
                       _buildTextField(_confirmPasswordController, "Confirm password"),
                       _buildTermsOfAgreementCheck(),
@@ -79,7 +78,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
 
   Widget _buildTextField(TextEditingController textEditingController, String label) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: UIConstants.generalPadding),
       child: Column(
         children: [
           SizedBox(
@@ -89,7 +88,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
               decoration: InputDecoration(
                 labelText: label,
                 isDense: true,
-                contentPadding: const EdgeInsets.all(8),
+                contentPadding: const EdgeInsets.all(UIConstants.generalPadding),
               ),
             ),
           ),
@@ -100,8 +99,8 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
 
   Widget _buildTermsOfAgreementCheck() {
     return Container(
-      constraints: const BoxConstraints(maxWidth: 300),
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      constraints: const BoxConstraints(maxWidth: UIConstants.maxWidth),
+      padding: const EdgeInsets.symmetric(vertical: UIConstants.generalPadding),
       child: CheckboxListTile(
         title: const Text("I have read and agree to the Terms"),
         value: readTermsOfAgreement,
