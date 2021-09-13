@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 class CreatePasswordAction {
   final String password;
   final String confirmPassword;
@@ -7,10 +5,8 @@ class CreatePasswordAction {
 }
 
 class PasswordSuccessfullyCreatedAction {
-  final String keyStoreJson;
   final String mnemonic;
-  final Uint8List toplExtendedPrivateKey;
-  PasswordSuccessfullyCreatedAction(this.keyStoreJson, this.mnemonic, this.toplExtendedPrivateKey);
+  PasswordSuccessfullyCreatedAction(this.mnemonic);
 }
 
 class PasswordMismatchAction {}
