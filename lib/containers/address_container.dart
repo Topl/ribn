@@ -30,10 +30,10 @@ class AddressesViewModel {
   });
   static AddressesViewModel fromStore(Store<AppState> store) {
     return AddressesViewModel(
-        addresses: store.state.keyChainState.addresses,
+        addresses: store.state.keychainState.addresses,
         generateNewAddress: () {
           try {
-            int nextAddrIdx = store.state.keyChainState.getNextExternalAddressIndex();
+            int nextAddrIdx = store.state.keychainState.getNextExternalAddressIndex();
             store.dispatch(GenerateAddressAction(nextAddrIdx));
           } catch (e) {
             store.dispatch(ApiErrorAction(e.toString()));

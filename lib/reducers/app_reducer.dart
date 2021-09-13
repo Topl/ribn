@@ -8,6 +8,6 @@ AppState appReducer(AppState state, dynamic action) {
   return AppState(
     onboardingState: onboardingReducer(state.onboardingState, action),
     loginState: loginReducer(state.loginState, action),
-    keyChainState: keyChainReducer(state.keyChainState, action),
+    keychainState: keyChainReducer(state.keychainState, action),
   );
 }

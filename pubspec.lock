@@ -36,22 +36,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.8.2"
-  bip32_ed25519:
-    dependency: transitive
-    description:
-      name: bip32_ed25519
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.1"
   bip_topl:
     dependency: "direct main"
     description:
-      path: "."
-      ref: dev
-      resolved-ref: "98416517fce74046a7139a35ee7f715b236f535c"
-      url: "https://github.com/Topl/bip-topl.git"
-    source: git
-    version: "0.0.1"
+      name: bip_topl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -199,13 +190,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
-  cryptography:
-    dependency: transitive
-    description:
-      name: cryptography
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.2"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -227,13 +211,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
-  ed25519_edwards:
-    dependency: transitive
-    description:
-      name: ed25519_edwards
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.1"
   fake_async:
     dependency: transitive
     description:
@@ -409,8 +386,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: dev
-      resolved-ref: c6a9979d1be6c80ebb493877a9961cae7f6952b4
+      ref: INFRA-263
+      resolved-ref: "9b3f66028510ce197458525a7db492303b93d21c"
       url: "https://github.com/Topl/BramblDart.git"
     source: git
     version: "1.0.0"
@@ -650,6 +627,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  tuple:
+    dependency: transitive
+    description:
+      name: tuple
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   typed_data:
     dependency: transitive
     description:

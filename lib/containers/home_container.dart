@@ -28,8 +28,8 @@ class HomeViewModel {
   });
   static HomeViewModel fromStore(Store<AppState> store) {
     return HomeViewModel(
-      addresses: store.state.keyChainState.addresses,
-      displayAddress: store.state.keyChainState.addresses[0].address.toBase58(),
+      addresses: store.state.keychainState.addresses,
+      displayAddress: store.state.keychainState.addresses[0].address.toBase58(),
     );
   }
 }

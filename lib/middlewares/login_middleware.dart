@@ -22,7 +22,7 @@ void Function(Store<AppState> store, AttemptLoginAction action, NextDispatcher n
     Future.delayed(const Duration(seconds: 2));
     try {
       Uint8List toplExtendedPrvKeyUint8List = loginRepository.decryptKeyStore(
-        store.state.keyChainState.keyStoreJson!,
+        store.state.keychainState.keyStoreJson!,
         action.password,
       );
       next(const LoginSuccessAction());

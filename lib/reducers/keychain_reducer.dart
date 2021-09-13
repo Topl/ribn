@@ -8,17 +8,17 @@ import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/keychain_state.dart';
 
 /// Reducer responsible for updating [KeyChainState]
-final keyChainReducer = combineReducers<KeyChainState>(
+final keyChainReducer = combineReducers<KeychainState>(
   [
-    TypedReducer<KeyChainState, InitializeHDWalletAction>(_onHdWalletInitialization),
-    TypedReducer<KeyChainState, AddAddressesAction>(_onAddAddresses),
+    TypedReducer<KeychainState, InitializeHDWalletAction>(_onHdWalletInitialization),
+    TypedReducer<KeychainState, AddAddressesAction>(_onAddAddresses),
   ],
 );
 
 /// Creates a new [HdWallet] upon successful login, where root = toplExtendedPrivateKey.
 ///
 /// Optionally updates the [keyStoreJson], for instance, when creating a new wallet for the first time.
-KeyChainState _onHdWalletInitialization(KeyChainState keyChainState, InitializeHDWalletAction action) {
+KeychainState _onHdWalletInitialization(KeychainState keyChainState, InitializeHDWalletAction action) {
   return keyChainState.copyWith(
     keyStoreJson: action.keyStoreJson ?? keyChainState.keyStoreJson,
     hdWallet: HdWallet(
@@ -30,8 +30,8 @@ KeyChainState _onHdWalletInitialization(KeyChainState keyChainState, InitializeH
   );
 }
 
-/// Updates the list of addresses in [KeyChainState].
-KeyChainState _onAddAddresses(KeyChainState keyChainState, AddAddressesAction action) {
+/// Updates the list of addresses in [KeychainState].
+KeychainState _onAddAddresses(KeychainState keyChainState, AddAddressesAction action) {
   return keyChainState.copyWith(
     addresses: keyChainState.addresses.toList()..addAll(action.addresses),
   );

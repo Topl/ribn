@@ -22,7 +22,7 @@ void Function(Store<AppState> store, GenerateInitialAddressesAction action, Next
       int startIndex = Rules.defaultAddressIndex;
       int endIndex = startIndex + Rules.numInitialAddresses;
       List<RibnAddress> newAddresses = [];
-      HdWallet hdWallet = store.state.keyChainState.hdWallet!;
+      HdWallet hdWallet = store.state.keychainState.hdWallet!;
       for (int i = startIndex; i < endIndex; i++) {
         Bip32KeyPair keyPair = hdWallet.deriveLastThreeLayers(address: i);
         ToplAddress toplAddress = hdWallet.toBaseAddress(spend: keyPair.publicKey!);
@@ -48,7 +48,7 @@ void Function(Store<AppState> store, GenerateInitialAddressesAction action, Next
 void Function(Store<AppState> store, GenerateAddressAction action, NextDispatcher next) _onGenerateAddress() {
   return (store, action, next) {
     try {
-      HdWallet hdWallet = store.state.keyChainState.hdWallet!;
+      HdWallet hdWallet = store.state.keychainState.hdWallet!;
       Bip32KeyPair keyPair = hdWallet.deriveLastThreeLayers(
         address: action.addressIndex,
         account: action.accountIndex,

@@ -10,24 +10,24 @@ import 'package:ribn/models/onboarding_state.dart';
 class AppState {
   final OnboardingState onboardingState;
   final LoginState loginState;
-  final KeyChainState keyChainState;
+  final KeychainState keychainState;
 
   const AppState({
     required this.onboardingState,
     required this.loginState,
-    required this.keyChainState,
+    required this.keychainState,
   });
 
   factory AppState.initial() {
     return AppState(
       onboardingState: OnboardingState.initial(),
       loginState: LoginState.initial(),
-      keyChainState: KeyChainState.initial(),
+      keychainState: KeychainState.initial(),
     );
   }
 
   bool keyStoreExists() {
-    return (keyChainState.keyStoreJson ?? "").isNotEmpty;
+    return (keychainState.keyStoreJson ?? "").isNotEmpty;
   }
 
   @override
@@ -37,21 +37,21 @@ class AppState {
     return other is AppState &&
         other.onboardingState == onboardingState &&
         other.loginState == loginState &&
-        other.keyChainState == keyChainState;
+        other.keychainState == keychainState;
   }
 
   @override
-  int get hashCode => onboardingState.hashCode ^ loginState.hashCode ^ keyChainState.hashCode;
+  int get hashCode => onboardingState.hashCode ^ loginState.hashCode ^ keychainState.hashCode;
 
   AppState copyWith({
     OnboardingState? onboardingState,
     LoginState? loginState,
-    KeyChainState? keyChainState,
+    KeychainState? keychainState,
   }) {
     return AppState(
       onboardingState: onboardingState ?? this.onboardingState,
       loginState: loginState ?? this.loginState,
-      keyChainState: keyChainState ?? this.keyChainState,
+      keychainState: keychainState ?? this.keychainState,
     );
   }
 
@@ -59,7 +59,7 @@ class AppState {
     return {
       'onboardingState': onboardingState.toMap(),
       'loginState': loginState.toMap(),
-      'keyChainState': keyChainState.toMap(),
+      'keychainState': keychainState.toMap(),
     };
   }
 
@@ -67,7 +67,7 @@ class AppState {
     return AppState(
       onboardingState: OnboardingState.fromMap(map['onboardingState']),
       loginState: LoginState.fromMap(map['loginState']),
-      keyChainState: KeyChainState.fromMap(map['keyChainState']),
+      keychainState: KeychainState.fromMap(map['keychainState']),
     );
   }
 
@@ -77,5 +77,5 @@ class AppState {
 
   @override
   String toString() =>
-      'AppState(onboardingState: $onboardingState, loginState: $loginState, keyChainState: $keyChainState)';
+      'AppState(onboardingState: $onboardingState, loginState: $loginState, keychainState: $keychainState)';
 }
