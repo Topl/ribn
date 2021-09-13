@@ -24,7 +24,7 @@ OnboardingState _onPasswordSuccessfullyCreated(
     passwordTooShortError: false,
     loadingPasswordValidation: false,
     mnemonic: action.mnemonic,
-    shuffledMnemonic: List.from(action.mnemonic.split(" "))..shuffle(Random.secure()),
+    shuffledMnemonic: List.from(action.mnemonic.split(" "))..shuffle(Random()),
     userSelectedWords: [],
   );
 }

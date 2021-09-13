@@ -24,7 +24,7 @@ class OnboardingRespository {
       base58EncodedToplExtendedPrvKey,
       password,
       random,
-      scryptN: 4,
+      scryptN: Rules.scryptN,
     );
     final String keyStoreJson = keyStore.toJson();
     return {

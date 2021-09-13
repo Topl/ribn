@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/login_container.dart';
 import 'package:ribn/widgets/base_appbar.dart';
 import 'package:ribn/widgets/loading_spinner.dart';
@@ -62,11 +63,11 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildTextField(TextEditingController textEditingController, String label) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: UIConstants.generalPadding),
       child: Column(
         children: [
           SizedBox(
-            width: 200,
+            width: UIConstants.textFieldSize,
             child: TextField(
               controller: textEditingController,
               onChanged: (value) {
@@ -77,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: InputDecoration(
                 labelText: label,
                 isDense: true,
-                contentPadding: const EdgeInsets.all(8),
+                contentPadding: const EdgeInsets.all(UIConstants.generalPadding),
               ),
             ),
           ),
@@ -91,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
       color: Colors.blueAccent,
       child: const Text(
         "Unlock",
-        style: TextStyle(fontSize: 11, color: Colors.white),
+        style: TextStyle(fontSize: UIConstants.smallTextSize, color: Colors.white),
       ),
       onPressed: () => vm.attemptLogin(password),
     );
