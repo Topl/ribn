@@ -6,7 +6,6 @@ A lightweight flutter wallet to interact with the Topl blockchain.
 ## Prerequisites
 * Flutter (v2.6.0-1.0.pre.136)
 * Dart (v2.15.0-66.0.dev)
-* Javascript
 * Your preferred code editor 
 * Node v16.6.2
 * Npm
@@ -42,5 +41,5 @@ flutter pub get
 flutter build web --web-renderer html --csp
 ```
 * Open Google Chrome
-* To load the extension in your browser, please follow instructions from here: https://developer.chrome.com/docs/extensions/mv3/getstarted/#:~:text=Open%20the%20Extension%20Management%20page%20by%20navigating%20to 
+* To load the extension in your browser, please follow the instructions listed <a href="https://developer.chrome.com/docs/extensions/mv3/getstarted/#:~:text=Open%20the%20Extension%20Management%20page%20by%20navigating%20to">here</a>:  
 * Once you have loaded the unpacked extension, you should be able to open it.
