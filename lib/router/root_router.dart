@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/routes.dart';
+import 'package:ribn/presentation/address_section.dart';
 import 'package:ribn/presentation/create_password_page.dart';
 import 'package:ribn/presentation/home_page.dart';
 import 'package:ribn/presentation/login_page.dart';
@@ -57,7 +58,14 @@ class RootRouter {
         {
           return MaterialPageRoute(
             settings: settings,
-            builder: (context) => const HomePage(title: "Ribn"),
+            builder: (context) => const HomePage(),
+          );
+        }
+      case Routes.addresses:
+        {
+          return MaterialPageRoute(
+            settings: settings,
+            builder: (context) => AddressSection(),
           );
         }
       case Routes.error:
