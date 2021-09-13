@@ -24,16 +24,16 @@ class SeedPhraseConfirmationContainer extends StatelessWidget {
 class SeedPhraseConfirmationViewModel {
   final List<String> shuffledMnemonic;
   final bool mnemonicMismatchError;
-  final List<String> userSelectedWords;
+  final List<int> userSelectedIndices;
   final Function(String) verifyMnemonic;
-  final Function(String) selectWord;
-  final Function(String) removeWord;
+  final Function(int) selectWord;
+  final Function(int) removeWord;
 
   const SeedPhraseConfirmationViewModel({
     this.mnemonicMismatchError = false,
     required this.verifyMnemonic,
     required this.shuffledMnemonic,
-    required this.userSelectedWords,
+    required this.userSelectedIndices,
     required this.selectWord,
     required this.removeWord,
   });
@@ -41,11 +41,11 @@ class SeedPhraseConfirmationViewModel {
   static SeedPhraseConfirmationViewModel fromStore(Store<AppState> store) {
     return SeedPhraseConfirmationViewModel(
       shuffledMnemonic: store.state.onboardingState.shuffledMnemonic!,
-      userSelectedWords: store.state.onboardingState.userSelectedWords!,
+      userSelectedIndices: store.state.onboardingState.userSelectedIndices!,
       mnemonicMismatchError: store.state.onboardingState.mnemonicMismatchError,
       verifyMnemonic: (words) => store.dispatch(VerifyMnemonicAction(words)),
-      selectWord: (word) => store.dispatch(UserSelectedWordAction(word)),
-      removeWord: (word) => store.dispatch(UserRemovedWordAction(word)),
+      selectWord: (idx) => store.dispatch(UserSelectedWordAction(idx)),
+      removeWord: (idx) => store.dispatch(UserRemovedWordAction(idx)),
     );
   }
 
@@ -56,11 +56,19 @@ class SeedPhraseConfirmationViewModel {
     return other is SeedPhraseConfirmationViewModel &&
         listEquals(other.shuffledMnemonic, shuffledMnemonic) &&
         other.mnemonicMismatchError == mnemonicMismatchError &&
-        other.verifyMnemonic == verifyMnemonic;
+        listEquals(other.userSelectedIndices, userSelectedIndices) &&
+        other.verifyMnemonic == verifyMnemonic &&
+        other.selectWord == selectWord &&
+        other.removeWord == removeWord;
   }
 
   @override
   int get hashCode {
-    return shuffledMnemonic.hashCode ^ mnemonicMismatchError.hashCode ^ verifyMnemonic.hashCode;
+    return shuffledMnemonic.hashCode ^
+        mnemonicMismatchError.hashCode ^
+        userSelectedIndices.hashCode ^
+        verifyMnemonic.hashCode ^
+        selectWord.hashCode ^
+        removeWord.hashCode;
   }
 }

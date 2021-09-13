@@ -25,7 +25,7 @@ OnboardingState _onPasswordSuccessfullyCreated(
     loadingPasswordValidation: false,
     mnemonic: action.mnemonic,
     shuffledMnemonic: List.from(action.mnemonic.split(" "))..shuffle(Random()),
-    userSelectedWords: [],
+    userSelectedIndices: [],
   );
 }
 
@@ -58,7 +58,7 @@ OnboardingState _onMnemonicSuccessfullyVerified(
     mnemonicMismatchError: false,
     mnemonic: null,
     shuffledMnemonic: null,
-    userSelectedWords: null,
+    userSelectedIndices: null,
   );
 }
 
@@ -70,12 +70,12 @@ OnboardingState _onMnemonicMismatchError(OnboardingState onboardingState, Mnemon
 
 OnboardingState _onUserSelectedWord(OnboardingState onboardingState, UserSelectedWordAction action) {
   return onboardingState.copyWith(
-    userSelectedWords: List.from(onboardingState.userSelectedWords ?? [])..add(action.word),
+    userSelectedIndices: List.from(onboardingState.userSelectedIndices ?? [])..add(action.idx),
   );
 }
 
 OnboardingState _onUserRemovedWord(OnboardingState onboardingState, UserRemovedWordAction action) {
   return onboardingState.copyWith(
-    userSelectedWords: List.from(onboardingState.userSelectedWords ?? [])..remove(action.word),
+    userSelectedIndices: List.from(onboardingState.userSelectedIndices ?? [])..remove(action.idx),
   );
 }
