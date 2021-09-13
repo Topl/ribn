@@ -18,9 +18,9 @@ final keyChainReducer = combineReducers<KeychainState>(
 /// Creates a new [HdWallet] upon successful login, where root = toplExtendedPrivateKey.
 ///
 /// Optionally updates the [keyStoreJson], for instance, when creating a new wallet for the first time.
-KeychainState _onHdWalletInitialization(KeychainState keyChainState, InitializeHDWalletAction action) {
-  return keyChainState.copyWith(
-    keyStoreJson: action.keyStoreJson ?? keyChainState.keyStoreJson,
+KeychainState _onHdWalletInitialization(KeychainState keychainState, InitializeHDWalletAction action) {
+  return keychainState.copyWith(
+    keyStoreJson: action.keyStoreJson ?? keychainState.keyStoreJson,
     hdWallet: HdWallet(
       rootSigningKey: Bip32SigningKey.fromValidBytes(
         action.toplExtendedPrivateKey,
@@ -31,8 +31,8 @@ KeychainState _onHdWalletInitialization(KeychainState keyChainState, InitializeH
 }
 
 /// Updates the list of addresses in [KeychainState].
-KeychainState _onAddAddresses(KeychainState keyChainState, AddAddressesAction action) {
-  return keyChainState.copyWith(
-    addresses: keyChainState.addresses.toList()..addAll(action.addresses),
+KeychainState _onAddAddresses(KeychainState keychainState, AddAddressesAction action) {
+  return keychainState.copyWith(
+    addresses: keychainState.addresses.toList()..addAll(action.addresses),
   );
 }
