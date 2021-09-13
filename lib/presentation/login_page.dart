@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                     const Text("Login"),
                     _buildTextField(_controller, "Password"),
                     _buildUnlockButton(context, vm, password),
-                    const SizedBox(height: 10),
+                    UIConstants.sizedBox,
                     vm.incorrectPasswordError
                         ? const Text(
                             "Incorrect password",

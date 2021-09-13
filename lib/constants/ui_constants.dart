@@ -7,7 +7,9 @@ class UIConstants {
   static const double generalPadding = 12;
   static const double textFieldSize = 200;
   static const double maxWidth = 200;
+  static const int mnemonicTileCrossAxisCount = 4;
   static const double mnemonicTileMaxWidth = 250;
   static const double mnemonicTileMaxHeight = 200;
   static const double mnemonicDisplayDimensions = 150;
+  static const double addressListTileSize = 40;
 }

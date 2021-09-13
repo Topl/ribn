@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/address_container.dart';
 import 'package:ribn/models/ribn_address.dart';
 
@@ -23,7 +24,7 @@ class AddressSection extends StatelessWidget {
 
   Widget _buildGenerateAddressButton(AddressesViewModel vm) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(UIConstants.generalPadding),
       child: MaterialButton(
         color: Colors.blueAccent,
         child: const Text(
@@ -45,13 +46,13 @@ class AddressSection extends StatelessWidget {
               child: ListView.builder(
                 physics: const ScrollPhysics(),
                 controller: _scrollController,
-                itemExtent: 40, // convert to constant
+                itemExtent: UIConstants.addressListTileSize,
                 itemCount: addresses.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                     title: Text(
                       addresses[index].address.toBase58(),
-                      style: const TextStyle(color: Colors.black, fontSize: 10),
+                      style: const TextStyle(fontSize: UIConstants.smallTextSize),
                     ),
                     trailing: IconButton(
                       onPressed: () async {

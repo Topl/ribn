@@ -18,4 +18,5 @@ class Rules {
   static const int defaultAddressIndex = hd.defaultAddressIndex;
   static const int numInitialAddresses = 5;
   static const List<String> settings = [Strings.logout];
+  static const int numHomeTabs = 3;
 }

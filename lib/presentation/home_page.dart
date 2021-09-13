@@ -4,6 +4,7 @@ import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/home_container.dart';
 import 'package:ribn/presentation/address_section.dart';
 import 'package:flutter/services.dart';
@@ -20,7 +21,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: Rules.numHomeTabs, vsync: this);
     super.initState();
   }
 
@@ -42,9 +43,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           body: Column(
             children: [
               _buildDisplayAddress(vm.displayAddress),
-              const SizedBox(height: 11),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(UIConstants.generalPadding),
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -60,6 +60,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               _buildTabBar(),
               Expanded(
                 child: TabBarView(
+                  physics: const NeverScrollableScrollPhysics(),
                   controller: _tabController,
                   children: [
                     const SizedBox(),
@@ -93,24 +94,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   Widget _buildDisplayAddress(String displayAddr) {
-    return Center(
-      child: Container(
-        alignment: Alignment.center,
-        constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.5,
-        ),
-        child: MaterialButton(
-          onPressed: () => Clipboard.setData(ClipboardData(text: displayAddr)),
-          child: Tooltip(
-            message: Strings.copyToClipboard,
-            child: Text(
-              displayAddr,
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 11,
+    return Padding(
+      padding: const EdgeInsets.all(UIConstants.generalPadding),
+      child: Center(
+        child: Container(
+          alignment: Alignment.center,
+          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.5),
+          child: MaterialButton(
+            onPressed: () => Clipboard.setData(ClipboardData(text: displayAddr)),
+            child: Tooltip(
+              message: Strings.copyToClipboard,
+              child: Text(
+                displayAddr,
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 11,
+                  overflow: TextOverflow.ellipsis,
+                ),
                 overflow: TextOverflow.ellipsis,
               ),
-              overflow: TextOverflow.ellipsis,
             ),
           ),
         ),
@@ -120,7 +122,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   Widget _buildTabBar() {
     return TabBar(
-      isScrollable: false,
       controller: _tabController,
       automaticIndicatorColorAdjustment: true,
       tabs: const [
