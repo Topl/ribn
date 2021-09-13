@@ -7,9 +7,12 @@ class UIConstants {
   static const double generalPadding = 12;
   static const double textFieldSize = 200;
   static const double maxWidth = 200;
+  static const double loginTextFieldWidth = 300;
   static const int mnemonicTileCrossAxisCount = 4;
   static const double mnemonicTileMaxWidth = 250;
   static const double mnemonicTileMaxHeight = 200;
   static const double mnemonicDisplayDimensions = 150;
   static const double addressListTileSize = 40;
+  static scaleByWidth(double scale, BuildContext context) => scale * MediaQuery.of(context).size.width;
+  static double displayAddressWidth(context) => scaleByWidth(0.5, context);
 }

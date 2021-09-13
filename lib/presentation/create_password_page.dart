@@ -77,7 +77,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
       child: Column(
         children: [
           SizedBox(
-            width: 300,
+            width: UIConstants.loginTextFieldWidth,
             child: TextField(
               controller: textEditingController,
               decoration: InputDecoration(

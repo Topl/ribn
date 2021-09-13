@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       child: Center(
         child: Container(
           alignment: Alignment.center,
-          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.5),
+          constraints: BoxConstraints(maxWidth: UIConstants.displayAddressWidth(context)),
           child: MaterialButton(
             onPressed: () => Clipboard.setData(ClipboardData(text: displayAddr)),
             child: Tooltip(
@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 displayAddr,
                 style: const TextStyle(
                   color: Colors.grey,
-                  fontSize: 11,
+                  fontSize: UIConstants.smallTextSize,
                   overflow: TextOverflow.ellipsis,
                 ),
                 overflow: TextOverflow.ellipsis,
