@@ -8,7 +8,7 @@ import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/keychain_state.dart';
 
 /// Reducer responsible for updating [KeyChainState]
-final keyChainReducer = combineReducers<KeychainState>(
+final keychainReducer = combineReducers<KeychainState>(
   [
     TypedReducer<KeychainState, InitializeHDWalletAction>(_onHdWalletInitialization),
     TypedReducer<KeychainState, AddAddressesAction>(_onAddAddresses),
