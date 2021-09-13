@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:redux/redux.dart';
+import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/login_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/keys.dart';
@@ -24,7 +25,8 @@ void Function(Store<AppState> store, AttemptLoginAction action, NextDispatcher n
         store.state.keyChainState.keyStoreJson!,
         action.password,
       );
-      next(LoginSuccessAction(toplExtendedPrvKeyUint8List));
+      next(const LoginSuccessAction());
+      next(InitializeHDWalletAction(toplExtendedPrivateKey: toplExtendedPrvKeyUint8List));
       // AppState persisted after successful login
       next(PersistAppState());
       Keys.navigatorKey.currentState!.pushNamed(Routes.home);
