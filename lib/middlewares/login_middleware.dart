@@ -19,7 +19,6 @@ void Function(Store<AppState> store, AttemptLoginAction action, NextDispatcher n
   return (store, action, next) async {
     /// start loading indicator
     next(LoginLoadingAction());
-    Future.delayed(const Duration(seconds: 2));
     try {
       Uint8List toplExtendedPrvKeyUint8List = loginRepository.decryptKeyStore(
         store.state.keychainState.keyStoreJson!,
