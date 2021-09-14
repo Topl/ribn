@@ -5,9 +5,8 @@ class CreatePasswordAction {
 }
 
 class PasswordSuccessfullyCreatedAction {
-  final String keyStoreJson;
   final String mnemonic;
-  PasswordSuccessfullyCreatedAction(this.keyStoreJson, this.mnemonic);
+  PasswordSuccessfullyCreatedAction(this.mnemonic);
 }
 
 class PasswordMismatchAction {}

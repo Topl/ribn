@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -7,19 +8,17 @@ class OnboardingState {
   final bool passwordMismatchError;
   final bool passwordTooShortError;
   final bool loadingPasswordValidation;
-  final String? keyStoreJson;
-  final String? mnemonic;
+  final String? mnemonic; // never persisted
   final bool mnemonicMismatchError;
-  final List<String>? shuffledMnemonic;
-  final List<String>? userSelectedWords;
+  final List<String>? shuffledMnemonic; // never persisted
+  final List<String>? userSelectedWords; // never persisted
 
   const OnboardingState({
-    required this.passwordMismatchError,
-    required this.passwordTooShortError,
-    required this.loadingPasswordValidation,
-    this.keyStoreJson,
+    this.passwordMismatchError = false,
+    this.passwordTooShortError = false,
+    this.loadingPasswordValidation = false,
     this.mnemonic,
-    required this.mnemonicMismatchError,
+    this.mnemonicMismatchError = false,
     this.shuffledMnemonic,
     this.userSelectedWords,
   });
@@ -37,7 +36,6 @@ class OnboardingState {
     bool? passwordMismatchError,
     bool? passwordTooShortError,
     bool? loadingPasswordValidation,
-    String? keyStoreJson,
     String? mnemonic,
     bool? mnemonicMismatchError,
     List<String>? shuffledMnemonic,
@@ -47,7 +45,6 @@ class OnboardingState {
       passwordMismatchError: passwordMismatchError ?? this.passwordMismatchError,
       passwordTooShortError: passwordTooShortError ?? this.passwordTooShortError,
       loadingPasswordValidation: loadingPasswordValidation ?? this.loadingPasswordValidation,
-      keyStoreJson: keyStoreJson ?? this.keyStoreJson,
       mnemonic: mnemonic ?? this.mnemonic,
       mnemonicMismatchError: mnemonicMismatchError ?? this.mnemonicMismatchError,
       shuffledMnemonic: shuffledMnemonic ?? this.shuffledMnemonic,
@@ -60,7 +57,6 @@ class OnboardingState {
       'passwordMismatchError': passwordMismatchError,
       'passwordTooShortError': passwordTooShortError,
       'loadingPasswordValidation': loadingPasswordValidation,
-      'keyStoreJson': keyStoreJson,
       'mnemonicMismatchError': mnemonicMismatchError,
     };
   }
@@ -70,7 +66,6 @@ class OnboardingState {
       passwordMismatchError: map['passwordMismatchError'],
       passwordTooShortError: map['passwordTooShortError'],
       loadingPasswordValidation: map['loadingPasswordValidation'],
-      keyStoreJson: map['keyStoreJson'],
       mnemonicMismatchError: map['mnemonicMismatchError'],
     );
   }
@@ -81,7 +76,7 @@ class OnboardingState {
 
   @override
   String toString() {
-    return 'OnboardingState(passwordMismatchError: $passwordMismatchError, passwordTooShortError: $passwordTooShortError, loadingPasswordValidation: $loadingPasswordValidation, keyStoreJson: $keyStoreJson, mnemonic: $mnemonic, mnemonicMismatchError: $mnemonicMismatchError, shuffledMnemonic: $shuffledMnemonic, userSelectedWords: $userSelectedWords)';
+    return 'OnboardingState(passwordMismatchError: $passwordMismatchError, passwordTooShortError: $passwordTooShortError, loadingPasswordValidation: $loadingPasswordValidation, mnemonic: $mnemonic, mnemonicMismatchError: $mnemonicMismatchError, shuffledMnemonic: $shuffledMnemonic, userSelectedWords: $userSelectedWords)';
   }
 
   @override
@@ -92,7 +87,6 @@ class OnboardingState {
         other.passwordMismatchError == passwordMismatchError &&
         other.passwordTooShortError == passwordTooShortError &&
         other.loadingPasswordValidation == loadingPasswordValidation &&
-        other.keyStoreJson == keyStoreJson &&
         other.mnemonic == mnemonic &&
         other.mnemonicMismatchError == mnemonicMismatchError &&
         listEquals(other.shuffledMnemonic, shuffledMnemonic) &&
@@ -104,7 +98,6 @@ class OnboardingState {
     return passwordMismatchError.hashCode ^
         passwordTooShortError.hashCode ^
         loadingPasswordValidation.hashCode ^
-        keyStoreJson.hashCode ^
         mnemonic.hashCode ^
         mnemonicMismatchError.hashCode ^
         shuffledMnemonic.hashCode ^

@@ -42,10 +42,8 @@ dependencies:
   mubrambl:
     git:
       url: https://github.com/Topl/BramblDart.git
-      ref: dev
-  bip_topl: ^0.0.2 
-
-  # bip_topl: ^0.0.1
+      ref: INFRA-263
+  bip_topl: ^0.0.2
   js: ^0.6.3
   fast_base58: ^0.2.0
 

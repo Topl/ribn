@@ -6,4 +6,6 @@ class Routes {
   static const seedPhraseConfirm = "/seed-phrase-confirm";
   static const login = "/login";
   static const home = "/home";
+  static const addresses = "/addresses";
+  static const error = "/error";
 }

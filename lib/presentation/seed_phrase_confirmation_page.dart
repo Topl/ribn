@@ -69,7 +69,7 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
         maxWidth: UIConstants.mnemonicTileMaxWidth,
       ),
       child: GridView.count(
-        crossAxisCount: 4,
+        crossAxisCount: UIConstants.mnemonicTileCrossAxisCount,
         children: shuffledMnemonic.map((word) => _buildWordContainer(word, vm)).toList(),
       ),
     );

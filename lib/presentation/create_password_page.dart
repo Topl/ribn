@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/create_password_container.dart';
-import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/base_appbar.dart';
 import 'package:ribn/widgets/continue_button.dart';
 import 'package:ribn/widgets/loading_spinner.dart';
@@ -44,12 +41,10 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                       _buildTextField(_confirmPasswordController, "Confirm password"),
                       _buildTermsOfAgreementCheck(),
                       ContinueButton(
-                        onPressed: () {
-                          StoreProvider.of<AppState>(context).dispatch(
-                            CreatePasswordAction(
-                                _enterPasswordController.text, _confirmPasswordController.text),
-                          );
-                        },
+                        onPressed: () => vm.attemptCreatePassword(
+                          _enterPasswordController.text,
+                          _confirmPasswordController.text,
+                        ),
                         enabled: readTermsOfAgreement,
                       ),
                       vm.passwordMismatchError
@@ -82,7 +77,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
       child: Column(
         children: [
           SizedBox(
-            width: 300,
+            width: UIConstants.loginTextFieldWidth,
             child: TextField(
               controller: textEditingController,
               decoration: InputDecoration(

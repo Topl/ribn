@@ -1,27 +1,63 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/constants/ui_constants.dart';
-import 'package:ribn/models/app_state.dart';
+import 'package:ribn/containers/login_container.dart';
 import 'package:ribn/widgets/base_appbar.dart';
+import 'package:ribn/widgets/loading_spinner.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController _controller = TextEditingController();
+  String password = "";
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: BaseAppBar(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildTextField(_controller, "Password"),
-            _buildUnlockButton(context),
-          ],
-        ),
-      ),
+    return LoginContainer(
+      builder: (context, vm) {
+        return Scaffold(
+          appBar: BaseAppBar(),
+          body: Stack(
+            children: [
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Login"),
+                    _buildTextField(_controller, "Password"),
+                    _buildUnlockButton(context, vm, password),
+                    UIConstants.sizedBox,
+                    vm.incorrectPasswordError
+                        ? const Text(
+                            "Incorrect password",
+                            style: TextStyle(
+                              color: Colors.red,
+                            ),
+                          )
+                        : const SizedBox()
+                  ],
+                ),
+              ),
+              vm.loadingPasswordCheck ? const LoadingSpinner() : const SizedBox()
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -34,6 +70,11 @@ class LoginPage extends StatelessWidget {
             width: UIConstants.textFieldSize,
             child: TextField(
               controller: textEditingController,
+              onChanged: (value) {
+                setState(() {
+                  password = value;
+                });
+              },
               decoration: InputDecoration(
                 labelText: label,
                 isDense: true,
@@ -46,16 +87,14 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _buildUnlockButton(BuildContext context) {
+  Widget _buildUnlockButton(BuildContext context, LoginViewModel vm, String password) {
     return MaterialButton(
       color: Colors.blueAccent,
       child: const Text(
         "Unlock",
         style: TextStyle(fontSize: UIConstants.smallTextSize, color: Colors.white),
       ),
-      onPressed: () {
-        StoreProvider.of<AppState>(context).dispatch(PasswordMismatchAction());
-      },
+      onPressed: () => vm.attemptLogin(password),
     );
   }
 }

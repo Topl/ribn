@@ -1,4 +1,6 @@
 import 'package:redux/redux.dart';
+import 'package:ribn/actions/keychain_actions.dart';
+import 'package:ribn/actions/login_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/constants/keys.dart';
@@ -31,11 +33,16 @@ void Function(Store<AppState> store, CreatePasswordAction action, NextDispatcher
     } else {
       try {
         Map results = await onboardingRespository.generateMnemonicAndKeystore(action.password);
-        next(PasswordSuccessfullyCreatedAction(results['keyStoreJson'], results['mnemonic']));
-        next(PersistAppState());
-        Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhrase);
+        next(PasswordSuccessfullyCreatedAction(results['mnemonic']));
+        next(
+          InitializeHDWalletAction(
+            toplExtendedPrivateKey: results['toplExtendedPrvKeyUint8List'],
+            keyStoreJson: results['keyStoreJson'],
+          ),
+        );
+        Keys.navigatorKey.currentState!.pushNamed(Routes.seedPhrase);
       } catch (e) {
-        next(ErrorCreatingPasswordAction());
+        next(ApiErrorAction(e.toString()));
       }
     }
   };
@@ -46,7 +53,12 @@ void Function(Store<AppState> store, VerifyMnemonicAction action, NextDispatcher
   return (store, action, next) {
     if (action.userInput == store.state.onboardingState.mnemonic) {
       next(MnemonicSuccessfullyVerifiedAction());
-      Keys.navigatorKey.currentState?.pushNamed(Routes.home);
+      next(FirstTimeLoginAction());
+      // Generate initial addresses
+      next(GenerateInitialAddressesAction());
+      // AppState persisted after mnemonic verification
+      next(PersistAppState());
+      Keys.navigatorKey.currentState!.pushNamed(Routes.home);
     } else {
       next(MnemonicMismatchAction());
     }
