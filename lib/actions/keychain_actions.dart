@@ -1,6 +1,9 @@
+// ignore_for_file: implementation_imports
+
 import 'dart:typed_data';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/ribn_address.dart';
+import 'package:mubrambl/src/credentials/hd_wallet_helper.dart';
 
 class InitializeHDWalletAction {
   final String? keyStoreJson;
@@ -8,14 +11,19 @@ class InitializeHDWalletAction {
   const InitializeHDWalletAction({this.keyStoreJson, required this.toplExtendedPrivateKey});
 }
 
-class GenerateInitialAddressesAction {}
+class GenerateInitialAddressesAction {
+  HdWallet? hdWallet;
+  GenerateInitialAddressesAction(this.hdWallet);
+}
 
 class GenerateAddressAction {
   final int accountIndex;
   final int changeIndex;
   final int addressIndex;
+  HdWallet? hdWallet;
   GenerateAddressAction(
-    this.addressIndex, {
+    this.addressIndex,
+    this.hdWallet, {
     this.accountIndex = Rules.defaultAccountIndex,
     this.changeIndex = Rules.defaultChangeIndex,
   });
