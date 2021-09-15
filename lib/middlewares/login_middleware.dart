@@ -19,17 +19,16 @@ void Function(Store<AppState> store, AttemptLoginAction action, NextDispatcher n
   return (store, action, next) async {
     /// start loading indicator
     next(LoginLoadingAction());
-    Future.delayed(const Duration(seconds: 2));
     try {
       Uint8List toplExtendedPrvKeyUint8List = loginRepository.decryptKeyStore(
-        store.state.keychainState.keyStoreJson!,
+        action.keyStoreJson,
         action.password,
       );
       next(const LoginSuccessAction());
       next(InitializeHDWalletAction(toplExtendedPrivateKey: toplExtendedPrvKeyUint8List));
       // AppState persisted after successful login
       next(PersistAppState());
-      Keys.navigatorKey.currentState!.pushNamed(Routes.home);
+      next(NavigateToRoute(Routes.home));
     } catch (e) {
       if (e.runtimeType == ArgumentError &&
           (e as ArgumentError).message.toString().contains("supplied the wrong password")) {
