@@ -4,6 +4,8 @@ import 'package:bip_topl/bip_topl.dart';
 import 'package:mubrambl/src/crypto/keystore.dart';
 
 class LoginRepository {
+  const LoginRepository();
+
   /// Decrypt [keyStoreJson] to get topl's extended private key
   Uint8List decryptKeyStore(String keyStoreJson, String password) {
     const Base58Encoder base58Encoder = Base58Encoder.instance;
