@@ -8,6 +8,8 @@ import 'package:mubrambl/src/credentials/hd_wallet_helper.dart';
 import 'package:ribn/constants/rules.dart';
 
 class OnboardingRespository {
+  const OnboardingRespository();
+
   /// Generates the mnemonic to be shown to the user.
   ///
   /// Derives the Topl extended private key that follows the path described in [Rules.toplKeyPath].

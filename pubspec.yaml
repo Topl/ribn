@@ -45,7 +45,6 @@ dependencies:
       ref: INFRA-263
   bip_topl: ^0.0.2
   js: ^0.6.3
-  fast_base58: ^0.2.0
 
 dev_dependencies:
   flutter_test:

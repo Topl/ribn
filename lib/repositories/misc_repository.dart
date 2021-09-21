@@ -1,7 +1,8 @@
-import 'package:ribn/js.dart' as js;
+import 'package:ribn/data/data.dart' as local;
 
 class MiscRepository {
+  const MiscRepository();
   Future<void> persistAppState(String appState) async {
-    await js.persistAppState(appState);
+    await local.persistAppState(appState);
   }
 }

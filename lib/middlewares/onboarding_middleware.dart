@@ -3,7 +3,6 @@ import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/login_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/actions/onboarding_actions.dart';
-import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/app_state.dart';
@@ -21,7 +20,6 @@ void Function(Store<AppState> store, CreatePasswordAction action, NextDispatcher
   return (store, action, next) async {
     /// start loading indicator
     next(LoadingPasswordValidationAction());
-    await Future.delayed(const Duration(seconds: 2));
 
     /// both password inputs should match
     if (action.password != action.confirmPassword) {
@@ -40,7 +38,8 @@ void Function(Store<AppState> store, CreatePasswordAction action, NextDispatcher
             keyStoreJson: results['keyStoreJson'],
           ),
         );
-        Keys.navigatorKey.currentState!.pushNamed(Routes.seedPhrase);
+
+        next(NavigateToRoute(Routes.seedPhrase));
       } catch (e) {
         next(ApiErrorAction(e.toString()));
       }
@@ -55,10 +54,10 @@ void Function(Store<AppState> store, VerifyMnemonicAction action, NextDispatcher
       next(MnemonicSuccessfullyVerifiedAction());
       next(FirstTimeLoginAction());
       // Generate initial addresses
-      next(GenerateInitialAddressesAction());
+      next(GenerateInitialAddressesAction(store.state.keychainState.hdWallet));
       // AppState persisted after mnemonic verification
       next(PersistAppState());
-      Keys.navigatorKey.currentState!.pushNamed(Routes.home);
+      next(NavigateToRoute(Routes.home));
     } else {
       next(MnemonicMismatchAction());
     }

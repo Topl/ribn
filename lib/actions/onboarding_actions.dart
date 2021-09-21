@@ -27,11 +27,11 @@ class MnemonicSuccessfullyVerifiedAction {}
 class MnemonicMismatchAction {}
 
 class UserSelectedWordAction {
-  final String word;
-  const UserSelectedWordAction(this.word);
+  final int idx;
+  const UserSelectedWordAction(this.idx);
 }
 
 class UserRemovedWordAction {
-  final String word;
-  const UserRemovedWordAction(this.word);
+  final int idx;
+  const UserRemovedWordAction(this.idx);
 }

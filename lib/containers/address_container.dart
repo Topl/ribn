@@ -34,7 +34,7 @@ class AddressesViewModel {
         generateNewAddress: () {
           try {
             int nextAddrIdx = store.state.keychainState.getNextExternalAddressIndex();
-            store.dispatch(GenerateAddressAction(nextAddrIdx));
+            store.dispatch(GenerateAddressAction(nextAddrIdx, store.state.keychainState.hdWallet));
           } catch (e) {
             store.dispatch(ApiErrorAction(e.toString()));
           }

@@ -11,7 +11,7 @@ class OnboardingState {
   final String? mnemonic; // never persisted
   final bool mnemonicMismatchError;
   final List<String>? shuffledMnemonic; // never persisted
-  final List<String>? userSelectedWords; // never persisted
+  final List<int>? userSelectedIndices; // never persisted
 
   const OnboardingState({
     this.passwordMismatchError = false,
@@ -20,7 +20,7 @@ class OnboardingState {
     this.mnemonic,
     this.mnemonicMismatchError = false,
     this.shuffledMnemonic,
-    this.userSelectedWords,
+    this.userSelectedIndices,
   });
 
   factory OnboardingState.initial() {
@@ -39,7 +39,7 @@ class OnboardingState {
     String? mnemonic,
     bool? mnemonicMismatchError,
     List<String>? shuffledMnemonic,
-    List<String>? userSelectedWords,
+    List<int>? userSelectedIndices,
   }) {
     return OnboardingState(
       passwordMismatchError: passwordMismatchError ?? this.passwordMismatchError,
@@ -48,7 +48,7 @@ class OnboardingState {
       mnemonic: mnemonic ?? this.mnemonic,
       mnemonicMismatchError: mnemonicMismatchError ?? this.mnemonicMismatchError,
       shuffledMnemonic: shuffledMnemonic ?? this.shuffledMnemonic,
-      userSelectedWords: userSelectedWords ?? this.userSelectedWords,
+      userSelectedIndices: userSelectedIndices ?? this.userSelectedIndices,
     );
   }
 
@@ -76,7 +76,7 @@ class OnboardingState {
 
   @override
   String toString() {
-    return 'OnboardingState(passwordMismatchError: $passwordMismatchError, passwordTooShortError: $passwordTooShortError, loadingPasswordValidation: $loadingPasswordValidation, mnemonic: $mnemonic, mnemonicMismatchError: $mnemonicMismatchError, shuffledMnemonic: $shuffledMnemonic, userSelectedWords: $userSelectedWords)';
+    return 'OnboardingState(passwordMismatchError: $passwordMismatchError, passwordTooShortError: $passwordTooShortError, loadingPasswordValidation: $loadingPasswordValidation, mnemonic: $mnemonic, mnemonicMismatchError: $mnemonicMismatchError, shuffledMnemonic: $shuffledMnemonic, userSelectedIndices: $userSelectedIndices)';
   }
 
   @override
@@ -90,7 +90,7 @@ class OnboardingState {
         other.mnemonic == mnemonic &&
         other.mnemonicMismatchError == mnemonicMismatchError &&
         listEquals(other.shuffledMnemonic, shuffledMnemonic) &&
-        listEquals(other.userSelectedWords, userSelectedWords);
+        listEquals(other.userSelectedIndices, userSelectedIndices);
   }
 
   @override
@@ -101,6 +101,6 @@ class OnboardingState {
         mnemonic.hashCode ^
         mnemonicMismatchError.hashCode ^
         shuffledMnemonic.hashCode ^
-        userSelectedWords.hashCode;
+        userSelectedIndices.hashCode;
   }
 }

@@ -21,13 +21,15 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
                 UIConstants.sizedBox,
                 const Text("Confirm seed phrase here"),
                 UIConstants.sizedBox,
-                _showSelectedWords(vm.userSelectedWords, vm),
+                _showSelectedWords(vm.userSelectedIndices, vm),
                 UIConstants.sizedBox,
                 _buildShuffledMnemonicWords(vm.shuffledMnemonic, vm),
                 UIConstants.bigSizedBox,
                 ContinueButton(
-                  enabled: vm.shuffledMnemonic.length == vm.userSelectedWords.length,
-                  onPressed: () => vm.verifyMnemonic(vm.userSelectedWords.join(" ")),
+                  enabled: vm.shuffledMnemonic.length == vm.userSelectedIndices.length,
+                  onPressed: () => vm.verifyMnemonic(
+                    vm.userSelectedIndices.map((idx) => vm.shuffledMnemonic[idx]).join(" "),
+                  ),
                 ),
                 UIConstants.sizedBox,
                 vm.mnemonicMismatchError
@@ -44,16 +46,16 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
     );
   }
 
-  Widget _showSelectedWords(List<String> selectedWords, SeedPhraseConfirmationViewModel vm) {
+  Widget _showSelectedWords(List<int> selectedIndices, SeedPhraseConfirmationViewModel vm) {
     return Center(
       child: Wrap(
-        children: selectedWords
+        children: selectedIndices
             .map(
-              (word) => Padding(
+              (idx) => Padding(
                 padding: const EdgeInsets.all(UIConstants.generalPadding),
                 child: GestureDetector(
-                  onTap: () => vm.removeWord(word),
-                  child: Text(word),
+                  onTap: () => vm.removeWord(idx),
+                  child: Text(vm.shuffledMnemonic[idx]),
                 ),
               ),
             )
@@ -63,6 +65,7 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
   }
 
   Widget _buildShuffledMnemonicWords(List<String> shuffledMnemonic, SeedPhraseConfirmationViewModel vm) {
+    Map<int, String> shuffledMnemonicMap = shuffledMnemonic.asMap();
     return Container(
       constraints: const BoxConstraints(
         maxHeight: UIConstants.mnemonicTileMaxHeight,
@@ -70,15 +73,17 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
       ),
       child: GridView.count(
         crossAxisCount: UIConstants.mnemonicTileCrossAxisCount,
-        children: shuffledMnemonic.map((word) => _buildWordContainer(word, vm)).toList(),
+        children: shuffledMnemonicMap.keys
+            .map((idx) => _buildWordContainer(idx, shuffledMnemonicMap[idx]!, vm))
+            .toList(),
       ),
     );
   }
 
-  Widget _buildWordContainer(String word, SeedPhraseConfirmationViewModel vm) {
-    bool isSelectable = !vm.userSelectedWords.contains(word);
+  Widget _buildWordContainer(int idx, String word, SeedPhraseConfirmationViewModel vm) {
+    bool isSelectable = !vm.userSelectedIndices.contains(idx);
     return GestureDetector(
-      onTap: isSelectable ? () => vm.selectWord(word) : null,
+      onTap: isSelectable ? () => vm.selectWord(idx) : null,
       child: Card(
         color: isSelectable ? Colors.blue : Colors.blue[50],
         child: Center(

@@ -34,7 +34,10 @@ class LoginViewModel {
     return LoginViewModel(
       incorrectPasswordError: store.state.loginState.incorrectPasswordError,
       loadingPasswordCheck: store.state.loginState.loadingPasswordCheck,
-      attemptLogin: (password) => store.dispatch(AttemptLoginAction(password)),
+      attemptLogin: (password) => store.dispatch(AttemptLoginAction(
+        password,
+        store.state.keychainState.keyStoreJson!,
+      )),
     );
   }
 
