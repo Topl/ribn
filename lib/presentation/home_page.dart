@@ -38,7 +38,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         return Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            actions: [_buildSettingsMenu()],
+            actions: [
+              _buildNetworkMenu(vm.currentNetwork, vm.networks, vm.updateNetwork),
+              _buildSettingsMenu()
+            ],
           ),
           body: Column(
             children: [
@@ -90,6 +93,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           },
         ).toList();
       },
+    );
+  }
+
+  Widget _buildNetworkMenu(String dropdownValue, List<String> networks, Function(String) onChange) {
+    return DropdownButton<String>(
+      value: dropdownValue,
+      style: const TextStyle(color: Colors.black),
+      onChanged: (String? networkId) => onChange(networkId!),
+      items: networks.map<DropdownMenuItem<String>>((String networkId) {
+        return DropdownMenuItem<String>(
+          value: networkId,
+          child: Text(Rules.networkStrings[int.parse(networkId)] ?? ""),
+        );
+      }).toList(),
     );
   }
 
