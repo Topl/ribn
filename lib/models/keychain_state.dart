@@ -2,39 +2,44 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:mubrambl/src/credentials/hd_wallet_helper.dart';
-import 'package:ribn/constants/rules.dart';
-import 'package:ribn/models/ribn_address.dart';
+import 'package:ribn/models/ribn_network.dart';
 
 class KeychainState {
   final String? keyStoreJson;
   final HdWallet? hdWallet; // never persisted
-  final List<RibnAddress> addresses;
+  final List<RibnNetwork> networks;
+  final int currNetworkIdx;
+
+  RibnNetwork get currentNetwork => networks[currNetworkIdx];
 
   KeychainState({
     this.keyStoreJson,
     this.hdWallet,
-    this.addresses = const [],
+    required this.networks,
+    required this.currNetworkIdx,
   });
 
   factory KeychainState.initial() {
-    return KeychainState();
-  }
-
-  int getNextExternalAddressIndex() {
-    return addresses.lastWhere((addr) => addr.changeIndex == Rules.defaultChangeIndex).addressIndex + 1;
+    List<RibnNetwork> initialNetworks = RibnNetwork.initializeNetworks();
+    return KeychainState(
+      networks: initialNetworks,
+      currNetworkIdx: 0,
+    );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'keyStoreJson': keyStoreJson,
-      'addresses': addresses.map((x) => x.toMap()).toList(),
+      'networks': networks.map((x) => x.toMap()).toList(),
+      'currNetworkIdx': currNetworkIdx,
     };
   }
 
   factory KeychainState.fromMap(Map<String, dynamic> map) {
     return KeychainState(
       keyStoreJson: map['keyStoreJson'],
-      addresses: List<RibnAddress>.from(map['addresses']?.map((x) => RibnAddress.fromMap(x))),
+      networks: List<RibnNetwork>.from(map['networks']?.map((x) => RibnNetwork.fromMap(x))),
+      currNetworkIdx: map['currNetworkIdx'],
     );
   }
 
@@ -43,8 +48,9 @@ class KeychainState {
   factory KeychainState.fromJson(String source) => KeychainState.fromMap(json.decode(source));
 
   @override
-  String toString() =>
-      'KeychainState(keyStoreJson: $keyStoreJson, hdWallet: $hdWallet, addresses: $addresses)';
+  String toString() {
+    return 'KeychainState(keyStoreJson: $keyStoreJson, hdWallet: $hdWallet, networks: $networks, currNetworkIdx: $currNetworkIdx)';
+  }
 
   @override
   bool operator ==(Object other) {
@@ -53,21 +59,26 @@ class KeychainState {
     return other is KeychainState &&
         other.keyStoreJson == keyStoreJson &&
         other.hdWallet == hdWallet &&
-        listEquals(other.addresses, addresses);
+        listEquals(other.networks, networks) &&
+        other.currNetworkIdx == currNetworkIdx;
   }
 
   @override
-  int get hashCode => keyStoreJson.hashCode ^ hdWallet.hashCode ^ addresses.hashCode;
+  int get hashCode {
+    return keyStoreJson.hashCode ^ hdWallet.hashCode ^ networks.hashCode ^ currNetworkIdx.hashCode;
+  }
 
   KeychainState copyWith({
     String? keyStoreJson,
     HdWallet? hdWallet,
-    List<RibnAddress>? addresses,
+    List<RibnNetwork>? networks,
+    int? currNetworkIdx,
   }) {
     return KeychainState(
       keyStoreJson: keyStoreJson ?? this.keyStoreJson,
       hdWallet: hdWallet ?? this.hdWallet,
-      addresses: addresses ?? this.addresses,
+      networks: networks ?? this.networks,
+      currNetworkIdx: currNetworkIdx ?? this.currNetworkIdx,
     );
   }
 }
