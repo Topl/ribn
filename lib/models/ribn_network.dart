@@ -29,7 +29,7 @@ class RibnNetwork {
   }
 
   int getNextExternalAddressIndex() {
-    return addresses.lastWhere((addr) => addr.changeIndex == Rules.defaultChangeIndex).addressIndex + 1;
+    return addresses.lastIndexWhere((addr) => addr.changeIndex == Rules.defaultChangeIndex) + 1;
   }
 
   static List<RibnNetwork> initializeNetworks() {
