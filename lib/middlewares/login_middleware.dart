@@ -3,7 +3,6 @@ import 'package:redux/redux.dart';
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/login_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
-import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/repositories/login_repository.dart';
@@ -28,6 +27,7 @@ void Function(Store<AppState> store, AttemptLoginAction action, NextDispatcher n
       next(InitializeHDWalletAction(toplExtendedPrivateKey: toplExtendedPrvKeyUint8List));
       // AppState persisted after successful login
       next(PersistAppState());
+      next(RefreshBalancesAction());
       next(NavigateToRoute(Routes.home));
     } catch (e) {
       if (e.runtimeType == ArgumentError &&
