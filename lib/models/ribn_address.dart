@@ -1,8 +1,10 @@
 // ignore_for_file: implementation_imports
 
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mubrambl/src/credentials/address.dart';
+import 'package:mubrambl/src/model/balances.dart';
 import 'package:ribn/constants/rules.dart';
 
 @immutable
@@ -12,6 +14,7 @@ class RibnAddress {
   final int accountIndex;
   final int changeIndex;
   final String keyPath;
+  final Balance balance;
 
   const RibnAddress({
     required this.address,
@@ -19,6 +22,7 @@ class RibnAddress {
     this.accountIndex = Rules.defaultAccountIndex,
     this.changeIndex = Rules.defaultChangeIndex,
     required this.keyPath,
+    required this.balance,
   });
 
   RibnAddress copyWith({
@@ -27,6 +31,7 @@ class RibnAddress {
     int? accountIndex,
     int? changeIndex,
     String? keyPath,
+    Balance? balance,
   }) {
     return RibnAddress(
       address: address ?? this.address,
@@ -34,6 +39,7 @@ class RibnAddress {
       accountIndex: accountIndex ?? this.accountIndex,
       changeIndex: changeIndex ?? this.changeIndex,
       keyPath: keyPath ?? this.keyPath,
+      balance: balance ?? this.balance,
     );
   }
 
@@ -54,6 +60,7 @@ class RibnAddress {
       accountIndex: map['accountIndex'],
       changeIndex: map['changeIndex'],
       keyPath: map['keyPath'],
+      balance: Rules.initBalance(map['address']),
     );
   }
 
@@ -63,7 +70,7 @@ class RibnAddress {
 
   @override
   String toString() {
-    return 'RibnAddress(address: $address, addressIndex: $addressIndex, accountIndex: $accountIndex, changeIndex: $changeIndex, keyPath: $keyPath)';
+    return 'RibnAddress(address: $address, addressIndex: $addressIndex, accountIndex: $accountIndex, changeIndex: $changeIndex, keyPath: $keyPath, balance: $balance)';
   }
 
   @override
@@ -75,7 +82,8 @@ class RibnAddress {
         other.addressIndex == addressIndex &&
         other.accountIndex == accountIndex &&
         other.changeIndex == changeIndex &&
-        other.keyPath == keyPath;
+        other.keyPath == keyPath &&
+        other.balance == balance;
   }
 
   @override
@@ -84,6 +92,7 @@ class RibnAddress {
         addressIndex.hashCode ^
         accountIndex.hashCode ^
         changeIndex.hashCode ^
-        keyPath.hashCode;
+        keyPath.hashCode ^
+        balance.hashCode;
   }
 }
