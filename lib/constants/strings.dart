@@ -1,6 +1,7 @@
 class Strings {
   static const String copyToClipboard = "Copy to clipboard";
   static const String activity = "Activity";
+  static const String assets = "Assets";
   static const String send = "Send";
   static const String receive = "Receive";
   static const String generateNewAddress = "GENERATE NEW ADDRESS";
@@ -9,4 +10,6 @@ class Strings {
   static const String valhalla = "valhalla";
   static const String toplnet = "toplnet";
   static const String private = "private";
+  static const String receiver = "Receiver";
+  static const String amount = "Amount";
 }
