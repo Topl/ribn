@@ -38,3 +38,12 @@ class UpdateCurrentNetworkAction {
   String networkId;
   UpdateCurrentNetworkAction(this.networkId);
 }
+
+class RefreshBalancesAction {}
+
+class UpdateBalancesAction {
+  List<RibnAddress> updatedAddresses;
+  UpdateBalancesAction(this.updatedAddresses);
+}
+
+class BalancesLoadingAction {}
