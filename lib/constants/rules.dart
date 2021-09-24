@@ -15,7 +15,7 @@ class Rules {
   static const int hardenedOffset = 0x80000000;
   // Reference: [CIP-1852](https://github.com/cardano-foundation/CIPs/blob/master/CIP-1852/CIP-1852.md)
   // m / purpose' / coin_type' / account' / role / index
-  static const int defaultPurpose = 1862 | hardenedOffset; // 1852'
+  static const int defaultPurpose = 1852 | hardenedOffset; // 1852'
   static const int defaultCoinType = 7091 | hardenedOffset; // 7091'
   static const int defaultAccountIndex = 0 | hardenedOffset; // 0'
   static const int defaultChangeIndex = 0; // 0=external/payments, 1=internal/change, 2=staking
