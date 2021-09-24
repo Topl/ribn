@@ -45,7 +45,7 @@ class Rules {
   static BramblClient getBramblCient(String networkUrl) {
     return BramblClient(
       basePathOverride: networkUrl,
-      interceptors: [ApiKeyAuthInterceptor("Mjc0ODg3MTktYTU3ZS00MGM2LWJkMmMtYTRjMzQxMWY3MjM4")],
+      interceptors: [ApiKeyAuthInterceptor(baasApiKey)],
     );
   }
 }
