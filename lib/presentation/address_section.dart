@@ -60,7 +60,13 @@ class AddressSection extends StatelessWidget {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: Text(addresses[index].keyPath),
+                              title: Column(
+                                children: [
+                                  Text(addresses[index].keyPath),
+                                  Text(addresses[index].balance.polys.toString()),
+                                  Text(addresses[index].balance.assets.toString()),
+                                ],
+                              ),
                             );
                           },
                         );
