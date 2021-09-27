@@ -15,7 +15,7 @@ class KeychainRepository {
     int account = Rules.defaultAccountIndex,
     int change = Rules.defaultChangeIndex,
     int addr = Rules.defaultAddressIndex,
-    int networkId = Rules.valhallaId,
+    required int networkId,
   }) {
     Bip32KeyPair keyPair = hdWallet.deriveLastThreeLayers(address: addr);
     ToplAddress toplAddress = hdWallet.toBaseAddress(spend: keyPair.publicKey!, networkId: networkId);
