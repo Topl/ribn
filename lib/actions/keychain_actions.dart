@@ -33,3 +33,8 @@ class AddAddressesAction {
   final List<RibnAddress> addresses;
   const AddAddressesAction({this.addresses = const []});
 }
+
+class UpdateCurrentNetworkAction {
+  String networkId;
+  UpdateCurrentNetworkAction(this.networkId);
+}

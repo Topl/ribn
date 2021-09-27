@@ -38,18 +38,6 @@ class OnboardingRespository {
 
   Bip32KeyPair deriveToplExtendedKeys(String mnemonic) {
     final HdWallet hdWallet = HdWallet.fromMnemonic(mnemonic);
-    final Bip32KeyPair rootKeys = Bip32KeyPair(
-      privateKey: hdWallet.rootSigningKey,
-      publicKey: hdWallet.rootVerifyKey,
-    );
-    final Bip32KeyPair layerOneKeyPair = hdWallet.derive(
-      keys: rootKeys,
-      index: Rules.defaultPurpose,
-    );
-    final Bip32KeyPair toplExtendedKeyPair = hdWallet.derive(
-      keys: layerOneKeyPair,
-      index: Rules.defaultCoinType,
-    );
-    return toplExtendedKeyPair;
+    return hdWallet.deriveBaseAddress(purpose: Rules.defaultPurpose, coinType: Rules.defaultCoinType);
   }
 }

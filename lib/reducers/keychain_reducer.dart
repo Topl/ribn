@@ -1,17 +1,18 @@
 // ignore_for_file: implementation_imports
-
 import 'package:bip_topl/bip_topl.dart';
 import 'package:mubrambl/src/credentials/hd_wallet_helper.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/keychain_state.dart';
+import 'package:ribn/models/ribn_network.dart';
 
 /// Reducer responsible for updating [KeyChainState]
 final keychainReducer = combineReducers<KeychainState>(
   [
     TypedReducer<KeychainState, InitializeHDWalletAction>(_onHdWalletInitialization),
     TypedReducer<KeychainState, AddAddressesAction>(_onAddAddresses),
+    TypedReducer<KeychainState, UpdateCurrentNetworkAction>(_onNetworkUpdated),
   ],
 );
 
@@ -30,9 +31,25 @@ KeychainState _onHdWalletInitialization(KeychainState keychainState, InitializeH
   );
 }
 
-/// Updates the list of addresses in [KeychainState].
+/// Updates the list of addresses in the current network
 KeychainState _onAddAddresses(KeychainState keychainState, AddAddressesAction action) {
+  RibnNetwork updatedNetwork = keychainState.currentNetwork.copyWith(
+    addresses: List.from(keychainState.currentNetwork.addresses)..addAll(action.addresses),
+  );
   return keychainState.copyWith(
-    addresses: keychainState.addresses.toList()..addAll(action.addresses),
+    networks: List.from(keychainState.networks)
+      ..setAll(
+        keychainState.currNetworkIdx,
+        [updatedNetwork],
+      ),
+  );
+}
+
+/// Updates the [currNetworkIdx] in [KeychainState].
+KeychainState _onNetworkUpdated(KeychainState keychainState, UpdateCurrentNetworkAction action) {
+  return keychainState.copyWith(
+    currNetworkIdx: keychainState.networks.indexWhere(
+      (network) => network.networkId == int.parse(action.networkId),
+    ),
   );
 }

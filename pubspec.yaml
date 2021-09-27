@@ -42,7 +42,7 @@ dependencies:
   mubrambl:
     git:
       url: https://github.com/Topl/BramblDart.git
-      ref: INFRA-263
+      ref: dev
   bip_topl: ^0.0.2
   js: ^0.6.3
 
