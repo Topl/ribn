@@ -38,7 +38,7 @@ class Rules {
   static const String projectId = "60ff001754b7c75558146daf";
   static Map<int, String> networkUrls = {
     valhallaId: "https://staging.vertx.topl.services/valhalla/$projectId",
-    toplnetId: "https://staging.vertx.topl.services/valhalla/$projectId", // temporary url
+    toplnetId: "https://staging.vertx.topl.services/mainnet/$projectId",
     privateId: "http://localhost:9085"
   };
 
