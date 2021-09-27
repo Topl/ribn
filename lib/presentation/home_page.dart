@@ -1,3 +1,5 @@
+// ignore_for_file: implementation_imports
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ribn/constants/keys.dart';
@@ -8,6 +10,7 @@ import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/home_container.dart';
 import 'package:ribn/presentation/address_section.dart';
 import 'package:flutter/services.dart';
+import 'package:mubrambl/src/core/amount.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -49,13 +52,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               Padding(
                 padding: const EdgeInsets.all(UIConstants.generalPadding),
                 child: Center(
-                  child: Column(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        '0 Polys',
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
+                    children: [
+                      vm.fetchingBalance
+                          ? const CircularProgressIndicator()
+                          : Text(
+                              '${vm.totalBalance} Polys',
+                              style: Theme.of(context).textTheme.headline4,
+                            ),
+                      MaterialButton(
+                        child: const Icon(Icons.refresh),
+                        onPressed: vm.refreshBalance,
+                      )
                     ],
                   ),
                 ),
@@ -66,7 +75,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   physics: const NeverScrollableScrollPhysics(),
                   controller: _tabController,
                   children: [
-                    const SizedBox(),
+                    _buildAssetsList(vm.fetchingBalance, vm.assets),
                     const SizedBox(),
                     AddressSection(),
                   ],
@@ -142,7 +151,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       controller: _tabController,
       automaticIndicatorColorAdjustment: true,
       tabs: const [
-        Tab(child: Text(Strings.activity)),
+        Tab(child: Text(Strings.assets)),
         Tab(child: Text(Strings.send)),
         Tab(child: Text(Strings.receive)),
       ],
@@ -159,5 +168,27 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       default:
         break;
     }
+  }
+
+  Widget _buildAssetsList(bool fetchingBalance, List<AssetAmount> assets) {
+    return fetchingBalance
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
+        : assets.isEmpty
+            ? const Text("You have no assets :(")
+            : ListView.builder(
+                itemCount: assets.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: UIConstants.generalPadding,
+                    ),
+                    child: Text(
+                      "${assets[index].assetCode.shortName.show} - ${assets[index].assetCode.serialize()}: ${assets[index].quantity}",
+                    ),
+                  );
+                },
+              );
   }
 }

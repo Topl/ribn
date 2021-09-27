@@ -3,11 +3,12 @@
 import 'package:mubrambl/src/credentials/hd_wallet_helper.dart' as hd;
 import 'package:mubrambl/src/utils/constants.dart' as constants;
 import 'package:mubrambl/src/utils/network.dart';
-
 import 'package:ribn/constants/strings.dart';
 import 'package:mubrambl/src/core/client.dart';
 import 'package:mubrambl/src/auth/auth.dart';
 import 'package:dio/dio.dart';
+import 'package:mubrambl/src/core/amount.dart';
+import 'package:mubrambl/src/model/balances.dart';
 
 class Rules {
   static const int minPasswordLength = 8;
@@ -46,6 +47,20 @@ class Rules {
     return BramblClient(
       basePathOverride: networkUrl,
       interceptors: [ApiKeyAuthInterceptor(baasApiKey)],
+    );
+  }
+
+  static Balance initBalance(String address) {
+    return Balance(
+      address: address,
+      polys: PolyAmount(
+        quantity: 0,
+        unit: PolyUnit.nanopoly,
+      ),
+      arbits: ArbitAmount(
+        quantity: 0,
+        unit: ArbitUnit.nanoarbit,
+      ),
     );
   }
 }

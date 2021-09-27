@@ -1,7 +1,9 @@
 // ignore_for_file: implementation_imports
 import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:mubrambl/src/core/client.dart';
+
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/ribn_address.dart';
 
@@ -10,12 +12,14 @@ class RibnNetwork {
   final String networkUrl;
   final List<RibnAddress> addresses;
   final BramblClient? client;
+  final bool fetchingBalance;
 
   RibnNetwork({
     required this.networkId,
     required this.networkUrl,
     this.addresses = const [],
     this.client,
+    required this.fetchingBalance,
   });
 
   factory RibnNetwork.initial({int? networkId, String? networkUrl}) {
@@ -25,6 +29,7 @@ class RibnNetwork {
       client: Rules.getBramblCient(
         networkUrl ?? Rules.networkUrls[Rules.valhallaId]!,
       ),
+      fetchingBalance: true,
     );
   }
 
@@ -45,12 +50,14 @@ class RibnNetwork {
     String? networkUrl,
     List<RibnAddress>? addresses,
     BramblClient? client,
+    bool? fetchingBalance,
   }) {
     return RibnNetwork(
       networkId: networkId ?? this.networkId,
       networkUrl: networkUrl ?? this.networkUrl,
       addresses: addresses ?? this.addresses,
       client: client ?? this.client,
+      fetchingBalance: fetchingBalance ?? this.fetchingBalance,
     );
   }
 
@@ -58,7 +65,8 @@ class RibnNetwork {
     return {
       'networkId': networkId,
       'networkUrl': networkUrl,
-      'addresses': addresses.map((x) => x.toMap()).toList(),
+      'addresses': addresses?.map((x) => x.toMap())?.toList(),
+      'fetchingBalance': fetchingBalance,
     };
   }
 
@@ -67,6 +75,7 @@ class RibnNetwork {
       networkId: map['networkId'],
       networkUrl: map['networkUrl'],
       addresses: List<RibnAddress>.from(map['addresses']?.map((x) => RibnAddress.fromMap(x))),
+      fetchingBalance: map['fetchingBalance'] ?? true,
       client: Rules.getBramblCient(map['networkUrl']),
     );
   }
@@ -77,7 +86,7 @@ class RibnNetwork {
 
   @override
   String toString() {
-    return 'RibnNetwork(networkId: $networkId, networkUrl: $networkUrl, addresses: $addresses, client: $client)';
+    return 'RibnNetwork(networkId: $networkId, networkUrl: $networkUrl, addresses: $addresses, client: $client, fetchingBalance: $fetchingBalance)';
   }
 
   @override
@@ -88,11 +97,16 @@ class RibnNetwork {
         other.networkId == networkId &&
         other.networkUrl == networkUrl &&
         listEquals(other.addresses, addresses) &&
-        other.client == client;
+        other.client == client &&
+        other.fetchingBalance == fetchingBalance;
   }
 
   @override
   int get hashCode {
-    return networkId.hashCode ^ networkUrl.hashCode ^ addresses.hashCode ^ client.hashCode;
+    return networkId.hashCode ^
+        networkUrl.hashCode ^
+        addresses.hashCode ^
+        client.hashCode ^
+        fetchingBalance.hashCode;
   }
 }
