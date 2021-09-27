@@ -10,7 +10,6 @@ import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/home_container.dart';
 import 'package:ribn/presentation/address_section.dart';
 import 'package:flutter/services.dart';
-import 'package:ribn/presentation/transaction_section.dart';
 import 'package:mubrambl/src/core/amount.dart';
 
 class HomePage extends StatefulWidget {
