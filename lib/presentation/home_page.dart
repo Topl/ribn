@@ -11,6 +11,7 @@ import 'package:ribn/containers/home_container.dart';
 import 'package:ribn/presentation/address_section.dart';
 import 'package:flutter/services.dart';
 import 'package:mubrambl/src/core/amount.dart';
+import 'package:ribn/presentation/transaction_section.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -76,7 +77,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   controller: _tabController,
                   children: [
                     _buildAssetsList(vm.fetchingBalance, vm.assets),
-                    const SizedBox(),
+                    const TransactionSection(),
                     AddressSection(),
                   ],
                 ),
@@ -109,7 +110,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return DropdownButton<String>(
       value: dropdownValue,
       style: const TextStyle(color: Colors.black),
-      onChanged: (String? networkId) => onChange(networkId!),
+      onChanged: (String? networkId) => onChange(networkId ?? Rules.valhallaId.toString()),
       items: networks.map<DropdownMenuItem<String>>((String networkId) {
         return DropdownMenuItem<String>(
           value: networkId,
