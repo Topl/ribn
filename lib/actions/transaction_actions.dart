@@ -1,4 +1,5 @@
 import 'package:mubrambl/brambldart.dart';
+import 'package:ribn/models/ribn_address.dart';
 
 class InitiateTxAction {
   Map<String, dynamic> transferDetails;
@@ -17,5 +18,6 @@ class SignTxAction {
 
 class BroadcastTxAction {
   TransactionReceipt signedTx;
-  BroadcastTxAction(this.signedTx);
+  RibnAddress? changeAddress;
+  BroadcastTxAction(this.signedTx, {this.changeAddress});
 }
