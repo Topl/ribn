@@ -181,12 +181,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             : ListView.builder(
                 itemCount: assets.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: UIConstants.generalPadding,
-                    ),
+                  return TextButton(
+                    onPressed: () async {
+                      await showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Column(
+                              children: [
+                                Text("Quantity: ${assets[index].quantity.toString()}"),
+                                Text("Assetcode: ${assets[index].assetCode.toString()}"),
+                                Text("Issuer: + ${assets[index].assetCode.issuer.toBase58()}"),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
                     child: Text(
-                      "${assets[index].assetCode.shortName.show} - ${assets[index].assetCode.serialize()}: ${assets[index].quantity}",
+                      "${assets[index].assetCode.shortName.show} : ${assets[index].quantity}",
                     ),
                   );
                 },
