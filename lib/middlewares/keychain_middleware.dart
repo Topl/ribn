@@ -35,8 +35,6 @@ void Function(Store<AppState> store, GenerateInitialAddressesAction action, Next
         newAddresses.add(newAddress);
       }
       next(AddAddressesAction(addresses: newAddresses));
-      // Persist AppState after new addresses have been created
-      next(PersistAppState());
     } catch (e) {
       next(ApiErrorAction(e.toString()));
     }
@@ -55,8 +53,6 @@ void Function(Store<AppState> store, GenerateAddressAction action, NextDispatche
         networkId: store.state.keychainState.currentNetwork.networkId,
       );
       next(AddAddressesAction(addresses: [newAddress]));
-      // Persist AppState after new addresses have been created
-      next(PersistAppState());
     } catch (e) {
       next(ApiErrorAction(e.toString()));
     }
