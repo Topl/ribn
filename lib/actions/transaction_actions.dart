@@ -1,5 +1,4 @@
-import 'package:mubrambl/src/transaction/transaction.dart';
-import 'package:mubrambl/src/transaction/transactionReceipt.dart';
+import 'package:mubrambl/brambldart.dart';
 
 class InitiateTxAction {
   Map<String, dynamic> transferDetails;

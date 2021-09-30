@@ -2,12 +2,12 @@
 import 'dart:typed_data';
 
 import 'package:bip_topl/bip_topl.dart';
+import 'package:mubrambl/brambldart.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:mubrambl/src/credentials/hd_wallet_helper.dart';
 import 'package:mubrambl/src/credentials/address.dart';
 import 'package:mubrambl/src/credentials/credentials.dart';
-import 'package:mubrambl/src/core/client.dart';
 import 'package:mubrambl/src/model/balances.dart';
 import 'package:mubrambl/src/utils/proposition_type.dart';
 
