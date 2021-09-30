@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/address_container.dart';
@@ -49,10 +51,19 @@ class AddressSection extends StatelessWidget {
                 itemExtent: UIConstants.addressListTileSize,
                 itemCount: addresses.length,
                 itemBuilder: (context, index) {
+                  String addr = addresses[index].address.toBase58();
+                  bool isInternal = addresses[index].changeIndex == Rules.internalIdx;
                   return ListTile(
-                    title: Text(
-                      addresses[index].address.toBase58(),
-                      style: const TextStyle(fontSize: UIConstants.smallTextSize),
+                    title: TextButton(
+                      onPressed: () => Clipboard.setData(ClipboardData(text: addr)),
+                      child: Text(
+                        addr,
+                        style: TextStyle(
+                          fontSize: UIConstants.smallTextSize,
+                          color: isInternal ? Colors.blue : Colors.red,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
                     ),
                     trailing: IconButton(
                       onPressed: () async {
