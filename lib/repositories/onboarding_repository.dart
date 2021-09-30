@@ -18,8 +18,7 @@ class OnboardingRespository {
   Future<Map> generateMnemonicAndKeystore(String password) async {
     final Random random = Random.secure();
     const Base58Encoder base58Encoder = Base58Encoder.instance;
-    final String mnemonic =
-        "afford hamster police alien flight ghost reduce spike sheriff busy virtual myself"; //generateMnemonic(random);
+    final String mnemonic = generateMnemonic(random);
     final Bip32KeyPair toplExtendedKeyPair = deriveToplExtendedKeys(mnemonic);
     Uint8List toplExtendedPrvKeyUint8List = Uint8List.fromList(toplExtendedKeyPair.privateKey!);
     final String base58EncodedToplExtendedPrvKey = base58Encoder.encode(toplExtendedPrvKeyUint8List);
