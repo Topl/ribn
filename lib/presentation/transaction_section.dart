@@ -1,13 +1,14 @@
 // ignore_for_file: implementation_imports
 
 import 'package:flutter/material.dart';
+import 'package:mubrambl/brambldart.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/transaction_container.dart';
 import 'package:mubrambl/src/core/amount.dart';
 
-/// This builds the transaction section that is seen under one of the main tabs on the home page.
+/// Builds the transaction section that is seen under one of the main tabs on the home page.
 class TransactionSection extends StatefulWidget {
   const TransactionSection({Key? key}) : super(key: key);
 
@@ -90,7 +91,7 @@ class _TransactionSectionState extends State<TransactionSection> {
   }
 
   /// Builds the asset transfer form.
-  /// Input fields differ depending on if a new asset is being minted or
+  /// Input fields differ depending on if an asset is being minted or
   /// an existing asset is being transfered.
   Form _buildAssetTransferForm(VoidCallback onSubmit, List<AssetAmount> assets, {bool minting = false}) {
     return Form(
@@ -104,7 +105,7 @@ class _TransactionSectionState extends State<TransactionSection> {
                   minting ? Strings.assetName : Strings.receiver,
                   (val) {
                     setState(() {
-                      _transferDetails[Strings.assetName] = val;
+                      _transferDetails[minting ? Strings.assetName : Strings.recipient] = val;
                     });
                   },
                 ),
@@ -149,7 +150,7 @@ class _TransactionSectionState extends State<TransactionSection> {
 
   Widget _buildTransferMenu(
     String dropdownValue,
-    List<String> transferOptions,
+    List<String> transferTypes,
   ) {
     return DropdownButton<String>(
       value: dropdownValue,
@@ -159,7 +160,7 @@ class _TransactionSectionState extends State<TransactionSection> {
           _transferDetails[Strings.transferType] = transferType ?? Strings.polyTransfer;
         });
       },
-      items: transferOptions.map<DropdownMenuItem<String>>((String transferType) {
+      items: transferTypes.map<DropdownMenuItem<String>>((String transferType) {
         return DropdownMenuItem<String>(
           value: transferType,
           child: Text(transferType),
