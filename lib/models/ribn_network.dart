@@ -2,7 +2,8 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:mubrambl/src/core/client.dart';
+import 'package:mubrambl/brambldart.dart';
+import 'package:mubrambl/src/core/amount.dart';
 
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/ribn_address.dart';
@@ -26,15 +27,31 @@ class RibnNetwork {
     return RibnNetwork(
       networkId: networkId ?? Rules.valhallaId,
       networkUrl: networkUrl ?? Rules.networkUrls[Rules.valhallaId]!,
-      client: Rules.getBramblCient(
-        networkUrl ?? Rules.networkUrls[Rules.valhallaId]!,
-      ),
+      client: Rules.getBramblCient(networkId ?? Rules.valhallaId),
       fetchingBalance: true,
     );
   }
 
   int getNextExternalAddressIndex() {
     return addresses.lastIndexWhere((addr) => addr.changeIndex == Rules.defaultChangeIndex) + 1;
+  }
+
+  int getNextInternalAddressIndex() {
+    return addresses.lastIndexWhere((addr) => addr.changeIndex == Rules.internalIdx) + 1;
+  }
+
+  RibnAddress getAddrWithSufficientPolys(int target) {
+    return addresses.firstWhere((addr) => addr.balance.polys.quantity >= target);
+  }
+
+  RibnAddress getAddrWithSufficientAssets(AssetAmount asset, int target) {
+    return addresses.firstWhere(
+      (addr) =>
+          addr.balance.polys.quantity >= target &&
+          addr.balance.assets!.any(
+            (elem) => elem.assetCode == asset.assetCode && elem.quantity >= asset.quantity,
+          ),
+    );
   }
 
   static List<RibnNetwork> initializeNetworks() {
@@ -76,7 +93,7 @@ class RibnNetwork {
       networkUrl: map['networkUrl'],
       addresses: List<RibnAddress>.from(map['addresses']?.map((x) => RibnAddress.fromMap(x))),
       fetchingBalance: map['fetchingBalance'] ?? true,
-      client: Rules.getBramblCient(map['networkUrl']),
+      client: Rules.getBramblCient(map['networkId']),
     );
   }
 
