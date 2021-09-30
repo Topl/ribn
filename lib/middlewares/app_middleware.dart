@@ -4,11 +4,13 @@ import 'package:ribn/middlewares/epic_middleware.dart';
 import 'package:ribn/middlewares/keychain_middleware.dart';
 import 'package:ribn/middlewares/login_middleware.dart';
 import 'package:ribn/middlewares/onboarding_middleware.dart';
+import 'package:ribn/middlewares/transaction_middleware.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/repositories/keychain_repository.dart';
 import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/repositories/misc_repository.dart';
 import 'package:ribn/repositories/onboarding_repository.dart';
+import 'package:ribn/repositories/transaction_repository.dart';
 
 /// All epics and middlewares will be chained here
 List<Middleware<AppState>> createAppMiddleware({
@@ -16,11 +18,13 @@ List<Middleware<AppState>> createAppMiddleware({
   required LoginRepository loginRepo,
   required MiscRepository miscRepo,
   required KeychainRepository keychainRepo,
+  required TransactionRepository transactionRepo,
 }) {
   return [
     ...(createOnboardingMiddleware(onboardingRepo)),
     ...(createLoginMiddleware(loginRepo)),
     ...(createKeychainMiddleware(keychainRepo)),
+    ...(createTransactionMiddleware(transactionRepo, keychainRepo)),
     EpicMiddleware<AppState>(createEpicMiddleware(miscRepo))
   ];
 }
