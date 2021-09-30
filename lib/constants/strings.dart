@@ -12,4 +12,18 @@ class Strings {
   static const String private = "private";
   static const String receiver = "Receiver";
   static const String amount = "Amount";
+  static const String polyTransfer = "Poly Transfer";
+  static const String assetTransfer = "Asset Transfer";
+  static const String minting = "Minting";
+  static const String assetName = "Asset name";
+  static const String transferType = "transferType";
+  static const String recipient = "recipient";
+  static const String noAssets = "You have no assets :(";
+  static const String asset = "asset";
+  static const String mint = "Mint";
+  static const String sender = "sender";
+  static const String change = "change";
+  static const String fee = "fee";
+  static const String networkId = "networkId";
+  static const String polyAmount = "polyAmount";
 }
