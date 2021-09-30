@@ -24,6 +24,7 @@ class Rules {
   static const int defaultChangeIndex =
       constants.DEFAULT_CHANGE; // 0=external/payments, 1=internal/change, 2=staking
   static const int defaultAddressIndex = constants.DEFAULT_ADDRESS_INDEX;
+  static const int assetCodeVersion = constants.SUPPORTED_ASSET_CODE_VERSION;
   static const int numInitialAddresses = 5;
   static const int internalIdx = 1;
   static const List<String> settings = [Strings.logout];
