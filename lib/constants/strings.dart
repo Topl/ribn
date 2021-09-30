@@ -26,4 +26,6 @@ class Strings {
   static const String fee = "fee";
   static const String networkId = "networkId";
   static const String polyAmount = "polyAmount";
+  static const String rawTx = "rawTx";
+  static const String messageToSign = "messageToSign";
 }
