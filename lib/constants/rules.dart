@@ -49,9 +49,9 @@ class Rules {
     privateId: "http://localhost:9085"
   };
   static Map<int, PolyAmount> networkFees = {
-    valhallaId: PolyAmount(quantity: VALHALLA_FEE, unit: PolyUnit.nanopoly),
-    toplnetId: PolyAmount(quantity: TOPLNET_FEE, unit: PolyUnit.nanopoly),
-    privateId: PolyAmount(quantity: VALHALLA_FEE, unit: PolyUnit.nanopoly),
+    valhallaId: PolyAmount.fromUnitAndValue(PolyUnit.nanopoly, VALHALLA_FEE),
+    toplnetId: PolyAmount.fromUnitAndValue(PolyUnit.nanopoly, TOPLNET_FEE),
+    privateId: PolyAmount.zero(),
   };
   static const transferTypes = [Strings.polyTransfer, Strings.assetTransfer, Strings.minting];
   static BramblClient getBramblCient(int networkId) {
