@@ -31,6 +31,7 @@ class KeychainRepository {
       changeIndex: change,
       keyPath: keyPath,
       balance: Rules.initBalance(toplAddress.toBase58()),
+      networkId: networkId,
     );
     return newAddress;
   }
