@@ -25,8 +25,6 @@ void Function(Store<AppState> store, AttemptLoginAction action, NextDispatcher n
       );
       next(const LoginSuccessAction());
       next(InitializeHDWalletAction(toplExtendedPrivateKey: toplExtendedPrvKeyUint8List));
-      // AppState persisted after successful login
-      next(PersistAppState());
       next(RefreshBalancesAction());
       next(NavigateToRoute(Routes.home));
     } catch (e) {

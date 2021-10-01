@@ -11,6 +11,7 @@ import 'package:ribn/containers/home_container.dart';
 import 'package:ribn/presentation/address_section.dart';
 import 'package:flutter/services.dart';
 import 'package:mubrambl/src/core/amount.dart';
+import 'package:ribn/presentation/transaction_section.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -76,7 +77,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   controller: _tabController,
                   children: [
                     _buildAssetsList(vm.fetchingBalance, vm.assets),
-                    const SizedBox(),
+                    const TransactionSection(),
                     AddressSection(),
                   ],
                 ),
@@ -109,7 +110,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return DropdownButton<String>(
       value: dropdownValue,
       style: const TextStyle(color: Colors.black),
-      onChanged: (String? networkId) => onChange(networkId!),
+      onChanged: (String? networkId) => onChange(networkId ?? Rules.valhallaId.toString()),
       items: networks.map<DropdownMenuItem<String>>((String networkId) {
         return DropdownMenuItem<String>(
           value: networkId,
@@ -180,12 +181,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             : ListView.builder(
                 itemCount: assets.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: UIConstants.generalPadding,
-                    ),
+                  return TextButton(
+                    onPressed: () async {
+                      await showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Column(
+                              children: [
+                                Text("Quantity: ${assets[index].quantity.toString()}"),
+                                Text("Assetcode: ${assets[index].assetCode.toString()}"),
+                                Text("Issuer: + ${assets[index].assetCode.issuer.toBase58()}"),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
                     child: Text(
-                      "${assets[index].assetCode.shortName.show} - ${assets[index].assetCode.serialize()}: ${assets[index].quantity}",
+                      "${assets[index].assetCode.shortName.show} : ${assets[index].quantity}",
                     ),
                   );
                 },

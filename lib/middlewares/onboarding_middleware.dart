@@ -55,8 +55,7 @@ void Function(Store<AppState> store, VerifyMnemonicAction action, NextDispatcher
       next(FirstTimeLoginAction());
       // Generate initial addresses
       next(GenerateInitialAddressesAction(store.state.keychainState.hdWallet));
-      // AppState persisted after mnemonic verification
-      next(PersistAppState());
+      next(RefreshBalancesAction());
       next(NavigateToRoute(Routes.home));
     } else {
       next(MnemonicMismatchAction());

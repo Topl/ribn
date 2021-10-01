@@ -8,6 +8,7 @@ import 'package:ribn/repositories/keychain_repository.dart';
 import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/repositories/misc_repository.dart';
 import 'package:ribn/repositories/onboarding_repository.dart';
+import 'package:ribn/repositories/transaction_repository.dart';
 
 class Redux {
   static Store<AppState>? _store;
@@ -15,6 +16,7 @@ class Redux {
   static const LoginRepository loginRepository = LoginRepository();
   static const MiscRepository miscRepository = MiscRepository();
   static const KeychainRepository keychainRepository = KeychainRepository();
+  static const TransactionRepository transactionRepository = TransactionRepository();
 
   static Store<AppState>? get store {
     if (_store == null) {
@@ -30,6 +32,7 @@ class Redux {
     LoginRepository loginRepo = loginRepository,
     MiscRepository miscRepo = miscRepository,
     KeychainRepository keychainRepo = keychainRepository,
+    TransactionRepository transactionRepo = transactionRepository,
   }) async {
     Map<String, dynamic> persistedAppState = await getPersistedAppState();
     _store = Store<AppState>(
@@ -39,6 +42,7 @@ class Redux {
         loginRepo: loginRepo,
         miscRepo: miscRepo,
         keychainRepo: keychainRepo,
+        transactionRepo: transactionRepo,
       ),
       distinct: true,
       initialState: persistedAppState.isNotEmpty ? AppState.fromMap(persistedAppState) : AppState.initial(),

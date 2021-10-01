@@ -211,6 +211,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
+  docker_process:
+    dependency: transitive
+    description:
+      name: docker_process
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.0"
   fake_async:
     dependency: transitive
     description:
@@ -346,7 +353,7 @@ packages:
       name: logging
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.2"
   matcher:
     dependency: transitive
     description:
@@ -379,8 +386,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: INFRA-263
-      resolved-ref: "2c0d79e94d8adefeabf75fa7044556c4cda3d401"
+      ref: dev
+      resolved-ref: "4bdcd6b259ad1cc4733e10e1f0c2f1dd265d1455"
       url: "https://github.com/Topl/BramblDart.git"
     source: git
     version: "1.0.0"
@@ -620,13 +627,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  tuple:
-    dependency: transitive
-    description:
-      name: tuple
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   typed_data:
     dependency: transitive
     description:

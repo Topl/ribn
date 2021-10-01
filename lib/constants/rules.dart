@@ -1,14 +1,14 @@
 // ignore_for_file: implementation_imports
 
+import 'package:dio/dio.dart';
+import 'package:logging/logging.dart';
+import 'package:mubrambl/brambldart.dart';
+import 'package:mubrambl/src/core/amount.dart';
 import 'package:mubrambl/src/credentials/hd_wallet_helper.dart' as hd;
+import 'package:mubrambl/src/model/balances.dart';
 import 'package:mubrambl/src/utils/constants.dart' as constants;
 import 'package:mubrambl/src/utils/network.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:mubrambl/src/core/client.dart';
-import 'package:mubrambl/src/auth/auth.dart';
-import 'package:dio/dio.dart';
-import 'package:mubrambl/src/core/amount.dart';
-import 'package:mubrambl/src/model/balances.dart';
 
 class Rules {
   static const int minPasswordLength = 8;
@@ -24,7 +24,9 @@ class Rules {
   static const int defaultChangeIndex =
       constants.DEFAULT_CHANGE; // 0=external/payments, 1=internal/change, 2=staking
   static const int defaultAddressIndex = constants.DEFAULT_ADDRESS_INDEX;
+  static const int assetCodeVersion = constants.SUPPORTED_ASSET_CODE_VERSION;
   static const int numInitialAddresses = 5;
+  static const int internalIdx = 1;
   static const List<String> settings = [Strings.logout];
   static const int numHomeTabs = 3;
   static int toplnetId = NETWORK_REGISTRY[Strings.toplnet]!;
@@ -35,18 +37,43 @@ class Rules {
     toplnetId: Strings.toplnet,
     privateId: Strings.private
   };
-  static const String baasApiKey = "Mjc0ODg3MTktYTU3ZS00MGM2LWJkMmMtYTRjMzQxMWY3MjM4";
   static const String projectId = "60ff001754b7c75558146daf";
+  static Map<int, String> networkApiKeys = {
+    valhallaId: "Mjc0ODg3MTktYTU3ZS00MGM2LWJkMmMtYTRjMzQxMWY3MjM4",
+    toplnetId: "N2IyNDljZmQtZjlkNS00Nzc4LWE1MGQtMmVhMzBjMzIyYjBi",
+    privateId: "topl_the_world!"
+  };
   static Map<int, String> networkUrls = {
     valhallaId: "https://staging.vertx.topl.services/valhalla/$projectId",
     toplnetId: "https://staging.vertx.topl.services/mainnet/$projectId",
     privateId: "http://localhost:9085"
   };
-
-  static BramblClient getBramblCient(String networkUrl) {
+  static Map<int, PolyAmount> networkFees = {
+    valhallaId: PolyAmount.fromUnitAndValue(PolyUnit.nanopoly, VALHALLA_FEE),
+    toplnetId: PolyAmount.fromUnitAndValue(PolyUnit.nanopoly, TOPLNET_FEE),
+    privateId: PolyAmount.zero(),
+  };
+  static const transferTypes = [Strings.polyTransfer, Strings.assetTransfer, Strings.minting];
+  static BramblClient getBramblCient(int networkId) {
+    Logger logger = Logger("BramblClient");
+    Dio httpClient = Dio(
+      BaseOptions(
+        baseUrl: networkUrls[networkId]!,
+        contentType: 'application/json',
+        connectTimeout: 5000,
+        receiveTimeout: 3000,
+      ),
+    );
     return BramblClient(
-      basePathOverride: networkUrl,
-      interceptors: [ApiKeyAuthInterceptor(baasApiKey)],
+      httpClient: httpClient,
+      interceptors: [
+        ApiKeyAuthInterceptor(networkApiKeys[networkId]!),
+        RetryInterceptor(
+          dio: httpClient,
+          logger: logger,
+          options: const RetryOptions(retries: 2),
+        )
+      ],
     );
   }
 
@@ -61,6 +88,7 @@ class Rules {
         quantity: 0,
         unit: ArbitUnit.nanoarbit,
       ),
+      assets: [],
     );
   }
 }
