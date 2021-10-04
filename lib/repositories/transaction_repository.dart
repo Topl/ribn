@@ -1,14 +1,14 @@
 // ignore_for_file: implementation_imports
 
+import 'dart:typed_data';
+
 import 'package:mubrambl/brambldart.dart';
-import 'package:mubrambl/src/model/box/security_root.dart';
-
-import 'package:mubrambl/src/model/box/token_value_holder.dart';
-import 'package:mubrambl/src/model/box/asset_code.dart';
-import 'package:mubrambl/src/credentials/credentials.dart';
-import 'package:mubrambl/src/credentials/address.dart';
-
 import 'package:mubrambl/src/core/amount.dart';
+import 'package:mubrambl/src/credentials/address.dart';
+import 'package:mubrambl/src/credentials/credentials.dart';
+import 'package:mubrambl/src/model/box/asset_code.dart';
+import 'package:mubrambl/src/model/box/security_root.dart';
+import 'package:mubrambl/src/model/box/token_value_holder.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/ribn_address.dart';
@@ -26,7 +26,7 @@ class TransactionRepository {
         {
           ToplAddress sender = (transferDetails[Strings.sender] as RibnAddress).address;
           ToplAddress change = (transferDetails[Strings.change] as RibnAddress).address;
-          ToplAddress recipient = ToplAddress.fromBase58(transferDetails[Strings.recipient]);
+          ToplAddress recipient = ToplAddress.fromBase58(transferDetails[Strings.recipient] as String);
           PolyTransaction polyTransaction = PolyTransaction(
             recipients: [
               SimpleRecipient(
@@ -48,7 +48,7 @@ class TransactionRepository {
           ToplAddress sender = (transferDetails[Strings.sender] as RibnAddress).address;
           ToplAddress change = (transferDetails[Strings.change] as RibnAddress).address;
           AssetAmount assetAmount = transferDetails[Strings.asset] as AssetAmount;
-          ToplAddress recipient = ToplAddress.fromBase58(transferDetails[Strings.recipient]);
+          ToplAddress recipient = ToplAddress.fromBase58(transferDetails[Strings.recipient] as String);
           AssetValue assetValue = AssetValue(
             transferDetails[Strings.amount].toString(),
             assetAmount.assetCode,
@@ -75,7 +75,7 @@ class TransactionRepository {
           AssetCode assetCode = AssetCode.initialize(
             Rules.assetCodeVersion,
             sender,
-            transferDetails[Strings.assetName],
+            transferDetails[Strings.assetName] as String,
             Rules.networkStrings[transferDetails[Strings.networkId]]!,
           );
           AssetValue assetValue = AssetValue(
@@ -112,8 +112,8 @@ class TransactionRepository {
   ) async {
     return await client.signTransaction(
       creds,
-      transferDetails[Strings.rawTx],
-      transferDetails[Strings.messageToSign],
+      transferDetails[Strings.rawTx] as TransactionReceipt,
+      transferDetails[Strings.messageToSign] as Uint8List,
     );
   }
 

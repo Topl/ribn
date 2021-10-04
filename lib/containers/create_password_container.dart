@@ -32,7 +32,7 @@ class CreatePasswordViewModel {
   });
   static CreatePasswordViewModel fromStore(Store<AppState> store) {
     return CreatePasswordViewModel(
-      attemptCreatePassword: (password, confirmPassword) => store.dispatch(
+      attemptCreatePassword: (String password, String confirmPassword) => store.dispatch(
         CreatePasswordAction(password, confirmPassword),
       ),
       passwordMismatchError: store.state.onboardingState.passwordMismatchError,

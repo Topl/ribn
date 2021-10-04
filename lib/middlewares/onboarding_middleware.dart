@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:redux/redux.dart';
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/login_actions.dart';
@@ -31,11 +33,11 @@ void Function(Store<AppState> store, CreatePasswordAction action, NextDispatcher
     } else {
       try {
         Map results = await onboardingRespository.generateMnemonicAndKeystore(action.password);
-        next(PasswordSuccessfullyCreatedAction(results['mnemonic']));
+        next(PasswordSuccessfullyCreatedAction(results['mnemonic'] as String));
         next(
           InitializeHDWalletAction(
-            toplExtendedPrivateKey: results['toplExtendedPrvKeyUint8List'],
-            keyStoreJson: results['keyStoreJson'],
+            toplExtendedPrivateKey: results['toplExtendedPrvKeyUint8List'] as Uint8List,
+            keyStoreJson: results['keyStoreJson'] as String,
           ),
         );
 

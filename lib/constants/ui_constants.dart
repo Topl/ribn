@@ -14,5 +14,5 @@ class UIConstants {
   static const double mnemonicDisplayDimensions = 150;
   static const double addressListTileSize = 40;
   static scaleByWidth(double scale, BuildContext context) => scale * MediaQuery.of(context).size.width;
-  static double displayAddressWidth(context) => scaleByWidth(0.5, context);
+  static double displayAddressWidth(BuildContext context) => scaleByWidth(0.5, context) as double;
 }

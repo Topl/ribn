@@ -1,6 +1,7 @@
 // ignore_for_file: implementation_imports
 
 import 'package:mubrambl/brambldart.dart';
+import 'package:mubrambl/src/credentials/credentials.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
@@ -12,7 +13,6 @@ import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/models/ribn_network.dart';
 import 'package:ribn/repositories/keychain_repository.dart';
 import 'package:ribn/repositories/transaction_repository.dart';
-import 'package:mubrambl/src/credentials/credentials.dart';
 
 /// The transaction middleware that handles all async operations needed for the complete transaction flow.
 List<Middleware<AppState>> createTransactionMiddleware(
@@ -33,10 +33,10 @@ void Function(Store<AppState> store, InitiateTxAction action, NextDispatcher nex
     try {
       RibnNetwork currNetwork = store.state.keychainState.currentNetwork;
       RibnAddress senderAddr = transactionRepo.getSenderAddress(
-        action.transferDetails[Strings.transferType],
+        action.transferDetails[Strings.transferType] as String,
         currNetwork,
-        polyAmount: int.parse(action.transferDetails[Strings.amount]),
-        assetAmount: action.transferDetails[Strings.asset],
+        polyAmount: int.parse(action.transferDetails[Strings.amount] as String),
+        assetAmount: action.transferDetails[Strings.asset] as AssetAmount?,
       );
       RibnAddress changeAddr = keychainRepo.generateAddress(
         store.state.keychainState.hdWallet!,
@@ -80,7 +80,7 @@ void Function(Store<AppState> store, SignTxAction action, NextDispatcher next) _
     TransactionRepository transactionRepo, KeychainRepository keychainRepo) {
   return (store, action, next) async {
     try {
-      RibnAddress senderAddr = action.transferDetails[Strings.sender];
+      RibnAddress senderAddr = action.transferDetails[Strings.sender] as RibnAddress;
       Credentials credentials = keychainRepo.getCredentials(
         store.state.keychainState.hdWallet!,
         account: senderAddr.accountIndex,
@@ -91,7 +91,12 @@ void Function(Store<AppState> store, SignTxAction action, NextDispatcher next) _
       );
       BramblClient client = store.state.keychainState.currentNetwork.client!;
       TransactionReceipt signedTx = await transactionRepo.signTx(client, credentials, action.transferDetails);
-      next(BroadcastTxAction(signedTx, changeAddress: action.transferDetails[Strings.change]));
+      next(
+        BroadcastTxAction(
+          signedTx,
+          changeAddress: action.transferDetails[Strings.change] as RibnAddress?,
+        ),
+      );
     } catch (e) {
       next(ApiErrorAction(e.toString()));
     }
@@ -102,7 +107,7 @@ void Function(Store<AppState> store, BroadcastTxAction action, NextDispatcher ne
     TransactionRepository transactionRepo) {
   return (store, action, next) async {
     try {
-      String txId = await transactionRepo.broadcastTx(
+      await transactionRepo.broadcastTx(
         store.state.keychainState.currentNetwork.client!,
         action.signedTx,
       );

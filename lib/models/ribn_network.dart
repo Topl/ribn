@@ -89,17 +89,22 @@ class RibnNetwork {
 
   factory RibnNetwork.fromMap(Map<String, dynamic> map) {
     return RibnNetwork(
-      networkId: map['networkId'],
-      networkUrl: map['networkUrl'],
-      addresses: List<RibnAddress>.from(map['addresses']?.map((x) => RibnAddress.fromMap(x))),
-      fetchingBalance: map['fetchingBalance'] ?? true,
-      client: Rules.getBramblCient(map['networkId']),
+      networkId: map['networkId'] as int,
+      networkUrl: map['networkUrl'] as String,
+      addresses: List<RibnAddress>.from(
+        (map['addresses'] as Iterable<dynamic>).map(
+          (x) => RibnAddress.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
+      fetchingBalance: true,
+      client: Rules.getBramblCient(map['networkId'] as int),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory RibnNetwork.fromJson(String source) => RibnNetwork.fromMap(json.decode(source));
+  factory RibnNetwork.fromJson(String source) =>
+      RibnNetwork.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {

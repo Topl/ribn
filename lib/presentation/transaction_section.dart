@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:mubrambl/brambldart.dart';
+import 'package:mubrambl/src/core/amount.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/transaction_container.dart';
-import 'package:mubrambl/src/core/amount.dart';
 
 /// Builds the transaction section that is seen under one of the main tabs on the home page.
 class TransactionSection extends StatefulWidget {
@@ -27,7 +27,7 @@ class _TransactionSectionState extends State<TransactionSection> {
       return SingleChildScrollView(
         child: Column(
           children: [
-            _buildTransferMenu(_transferDetails[Strings.transferType], Rules.transferTypes),
+            _buildTransferMenu(_transferDetails[Strings.transferType] as String, Rules.transferTypes),
             _buildTransferForm(vm),
           ],
         ),
@@ -109,7 +109,9 @@ class _TransactionSectionState extends State<TransactionSection> {
                     });
                   },
                 ),
-                minting ? const SizedBox() : _buildAssetMenu(_transferDetails[Strings.asset], assets),
+                minting
+                    ? const SizedBox()
+                    : _buildAssetMenu(_transferDetails[Strings.asset] as AssetAmount, assets),
                 _buildTextField(
                   Strings.amount,
                   (val) {

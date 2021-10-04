@@ -65,15 +65,15 @@ class AppState {
 
   factory AppState.fromMap(Map<String, dynamic> map) {
     return AppState(
-      onboardingState: OnboardingState.fromMap(map['onboardingState']),
-      loginState: LoginState.fromMap(map['loginState']),
-      keychainState: KeychainState.fromMap(map['keychainState']),
+      onboardingState: OnboardingState.fromMap(map['onboardingState'] as Map<String, dynamic>),
+      loginState: LoginState.fromMap(map['loginState'] as Map<String, dynamic>),
+      keychainState: KeychainState.fromMap(map['keychainState'] as Map<String, dynamic>),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory AppState.fromJson(String source) => AppState.fromMap(json.decode(source));
+  factory AppState.fromJson(String source) => AppState.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() =>
