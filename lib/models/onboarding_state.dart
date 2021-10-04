@@ -63,16 +63,17 @@ class OnboardingState {
 
   factory OnboardingState.fromMap(Map<String, dynamic> map) {
     return OnboardingState(
-      passwordMismatchError: map['passwordMismatchError'],
-      passwordTooShortError: map['passwordTooShortError'],
-      loadingPasswordValidation: map['loadingPasswordValidation'],
-      mnemonicMismatchError: map['mnemonicMismatchError'],
+      passwordMismatchError: map['passwordMismatchError'] as bool,
+      passwordTooShortError: map['passwordTooShortError'] as bool,
+      loadingPasswordValidation: map['loadingPasswordValidation'] as bool,
+      mnemonicMismatchError: map['mnemonicMismatchError'] as bool,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory OnboardingState.fromJson(String source) => OnboardingState.fromMap(json.decode(source));
+  factory OnboardingState.fromJson(String source) =>
+      OnboardingState.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {

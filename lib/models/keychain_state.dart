@@ -37,15 +37,17 @@ class KeychainState {
 
   factory KeychainState.fromMap(Map<String, dynamic> map) {
     return KeychainState(
-      keyStoreJson: map['keyStoreJson'],
-      networks: List<RibnNetwork>.from(map['networks']?.map((x) => RibnNetwork.fromMap(x))),
-      currNetworkIdx: map['currNetworkIdx'],
+      keyStoreJson: map['keyStoreJson'] as String?,
+      networks: List<RibnNetwork>.from(
+          (map['networks'] as Iterable<dynamic>).map((x) => RibnNetwork.fromMap(x as Map<String, dynamic>))),
+      currNetworkIdx: map['currNetworkIdx'] as int,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory KeychainState.fromJson(String source) => KeychainState.fromMap(json.decode(source));
+  factory KeychainState.fromJson(String source) =>
+      KeychainState.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
