@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:mubrambl/src/credentials/address.dart';
 import 'package:mubrambl/src/model/balances.dart';
+
 import 'package:ribn/constants/rules.dart';
 
 @immutable
@@ -15,6 +16,7 @@ class RibnAddress {
   final int changeIndex;
   final String keyPath;
   final Balance balance;
+  final int networkId;
 
   const RibnAddress({
     required this.address,
@@ -23,6 +25,7 @@ class RibnAddress {
     this.changeIndex = Rules.defaultChangeIndex,
     required this.keyPath,
     required this.balance,
+    required this.networkId,
   });
 
   RibnAddress copyWith({
@@ -32,6 +35,7 @@ class RibnAddress {
     int? changeIndex,
     String? keyPath,
     Balance? balance,
+    int? networkId,
   }) {
     return RibnAddress(
       address: address ?? this.address,
@@ -40,6 +44,7 @@ class RibnAddress {
       changeIndex: changeIndex ?? this.changeIndex,
       keyPath: keyPath ?? this.keyPath,
       balance: balance ?? this.balance,
+      networkId: networkId ?? this.networkId,
     );
   }
 
@@ -50,12 +55,17 @@ class RibnAddress {
       'accountIndex': accountIndex,
       'changeIndex': changeIndex,
       'keyPath': keyPath,
+      'networkId': networkId,
     };
   }
 
   factory RibnAddress.fromMap(Map<String, dynamic> map) {
     return RibnAddress(
-      address: ToplAddress.fromBase58(map['address'] as String),
+      address: ToplAddress.fromBase58(
+        map['address'] as String,
+        networkPrefix: map['networkId'] as int,
+      ),
+      networkId: map['networkId'] as int,
       addressIndex: map['addressIndex'] as int,
       accountIndex: map['accountIndex'] as int,
       changeIndex: map['changeIndex'] as int,
@@ -72,7 +82,7 @@ class RibnAddress {
 
   @override
   String toString() {
-    return 'RibnAddress(address: $address, addressIndex: $addressIndex, accountIndex: $accountIndex, changeIndex: $changeIndex, keyPath: $keyPath, balance: $balance)';
+    return 'RibnAddress(address: $address, addressIndex: $addressIndex, accountIndex: $accountIndex, changeIndex: $changeIndex, keyPath: $keyPath, balance: $balance, networkId: $networkId)';
   }
 
   @override
@@ -85,7 +95,8 @@ class RibnAddress {
         other.accountIndex == accountIndex &&
         other.changeIndex == changeIndex &&
         other.keyPath == keyPath &&
-        other.balance == balance;
+        other.balance == balance &&
+        other.networkId == networkId;
   }
 
   @override
@@ -95,6 +106,7 @@ class RibnAddress {
         accountIndex.hashCode ^
         changeIndex.hashCode ^
         keyPath.hashCode ^
-        balance.hashCode;
+        balance.hashCode ^
+        networkId.hashCode;
   }
 }
