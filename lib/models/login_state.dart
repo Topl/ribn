@@ -46,16 +46,18 @@ class LoginState {
 
   factory LoginState.fromMap(Map<String, dynamic> map) {
     return LoginState(
-      incorrectPasswordError: map['incorrectPasswordError'],
-      lastLogin: map['lastLogin'],
-      firstTimeLogin: map['firstTimeLogin'],
-      loadingPasswordCheck: map['loadingPasswordCheck'],
+      incorrectPasswordError: map['incorrectPasswordError'] as bool,
+      lastLogin: map['lastLogin'] as String?,
+      firstTimeLogin: map['firstTimeLogin'] as String?,
+      loadingPasswordCheck: map['loadingPasswordCheck'] as bool,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory LoginState.fromJson(String source) => LoginState.fromMap(json.decode(source));
+  factory LoginState.fromJson(String source) => LoginState.fromMap(
+        json.decode(source) as Map<String, dynamic>,
+      );
 
   @override
   String toString() {

@@ -55,18 +55,20 @@ class RibnAddress {
 
   factory RibnAddress.fromMap(Map<String, dynamic> map) {
     return RibnAddress(
-      address: ToplAddress.fromBase58(map['address']),
-      addressIndex: map['addressIndex'],
-      accountIndex: map['accountIndex'],
-      changeIndex: map['changeIndex'],
-      keyPath: map['keyPath'],
-      balance: Rules.initBalance(map['address']),
+      address: ToplAddress.fromBase58(map['address'] as String),
+      addressIndex: map['addressIndex'] as int,
+      accountIndex: map['accountIndex'] as int,
+      changeIndex: map['changeIndex'] as int,
+      keyPath: map['keyPath'] as String,
+      balance: Rules.initBalance(map['address'] as String),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory RibnAddress.fromJson(String source) => RibnAddress.fromMap(json.decode(source));
+  factory RibnAddress.fromJson(String source) => RibnAddress.fromMap(
+        json.decode(source) as Map<String, dynamic>,
+      );
 
   @override
   String toString() {

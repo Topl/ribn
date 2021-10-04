@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:mubrambl/src/core/amount.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/actions/keychain_actions.dart';
-import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:mubrambl/src/core/amount.dart';
+import 'package:ribn/models/ribn_address.dart';
 
 class HomeContainer extends StatelessWidget {
   const HomeContainer({Key? key, required this.builder}) : super(key: key);

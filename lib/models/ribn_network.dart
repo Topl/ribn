@@ -82,7 +82,7 @@ class RibnNetwork {
     return {
       'networkId': networkId,
       'networkUrl': networkUrl,
-      'addresses': addresses?.map((x) => x.toMap())?.toList(),
+      'addresses': addresses.map((x) => x.toMap()).toList(),
       'fetchingBalance': fetchingBalance,
     };
   }
