@@ -1,9 +1,9 @@
 // ignore_for_file: implementation_imports
 
 import 'dart:typed_data';
+import 'package:brambldart/credentials.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/ribn_address.dart';
-import 'package:mubrambl/src/credentials/hd_wallet_helper.dart';
 
 class InitializeHDWalletAction {
   final String? keyStoreJson;
