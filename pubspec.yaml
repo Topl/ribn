@@ -39,7 +39,7 @@ dependencies:
   redux: ^5.0.0
   redux_epics: ^0.15.0
   rxdart: ^0.26.0
-  mubrambl:
+  brambldart:
     git:
       url: https://github.com/Topl/BramblDart.git
       ref: dev
