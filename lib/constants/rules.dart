@@ -1,62 +1,62 @@
-// ignore_for_file: implementation_imports
-
+import 'package:brambldart/brambldart.dart';
+import 'package:brambldart/credentials.dart' as hd;
+import 'package:brambldart/utils.dart' as constants;
 import 'package:dio/dio.dart';
 import 'package:logging/logging.dart';
-import 'package:mubrambl/brambldart.dart';
-import 'package:mubrambl/src/core/amount.dart';
-import 'package:mubrambl/src/credentials/hd_wallet_helper.dart' as hd;
-import 'package:mubrambl/src/model/balances.dart';
-import 'package:mubrambl/src/utils/constants.dart' as constants;
-import 'package:mubrambl/src/utils/network.dart';
 import 'package:ribn/constants/strings.dart';
 
 class Rules {
   static const int minPasswordLength = 8;
   static const int scryptN = 8192;
-  static const int extendedSecretKeySize = hd.extended_secret_key_size;
+  static const int extendedSecretKeySize = hd.extendedSecretKeySize;
   static const int toplKeyDepth = 2;
-  static const int hardenedOffset = constants.HARDENED_OFFSET;
+  static const int hardenedOffset = constants.hardenedOffset;
   // Reference: [CIP-1852](https://github.com/cardano-foundation/CIPs/blob/master/CIP-1852/CIP-1852.md)
   // m / purpose' / coin_type' / account' / role / index
-  static const int defaultPurpose = constants.DEFAULT_PURPOSE; // 1852'
-  static const int defaultCoinType = constants.DEFAULT_COIN_TYPE; // 7091'
-  static const int defaultAccountIndex = constants.DEFAULT_ACCOUNT_INDEX; // 0'
+  static const int defaultPurpose = constants.defaultPurpose; // 1852'
+  static const int defaultCoinType = constants.defaultCoinType; // 7091'
+  static const int defaultAccountIndex = constants.defaultAccountIndex; // 0'
   static const int defaultChangeIndex =
-      constants.DEFAULT_CHANGE; // 0=external/payments, 1=internal/change, 2=staking
-  static const int defaultAddressIndex = constants.DEFAULT_ADDRESS_INDEX;
-  static const int assetCodeVersion = constants.SUPPORTED_ASSET_CODE_VERSION;
+      constants.defaultChangeIndex; // 0=external/payments, 1=internal/change, 2=staking
+  static const int defaultAddressIndex = constants.defaultAddressIndex;
+  static const int assetCodeVersion = constants.supportedAssetCodeVersion;
   static const int numInitialAddresses = 5;
   static const int internalIdx = 1;
   static const List<String> settings = [Strings.logout];
   static const int numHomeTabs = 3;
-  static int toplnetId = NETWORK_REGISTRY[Strings.toplnet]!;
-  static int valhallaId = NETWORK_REGISTRY[Strings.valhalla]!;
-  static int privateId = NETWORK_REGISTRY[Strings.private]!;
+  static int toplnetId = constants.networkRegistry[Strings.toplnet]!;
+  static int valhallaId = constants.networkRegistry[Strings.valhalla]!;
+  static int privateId = constants.networkRegistry[Strings.private]!;
   static Map<int, String> networkStrings = {
     valhallaId: Strings.valhalla,
     toplnetId: Strings.toplnet,
     privateId: Strings.private
   };
-  static const String projectId = "60ff001754b7c75558146daf";
+  static const String projectId = '60ff001754b7c75558146daf';
   static Map<int, String> networkApiKeys = {
-    valhallaId: "Mjc0ODg3MTktYTU3ZS00MGM2LWJkMmMtYTRjMzQxMWY3MjM4",
-    toplnetId: "N2IyNDljZmQtZjlkNS00Nzc4LWE1MGQtMmVhMzBjMzIyYjBi",
-    privateId: "topl_the_world!"
+    valhallaId: 'Mjc0ODg3MTktYTU3ZS00MGM2LWJkMmMtYTRjMzQxMWY3MjM4',
+    toplnetId: 'N2IyNDljZmQtZjlkNS00Nzc4LWE1MGQtMmVhMzBjMzIyYjBi',
+    privateId: 'topl_the_world!'
   };
   static Map<int, String> networkUrls = {
-    valhallaId: "https://staging.vertx.topl.services/valhalla/$projectId",
-    toplnetId: "https://staging.vertx.topl.services/mainnet/$projectId",
-    privateId: "http://localhost:9085"
+    // staging.vertx.
+    valhallaId: 'https://staging.vertx.topl.services/valhalla/$projectId',
+    toplnetId: 'https://staging.vertx.topl.services/mainnet/$projectId',
+    privateId: 'http://localhost:9085'
   };
   static Map<int, PolyAmount> networkFees = {
-    valhallaId: PolyAmount.fromUnitAndValue(PolyUnit.nanopoly, VALHALLA_FEE),
-    toplnetId: PolyAmount.fromUnitAndValue(PolyUnit.nanopoly, TOPLNET_FEE),
+    valhallaId: PolyAmount.fromUnitAndValue(PolyUnit.nanopoly, constants.valhallaFee),
+    toplnetId: PolyAmount.fromUnitAndValue(PolyUnit.nanopoly, constants.toplnetFee),
     privateId: PolyAmount.zero(),
   };
   static const transferTypes = [Strings.polyTransfer, Strings.assetTransfer, Strings.minting];
+  static const internalMethods = {
+    'checkPendingRequest': 'checkPendingRequest',
+    'returnResponse': 'returnResponse',
+  };
   static BramblClient getBramblCient(int networkId) {
-    Logger logger = Logger("BramblClient");
-    Dio httpClient = Dio(
+    final Logger logger = Logger('BramblClient');
+    final Dio httpClient = Dio(
       BaseOptions(
         baseUrl: networkUrls[networkId]!,
         contentType: 'application/json',
