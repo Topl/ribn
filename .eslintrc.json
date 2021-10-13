@@ -1,51 +1,37 @@
 {
+    "root": true,
     "env": {
-        // access required global variables 
         "browser": true,
-        "es2021": true,
-        "node": true,
-        "worker": true,
-        "commonjs": true,
-        "webextensions": true
+        "webextensions": true,
+        "es2020": true
     },
-    "extends": [
-        "google"
+    "parser": "@typescript-eslint/parser",
+    "overrides": [
+        {
+            "files": [
+                "*.ts"
+            ],
+            "parserOptions": {
+                "project": [
+                    "./tsconfig.json"
+                ]
+            }
+        }
     ],
-    "parserOptions": {
-        "ecmaVersion": 12,
-        "requireConfigFile": false
-    },
-    "parser": "@babel/eslint-parser",
     "plugins": [
-        "@babel"
+        "@typescript-eslint"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
     ],
     "rules": {
-        // disallow use of undeclared variables
-        "no-undef": "error",
-        "quotes": [
-            "error",
-            "double",
-            {
-                "allowTemplateLiterals": true
-            }
-        ],
-        "comma-dangle": [
-            "error",
-            "never"
-        ],
-        "valid-jsdoc": [
-            "error",
-            {
-                "prefer": {
-                    "return": "returns"
-                }
-            }
-        ],
-        "max-len": 0,
-        "no-invalid-this": 0,
-        "@babel/new-cap": "error",
-        "@babel/no-unused-expressions": "error",
-        "@babel/object-curly-spacing": "error",
-        "@babel/semi": "error"
-    }
+        "@typescript-eslint/no-unused-vars": "error",
+        "@typescript-eslint/no-explicit-any": "off"
+    },
+    "ignorePatterns": [
+        "webpack.config.js",
+        "dist/*"
+    ]
 }
