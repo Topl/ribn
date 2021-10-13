@@ -28,4 +28,7 @@ class Strings {
   static const String polyAmount = "polyAmount";
   static const String rawTx = "rawTx";
   static const String messageToSign = "messageToSign";
+  static const String sign = "Sign";
+  static const String checkPendingRequest = "checkPendingRequest";
+  static const String returnResponse = "returnResponse";
 }
