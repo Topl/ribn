@@ -1,8 +1,7 @@
 // ignore_for_file: implementation_imports
 
+import 'package:brambldart/model.dart';
 import 'package:flutter/material.dart';
-import 'package:mubrambl/brambldart.dart';
-import 'package:mubrambl/src/core/amount.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/ui_constants.dart';
