@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:redux/redux.dart';
+import 'package:ribn/constants/strings.dart';
 import 'package:ribn/data/data.dart' as local;
 import 'package:ribn/middlewares/app_middleware.dart';
 import 'package:ribn/models/app_state.dart';
@@ -28,7 +30,7 @@ class Redux {
   }
 
   /// Fetches [AppState] from the extension's storage and initializes the Redux [_store]
-  static Future<void> init({
+  static Future<void> initStore({
     OnboardingRespository onboardingRepo = onboardingRespository,
     LoginRepository loginRepo = loginRepository,
     MiscRepository miscRepo = miscRepository,
@@ -58,5 +60,25 @@ class Redux {
     } catch (e) {
       return {};
     }
+  }
+
+  /// Initiates a long-lived connection with the background script.
+  ///
+  /// Also adds a listener for incoming messages.
+  static Future<String> initBgConnection() async {
+    final Completer<String> completer = Completer<String>();
+    try {
+      if (await local.openedInExtensionView()) {
+        completer.complete('');
+      } else {
+        local.connectToBackground();
+        local.initMessageListener(completer.complete);
+        local.sendPortMessage(jsonEncode({'method': Strings.checkPendingRequest}));
+      }
+    } catch (e) {
+      completer.complete('');
+      local.closeWindow();
+    }
+    return completer.future;
   }
 }
