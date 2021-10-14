@@ -50,10 +50,6 @@ class Rules {
     privateId: PolyAmount.zero(),
   };
   static const transferTypes = [Strings.polyTransfer, Strings.assetTransfer, Strings.minting];
-  static const internalMethods = {
-    'checkPendingRequest': 'checkPendingRequest',
-    'returnResponse': 'returnResponse',
-  };
   static BramblClient getBramblCient(int networkId) {
     final Logger logger = Logger('BramblClient');
     final Dio httpClient = Dio(
