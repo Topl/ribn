@@ -14,6 +14,7 @@ Epic<AppState> createEpicMiddleware(MiscRepository miscRepo) => combineEpics<App
       _routerEpic(),
       _errorRedirectEpic(),
       _persistenceTriggerEpic(),
+      _sendToBackground(miscRepo),
     ]);
 
 /// A list of all the actions that should trigger appState persistence
@@ -69,4 +70,13 @@ Epic<AppState> _persistenceTriggerEpic() => (Stream<dynamic> actions, EpicStore<
       return actions
           .where((action) => (persistenceTriggers.contains(action.runtimeType)))
           .switchMap((action) => Stream.value(PersistAppState()));
+    };
+
+/// Listens for [SendInternalMsgAction] - message to be sent to the background-script
+Epic<AppState> _sendToBackground(MiscRepository miscRepo) =>
+    (Stream<dynamic> actions, EpicStore<AppState> store) {
+      return actions.whereType<SendInternalMsgAction>().switchMap((action) {
+        miscRepo.sendInternalMessage(action.msg);
+        return const Stream.empty();
+      });
     };
