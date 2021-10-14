@@ -31,4 +31,6 @@ class Strings {
   static const String sign = "Sign";
   static const String checkPendingRequest = "checkPendingRequest";
   static const String returnResponse = "returnResponse";
+  static const String signTx = "signTx";
+  static const String enable = "enable";
 }
