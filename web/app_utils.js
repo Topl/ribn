@@ -4,7 +4,13 @@
  */
 async function persistToStorage(obj) {
 	const parsedObj = JSON.parse(obj);
-	await chrome.storage.local.set({ data: parsedObj });
+	const stored = await getDataFromLocalStorage("data");
+	await chrome.storage.local.set({
+		data: {
+			...stored,
+			...parsedObj,
+		},
+	});
 }
 
 /**
