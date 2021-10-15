@@ -51,7 +51,7 @@ function connectToBackground() {
  * Attaches a listener for incoming messages from the connection held by `port`
  * @param {Function} fn callback function
  */
-function addMessageListener(fn) {
+function addPortMessageListener(fn) {
 	port.onMessage.addListener(function messageHandler(msg) {
 		port.onMessage.removeListener(messageHandler);
 		fn(msg);
