@@ -5,6 +5,7 @@ export type APIRequest = {
 
 export type InternalMessage = {
 	id: string;
+	method: string;
 	target: string;
 	sender: string;
 	data?: Record<string, any>;
