@@ -1,9 +1,9 @@
 // ignore_for_file: implementation_imports
 
+import 'package:brambldart/model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:mubrambl/src/core/amount.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/models/app_state.dart';
