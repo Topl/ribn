@@ -18,5 +18,5 @@ function injectScript(): void {
 }
 
 injectScript();
-const content = Messenger.createContentMessagingController();
-content.initListeners();
+const messenger = Messenger.createContentMessagingController();
+messenger.initListeners();
