@@ -2,13 +2,11 @@
 
 import 'dart:typed_data';
 
-import 'package:mubrambl/brambldart.dart';
-import 'package:mubrambl/src/core/amount.dart';
-import 'package:mubrambl/src/credentials/address.dart';
-import 'package:mubrambl/src/credentials/credentials.dart';
-import 'package:mubrambl/src/model/box/asset_code.dart';
-import 'package:mubrambl/src/model/box/security_root.dart';
-import 'package:mubrambl/src/model/box/token_value_holder.dart';
+import 'package:brambldart/brambldart.dart';
+import 'package:brambldart/client.dart';
+import 'package:brambldart/credentials.dart';
+import 'package:brambldart/model.dart';
+import 'package:brambldart/src/model/box/token_value_holder.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/ribn_address.dart';
@@ -24,7 +22,8 @@ class TransactionRepository {
     switch (transferDetails[Strings.transferType]) {
       case Strings.polyTransfer:
         {
-          ToplAddress sender = (transferDetails[Strings.sender] as RibnAddress).address;
+          List<ToplAddress> senders =
+              (transferDetails[Strings.sender] as List<RibnAddress>).map((addr) => addr.address).toList();
           ToplAddress change = (transferDetails[Strings.change] as RibnAddress).address;
           ToplAddress recipient = ToplAddress.fromBase58(transferDetails[Strings.recipient] as String);
           PolyTransaction polyTransaction = PolyTransaction(
@@ -34,8 +33,8 @@ class TransactionRepository {
                 SimpleValue(quantity: transferDetails[Strings.amount].toString()),
               )
             ],
-            sender: [sender],
-            propositionType: sender.proposition.propositionName,
+            sender: senders,
+            propositionType: senders[0].proposition.propositionName,
             changeAddress: change,
             fee: Rules.networkFees[transferDetails[Strings.networkId]],
             // data: null,
@@ -45,7 +44,8 @@ class TransactionRepository {
         }
       case Strings.assetTransfer:
         {
-          ToplAddress sender = (transferDetails[Strings.sender] as RibnAddress).address;
+          List<ToplAddress> senders =
+              (transferDetails[Strings.sender] as List<RibnAddress>).map((addr) => addr.address).toList();
           ToplAddress change = (transferDetails[Strings.change] as RibnAddress).address;
           AssetAmount assetAmount = transferDetails[Strings.asset] as AssetAmount;
           ToplAddress recipient = ToplAddress.fromBase58(transferDetails[Strings.recipient] as String);
@@ -58,10 +58,10 @@ class TransactionRepository {
           );
           AssetTransaction assetTransaction = AssetTransaction(
             recipients: [AssetRecipient(recipient, assetValue)],
-            sender: [sender],
+            sender: senders,
             changeAddress: change,
             consolidationAddress: change,
-            propositionType: sender.proposition.propositionName,
+            propositionType: senders[0].proposition.propositionName,
             minting: false,
             assetCode: assetAmount.assetCode,
             fee: Rules.networkFees[transferDetails[Strings.networkId]],
@@ -71,10 +71,12 @@ class TransactionRepository {
         }
       case Strings.minting:
         {
-          ToplAddress sender = (transferDetails[Strings.sender] as RibnAddress).address;
+          List<ToplAddress> senders =
+              (transferDetails[Strings.sender] as List<RibnAddress>).map((addr) => addr.address).toList();
+          ToplAddress change = (transferDetails[Strings.change] as RibnAddress).address;
           AssetCode assetCode = AssetCode.initialize(
             Rules.assetCodeVersion,
-            sender,
+            senders[0],
             transferDetails[Strings.assetName] as String,
             Rules.networkStrings[transferDetails[Strings.networkId]]!,
           );
@@ -86,11 +88,11 @@ class TransactionRepository {
             "Asset",
           );
           AssetTransaction assetTransaction = AssetTransaction(
-            recipients: [AssetRecipient(sender, assetValue)],
-            sender: [sender],
-            changeAddress: sender,
-            consolidationAddress: sender,
-            propositionType: sender.proposition.propositionName,
+            recipients: [AssetRecipient(senders[0], assetValue)],
+            sender: senders,
+            changeAddress: change,
+            consolidationAddress: change,
+            propositionType: senders[0].proposition.propositionName,
             minting: true,
             assetCode: assetCode,
             fee: Rules.networkFees[transferDetails[Strings.networkId]],
@@ -107,7 +109,7 @@ class TransactionRepository {
 
   Future<TransactionReceipt> signTx(
     BramblClient client,
-    Credentials creds,
+    List<Credentials> creds,
     Map<String, dynamic> transferDetails,
   ) async {
     return await client.signTransaction(
@@ -121,7 +123,7 @@ class TransactionRepository {
     return await client.sendSignedTransaction(signedTx);
   }
 
-  RibnAddress getSenderAddress(
+  List<RibnAddress> getSenderAddresses(
     String transferType,
     RibnNetwork currNetwork, {
     int? polyAmount,
@@ -132,15 +134,15 @@ class TransactionRepository {
       case Strings.polyTransfer:
         {
           int targetAmount = polyAmount! + networkFee;
-          return currNetwork.getAddrWithSufficientPolys(targetAmount);
+          return currNetwork.getAddrsWithSufficientPolys(targetAmount);
         }
       case Strings.minting:
         {
-          return currNetwork.getAddrWithSufficientPolys(networkFee);
+          return currNetwork.getAddrsWithSufficientPolys(networkFee);
         }
       case Strings.assetTransfer:
         {
-          return currNetwork.getAddrWithSufficientAssets(assetAmount!, networkFee);
+          return [currNetwork.getAddrWithSufficientAssets(assetAmount!, networkFee)];
         }
       default:
         {
