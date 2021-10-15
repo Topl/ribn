@@ -2,14 +2,9 @@
 import 'dart:typed_data';
 
 import 'package:bip_topl/bip_topl.dart';
-import 'package:mubrambl/brambldart.dart';
+import 'package:brambldart/brambldart.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/ribn_address.dart';
-import 'package:mubrambl/src/credentials/hd_wallet_helper.dart';
-import 'package:mubrambl/src/credentials/address.dart';
-import 'package:mubrambl/src/credentials/credentials.dart';
-import 'package:mubrambl/src/model/balances.dart';
-import 'package:mubrambl/src/utils/proposition_type.dart';
 
 class KeychainRepository {
   const KeychainRepository();
@@ -53,20 +48,25 @@ class KeychainRepository {
     return await client.getAllAddressBalances(addresses);
   }
 
-  Credentials getCredentials(
-    HdWallet hdWallet, {
-    int account = Rules.defaultAccountIndex,
-    int change = Rules.defaultChangeIndex,
-    int addr = Rules.defaultAddressIndex,
-    required int networkId,
-    PropositionType? propositionType,
-  }) {
-    Bip32KeyPair keyPair = hdWallet.deriveLastThreeLayers(account: account, change: change, address: addr);
-    String base58EncodedPrivKey = Base58Encoder.instance.encode(Uint8List.fromList(keyPair.privateKey!));
-    return ToplSigningKey.fromString(
-      base58EncodedPrivKey,
-      networkId,
-      propositionType ?? PropositionType.ed25519(),
-    );
+  List<Credentials> getCredentials(HdWallet hdWallet, List<RibnAddress> addresses) {
+    final List<Credentials> creds = [];
+    for (RibnAddress addr in addresses) {
+      final Bip32KeyPair keyPair = hdWallet.deriveLastThreeLayers(
+        account: addr.accountIndex,
+        change: addr.changeIndex,
+        address: addr.addressIndex,
+      );
+      final String base58EncodedPrivKey = Base58Encoder.instance.encode(
+        Uint8List.fromList(keyPair.privateKey!),
+      );
+      creds.add(
+        ToplSigningKey.fromString(
+          base58EncodedPrivKey,
+          addr.networkId,
+          addr.address.proposition,
+        ),
+      );
+    }
+    return creds;
   }
 }
