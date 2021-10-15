@@ -34,7 +34,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["./dist/content.bundle.js"],
+      "js": ["/dist/content.bundle.js"],
       "type": "module",
       "run_at": "document_start"
     }
