@@ -1,19 +1,23 @@
 @JS()
 library js_utils;
 
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:html';
+
 import 'package:js/js.dart';
 import 'package:js/js_util.dart';
 
 @JS()
 external void sendMessage();
 external void connectToBackground();
-external void addMessageListener(Function fn);
+external void addPortMessageListener(Function fn);
 external void sendPortMessage(String data);
 external Future<void> persistToStorage(String data);
 external Future<String> fetchData();
+external Future<bool> isExtensionView();
 
-void initMessageListener(Function msgHandler) {
-  addMessageListener(allowInterop(msgHandler));
+void initPortMessageListener(Function msgHandler) {
+  addPortMessageListener(allowInterop(msgHandler));
 }
 
 /// Calls the JS function [fetchData] defined in "utils.js" to fetch data from local storage
@@ -26,4 +30,13 @@ Future<String> getDataFromLocalStorage() {
 /// [promiseToFuture] converts a javascript promise into a dart [Future]
 Future<void> persistAppState(String data) async {
   await promiseToFuture(persistToStorage(data));
+}
+
+void closeWindow() {
+  window.close();
+}
+
+/// Checks if the extension is opened in the default extension-popup view.
+Future<bool> openedInExtensionView() {
+  return promiseToFuture(isExtensionView());
 }

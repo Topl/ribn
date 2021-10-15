@@ -72,7 +72,7 @@ class Redux {
         completer.complete('');
       } else {
         local.connectToBackground();
-        local.initMessageListener(completer.complete);
+        local.initPortMessageListener(completer.complete);
         local.sendPortMessage(jsonEncode({'method': Strings.checkPendingRequest}));
       }
     } catch (e) {
