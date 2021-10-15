@@ -25,7 +25,7 @@ export const ExtensionStorage = {
 		storage[key] = val;
 		await chrome.storage.local.set({ data: storage });
 	},
-	isAllowed: async (url: string) => {
+	isOriginAllowed: async (url: string) => {
 		const currentAllowList: string[] = await ExtensionStorage.getAllowList();
 		return currentAllowList.includes(url);
 	},
