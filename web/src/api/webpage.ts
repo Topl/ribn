@@ -15,3 +15,10 @@ export const enable = async () => {
 	});
 	return result.data;
 };
+
+export const isEnabled = async () => {
+	const result = await Messenger.forwardToContentScript({
+		method: API_METHODS.isEnabled,
+	});
+	return result.data;
+};
