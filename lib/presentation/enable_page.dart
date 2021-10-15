@@ -37,7 +37,7 @@ class EnablePage extends StatelessWidget {
       method: Strings.returnResponse,
       sender: InternalMessage.defaultSender,
       data: {
-        'enable': accept,
+        'enabled': accept,
       },
     );
     StoreProvider.of<AppState>(context).dispatch(SendInternalMsgAction(response));
