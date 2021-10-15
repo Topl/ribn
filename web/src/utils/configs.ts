@@ -1,6 +1,7 @@
 export const API_METHODS = {
 	enable: "enable",
 	signTx: "signTx",
+	isEnabled: "isEnabled",
 };
 
 export const INTERNAL_METHODS = {
