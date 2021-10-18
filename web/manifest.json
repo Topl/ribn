@@ -1,7 +1,7 @@
 {
   "name": "Ribn",
   "description": "A lightweight flutter wallet to interact with the Topl blockchain",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
   },
