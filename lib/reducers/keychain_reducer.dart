@@ -1,6 +1,6 @@
 // ignore_for_file: implementation_imports
 import 'package:bip_topl/bip_topl.dart';
-import 'package:mubrambl/src/credentials/hd_wallet_helper.dart';
+import 'package:brambldart/credentials.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/constants/rules.dart';

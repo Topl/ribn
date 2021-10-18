@@ -1,9 +1,7 @@
-// ignore_for_file: implementation_imports
 import 'dart:convert';
 
+import 'package:brambldart/brambldart.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mubrambl/brambldart.dart';
-import 'package:mubrambl/src/core/amount.dart';
 
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/ribn_address.dart';
@@ -40,8 +38,19 @@ class RibnNetwork {
     return addresses.lastIndexWhere((addr) => addr.changeIndex == Rules.internalIdx) + 1;
   }
 
-  RibnAddress getAddrWithSufficientPolys(int target) {
-    return addresses.firstWhere((addr) => addr.balance.polys.quantity >= target);
+  List<RibnAddress> getAddrsWithSufficientPolys(int target) {
+    final List<RibnAddress> sortedAddrs = List.from(addresses)
+      ..sort((a, b) => a.balance.polys.quantity.compareTo(b.balance.polys.quantity));
+    num availableBalance = 0;
+    final List<RibnAddress> selectedAddrs = [];
+    for (int i = 0; i < sortedAddrs.length; i++) {
+      if (sortedAddrs[i].balance.polys.quantity > 0) {
+        selectedAddrs.add(sortedAddrs[i]);
+        availableBalance += sortedAddrs[i].balance.polys.quantity;
+      }
+      if (availableBalance >= target) break;
+    }
+    return availableBalance >= target ? selectedAddrs : [];
   }
 
   RibnAddress getAddrWithSufficientAssets(AssetAmount asset, int target) {

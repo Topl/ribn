@@ -50,6 +50,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  brambldart:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: dev
+      resolved-ref: "5f90d2e6deba10b37611f15ceb3e1bac57d5c82e"
+      url: "https://github.com/Topl/BramblDart.git"
+    source: git
+    version: "0.0.1"
   build:
     dependency: transitive
     description:
@@ -382,15 +391,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.15"
-  mubrambl:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: dev
-      resolved-ref: "4bdcd6b259ad1cc4733e10e1f0c2f1dd265d1455"
-      url: "https://github.com/Topl/BramblDart.git"
-    source: git
-    version: "1.0.0"
   node_interop:
     dependency: transitive
     description:
@@ -647,7 +647,7 @@ packages:
       name: uuid
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.4"
+    version: "3.0.5"
   vector_math:
     dependency: transitive
     description:

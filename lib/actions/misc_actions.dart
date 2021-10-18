@@ -1,3 +1,5 @@
+import 'package:ribn/models/internal_message.dart';
+
 class PersistAppState {}
 
 class FailedToPersistAppStateAction {}
@@ -11,4 +13,14 @@ class NavigateToRoute {
   final String route;
   final Object? arguments;
   NavigateToRoute(this.route, {this.arguments});
+}
+
+class SendInternalMsgAction {
+  final InternalMessage msg;
+  SendInternalMsgAction(this.msg);
+}
+
+class ReceiveInternalMsgAction {
+  final String msg;
+  ReceiveInternalMsgAction(this.msg);
 }

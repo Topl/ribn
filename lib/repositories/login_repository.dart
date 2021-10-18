@@ -1,7 +1,7 @@
 // ignore_for_file: implementation_imports
 import 'dart:typed_data';
 import 'package:bip_topl/bip_topl.dart';
-import 'package:mubrambl/src/crypto/keystore.dart';
+import 'package:brambldart/crypto.dart';
 
 class LoginRepository {
   const LoginRepository();

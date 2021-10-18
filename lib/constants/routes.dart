@@ -7,5 +7,7 @@ class Routes {
   static const login = "/login";
   static const home = "/home";
   static const addresses = "/addresses";
+  static const externalSigning = "/ext-signing";
+  static const enable = "/enable";
   static const error = "/error";
 }

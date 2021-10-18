@@ -1,4 +1,5 @@
-import 'package:mubrambl/brambldart.dart';
+import 'package:brambldart/model.dart';
+import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/models/ribn_address.dart';
 
 class InitiateTxAction {
@@ -20,4 +21,9 @@ class BroadcastTxAction {
   TransactionReceipt signedTx;
   RibnAddress? changeAddress;
   BroadcastTxAction(this.signedTx, {this.changeAddress});
+}
+
+class SignExternalTxAction {
+  InternalMessage pendingRequest;
+  SignExternalTxAction(this.pendingRequest);
 }
