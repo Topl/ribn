@@ -1,4 +1,5 @@
 import { Messenger } from "../api/messenger";
+import { ExtensionStorage } from "../api/storage";
 
 /**
  * Event fired upon initial installation of the extension
@@ -8,11 +9,15 @@ chrome.runtime.onInstalled.addListener((details: chrome.runtime.InstalledDetails
 });
 
 /**
- * Respond to action click if manifest.json has not specified a
- * default default_popup.
- * Ref: https://developer.chrome.com/docs/extensions/reference/action/#popup
+ * Opens a new tab if onboarding, otherwise sets the extension popup.
  */
-chrome.action.onClicked.addListener((tab: chrome.tabs.Tab) => {
+chrome.action.onClicked.addListener(async (tab: chrome.tabs.Tab) => {
+	const storage = await ExtensionStorage.getStorage();
+	if (!storage || !storage["keychainState"] || !storage["keychainState"]["keyStoreJson"]) {
+		chrome.tabs.create({ url: chrome.runtime.getURL("index.html"), active: true });
+	} else {
+		chrome.action.setPopup({ popup: chrome.runtime.getURL("index.html") });
+	}
 	console.log(tab);
 });
 
