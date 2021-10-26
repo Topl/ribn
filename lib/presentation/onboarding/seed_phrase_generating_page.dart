@@ -100,7 +100,7 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
       ),
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 55.0),
-        child: SvgPicture.asset(RibnAssets.paperPenIcon, height: 58, width: 58),
+        child: SvgPicture.asset(RibnAssets.seedPhraseGenerated),
       ),
       const SizedBox(
         height: 95,
