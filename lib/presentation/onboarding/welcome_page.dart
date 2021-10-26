@@ -22,7 +22,7 @@ class WelcomePage extends StatelessWidget {
           children: [
             const Text(
               Strings.welcomeToRibn,
-              style: RibnTextStyles.headingOne,
+              style: RibnTextStyles.h1,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 42),
@@ -33,13 +33,14 @@ class WelcomePage extends StatelessWidget {
             ),
             const SizedBox(height: 23),
             const SizedBox(
-              width: 575,
-              height: 83,
+              width: 650,
+              height: 85,
               child: Center(
                 child: Text(
                   Strings.intro,
-                  style: RibnTextStyles.bodyOne,
+                  style: RibnTextStyles.body1,
                   textAlign: TextAlign.center,
+                  textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
                 ),
               ),
             ),
