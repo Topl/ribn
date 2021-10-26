@@ -56,8 +56,6 @@ class SelectActionPage extends StatelessWidget {
               onPressed: () => StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(Routes.gettingStarted)),
               child: SvgPicture.asset(
                 title == Strings.createWallet ? RibnAssets.plusIcon : RibnAssets.importWalletIcon,
-                height: 50,
-                width: 40,
               ),
             ),
           ),
