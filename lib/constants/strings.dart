@@ -71,7 +71,7 @@ Make sure they are in the exact order shown below. Don’t take screenshots!''';
   static const String seedPhraseConfirmed = 'Seed Phrase Confirmed!';
   static const String seedPhraseConfirmedDesc = '''Good job! Each word in your Seed Phrase has been input correctly. 
 Rest assured, you have saved the correct words, in the correct order.''';
-  static const String cont = 'continue';
+  static const String cont = 'Continue';
   static const String createWalletPassword = 'Create Wallet Password';
   static const String createWalletPasswordDesc = '''Last step, we will create a Wallet Password. 
 A Wallet Password is used to unlock your wallet.''';
@@ -91,15 +91,21 @@ A Wallet Password is used to unlock your wallet.''';
       'I understand that Topl cannot recover my Wallet Password for me.';
   static const String readFollowingCarefullyPointThree =
       'I understand that my Seed phrase and Wallet Password are both unrecoverable.';
-  static const String walletCreated = 'Success! Wallet Created';
+  static const String walletCreated = '''Success!\nWallet Created''';
   static const String walletCreatedDesc =
       '''You’re all set. Make sure to keep your 15 word Seed phrase safe and private. 
 You'll need it to recover your wallet if your device is lost or broken.''';
   static const String frequentlyAskedQuestions = 'Frequently Asked Questions:';
   static const String howCanIKeepMySeedPhraseSecure = 'How can I keep my Seed Phrase secure?';
-  static const String howCanIKeepMySeedPhraseSecureAns = '''Save in a password manager.
-Keep in a safe deposit box.
-Encrypt and store on an external drive.''';
+  static const String howCanIKeepMySeedPhraseSecureAns =
+      '''• Save in a password manager.\n• Keep in a safe deposit box.\n• Encrypt and store on an external drive.''';
+  static const String howIsASeedPhraseDifferent = 'How is a Seed Phrase different from a Wallet Password?';
+  static const String howIsASeedPhraseDifferentAns =
+      '''Your Seed Phrase essentially is your wallet. From just this piece of information, your entire wallet can be recreated and accessed. Meanwhile, your Wallet Password can only lock and unlock your wallet on a device where it is already stored.''';
+  static const String howIsMySeedPhraseUnrecoverable = 'How is my Seed Phrase or Wallet Password unrecoverable?';
+  static const String howIsMySeedPhraseUnrecoverableAns =
+      '''You are the only one with a record of your Seed Phrase or Wallet Password. Topl does not maintain or have any way to generate either of these for you.''';
+
   static const String seedPhraseGenerating = 'Seed Phrase Generating...';
   static const String goGrabAPenAndPaper = 'Go grab a pen and paper';
   static const String seriouslyGetAPenAndPaper = 'Seriously, get a pen and paper';
@@ -108,4 +114,13 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String seedPhraseGenerated = 'Seed Phrase Generated!';
   static const String seedPhraseGeneratedDesc =
       '''Now that your Seed Phrase has been generated you will be writing the 15 words on a piece of paper. Write down the each word in the exact order it is presented.''';
+  static const String generateSeedPhrase = 'GENERATE SEED PHRASE';
+  static const String writeDown = 'WRITE DOWN SEED PHRASE';
+  static const String confirmSeedPhrase = 'CONFIRM SEED PHRASE';
+  static const String ribnWallet = 'Ribn Wallet';
+  static const String openTheWalletBy = 'Open the RibnWallet extension by:';
+  static const String clickingTheIconPartOne = 'Clicking the ';
+  static const String clickingTheIconPartTwo = ''' icon on the top right of your browser.
+Or, clicking the ''';
+  static const String clickingTheIconPartThree = ' to find the RibnWallet extension in the Chrome extension list.';
 }
