@@ -93,7 +93,7 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
           width: 312,
           child: Text(
             Strings.seedPhraseGenerated,
-            style: RibnTextStyles.headingOne,
+            style: RibnTextStyles.h1,
             textAlign: TextAlign.center,
           ),
         ),
@@ -118,25 +118,25 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
       case 3:
       case 4:
         {
-          return Text(
+          return const Text(
             Strings.seedPhraseGenerating,
-            style: RibnTextStyles.headingOne.copyWith(height: 1.26),
+            style: RibnTextStyles.h1,
             textAlign: TextAlign.center,
           );
         }
       case 1:
         {
-          return Text(
+          return const Text(
             Strings.goGrabAPenAndPaper,
-            style: RibnTextStyles.headingOne.copyWith(height: 1.26),
+            style: RibnTextStyles.h1,
             textAlign: TextAlign.center,
           );
         }
       case 2:
         {
-          return Text(
+          return const Text(
             Strings.seriouslyGetAPenAndPaper,
-            style: RibnTextStyles.headingOne.copyWith(height: 1.26),
+            style: RibnTextStyles.h1,
             textAlign: TextAlign.center,
           );
         }
