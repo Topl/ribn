@@ -1,7 +1,6 @@
 class CreatePasswordAction {
   final String password;
-  final String confirmPassword;
-  const CreatePasswordAction(this.password, this.confirmPassword);
+  const CreatePasswordAction(this.password);
 }
 
 class PasswordSuccessfullyCreatedAction {
@@ -9,13 +8,14 @@ class PasswordSuccessfullyCreatedAction {
   PasswordSuccessfullyCreatedAction(this.mnemonic);
 }
 
-class PasswordMismatchAction {}
-
-class PasswordTooShortAction {}
-
 class LoadingPasswordValidationAction {}
 
-class ErrorCreatingPasswordAction {}
+class GenerateMnemonicAction {}
+
+class MnemonicSuccessfullyGeneratedAction {
+  final String mnemonic;
+  const MnemonicSuccessfullyGeneratedAction(this.mnemonic);
+}
 
 class VerifyMnemonicAction {
   final String userInput;
