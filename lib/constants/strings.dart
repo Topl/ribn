@@ -44,6 +44,7 @@ class Strings {
   static const String importWallet = 'Import Wallet';
   static const String importWalletDescription = 'This will create your new wallet and 15 word seed phrase.';
   static const String gettingStarted = 'Getting Started';
+  static const String download = 'Download';
   static const String gettingStartedDescription =
       '''First, we are going to take you through the process of generating your Seed Phrase. 
 This 15-word phrase will be used to restore your assets if this device is lost or damaged!''';
@@ -63,6 +64,9 @@ my wallet contents can only be recovered by using my seed phrase.''';
   static const String securePasswordManager = 'A secure password manager.';
   static const String encryptTextFile = 'A program such as PGP to encrypt your text file.';
   static const String writeDownSeedPhrase = 'Write Down Seed Phrase';
+  static const String letsTryThatAgain = 'Now, Let’s Try That Again';
+  static const String heyIWasntKidding =
+      '''Hey I wasn’t kidding, write these words down in the exact order they are shown. Remember don’t take any screenshots!''';
   static const String writeDownSeedPhraseDesc = '''Now, you will write each word of your Seed Phrase down carefully.
 Make sure they are in the exact order shown below. Don’t take screenshots!''';
   static const String done = 'DONE';
