@@ -40,14 +40,14 @@ class GettingStartedPage extends StatelessWidget {
             ),
           ),
           SvgPicture.asset(RibnAssets.logoCardIcon),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 40.0),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 40.0),
             child: SizedBox(
-              width: 704,
-              height: 92,
+              width: 785,
+              height: 100,
               child: Text(
                 Strings.gettingStartedDescription,
-                style: RibnTextStyles.body1.copyWith(height: 2.36),
+                style: RibnTextStyles.body1,
                 textAlign: TextAlign.start,
                 textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
               ),
