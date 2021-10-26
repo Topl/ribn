@@ -41,7 +41,7 @@ class RootRouter {
             builder: (context) => const ReadCarefullyPageOne(),
           );
         }
-      case Routes.seedPhraseGenerate:
+      case Routes.onboardingSteps:
         {
           return MaterialPageRoute(
             settings: settings,
