@@ -103,7 +103,7 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
           ),
         ),
         SizedBox(
-          height: 60,
+          height: 100,
           child: Text(
             label,
             style: RibnTextStyles.body1.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),
@@ -218,6 +218,7 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
           Padding(
             padding: const EdgeInsets.only(top: 40.0, bottom: 40),
             child: ContinueButton(Strings.letsGo, () {
+              Keys.navigatorKey.currentState!.pop();
               StoreProvider.of<AppState>(context).dispatch(GenerateMnemonicAction());
             }),
           )
