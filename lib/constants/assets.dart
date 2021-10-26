@@ -9,4 +9,7 @@ class RibnAssets {
   static const walletPasswordIcon = 'assets/icons/wallet_password.svg';
   static const addIcon = 'assets/icons/add.svg';
   static const removeIcon = 'assets/icons/remove.svg';
+  static const extensionIcon = 'assets/icons/extension.svg';
+  static const plusIcon = 'assets/icons/plus.svg';
+  static const importWalletIcon = 'assets/icons/import_wallet.svg';
 }
