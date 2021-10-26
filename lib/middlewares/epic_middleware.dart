@@ -26,8 +26,7 @@ const List<dynamic> persistenceTriggers = [
 ];
 
 /// Persists the latest [AppState] whenever [PersistAppState] action is emitted
-Epic<AppState> _persistorEpic(MiscRepository miscRepo) =>
-    (Stream<dynamic> actions, EpicStore<AppState> store) {
+Epic<AppState> _persistorEpic(MiscRepository miscRepo) => (Stream<dynamic> actions, EpicStore<AppState> store) {
       return actions.whereType<PersistAppState>().switchMap((action) {
         Future<dynamic> persistAppState() async {
           try {
@@ -73,8 +72,7 @@ Epic<AppState> _persistenceTriggerEpic() => (Stream<dynamic> actions, EpicStore<
     };
 
 /// Listens for [SendInternalMsgAction] - message to be sent to the background-script
-Epic<AppState> _sendToBackground(MiscRepository miscRepo) =>
-    (Stream<dynamic> actions, EpicStore<AppState> store) {
+Epic<AppState> _sendToBackground(MiscRepository miscRepo) => (Stream<dynamic> actions, EpicStore<AppState> store) {
       return actions.whereType<SendInternalMsgAction>().switchMap((action) {
         miscRepo.sendInternalMessage(action.msg);
         return const Stream.empty();
