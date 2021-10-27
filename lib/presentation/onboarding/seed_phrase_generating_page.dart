@@ -108,7 +108,7 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
         child: Text(Strings.seedPhraseGeneratedDesc, style: RibnTextStyles.body1),
       ),
       const SizedBox(height: 30),
-      ContinueButton(Strings.cont.toUpperCase(), widget.goToNextPage),
+      ContinueButton(Strings.cont, widget.goToNextPage),
     ];
   }
 

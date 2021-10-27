@@ -50,7 +50,8 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
               width: 680,
               child: Text(
                 Strings.walletCreatedDesc,
-                style: RibnTextStyles.bodyOne,
+                style: RibnTextStyles.body1,
+                textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
               ),
             ),
             const SizedBox(height: 30),

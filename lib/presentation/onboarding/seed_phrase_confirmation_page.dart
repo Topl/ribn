@@ -30,7 +30,7 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
                   height: 100,
                   child: Text(
                     vm.finishedInputting ? Strings.seedPhraseConfirmed : Strings.confirmYourSeedPhrase,
-                    style: RibnTextStyles.headingOne,
+                    style: RibnTextStyles.h1,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -104,7 +104,13 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
                   ),
                 ),
               ),
-              child: Center(child: Text(word, style: RibnTextStyles.bodyOne)),
+              child: Center(
+                child: Text(
+                  word,
+                  style: RibnTextStyles.body1,
+                  textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+                ),
+              ),
               onPressed: isNextWord ? () => vm.selectWord(idx) : null,
             ),
     );

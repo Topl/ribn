@@ -8,6 +8,7 @@ import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/continue_button.dart';
 
+/// Displays a grid of the seed phrase words listed in the correct order.
 class SeedPhraseDisplayPage extends StatelessWidget {
   final VoidCallback goToNextPage;
   final bool backButtonPressed;
@@ -25,8 +26,8 @@ class SeedPhraseDisplayPage extends StatelessWidget {
           children: [
             Center(
               child: SizedBox(
-                height: 101,
-                width: 312,
+                height: 100,
+                width: 315,
                 child: Text(
                   backButtonPressed ? Strings.letsTryThatAgain : Strings.writeDownSeedPhrase,
                   style: RibnTextStyles.h1,
