@@ -23,7 +23,7 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
   final double smallRadius = 8;
   final double bigRadius = 16;
   int currCircle = 0;
-  final Duration duration = const Duration(seconds: 1);
+  final Duration duration = const Duration(seconds: 2);
   final List<int> circlePositions = List.generate(5, (idx) => idx).toList();
   bool seedPhraseGenerating = true;
 

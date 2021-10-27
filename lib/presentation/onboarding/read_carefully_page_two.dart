@@ -94,7 +94,7 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 16),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2),
@@ -111,7 +111,7 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
         ),
         Expanded(
           child: SizedBox(
-            height: 50,
+            height: 40,
             child: Text(
               label,
               style: RibnTextStyles.body1.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),

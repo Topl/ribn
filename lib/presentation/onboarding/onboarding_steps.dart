@@ -17,7 +17,7 @@ class OnboardingStepsPage extends StatefulWidget {
 
 class OnboardingStepsPageState extends State<OnboardingStepsPage> {
   final PageController controller = PageController();
-  final Duration pageTransitionDuration = const Duration(milliseconds: 300);
+  final Duration pageTransitionDuration = const Duration(milliseconds: 200);
   int currPage = 0;
 
   /// Indicates the text to display in [SeedPhraseDisplayPage]

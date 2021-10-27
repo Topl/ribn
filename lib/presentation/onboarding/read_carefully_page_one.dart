@@ -93,7 +93,7 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 16),
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2),
