@@ -1,4 +1,4 @@
-/// All the strings that are being used throughout the app
+/// All the strings that are being used throughout the app.
 class Strings {
   Strings._();
   static const String copyToClipboard = 'Copy to clipboard';
@@ -38,25 +38,25 @@ class Strings {
   static const String back = 'Back';
   static const String welcomeToRibn = 'Welcome to Ribn';
   static const String intro = 'Topl’s blockchain wallet for tracking, tokenizing, and transacting impact.';
-  static const String getStarted = 'GET STARTED';
+  static const String getStarted = 'Get Started';
   static const String createWallet = 'Create Wallet';
   static const String createWalletDescription = 'This will create your new wallet and 15 word seed phrase.';
   static const String importWallet = 'Import Wallet';
-  static const String importWalletDescription = 'This will create your new wallet and 15 word seed phrase.';
+  static const String importWalletDescription = 'Import your existing Ribn wallet using your 15 word seed phrase.';
   static const String gettingStarted = 'Getting Started';
   static const String download = 'Download';
   static const String gettingStartedDescription =
       '''First, we are going to take you through the process of generating your Seed Phrase. 
 This 15-word phrase will be used to restore your assets if this device is lost or damaged!''';
-  static const String ok = 'OK!';
+  static const String ok = 'Ok!';
   static const String readCarefully = 'Read Carefully';
   static const String readCarefullyPointOne = '''I understand that I should never share my seed phrase with anyone. 
 Anyone with this information can steal the contents of my wallet.''';
   static const String readCarefullyPointTwo =
       '''I understand that if I need to reinstall Ribn on this or another device, 
 my wallet contents can only be recovered by using my seed phrase.''';
-  static const String iUnderstand = 'I UNDERSTAND';
-  static const String letsGo = "LET'S GO!";
+  static const String iUnderstand = 'I Understand';
+  static const String letsGo = "Let's Go!";
 
   static const String weRecommend = 'We Recommend:';
   static const String weRecommendSub = 'At least one of the following to record your seed phrase safely:';
@@ -87,7 +87,8 @@ A Wallet Password is used to unlock your wallet.''';
   static const String oneOrMoreLowerCaseLetters = '1 or more lower case letters.';
   static const String spacesAreNotAllowed = 'Spaces are not allowed.';
   static const String passwordsMustMatch = 'Both passwords must match.';
-  static const String createPassword = 'CREATE PASSWORD';
+  static const String createPassword = 'Create Password';
+  static const String readAndAgreedToU = 'I have read and agreed to the Terms of Use';
   static const String readFollowingCarefully = 'Read Following Carefully';
   static const String readFollowingCarefullyPointOne =
       'I have saved my Wallet Password safely. I will use this password to unlock my wallet.';
@@ -124,7 +125,6 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String ribnWallet = 'Ribn Wallet';
   static const String openTheWalletBy = 'Open the RibnWallet extension by:';
   static const String clickingTheIconPartOne = 'Clicking the ';
-  static const String clickingTheIconPartTwo = ''' icon on the top right of your browser.
-Or, clicking the ''';
+  static const String clickingTheIconPartTwo = ''' icon on the top right of your browser.\n\nOr, clicking the ''';
   static const String clickingTheIconPartThree = ' to find the RibnWallet extension in the Chrome extension list.';
 }
