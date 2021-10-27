@@ -44,7 +44,7 @@ class SelectActionPage extends StatelessWidget {
         borderRadius: BorderRadius.circular(11),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50),
+        padding: const EdgeInsets.only(left: 50),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,14 +64,16 @@ class SelectActionPage extends StatelessWidget {
               title,
               style: RibnTextStyles.h2,
               textAlign: TextAlign.start,
+              textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             SizedBox(
-              width: 285,
-              height: 80,
+              width: 300,
+              height: 85,
               child: Text(
                 description,
                 style: RibnTextStyles.body1,
+                textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
               ),
             ),
           ],
