@@ -10,8 +10,10 @@ import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/continue_button.dart';
 
+/// The initial welcome page displayed during onboarding.
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
+  final SizedBox padding = const SizedBox(height: 40);
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +27,12 @@ class WelcomePage extends StatelessWidget {
               style: RibnTextStyles.h1,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 42),
-            SvgPicture.asset(
-              RibnAssets.logoIcon,
-              height: 128,
-              width: 132,
-            ),
-            const SizedBox(height: 23),
+            padding,
+            SvgPicture.asset(RibnAssets.logoIcon),
+            padding,
             const SizedBox(
-              width: 650,
-              height: 85,
+              width: 640,
+              height: 50,
               child: Center(
                 child: Text(
                   Strings.intro,
@@ -44,7 +42,7 @@ class WelcomePage extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            padding,
             ContinueButton(
               Strings.getStarted,
               () => StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(Routes.selectAction)),
