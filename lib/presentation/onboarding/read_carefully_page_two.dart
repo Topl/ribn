@@ -34,7 +34,7 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
               width: 315,
               child: Text(
                 Strings.readFollowingCarefully,
-                style: RibnTextStyles.headingOne,
+                style: RibnTextStyles.h1,
                 textAlign: TextAlign.center,
               ),
             ),
