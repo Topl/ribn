@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:ribn/constants/keys.dart';
 import 'package:ribn/presentation/onboarding/create_password_page.dart';
 import 'package:ribn/presentation/onboarding/read_carefully_page_two.dart';
 import 'package:ribn/presentation/onboarding/seed_phrase_confirmation_page.dart';
@@ -9,6 +7,7 @@ import 'package:ribn/presentation/onboarding/seed_phrase_generating_page.dart';
 import 'package:ribn/presentation/onboarding/wallet_created_page.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
 
+/// Builds PageViews for generating and confirming the seed phrase, and creating a wallet password.
 class OnboardingStepsPage extends StatefulWidget {
   const OnboardingStepsPage({Key? key}) : super(key: key);
 
@@ -18,20 +17,19 @@ class OnboardingStepsPage extends StatefulWidget {
 
 class OnboardingStepsPageState extends State<OnboardingStepsPage> {
   final PageController controller = PageController();
-  final Duration pageTransitionDuration = const Duration(milliseconds: 200);
+  final Duration pageTransitionDuration = const Duration(milliseconds: 300);
   int currPage = 0;
+
+  /// Indicates the text to display in [SeedPhraseDisplayPage]
   bool backButtonPressed = false;
 
-  ///
   void onBackPressed() {
     if (currPage > 0) {
       setState(() {
         backButtonPressed = true;
       });
-      goToPrevPage();
-    } else {
-      Keys.navigatorKey.currentState!.pop();
     }
+    goToPrevPage();
   }
 
   @override
@@ -48,6 +46,7 @@ class OnboardingStepsPageState extends State<OnboardingStepsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: OnboardingAppBar(
+        // back button only shows after the 1st page
         onBackPressed: currPage > 1 ? onBackPressed : null,
         currPage: currPage,
       ),
