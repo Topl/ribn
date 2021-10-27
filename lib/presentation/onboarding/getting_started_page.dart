@@ -24,11 +24,11 @@ class GettingStartedPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Padding(
-            padding: EdgeInsets.only(top: 40.0, bottom: 40),
+            padding: EdgeInsets.symmetric(vertical: 40),
             child: Center(
               child: SizedBox(
-                height: 67,
-                width: 702,
+                height: 70,
+                width: 700,
                 child: Center(
                   child: Text(
                     Strings.gettingStarted,
@@ -49,7 +49,7 @@ class GettingStartedPage extends StatelessWidget {
                 Strings.gettingStartedDescription,
                 style: RibnTextStyles.body1,
                 textAlign: TextAlign.start,
-                textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+                textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
               ),
             ),
           ),
