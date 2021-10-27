@@ -6,6 +6,7 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/widgets/continue_button.dart';
 
+/// Builds checks to ensure that the user understands the importance of the wallet password and seed phrase.
 class ReadCarefullyPageTwo extends StatefulWidget {
   final Function goToNextPage;
   const ReadCarefullyPageTwo(this.goToNextPage, {Key? key}) : super(key: key);
@@ -29,8 +30,8 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(
-              height: 101,
-              width: 312,
+              height: 100,
+              width: 315,
               child: Text(
                 Strings.readFollowingCarefully,
                 style: RibnTextStyles.headingOne,
@@ -42,7 +43,7 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
               child: SvgPicture.asset(RibnAssets.warningIcon),
             ),
             SizedBox(
-              width: 750,
+              width: 820,
               child: Column(
                 children: [
                   _buildCheckListTile(
@@ -63,20 +64,14 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
                       });
                     },
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildCheckListTile(
-                          Strings.readFollowingCarefullyPointThree,
-                          _pointThreeChecked,
-                          (bool? val) {
-                            setState(() {
-                              _pointThreeChecked = val ?? false;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
+                  _buildCheckListTile(
+                    Strings.readFollowingCarefullyPointThree,
+                    _pointThreeChecked,
+                    (bool? val) {
+                      setState(() {
+                        _pointThreeChecked = val ?? false;
+                      });
+                    },
                   ),
                 ],
               ),
@@ -119,8 +114,9 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
             height: 50,
             child: Text(
               label,
-              style: RibnTextStyles.bodyOne.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),
+              style: RibnTextStyles.body1.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),
               textAlign: TextAlign.start,
+              textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
             ),
           ),
         ),
