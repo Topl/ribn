@@ -14,7 +14,7 @@ class SeedPhraseConfirmationContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, SeedPhraseConfirmationViewModel>(
       distinct: true,
-      converter: (store) => SeedPhraseConfirmationViewModel.fromStore(store),
+      converter: SeedPhraseConfirmationViewModel.fromStore,
       builder: builder,
     );
   }
@@ -23,29 +23,27 @@ class SeedPhraseConfirmationContainer extends StatelessWidget {
 @immutable
 class SeedPhraseConfirmationViewModel {
   final List<String> shuffledMnemonic;
-  final bool mnemonicMismatchError;
+  final List<String> mnemonicWordsList;
   final List<int> userSelectedIndices;
-  final Function(String) verifyMnemonic;
+  final bool finishedInputting;
   final Function(int) selectWord;
-  final Function(int) removeWord;
 
   const SeedPhraseConfirmationViewModel({
-    this.mnemonicMismatchError = false,
-    required this.verifyMnemonic,
+    required this.mnemonicWordsList,
     required this.shuffledMnemonic,
     required this.userSelectedIndices,
     required this.selectWord,
-    required this.removeWord,
+    required this.finishedInputting,
   });
 
   static SeedPhraseConfirmationViewModel fromStore(Store<AppState> store) {
     return SeedPhraseConfirmationViewModel(
       shuffledMnemonic: store.state.onboardingState.shuffledMnemonic!,
+      mnemonicWordsList: store.state.onboardingState.mnemonic!.split(' ').toList(),
       userSelectedIndices: store.state.onboardingState.userSelectedIndices!,
-      mnemonicMismatchError: store.state.onboardingState.mnemonicMismatchError,
-      verifyMnemonic: (words) => store.dispatch(VerifyMnemonicAction(words)),
+      finishedInputting: store.state.onboardingState.userSelectedIndices?.length ==
+          store.state.onboardingState.shuffledMnemonic?.length,
       selectWord: (idx) => store.dispatch(UserSelectedWordAction(idx)),
-      removeWord: (idx) => store.dispatch(UserRemovedWordAction(idx)),
     );
   }
 
@@ -55,20 +53,13 @@ class SeedPhraseConfirmationViewModel {
 
     return other is SeedPhraseConfirmationViewModel &&
         listEquals(other.shuffledMnemonic, shuffledMnemonic) &&
-        other.mnemonicMismatchError == mnemonicMismatchError &&
+        listEquals(other.mnemonicWordsList, mnemonicWordsList) &&
         listEquals(other.userSelectedIndices, userSelectedIndices) &&
-        other.verifyMnemonic == verifyMnemonic &&
-        other.selectWord == selectWord &&
-        other.removeWord == removeWord;
+        other.selectWord == selectWord;
   }
 
   @override
   int get hashCode {
-    return shuffledMnemonic.hashCode ^
-        mnemonicMismatchError.hashCode ^
-        userSelectedIndices.hashCode ^
-        verifyMnemonic.hashCode ^
-        selectWord.hashCode ^
-        removeWord.hashCode;
+    return shuffledMnemonic.hashCode ^ mnemonicWordsList.hashCode ^ userSelectedIndices.hashCode ^ selectWord.hashCode;
   }
 }
