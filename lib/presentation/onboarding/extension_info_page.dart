@@ -4,6 +4,8 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 
+/// The final page during onboarding.
+/// Directs user to open the Ribn extension.
 class ExtensionInfoPage extends StatelessWidget {
   const ExtensionInfoPage({Key? key}) : super(key: key);
   final double inlineIconHeight = 18;
