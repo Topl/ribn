@@ -5,39 +5,33 @@ import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/models/app_state.dart';
 
 class CreatePasswordContainer extends StatelessWidget {
-  const CreatePasswordContainer({Key? key, required this.builder}) : super(key: key);
+  const CreatePasswordContainer({Key? key, required this.builder, required this.onDidChange}) : super(key: key);
   final ViewModelBuilder<CreatePasswordViewModel> builder;
+  final Function(CreatePasswordViewModel?, CreatePasswordViewModel)? onDidChange;
 
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, CreatePasswordViewModel>(
       distinct: true,
-      converter: (store) => CreatePasswordViewModel.fromStore(store),
+      converter: CreatePasswordViewModel.fromStore,
       builder: builder,
+      onDidChange: onDidChange,
     );
   }
 }
 
 class CreatePasswordViewModel {
-  final Function attemptCreatePassword;
-  final bool passwordMismatchError;
-  final bool passwordTooShortError;
-  final bool loadingPasswordValidation;
+  final Function(String) attemptCreatePassword;
+  final bool passwordSuccessfullyCreated;
 
   CreatePasswordViewModel({
     required this.attemptCreatePassword,
-    this.passwordMismatchError = false,
-    this.passwordTooShortError = false,
-    this.loadingPasswordValidation = false,
+    this.passwordSuccessfullyCreated = false,
   });
   static CreatePasswordViewModel fromStore(Store<AppState> store) {
     return CreatePasswordViewModel(
-      attemptCreatePassword: (String password, String confirmPassword) => store.dispatch(
-        CreatePasswordAction(password, confirmPassword),
-      ),
-      passwordMismatchError: store.state.onboardingState.passwordMismatchError,
-      passwordTooShortError: store.state.onboardingState.passwordTooShortError,
-      loadingPasswordValidation: store.state.onboardingState.loadingPasswordValidation,
+      attemptCreatePassword: (String password) => store.dispatch(CreatePasswordAction(password)),
+      passwordSuccessfullyCreated: store.state.keychainState.keyStoreJson != null,
     );
   }
 }
