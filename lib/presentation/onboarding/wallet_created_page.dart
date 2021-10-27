@@ -10,6 +10,8 @@ import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/continue_button.dart';
 
+/// Wallet created success page.
+/// Displays several FAQs to the user.
 class WalletCreatedPage extends StatefulWidget {
   const WalletCreatedPage({Key? key}) : super(key: key);
 
@@ -29,12 +31,11 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Padding(
-            padding: EdgeInsets.only(top: 40.0, bottom: 40),
+            padding: EdgeInsets.symmetric(vertical: 40),
             child: SizedBox(
-              width: 312,
+              width: 315,
               height: 100,
               child: Text(
                 Strings.walletCreated,
@@ -44,16 +45,16 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
             ),
           ),
           SvgPicture.asset(RibnAssets.logoCardIcon),
-          SizedBox(
-            height: 93,
-            width: 683,
+          const SizedBox(
+            height: 95,
+            width: 680,
             child: Text(
               Strings.walletCreatedDesc,
-              style: RibnTextStyles.bodyOne.copyWith(height: 2.36),
+              style: RibnTextStyles.bodyOne,
             ),
           ),
           const SizedBox(height: 30),
-          ContinueButton(Strings.cont.toUpperCase(), () {
+          ContinueButton(Strings.cont, () {
             StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(Routes.extensionInfo));
           }),
           const SizedBox(height: 60),
@@ -66,7 +67,7 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                   style: RibnTextStyles.body1Bold.copyWith(fontSize: 25),
                   textAlign: TextAlign.left,
                 ),
-                Spacer(),
+                const Spacer(),
               ],
             ),
           ),
