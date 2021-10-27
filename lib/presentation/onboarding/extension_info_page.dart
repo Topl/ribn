@@ -6,6 +6,8 @@ import 'package:ribn/constants/styles.dart';
 
 class ExtensionInfoPage extends StatelessWidget {
   const ExtensionInfoPage({Key? key}) : super(key: key);
+  final double inlineIconHeight = 18;
+  final double inlineIconWidth = 15;
 
   @override
   Widget build(BuildContext context) {
@@ -39,23 +41,23 @@ class ExtensionInfoPage extends StatelessWidget {
             RichText(
               text: TextSpan(
                 children: [
-                  const TextSpan(
+                  TextSpan(
                     text: Strings.clickingTheIconPartOne,
-                    style: RibnTextStyles.body1,
+                    style: RibnTextStyles.body1.copyWith(height: 1),
                   ),
                   WidgetSpan(
-                    child: SvgPicture.asset(RibnAssets.logoIcon, height: 18, width: 15),
+                    child: SvgPicture.asset(RibnAssets.logoIcon, height: inlineIconHeight, width: inlineIconWidth),
                   ),
-                  const TextSpan(
+                  TextSpan(
                     text: Strings.clickingTheIconPartTwo,
-                    style: RibnTextStyles.body1,
+                    style: RibnTextStyles.body1.copyWith(height: 1),
                   ),
                   WidgetSpan(
-                    child: SvgPicture.asset(RibnAssets.extensionIcon, height: 18, width: 15),
+                    child: SvgPicture.asset(RibnAssets.extensionIcon, height: inlineIconHeight, width: inlineIconWidth),
                   ),
-                  const TextSpan(
+                  TextSpan(
                     text: Strings.clickingTheIconPartThree,
-                    style: RibnTextStyles.body1,
+                    style: RibnTextStyles.body1.copyWith(height: 1),
                   ),
                 ],
               ),
