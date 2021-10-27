@@ -43,32 +43,30 @@ class SelectActionPage extends StatelessWidget {
         color: RibnColors.accent,
         borderRadius: BorderRadius.circular(11),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(50, 54, 50, 40),
-            child: OutlinedButton(
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(const Size(285, 165)),
-                backgroundColor: MaterialStateProperty.all(RibnColors.primary),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 50),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 55, bottom: 40),
+              child: OutlinedButton(
+                style: ButtonStyle(
+                  minimumSize: MaterialStateProperty.all(const Size(285, 165)),
+                  backgroundColor: MaterialStateProperty.all(RibnColors.primary),
+                ),
+                onPressed: () => StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(Routes.gettingStarted)),
+                child: SvgPicture.asset(iconToDisplay),
               ),
-              onPressed: () => StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(Routes.gettingStarted)),
-              child: SvgPicture.asset(iconToDisplay),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 50, bottom: 10),
-            child: Text(
+            Text(
               title,
               style: RibnTextStyles.h2,
               textAlign: TextAlign.start,
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 50.0),
-            child: SizedBox(
+            const SizedBox(height: 10),
+            SizedBox(
               width: 285,
               height: 80,
               child: Text(
@@ -76,8 +74,8 @@ class SelectActionPage extends StatelessWidget {
                 style: RibnTextStyles.body1,
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
