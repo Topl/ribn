@@ -9,6 +9,7 @@ class ContinueButton extends StatelessWidget {
   final bool disabled;
   final double buttonWidth = 234;
   final double buttonHeight = 46;
+  final double buttonRadius = 4;
   const ContinueButton(
     this.label,
     this.onPressed, {
@@ -20,7 +21,7 @@ class ContinueButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(buttonRadius),
         side: BorderSide(
           color: disabled ? RibnColors.inactive : RibnColors.primary,
         ),
