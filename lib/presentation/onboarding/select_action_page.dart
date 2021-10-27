@@ -11,7 +11,7 @@ import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
 
-/// Allow the user to 'create wallet' or 'import wallet'.
+/// Allow the user to select from 'create wallet' or 'import wallet'.
 class SelectActionPage extends StatelessWidget {
   const SelectActionPage({Key? key}) : super(key: key);
   void onBackPressed() => Keys.navigatorKey.currentState!.pop();
@@ -21,12 +21,12 @@ class SelectActionPage extends StatelessWidget {
     return Scaffold(
       appBar: OnboardingAppBar(onBackPressed: onBackPressed),
       body: Padding(
-        padding: const EdgeInsets.all(40.0),
+        padding: const EdgeInsets.only(top: 40),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _buildOptionContainer(Strings.createWallet, Strings.createWalletDescription, context),
-            const SizedBox(width: 62),
+            const SizedBox(width: 65),
             _buildOptionContainer(Strings.importWallet, Strings.importWalletDescription, context),
           ],
         ),
@@ -35,9 +35,10 @@ class SelectActionPage extends StatelessWidget {
   }
 
   Widget _buildOptionContainer(String title, String description, BuildContext context) {
+    final String iconToDisplay = title == Strings.createWallet ? RibnAssets.plusIcon : RibnAssets.importWalletIcon;
     return Container(
-      height: 418,
-      width: 379,
+      height: 455,
+      width: 385,
       decoration: BoxDecoration(
         color: RibnColors.accent,
         borderRadius: BorderRadius.circular(11),
@@ -47,29 +48,29 @@ class SelectActionPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(50, 54, 50, 30),
+            padding: const EdgeInsets.fromLTRB(50, 54, 50, 40),
             child: OutlinedButton(
               style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(const Size(279, 168)),
+                minimumSize: MaterialStateProperty.all(const Size(285, 165)),
                 backgroundColor: MaterialStateProperty.all(RibnColors.primary),
               ),
               onPressed: () => StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(Routes.gettingStarted)),
-              child: SvgPicture.asset(
-                title == Strings.createWallet ? RibnAssets.plusIcon : RibnAssets.importWalletIcon,
-              ),
+              child: SvgPicture.asset(iconToDisplay),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 50, bottom: 11),
+            padding: const EdgeInsets.only(left: 50, bottom: 10),
             child: Text(
               title,
               style: RibnTextStyles.h2,
+              textAlign: TextAlign.start,
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 50.0),
             child: SizedBox(
-              width: 279,
+              width: 285,
+              height: 80,
               child: Text(
                 description,
                 style: RibnTextStyles.body1,
