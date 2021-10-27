@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/colors.dart';
-// import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/widgets/progress_bar.dart';
 
+/// Custom [AppBar] displayed during onboarding.
 class OnboardingAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize;
@@ -21,7 +21,7 @@ class OnboardingAppBar extends StatelessWidget implements PreferredSizeWidget {
       bottom: PreferredSize(
         preferredSize: preferredSize,
         child: Padding(
-          padding: const EdgeInsets.only(left: 50, right: 50),
+          padding: const EdgeInsets.symmetric(horizontal: 50),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -40,8 +40,7 @@ class OnboardingAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ),
                     )
                   : const SizedBox(),
-              onBackPressed != null ? const Text(Strings.back, style: RibnTextStyles.bodyTwo) : const SizedBox(),
-              // const SizedBox(width: 100),
+              onBackPressed != null ? const Text(Strings.back, style: RibnTextStyles.body1Bold) : const SizedBox(),
               currPage > -1
                   ? Expanded(
                       child: Center(

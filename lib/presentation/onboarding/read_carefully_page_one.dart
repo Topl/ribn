@@ -13,7 +13,7 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/continue_button.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
 
-/// Builds checkboxes to convey important information about the seedphrase to the user.
+/// Builds checks to ensure that the user understands the importance of the seed phrase.
 class ReadCarefullyPageOne extends StatefulWidget {
   const ReadCarefullyPageOne({Key? key}) : super(key: key);
 
@@ -36,11 +36,11 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Padding(
-            padding: EdgeInsets.only(top: 40.0, bottom: 22),
+            padding: EdgeInsets.only(top: 40.0, bottom: 25),
             child: Center(
               child: SizedBox(
-                width: 702,
-                height: 56,
+                width: 700,
+                height: 55,
                 child: Text(
                   Strings.readCarefully,
                   style: RibnTextStyles.h1,
@@ -51,26 +51,32 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
           ),
           SvgPicture.asset(RibnAssets.warningIcon),
           const SizedBox(height: 40),
-          _buildCheckListTile(
-            Strings.readCarefullyPointOne,
-            pointOneChecked,
-            (bool? val) {
-              setState(() {
-                pointOneChecked = val ?? false;
-              });
-            },
+          SizedBox(
+            width: 650,
+            child: Column(
+              children: [
+                _buildCheckListTile(
+                  Strings.readCarefullyPointOne,
+                  pointOneChecked,
+                  (bool? val) {
+                    setState(() {
+                      pointOneChecked = val ?? false;
+                    });
+                  },
+                ),
+                _buildCheckListTile(
+                  Strings.readCarefullyPointTwo,
+                  pointTwoChecked,
+                  (bool? val) {
+                    setState(() {
+                      pointTwoChecked = val ?? false;
+                    });
+                  },
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
-          const SizedBox(height: 15),
-          _buildCheckListTile(
-            Strings.readCarefullyPointTwo,
-            pointTwoChecked,
-            (bool? val) {
-              setState(() {
-                pointTwoChecked = val ?? false;
-              });
-            },
-          ),
-          const SizedBox(height: 50),
           ContinueButton(
             Strings.iUnderstand,
             () async => await _showRecommendationDialog(),
@@ -102,19 +108,22 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
             ),
           ),
         ),
-        SizedBox(
-          height: 100,
-          child: Text(
-            label,
-            style: RibnTextStyles.body1.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),
-            textAlign: TextAlign.start,
-            textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+        Expanded(
+          child: SizedBox(
+            height: 100,
+            child: Text(
+              label,
+              style: RibnTextStyles.body1.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),
+              textAlign: TextAlign.start,
+              textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+            ),
           ),
         ),
       ],
     );
   }
 
+  /// Builds the popup dialog to provide recommendations on how to record the seed phrase safely
   Future<void> _showRecommendationDialog() async {
     await showGeneralDialog(
       barrierDismissible: false,
@@ -157,7 +166,11 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Text(Strings.weRecommendSub, style: RibnTextStyles.bodyOne),
+            const Text(
+              Strings.weRecommendSub,
+              style: RibnTextStyles.body1,
+              textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
+            ),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -170,7 +183,8 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
                     const SizedBox(width: 15),
                     const Text(
                       Strings.paperAndPen,
-                      style: RibnTextStyles.bodyOne,
+                      style: RibnTextStyles.body1,
+                      textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
                     ),
                   ],
                 ),
@@ -187,7 +201,8 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
                     const SizedBox(width: 15),
                     const Text(
                       Strings.securePasswordManager,
-                      style: RibnTextStyles.bodyOne,
+                      style: RibnTextStyles.body1,
+                      textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
                     ),
                   ],
                 ),
@@ -204,7 +219,8 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
                     const SizedBox(width: 15),
                     const Text(
                       Strings.encryptTextFile,
-                      style: RibnTextStyles.bodyOne,
+                      style: RibnTextStyles.body1,
+                      textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
                     ),
                   ],
                 ),
