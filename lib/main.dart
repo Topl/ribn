@@ -48,6 +48,9 @@ class MyApp extends StatelessWidget {
         },
         initialRoute: getInitialRoute(store, pendingRequest),
         navigatorKey: Keys.navigatorKey,
+        theme: ThemeData(
+          primarySwatch: Colors.lightGreen,
+        ),
       ),
     );
   }
