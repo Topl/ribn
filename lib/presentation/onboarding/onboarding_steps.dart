@@ -44,10 +44,11 @@ class OnboardingStepsPageState extends State<OnboardingStepsPage> {
 
   @override
   Widget build(BuildContext context) {
+    // back button only shows up after the 1st page
+    final bool showBackButton = currPage > 1;
     return Scaffold(
       appBar: OnboardingAppBar(
-        // back button only shows after the 1st page
-        onBackPressed: currPage > 1 ? onBackPressed : null,
+        onBackPressed: showBackButton ? onBackPressed : null,
         currPage: currPage,
       ),
       body: PageView(
