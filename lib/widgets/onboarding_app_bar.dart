@@ -10,9 +10,11 @@ class OnboardingAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Size preferredSize;
   final VoidCallback? onBackPressed;
   final int currPage;
+  final bool showProgressBar;
 
   const OnboardingAppBar({this.onBackPressed, this.currPage = -1, Key? key})
       : preferredSize = const Size.fromHeight(100),
+        showProgressBar = currPage == -1,
         super(key: key);
 
   @override
@@ -41,7 +43,7 @@ class OnboardingAppBar extends StatelessWidget implements PreferredSizeWidget {
                     )
                   : const SizedBox(),
               onBackPressed != null ? const Text(Strings.back, style: RibnTextStyles.body1Bold) : const SizedBox(),
-              currPage > -1
+              showProgressBar
                   ? Expanded(
                       child: Center(
                         child: Padding(
