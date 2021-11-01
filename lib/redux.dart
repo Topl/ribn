@@ -68,7 +68,7 @@ class Redux {
   static Future<String> initBgConnection() async {
     final Completer<String> completer = Completer<String>();
     try {
-      if (await local.openedInExtensionView()) {
+      if (await local.openedInExtensionView() || !store!.state.keyStoreExists()) {
         completer.complete('');
       } else {
         local.connectToBackground();

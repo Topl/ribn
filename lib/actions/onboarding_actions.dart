@@ -4,11 +4,8 @@ class CreatePasswordAction {
 }
 
 class PasswordSuccessfullyCreatedAction {
-  final String mnemonic;
-  PasswordSuccessfullyCreatedAction(this.mnemonic);
+  PasswordSuccessfullyCreatedAction();
 }
-
-class LoadingPasswordValidationAction {}
 
 class GenerateMnemonicAction {}
 
