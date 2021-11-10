@@ -35,6 +35,33 @@ class OnboardingRespository {
     };
   }
 
+  /// Generates a 15 word mnemonic for the wallet owner.
+  Future<String> generateMnemonicForUser() async {
+    final Random random = Random.secure();
+    final String mnemonic = generateMnemonic(random, strength: 160);
+    return mnemonic;
+  }
+
+  /// Generates a [KeyStore] using the provided password.
+  Future<Map<String, dynamic>> generateKeyStore(String mnemonic, String password) async {
+    const Base58Encoder base58Encoder = Base58Encoder.instance;
+    final Random random = Random.secure();
+    final Bip32KeyPair toplExtendedKeyPair = deriveToplExtendedKeys(mnemonic);
+    final Uint8List toplExtendedPrvKeyUint8List = Uint8List.fromList(toplExtendedKeyPair.privateKey!);
+    final String base58EncodedToplExtendedPrvKey = base58Encoder.encode(toplExtendedPrvKeyUint8List);
+    final KeyStore keyStore = KeyStore.createNew(
+      base58EncodedToplExtendedPrvKey,
+      password,
+      random,
+      scryptN: Rules.scryptN,
+    );
+    final String keyStoreJson = keyStore.toJson();
+    return {
+      'keyStoreJson': keyStoreJson,
+      'toplExtendedPrvKeyUint8List': toplExtendedPrvKeyUint8List,
+    };
+  }
+
   Bip32KeyPair deriveToplExtendedKeys(String mnemonic) {
     final HdWallet hdWallet = HdWallet.fromMnemonic(mnemonic);
     return hdWallet.deriveBaseAddress(purpose: Rules.defaultPurpose, coinType: Rules.defaultCoinType);

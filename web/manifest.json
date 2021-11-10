@@ -10,7 +10,6 @@
     "type": "module"
   },
   "action": {
-    "default_popup": "index.html",
     "default_icon": {
       "16": "/icons/Icon-192.png",
       "32": "/icons/Icon-192.png",

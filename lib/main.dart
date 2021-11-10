@@ -9,7 +9,7 @@ import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/presentation/enable_page.dart';
 import 'package:ribn/presentation/external_signing_page.dart';
 import 'package:ribn/presentation/login_page.dart';
-import 'package:ribn/presentation/welcome_page.dart';
+import 'package:ribn/presentation/onboarding/welcome_page.dart';
 import 'package:ribn/redux.dart';
 import 'package:ribn/router/root_router.dart';
 

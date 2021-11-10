@@ -1,21 +1,18 @@
 class CreatePasswordAction {
   final String password;
-  final String confirmPassword;
-  const CreatePasswordAction(this.password, this.confirmPassword);
+  const CreatePasswordAction(this.password);
 }
 
 class PasswordSuccessfullyCreatedAction {
-  final String mnemonic;
-  PasswordSuccessfullyCreatedAction(this.mnemonic);
+  PasswordSuccessfullyCreatedAction();
 }
 
-class PasswordMismatchAction {}
+class GenerateMnemonicAction {}
 
-class PasswordTooShortAction {}
-
-class LoadingPasswordValidationAction {}
-
-class ErrorCreatingPasswordAction {}
+class MnemonicSuccessfullyGeneratedAction {
+  final String mnemonic;
+  const MnemonicSuccessfullyGeneratedAction(this.mnemonic);
+}
 
 class VerifyMnemonicAction {
   final String userInput;
