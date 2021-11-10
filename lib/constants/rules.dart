@@ -6,6 +6,7 @@ import 'package:logging/logging.dart';
 import 'package:ribn/constants/strings.dart';
 
 class Rules {
+  Rules._();
   static const int minPasswordLength = 8;
   static const int scryptN = 8192;
   static const int extendedSecretKeySize = hd.extendedSecretKeySize;
@@ -44,6 +45,16 @@ class Rules {
     toplnetId: 'https://staging.vertx.topl.services/mainnet/$projectId',
     privateId: 'http://localhost:9085'
   };
+  static Map<int, String> txHistoryUrls = {
+    valhallaId: 'https://annulus-api.topl.services/staging/valhalla/',
+    toplnetId: 'https://annulus-api.topl.services/staging/toplnet/',
+  };
+  static Map<int, String> txDetailsRedirectUrls = {
+    valhallaId: 'https://staging.valhalla.annulus.topl.services/#/transaction/',
+    toplnetId: 'https://staging.toplnet.annulus.topl.services/#/transaction/',
+  };
+  static String txHistoryUrl(String addr, int networkId) => '${txHistoryUrls[networkId]!}/v1/address/history/$addr';
+  static String txDetailsUrl(String txId, int networkId) => '${txDetailsRedirectUrls[networkId]!}$txId';
   static Map<int, PolyAmount> networkFees = {
     valhallaId: PolyAmount.fromUnitAndValue(PolyUnit.nanopoly, constants.valhallaFee),
     toplnetId: PolyAmount.fromUnitAndValue(PolyUnit.nanopoly, constants.toplnetFee),

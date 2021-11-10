@@ -6,6 +6,7 @@ class Strings {
   static const String assets = 'Assets';
   static const String send = 'Send';
   static const String receive = 'Receive';
+  static const String transactionHistory = 'Transaction History';
   static const String generateNewAddress = 'GENERATE NEW ADDRESS';
   static const String noAddresses = 'You have no addresses';
   static const String logout = 'Logout';
