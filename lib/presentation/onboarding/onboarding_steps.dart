@@ -17,7 +17,7 @@ class OnboardingStepsPage extends StatefulWidget {
 
 class OnboardingStepsPageState extends State<OnboardingStepsPage> {
   final PageController controller = PageController();
-  final Duration pageTransitionDuration = const Duration(milliseconds: 200);
+  final Duration pageTransitionDuration = Duration.zero;
   int currPage = 0;
 
   /// Indicates the text to display in [SeedPhraseDisplayPage]
@@ -33,44 +33,56 @@ class OnboardingStepsPageState extends State<OnboardingStepsPage> {
   }
 
   @override
-  void initState() {
-    controller.addListener(() {
-      setState(() {
-        currPage = controller.page?.floor() ?? 0;
-      });
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     // back button only shows up after the 1st page
     final bool showBackButton = currPage > 1;
     return Scaffold(
-      appBar: OnboardingAppBar(
-        onBackPressed: showBackButton ? onBackPressed : null,
-        currPage: currPage,
-      ),
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: controller,
-        children: [
-          SeedPhraseGeneratingPage(goToNextPage),
-          SeedPhraseDisplayPage(goToNextPage, backButtonPressed),
-          SeedPhraseConfirmationPage(goToNextPage),
-          CreatePasswordPage(goToNextPage),
-          ReadCarefullyPageTwo(goToNextPage),
-          const WalletCreatedPage(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            OnboardingAppBar(
+              onBackPressed: showBackButton ? onBackPressed : null,
+              currPage: currPage,
+            ),
+            Flexible(child: buildPage()),
+          ],
+        ),
       ),
     );
   }
 
-  void goToNextPage() {
-    controller.nextPage(duration: pageTransitionDuration, curve: Curves.bounceIn);
+  /// Builds the appropriate page based on the [currPage]
+  Widget buildPage() {
+    switch (currPage) {
+      case 0:
+        return SeedPhraseGeneratingPage(goToNextPage);
+      case 1:
+        return SeedPhraseDisplayPage(goToNextPage, backButtonPressed);
+      case 2:
+        return SeedPhraseConfirmationPage(goToNextPage);
+      case 3:
+        return CreatePasswordPage(goToNextPage);
+      case 4:
+        return ReadCarefullyPageTwo(goToNextPage);
+      case 5:
+        return const WalletCreatedPage();
+      default:
+        return const SizedBox();
+    }
   }
 
+  /// Updates the [currPage] to the next page
+  void goToNextPage() {
+    setState(() {
+      currPage = currPage + 1;
+    });
+  }
+
+  /// Updates the [currPage] to the previous page
   void goToPrevPage() {
-    controller.previousPage(duration: pageTransitionDuration, curve: Curves.bounceOut);
+    setState(() {
+      currPage = currPage - 1;
+    });
   }
 }
