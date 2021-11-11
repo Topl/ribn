@@ -20,46 +20,44 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SeedPhraseConfirmationContainer(
       builder: (BuildContext context, SeedPhraseConfirmationViewModel vm) {
-        return SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 50.0),
-            child: Column(
-              children: [
-                SizedBox(
-                  width: 315,
-                  height: 100,
+        return Padding(
+          padding: const EdgeInsets.only(top: 50.0),
+          child: Column(
+            children: [
+              SizedBox(
+                width: 315,
+                height: 100,
+                child: Text(
+                  vm.finishedInputting ? Strings.seedPhraseConfirmed : Strings.confirmYourSeedPhrase,
+                  style: RibnTextStyles.h1,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              // add icon here
+              vm.finishedInputting
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: SvgPicture.asset(RibnAssets.seedPhraseConfirmedIcon),
+                    )
+                  : const SizedBox(),
+              const SizedBox(height: 40),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
+                child: SizedBox(
+                  width: 650,
                   child: Text(
-                    vm.finishedInputting ? Strings.seedPhraseConfirmed : Strings.confirmYourSeedPhrase,
-                    style: RibnTextStyles.h1,
-                    textAlign: TextAlign.center,
+                    vm.finishedInputting ? Strings.seedPhraseConfirmedDesc : Strings.confirmYourSeedPhraseDesc,
+                    style: RibnTextStyles.body1,
+                    textAlign: TextAlign.left,
+                    textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
                   ),
                 ),
-                // add icon here
-                vm.finishedInputting
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: SvgPicture.asset(RibnAssets.seedPhraseConfirmedIcon),
-                      )
-                    : const SizedBox(),
-                const SizedBox(height: 40),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20.0),
-                  child: SizedBox(
-                    width: 650,
-                    child: Text(
-                      vm.finishedInputting ? Strings.seedPhraseConfirmedDesc : Strings.confirmYourSeedPhraseDesc,
-                      style: RibnTextStyles.body1,
-                      textAlign: TextAlign.left,
-                      textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
-                    ),
-                  ),
-                ),
-                vm.finishedInputting ? const SizedBox() : _buildShuffledSeedPhraseGrid(vm),
-                _buildConfirmedSeedPhraseGrid(vm),
-                const SizedBox(height: 20),
-                vm.finishedInputting ? ContinueButton(Strings.cont, goToNextPage) : const SizedBox(),
-              ],
-            ),
+              ),
+              vm.finishedInputting ? const SizedBox() : _buildShuffledSeedPhraseGrid(vm),
+              _buildConfirmedSeedPhraseGrid(vm),
+              const SizedBox(height: 20),
+              vm.finishedInputting ? ContinueButton(Strings.cont, goToNextPage) : const SizedBox(),
+            ],
           ),
         );
       },
@@ -118,7 +116,8 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
 
   /// Builds the grid for the seed phrase words that have been confirmed.
   Widget _buildConfirmedSeedPhraseGrid(SeedPhraseConfirmationViewModel vm) {
-    final Map<int, String> shuffledMap = vm.shuffledMnemonic.asMap();
+    final Map<int, String> mnemonicMap = vm.mnemonicWordsList.asMap();
+    final List<String> selectedWords = vm.userSelectedIndices.map((idx) => vm.shuffledMnemonic[idx]).toList();
     return Container(
       height: 350,
       width: 650,
@@ -134,14 +133,13 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
         mainAxisSpacing: 22,
         shrinkWrap: true,
         childAspectRatio: 4,
-        children:
-            shuffledMap.keys.map((idx) => _buildConfirmedWordContainer(idx, vm.shuffledMnemonic[idx], vm)).toList(),
+        children: mnemonicMap.keys.map((idx) => _buildConfirmedWordContainer(idx, selectedWords)).toList(),
       ),
     );
   }
 
-  Widget _buildConfirmedWordContainer(int idx, String word, SeedPhraseConfirmationViewModel vm) {
-    final bool isSelected = vm.userSelectedIndices.contains(idx);
+  Widget _buildConfirmedWordContainer(int idx, List<String> selectedWords) {
+    final String word = idx < selectedWords.length ? selectedWords[idx] : '';
     return Center(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -170,17 +168,15 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
               child: Container(
                 width: 130,
                 height: 40,
-                color: isSelected ? RibnColors.accent : Colors.transparent,
-                child: isSelected
-                    ? Center(
-                        child: Text(
-                          word,
-                          style: RibnTextStyles.body1Bold,
-                          textAlign: TextAlign.center,
-                          textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
-                        ),
-                      )
-                    : const SizedBox(),
+                color: RibnColors.accent,
+                child: Center(
+                  child: Text(
+                    word,
+                    style: RibnTextStyles.body1Bold,
+                    textAlign: TextAlign.center,
+                    textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+                  ),
+                ),
               ),
             ),
           ),
