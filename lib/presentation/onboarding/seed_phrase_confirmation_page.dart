@@ -14,8 +14,6 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
   final VoidCallback goToNextPage;
   const SeedPhraseConfirmationPage(this.goToNextPage, {Key? key}) : super(key: key);
   final Color idxColor = const Color(0xff00b5ab);
-  final double gridHeight = 350;
-  final double gridWidth = 650;
   final double idxContainerWidth = 35;
   final double idxContainerHeight = 20;
   final double wordContainerWidth = 130;
@@ -80,8 +78,8 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
     final List<String> selectedWords = vm.userSelectedIndices.map((idx) => vm.shuffledMnemonic[idx]).toList();
     final Color borderColor = isShuffledGrid ? Colors.transparent : RibnColors.primary;
     return Container(
-      height: gridHeight,
-      width: gridWidth,
+      height: 350,
+      width: 650,
       decoration: BoxDecoration(
         border: Border.all(color: borderColor),
         borderRadius: BorderRadius.circular(8),
