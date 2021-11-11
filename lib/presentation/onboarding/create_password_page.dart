@@ -69,45 +69,43 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
         if (vm.passwordSuccessfullyCreated) widget.goToNextPage();
       },
       builder: (context, vm) {
-        return SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 40),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  width: 315,
-                  height: 100,
-                  child: Text(
-                    Strings.createWalletPassword,
-                    style: RibnTextStyles.h1,
-                    textAlign: TextAlign.center,
-                  ),
+        return Padding(
+          padding: const EdgeInsets.only(top: 40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(
+                width: 315,
+                height: 100,
+                child: Text(
+                  Strings.createWalletPassword,
+                  style: RibnTextStyles.h1,
+                  textAlign: TextAlign.center,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  child: SvgPicture.asset(RibnAssets.walletPasswordIcon),
-                ),
-                const Text(
-                  Strings.createWalletPasswordDesc,
-                  style: RibnTextStyles.body1,
-                  textAlign: TextAlign.left,
-                  textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
-                ),
-                _buildTextField(_newPasswordController, Strings.newPassword),
-                _buildEnterPasswordValidations(),
-                _buildTextField(_confirmPasswordController, Strings.confirmPassword),
-                _buildConfirmPasswordValidation(),
-                const SizedBox(height: 30),
-                _buildTermsOfAgreementCheck(),
-                ContinueButton(
-                  Strings.createPassword,
-                  () => vm.attemptCreatePassword(_confirmPasswordController.text),
-                  disabled: !_validPassword || !_passwordsMatch || !_readTermsOfAgreement,
-                ),
-              ],
-            ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: SvgPicture.asset(RibnAssets.walletPasswordIcon),
+              ),
+              const Text(
+                Strings.createWalletPasswordDesc,
+                style: RibnTextStyles.body1,
+                textAlign: TextAlign.left,
+                textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
+              ),
+              _buildTextField(_newPasswordController, Strings.newPassword),
+              _buildEnterPasswordValidations(),
+              _buildTextField(_confirmPasswordController, Strings.confirmPassword),
+              _buildConfirmPasswordValidation(),
+              const SizedBox(height: 30),
+              _buildTermsOfAgreementCheck(),
+              ContinueButton(
+                Strings.createPassword,
+                () => vm.attemptCreatePassword(_confirmPasswordController.text),
+                disabled: !_validPassword || !_passwordsMatch || !_readTermsOfAgreement,
+              ),
+            ],
           ),
         );
       },

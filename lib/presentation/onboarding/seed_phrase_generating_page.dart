@@ -48,13 +48,11 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 50.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: seedPhraseGenerating ? seedPhraseGeneratingSection() : seedPhraseGeneratedSection(),
-        ),
+    return Padding(
+      padding: const EdgeInsets.only(top: 50.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: seedPhraseGenerating ? seedPhraseGeneratingSection() : seedPhraseGeneratedSection(),
       ),
     );
   }

@@ -28,66 +28,64 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 40),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(
-              width: 315,
-              height: 100,
-              child: Text(
-                Strings.walletCreated,
-                style: RibnTextStyles.h1,
-                textAlign: TextAlign.center,
-              ),
+    return Padding(
+      padding: const EdgeInsets.only(top: 40),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(
+            width: 315,
+            height: 100,
+            child: Text(
+              Strings.walletCreated,
+              style: RibnTextStyles.h1,
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 40),
-            SvgPicture.asset(RibnAssets.logoCardIcon),
-            const SizedBox(
-              height: 95,
-              width: 680,
-              child: Text(
-                Strings.walletCreatedDesc,
-                style: RibnTextStyles.body1,
-                textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
-              ),
+          ),
+          const SizedBox(height: 40),
+          SvgPicture.asset(RibnAssets.logoCardIcon),
+          const SizedBox(
+            height: 95,
+            width: 680,
+            child: Text(
+              Strings.walletCreatedDesc,
+              style: RibnTextStyles.body1,
+              textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
             ),
-            const SizedBox(height: 30),
-            ContinueButton(Strings.cont, () {
-              StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(Routes.extensionInfo));
-            }),
-            const SizedBox(height: 60),
-            SizedBox(
-              width: 660,
-              child: Row(
-                children: [
-                  Text(
-                    Strings.frequentlyAskedQuestions,
-                    style: RibnTextStyles.body1Bold.copyWith(fontSize: 25),
-                    textAlign: TextAlign.left,
-                  ),
-                  const Spacer(),
-                ],
-              ),
+          ),
+          const SizedBox(height: 30),
+          ContinueButton(Strings.cont, () {
+            StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(Routes.extensionInfo));
+          }),
+          const SizedBox(height: 60),
+          SizedBox(
+            width: 660,
+            child: Row(
+              children: [
+                Text(
+                  Strings.frequentlyAskedQuestions,
+                  style: RibnTextStyles.body1Bold.copyWith(fontSize: 25),
+                  textAlign: TextAlign.left,
+                ),
+                const Spacer(),
+              ],
             ),
-            const SizedBox(height: 20),
-            _buildFaqListItem(
-              Strings.howCanIKeepMySeedPhraseSecure,
-              Strings.howCanIKeepMySeedPhraseSecureAns,
-            ),
-            _buildFaqListItem(
-              Strings.howIsASeedPhraseDifferent,
-              Strings.howIsASeedPhraseDifferentAns,
-            ),
-            _buildFaqListItem(
-              Strings.howIsMySeedPhraseUnrecoverable,
-              Strings.howIsMySeedPhraseUnrecoverableAns,
-            ),
-            const SizedBox(height: 20),
-          ],
-        ),
+          ),
+          const SizedBox(height: 20),
+          _buildFaqListItem(
+            Strings.howCanIKeepMySeedPhraseSecure,
+            Strings.howCanIKeepMySeedPhraseSecureAns,
+          ),
+          _buildFaqListItem(
+            Strings.howIsASeedPhraseDifferent,
+            Strings.howIsASeedPhraseDifferentAns,
+          ),
+          _buildFaqListItem(
+            Strings.howIsMySeedPhraseUnrecoverable,
+            Strings.howIsMySeedPhraseUnrecoverableAns,
+          ),
+          const SizedBox(height: 20),
+        ],
       ),
     );
   }

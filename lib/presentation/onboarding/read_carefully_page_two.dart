@@ -22,68 +22,66 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 50),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(
-              height: 100,
-              width: 315,
-              child: Text(
-                Strings.readFollowingCarefully,
-                style: RibnTextStyles.h1,
-                textAlign: TextAlign.center,
-              ),
+    return Padding(
+      padding: const EdgeInsets.only(top: 50),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(
+            height: 100,
+            width: 315,
+            child: Text(
+              Strings.readFollowingCarefully,
+              style: RibnTextStyles.h1,
+              textAlign: TextAlign.center,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 35),
-              child: SvgPicture.asset(RibnAssets.warningIcon),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 35),
+            child: SvgPicture.asset(RibnAssets.warningIcon),
+          ),
+          SizedBox(
+            width: 820,
+            child: Column(
+              children: [
+                _buildCheckListTile(
+                  Strings.readFollowingCarefullyPointOne,
+                  _pointOneChecked,
+                  (bool? val) {
+                    setState(() {
+                      _pointOneChecked = val ?? false;
+                    });
+                  },
+                ),
+                _buildCheckListTile(
+                  Strings.readFollowingCarefullyPointTwo,
+                  _pointTwoChecked,
+                  (bool? val) {
+                    setState(() {
+                      _pointTwoChecked = val ?? false;
+                    });
+                  },
+                ),
+                _buildCheckListTile(
+                  Strings.readFollowingCarefullyPointThree,
+                  _pointThreeChecked,
+                  (bool? val) {
+                    setState(() {
+                      _pointThreeChecked = val ?? false;
+                    });
+                  },
+                ),
+              ],
             ),
-            SizedBox(
-              width: 820,
-              child: Column(
-                children: [
-                  _buildCheckListTile(
-                    Strings.readFollowingCarefullyPointOne,
-                    _pointOneChecked,
-                    (bool? val) {
-                      setState(() {
-                        _pointOneChecked = val ?? false;
-                      });
-                    },
-                  ),
-                  _buildCheckListTile(
-                    Strings.readFollowingCarefullyPointTwo,
-                    _pointTwoChecked,
-                    (bool? val) {
-                      setState(() {
-                        _pointTwoChecked = val ?? false;
-                      });
-                    },
-                  ),
-                  _buildCheckListTile(
-                    Strings.readFollowingCarefullyPointThree,
-                    _pointThreeChecked,
-                    (bool? val) {
-                      setState(() {
-                        _pointThreeChecked = val ?? false;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 30),
-            ContinueButton(
-              Strings.iUnderstand,
-              () => widget.goToNextPage(),
-              disabled: !_pointOneChecked || !_pointTwoChecked || !_pointThreeChecked,
-            )
-          ],
-        ),
+          ),
+          const SizedBox(height: 30),
+          ContinueButton(
+            Strings.iUnderstand,
+            () => widget.goToNextPage(),
+            disabled: !_pointOneChecked || !_pointTwoChecked || !_pointThreeChecked,
+          )
+        ],
       ),
     );
   }
