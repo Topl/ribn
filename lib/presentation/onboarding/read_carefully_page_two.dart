@@ -87,38 +87,41 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
   }
 
   Widget _buildCheckListTile(String label, bool checked, Function(bool?)? onChecked) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(2),
-              border: Border.all(color: checked ? RibnColors.active : RibnColors.inactive),
-            ),
-            constraints: const BoxConstraints(maxHeight: 20, maxWidth: 20),
-            child: Checkbox(
-              fillColor: MaterialStateProperty.all(Colors.transparent),
-              checkColor: RibnColors.active,
-              value: checked,
-              onChanged: onChecked,
-            ),
-          ),
-        ),
-        Expanded(
-          child: SizedBox(
-            height: 40,
-            child: Text(
-              label,
-              style: RibnTextStyles.body1.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),
-              textAlign: TextAlign.start,
-              textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(2),
+                border: Border.all(color: checked ? RibnColors.active : RibnColors.inactive),
+              ),
+              constraints: const BoxConstraints(maxHeight: 20, maxWidth: 20),
+              child: Checkbox(
+                fillColor: MaterialStateProperty.all(Colors.transparent),
+                checkColor: RibnColors.active,
+                value: checked,
+                onChanged: onChecked,
+              ),
             ),
           ),
-        ),
-      ],
+          Expanded(
+            child: SizedBox(
+              height: 40,
+              child: Text(
+                label,
+                style: RibnTextStyles.body1.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),
+                textAlign: TextAlign.start,
+                textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
