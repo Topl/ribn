@@ -14,7 +14,12 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
   final VoidCallback goToNextPage;
   const SeedPhraseConfirmationPage(this.goToNextPage, {Key? key}) : super(key: key);
   final Color idxColor = const Color(0xff00b5ab);
-  final int gridCrossAxisCount = 3;
+  final double gridHeight = 350;
+  final double gridWidth = 650;
+  final double idxContainerWidth = 35;
+  final double idxContainerHeight = 20;
+  final double wordContainerWidth = 130;
+  final double wordContainerHeight = 40;
 
   @override
   Widget build(BuildContext context) {
@@ -22,65 +27,78 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
       builder: (BuildContext context, SeedPhraseConfirmationViewModel vm) {
         return Padding(
           padding: const EdgeInsets.only(top: 50.0),
-          child: Column(
-            children: [
-              SizedBox(
-                width: 315,
-                height: 100,
-                child: Text(
-                  vm.finishedInputting ? Strings.seedPhraseConfirmed : Strings.confirmYourSeedPhrase,
-                  style: RibnTextStyles.h1,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              // add icon here
-              vm.finishedInputting
-                  ? Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: SvgPicture.asset(RibnAssets.seedPhraseConfirmedIcon),
-                    )
-                  : const SizedBox(),
-              const SizedBox(height: 40),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
-                child: SizedBox(
-                  width: 650,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  width: 315,
+                  height: 100,
                   child: Text(
-                    vm.finishedInputting ? Strings.seedPhraseConfirmedDesc : Strings.confirmYourSeedPhraseDesc,
-                    style: RibnTextStyles.body1,
-                    textAlign: TextAlign.left,
-                    textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+                    vm.finishedInputting ? Strings.seedPhraseConfirmed : Strings.confirmYourSeedPhrase,
+                    style: RibnTextStyles.h1,
+                    textAlign: TextAlign.center,
                   ),
                 ),
-              ),
-              vm.finishedInputting ? const SizedBox() : _buildShuffledSeedPhraseGrid(vm),
-              _buildConfirmedSeedPhraseGrid(vm),
-              const SizedBox(height: 20),
-              vm.finishedInputting ? ContinueButton(Strings.cont, goToNextPage) : const SizedBox(),
-            ],
+                // add icon here
+                vm.finishedInputting
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: SvgPicture.asset(RibnAssets.seedPhraseConfirmedIcon),
+                      )
+                    : const SizedBox(),
+                const SizedBox(height: 40),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20.0),
+                  child: SizedBox(
+                    width: 650,
+                    child: Text(
+                      vm.finishedInputting ? Strings.seedPhraseConfirmedDesc : Strings.confirmYourSeedPhraseDesc,
+                      style: RibnTextStyles.body1,
+                      textAlign: TextAlign.left,
+                      textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+                    ),
+                  ),
+                ),
+                vm.finishedInputting ? const SizedBox() : _buildSeedPhraseGrid(vm, isShuffledGrid: true),
+                _buildSeedPhraseGrid(vm, isShuffledGrid: false),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: vm.finishedInputting ? ContinueButton(Strings.cont, goToNextPage) : const SizedBox(),
+                ),
+              ],
+            ),
           ),
         );
       },
     );
   }
 
-  /// Builds the grid for the shuffled seed phrase.
-  Widget _buildShuffledSeedPhraseGrid(SeedPhraseConfirmationViewModel vm) {
+  /// Builds out the seedphrase grid for the shuffled words and the confirmed words
+  Widget _buildSeedPhraseGrid(SeedPhraseConfirmationViewModel vm, {bool isShuffledGrid = false}) {
     final Map<int, String> shuffledSeedPhraseMap = vm.shuffledMnemonic.asMap();
-    return SizedBox(
-      height: 350,
-      width: 650,
+    final Map<int, String> mnemonicMap = vm.mnemonicWordsList.asMap();
+    final List<String> selectedWords = vm.userSelectedIndices.map((idx) => vm.shuffledMnemonic[idx]).toList();
+    final Color borderColor = isShuffledGrid ? Colors.transparent : RibnColors.primary;
+    return Container(
+      height: gridHeight,
+      width: gridWidth,
+      decoration: BoxDecoration(
+        border: Border.all(color: borderColor),
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: GridView.count(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         physics: const NeverScrollableScrollPhysics(),
-        crossAxisCount: gridCrossAxisCount,
-        crossAxisSpacing: 65,
-        mainAxisSpacing: 25,
+        crossAxisCount: 3,
+        crossAxisSpacing: 50,
+        mainAxisSpacing: 22,
         shrinkWrap: true,
-        childAspectRatio: 3.5,
-        children: shuffledSeedPhraseMap.keys
-            .map((idx) => _buildShuffledWordContainer(idx, shuffledSeedPhraseMap[idx]!, vm))
-            .toList(),
+        childAspectRatio: 4,
+        children: isShuffledGrid
+            ? shuffledSeedPhraseMap.keys
+                .map((idx) => _buildShuffledWordContainer(idx, shuffledSeedPhraseMap[idx]!, vm))
+                .toList()
+            : mnemonicMap.keys.map((idx) => _buildConfirmedWordContainer(idx, selectedWords)).toList(),
       ),
     );
   }
@@ -89,51 +107,34 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
     final bool isSelected = vm.userSelectedIndices.contains(idx);
     final bool isNextWord = vm.mnemonicWordsList[vm.userSelectedIndices.length] == word;
     return Center(
-      child: isSelected
-          ? const SizedBox()
-          : TextButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(RibnColors.accent),
-                minimumSize: MaterialStateProperty.all(const Size(130, 40)),
-                maximumSize: MaterialStateProperty.all(const Size(130, 40)),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(26),
+      child: Row(
+        children: [
+          SizedBox(width: idxContainerWidth, height: idxContainerHeight),
+          isSelected
+              ? const SizedBox()
+              : SizedBox(
+                  width: wordContainerWidth,
+                  height: wordContainerHeight,
+                  child: TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(RibnColors.accent),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(26),
+                        ),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        word,
+                        style: RibnTextStyles.body1,
+                        textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+                      ),
+                    ),
+                    onPressed: isNextWord ? () => vm.selectWord(idx) : null,
                   ),
                 ),
-              ),
-              child: Center(
-                child: Text(
-                  word,
-                  style: RibnTextStyles.body1,
-                  textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
-                ),
-              ),
-              onPressed: isNextWord ? () => vm.selectWord(idx) : null,
-            ),
-    );
-  }
-
-  /// Builds the grid for the seed phrase words that have been confirmed.
-  Widget _buildConfirmedSeedPhraseGrid(SeedPhraseConfirmationViewModel vm) {
-    final Map<int, String> mnemonicMap = vm.mnemonicWordsList.asMap();
-    final List<String> selectedWords = vm.userSelectedIndices.map((idx) => vm.shuffledMnemonic[idx]).toList();
-    return Container(
-      height: 350,
-      width: 650,
-      decoration: BoxDecoration(
-        border: Border.all(color: RibnColors.primary),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: GridView.count(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        physics: const NeverScrollableScrollPhysics(),
-        crossAxisCount: gridCrossAxisCount,
-        crossAxisSpacing: 50,
-        mainAxisSpacing: 22,
-        shrinkWrap: true,
-        childAspectRatio: 4,
-        children: mnemonicMap.keys.map((idx) => _buildConfirmedWordContainer(idx, selectedWords)).toList(),
+        ],
       ),
     );
   }
@@ -145,8 +146,8 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            width: 35,
-            height: 20,
+            width: idxContainerWidth,
+            height: idxContainerHeight,
             child: Text(
               '${idx + 1}.',
               style: RibnTextStyles.body1Bold.copyWith(
@@ -166,8 +167,8 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(26),
               child: Container(
-                width: 130,
-                height: 40,
+                width: wordContainerWidth,
+                height: wordContainerHeight,
                 color: RibnColors.accent,
                 child: Center(
                   child: Text(
