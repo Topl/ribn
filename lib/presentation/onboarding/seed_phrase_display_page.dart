@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
@@ -21,62 +22,64 @@ class SeedPhraseDisplayPage extends StatelessWidget {
         StoreProvider.of<AppState>(context).state.onboardingState.mnemonic!.split(' ').toList();
     return Padding(
       padding: const EdgeInsets.only(top: 50.0),
-      child: Column(
-        children: [
-          Center(
-            child: SizedBox(
-              height: 100,
-              width: 315,
-              child: Text(
-                backButtonPressed ? Strings.letsTryThatAgain : Strings.writeDownSeedPhrase,
-                style: RibnTextStyles.h1,
-                textAlign: TextAlign.center,
-                textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Center(
+              child: SizedBox(
+                height: 100,
+                width: 315,
+                child: Text(
+                  backButtonPressed ? Strings.letsTryThatAgain : Strings.writeDownSeedPhrase,
+                  style: RibnTextStyles.h1,
+                  textAlign: TextAlign.center,
+                  textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20.0),
-            child: SvgPicture.asset(
-              backButtonPressed ? RibnAssets.winkIcon : RibnAssets.paperPenIcon,
-              width: 55,
-              height: 55,
-            ),
-          ),
-          Text(
-            backButtonPressed ? Strings.heyIWasntKidding : Strings.writeDownSeedPhraseDesc,
-            style: RibnTextStyles.body1,
-            textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
-          ),
-          const SizedBox(height: 30),
-          Container(
-            height: 350,
-            width: 650,
-            decoration: BoxDecoration(
-              color: RibnColors.accent,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Center(
-              child: GridView.count(
-                padding: const EdgeInsets.symmetric(horizontal: 50),
-                crossAxisCount: 3,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                shrinkWrap: true,
-                childAspectRatio: (100 / 25),
-                children: List.generate(seedPhraseList.length, (index) => index)
-                    .map((idx) => _buildWordGridItem(idx, seedPhraseList[idx]))
-                    .toList(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20.0),
+              child: SvgPicture.asset(
+                backButtonPressed ? RibnAssets.winkIcon : RibnAssets.paperPenIcon,
+                width: 55,
+                height: 55,
               ),
             ),
-          ),
-          const SizedBox(height: 10),
-          _buildDownloadButton(),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30.0),
-            child: ContinueButton(Strings.done, goToNextPage),
-          ),
-        ],
+            Text(
+              backButtonPressed ? Strings.heyIWasntKidding : Strings.writeDownSeedPhraseDesc,
+              style: RibnTextStyles.body1,
+              textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+            ),
+            const SizedBox(height: 30),
+            Container(
+              height: 350,
+              width: 650,
+              decoration: BoxDecoration(
+                color: RibnColors.accent,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Center(
+                child: GridView.count(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  shrinkWrap: true,
+                  childAspectRatio: (100 / 25),
+                  children: List.generate(seedPhraseList.length, (index) => index)
+                      .map((idx) => _buildWordGridItem(idx, seedPhraseList[idx]))
+                      .toList(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            _buildDownloadButton(context, seedPhraseList),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 30.0),
+              child: ContinueButton(Strings.done, goToNextPage),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -113,7 +116,8 @@ class SeedPhraseDisplayPage extends StatelessWidget {
     );
   }
 
-  Widget _buildDownloadButton() {
+  Widget _buildDownloadButton(BuildContext context, List<String> seedPhraseList) {
+    final String seedPhrase = seedPhraseList.join(' ');
     return SizedBox(
       width: 650,
       child: Row(
@@ -124,7 +128,8 @@ class SeedPhraseDisplayPage extends StatelessWidget {
             focusColor: Colors.transparent,
             minWidth: 100,
             height: 45,
-            onPressed: () {},
+            onPressed: () =>
+                StoreProvider.of<AppState>(context).dispatch(DownloadAsFile(Strings.seedPhraseFileName, seedPhrase)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

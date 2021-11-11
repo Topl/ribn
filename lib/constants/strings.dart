@@ -64,6 +64,7 @@ my wallet contents can only be recovered by using my seed phrase.''';
   static const String securePasswordManager = 'A secure password manager.';
   static const String encryptTextFile = 'A program such as PGP to encrypt your text file.';
   static const String writeDownSeedPhrase = 'Write Down Seed Phrase';
+  static const String seedPhraseFileName = 'seed_phrase';
   static const String letsTryThatAgain = 'Now, Let’s Try That Again';
   static const String heyIWasntKidding =
       '''Hey I wasn’t kidding, write these words down in the exact order they are shown. Remember don’t take any screenshots!''';
