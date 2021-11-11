@@ -25,6 +25,7 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
     Strings.howIsASeedPhraseDifferent: false,
     Strings.howIsMySeedPhraseUnrecoverable: false,
   };
+  final Color dividerColor = const Color.fromRGBO(148, 162, 171, 0.47);
 
   @override
   Widget build(BuildContext context) {
@@ -97,37 +98,43 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
         borderRadius: BorderRadius.circular(4),
         child: SizedBox(
           width: 660,
-          child: ExpansionTile(
-            tilePadding: const EdgeInsets.symmetric(horizontal: 30),
-            trailing: faqExpanded[header]! ? const Icon(Icons.remove) : const Icon(Icons.add),
-            iconColor: RibnColors.defaultText,
-            onExpansionChanged: (bool val) {
-              setState(() {
-                faqExpanded[header] = val;
-              });
-            },
-            backgroundColor: RibnColors.accent,
-            collapsedBackgroundColor: RibnColors.accent,
-            title: Text(
-              header,
-              style: RibnTextStyles.body1Bold,
-              textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
-            ),
-            children: [
-              const Divider(),
-              Padding(
-                padding: const EdgeInsets.only(left: 50, top: 30, bottom: 30),
-                child: SizedBox(
-                  width: 500,
-                  child: Text(
-                    desc,
-                    style: RibnTextStyles.body1,
-                    textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+          child: Theme(
+            data: ThemeData().copyWith(dividerColor: Colors.transparent),
+            child: ExpansionTile(
+              tilePadding: const EdgeInsets.symmetric(horizontal: 30),
+              trailing: faqExpanded[header]! ? const Icon(Icons.remove) : const Icon(Icons.add),
+              iconColor: RibnColors.defaultText,
+              onExpansionChanged: (bool val) {
+                setState(() {
+                  faqExpanded[header] = val;
+                });
+              },
+              backgroundColor: RibnColors.accent,
+              collapsedBackgroundColor: RibnColors.accent,
+              title: Text(
+                header,
+                style: RibnTextStyles.body1Bold,
+                textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+              ),
+              children: [
+                Container(
+                  color: dividerColor,
+                  height: 1,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 50, top: 30, bottom: 30),
+                  child: SizedBox(
+                    width: 500,
+                    child: Text(
+                      desc,
+                      style: RibnTextStyles.body1,
+                      textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+                    ),
                   ),
                 ),
-              ),
-            ],
-            expandedCrossAxisAlignment: CrossAxisAlignment.start,
+              ],
+              expandedCrossAxisAlignment: CrossAxisAlignment.start,
+            ),
           ),
         ),
       ),
