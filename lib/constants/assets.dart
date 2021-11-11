@@ -7,6 +7,7 @@ class RibnAssets {
   static const seedPhraseGenerated = 'assets/icons/seedphrase_generated.svg';
   static const winkIcon = 'assets/icons/wink.svg';
   static const paperPenIcon = 'assets/icons/paper_pen.svg';
+  static const seedPhraseCreatedIcon = 'assets/icons/seedphrase_created.png';
   static const passwordManagerIcon = 'assets/icons/password_manager.svg';
   static const encryptFileIcon = 'assets/icons/encrypt_file.svg';
   static const seedPhraseConfirmedIcon = 'assets/icons/seed_phrase_confirmed.svg';

@@ -39,16 +39,24 @@ class SeedPhraseDisplayPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20.0),
-              child: SvgPicture.asset(
-                backButtonPressed ? RibnAssets.winkIcon : RibnAssets.paperPenIcon,
-                width: 55,
-                height: 55,
-              ),
+              child: backButtonPressed
+                  ? SvgPicture.asset(
+                      RibnAssets.winkIcon,
+                      width: 55,
+                    )
+                  : Image.asset(
+                      RibnAssets.seedPhraseCreatedIcon,
+                      width: 65,
+                    ),
             ),
-            Text(
-              backButtonPressed ? Strings.heyIWasntKidding : Strings.writeDownSeedPhraseDesc,
-              style: RibnTextStyles.body1,
-              textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+            Container(
+              padding: const EdgeInsets.only(left: 20),
+              width: 690,
+              child: Text(
+                backButtonPressed ? Strings.heyIWasntKidding : Strings.writeDownSeedPhraseDesc,
+                style: RibnTextStyles.body1,
+                textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+              ),
             ),
             const SizedBox(height: 30),
             Container(
