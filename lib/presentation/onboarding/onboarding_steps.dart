@@ -16,7 +16,6 @@ class OnboardingStepsPage extends StatefulWidget {
 }
 
 class OnboardingStepsPageState extends State<OnboardingStepsPage> {
-  final PageController controller = PageController();
   final Duration pageTransitionDuration = Duration.zero;
   int currPage = 0;
 
