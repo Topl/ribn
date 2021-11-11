@@ -76,6 +76,7 @@ Make sure they are in the exact order shown below. Don’t take screenshots!''';
   static const String seedPhraseConfirmedDesc = '''Good job! Each word in your Seed Phrase has been input correctly. 
 Rest assured, you have saved the correct words, in the correct order.''';
   static const String cont = 'Continue';
+  static const String finalReview = 'FINAL REVIEW';
   static const String createWalletPassword = 'Create Wallet Password';
   static const String createWalletPasswordDesc = '''Last step, we will create a Wallet Password. 
 A Wallet Password is used to unlock your wallet.''';

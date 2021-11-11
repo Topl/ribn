@@ -35,4 +35,11 @@ class RibnTextStyles {
     color: RibnColors.defaultText,
     fontWeight: FontWeight.w500,
   );
+  static const TextStyle smallBoldLabel = TextStyle(
+    fontFamily: 'Roboto',
+    fontSize: 13,
+    color: RibnColors.defaultText,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.5,
+  );
 }
