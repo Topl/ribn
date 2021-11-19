@@ -7,4 +7,5 @@ class RibnColors {
   static const Color defaultText = Color(0xFF323232);
   static const Color inactive = Color(0xFFDADADA);
   static const Color active = Color(0xFF2AD062);
+  static const Color background = Color(0xFFEEF9F8);
 }
