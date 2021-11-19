@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/login_container.dart';
-import 'package:ribn/widgets/base_appbar.dart';
 import 'package:ribn/widgets/loading_spinner.dart';
 
 class LoginPage extends StatefulWidget {
@@ -31,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
     return LoginContainer(
       builder: (context, vm) {
         return Scaffold(
-          appBar: BaseAppBar(),
+          appBar: AppBar(),
           body: Stack(
             children: [
               Center(
