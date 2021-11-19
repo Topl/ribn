@@ -29,3 +29,7 @@ Future<bool> openedInExtensionView() {
 void downloadAsFile(String fileName, String text) {
   throw UnimplementedError();
 }
+
+void deleteWallet() {
+  throw UnimplementedError();
+}

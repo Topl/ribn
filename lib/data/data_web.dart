@@ -16,6 +16,7 @@ external Future<void> persistToStorage(String data);
 external Future<String> fetchData();
 external Future<bool> isExtensionView();
 external void downloadAsFile(String fileName, String text);
+external void deleteWallet();
 
 void initPortMessageListener(Function msgHandler) {
   addPortMessageListener(allowInterop(msgHandler));
