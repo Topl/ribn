@@ -30,3 +30,7 @@ class DownloadAsFile {
   final String text;
   const DownloadAsFile(this.fileName, this.text);
 }
+
+class DeleteWalletAction {
+  const DeleteWalletAction();
+}
