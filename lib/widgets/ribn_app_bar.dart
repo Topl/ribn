@@ -1,10 +1,14 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:redux/redux.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/containers/ribn_app_bar_container.dart';
+import 'package:ribn/models/app_state.dart';
 import 'package:ribn/utils.dart';
 
 /// Builds the top AppBar in the extension view.
@@ -35,7 +39,7 @@ class _RibnAppBarState extends State<RibnAppBar> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              _buildNetworkMenu(vm.currentNetwork, vm.networks, vm.updateNetwork),
+              _buildNetworkMenu(vm.currentNetwork, vm.networks, vm.updateNetwork, vm.isConnected),
               const Spacer(),
               _buildSettingsMenu(vm.settingsOptions, vm.selectSettingsOption),
             ],
@@ -47,7 +51,12 @@ class _RibnAppBarState extends State<RibnAppBar> {
   }
 
   /// Builds the network drop down menu.
-  Widget _buildNetworkMenu(int selectedNetwork, List<int> networks, Function(String) onChange) {
+  Widget _buildNetworkMenu(
+    int selectedNetwork,
+    List<int> networks,
+    Function(String) onChange,
+    Future<bool> isConnected,
+  ) {
     return Container(
       width: 90,
       height: 25,
@@ -74,9 +83,9 @@ class _RibnAppBarState extends State<RibnAppBar> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5),
-              child: CircleAvatar(backgroundColor: Color(0xFF80FF00), radius: 3),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: _buildNetworkIndicator(isConnected),
             ),
             SizedBox(
               height: 15,
@@ -139,6 +148,25 @@ class _RibnAppBarState extends State<RibnAppBar> {
           ).toList();
         },
       ),
+    );
+  }
+
+  Widget _buildNetworkIndicator(Future<bool> isConnected) {
+    const Widget connectedIndicator = CircleAvatar(backgroundColor: Color(0xFF80FF00), radius: 3);
+    const Widget disconnectedIndicator = CircleAvatar(backgroundColor: Colors.red, radius: 3);
+    return FutureBuilder(
+      future: isConnected,
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            {
+              final bool isConnected = snapshot.data ?? false;
+              return isConnected ? connectedIndicator : disconnectedIndicator;
+            }
+          default:
+            return disconnectedIndicator;
+        }
+      },
     );
   }
 }
