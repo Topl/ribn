@@ -18,11 +18,11 @@ class GettingStartedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: OnboardingAppBar(onBackPressed: onBackPressed),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const OnboardingAppBar(),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 40),
             child: Center(

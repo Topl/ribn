@@ -15,6 +15,7 @@ Epic<AppState> createEpicMiddleware(MiscRepository miscRepo) => combineEpics<App
       _errorRedirectEpic(),
       _persistenceTriggerEpic(),
       _sendToBackground(miscRepo),
+      _downloadAsFile(miscRepo),
     ]);
 
 /// A list of all the actions that should trigger appState persistence
@@ -75,6 +76,14 @@ Epic<AppState> _persistenceTriggerEpic() => (Stream<dynamic> actions, EpicStore<
 Epic<AppState> _sendToBackground(MiscRepository miscRepo) => (Stream<dynamic> actions, EpicStore<AppState> store) {
       return actions.whereType<SendInternalMsgAction>().switchMap((action) {
         miscRepo.sendInternalMessage(action.msg);
+        return const Stream.empty();
+      });
+    };
+
+/// Listens for [DownloadAsFile] and downloads the text data as a file.
+Epic<AppState> _downloadAsFile(MiscRepository miscRepo) => (Stream<dynamic> actions, EpicStore<AppState> store) {
+      return actions.whereType<DownloadAsFile>().switchMap((action) {
+        miscRepo.downloadAsFile(action.fileName, action.text);
         return const Stream.empty();
       });
     };

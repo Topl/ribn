@@ -10,4 +10,8 @@ class MiscRepository {
   void sendInternalMessage(InternalMessage msg) async {
     local.sendPortMessage(msg.toJson());
   }
+
+  void downloadAsFile(String fileName, String text) {
+    local.downloadAsFile(fileName, text);
+  }
 }

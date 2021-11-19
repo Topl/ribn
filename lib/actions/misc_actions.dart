@@ -24,3 +24,9 @@ class ReceiveInternalMsgAction {
   final String msg;
   ReceiveInternalMsgAction(this.msg);
 }
+
+class DownloadAsFile {
+  final String fileName;
+  final String text;
+  const DownloadAsFile(this.fileName, this.text);
+}

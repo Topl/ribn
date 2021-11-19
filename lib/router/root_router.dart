@@ -15,70 +15,43 @@ class RootRouter {
     switch (settings.name) {
       case Routes.welcome:
         {
-          return MaterialPageRoute(
-            settings: settings,
-            builder: (context) => const WelcomePage(),
-          );
+          return pageRoute(const WelcomePage(), settings);
         }
       case Routes.selectAction:
         {
-          return MaterialPageRoute(
-            settings: settings,
-            builder: (context) => const SelectActionPage(),
-          );
+          return pageRoute(const SelectActionPage(), settings);
         }
       case Routes.gettingStarted:
         {
-          return MaterialPageRoute(
-            settings: settings,
-            builder: (context) => const GettingStartedPage(),
-          );
+          return pageRoute(const GettingStartedPage(), settings);
         }
       case Routes.readCarefully:
         {
-          return MaterialPageRoute(
-            settings: settings,
-            builder: (context) => const ReadCarefullyPageOne(),
-          );
+          return pageRoute(const ReadCarefullyPageOne(), settings);
         }
       case Routes.onboardingSteps:
         {
-          return MaterialPageRoute(
-            settings: settings,
-            builder: (context) => const OnboardingStepsPage(),
-          );
+          return pageRoute(const OnboardingStepsPage(), settings);
         }
       case Routes.extensionInfo:
         {
-          return MaterialPageRoute(
-            settings: settings,
-            builder: (context) => const ExtensionInfoPage(),
-          );
+          return pageRoute(const ExtensionInfoPage(), settings);
         }
       case Routes.login:
         {
-          return MaterialPageRoute(
-            settings: settings,
-            builder: (context) => const LoginPage(),
-          );
+          return pageRoute(const LoginPage(), settings);
         }
       case Routes.home:
         {
-          return MaterialPageRoute(
-            settings: settings,
-            builder: (context) => const HomePage(),
-          );
+          return pageRoute(const HomePage(), settings);
         }
       case Routes.addresses:
         {
-          return MaterialPageRoute(
-            settings: settings,
-            builder: (context) => AddressSection(),
-          );
+          return pageRoute(AddressSection(), settings);
         }
       case Routes.error:
         {
-          String errorMessage = (settings.arguments ?? "Unknown error occurred") as String;
+          final String errorMessage = (settings.arguments ?? 'Unknown error occurred') as String;
           return errorRoute(errorMsg: errorMessage);
         }
       default:
@@ -86,7 +59,7 @@ class RootRouter {
     }
   }
 
-  Route<MaterialPageRoute> errorRoute({String errorMsg = "Unknown error occurred"}) {
+  Route<MaterialPageRoute> errorRoute({String errorMsg = 'Unknown error occurred'}) {
     return MaterialPageRoute(builder: (context) {
       return Center(
         child: Text(
@@ -98,5 +71,14 @@ class RootRouter {
         ),
       );
     });
+  }
+
+  /// Builds a page route without any animation.
+  Route<MaterialPageRoute> pageRoute(Widget page, RouteSettings settings) {
+    return PageRouteBuilder(
+      settings: settings,
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionDuration: Duration.zero,
+    );
   }
 }

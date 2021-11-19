@@ -19,17 +19,21 @@ class SelectActionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: OnboardingAppBar(onBackPressed: onBackPressed),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 40),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildOptionContainer(Strings.createWallet, Strings.createWalletDescription, context),
-            const SizedBox(width: 65),
-            _buildOptionContainer(Strings.importWallet, Strings.importWalletDescription, context),
-          ],
-        ),
+      body: Column(
+        children: [
+          OnboardingAppBar(onBackPressed: onBackPressed),
+          Padding(
+            padding: const EdgeInsets.only(top: 40),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildOptionContainer(Strings.createWallet, Strings.createWalletDescription, context),
+                const SizedBox(width: 65),
+                _buildOptionContainer(Strings.importWallet, Strings.importWalletDescription, context),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

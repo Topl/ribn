@@ -64,6 +64,7 @@ my wallet contents can only be recovered by using my seed phrase.''';
   static const String securePasswordManager = 'A secure password manager.';
   static const String encryptTextFile = 'A program such as PGP to encrypt your text file.';
   static const String writeDownSeedPhrase = 'Write Down Seed Phrase';
+  static const String seedPhraseFileName = 'seed_phrase';
   static const String letsTryThatAgain = 'Now, Let’s Try That Again';
   static const String heyIWasntKidding =
       '''Hey I wasn’t kidding, write these words down in the exact order they are shown. Remember don’t take any screenshots!''';
@@ -76,6 +77,7 @@ Make sure they are in the exact order shown below. Don’t take screenshots!''';
   static const String seedPhraseConfirmedDesc = '''Good job! Each word in your Seed Phrase has been input correctly. 
 Rest assured, you have saved the correct words, in the correct order.''';
   static const String cont = 'Continue';
+  static const String finalReview = 'FINAL REVIEW';
   static const String createWalletPassword = 'Create Wallet Password';
   static const String createWalletPasswordDesc = '''Last step, we will create a Wallet Password. 
 A Wallet Password is used to unlock your wallet.''';

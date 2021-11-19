@@ -30,11 +30,11 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: OnboardingAppBar(onBackPressed: onBackPressed),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          OnboardingAppBar(onBackPressed: onBackPressed),
           const Padding(
             padding: EdgeInsets.only(top: 40.0, bottom: 25),
             child: Center(

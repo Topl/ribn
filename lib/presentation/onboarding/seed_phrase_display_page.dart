@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
@@ -19,9 +20,9 @@ class SeedPhraseDisplayPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<String> seedPhraseList =
         StoreProvider.of<AppState>(context).state.onboardingState.mnemonic!.split(' ').toList();
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 50.0),
+    return Padding(
+      padding: const EdgeInsets.only(top: 50.0),
+      child: SingleChildScrollView(
         child: Column(
           children: [
             Center(
@@ -38,16 +39,24 @@ class SeedPhraseDisplayPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20.0),
-              child: SvgPicture.asset(
-                backButtonPressed ? RibnAssets.winkIcon : RibnAssets.paperPenIcon,
-                width: 55,
-                height: 55,
-              ),
+              child: backButtonPressed
+                  ? SvgPicture.asset(
+                      RibnAssets.winkIcon,
+                      width: 55,
+                    )
+                  : Image.asset(
+                      RibnAssets.seedPhraseCreatedIcon,
+                      width: 65,
+                    ),
             ),
-            Text(
-              backButtonPressed ? Strings.heyIWasntKidding : Strings.writeDownSeedPhraseDesc,
-              style: RibnTextStyles.body1,
-              textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+            Container(
+              padding: const EdgeInsets.only(left: 20),
+              width: 690,
+              child: Text(
+                backButtonPressed ? Strings.heyIWasntKidding : Strings.writeDownSeedPhraseDesc,
+                style: RibnTextStyles.body1,
+                textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+              ),
             ),
             const SizedBox(height: 30),
             Container(
@@ -72,7 +81,7 @@ class SeedPhraseDisplayPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            _buildDownloadButton(),
+            _buildDownloadButton(context, seedPhraseList),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 30.0),
               child: ContinueButton(Strings.done, goToNextPage),
@@ -115,7 +124,8 @@ class SeedPhraseDisplayPage extends StatelessWidget {
     );
   }
 
-  Widget _buildDownloadButton() {
+  Widget _buildDownloadButton(BuildContext context, List<String> seedPhraseList) {
+    final String seedPhrase = seedPhraseList.join(' ');
     return SizedBox(
       width: 650,
       child: Row(
@@ -126,7 +136,8 @@ class SeedPhraseDisplayPage extends StatelessWidget {
             focusColor: Colors.transparent,
             minWidth: 100,
             height: 45,
-            onPressed: () {},
+            onPressed: () =>
+                StoreProvider.of<AppState>(context).dispatch(DownloadAsFile(Strings.seedPhraseFileName, seedPhrase)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

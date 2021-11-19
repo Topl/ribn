@@ -25,3 +25,7 @@ void closeWindow() {
 Future<bool> openedInExtensionView() {
   throw UnimplementedError();
 }
+
+void downloadAsFile(String fileName, String text) {
+  throw UnimplementedError();
+}

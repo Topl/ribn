@@ -15,6 +15,7 @@ external void sendPortMessage(String data);
 external Future<void> persistToStorage(String data);
 external Future<String> fetchData();
 external Future<bool> isExtensionView();
+external void downloadAsFile(String fileName, String text);
 
 void initPortMessageListener(Function msgHandler) {
   addPortMessageListener(allowInterop(msgHandler));
