@@ -38,6 +38,26 @@ class RibnNetwork {
     return addresses.lastIndexWhere((addr) => addr.changeIndex == Rules.internalIdx) + 1;
   }
 
+  /// Verifies the network connection status.
+  /// @TODO Check if needed
+  Future<bool> isConnected() async {
+    try {
+      final String currNetwork = await client!.getNetwork();
+      switch (currNetwork) {
+        case 'Mainnet':
+          return networkId == Rules.toplnetId;
+        case 'ValhallaTestnet':
+          return networkId == Rules.valhallaId;
+        case 'PrivateTestnet':
+          return networkId == Rules.privateId;
+        default:
+          return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
   List<RibnAddress> getAddrsWithSufficientPolys(int target) {
     final List<RibnAddress> sortedAddrs = List.from(addresses)
       ..sort((a, b) => a.balance.polys.quantity.compareTo(b.balance.polys.quantity));
