@@ -9,6 +9,7 @@ import 'package:ribn/presentation/onboarding/onboarding_steps.dart';
 import 'package:ribn/presentation/onboarding/read_carefully_page_one.dart';
 import 'package:ribn/presentation/onboarding/select_action_page.dart';
 import 'package:ribn/presentation/onboarding/welcome_page.dart';
+import 'package:ribn/presentation/settings_page.dart';
 
 class RootRouter {
   Route<MaterialPageRoute> generateRoutes(RouteSettings settings) {
@@ -48,6 +49,10 @@ class RootRouter {
       case Routes.addresses:
         {
           return pageRoute(AddressSection(), settings);
+        }
+      case Routes.settings:
+        {
+          return pageRoute(const SettingsPage(), settings);
         }
       case Routes.error:
         {
