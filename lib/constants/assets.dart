@@ -19,4 +19,13 @@ class RibnAssets {
   static const importWalletIcon = 'assets/icons/import_wallet.svg';
   static const closeGreyIcon = 'assets/icons/close_grey.svg';
   static const downloadIcon = 'assets/icons/download.svg';
+  static const infoIcon = 'assets/icons/info.png';
+  static const sendIcon = 'assets/icons/send.png';
+  static const receiveIcon = 'assets/icons/receive.png';
+  static const menuIcon = 'assets/icons/menu.svg';
+  static const balancePageIcon = 'assets/icons/balance_page.svg';
+  static const txHistoryPageIcon = 'assets/icons/tx_history_page.svg';
+  static const mintPageIcon = 'assets/icons/mint_page.svg';
+  static const settingsIcon = 'assets/icons/settings.svg';
+  static const supportIcon = 'assets/icons/support.svg';
 }
