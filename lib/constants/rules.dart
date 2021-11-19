@@ -23,7 +23,6 @@ class Rules {
   static const int assetCodeVersion = constants.supportedAssetCodeVersion;
   static const int numInitialAddresses = 5;
   static const int internalIdx = 1;
-  static const List<String> settings = [Strings.logout];
   static const int numHomeTabs = 3;
   static int toplnetId = constants.networkRegistry[Strings.toplnet]!;
   static int valhallaId = constants.networkRegistry[Strings.valhalla]!;
