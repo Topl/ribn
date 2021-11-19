@@ -16,6 +16,7 @@ Epic<AppState> createEpicMiddleware(MiscRepository miscRepo) => combineEpics<App
       _persistenceTriggerEpic(),
       _sendToBackground(miscRepo),
       _downloadAsFile(miscRepo),
+      _deleteWallet(miscRepo),
     ]);
 
 /// A list of all the actions that should trigger appState persistence
@@ -84,6 +85,14 @@ Epic<AppState> _sendToBackground(MiscRepository miscRepo) => (Stream<dynamic> ac
 Epic<AppState> _downloadAsFile(MiscRepository miscRepo) => (Stream<dynamic> actions, EpicStore<AppState> store) {
       return actions.whereType<DownloadAsFile>().switchMap((action) {
         miscRepo.downloadAsFile(action.fileName, action.text);
+        return const Stream.empty();
+      });
+    };
+
+/// Listens for [DeleteWalletAction] and downloads the text data as a file.
+Epic<AppState> _deleteWallet(MiscRepository miscRepo) => (Stream<dynamic> actions, EpicStore<AppState> store) {
+      return actions.whereType<DeleteWalletAction>().switchMap((action) {
+        miscRepo.deleteWallet();
         return const Stream.empty();
       });
     };
