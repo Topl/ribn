@@ -9,7 +9,8 @@ class Strings {
   static const String transactionHistory = 'Transaction History';
   static const String generateNewAddress = 'GENERATE NEW ADDRESS';
   static const String noAddresses = 'You have no addresses';
-  static const String logout = 'Logout';
+  static const String settings = 'Settings';
+  static const String support = 'Support';
   static const String valhalla = 'valhalla';
   static const String toplnet = 'toplnet';
   static const String private = 'private';
@@ -18,6 +19,7 @@ class Strings {
   static const String polyTransfer = 'Poly Transfer';
   static const String assetTransfer = 'Asset Transfer';
   static const String minting = 'Minting';
+  static const String totalAmount = 'Total Amount';
   static const String assetName = 'Asset name';
   static const String transferType = 'transferType';
   static const String recipient = 'recipient';
@@ -130,4 +132,16 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String clickingTheIconPartOne = 'Clicking the ';
   static const String clickingTheIconPartTwo = ''' icon on the top right of your browser.\n\nOr, clicking the ''';
   static const String clickingTheIconPartThree = ' to find the RibnWallet extension in the Chrome extension list.';
+  static const String ribnVersion = 'Ribn Version';
+  static const String links = 'Links';
+  static const String termsOfUse = 'Terms of Use';
+  static const String privacyPolicy = 'Privacy Policy';
+  static const String export = 'Export';
+  static const String exportKeyStore = 'Export Key Store';
+  static const String exportKeyStoreDesc =
+      '''Export Key Store and save it somewhere secure.\nYou can reimport it to restore your wallet.''';
+  static const String exportWallet = 'Export Wallet';
+  static const String dangerZone = 'Danger Zone';
+  static const String actionNotReversible = 'Careful, this action is not reversible!';
+  static const String deleteWallet = 'Delete Wallet';
 }
