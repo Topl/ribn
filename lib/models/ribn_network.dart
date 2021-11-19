@@ -112,8 +112,7 @@ class RibnNetwork {
 
   String toJson() => json.encode(toMap());
 
-  factory RibnNetwork.fromJson(String source) =>
-      RibnNetwork.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory RibnNetwork.fromJson(String source) => RibnNetwork.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -134,10 +133,6 @@ class RibnNetwork {
 
   @override
   int get hashCode {
-    return networkId.hashCode ^
-        networkUrl.hashCode ^
-        addresses.hashCode ^
-        client.hashCode ^
-        fetchingBalance.hashCode;
+    return networkId.hashCode ^ networkUrl.hashCode ^ addresses.hashCode ^ client.hashCode ^ fetchingBalance.hashCode;
   }
 }
