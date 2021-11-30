@@ -144,4 +144,10 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String dangerZone = 'Danger Zone';
   static const String actionNotReversible = 'Careful, this action is not reversible!';
   static const String deleteWallet = 'Delete Wallet';
+  static const String enterWalletPassword = 'Enter Wallet Password';
+  static const String unlock = 'UNLOCK';
+  static const String needHelp = 'Need help? Contact ';
+  static const String ribnSupport = 'Ribn Support';
+  static const String importWalletUsingSeedPhrase = 'Import Wallet using Seed Phrase';
+  static const String typeSomething = 'Type Something';
 }

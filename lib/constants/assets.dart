@@ -24,8 +24,15 @@ class RibnAssets {
   static const receiveIcon = 'assets/icons/receive.png';
   static const menuIcon = 'assets/icons/menu.svg';
   static const balancePageIcon = 'assets/icons/balance_page.svg';
+  static const balancePageActiveIcon = 'assets/icons/balance_page_active.svg';
+  static const txHistoryPageActiveIcon = 'assets/icons/tx_history_page_active.svg';
   static const txHistoryPageIcon = 'assets/icons/tx_history_page.svg';
   static const mintPageIcon = 'assets/icons/mint_page.svg';
+  static const mintPageActiveIcon = 'assets/icons/mint_page_active.svg';
   static const settingsIcon = 'assets/icons/settings.svg';
   static const supportIcon = 'assets/icons/support.svg';
+  static const importIcon = 'assets/icons/import.svg';
+  static const obscurePasswordIcon = 'assets/icons/visibility.svg';
+  static const coffeeGreenIcon = 'assets/icons/coffee-green-icon.svg';
+  static const contentCopyIcon = 'assets/icons/content_copy.svg';
 }
