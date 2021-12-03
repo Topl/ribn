@@ -1,6 +1,11 @@
+import 'package:brambldart/model.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/routes.dart';
+import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/presentation/address_section.dart';
+import 'package:ribn/presentation/asset_transfer/confirmation_page.dart';
+import 'package:ribn/presentation/asset_transfer/input_page.dart';
+import 'package:ribn/presentation/asset_transfer/review_page.dart';
 import 'package:ribn/presentation/home_page.dart';
 import 'package:ribn/presentation/login_page.dart';
 import 'package:ribn/presentation/onboarding/extension_info_page.dart';
@@ -45,6 +50,21 @@ class RootRouter {
       case Routes.home:
         {
           return pageRoute(const HomePage(), settings);
+        }
+      case Routes.assetTransferInput:
+        {
+          final AssetAmount asset = settings.arguments as AssetAmount;
+          return pageRoute(AssetTransferInputPage(asset: asset), settings);
+        }
+      case Routes.assetTransferReview:
+        {
+          final TransferDetails transferDetails = settings.arguments as TransferDetails;
+          return pageRoute(AssetTransferReviewPage(transferDetails: transferDetails), settings);
+        }
+      case Routes.assetTransferConfirmation:
+        {
+          final TransferDetails transferDetails = settings.arguments as TransferDetails;
+          return pageRoute(AssetTransferConfirmationPage(transferDetails: transferDetails), settings);
         }
       case Routes.addresses:
         {
