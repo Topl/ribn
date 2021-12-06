@@ -9,6 +9,9 @@ class Routes {
   static const seedPhraseConfirm = '/seed-phrase-confirm';
   static const extensionInfo = '/extension-info';
   static const login = '/login';
+  static const assetTransferInput = '/asset-transfer-input';
+  static const assetTransferReview = '/asset-transfer-review';
+  static const assetTransferConfirmation = '/asset-transfer-confirmation';
   static const settings = '/settings';
   static const home = '/home';
   static const addresses = '/addresses';

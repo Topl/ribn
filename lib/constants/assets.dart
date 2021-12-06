@@ -21,6 +21,7 @@ class RibnAssets {
   static const downloadIcon = 'assets/icons/download.svg';
   static const infoIcon = 'assets/icons/info.png';
   static const sendIcon = 'assets/icons/send.png';
+  static const sentIcon = 'assets/icons/sent.svg';
   static const receiveIcon = 'assets/icons/receive.png';
   static const menuIcon = 'assets/icons/menu.svg';
   static const balancePageIcon = 'assets/icons/balance_page.svg';
@@ -32,7 +33,11 @@ class RibnAssets {
   static const settingsIcon = 'assets/icons/settings.svg';
   static const supportIcon = 'assets/icons/support.svg';
   static const importIcon = 'assets/icons/import.svg';
-  static const obscurePasswordIcon = 'assets/icons/visibility.svg';
+  static const passwordVisibleIon = 'assets/icons/visibility.svg';
+  static const passwordHiddenIcon = 'assets/icons/visibility_off.svg';
   static const coffeeGreenIcon = 'assets/icons/coffee-green-icon.svg';
   static const contentCopyIcon = 'assets/icons/content_copy.svg';
+  static const helpIcon = 'assets/icons/help.svg';
+  static const myFingerprint = 'assets/icons/my_fingerprint.svg';
+  static const recipientFingerprint = 'assets/icons/recipient_fingerprint.svg';
 }
