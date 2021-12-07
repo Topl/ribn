@@ -66,40 +66,41 @@ class _RibnAppBarState extends State<RibnAppBar> {
       ),
       padding: const EdgeInsets.all(5),
       child: PopupMenuButton<String>(
-        offset: const Offset(0, 25),
-        padding: const EdgeInsets.all(0.0),
-        elevation: 0,
-        itemBuilder: (context) {
-          return networks.map(
-            (int networkId) {
-              return PopupMenuItem(
-                value: networkId.toString(),
-                child: Text(capitalize(Rules.networkStrings[networkId]!)),
-              );
-            },
-          ).toList();
-        },
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: _buildNetworkIndicator(isConnected),
-            ),
-            SizedBox(
-              height: 15,
-              width: 50,
-              child: Text(
-                capitalize(Rules.networkStrings[selectedNetwork]!),
-                style: RibnTextStyles.h3.copyWith(color: Colors.white, fontSize: 10),
+          offset: const Offset(0, 25),
+          padding: const EdgeInsets.all(0.0),
+          elevation: 0,
+          itemBuilder: (context) {
+            return networks.map(
+              (int networkId) {
+                return PopupMenuItem(
+                  value: networkId.toString(),
+                  child: Text(capitalize(Rules.networkStrings[networkId]!)),
+                );
+              },
+            ).toList();
+          },
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: _buildNetworkIndicator(isConnected),
               ),
-            ),
-            const Icon(Icons.arrow_drop_down, color: Colors.white, size: 10),
-          ],
-        ),
-        onSelected: (String? networkId) => onChange(networkId ?? Rules.valhallaId.toString()),
-      ),
+              SizedBox(
+                height: 15,
+                width: 50,
+                child: Text(
+                  capitalize(Rules.networkStrings[selectedNetwork]!),
+                  style: RibnTextStyles.h3.copyWith(color: Colors.white, fontSize: 10),
+                ),
+              ),
+              const Icon(Icons.arrow_drop_down, color: Colors.white, size: 10),
+            ],
+          ),
+          onSelected: (String? networkId) {
+            onChange(networkId ?? Rules.valhallaId.toString());
+          }),
     );
   }
 
