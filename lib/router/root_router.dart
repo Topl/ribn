@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/presentation/address_section.dart';
-import 'package:ribn/presentation/asset_transfer/confirmation_page.dart';
-import 'package:ribn/presentation/asset_transfer/input_page.dart';
-import 'package:ribn/presentation/asset_transfer/review_page.dart';
+import 'package:ribn/presentation/asset_transfer_input_page.dart';
 import 'package:ribn/presentation/home_page.dart';
 import 'package:ribn/presentation/login_page.dart';
+import 'package:ribn/presentation/mint_input_page.dart';
 import 'package:ribn/presentation/onboarding/extension_info_page.dart';
 import 'package:ribn/presentation/onboarding/getting_started_page.dart';
 import 'package:ribn/presentation/onboarding/onboarding_steps.dart';
@@ -15,6 +14,8 @@ import 'package:ribn/presentation/onboarding/read_carefully_page_one.dart';
 import 'package:ribn/presentation/onboarding/select_action_page.dart';
 import 'package:ribn/presentation/onboarding/welcome_page.dart';
 import 'package:ribn/presentation/settings_page.dart';
+import 'package:ribn/presentation/tx_confirmation_page.dart';
+import 'package:ribn/presentation/tx_review_page.dart';
 
 class RootRouter {
   Route<MaterialPageRoute> generateRoutes(RouteSettings settings) {
@@ -56,15 +57,19 @@ class RootRouter {
           final AssetAmount asset = settings.arguments as AssetAmount;
           return pageRoute(AssetTransferInputPage(asset: asset), settings);
         }
-      case Routes.assetTransferReview:
+      case Routes.txReview:
         {
           final TransferDetails transferDetails = settings.arguments as TransferDetails;
-          return pageRoute(AssetTransferReviewPage(transferDetails: transferDetails), settings);
+          return pageRoute(TxReviewPage(transferDetails: transferDetails), settings);
         }
-      case Routes.assetTransferConfirmation:
+      case Routes.txConfirmation:
         {
           final TransferDetails transferDetails = settings.arguments as TransferDetails;
-          return pageRoute(AssetTransferConfirmationPage(transferDetails: transferDetails), settings);
+          return pageRoute(TxConfirmationPage(transferDetails: transferDetails), settings);
+        }
+      case Routes.mintInput:
+        {
+          return pageRoute(const MintInputPage(), settings);
         }
       case Routes.addresses:
         {
