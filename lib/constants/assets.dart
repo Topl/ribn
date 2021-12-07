@@ -39,5 +39,7 @@ class RibnAssets {
   static const contentCopyIcon = 'assets/icons/content_copy.svg';
   static const helpIcon = 'assets/icons/help.svg';
   static const myFingerprint = 'assets/icons/my_fingerprint.svg';
+  static const issuerFingerprint = 'assets/icons/issuer_fingerprint.svg';
   static const recipientFingerprint = 'assets/icons/recipient_fingerprint.svg';
+  static const mintLarge = 'assets/icons/mint_large.svg';
 }
