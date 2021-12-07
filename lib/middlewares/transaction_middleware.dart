@@ -1,14 +1,16 @@
+import 'dart:typed_data';
 import 'package:brambldart/brambldart.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/actions/transaction_actions.dart';
-import 'package:ribn/constants/rules.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/models/ribn_network.dart';
+import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/repositories/keychain_repository.dart';
 import 'package:ribn/repositories/transaction_repository.dart';
 
@@ -20,35 +22,32 @@ List<Middleware<AppState>> createTransactionMiddleware(
   return <Middleware<AppState>>[
     TypedMiddleware<AppState, InitiateTxAction>(_initiateTx(transactionRepo, keychainRepo)),
     TypedMiddleware<AppState, CreateRawTxAction>(_createRawTx(transactionRepo)),
-    TypedMiddleware<AppState, SignTxAction>(_signTx(transactionRepo, keychainRepo)),
+    TypedMiddleware<AppState, SignAndBroadcastTxAction>(_signAndBroadcastTx(transactionRepo, keychainRepo)),
     TypedMiddleware<AppState, BroadcastTxAction>(_broadcastTx(transactionRepo)),
     TypedMiddleware<AppState, SignExternalTxAction>(_signExternalTx(transactionRepo, keychainRepo)),
   ];
 }
 
+/// Dispatches [SetLoadingRawTxAction] to indicate that the tx has been initiated.
+///
+/// Updates the [TransferDetails] with some defaults like the sender, change, and consolidation addresses, as well as
+/// the current network, before dispatching [CreateRawTxAction].
 void Function(Store<AppState> store, InitiateTxAction action, NextDispatcher next) _initiateTx(
     TransactionRepository transactionRepo, KeychainRepository keychainRepo) {
   return (store, action, next) async {
     try {
-      RibnNetwork currNetwork = store.state.keychainState.currentNetwork;
-      List<RibnAddress> senders = transactionRepo.getSenderAddresses(
-        action.transferDetails[Strings.transferType] as String,
-        currNetwork,
-        polyAmount: int.parse(action.transferDetails[Strings.amount] as String),
-        assetAmount: action.transferDetails[Strings.asset] as AssetAmount?,
-      );
-      RibnAddress changeAddr = keychainRepo.generateAddress(
-        store.state.keychainState.hdWallet!,
-        change: Rules.internalIdx,
-        addr: currNetwork.getNextInternalAddressIndex(),
+      /// Initiate the loading indicator
+      next(const SetLoadingRawTxAction(true));
+
+      /// The sender defaults to the first address in the list of locally stored addresses
+      final RibnAddress sender = store.state.keychainState.currentNetwork.addresses.first;
+      final RibnNetwork currNetwork = store.state.keychainState.currentNetwork;
+      final TransferDetails transferDetails = action.transferDetails.copyWith(
+        senders: [sender],
+        change: sender,
+        consolidation: sender,
         networkId: currNetwork.networkId,
       );
-      Map<String, dynamic> transferDetails = {
-        ...action.transferDetails,
-        Strings.change: changeAddr,
-        Strings.sender: senders,
-        Strings.networkId: currNetwork.networkId,
-      };
       next(CreateRawTxAction(transferDetails));
     } catch (e) {
       next(ApiErrorAction(e.toString()));
@@ -56,47 +55,56 @@ void Function(Store<AppState> store, InitiateTxAction action, NextDispatcher nex
   };
 }
 
+/// Creates the rawTx and navigates to the [Routes.txReview] page.
+///
+/// Also dispatches [SetLoadingRawTxAction] to stop the loading indicator.
 void Function(Store<AppState> store, CreateRawTxAction action, NextDispatcher next) _createRawTx(
     TransactionRepository transactionRepo) {
   return (store, action, next) async {
     try {
-      Map<String, dynamic> rawTx = await transactionRepo.createRawTx(
+      final Map<String, dynamic> result = await transactionRepo.createRawTx(
         store.state.keychainState.currentNetwork.client!,
         action.transferDetails,
       );
-      Map<String, dynamic> transferDetails = {
-        ...action.transferDetails,
-        ...rawTx,
-      };
-      next(SignTxAction(transferDetails));
+      final TransactionReceipt transactionReceipt = result['rawTx'] as TransactionReceipt;
+      final Uint8List messageToSign = result['messageToSign'] as Uint8List;
+      final TransferDetails transferDetails = action.transferDetails.copyWith(
+        transactionReceipt: transactionReceipt,
+        messageToSign: messageToSign,
+      );
+      // Stop the loading indicator
+      next(const SetLoadingRawTxAction(false));
+      // Navigate to the review page
+      next(NavigateToRoute(Routes.txReview, arguments: transferDetails));
     } catch (e) {
       next(ApiErrorAction((e).toString()));
     }
   };
 }
 
-void Function(Store<AppState> store, SignTxAction action, NextDispatcher next) _signTx(
+/// Gets the [Credentials] for the senders in the transfer.
+///
+/// Signs and broadcasts the transactions, updates the [TransferDetails] with the txId,
+/// and navigates to the confirmation page.
+void Function(Store<AppState> store, SignAndBroadcastTxAction action, NextDispatcher next) _signAndBroadcastTx(
     TransactionRepository transactionRepo, KeychainRepository keychainRepo) {
   return (store, action, next) async {
     try {
-      final List<RibnAddress> senders = action.transferDetails[Strings.sender] as List<RibnAddress>;
       final List<Credentials> credentials = keychainRepo.getCredentials(
         store.state.keychainState.hdWallet!,
-        senders,
+        action.transferDetails.senders,
       );
-      final TransactionReceipt signedTx = await transactionRepo.signTx(
+      final String transactionId = await transactionRepo.signAndBroadcastTx(
         store.state.keychainState.currentNetwork.client!,
         credentials,
-        action.transferDetails,
+        action.transferDetails.transactionReceipt!,
+        action.transferDetails.messageToSign!,
       );
-      next(
-        BroadcastTxAction(
-          signedTx,
-          changeAddress: action.transferDetails[Strings.change] as RibnAddress?,
-        ),
-      );
+      final TransferDetails transferDetails = action.transferDetails.copyWith(transactionId: transactionId);
+      // Navigate to the confirmation page
+      next(NavigateToRoute(Routes.txConfirmation, arguments: transferDetails));
     } catch (e) {
-      next(ApiErrorAction(e.toString()));
+      next(ApiErrorAction((e).toString()));
     }
   };
 }
@@ -123,12 +131,10 @@ void Function(Store<AppState> store, SignExternalTxAction action, NextDispatcher
   return (store, action, next) async {
     try {
       final Map<String, dynamic> transferDetails = action.pendingRequest.data!;
-      transferDetails['messageToSign'] =
-          Base58Data.validated(transferDetails['messageToSign'] as String).value;
+      transferDetails['messageToSign'] = Base58Data.validated(transferDetails['messageToSign'] as String).value;
       final TransactionReceipt transactionReceipt = TransactionReceipt.fromJson(transferDetails);
       transferDetails['rawTx'] = transactionReceipt;
-      final List<String> rawTxSenders =
-          transactionReceipt.from!.map((e) => e.senderAddress.toBase58()).toList();
+      final List<String> rawTxSenders = transactionReceipt.from!.map((e) => e.senderAddress.toBase58()).toList();
       final List<RibnAddress> sendersInWallet = List.from(store.state.keychainState.currentNetwork.addresses)
         ..retainWhere((addr) => rawTxSenders.contains(addr.address.toBase58()));
       final List<Credentials> credentials = keychainRepo.getCredentials(
