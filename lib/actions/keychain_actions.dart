@@ -1,9 +1,8 @@
-// ignore_for_file: implementation_imports
-
 import 'dart:typed_data';
 import 'package:brambldart/credentials.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/ribn_address.dart';
+import 'package:ribn/models/ribn_network.dart';
 
 class InitializeHDWalletAction {
   final String? keyStoreJson;
@@ -27,6 +26,11 @@ class GenerateAddressAction {
     this.accountIndex = Rules.defaultAccountIndex,
     this.changeIndex = Rules.defaultChangeIndex,
   });
+}
+
+class UpdateNetworksAction {
+  final List<RibnNetwork> updatedRibnNetworkList;
+  const UpdateNetworksAction(this.updatedRibnNetworkList);
 }
 
 class AddAddressesAction {

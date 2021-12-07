@@ -1,11 +1,10 @@
-// ignore_for_file: implementation_imports
 import 'package:brambldart/brambldart.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
-import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
+import 'package:ribn/models/ribn_network.dart';
 import 'package:ribn/repositories/keychain_repository.dart';
 
 List<Middleware<AppState>> createKeychainMiddleware(KeychainRepository keyChainRepo) {
@@ -16,23 +15,27 @@ List<Middleware<AppState>> createKeychainMiddleware(KeychainRepository keyChainR
   ];
 }
 
+/// Generates the initial addresses for each of the networks.
+///
+/// Dispatches [UpdateNetworksAction] to update the local store with the newly generated addreses.
 void Function(Store<AppState> store, GenerateInitialAddressesAction action, NextDispatcher next)
     _onGenerateInitialAddresses(KeychainRepository keychainRepo) {
   return (store, action, next) {
     try {
-      int startIndex = Rules.defaultAddressIndex;
-      int endIndex = startIndex + Rules.numInitialAddresses;
-      List<RibnAddress> newAddresses = [];
-      HdWallet hdWallet = action.hdWallet!;
-      for (int i = startIndex; i < endIndex; i++) {
-        RibnAddress newAddress = keychainRepo.generateAddress(
-          hdWallet,
-          addr: i,
-          networkId: store.state.keychainState.currentNetwork.networkId,
-        );
-        newAddresses.add(newAddress);
-      }
-      next(AddAddressesAction(addresses: newAddresses));
+      final HdWallet hdWallet = action.hdWallet!;
+      final List<RibnNetwork> updatedNetworks = store.state.keychainState.networks
+          .map(
+            (network) => network.copyWith(
+              addresses: [
+                keychainRepo.generateAddress(
+                  hdWallet,
+                  networkId: network.networkId,
+                )
+              ],
+            ),
+          )
+          .toList();
+      next(UpdateNetworksAction(updatedNetworks));
     } catch (e) {
       next(ApiErrorAction(e.toString()));
     }
@@ -76,7 +79,7 @@ void Function(Store<AppState> store, RefreshBalancesAction action, NextDispatche
       }).toList();
       next(UpdateBalancesAction(updatedAddresses));
     } catch (e) {
-      next(ApiErrorAction(e.toString()));
+      // @TODO: Add error-handling for when balance fails to refresh
     }
   };
 }

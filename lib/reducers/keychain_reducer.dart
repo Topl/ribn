@@ -1,4 +1,3 @@
-// ignore_for_file: implementation_imports
 import 'package:bip_topl/bip_topl.dart';
 import 'package:brambldart/credentials.dart';
 import 'package:redux/redux.dart';
@@ -11,6 +10,7 @@ import 'package:ribn/models/ribn_network.dart';
 final keychainReducer = combineReducers<KeychainState>(
   [
     TypedReducer<KeychainState, InitializeHDWalletAction>(_onHdWalletInitialization),
+    TypedReducer<KeychainState, UpdateNetworksAction>(_onNetworksUpdated),
     TypedReducer<KeychainState, AddAddressesAction>(_onAddAddresses),
     TypedReducer<KeychainState, UpdateCurrentNetworkAction>(_onNetworkUpdated),
     TypedReducer<KeychainState, UpdateBalancesAction>(_onBalancesUpdated),
@@ -30,6 +30,13 @@ KeychainState _onHdWalletInitialization(KeychainState keychainState, InitializeH
         depth: Rules.toplKeyDepth,
       ),
     ),
+  );
+}
+
+/// Updates the networks stored in local state with [action.updatedRibnNetworkList].
+KeychainState _onNetworksUpdated(KeychainState keychainState, UpdateNetworksAction action) {
+  return keychainState.copyWith(
+    networks: List.from(action.updatedRibnNetworkList),
   );
 }
 
