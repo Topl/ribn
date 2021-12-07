@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/colors.dart';
 import 'package:ribn/presentation/mint_page.dart';
 import 'package:ribn/presentation/tx_history_page.dart';
 import 'package:ribn/presentation/wallet_balance_page.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
 import 'package:ribn/widgets/ribn_app_bar.dart';
 
-/// Acts as a wrapper widget for the main pages accessible through the [BottomAppBar].
+/// The 'home page' of Ribn.
+///
+/// Builds the [RibnAppBar], [BottomAppBar], and allows navigation to the 3 main pages.
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -32,12 +35,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     SvgPicture.asset(RibnAssets.txHistoryPageActiveIcon),
     SvgPicture.asset(RibnAssets.mintPageActiveIcon),
   ];
+  final List<String> _pageLabels = ['HOME', 'HISTORY', 'MINT'];
   int _currPage = 0;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,23 +56,36 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: _pages
-            .asMap()
-            .keys
-            .map(
-              (key) => CustomIconButton(
-                radius: radius,
-                height: iconHeight,
-                width: iconWidth,
-                icon: key == _currPage ? _activePageIcons[key] : _pageIcons[key],
-                onPressed: () {
-                  setState(() {
-                    _currPage = key;
-                  });
-                },
+        children: _pages.asMap().keys.map(
+          (key) {
+            final bool isActive = key == _currPage;
+            return CustomIconButton(
+              radius: radius,
+              height: iconHeight,
+              width: iconWidth,
+              icon: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  isActive ? _activePageIcons[key] : _pageIcons[key],
+                  Text(
+                    _pageLabels[key],
+                    style: TextStyle(
+                      fontFamily: 'Nunito',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 7,
+                      color: isActive ? RibnColors.primary : const Color(0xff979797),
+                    ),
+                  )
+                ],
               ),
-            )
-            .toList(),
+              onPressed: () {
+                setState(() {
+                  _currPage = key;
+                });
+              },
+            );
+          },
+        ).toList(),
       ),
     );
   }
