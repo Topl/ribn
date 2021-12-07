@@ -15,12 +15,15 @@ class LargeButton extends StatelessWidget {
   final VoidCallback onPressed;
   final Color backgroundColor;
   final Color textColor;
+  final double buttonWidth = 310;
+  final double buttonHeight = 43;
+  final double borderRadius = 2.2;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 310,
-      height: 43,
+      width: buttonWidth,
+      height: buttonHeight,
       child: MaterialButton(
         elevation: 0,
         color: backgroundColor,
@@ -31,7 +34,11 @@ class LargeButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.2)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            borderRadius,
+          ),
+        ),
       ),
     );
   }
