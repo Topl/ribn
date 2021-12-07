@@ -1,15 +1,17 @@
-import 'package:barcode_widget/barcode_widget.dart';
+import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
 import 'package:ribn/containers/wallet_balance_container.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/widgets/address_dialog.dart';
+import 'package:ribn/widgets/custom_icon_button.dart';
 
-/// Builds the poly balance section and the assets list view.
+/// One of the 3 main pages on the home screen.
+///
+/// Displays poly balance section and the assets list view.
 class WalletBalancePage extends StatelessWidget {
   const WalletBalancePage({Key? key}) : super(key: key);
 
@@ -20,7 +22,7 @@ class WalletBalancePage extends StatelessWidget {
         child: Column(
           children: [
             _buildPolyContainer(vm.polyBalance),
-            _buildAssetsListView(),
+            _buildAssetsListView(vm.assets, vm.initiateSendAsset),
           ],
         ),
       ),
@@ -31,19 +33,18 @@ class WalletBalancePage extends StatelessWidget {
   /// Displays the balance in Polys and send/receive buttons.
   Widget _buildPolyContainer(num polyBalance) {
     const TextStyle titleTextStyle = TextStyle(
-      fontSize: 14.2,
+      fontSize: 16,
       fontFamily: 'Spectral',
       fontWeight: FontWeight.bold,
-      color: Colors.black,
     );
     const TextStyle polyBalanceTextStyle = TextStyle(
       fontSize: 26.6,
       fontFamily: 'Poppins',
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w600,
       color: Color(0xFF36A190),
     );
     return Container(
-      constraints: const BoxConstraints.expand(height: 120),
+      constraints: const BoxConstraints.expand(height: 122),
       color: RibnColors.accent,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -71,26 +72,31 @@ class WalletBalancePage extends StatelessWidget {
     );
   }
 
-  Widget _buildAssetsListView() {
+  Widget _buildAssetsListView(List<AssetAmount> assets, Function(AssetAmount) initiateSendAsset) {
     return Container(
       color: RibnColors.background,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
               Strings.assets,
-              style: RibnTextStyles.h3,
+              style: TextStyle(
+                color: RibnColors.defaultText,
+                fontFamily: 'Spectral',
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
             ),
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: 20,
+              itemCount: assets.length,
               itemBuilder: (context, idx) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: _buildAssetListItem(),
+                  child: _buildAssetListItem(assets[idx], initiateSendAsset),
                 );
               },
             ),
@@ -100,8 +106,90 @@ class WalletBalancePage extends StatelessWidget {
     );
   }
 
-  Widget _buildAssetListItem() {
-    return Container(color: Colors.green, height: 20, child: Text("ASSET"));
+  Widget _buildAssetListItem(AssetAmount asset, Function(AssetAmount) initiateSendAsset) {
+    const TextStyle titleStyle = TextStyle(
+      fontFamily: 'Nunito',
+      fontWeight: FontWeight.w600,
+      fontSize: 15,
+      color: RibnColors.defaultText,
+    );
+    const TextStyle shortNameStyle = TextStyle(
+      fontFamily: 'Nunito',
+      fontSize: 12,
+      color: Color(0xff585858),
+    );
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFFFEFEFE),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      height: 73,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 13, left: 11, right: 16),
+            child: SvgPicture.asset(RibnAssets.coffeeGreenIcon),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 10),
+              const SizedBox(
+                width: 165,
+                child: Text(
+                  'Long Name',
+                  style: titleStyle,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              const SizedBox(height: 2),
+              Text(asset.assetCode.shortName.show, style: shortNameStyle),
+            ],
+          ),
+          const Spacer(),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 10),
+              SizedBox(
+                width: 65,
+                child: Text(
+                  '${asset.quantity.toString()} Kg',
+                  overflow: TextOverflow.ellipsis,
+                  style: titleStyle.copyWith(
+                    color: RibnColors.primary,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  CustomIconButton(
+                    icon: Image.asset(
+                      RibnAssets.sendIcon,
+                      width: 12,
+                    ),
+                    color: RibnColors.primary,
+                    onPressed: () => initiateSendAsset(asset),
+                  ),
+                  const SizedBox(width: 7),
+                  CustomIconButton(
+                    icon: Image.asset(
+                      RibnAssets.receiveIcon,
+                      width: 12,
+                    ),
+                    color: RibnColors.primary,
+                    onPressed: () async => await showReceivingAddress('uihadi3ewfihdsiofhso'),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(width: 12),
+        ],
+      ),
+    );
   }
 
   Widget _buildButton(String label, VoidCallback onPressed) {
@@ -143,37 +231,7 @@ class WalletBalancePage extends StatelessWidget {
     await showDialog(
       context: Keys.navigatorKey.currentContext!,
       builder: (context) {
-        return AlertDialog(
-          title: Column(
-            children: [
-              SizedBox(
-                height: 10,
-                child: Row(
-                  children: [
-                    const Spacer(),
-                    IconButton(iconSize: 10, onPressed: () => Navigator.of(context).pop(), icon: Icon(Icons.close))
-                  ],
-                ),
-              ),
-              const Text('Address', style: RibnTextStyles.h2),
-              BarcodeWidget(
-                barcode: Barcode.qrCode(),
-                data: address,
-                width: 130,
-                height: 130,
-              ),
-              Text(formatAddrString(address)),
-              const SizedBox(height: 39),
-              Container(height: 1, color: Colors.black),
-              MaterialButton(
-                onPressed: () {
-                  Clipboard.setData(ClipboardData(text: address));
-                },
-                child: const Icon(Icons.copy),
-              ),
-            ],
-          ),
-        );
+        return const AddressDialog();
       },
     );
   }
