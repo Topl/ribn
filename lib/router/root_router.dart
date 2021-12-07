@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/presentation/address_section.dart';
-import 'package:ribn/presentation/asset_transfer_input_page.dart';
 import 'package:ribn/presentation/home_page.dart';
 import 'package:ribn/presentation/login_page.dart';
-import 'package:ribn/presentation/mint_input_page.dart';
 import 'package:ribn/presentation/onboarding/extension_info_page.dart';
 import 'package:ribn/presentation/onboarding/getting_started_page.dart';
 import 'package:ribn/presentation/onboarding/onboarding_steps.dart';
@@ -14,8 +12,10 @@ import 'package:ribn/presentation/onboarding/read_carefully_page_one.dart';
 import 'package:ribn/presentation/onboarding/select_action_page.dart';
 import 'package:ribn/presentation/onboarding/welcome_page.dart';
 import 'package:ribn/presentation/settings_page.dart';
-import 'package:ribn/presentation/tx_confirmation_page.dart';
-import 'package:ribn/presentation/tx_review_page.dart';
+import 'package:ribn/presentation/transfers/asset_transfer_input_page.dart';
+import 'package:ribn/presentation/transfers/mint_input_page.dart';
+import 'package:ribn/presentation/transfers/tx_confirmation_page.dart';
+import 'package:ribn/presentation/transfers/tx_review_page.dart';
 
 class RootRouter {
   Route<MaterialPageRoute> generateRoutes(RouteSettings settings) {
