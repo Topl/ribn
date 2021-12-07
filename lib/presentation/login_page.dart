@@ -4,12 +4,16 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/constants/styles.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/login_container.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
+import 'package:ribn/widgets/large_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-/// Builds the login page. Prompts the user to unlock their wallet by entering their wallet-locking password.
+/// Builds the login page.
+///
+/// Prompts the user to unlock their wallet by entering their wallet-locking password.
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -73,9 +77,19 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 8),
               _buildTextField(),
               const SizedBox(height: 35),
-              _buildButton(Strings.unlock, () => vm.attemptLogin(_textEditingController.text)),
+              LargeButton(
+                label: Strings.unlock,
+                onPressed: () => vm.attemptLogin(_textEditingController.text),
+                backgroundColor: RibnColors.primary,
+                textColor: Colors.white,
+              ),
               const SizedBox(height: 12),
-              _buildButton(Strings.useSeedPhrase, () {}),
+              LargeButton(
+                label: Strings.useSeedPhrase,
+                onPressed: () {},
+                backgroundColor: RibnColors.primary.withOpacity(0.19),
+                textColor: RibnColors.primary,
+              ),
               const SizedBox(height: 18),
               _buildSupportLink(),
               UIConstants.sizedBox,
@@ -142,11 +156,7 @@ class _LoginPageState extends State<LoginPage> {
             },
           ),
           labelText: Strings.typeSomething,
-          labelStyle: const TextStyle(
-            fontFamily: 'Nunito',
-            fontSize: 12,
-            color: Color(0xffbcbcbc),
-          ),
+          labelStyle: RibnTextStyles.hintStyle,
           isDense: true,
           fillColor: Colors.white,
           floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -155,30 +165,6 @@ class _LoginPageState extends State<LoginPage> {
           enabledBorder: textFieldBorder,
           focusedBorder: textFieldBorder,
         ),
-      ),
-    );
-  }
-
-  Widget _buildButton(String label, VoidCallback onPressed) {
-    final Color backgroundColor = label == Strings.unlock ? RibnColors.primary : RibnColors.primary.withOpacity(0.19);
-    final Color textColor = label == Strings.unlock ? Colors.white : RibnColors.primary;
-    return SizedBox(
-      width: _baseWidth,
-      height: 40,
-      child: MaterialButton(
-        elevation: 0,
-        color: backgroundColor,
-        child: Text(
-          label,
-          style: TextStyle(
-            fontFamily: 'Nunito',
-            fontSize: 18,
-            color: textColor,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        onPressed: onPressed,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.2)),
       ),
     );
   }
