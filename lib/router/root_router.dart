@@ -109,6 +109,7 @@ class RootRouter {
       settings: settings,
       pageBuilder: (context, animation, secondaryAnimation) => page,
       transitionDuration: Duration.zero,
+      reverseTransitionDuration: Duration.zero,
     );
   }
 }
