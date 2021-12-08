@@ -49,5 +49,3 @@ class UpdateBalancesAction {
   List<RibnAddress> updatedAddresses;
   UpdateBalancesAction(this.updatedAddresses);
 }
-
-class BalancesLoadingAction {}
