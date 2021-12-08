@@ -33,7 +33,6 @@ class RibnAppBarViewModel {
   final int currentNetwork;
   final void Function(String) updateNetwork;
   final void Function(String) selectSettingsOption;
-  Future<bool> isConnected;
   final Map<String, SvgPicture> settingsOptions = {
     Strings.support: SvgPicture.asset(RibnAssets.supportIcon),
     Strings.settings: SvgPicture.asset(RibnAssets.settingsIcon),
@@ -44,7 +43,6 @@ class RibnAppBarViewModel {
     required this.updateNetwork,
     required this.currentNetwork,
     required this.selectSettingsOption,
-    required this.isConnected,
   });
   static RibnAppBarViewModel fromStore(Store<AppState> store) {
     return RibnAppBarViewModel(
@@ -54,9 +52,6 @@ class RibnAppBarViewModel {
         store.dispatch(UpdateCurrentNetworkAction(networkId));
         store.dispatch(RefreshBalancesAction());
       },
-
-      ///@TODO: Check if needed
-      isConnected: store.state.keychainState.currentNetwork.isConnected(),
       selectSettingsOption: (String selectedOption) {
         switch (selectedOption) {
           case Strings.settings:

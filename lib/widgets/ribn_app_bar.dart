@@ -39,7 +39,7 @@ class _RibnAppBarState extends State<RibnAppBar> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              _buildNetworkMenu(vm.currentNetwork, vm.networks, vm.updateNetwork, vm.isConnected),
+              _buildNetworkMenu(vm.currentNetwork, vm.networks, vm.updateNetwork),
               const Spacer(),
               _buildSettingsMenu(vm.settingsOptions, vm.selectSettingsOption),
             ],
@@ -55,7 +55,6 @@ class _RibnAppBarState extends State<RibnAppBar> {
     int selectedNetwork,
     List<int> networks,
     Function(String) onChange,
-    Future<bool> isConnected,
   ) {
     return Container(
       width: 90,
@@ -74,7 +73,21 @@ class _RibnAppBarState extends State<RibnAppBar> {
               (int networkId) {
                 return PopupMenuItem(
                   value: networkId.toString(),
-                  child: Text(capitalize(Rules.networkStrings[networkId]!)),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: CircleAvatar(
+                          backgroundColor:
+                              networkId == selectedNetwork ? const Color(0xFF80FF00) : const Color(0xffbdbdbd),
+                          radius: 3,
+                        ),
+                      ),
+                      Text(capitalize(Rules.networkStrings[networkId]!)),
+                    ],
+                  ),
                 );
               },
             ).toList();
@@ -83,9 +96,9 @@ class _RibnAppBarState extends State<RibnAppBar> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: _buildNetworkIndicator(isConnected),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5),
+                child: CircleAvatar(backgroundColor: Color(0xFF80FF00), radius: 3),
               ),
               SizedBox(
                 height: 15,
@@ -149,25 +162,6 @@ class _RibnAppBarState extends State<RibnAppBar> {
           ).toList();
         },
       ),
-    );
-  }
-
-  Widget _buildNetworkIndicator(Future<bool> isConnected) {
-    const Widget connectedIndicator = CircleAvatar(backgroundColor: Color(0xFF80FF00), radius: 3);
-    const Widget disconnectedIndicator = CircleAvatar(backgroundColor: Colors.red, radius: 3);
-    return FutureBuilder(
-      future: isConnected,
-      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.done:
-            {
-              final bool isConnected = snapshot.data ?? false;
-              return isConnected ? connectedIndicator : disconnectedIndicator;
-            }
-          default:
-            return disconnectedIndicator;
-        }
-      },
     );
   }
 }
