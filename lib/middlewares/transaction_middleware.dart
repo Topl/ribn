@@ -4,6 +4,7 @@ import 'package:redux/redux.dart';
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/actions/transaction_actions.dart';
+import 'package:ribn/actions/ui_actions.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';

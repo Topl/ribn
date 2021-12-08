@@ -2,6 +2,7 @@ import 'package:brambldart/brambldart.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
+import 'package:ribn/actions/ui_actions.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/models/ribn_network.dart';
@@ -64,7 +65,7 @@ void Function(Store<AppState> store, RefreshBalancesAction action, NextDispatche
     KeychainRepository keychainRepo) {
   return (store, action, next) async {
     try {
-      next(BalancesLoadingAction());
+      next(const FetchingBalancesAction());
       List<ToplAddress> addresses =
           store.state.keychainState.currentNetwork.addresses.map((addr) => addr.address).toList();
       List<Balance> balances = await keychainRepo.getBalances(
@@ -78,8 +79,9 @@ void Function(Store<AppState> store, RefreshBalancesAction action, NextDispatche
         );
       }).toList();
       next(UpdateBalancesAction(updatedAddresses));
+      next(const SuccessfullyFetchedBalancesAction());
     } catch (e) {
-      // @TODO: Add error-handling for when balance fails to refresh
+      next(const FailedToFetchBalancesAction());
     }
   };
 }

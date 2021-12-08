@@ -1,7 +1,9 @@
 import 'package:brambldart/model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/routes.dart';
@@ -28,6 +30,8 @@ class WalletBalanceViewModel {
   final Function(String) updateNetwork;
   final List<AssetAmount> assets;
   final Function(AssetAmount) initiateSendAsset;
+  final bool failedToFetchBalances;
+  final bool fetchingBalances;
 
   WalletBalanceViewModel({
     required this.polyBalance,
@@ -35,6 +39,8 @@ class WalletBalanceViewModel {
     required this.currentNetwork,
     required this.assets,
     required this.initiateSendAsset,
+    required this.failedToFetchBalances,
+    required this.fetchingBalances,
   });
   static WalletBalanceViewModel fromStore(Store<AppState> store) {
     return WalletBalanceViewModel(
@@ -54,6 +60,33 @@ class WalletBalanceViewModel {
       initiateSendAsset: (AssetAmount asset) => store.dispatch(
         NavigateToRoute(Routes.assetTransferInput, arguments: asset),
       ),
+      failedToFetchBalances: store.state.uiState.failedToFetchBalances,
+      fetchingBalances: store.state.uiState.fetchingBalances,
     );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is WalletBalanceViewModel &&
+        other.polyBalance == polyBalance &&
+        other.currentNetwork == currentNetwork &&
+        other.updateNetwork == updateNetwork &&
+        listEquals(other.assets, assets) &&
+        other.initiateSendAsset == initiateSendAsset &&
+        other.failedToFetchBalances == failedToFetchBalances &&
+        other.fetchingBalances == fetchingBalances;
+  }
+
+  @override
+  int get hashCode {
+    return polyBalance.hashCode ^
+        currentNetwork.hashCode ^
+        updateNetwork.hashCode ^
+        assets.hashCode ^
+        initiateSendAsset.hashCode ^
+        failedToFetchBalances.hashCode ^
+        fetchingBalances.hashCode;
   }
 }

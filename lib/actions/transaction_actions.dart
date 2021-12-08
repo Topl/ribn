@@ -9,11 +9,6 @@ class InitiateTxAction {
   const InitiateTxAction(this.transferDetails);
 }
 
-class SetLoadingRawTxAction {
-  final bool loading;
-  const SetLoadingRawTxAction(this.loading);
-}
-
 class CreateRawTxAction {
   TransferDetails transferDetails;
   CreateRawTxAction(this.transferDetails);
