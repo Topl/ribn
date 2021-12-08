@@ -15,7 +15,7 @@ import 'package:ribn/widgets/custom_page_title.dart';
 import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn/widgets/large_button.dart';
 
-/// The transaction review page that allows the user to confirm the transaction information before confirming it.
+/// The transaction review page that allows the user to review the transaction information before confirming it.
 class TxReviewPage extends StatelessWidget {
   const TxReviewPage({
     required this.transferDetails,
