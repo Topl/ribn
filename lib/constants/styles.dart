@@ -48,6 +48,11 @@ class RibnTextStyles {
     fontSize: 24,
     fontWeight: FontWeight.bold,
   );
+  static const TextStyle extH3 = TextStyle(
+    fontFamily: 'Spectral',
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+  );
   static const TextStyle extH4 = TextStyle(
     fontFamily: 'Spectral',
     fontSize: 13,
