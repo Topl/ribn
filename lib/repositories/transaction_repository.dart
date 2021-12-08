@@ -1,16 +1,13 @@
-// ignore_for_file: implementation_imports
-
 import 'dart:typed_data';
 
 import 'package:brambldart/brambldart.dart';
 import 'package:brambldart/client.dart';
 import 'package:brambldart/credentials.dart';
 import 'package:brambldart/model.dart';
+// ignore: implementation_imports
 import 'package:brambldart/src/model/box/token_value_holder.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/models/ribn_address.dart';
-import 'package:ribn/models/ribn_network.dart';
 import 'package:ribn/models/transfer_details.dart';
 
 class TransactionRepository {
@@ -125,33 +122,5 @@ class TransactionRepository {
     Uint8List messageToSign,
   ) async {
     return await client.sendTransaction(creds, rawTx, messageToSign);
-  }
-
-  List<RibnAddress> getSenderAddresses(
-    String transferType,
-    RibnNetwork currNetwork, {
-    int? polyAmount,
-    AssetAmount? assetAmount,
-  }) {
-    int networkFee = Rules.networkFees[currNetwork.networkId]!.quantity.toInt();
-    switch (transferType) {
-      case Strings.polyTransfer:
-        {
-          int targetAmount = polyAmount! + networkFee;
-          return currNetwork.getAddrsWithSufficientPolys(targetAmount);
-        }
-      case Strings.minting:
-        {
-          return currNetwork.getAddrsWithSufficientPolys(networkFee);
-        }
-      case Strings.assetTransfer:
-        {
-          return [currNetwork.getAddrWithSufficientAssets(assetAmount!, networkFee)];
-        }
-      default:
-        {
-          throw Exception("Invalid transfer type");
-        }
-    }
   }
 }

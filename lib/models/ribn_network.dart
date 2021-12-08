@@ -35,51 +35,6 @@ class RibnNetwork {
     return addresses.lastIndexWhere((addr) => addr.changeIndex == Rules.internalIdx) + 1;
   }
 
-  /// Verifies the network connection status.
-  /// @TODO Check if needed
-  Future<bool> isConnected() async {
-    try {
-      final String currNetwork = await client!.getNetwork();
-      switch (currNetwork) {
-        case 'Mainnet':
-          return networkId == Rules.toplnetId;
-        case 'ValhallaTestnet':
-          return networkId == Rules.valhallaId;
-        case 'PrivateTestnet':
-          return networkId == Rules.privateId;
-        default:
-          return false;
-      }
-    } catch (e) {
-      return false;
-    }
-  }
-
-  List<RibnAddress> getAddrsWithSufficientPolys(int target) {
-    final List<RibnAddress> sortedAddrs = List.from(addresses)
-      ..sort((a, b) => a.balance.polys.quantity.compareTo(b.balance.polys.quantity));
-    num availableBalance = 0;
-    final List<RibnAddress> selectedAddrs = [];
-    for (int i = 0; i < sortedAddrs.length; i++) {
-      if (sortedAddrs[i].balance.polys.quantity > 0) {
-        selectedAddrs.add(sortedAddrs[i]);
-        availableBalance += sortedAddrs[i].balance.polys.quantity;
-      }
-      if (availableBalance >= target) break;
-    }
-    return availableBalance >= target ? selectedAddrs : [];
-  }
-
-  RibnAddress getAddrWithSufficientAssets(AssetAmount asset, int target) {
-    return addresses.firstWhere(
-      (addr) =>
-          addr.balance.polys.quantity >= target &&
-          addr.balance.assets!.any(
-            (elem) => elem.assetCode == asset.assetCode && elem.quantity >= asset.quantity,
-          ),
-    );
-  }
-
   static List<RibnNetwork> initializeNetworks() {
     return <RibnNetwork>[
       RibnNetwork.initial(),
