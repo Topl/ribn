@@ -14,7 +14,6 @@ final keychainReducer = combineReducers<KeychainState>(
     TypedReducer<KeychainState, AddAddressesAction>(_onAddAddresses),
     TypedReducer<KeychainState, UpdateCurrentNetworkAction>(_onNetworkUpdated),
     TypedReducer<KeychainState, UpdateBalancesAction>(_onBalancesUpdated),
-    TypedReducer<KeychainState, BalancesLoadingAction>(_onBalancesLoading),
   ],
 );
 
@@ -68,19 +67,6 @@ KeychainState _onBalancesUpdated(KeychainState keychainState, UpdateBalancesActi
   RibnNetwork updatedNetwork = keychainState.currentNetwork.copyWith(
     addresses: action.updatedAddresses,
     fetchingBalance: false,
-  );
-  return keychainState.copyWith(
-    networks: List.from(keychainState.networks)
-      ..setAll(
-        keychainState.currNetworkIdx,
-        [updatedNetwork],
-      ),
-  );
-}
-
-KeychainState _onBalancesLoading(KeychainState keychainState, BalancesLoadingAction action) {
-  RibnNetwork updatedNetwork = keychainState.currentNetwork.copyWith(
-    fetchingBalance: true,
   );
   return keychainState.copyWith(
     networks: List.from(keychainState.networks)
