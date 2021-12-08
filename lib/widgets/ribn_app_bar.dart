@@ -1,14 +1,10 @@
-// ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:redux/redux.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/containers/ribn_app_bar_container.dart';
-import 'package:ribn/models/app_state.dart';
 import 'package:ribn/utils.dart';
 
 /// Builds the top AppBar in the extension view.
