@@ -43,6 +43,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Scaffold(
       appBar: const RibnAppBar(),
       bottomNavigationBar: _buildBottomAppBar(),
+      backgroundColor: RibnColors.background,
       body: _pages[_currPage],
     );
   }
