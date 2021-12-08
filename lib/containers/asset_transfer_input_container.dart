@@ -5,6 +5,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 import 'package:ribn/actions/transaction_actions.dart';
+import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/transfer_details.dart';
@@ -28,10 +29,13 @@ class AssetTransferInputViewModel {
   final List<AssetAmount> assets;
   final Function(String, String, String, AssetCode) initiateTx;
   final bool loadingRawTx;
+  final num networkFee;
+
   AssetTransferInputViewModel({
     required this.assets,
     required this.initiateTx,
     required this.loadingRawTx,
+    required this.networkFee,
   });
 
   static AssetTransferInputViewModel fromStore(Store<AppState> store) {
@@ -51,6 +55,7 @@ class AssetTransferInputViewModel {
           .expand((amount) => amount)
           .toList(),
       loadingRawTx: store.state.uiState.loadingRawTx,
+      networkFee: Rules.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
     );
   }
 

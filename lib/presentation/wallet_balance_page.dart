@@ -5,6 +5,7 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/constants/styles.dart';
 import 'package:ribn/containers/wallet_balance_container.dart';
 import 'package:ribn/widgets/address_dialog.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
@@ -40,11 +41,6 @@ class WalletBalancePage extends StatelessWidget {
     bool fetchingBalances = true,
     bool failedToFetchBalances = false,
   }) {
-    const TextStyle titleTextStyle = TextStyle(
-      fontSize: 16,
-      fontFamily: 'Spectral',
-      fontWeight: FontWeight.bold,
-    );
     const TextStyle polyBalanceTextStyle = TextStyle(
       fontSize: 26.6,
       fontFamily: 'Poppins',
@@ -60,7 +56,7 @@ class WalletBalancePage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(Strings.totalAmount, style: titleTextStyle),
+              const Text(Strings.totalAmount, style: RibnTextStyles.extH3),
               SizedBox(width: 10, child: Image.asset(RibnAssets.infoIcon)),
             ],
           ),
@@ -94,12 +90,7 @@ class WalletBalancePage extends StatelessWidget {
           children: [
             const Text(
               Strings.assets,
-              style: TextStyle(
-                color: RibnColors.defaultText,
-                fontFamily: 'Spectral',
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
+              style: RibnTextStyles.extH3,
             ),
             ListView.builder(
               shrinkWrap: true,

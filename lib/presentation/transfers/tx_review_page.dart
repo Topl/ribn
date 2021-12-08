@@ -67,7 +67,7 @@ class TxReviewPage extends StatelessWidget {
                     _buildNoteDetails(),
                     divider: false,
                   ),
-                  const FeeInfo(),
+                  FeeInfo(fee: transferDetails.transactionReceipt!.fee!.getInNanopoly),
                 ],
               ),
             ),

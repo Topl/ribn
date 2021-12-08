@@ -5,20 +5,21 @@ import 'package:ribn/constants/styles.dart';
 
 /// A widget that displays the fee info during the transfer flows in Ribn.
 class FeeInfo extends StatelessWidget {
-  const FeeInfo({Key? key}) : super(key: key);
+  const FeeInfo({required this.fee, Key? key}) : super(key: key);
+  final num fee;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        Text(
+      children: [
+        const Text(
           Strings.totalTxFee,
           style: RibnTextStyles.extH4,
         ),
         Text(
-          '1 POLY',
-          style: TextStyle(
+          '$fee POLY',
+          style: const TextStyle(
             fontFamily: 'Nunito',
             fontSize: 16,
             color: RibnColors.primary,

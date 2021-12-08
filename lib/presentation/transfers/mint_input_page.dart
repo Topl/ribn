@@ -124,7 +124,7 @@ class _MintInputPageState extends State<MintInputPage> {
                             noteLength: _noteController.text.length,
                           ),
                         ),
-                        const FeeInfo(),
+                        FeeInfo(fee: vm.networkFee),
                         Padding(
                           padding: const EdgeInsets.only(top: 20.0, bottom: 10),
                           child: LargeButton(

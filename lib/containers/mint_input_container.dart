@@ -28,9 +28,11 @@ class MintInputContainer extends StatelessWidget {
 class MintInputViewmodel {
   final void Function(String, String, String) initiateTx;
   final bool loadingRawTx;
+  final num networkFee;
   MintInputViewmodel({
     required this.initiateTx,
     required this.loadingRawTx,
+    required this.networkFee,
   });
 
   static MintInputViewmodel fromStore(Store<AppState> store) {
@@ -52,6 +54,7 @@ class MintInputViewmodel {
         store.dispatch(InitiateTxAction(transferDetails));
       },
       loadingRawTx: store.state.uiState.loadingRawTx,
+      networkFee: Rules.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
     );
   }
 

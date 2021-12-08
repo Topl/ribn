@@ -5,6 +5,7 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/constants/styles.dart';
 import 'package:ribn/containers/settings_container.dart';
 import 'package:ribn/widgets/ribn_app_bar.dart';
 
@@ -47,11 +48,7 @@ class SettingsPage extends StatelessWidget {
           const Center(
             child: Text(
               Strings.settings,
-              style: TextStyle(
-                fontSize: 24,
-                fontFamily: 'Spectral',
-                fontWeight: FontWeight.w500,
-              ),
+              style: RibnTextStyles.extH2,
             ),
           ),
           Positioned(
@@ -99,12 +96,7 @@ class SettingsPage extends StatelessWidget {
       children: const [
         Text(
           Strings.ribnVersion,
-          style: TextStyle(
-            fontSize: 14,
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w500,
-            color: RibnColors.defaultText,
-          ),
+          style: RibnTextStyles.extH3,
         ),
         SizedBox(height: 10),
         Text(
@@ -125,12 +117,7 @@ class SettingsPage extends StatelessWidget {
       children: const [
         Text(
           Strings.links,
-          style: TextStyle(
-            fontSize: 14,
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w500,
-            color: RibnColors.defaultText,
-          ),
+          style: RibnTextStyles.extH3,
         ),
         SizedBox(height: 5),
         Text(
@@ -162,12 +149,7 @@ class SettingsPage extends StatelessWidget {
       children: [
         const Text(
           Strings.exportKeyStore,
-          style: TextStyle(
-            fontSize: 14,
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w500,
-            color: RibnColors.defaultText,
-          ),
+          style: RibnTextStyles.extH3,
         ),
         const SizedBox(height: 10),
         const Text(
@@ -211,15 +193,7 @@ class SettingsPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          Strings.dangerZone,
-          style: TextStyle(
-            fontSize: 14,
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w500,
-            color: Color(0xFFd05b48),
-          ),
-        ),
+        Text(Strings.dangerZone, style: RibnTextStyles.extH3.copyWith(color: const Color(0xFFd05b48))),
         const SizedBox(height: 10),
         DottedBorder(
           color: const Color(0xFFff7a42),

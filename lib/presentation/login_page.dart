@@ -115,11 +115,7 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           const Text(
             Strings.enterWalletPassword,
-            style: TextStyle(
-              fontFamily: 'Spectral',
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+            style: RibnTextStyles.extH3,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 2.0),

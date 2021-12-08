@@ -114,7 +114,7 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
                           Strings.note,
                           NoteTextField(noteController: _noteController, noteLength: _noteController.text.length),
                         ),
-                        const FeeInfo(),
+                        FeeInfo(fee: vm.networkFee),
                         const SizedBox(height: 20),
                         LargeButton(
                           label: Strings.review,
