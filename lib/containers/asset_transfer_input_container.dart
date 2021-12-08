@@ -66,9 +66,12 @@ class AssetTransferInputViewModel {
     return other is AssetTransferInputViewModel &&
         listEquals(other.assets, assets) &&
         other.initiateTx == initiateTx &&
-        other.loadingRawTx == loadingRawTx;
+        other.loadingRawTx == loadingRawTx &&
+        other.networkFee == networkFee;
   }
 
   @override
-  int get hashCode => assets.hashCode ^ initiateTx.hashCode ^ loadingRawTx.hashCode;
+  int get hashCode {
+    return assets.hashCode ^ initiateTx.hashCode ^ loadingRawTx.hashCode ^ networkFee.hashCode;
+  }
 }

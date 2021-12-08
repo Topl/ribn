@@ -62,9 +62,12 @@ class MintInputViewmodel {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is MintInputViewmodel && other.initiateTx == initiateTx && other.loadingRawTx == loadingRawTx;
+    return other is MintInputViewmodel &&
+        other.initiateTx == initiateTx &&
+        other.loadingRawTx == loadingRawTx &&
+        other.networkFee == networkFee;
   }
 
   @override
-  int get hashCode => initiateTx.hashCode ^ loadingRawTx.hashCode;
+  int get hashCode => initiateTx.hashCode ^ loadingRawTx.hashCode ^ networkFee.hashCode;
 }

@@ -37,9 +37,9 @@ class SettingsViewModel {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is SettingsViewModel && other.exportKeyStore == exportKeyStore;
+    return other is SettingsViewModel && other.exportKeyStore == exportKeyStore && other.deleteWallet == deleteWallet;
   }
 
   @override
-  int get hashCode => exportKeyStore.hashCode;
+  int get hashCode => exportKeyStore.hashCode ^ deleteWallet.hashCode;
 }
