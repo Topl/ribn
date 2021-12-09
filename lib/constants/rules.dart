@@ -40,8 +40,8 @@ class Rules {
   };
   static Map<int, String> networkUrls = {
     // staging.vertx.
-    valhallaId: 'https://staging.vertx.topl.services/valhalla/$projectId',
-    toplnetId: 'https://staging.vertx.topl.services/mainnet/$projectId',
+    valhallaId: 'https://vertx.topl.services/valhalla/$projectId',
+    toplnetId: 'https://vertx.topl.services/mainnet/$projectId',
     privateId: 'http://localhost:9085'
   };
   static Map<int, String> txHistoryUrls = {
