@@ -3,8 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-
-import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
@@ -26,8 +24,6 @@ class WalletBalanceContainer extends StatelessWidget {
 
 class WalletBalanceViewModel {
   final num polyBalance;
-  final int currentNetwork;
-  final Function(String) updateNetwork;
   final List<AssetAmount> assets;
   final Function(AssetAmount) initiateSendAsset;
   final bool failedToFetchBalances;
@@ -35,8 +31,6 @@ class WalletBalanceViewModel {
 
   WalletBalanceViewModel({
     required this.polyBalance,
-    required this.updateNetwork,
-    required this.currentNetwork,
     required this.assets,
     required this.initiateSendAsset,
     required this.failedToFetchBalances,
@@ -48,11 +42,6 @@ class WalletBalanceViewModel {
         0,
         (prev, currBalance) => prev + currBalance.balance.polys.getInNanopoly,
       ),
-      currentNetwork: store.state.keychainState.currentNetwork.networkId,
-      updateNetwork: (String networkId) {
-        store.dispatch(UpdateCurrentNetworkAction(networkId));
-        store.dispatch(RefreshBalancesAction());
-      },
       assets: store.state.keychainState.currentNetwork.addresses
           .map((addr) => addr.balance.assets ?? [])
           .expand((amount) => amount)
@@ -71,8 +60,6 @@ class WalletBalanceViewModel {
 
     return other is WalletBalanceViewModel &&
         other.polyBalance == polyBalance &&
-        other.currentNetwork == currentNetwork &&
-        other.updateNetwork == updateNetwork &&
         listEquals(other.assets, assets) &&
         other.initiateSendAsset == initiateSendAsset &&
         other.failedToFetchBalances == failedToFetchBalances &&
@@ -82,8 +69,6 @@ class WalletBalanceViewModel {
   @override
   int get hashCode {
     return polyBalance.hashCode ^
-        currentNetwork.hashCode ^
-        updateNetwork.hashCode ^
         assets.hashCode ^
         initiateSendAsset.hashCode ^
         failedToFetchBalances.hashCode ^

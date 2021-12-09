@@ -13,8 +13,6 @@ class Routes {
   static const txReview = '/tx-review';
   static const txConfirmation = '/tx-confirmation';
   static const mintInput = '/mint-input';
-  static const mintReview = '/mint-review';
-  static const mintConfirmation = '/mint-confirmation';
   static const settings = '/settings';
   static const home = '/home';
   static const addresses = '/addresses';
