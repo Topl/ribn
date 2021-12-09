@@ -12,6 +12,7 @@ import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/home_container.dart';
 import 'package:ribn/presentation/address_section.dart';
 import 'package:ribn/presentation/transaction_section.dart';
+import 'package:ribn/presentation/tx_history_section.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -44,7 +45,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             automaticallyImplyLeading: false,
             actions: [
               _buildNetworkMenu(vm.currentNetwork, vm.networks, vm.updateNetwork),
-              _buildSettingsMenu()
+              _buildSettingsMenu(),
             ],
           ),
           body: Column(
@@ -69,6 +70,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ],
                   ),
                 ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TxHistorySection()));
+                },
+                child: const Text('Tx History'),
               ),
               _buildTabBar(),
               Expanded(
