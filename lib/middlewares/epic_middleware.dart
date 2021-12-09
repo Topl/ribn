@@ -17,6 +17,7 @@ Epic<AppState> createEpicMiddleware(MiscRepository miscRepo) => combineEpics<App
       _sendToBackground(miscRepo),
       _downloadAsFile(miscRepo),
       _deleteWallet(miscRepo),
+      _generateInitialAddresses(),
     ]);
 
 /// A list of all the actions that should trigger appState persistence
@@ -95,4 +96,12 @@ Epic<AppState> _deleteWallet(MiscRepository miscRepo) => (Stream<dynamic> action
         miscRepo.deleteWallet();
         return const Stream.empty();
       });
+    };
+
+Epic<AppState> _generateInitialAddresses() => (Stream<dynamic> actions, EpicStore<AppState> store) {
+      return actions.whereType<InitializeHDWalletAction>().switchMap(
+            (action) => Stream.value(
+              GenerateInitialAddressesAction(store.state.keychainState.hdWallet),
+            ),
+          );
     };
