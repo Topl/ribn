@@ -11,14 +11,12 @@ class RibnNetwork {
   final String networkUrl;
   final List<RibnAddress> addresses;
   final BramblClient? client;
-  final bool fetchingBalance;
 
   RibnNetwork({
     required this.networkId,
     required this.networkUrl,
     this.addresses = const [],
     this.client,
-    required this.fetchingBalance,
   });
 
   factory RibnNetwork.initial({int? networkId, String? networkUrl}) {
@@ -26,7 +24,6 @@ class RibnNetwork {
       networkId: networkId ?? Rules.valhallaId,
       networkUrl: networkUrl ?? Rules.networkUrls[Rules.valhallaId]!,
       client: Rules.getBramblCient(networkId ?? Rules.valhallaId),
-      fetchingBalance: true,
     );
   }
 
@@ -36,31 +33,6 @@ class RibnNetwork {
 
   int getNextInternalAddressIndex() {
     return addresses.lastIndexWhere((addr) => addr.changeIndex == Rules.internalIdx) + 1;
-  }
-
-  List<RibnAddress> getAddrsWithSufficientPolys(int target) {
-    final List<RibnAddress> sortedAddrs = List.from(addresses)
-      ..sort((a, b) => a.balance.polys.quantity.compareTo(b.balance.polys.quantity));
-    num availableBalance = 0;
-    final List<RibnAddress> selectedAddrs = [];
-    for (int i = 0; i < sortedAddrs.length; i++) {
-      if (sortedAddrs[i].balance.polys.quantity > 0) {
-        selectedAddrs.add(sortedAddrs[i]);
-        availableBalance += sortedAddrs[i].balance.polys.quantity;
-      }
-      if (availableBalance >= target) break;
-    }
-    return availableBalance >= target ? selectedAddrs : [];
-  }
-
-  RibnAddress getAddrWithSufficientAssets(AssetAmount asset, int target) {
-    return addresses.firstWhere(
-      (addr) =>
-          addr.balance.polys.quantity >= target &&
-          addr.balance.assets!.any(
-            (elem) => elem.assetCode == asset.assetCode && elem.quantity >= asset.quantity,
-          ),
-    );
   }
 
   static List<RibnNetwork> initializeNetworks() {
@@ -83,7 +55,6 @@ class RibnNetwork {
       networkUrl: networkUrl ?? this.networkUrl,
       addresses: addresses ?? this.addresses,
       client: client ?? this.client,
-      fetchingBalance: fetchingBalance ?? this.fetchingBalance,
     );
   }
 
@@ -92,7 +63,6 @@ class RibnNetwork {
       'networkId': networkId,
       'networkUrl': networkUrl,
       'addresses': addresses.map((x) => x.toMap()).toList(),
-      'fetchingBalance': fetchingBalance,
     };
   }
 
@@ -105,19 +75,17 @@ class RibnNetwork {
           (x) => RibnAddress.fromMap(x as Map<String, dynamic>),
         ),
       ),
-      fetchingBalance: true,
       client: Rules.getBramblCient(map['networkId'] as int),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory RibnNetwork.fromJson(String source) =>
-      RibnNetwork.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory RibnNetwork.fromJson(String source) => RibnNetwork.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'RibnNetwork(networkId: $networkId, networkUrl: $networkUrl, addresses: $addresses, client: $client, fetchingBalance: $fetchingBalance)';
+    return 'RibnNetwork(networkId: $networkId, networkUrl: $networkUrl, addresses: $addresses, client: $client)';
   }
 
   @override
@@ -128,16 +96,11 @@ class RibnNetwork {
         other.networkId == networkId &&
         other.networkUrl == networkUrl &&
         listEquals(other.addresses, addresses) &&
-        other.client == client &&
-        other.fetchingBalance == fetchingBalance;
+        other.client == client;
   }
 
   @override
   int get hashCode {
-    return networkId.hashCode ^
-        networkUrl.hashCode ^
-        addresses.hashCode ^
-        client.hashCode ^
-        fetchingBalance.hashCode;
+    return networkId.hashCode ^ networkUrl.hashCode ^ addresses.hashCode ^ client.hashCode;
   }
 }

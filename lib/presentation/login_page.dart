@@ -1,9 +1,19 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/colors.dart';
+import 'package:ribn/constants/strings.dart';
+import 'package:ribn/constants/styles.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/login_container.dart';
-import 'package:ribn/widgets/base_appbar.dart';
-import 'package:ribn/widgets/loading_spinner.dart';
+import 'package:ribn/widgets/custom_icon_button.dart';
+import 'package:ribn/widgets/large_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+/// Builds the login page.
+///
+/// Prompts the user to unlock their wallet by entering their wallet-locking password.
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -12,17 +22,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _controller = TextEditingController();
-  String password = "";
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  final double _baseWidth = 310;
+  final TextEditingController _textEditingController = TextEditingController();
+  bool _obscurePassword = true;
 
   @override
   void dispose() {
-    _controller.dispose();
+    _textEditingController.dispose();
     super.dispose();
   }
 
@@ -31,29 +37,70 @@ class _LoginPageState extends State<LoginPage> {
     return LoginContainer(
       builder: (context, vm) {
         return Scaffold(
-          appBar: BaseAppBar(),
-          body: Stack(
+          backgroundColor: RibnColors.accent,
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("Login"),
-                    _buildTextField(_controller, "Password"),
-                    _buildUnlockButton(context, vm, password),
-                    UIConstants.sizedBox,
-                    vm.incorrectPasswordError
-                        ? const Text(
-                            "Incorrect password",
-                            style: TextStyle(
-                              color: Colors.red,
-                            ),
-                          )
-                        : const SizedBox()
-                  ],
+              const SizedBox(height: 65),
+              const Text(
+                Strings.ribnWallet,
+                style: TextStyle(
+                  fontFamily: 'Spectral',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 32,
                 ),
               ),
-              vm.loadingPasswordCheck ? const LoadingSpinner() : const SizedBox()
+              const SizedBox(height: 15),
+              SvgPicture.asset(RibnAssets.menuIcon, width: 77),
+              const SizedBox(height: 20),
+              const Center(
+                child: SizedBox(
+                  width: 245,
+                  height: 50,
+                  child: Center(
+                    child: Text(
+                      Strings.intro,
+                      style: TextStyle(
+                        fontFamily: 'Nunito',
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        height: 1.6,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 25),
+              _buildTextFieldLabel(),
+              const SizedBox(height: 8),
+              _buildTextField(),
+              const SizedBox(height: 35),
+              LargeButton(
+                label: Strings.unlock,
+                onPressed: () => vm.attemptLogin(_textEditingController.text),
+                backgroundColor: RibnColors.primary,
+                textColor: Colors.white,
+              ),
+              const SizedBox(height: 12),
+              LargeButton(
+                label: Strings.useSeedPhrase,
+                onPressed: () {},
+                backgroundColor: RibnColors.primary.withOpacity(0.19),
+                textColor: RibnColors.primary,
+              ),
+              const SizedBox(height: 18),
+              _buildSupportLink(),
+              UIConstants.sizedBox,
+              vm.incorrectPasswordError
+                  ? const Text(
+                      'Incorrect Password',
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                    )
+                  : const SizedBox()
             ],
           ),
         );
@@ -61,40 +108,91 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildTextField(TextEditingController textEditingController, String label) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: UIConstants.generalPadding),
-      child: Column(
+  Widget _buildTextFieldLabel() {
+    return SizedBox(
+      width: _baseWidth,
+      child: Row(
         children: [
-          SizedBox(
-            width: UIConstants.textFieldSize,
-            child: TextField(
-              controller: textEditingController,
-              onChanged: (value) {
-                setState(() {
-                  password = value;
-                });
-              },
-              decoration: InputDecoration(
-                labelText: label,
-                isDense: true,
-                contentPadding: const EdgeInsets.all(UIConstants.generalPadding),
-              ),
-            ),
+          const Text(
+            Strings.enterWalletPassword,
+            style: RibnTextStyles.extH3,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2.0),
+            child: SvgPicture.asset(RibnAssets.helpIcon),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildUnlockButton(BuildContext context, LoginViewModel vm, String password) {
-    return MaterialButton(
-      color: Colors.blueAccent,
-      child: const Text(
-        "Unlock",
-        style: TextStyle(fontSize: UIConstants.smallTextSize, color: Colors.white),
+  /// Builds the text field for the wallet password.
+  /// Allows showing/hiding the text input.
+  Widget _buildTextField() {
+    final OutlineInputBorder textFieldBorder = OutlineInputBorder(
+      borderSide: const BorderSide(color: RibnColors.primary),
+      borderRadius: BorderRadius.circular(4.7),
+    );
+    return SizedBox(
+      width: _baseWidth,
+      height: 35,
+      child: TextField(
+        obscureText: _obscurePassword,
+        controller: _textEditingController,
+        decoration: InputDecoration(
+          suffixIcon: CustomIconButton(
+            icon: SvgPicture.asset(
+              _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
+              width: 12,
+            ),
+            onPressed: () {
+              setState(() {
+                _obscurePassword = !_obscurePassword;
+              });
+            },
+          ),
+          labelText: Strings.typeSomething,
+          labelStyle: RibnTextStyles.hintStyle,
+          isDense: true,
+          fillColor: Colors.white,
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          filled: true,
+          contentPadding: const EdgeInsets.all(10),
+          enabledBorder: textFieldBorder,
+          focusedBorder: textFieldBorder,
+        ),
       ),
-      onPressed: () => vm.attemptLogin(password),
+    );
+  }
+
+  /// Builds a link to redirect user to the support email.
+  Widget _buildSupportLink() {
+    return SizedBox(
+      width: _baseWidth,
+      child: Center(
+        child: RichText(
+          text: TextSpan(
+            style: const TextStyle(
+              color: RibnColors.defaultText,
+              fontFamily: 'Nunito',
+              fontSize: 15,
+            ),
+            children: [
+              const TextSpan(
+                text: Strings.needHelp,
+              ),
+              TextSpan(
+                text: Strings.ribnSupport,
+                style: const TextStyle(color: RibnColors.primary, fontWeight: FontWeight.w600),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () async {
+                    await launch(Strings.supportEmailLink);
+                  },
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,108 +1,99 @@
-// ignore_for_file: implementation_imports
-
 import 'dart:typed_data';
 
 import 'package:brambldart/brambldart.dart';
 import 'package:brambldart/client.dart';
 import 'package:brambldart/credentials.dart';
 import 'package:brambldart/model.dart';
+// ignore: implementation_imports
 import 'package:brambldart/src/model/box/token_value_holder.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/models/ribn_address.dart';
-import 'package:ribn/models/ribn_network.dart';
+import 'package:ribn/models/transfer_details.dart';
 
 class TransactionRepository {
   const TransactionRepository();
 
+  /// Formats the tx based on the [transferType] in [transferDetails].
+  /// Sends the request for creating a rawTx.
   Future<Map<String, dynamic>> createRawTx(
     BramblClient client,
-    Map<String, dynamic> transferDetails,
+    TransferDetails transferDetails,
   ) async {
-    switch (transferDetails[Strings.transferType]) {
+    switch (transferDetails.transferType) {
       case Strings.polyTransfer:
         {
-          List<ToplAddress> senders =
-              (transferDetails[Strings.sender] as List<RibnAddress>).map((addr) => addr.address).toList();
-          ToplAddress change = (transferDetails[Strings.change] as RibnAddress).address;
-          ToplAddress recipient = ToplAddress.fromBase58(transferDetails[Strings.recipient] as String);
-          PolyTransaction polyTransaction = PolyTransaction(
+          final List<ToplAddress> senders = transferDetails.senders.map((e) => e.address).toList();
+          final ToplAddress recipient = ToplAddress.fromBase58(transferDetails.recipient);
+          final PolyTransaction polyTransaction = PolyTransaction(
             recipients: [
               SimpleRecipient(
                 recipient,
-                SimpleValue(quantity: transferDetails[Strings.amount].toString()),
+                SimpleValue(quantity: transferDetails.amount.toString()),
               )
             ],
             sender: senders,
-            propositionType: senders[0].proposition.propositionName,
-            changeAddress: change,
-            fee: Rules.networkFees[transferDetails[Strings.networkId]],
-            // data: null,
+            propositionType: senders.first.proposition.propositionName,
+            changeAddress: transferDetails.change!.address,
+            fee: Rules.networkFees[transferDetails.networkId],
+            data: Latin1Data.validated(transferDetails.data),
           );
-          Map<String, dynamic> rawTx = await client.sendRawPolyTransfer(polyTransaction: polyTransaction);
+          final Map<String, dynamic> rawTx = await client.sendRawPolyTransfer(polyTransaction: polyTransaction);
           return rawTx;
         }
       case Strings.assetTransfer:
         {
-          List<ToplAddress> senders =
-              (transferDetails[Strings.sender] as List<RibnAddress>).map((addr) => addr.address).toList();
-          ToplAddress change = (transferDetails[Strings.change] as RibnAddress).address;
-          AssetAmount assetAmount = transferDetails[Strings.asset] as AssetAmount;
-          ToplAddress recipient = ToplAddress.fromBase58(transferDetails[Strings.recipient] as String);
-          AssetValue assetValue = AssetValue(
-            transferDetails[Strings.amount].toString(),
-            assetAmount.assetCode,
+          final List<ToplAddress> senders = transferDetails.senders.map((e) => e.address).toList();
+          final ToplAddress recipient = ToplAddress.fromBase58(transferDetails.recipient);
+          final AssetValue assetValue = AssetValue(
+            transferDetails.amount,
+            transferDetails.assetCode!,
             SecurityRoot.empty(),
-            "",
-            "Asset",
+            '',
+            'Asset',
           );
-          AssetTransaction assetTransaction = AssetTransaction(
+          final AssetTransaction assetTransaction = AssetTransaction(
             recipients: [AssetRecipient(recipient, assetValue)],
             sender: senders,
-            changeAddress: change,
-            consolidationAddress: change,
-            propositionType: senders[0].proposition.propositionName,
+            changeAddress: transferDetails.change!.address,
+            consolidationAddress: transferDetails.consolidation!.address,
+            propositionType: senders.first.proposition.propositionName,
             minting: false,
-            assetCode: assetAmount.assetCode,
-            fee: Rules.networkFees[transferDetails[Strings.networkId]],
+            assetCode: transferDetails.assetCode!,
+            fee: Rules.networkFees[transferDetails.networkId],
+            data: Latin1Data.validated(transferDetails.data),
           );
-          Map<String, dynamic> rawTx = await client.sendRawAssetTransfer(assetTransaction: assetTransaction);
+          final Map<String, dynamic> rawTx = await client.sendRawAssetTransfer(assetTransaction: assetTransaction);
           return rawTx;
         }
       case Strings.minting:
         {
-          List<ToplAddress> senders =
-              (transferDetails[Strings.sender] as List<RibnAddress>).map((addr) => addr.address).toList();
-          ToplAddress change = (transferDetails[Strings.change] as RibnAddress).address;
-          AssetCode assetCode = AssetCode.initialize(
-            Rules.assetCodeVersion,
-            senders[0],
-            transferDetails[Strings.assetName] as String,
-            Rules.networkStrings[transferDetails[Strings.networkId]]!,
-          );
-          AssetValue assetValue = AssetValue(
-            transferDetails[Strings.amount].toString(),
-            assetCode,
+          final ToplAddress issuer = transferDetails.assetCode!.issuer;
+          final AssetValue assetValue = AssetValue(
+            transferDetails.amount,
+            transferDetails.assetCode!,
             SecurityRoot.empty(),
-            "",
-            "Asset",
+            '',
+            'Asset',
           );
-          AssetTransaction assetTransaction = AssetTransaction(
-            recipients: [AssetRecipient(senders[0], assetValue)],
-            sender: senders,
-            changeAddress: change,
-            consolidationAddress: change,
-            propositionType: senders[0].proposition.propositionName,
+          final AssetTransaction assetTransaction = AssetTransaction(
+            recipients: [
+              AssetRecipient(issuer, assetValue),
+            ],
+            sender: [issuer],
+            changeAddress: issuer,
+            consolidationAddress: issuer,
+            propositionType: issuer.proposition.propositionName,
             minting: true,
-            assetCode: assetCode,
-            fee: Rules.networkFees[transferDetails[Strings.networkId]],
+            assetCode: transferDetails.assetCode!,
+            fee: Rules.networkFees[transferDetails.networkId],
+            data: Latin1Data.validated(transferDetails.data),
           );
-          Map<String, dynamic> rawTx = await client.sendRawAssetTransfer(assetTransaction: assetTransaction);
+          final Map<String, dynamic> rawTx = await client.sendRawAssetTransfer(assetTransaction: assetTransaction);
           return rawTx;
         }
       default:
         {
-          throw Exception("Invalid transfer type");
+          throw Exception('Invalid transfer type');
         }
     }
   }
@@ -123,31 +114,13 @@ class TransactionRepository {
     return await client.sendSignedTransaction(signedTx);
   }
 
-  List<RibnAddress> getSenderAddresses(
-    String transferType,
-    RibnNetwork currNetwork, {
-    int? polyAmount,
-    AssetAmount? assetAmount,
-  }) {
-    int networkFee = Rules.networkFees[currNetwork.networkId]!.quantity.toInt();
-    switch (transferType) {
-      case Strings.polyTransfer:
-        {
-          int targetAmount = polyAmount! + networkFee;
-          return currNetwork.getAddrsWithSufficientPolys(targetAmount);
-        }
-      case Strings.minting:
-        {
-          return currNetwork.getAddrsWithSufficientPolys(networkFee);
-        }
-      case Strings.assetTransfer:
-        {
-          return [currNetwork.getAddrWithSufficientAssets(assetAmount!, networkFee)];
-        }
-      default:
-        {
-          throw Exception("Invalid transfer type");
-        }
-    }
+  /// Signs and broadcasts the tx.
+  Future<String> signAndBroadcastTx(
+    BramblClient client,
+    List<Credentials> creds,
+    TransactionReceipt rawTx,
+    Uint8List messageToSign,
+  ) async {
+    return await client.sendTransaction(creds, rawTx, messageToSign);
   }
 }

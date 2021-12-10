@@ -4,7 +4,6 @@ import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/internal_message.dart';
-import 'package:ribn/widgets/base_appbar.dart';
 
 class ExternalSigningPage extends StatefulWidget {
   final InternalMessage request;
@@ -23,7 +22,7 @@ class _ExternalSigningPageState extends State<ExternalSigningPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BaseAppBar(),
+      appBar: AppBar(),
       body: Column(
         children: [
           Text(widget.request.method),

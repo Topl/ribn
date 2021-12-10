@@ -1,4 +1,3 @@
-// ignore_for_file: implementation_imports
 import 'package:bip_topl/bip_topl.dart';
 import 'package:brambldart/credentials.dart';
 import 'package:redux/redux.dart';
@@ -11,10 +10,10 @@ import 'package:ribn/models/ribn_network.dart';
 final keychainReducer = combineReducers<KeychainState>(
   [
     TypedReducer<KeychainState, InitializeHDWalletAction>(_onHdWalletInitialization),
+    TypedReducer<KeychainState, UpdateNetworksAction>(_onNetworksUpdated),
     TypedReducer<KeychainState, AddAddressesAction>(_onAddAddresses),
     TypedReducer<KeychainState, UpdateCurrentNetworkAction>(_onNetworkUpdated),
     TypedReducer<KeychainState, UpdateBalancesAction>(_onBalancesUpdated),
-    TypedReducer<KeychainState, BalancesLoadingAction>(_onBalancesLoading),
   ],
 );
 
@@ -30,6 +29,13 @@ KeychainState _onHdWalletInitialization(KeychainState keychainState, InitializeH
         depth: Rules.toplKeyDepth,
       ),
     ),
+  );
+}
+
+/// Updates the networks stored in local state with [action.updatedRibnNetworkList].
+KeychainState _onNetworksUpdated(KeychainState keychainState, UpdateNetworksAction action) {
+  return keychainState.copyWith(
+    networks: List.from(action.updatedRibnNetworkList),
   );
 }
 
@@ -61,19 +67,6 @@ KeychainState _onBalancesUpdated(KeychainState keychainState, UpdateBalancesActi
   RibnNetwork updatedNetwork = keychainState.currentNetwork.copyWith(
     addresses: action.updatedAddresses,
     fetchingBalance: false,
-  );
-  return keychainState.copyWith(
-    networks: List.from(keychainState.networks)
-      ..setAll(
-        keychainState.currNetworkIdx,
-        [updatedNetwork],
-      ),
-  );
-}
-
-KeychainState _onBalancesLoading(KeychainState keychainState, BalancesLoadingAction action) {
-  RibnNetwork updatedNetwork = keychainState.currentNetwork.copyWith(
-    fetchingBalance: true,
   );
   return keychainState.copyWith(
     networks: List.from(keychainState.networks)

@@ -1,20 +1,27 @@
 import 'package:brambldart/model.dart';
+
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/models/ribn_address.dart';
+import 'package:ribn/models/transfer_details.dart';
 
 class InitiateTxAction {
-  Map<String, dynamic> transferDetails;
-  InitiateTxAction(this.transferDetails);
+  final TransferDetails transferDetails;
+  const InitiateTxAction(this.transferDetails);
 }
 
 class CreateRawTxAction {
-  Map<String, dynamic> transferDetails;
+  TransferDetails transferDetails;
   CreateRawTxAction(this.transferDetails);
 }
 
 class SignTxAction {
-  Map<String, dynamic> transferDetails;
+  TransferDetails transferDetails;
   SignTxAction(this.transferDetails);
+}
+
+class SignAndBroadcastTxAction {
+  TransferDetails transferDetails;
+  SignAndBroadcastTxAction(this.transferDetails);
 }
 
 class BroadcastTxAction {

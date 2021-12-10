@@ -13,7 +13,7 @@ class LoginContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, LoginViewModel>(
       distinct: true,
-      converter: (store) => LoginViewModel.fromStore(store),
+      converter: LoginViewModel.fromStore,
       builder: builder,
     );
   }

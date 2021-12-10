@@ -93,3 +93,12 @@ function downloadAsFile(filename, text) {
 	element.click();
 	document.body.removeChild(element);
 }
+
+/**
+ * Clears the local storage and closes the window.
+ */
+function deleteWallet() {
+	chrome.storage.local.clear(function () {
+		window.close();
+	});
+}

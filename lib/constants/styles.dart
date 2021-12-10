@@ -42,4 +42,32 @@ class RibnTextStyles {
     fontWeight: FontWeight.w500,
     letterSpacing: 0.5,
   );
+
+  static const TextStyle extH2 = TextStyle(
+    fontFamily: 'Spectral',
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+  );
+  static const TextStyle extH3 = TextStyle(
+    fontFamily: 'Spectral',
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+  );
+  static const TextStyle extH4 = TextStyle(
+    fontFamily: 'Spectral',
+    fontSize: 13,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle hintStyle = TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 12,
+    color: RibnColors.hintTextColor,
+  );
+  static const TextStyle btnMedium = TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 18,
+    color: Colors.white,
+    fontWeight: FontWeight.w600,
+  );
 }

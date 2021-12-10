@@ -14,4 +14,8 @@ class MiscRepository {
   void downloadAsFile(String fileName, String text) {
     local.downloadAsFile(fileName, text);
   }
+
+  void deleteWallet() {
+    local.deleteWallet();
+  }
 }

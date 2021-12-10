@@ -16,10 +16,8 @@ List<Middleware<AppState>> createLoginMiddleware(LoginRepository loginRepository
 void Function(Store<AppState> store, AttemptLoginAction action, NextDispatcher next) _verifyPassword(
     LoginRepository loginRepository) {
   return (store, action, next) async {
-    /// start loading indicator
-    next(LoginLoadingAction());
     try {
-      Uint8List toplExtendedPrvKeyUint8List = loginRepository.decryptKeyStore(
+      final Uint8List toplExtendedPrvKeyUint8List = loginRepository.decryptKeyStore(
         action.keyStoreJson,
         action.password,
       );
