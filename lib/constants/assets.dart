@@ -42,4 +42,8 @@ class RibnAssets {
   static const issuerFingerprint = 'assets/icons/issuer_fingerprint.svg';
   static const recipientFingerprint = 'assets/icons/recipient_fingerprint.svg';
   static const mintLarge = 'assets/icons/mint_large.svg';
+  static const mintNewAssetButton = 'assets/icons/mint_new_asset.svg';
+  static const remintSameAssetButton = 'assets/icons/remint_same_asset.svg';
+  static const myWalletButton = 'assets/icons/my_wallet_button.svg';
+  static const anotherWalletButton = 'assets/icons/another_wallet_button.svg';
 }
