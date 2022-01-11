@@ -69,7 +69,14 @@ class RootRouter {
         }
       case Routes.mintInput:
         {
-          return pageRoute(const MintInputPage(), settings);
+          final Map<String, dynamic> mintInputPageArgs = settings.arguments as Map<String, dynamic>;
+          return pageRoute(
+            MintInputPage(
+              mintingNewAsset: mintInputPageArgs['mintingNewAsset'] as bool,
+              mintingToMyWallet: mintInputPageArgs['mintingToMyWallet'] as bool,
+            ),
+            settings,
+          );
         }
       case Routes.addresses:
         {
