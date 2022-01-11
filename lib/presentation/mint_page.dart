@@ -9,7 +9,7 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/widgets/custom_icon_button.dart';
+import 'package:ribn/widgets/custom_close_button.dart';
 
 /// One of the 3 main pages on the home screen.
 ///
@@ -40,25 +40,41 @@ class MintPage extends StatelessWidget {
         ),
         const SizedBox(height: 40),
         // page description
-        const SizedBox(
-          height: 85,
-          child: Text(
-            Strings.letsMintANewAsset,
-            style: TextStyle(
-              color: RibnColors.greyedOut,
-              fontFamily: 'Nunito',
-              fontSize: 15,
+        const Center(
+          child: SizedBox(
+            width: 250,
+            height: 85,
+            child: Text(
+              Strings.letsMintANewAsset,
+              style: TextStyle(
+                color: RibnColors.greyedOut,
+                fontFamily: 'Nunito',
+                fontSize: 15,
+              ),
             ),
           ),
         ),
-        // buttons to choose between 'mint new asset' and 'remint same asset'
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildMintOption(context, mintingNewAsset: true),
-            const SizedBox(width: 13),
-            _buildMintOption(context, mintingNewAsset: false),
-          ],
+        const SizedBox(height: 40),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              const SizedBox(
+                width: double.infinity,
+                child: Text(Strings.whatWouldYouLikeToDo, style: RibnTextStyles.extH3),
+              ),
+              const SizedBox(height: 20),
+              // buttons to choose between 'mint new asset' and 'remint same asset'
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildMintOption(context, mintingNewAsset: true),
+                  const SizedBox(width: 13),
+                  _buildMintOption(context, mintingNewAsset: false),
+                ],
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -77,28 +93,23 @@ class MintPage extends StatelessWidget {
     );
   }
 
-  /// Builds a dialog with buttons,
-  /// allowing the user to choose between 'mint to my own wallet' and 'mint to another wallet'.
+  /// Builds a dialog with buttons to
+  /// allow the user to choose between 'mint to my own wallet' and 'mint to another wallet'.
   Future<void> _buildMintDialog(bool mintingNewAsset) async {
     await showDialog(
       context: Keys.navigatorKey.currentContext!,
       builder: (context) {
         return AlertDialog(
+          insetPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 100),
           backgroundColor: RibnColors.accent,
           titlePadding: EdgeInsets.zero,
           title: Stack(
             children: [
-              // top-right exit button
-              Positioned(
+              // top-right close button
+              const Positioned(
                 top: 18,
                 right: 14,
-                child: CustomIconButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  icon: const Icon(
-                    Icons.close,
-                    color: Color(0xffb9b9b9),
-                  ),
-                ),
+                child: CustomCloseButton(),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 14),
