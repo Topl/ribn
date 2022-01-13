@@ -28,6 +28,7 @@ class Strings {
   static const String noAssets = 'You have no assets :(';
   static const String asset = 'asset';
   static const String mint = 'Mint';
+  static const String remint = 'Remint';
   static const String mintAsset = 'Mint Asset';
   static const String sender = 'sender';
   static const String change = 'change';
@@ -164,7 +165,7 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String assetTransferToHint = 'Paste Recipient’s address.';
   static const String assetLongNameHint = 'Jackfruit, max 16 characters.';
   static const String assetShortNameHint = 'YLW JACK2, max 8 characters.';
-  static const String amountHint = '2500';
+  static const String amountHint = '200000';
   static const String totalTxFee = 'Total Transaction Fee';
   static const String cancel = 'CANCEL';
   static const String confirm = 'CONFIRM';
@@ -184,4 +185,12 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String anotherRecipientsWallet = 'ANOTHER RECIPIENT\'S WALLET ';
   static const String mintAssetDesc = 'Where would you like your Asset to be minted?';
   static const String issuerAddress = 'Issuer address';
+  static const String walletPasswordInfo =
+      'Your Wallet Password can lock and unlock your\nwallet on a device where it is already stored.';
+  static const String assetLongNameInfo =
+      'The descriptive name used to identify your\nassets locally in your Ribn Wallet.';
+  static const String assetCodeShortInfo =
+      'This is used to view the short name for your \nasset as this will be the information used to\nidentify a particular asset on the blockchain.';
+  static const String issuerAddressInfo =
+      'This is the address of the party who originally\ncreated a certain asset. You can copy the\nissuer address and paste it into the Topl explorer\nfor more information.';
 }

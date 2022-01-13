@@ -37,7 +37,7 @@ class RibnAssets {
   static const passwordHiddenIcon = 'assets/icons/visibility_off.svg';
   static const coffeeGreenIcon = 'assets/icons/coffee-green-icon.svg';
   static const contentCopyIcon = 'assets/icons/content_copy.svg';
-  static const helpIcon = 'assets/icons/help.svg';
+  static const helpIcon = 'assets/icons/help_icon.png';
   static const myFingerprint = 'assets/icons/my_fingerprint.svg';
   static const issuerFingerprint = 'assets/icons/issuer_fingerprint.svg';
   static const recipientFingerprint = 'assets/icons/recipient_fingerprint.svg';
@@ -46,4 +46,7 @@ class RibnAssets {
   static const remintSameAssetButton = 'assets/icons/remint_same_asset.svg';
   static const myWalletButton = 'assets/icons/my_wallet_button.svg';
   static const anotherWalletButton = 'assets/icons/another_wallet_button.svg';
+  static const copyUnselectedIcon = 'assets/icons/copy_unselected.png';
+  static const copySelectedIcon = 'assets/icons/copy_selected.png';
+  static const unselectedAsset = 'assets/icons/asset_unselected.png';
 }
