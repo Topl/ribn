@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/styles.dart';
 import 'package:ribn/widgets/custom_close_button.dart';
 
 /// A custom widget for displaying tooltips.
@@ -17,15 +18,6 @@ class CustomToolTip extends StatefulWidget {
 
 class _CustomToolTipState extends State<CustomToolTip> {
   OverlayEntry overlayEntry = OverlayEntry(builder: (context) => const SizedBox());
-
-  /// The [TextStyle] used for the tooltip text
-  final TextStyle modaltextStyle = const TextStyle(
-    color: Color(0xff323232),
-    fontWeight: FontWeight.w400,
-    fontFamily: 'Nunito',
-    fontSize: 12.0,
-    decoration: TextDecoration.none,
-  );
 
   @override
   void dispose() {
@@ -75,7 +67,7 @@ class _CustomToolTipState extends State<CustomToolTip> {
                   ),
                   child: Text(
                     widget.tooltipText,
-                    style: modaltextStyle,
+                    style: RibnTextStyles.tooltipTextStyle,
                   ),
                 ),
                 // close button for dismissing the tooltip
