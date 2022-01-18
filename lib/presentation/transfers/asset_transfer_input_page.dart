@@ -5,6 +5,7 @@ import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/containers/asset_transfer_input_container.dart';
+import 'package:ribn/presentation/transfers/widgets/note_field.dart';
 import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/asset_info.dart';
 import 'package:ribn/widgets/custom_page_title.dart';
@@ -12,7 +13,6 @@ import 'package:ribn/widgets/custom_text_field.dart';
 import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn/widgets/large_button.dart';
 import 'package:ribn/widgets/loading_spinner.dart';
-import 'package:ribn/widgets/note_text_field.dart';
 
 /// The asset transfer input page that allows the initiation of an asset transfer.
 ///
@@ -112,7 +112,7 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
                         ),
                         _buildInputItem(
                           Strings.note,
-                          NoteTextField(noteController: _noteController, noteLength: _noteController.text.length),
+                          NoteField(noteController: _noteController, noteLength: _noteController.text.length),
                         ),
                         FeeInfo(fee: vm.networkFee),
                         const SizedBox(height: 20),
