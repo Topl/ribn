@@ -5,7 +5,7 @@ import 'package:ribn/widgets/custom_text_field.dart';
 
 /// An input field used on the [MintInputPage].
 ///
-/// Allows the user to define thes asset short name.
+/// Allows the user to define the asset short name.
 class AssetShortNameField extends StatefulWidget {
   /// Controller for the asset short name.
   final TextEditingController controller;
