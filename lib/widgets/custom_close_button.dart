@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
 
-/// A custom styled exit button.
+/// A custom styled close button.
+///
+/// Used for closing pages, modals, tooltips, etc.
 class CustomCloseButton extends StatelessWidget {
-  const CustomCloseButton({Key? key}) : super(key: key);
+  /// Callback for when the button is pressed.
+  final Function? onPressed;
+
+  /// Optional icon size for the [Icons.close] icon.
+  final double? iconSize;
+  const CustomCloseButton({
+    Key? key,
+    this.onPressed,
+    this.iconSize,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,10 +22,11 @@ class CustomCloseButton extends StatelessWidget {
       hoverColor: Colors.transparent,
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
-      onPressed: () => Navigator.of(context).pop(),
-      icon: const Icon(
+      onPressed: () => onPressed != null ? onPressed!() : Navigator.of(context).pop(),
+      icon: Icon(
         Icons.close,
-        color: Color(0xffb9b9b9),
+        size: iconSize,
+        color: const Color(0xffb9b9b9),
       ),
     );
   }
