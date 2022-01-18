@@ -17,7 +17,7 @@ class IssuerAddressField extends StatelessWidget {
       itemLabel: Strings.issuerAddress,
       item: AddressDisplayContainer(
         text: Strings.yourIssuerAddress,
-        asset: RibnAssets.issuerFingerprint,
+        icon: RibnAssets.issuerFingerprint,
       ),
     );
   }

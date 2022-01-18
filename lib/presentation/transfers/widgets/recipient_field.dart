@@ -66,7 +66,7 @@ class _RecipientFieldState extends State<RecipientField> {
         item: widget.mintingToMyWallet
             ? const AddressDisplayContainer(
                 text: Strings.yourRibnWalletAddress,
-                asset: RibnAssets.myFingerprint,
+                icon: RibnAssets.myFingerprint,
               )
             : Stack(
                 children: [

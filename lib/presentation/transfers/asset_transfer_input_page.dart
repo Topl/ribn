@@ -99,7 +99,7 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
                           Strings.from,
                           const AddressDisplayContainer(
                             text: Strings.yourRibnWalletAddress,
-                            asset: RibnAssets.myFingerprint,
+                            icon: RibnAssets.myFingerprint,
                           ),
                         ),
                         _buildInputItem(

@@ -77,4 +77,12 @@ class RibnTextStyles {
     fontFamily: 'Nunito',
     fontSize: 12,
   );
+
+  static const TextStyle tooltipTextStyle = TextStyle(
+    color: Color(0xff323232),
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Nunito',
+    fontSize: 12.0,
+    decoration: TextDecoration.none,
+  );
 }
