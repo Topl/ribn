@@ -205,10 +205,11 @@ class _MintInputPageState extends State<MintInputPage> {
         label: Strings.review,
         onPressed: () {
           vm.initiateTx(
-            _assetShortNameController.text,
-            _amountController.text,
-            _validRecipientAddress,
-            _noteController.text,
+            assetShortName: _assetShortNameController.text,
+            amount: _amountController.text,
+            recipient: _validRecipientAddress,
+            note: _noteController.text,
+            mintingToMyWallet: widget.mintingToMyWallet,
           );
         },
       ),

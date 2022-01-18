@@ -26,7 +26,13 @@ class MintInputContainer extends StatelessWidget {
 }
 
 class MintInputViewmodel {
-  final void Function(String, String, String, String) initiateTx;
+  final void Function({
+    required String assetShortName,
+    required String amount,
+    required String recipient,
+    required String note,
+    bool mintingToMyWallet,
+  }) initiateTx;
   final bool loadingRawTx;
   final num networkFee;
   final List<AssetAmount> assets;
@@ -41,7 +47,13 @@ class MintInputViewmodel {
 
   static MintInputViewmodel fromStore(Store<AppState> store) {
     return MintInputViewmodel(
-      initiateTx: (String assetShortName, String amount, String recipient, String note) {
+      initiateTx: ({
+        required String assetShortName,
+        required String amount,
+        required String recipient,
+        required String note,
+        bool mintingToMyWallet = false,
+      }) {
         final ToplAddress issuerAddress = store.state.keychainState.currentNetwork.addresses.first.address;
         final TransferDetails transferDetails = TransferDetails(
           transferType: Strings.minting,
@@ -51,7 +63,7 @@ class MintInputViewmodel {
             assetShortName,
             Rules.networkStrings[store.state.keychainState.currentNetwork.networkId]!,
           ),
-          recipient: recipient,
+          recipient: mintingToMyWallet ? issuerAddress.toBase58() : recipient,
           amount: amount,
           data: note,
         );
