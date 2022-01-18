@@ -70,4 +70,11 @@ class RibnTextStyles {
     color: Colors.white,
     fontWeight: FontWeight.w600,
   );
+
+  static const TextStyle dropdownButtonStyle = TextStyle(
+    color: RibnColors.whiteBackground,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'Nunito',
+    fontSize: 12,
+  );
 }

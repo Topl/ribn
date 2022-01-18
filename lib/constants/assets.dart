@@ -49,4 +49,13 @@ class RibnAssets {
   static const copyUnselectedIcon = 'assets/icons/copy_unselected.png';
   static const copySelectedIcon = 'assets/icons/copy_selected.png';
   static const unselectedAsset = 'assets/icons/asset_unselected.png';
+  static const coffBlueIcon = 'assets/asset_icons/coff_blue_icon.png';
+  static const coffBrownIcon = 'assets/asset_icons/coff_brown_icon.png';
+  static const coffGreenIcon = 'assets/asset_icons/coff_green_icon.png';
+  static const coffPurpleIcon = 'assets/asset_icons/coff_purple_icon.png';
+  static const coffYellowIcon = 'assets/asset_icons/coff_yellow_icon.png';
+  static const diaBlueIcon = 'assets/asset_icons/dia_blue_icon.png';
+  static const diaGreenIcon = 'assets/asset_icons/dia_green_icon.png';
+  static const diaPurpleIcon = 'assets/asset_icons/dia_purple_icon.png';
+  static const diaYellowIcon = 'assets/asset_icons/dia_yellow_icon.png';
 }

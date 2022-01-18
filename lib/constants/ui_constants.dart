@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ribn/constants/assets.dart';
 
 class UIConstants {
   static const sizedBox = SizedBox(height: 10);
@@ -8,11 +9,22 @@ class UIConstants {
   static const double textFieldSize = 200;
   static const double maxWidth = 200;
   static const double loginTextFieldWidth = 300;
-  static const int mnemonicTileCrossAxisCount = 4;
-  static const double mnemonicTileMaxWidth = 250;
-  static const double mnemonicTileMaxHeight = 200;
-  static const double mnemonicDisplayDimensions = 150;
   static const double addressListTileSize = 40;
-  static scaleByWidth(double scale, BuildContext context) => scale * MediaQuery.of(context).size.width;
-  static double displayAddressWidth(BuildContext context) => scaleByWidth(0.5, context) as double;
+  static const List<String> assetUnitsList = [
+    'G - Gram',
+    'Kg - Kilogram',
+    'Oz - Ounce',
+    'L - Liter',
+    'Bbl - Barrel',
+  ];
+  static const List<String> assetIconsList = [
+    RibnAssets.coffGreenIcon,
+    RibnAssets.coffYellowIcon,
+    RibnAssets.coffPurpleIcon,
+    RibnAssets.coffBlueIcon,
+    RibnAssets.diaGreenIcon,
+    RibnAssets.diaYellowIcon,
+    RibnAssets.diaPurpleIcon,
+    RibnAssets.diaBlueIcon,
+  ];
 }
