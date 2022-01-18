@@ -12,7 +12,7 @@ import 'package:ribn/widgets/custom_text_field.dart';
 ///
 /// Allows the user to define the amount of asset to be minted and a custom unit for it.
 class AssetAmountField extends StatefulWidget {
-  /// Controller for the amount.
+  /// Controller for the amount textfield.
   final TextEditingController controller;
 
   /// The selected unit for the asset to be minted.
