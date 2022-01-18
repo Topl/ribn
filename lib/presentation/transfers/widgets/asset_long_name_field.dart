@@ -56,6 +56,7 @@ class _AssetLongNameFieldState extends State<AssetLongNameField> {
           // dropdown for selecting an asset icon
           Positioned(
             right: 5,
+            top: 1,
             child: CustomDropDown(
               childAlignment: Alignment.bottomCenter,
               dropDownAlignment: Alignment.topCenter,
@@ -97,7 +98,7 @@ class _AssetLongNameFieldState extends State<AssetLongNameField> {
           });
         },
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             widget.selectedIcon != null
                 ? Image.asset(widget.selectedIcon!)
@@ -117,7 +118,7 @@ class _AssetLongNameFieldState extends State<AssetLongNameField> {
               child: showDropdownArrow
                   ? const Icon(
                       Icons.keyboard_arrow_down_sharp,
-                      size: 15,
+                      size: 12,
                       color: Color(0xff859391),
                     )
                   : const SizedBox(),
