@@ -26,18 +26,22 @@ class MintInputContainer extends StatelessWidget {
 }
 
 class MintInputViewmodel {
-  final void Function(String, String, String) initiateTx;
+  final void Function(String, String, String, String) initiateTx;
   final bool loadingRawTx;
   final num networkFee;
+  final List<AssetAmount> assets;
+  final int currNetworkId;
   MintInputViewmodel({
     required this.initiateTx,
     required this.loadingRawTx,
     required this.networkFee,
+    required this.assets,
+    required this.currNetworkId,
   });
 
   static MintInputViewmodel fromStore(Store<AppState> store) {
     return MintInputViewmodel(
-      initiateTx: (String assetShortName, String amount, String note) {
+      initiateTx: (String assetShortName, String amount, String recipient, String note) {
         final ToplAddress issuerAddress = store.state.keychainState.currentNetwork.addresses.first.address;
         final TransferDetails transferDetails = TransferDetails(
           transferType: Strings.minting,
@@ -47,13 +51,18 @@ class MintInputViewmodel {
             assetShortName,
             Rules.networkStrings[store.state.keychainState.currentNetwork.networkId]!,
           ),
-          recipient: issuerAddress.toBase58(),
+          recipient: recipient,
           amount: amount,
           data: note,
         );
         store.dispatch(InitiateTxAction(transferDetails));
       },
       loadingRawTx: store.state.uiState.loadingRawTx,
+      assets: store.state.keychainState.currentNetwork.addresses
+          .map((addr) => addr.balance.assets ?? [])
+          .expand((amount) => amount)
+          .toList(),
+      currNetworkId: store.state.keychainState.currentNetwork.networkId,
       networkFee: Rules.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
     );
   }
@@ -65,9 +74,13 @@ class MintInputViewmodel {
     return other is MintInputViewmodel &&
         other.initiateTx == initiateTx &&
         other.loadingRawTx == loadingRawTx &&
-        other.networkFee == networkFee;
+        other.networkFee == networkFee &&
+        listEquals(other.assets, assets) &&
+        other.currNetworkId == currNetworkId;
   }
 
   @override
-  int get hashCode => initiateTx.hashCode ^ loadingRawTx.hashCode ^ networkFee.hashCode;
+  int get hashCode {
+    return initiateTx.hashCode ^ loadingRawTx.hashCode ^ networkFee.hashCode ^ assets.hashCode ^ currNetworkId.hashCode;
+  }
 }
