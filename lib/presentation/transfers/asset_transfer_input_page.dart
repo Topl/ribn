@@ -110,10 +110,7 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
                             hintText: Strings.assetTransferToHint,
                           ),
                         ),
-                        _buildInputItem(
-                          Strings.note,
-                          NoteField(noteController: _noteController, noteLength: _noteController.text.length),
-                        ),
+                        NoteField(controller: _noteController, noteLength: _noteController.text.length),
                         FeeInfo(fee: vm.networkFee),
                         const SizedBox(height: 20),
                         LargeButton(
