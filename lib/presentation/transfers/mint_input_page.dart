@@ -108,9 +108,11 @@ class _MintInputPageState extends State<MintInputPage> {
                           _buildAssetField(vm),
                           Row(
                             children: [
-                              // field for defining a short name for the asset
-                              AssetShortNameField(controller: _assetShortNameController),
-                              const Spacer(),
+                              // field for defining a short name for the asset if minting a new asset
+                              widget.mintingNewAsset
+                                  ? AssetShortNameField(controller: _assetShortNameController)
+                                  : const SizedBox(),
+                              widget.mintingNewAsset ? const Spacer() : const SizedBox(),
                               // field for defining asset amount & custom unit
                               AssetAmountField(
                                 selectedUnit: _selectedUnit,
@@ -192,6 +194,7 @@ class _MintInputPageState extends State<MintInputPage> {
             onSelected: (AssetAmount? asset) {
               setState(() {
                 _selectedAsset = asset;
+                _assetShortNameController.text = asset!.assetCode.shortName.show;
               });
             },
           );
