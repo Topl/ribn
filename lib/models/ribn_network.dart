@@ -24,8 +24,13 @@ class RibnNetwork {
       networkId: networkId ?? Rules.valhallaId,
       networkUrl: networkUrl ?? Rules.networkUrls[Rules.valhallaId]!,
       client: Rules.getBramblCient(networkId ?? Rules.valhallaId),
+      addresses: [],
     );
   }
+
+  /// We are only supporting a single wallet address at this time.
+  /// The wallet address is the first generated address.
+  RibnAddress get myWalletAddress => addresses.first;
 
   int getNextExternalAddressIndex() {
     return addresses.lastIndexWhere((addr) => addr.changeIndex == Rules.defaultChangeIndex) + 1;
@@ -33,6 +38,29 @@ class RibnNetwork {
 
   int getNextInternalAddressIndex() {
     return addresses.lastIndexWhere((addr) => addr.changeIndex == Rules.internalIdx) + 1;
+  }
+
+  /// Returns a list of all the assets owned by [myWalletAddress]
+  ///
+  ///
+  /// Iterates through [myWalletAddress.balance.assets], i.e. asset boxes,
+  /// and compiles them into a list based on asset codes.
+  List<AssetAmount> getAllAssetsInWallet() {
+    final Map<String, AssetAmount> myAssets = {};
+    for (AssetAmount asset in myWalletAddress.balance.assets ?? []) {
+      final num assetQuantity = asset.quantity;
+      myAssets.update(asset.assetCode.serialize(), (AssetAmount currAsset) {
+        return AssetAmount(quantity: currAsset.quantity + assetQuantity, assetCode: asset.assetCode);
+      }, ifAbsent: () => asset);
+    }
+    return myAssets.values.toList();
+  }
+
+  /// Returns the list of all assets issued/minted by this wallet.
+  List<AssetAmount> getAssetsIssuedByWallet() {
+    return getAllAssetsInWallet()
+        .where((AssetAmount asset) => asset.assetCode.issuer.toBase58() == myWalletAddress.address.toBase58())
+        .toList();
   }
 
   static List<RibnNetwork> initializeNetworks() {

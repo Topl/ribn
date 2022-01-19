@@ -42,10 +42,7 @@ class WalletBalanceViewModel {
         0,
         (prev, currBalance) => prev + currBalance.balance.polys.getInNanopoly,
       ),
-      assets: store.state.keychainState.currentNetwork.addresses
-          .map((addr) => addr.balance.assets ?? [])
-          .expand((amount) => amount)
-          .toList(),
+      assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
       initiateSendAsset: (AssetAmount asset) => store.dispatch(
         NavigateToRoute(Routes.assetTransferInput, arguments: asset),
       ),

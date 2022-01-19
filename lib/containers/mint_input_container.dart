@@ -54,7 +54,7 @@ class MintInputViewmodel {
         required String note,
         bool mintingToMyWallet = false,
       }) {
-        final ToplAddress issuerAddress = store.state.keychainState.currentNetwork.addresses.first.address;
+        final ToplAddress issuerAddress = store.state.keychainState.currentNetwork.myWalletAddress.address;
         final TransferDetails transferDetails = TransferDetails(
           transferType: Strings.minting,
           assetCode: AssetCode.initialize(
@@ -70,10 +70,7 @@ class MintInputViewmodel {
         store.dispatch(InitiateTxAction(transferDetails));
       },
       loadingRawTx: store.state.uiState.loadingRawTx,
-      assets: store.state.keychainState.currentNetwork.addresses
-          .map((addr) => addr.balance.assets ?? [])
-          .expand((amount) => amount)
-          .toList(),
+      assets: store.state.keychainState.currentNetwork.getAssetsIssuedByWallet(),
       currNetworkId: store.state.keychainState.currentNetwork.networkId,
       networkFee: Rules.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
     );
