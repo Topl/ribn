@@ -10,18 +10,30 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/asset_info.dart';
+import 'package:ribn/widgets/custom_copy_button.dart';
 import 'package:ribn/widgets/custom_divider.dart';
 import 'package:ribn/widgets/custom_page_title.dart';
 import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn/widgets/large_button.dart';
 
-/// The transaction review page that allows the user to review the transaction information before confirming it.
+/// The transaction review page.
+///
+/// Allows the user to review the transaction information before confirming/broadcasting it.
 class TxReviewPage extends StatelessWidget {
   const TxReviewPage({
     required this.transferDetails,
     Key? key,
   }) : super(key: key);
+
+  /// Holds details about the transaction.
   final TransferDetails transferDetails;
+
+  /// Default text style being used on this page.
+  final TextStyle defaultTextStyle = const TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 12,
+    color: RibnColors.defaultText,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +43,16 @@ class TxReviewPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // page title
             const Padding(
               padding: EdgeInsets.only(top: 45),
               child: CustomPageTitle(title: Strings.review),
             ),
             const SizedBox(height: 20),
+            // review box
             Container(
               width: 310,
-              height: 335,
+              height: 300,
               padding: const EdgeInsets.symmetric(
                 horizontal: 19.5,
                 vertical: 15,
@@ -50,28 +64,22 @@ class TxReviewPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildReviewItem(
-                    Strings.sending,
-                    _buildSendingDetails(),
-                  ),
-                  _buildReviewItem(
-                    Strings.from,
-                    _buildFromDetails(),
-                  ),
-                  _buildReviewItem(
-                    Strings.to,
-                    _buildToDetails(),
-                  ),
-                  _buildReviewItem(
-                    Strings.note,
-                    _buildNoteDetails(),
-                    divider: false,
-                  ),
-                  FeeInfo(fee: transferDetails.transactionReceipt!.fee!.getInNanopoly),
+                  _buildSendingDetails(),
+                  _buildFromDetails(),
+                  _buildToDetails(),
+                  _buildNoteDetails(),
                 ],
               ),
             ),
-            const SizedBox(height: 19),
+            // fee info
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12.0),
+              child: SizedBox(
+                width: 310,
+                child: FeeInfo(fee: transferDetails.transactionReceipt!.fee!.getInNanopoly),
+              ),
+            ),
+            // cancel button
             LargeButton(
               label: Strings.cancel,
               onPressed: () {
@@ -81,6 +89,7 @@ class TxReviewPage extends StatelessWidget {
               textColor: RibnColors.primary,
             ),
             const SizedBox(height: 13),
+            // confirm button
             LargeButton(
               label: Strings.confirm,
               onPressed: () {
@@ -95,7 +104,8 @@ class TxReviewPage extends StatelessWidget {
     );
   }
 
-  Widget _buildReviewItem(String itemLabel, Widget itemDetails, {bool divider = true}) {
+  /// A helper function used to build review items on this page.
+  Widget _buildReviewItem({required String itemLabel, required Widget item, bool divider = true}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -104,7 +114,7 @@ class TxReviewPage extends StatelessWidget {
           style: RibnTextStyles.extH4,
         ),
         const SizedBox(height: 6),
-        itemDetails,
+        item,
         divider
             ? const Center(
                 child: Padding(
@@ -117,86 +127,112 @@ class TxReviewPage extends StatelessWidget {
     );
   }
 
+  /// UI for displaying the amount and asset for the tx.
   Widget _buildSendingDetails() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Container(
-          constraints: const BoxConstraints(maxWidth: 60),
-          child: Text(
-            '${transferDetails.amount} of ',
-            style: const TextStyle(
-              fontSize: 12,
-              fontFamily: 'Nunito',
+    return _buildReviewItem(
+      itemLabel: Strings.sending,
+      item: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            constraints: const BoxConstraints(maxWidth: 60),
+            child: Text(
+              '${transferDetails.amount} of ',
+              style: const TextStyle(
+                fontSize: 12,
+                fontFamily: 'Nunito',
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
-            overflow: TextOverflow.ellipsis,
           ),
-        ),
-        AssetInfo(
-          assetCode: transferDetails.assetCode!,
-        ),
-      ],
+          // conditional display based on transfer type
+          transferDetails.transferType == Strings.polyTransfer
+              ? Row(
+                  children: [
+                    Image.asset(RibnAssets.polysIcon),
+                    const SizedBox(width: 5),
+                    Text('POLY', style: defaultTextStyle),
+                  ],
+                )
+              : AssetInfo(assetCode: transferDetails.assetCode!),
+        ],
+      ),
     );
   }
 
+  /// UI for displaying the sender.
+  ///
+  /// Allows copying the sender address.
   Widget _buildFromDetails() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: 19,
-          height: 19,
-          child: SvgPicture.asset(RibnAssets.myFingerprint),
-        ),
-        const SizedBox(width: 6),
-        const Text(
-          Strings.yourRibnWalletAddress,
-          style: TextStyle(
-            fontFamily: 'Nunito',
-            fontSize: 12,
-            color: RibnColors.defaultText,
+    return _buildReviewItem(
+      itemLabel: Strings.from,
+      item: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 19,
+            height: 19,
+            child: SvgPicture.asset(RibnAssets.myFingerprint),
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Text(
+              Strings.yourRibnWalletAddress,
+              style: defaultTextStyle,
+            ),
+          ),
+          CustomCopyButton(textToBeCopied: transferDetails.senders.first.address.toBase58()),
+        ],
+      ),
     );
   }
 
+  /// UI for displaying the receipient details.
+  ///
+  /// Allows copying the receipient address.
   Widget _buildToDetails() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: 19,
-          height: 19,
-          child: SvgPicture.asset(RibnAssets.recipientFingerprint),
-        ),
-        const SizedBox(width: 6),
-        Text(
-          formatAddrString(transferDetails.recipient),
+    return _buildReviewItem(
+      itemLabel: Strings.to,
+      item: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 19,
+            height: 19,
+            child: SvgPicture.asset(RibnAssets.recipientFingerprint),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Text(
+              formatAddrString(transferDetails.recipient),
+              style: defaultTextStyle,
+            ),
+          ),
+          CustomCopyButton(textToBeCopied: transferDetails.senders.first.address.toBase58()),
+        ],
+      ),
+    );
+  }
+
+  /// UI for displaying the note included in the transaction.
+  Widget _buildNoteDetails() {
+    return _buildReviewItem(
+      itemLabel: Strings.note,
+      item: SizedBox(
+        width: 200,
+        height: 50,
+        child: Text(
+          transferDetails.data,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 3,
           style: const TextStyle(
             fontFamily: 'Nunito',
             fontSize: 12,
-            color: RibnColors.defaultText,
+            color: Color(0xFF585858),
           ),
         ),
-      ],
-    );
-  }
-
-  Widget _buildNoteDetails() {
-    return SizedBox(
-      width: 200,
-      height: 50,
-      child: Text(
-        transferDetails.data,
-        overflow: TextOverflow.ellipsis,
-        maxLines: 3,
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontSize: 12,
-          color: Color(0xFF585858),
-        ),
       ),
+      divider: false,
     );
   }
 }

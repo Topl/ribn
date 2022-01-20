@@ -56,6 +56,11 @@ class RibnNetwork {
     return myAssets.values.toList();
   }
 
+  /// Returns the number of polys owned by this wallet, i.e. [myWalletAddress].
+  num getPolysInWallet() {
+    return myWalletAddress.balance.polys.getInNanopoly;
+  }
+
   /// Returns the list of all assets issued/minted by this wallet.
   List<AssetAmount> getAssetsIssuedByWallet() {
     return getAllAssetsInWallet()

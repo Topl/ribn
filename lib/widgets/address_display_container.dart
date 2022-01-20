@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
-import 'package:ribn/widgets/copy_address_button.dart';
+import 'package:ribn/widgets/custom_copy_button.dart';
 
 class AddressDisplayContainer extends StatefulWidget {
   const AddressDisplayContainer({
@@ -48,7 +48,7 @@ class _AddressDisplayContainerState extends State<AddressDisplayContainer> {
               ),
             ),
             const Spacer(),
-            CopyAddressButton(ribnAddress: ribnAddress),
+            CustomCopyButton(textToBeCopied: ribnAddress.address.toBase58()),
             const SizedBox(width: 4),
           ],
         ),

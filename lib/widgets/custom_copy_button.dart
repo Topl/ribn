@@ -5,22 +5,26 @@ import 'package:flutter/services.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/styles.dart';
-import 'package:ribn/models/ribn_address.dart';
 
-/// A button to copy [ribnAddress] to [Clipboard] and display a confirmation bubble.
-class CopyAddressButton extends StatefulWidget {
-  /// The address to be copied.
-  final RibnAddress ribnAddress;
-  const CopyAddressButton({
+/// A button to copy [textToBeCopied] to [Clipboard] and display a confirmation bubble.
+class CustomCopyButton extends StatefulWidget {
+  /// The text to be copied.
+  final String textToBeCopied;
+
+  /// Text to show in the bubble.
+  final String bubbleText;
+
+  const CustomCopyButton({
     Key? key,
-    required this.ribnAddress,
+    required this.textToBeCopied,
+    this.bubbleText = 'Address Copied!',
   }) : super(key: key);
 
   @override
-  _CopyAddressButtonState createState() => _CopyAddressButtonState();
+  _CustomCopyButtonState createState() => _CustomCopyButtonState();
 }
 
-class _CopyAddressButtonState extends State<CopyAddressButton> {
+class _CustomCopyButtonState extends State<CustomCopyButton> {
   /// Timer for showing the copied indicator.
   Timer? addressCopiedTimer;
 
@@ -39,7 +43,7 @@ class _CopyAddressButtonState extends State<CopyAddressButton> {
       visible: displayCopiedBubble,
       child: GestureDetector(
         onTap: () {
-          Clipboard.setData(ClipboardData(text: widget.ribnAddress.address.toBase58()));
+          Clipboard.setData(ClipboardData(text: widget.textToBeCopied));
           setState(() {
             displayCopiedBubble = true;
           });
@@ -64,8 +68,8 @@ class _CopyAddressButtonState extends State<CopyAddressButton> {
               padding: const EdgeInsets.only(left: 12.0, right: 10),
               child: Image.asset(RibnAssets.addressCopiedIcon),
             ),
-            const Text(
-              'Address Copied!',
+            Text(
+              widget.bubbleText,
               style: RibnTextStyles.tooltipTextStyle,
             ),
           ],
