@@ -10,6 +10,7 @@ class Routes {
   static const extensionInfo = '/extension-info';
   static const login = '/login';
   static const assetTransferInput = '/asset-transfer-input';
+  static const polyTransferInput = '/poly-transfer-input';
   static const txReview = '/tx-review';
   static const txConfirmation = '/tx-confirmation';
   static const mintInput = '/mint-input';
