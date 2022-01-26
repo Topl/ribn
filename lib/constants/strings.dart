@@ -174,6 +174,7 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String to = 'To';
   static const String note = 'Note';
   static const String txWasBroadcasted = 'Your transaction was broadcasted!';
+  static const String assetIsBeingMinted = 'Your Asset is being minted!';
   static const String viewInToplExplorer = 'View in Topl explorer';
   static const String youSend = 'You Send';
   static const String letsMintANewAsset =

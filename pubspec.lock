@@ -295,6 +295,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  flutter_portal:
+    dependency: "direct main"
+    description:
+      name: flutter_portal
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
   flutter_redux:
     dependency: "direct main"
     description:

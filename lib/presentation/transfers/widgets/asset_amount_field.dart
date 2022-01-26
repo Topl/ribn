@@ -72,8 +72,8 @@ class _AssetAmountFieldState extends State<AssetAmountField> {
                   showUnitDropdown = false;
                 });
               },
-              childAlignment: Alignment.bottomLeft,
-              dropDownAlignment: Alignment.topLeft,
+              childAlignment: Alignment.bottomCenter,
+              dropDownAlignment: Alignment.topCenter,
               dropdownButton: _buildUnitDropdownButton(),
               dropdownChild: _buildUnitDropdownChild(),
             ),
