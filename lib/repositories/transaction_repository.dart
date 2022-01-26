@@ -68,6 +68,7 @@ class TransactionRepository {
       case Strings.minting:
         {
           final ToplAddress issuer = transferDetails.assetCode!.issuer;
+          final ToplAddress recipient = ToplAddress.fromBase58(transferDetails.recipient);
           final AssetValue assetValue = AssetValue(
             transferDetails.amount,
             transferDetails.assetCode!,
@@ -76,9 +77,7 @@ class TransactionRepository {
             'Asset',
           );
           final AssetTransaction assetTransaction = AssetTransaction(
-            recipients: [
-              AssetRecipient(issuer, assetValue),
-            ],
+            recipients: [AssetRecipient(recipient, assetValue)],
             sender: [issuer],
             changeAddress: issuer,
             consolidationAddress: issuer,

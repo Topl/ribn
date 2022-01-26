@@ -28,6 +28,7 @@ class Strings {
   static const String noAssets = 'You have no assets :(';
   static const String asset = 'asset';
   static const String mint = 'Mint';
+  static const String remint = 'Remint';
   static const String mintAsset = 'Mint Asset';
   static const String sender = 'sender';
   static const String change = 'change';
@@ -164,7 +165,7 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String assetTransferToHint = 'Paste Recipient’s address.';
   static const String assetLongNameHint = 'Jackfruit, max 16 characters.';
   static const String assetShortNameHint = 'YLW JACK2, max 8 characters.';
-  static const String amountHint = '2500';
+  static const String amountHint = '200000';
   static const String totalTxFee = 'Total Transaction Fee';
   static const String cancel = 'CANCEL';
   static const String confirm = 'CONFIRM';
@@ -173,11 +174,24 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String to = 'To';
   static const String note = 'Note';
   static const String txWasBroadcasted = 'Your transaction was broadcasted!';
+  static const String assetIsBeingMinted = 'Your Asset is being minted!';
   static const String viewInToplExplorer = 'View in Topl explorer';
   static const String youSend = 'You Send';
   static const String letsMintANewAsset =
-      '''Let’s Mint a new Asset!\n\nWhere would you like your Asset to be minted?''';
+      '''Let’s Mint a new Asset!\n\nYou can either mint a new Asset or remint an exisiting Asset.''';
+  static const String whatWouldYouLikeToDo = 'What would you like to do?';
+  static const String mintNewAsset = 'MINT\nNEW\nASSET';
+  static const String remintSameAsset = 'REMINT\nSAME ASSET';
   static const String myRibnWallet = 'MY\nRIBN WALLET';
   static const String anotherRecipientsWallet = 'ANOTHER RECIPIENT\'S WALLET ';
+  static const String mintAssetDesc = 'Where would you like your Asset to be minted?';
   static const String issuerAddress = 'Issuer address';
+  static const String walletPasswordInfo =
+      'Your Wallet Password can lock and unlock your\nwallet on a device where it is already stored.';
+  static const String assetLongNameInfo =
+      'The descriptive name used to identify your\nassets locally in your Ribn Wallet.';
+  static const String assetCodeShortInfo =
+      'This is used to view the short name for your \nasset as this will be the information used to\nidentify a particular asset on the blockchain.';
+  static const String issuerAddressInfo =
+      'This is the address of the party who originally\ncreated a certain asset. You can copy the\nissuer address and paste it into the Topl explorer\nfor more information.';
 }

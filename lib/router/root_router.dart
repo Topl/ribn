@@ -14,6 +14,7 @@ import 'package:ribn/presentation/onboarding/welcome_page.dart';
 import 'package:ribn/presentation/settings_page.dart';
 import 'package:ribn/presentation/transfers/asset_transfer_input_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
+import 'package:ribn/presentation/transfers/poly_transfer_input_page.dart';
 import 'package:ribn/presentation/transfers/tx_confirmation_page.dart';
 import 'package:ribn/presentation/transfers/tx_review_page.dart';
 
@@ -57,6 +58,10 @@ class RootRouter {
           final AssetAmount asset = settings.arguments as AssetAmount;
           return pageRoute(AssetTransferInputPage(asset: asset), settings);
         }
+      case Routes.polyTransferInput:
+        {
+          return pageRoute(const PolyTransferInputPage(), settings);
+        }
       case Routes.txReview:
         {
           final TransferDetails transferDetails = settings.arguments as TransferDetails;
@@ -69,7 +74,14 @@ class RootRouter {
         }
       case Routes.mintInput:
         {
-          return pageRoute(const MintInputPage(), settings);
+          final Map<String, dynamic> mintInputPageArgs = settings.arguments as Map<String, dynamic>;
+          return pageRoute(
+            MintInputPage(
+              mintingNewAsset: mintInputPageArgs['mintingNewAsset'] as bool,
+              mintingToMyWallet: mintInputPageArgs['mintingToMyWallet'] as bool,
+            ),
+            settings,
+          );
         }
       case Routes.addresses:
         {

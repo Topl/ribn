@@ -26,6 +26,7 @@ class WalletBalanceViewModel {
   final num polyBalance;
   final List<AssetAmount> assets;
   final Function(AssetAmount) initiateSendAsset;
+  final Function() initiateSendPolys;
   final bool failedToFetchBalances;
   final bool fetchingBalances;
 
@@ -33,22 +34,18 @@ class WalletBalanceViewModel {
     required this.polyBalance,
     required this.assets,
     required this.initiateSendAsset,
+    required this.initiateSendPolys,
     required this.failedToFetchBalances,
     required this.fetchingBalances,
   });
   static WalletBalanceViewModel fromStore(Store<AppState> store) {
     return WalletBalanceViewModel(
-      polyBalance: store.state.keychainState.currentNetwork.addresses.fold(
-        0,
-        (prev, currBalance) => prev + currBalance.balance.polys.getInNanopoly,
-      ),
-      assets: store.state.keychainState.currentNetwork.addresses
-          .map((addr) => addr.balance.assets ?? [])
-          .expand((amount) => amount)
-          .toList(),
+      polyBalance: store.state.keychainState.currentNetwork.getPolysInWallet(),
+      assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
       initiateSendAsset: (AssetAmount asset) => store.dispatch(
         NavigateToRoute(Routes.assetTransferInput, arguments: asset),
       ),
+      initiateSendPolys: () => store.dispatch(NavigateToRoute(Routes.polyTransferInput)),
       failedToFetchBalances: store.state.uiState.failedToFetchBalances,
       fetchingBalances: store.state.uiState.fetchingBalances,
     );
@@ -62,6 +59,7 @@ class WalletBalanceViewModel {
         other.polyBalance == polyBalance &&
         listEquals(other.assets, assets) &&
         other.initiateSendAsset == initiateSendAsset &&
+        other.initiateSendPolys == initiateSendPolys &&
         other.failedToFetchBalances == failedToFetchBalances &&
         other.fetchingBalances == fetchingBalances;
   }
@@ -71,6 +69,7 @@ class WalletBalanceViewModel {
     return polyBalance.hashCode ^
         assets.hashCode ^
         initiateSendAsset.hashCode ^
+        initiateSendPolys.hashCode ^
         failedToFetchBalances.hashCode ^
         fetchingBalances.hashCode;
   }

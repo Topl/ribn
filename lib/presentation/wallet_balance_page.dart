@@ -22,11 +22,7 @@ class WalletBalancePage extends StatelessWidget {
       builder: (BuildContext context, WalletBalanceViewModel vm) => SingleChildScrollView(
         child: Column(
           children: [
-            _buildPolyContainer(
-              vm.polyBalance,
-              fetchingBalances: vm.fetchingBalances,
-              failedToFetchBalances: vm.failedToFetchBalances,
-            ),
+            _buildPolyContainer(vm),
             _buildAssetsListView(vm.assets, vm.initiateSendAsset),
           ],
         ),
@@ -36,11 +32,7 @@ class WalletBalancePage extends StatelessWidget {
 
   /// Builds the top-half container on the balance page.
   /// Displays the balance in Polys and send/receive buttons.
-  Widget _buildPolyContainer(
-    num polyBalance, {
-    bool fetchingBalances = true,
-    bool failedToFetchBalances = false,
-  }) {
+  Widget _buildPolyContainer(WalletBalanceViewModel vm) {
     const TextStyle polyBalanceTextStyle = TextStyle(
       fontSize: 26.6,
       fontFamily: 'Poppins',
@@ -60,15 +52,15 @@ class WalletBalancePage extends StatelessWidget {
               SizedBox(width: 10, child: Image.asset(RibnAssets.infoIcon)),
             ],
           ),
-          fetchingBalances
+          vm.fetchingBalances
               ? const CircularProgressIndicator()
-              : failedToFetchBalances
+              : vm.failedToFetchBalances
                   ? const Text('Network Failure', style: TextStyle(color: Colors.red))
-                  : Text('$polyBalance POLY', style: polyBalanceTextStyle),
+                  : Text('${vm.polyBalance} POLY', style: polyBalanceTextStyle),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _buildButton(Strings.send, () {}),
+              _buildButton(Strings.send, vm.initiateSendPolys),
               const SizedBox(width: 10),
               _buildButton(Strings.receive, () async {
                 await showReceivingAddress('uihadi3ewfihdsiofhso');

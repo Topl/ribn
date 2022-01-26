@@ -119,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 2.0),
-            child: SvgPicture.asset(RibnAssets.helpIcon),
+            child: Image.asset(RibnAssets.helpIcon),
           ),
         ],
       ),

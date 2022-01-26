@@ -70,4 +70,19 @@ class RibnTextStyles {
     color: Colors.white,
     fontWeight: FontWeight.w600,
   );
+
+  static const TextStyle dropdownButtonStyle = TextStyle(
+    color: RibnColors.whiteBackground,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'Nunito',
+    fontSize: 12,
+  );
+
+  static const TextStyle tooltipTextStyle = TextStyle(
+    color: Color(0xff323232),
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Nunito',
+    fontSize: 12.0,
+    decoration: TextDecoration.none,
+  );
 }
