@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
+import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
@@ -146,7 +147,7 @@ class TxReviewPage extends StatelessWidget {
             ),
           ),
           // conditional display based on transfer type
-          transferDetails.transferType == Strings.polyTransfer
+          transferDetails.transferType == TransferType.polyTransfer
               ? Row(
                   children: [
                     Image.asset(RibnAssets.polysIcon),
@@ -154,7 +155,7 @@ class TxReviewPage extends StatelessWidget {
                     Text('POLY', style: defaultTextStyle),
                   ],
                 )
-              : AssetInfo(assetCode: transferDetails.assetCode!),
+              : AssetInfo(assetCode: transferDetails.assetCode!, assetDetails: transferDetails.assetDetails),
         ],
       ),
     );

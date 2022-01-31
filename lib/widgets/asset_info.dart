@@ -1,17 +1,20 @@
 import 'package:brambldart/model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
+import 'package:ribn/models/asset_details.dart';
 
 /// A custom display for asset information.
 class AssetInfo extends StatelessWidget {
   /// AssetCode for which information needs to be displayed.
   final AssetCode? assetCode;
+  final AssetDetails? assetDetails;
 
   const AssetInfo({
-    required this.assetCode,
     Key? key,
+    required this.assetCode,
+    this.assetDetails,
   }) : super(key: key);
 
   @override
@@ -41,7 +44,7 @@ class AssetInfo extends StatelessWidget {
             height: 19,
             child: assetNotSelected
                 ? Image.asset(RibnAssets.unselectedAsset)
-                : SvgPicture.asset(RibnAssets.coffeeGreenIcon),
+                : Image.asset(assetDetails?.icon ?? RibnAssets.undefinedIcon),
           ),
         ),
         assetNotSelected
@@ -53,9 +56,9 @@ class AssetInfo extends StatelessWidget {
                   children: [
                     Container(
                       constraints: const BoxConstraints(maxWidth: 75),
-                      child: const Text(
-                        'Long Name',
-                        style: TextStyle(
+                      child: Text(
+                        assetDetails?.longName ?? '',
+                        style: const TextStyle(
                           fontFamily: 'Nunito',
                           fontSize: 12,
                           color: RibnColors.defaultText,

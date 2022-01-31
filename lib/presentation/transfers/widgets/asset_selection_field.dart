@@ -1,6 +1,7 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/colors.dart';
+import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/widgets/asset_info.dart';
 import 'package:ribn/widgets/custom_drop_down.dart';
@@ -17,11 +18,16 @@ class AssetSelectionField extends StatefulWidget {
 
   /// Handler for when an asset is selected.
   final Function(AssetAmount) onSelected;
+
+  /// Locally stored asset details.
+  final Map<String, AssetDetails> assetDetails;
+
   const AssetSelectionField({
     Key? key,
     required this.selectedAsset,
     required this.assets,
     required this.onSelected,
+    required this.assetDetails,
   }) : super(key: key);
 
   @override
@@ -66,7 +72,10 @@ class _AssetSelectionFieldState extends State<AssetSelectionField> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
         child: Row(
           children: [
-            AssetInfo(assetCode: widget.selectedAsset?.assetCode),
+            AssetInfo(
+              assetCode: widget.selectedAsset?.assetCode,
+              assetDetails: widget.assetDetails[widget.selectedAsset?.assetCode.toString()],
+            ),
             const Spacer(),
             const Icon(Icons.keyboard_arrow_down_sharp, color: Colors.grey, size: 10),
           ],
@@ -111,7 +120,10 @@ class _AssetSelectionFieldState extends State<AssetSelectionField> {
                   },
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: AssetInfo(assetCode: asset.assetCode),
+                    child: AssetInfo(
+                      assetCode: asset.assetCode,
+                      assetDetails: widget.assetDetails[asset.assetCode.toString()],
+                    ),
                   ),
                 ),
               )

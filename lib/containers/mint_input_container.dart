@@ -6,8 +6,8 @@ import 'package:redux/redux.dart';
 
 import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/constants/rules.dart';
-import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/models/transfer_details.dart';
 
 /// Intended to wrap the [MintInputPage] and provide it with the the [MintInputViewmodel].
@@ -32,17 +32,21 @@ class MintInputViewmodel {
     required String recipient,
     required String note,
     bool mintingToMyWallet,
+    bool mintingNewAsset,
+    AssetDetails? assetDetails,
   }) initiateTx;
   final bool loadingRawTx;
   final num networkFee;
   final List<AssetAmount> assets;
   final int currNetworkId;
+  final Map<String, AssetDetails> assetDetails;
   MintInputViewmodel({
     required this.initiateTx,
     required this.loadingRawTx,
     required this.networkFee,
     required this.assets,
     required this.currNetworkId,
+    required this.assetDetails,
   });
 
   static MintInputViewmodel fromStore(Store<AppState> store) {
@@ -53,10 +57,13 @@ class MintInputViewmodel {
         required String recipient,
         required String note,
         bool mintingToMyWallet = false,
+        bool mintingNewAsset = true,
+        AssetDetails? assetDetails,
       }) {
         final ToplAddress issuerAddress = store.state.keychainState.currentNetwork.myWalletAddress.address;
+        final TransferType transferType = mintingNewAsset ? TransferType.mintingAsset : TransferType.remintingAsset;
         final TransferDetails transferDetails = TransferDetails(
-          transferType: Strings.minting,
+          transferType: transferType,
           assetCode: AssetCode.initialize(
             Rules.assetCodeVersion,
             issuerAddress,
@@ -66,6 +73,7 @@ class MintInputViewmodel {
           recipient: mintingToMyWallet ? issuerAddress.toBase58() : recipient,
           amount: amount,
           data: note,
+          assetDetails: assetDetails,
         );
         store.dispatch(InitiateTxAction(transferDetails));
       },
@@ -73,6 +81,7 @@ class MintInputViewmodel {
       assets: store.state.keychainState.currentNetwork.getAssetsIssuedByWallet(),
       currNetworkId: store.state.keychainState.currentNetwork.networkId,
       networkFee: Rules.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
+      assetDetails: store.state.userDetailsState.assetDetails,
     );
   }
 
@@ -81,7 +90,6 @@ class MintInputViewmodel {
     if (identical(this, other)) return true;
 
     return other is MintInputViewmodel &&
-        other.initiateTx == initiateTx &&
         other.loadingRawTx == loadingRawTx &&
         other.networkFee == networkFee &&
         listEquals(other.assets, assets) &&
@@ -90,6 +98,6 @@ class MintInputViewmodel {
 
   @override
   int get hashCode {
-    return initiateTx.hashCode ^ loadingRawTx.hashCode ^ networkFee.hashCode ^ assets.hashCode ^ currNetworkId.hashCode;
+    return loadingRawTx.hashCode ^ networkFee.hashCode ^ assets.hashCode ^ currNetworkId.hashCode;
   }
 }

@@ -4,6 +4,7 @@ import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/mint_input_container.dart';
+import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_amount_field.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_long_name_field.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_selection_field.dart';
@@ -117,6 +118,7 @@ class _MintInputPageState extends State<MintInputPage> {
                               AssetAmountField(
                                 selectedUnit: _selectedUnit,
                                 controller: _amountController,
+                                allowEditingUnit: widget.mintingNewAsset,
                                 onUnitSelected: (String unit) {
                                   setState(() {
                                     _selectedUnit = unit;
@@ -191,17 +193,30 @@ class _MintInputPageState extends State<MintInputPage> {
         : AssetSelectionField(
             selectedAsset: _selectedAsset,
             assets: vm.assets,
+            assetDetails: vm.assetDetails,
             onSelected: (AssetAmount? asset) {
               setState(() {
                 _selectedAsset = asset;
-                _assetShortNameController.text = asset!.assetCode.shortName.show;
+                _selectedUnit = vm.assetDetails[asset!.assetCode.toString()]?.unit;
+                _assetShortNameController.text = asset.assetCode.shortName.show;
               });
             },
           );
   }
 
   /// Builds the review button to initate tx.
+  ///
+  /// Upon pressing the review button, the tx flow is initiated via [vm.initiateTx].
+  /// Note: [assetDetails] only provided if a new asset is being minted.
   Widget _buildReviewButton(MintInputViewmodel vm) {
+    // Update assetDetails if minting a new asset
+    final AssetDetails? assetDetails = widget.mintingNewAsset
+        ? AssetDetails(
+            icon: _selectedIcon,
+            longName: _assetLongNameController.text,
+            unit: _selectedUnit,
+          )
+        : vm.assetDetails[_selectedAsset?.assetCode.toString()];
     return Padding(
       padding: const EdgeInsets.only(top: 20.0, bottom: 10),
       child: LargeButton(
@@ -213,6 +228,8 @@ class _MintInputPageState extends State<MintInputPage> {
             recipient: _validRecipientAddress,
             note: _noteController.text,
             mintingToMyWallet: widget.mintingToMyWallet,
+            mintingNewAsset: widget.mintingNewAsset,
+            assetDetails: assetDetails,
           );
         },
       ),

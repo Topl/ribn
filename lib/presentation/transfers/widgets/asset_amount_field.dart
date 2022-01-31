@@ -21,10 +21,14 @@ class AssetAmountField extends StatefulWidget {
   /// Handler for when a unit is selected.
   final Function(String) onUnitSelected;
 
+  /// True if the unit type can be edited, e.g. when minting a new asset.
+  final bool allowEditingUnit;
+
   const AssetAmountField({
     Key? key,
     required this.onUnitSelected,
     required this.controller,
+    this.allowEditingUnit = true,
     this.selectedUnit,
   }) : super(key: key);
 
@@ -90,7 +94,8 @@ class _AssetAmountFieldState extends State<AssetAmountField> {
     return MouseRegion(
       onEnter: (pointerEvent) {
         setState(() {
-          showDropdownArrow = true;
+          // show dropdown arrow if unit can be edited.
+          showDropdownArrow = widget.allowEditingUnit;
         });
       },
       onExit: (pointerEvent) {
@@ -102,7 +107,8 @@ class _AssetAmountFieldState extends State<AssetAmountField> {
         minWidth: 0,
         onPressed: () {
           setState(() {
-            showUnitDropdown = true;
+            // show dropdown if unit can be edited.
+            showUnitDropdown = widget.allowEditingUnit;
           });
         },
         child: Row(
