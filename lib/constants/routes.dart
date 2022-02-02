@@ -1,4 +1,10 @@
+import 'package:flutter/material.dart';
+
 class Routes {
+  /// A [RouteObserver] that can be attached to widgets to allow listening for route changes.
+  static RouteObserver routeObserver = RouteObserver();
+
+  /// Routes used throughout the application.
   static const welcome = '/welcome';
   static const selectAction = '/select-action';
   static const gettingStarted = '/getting-started';
@@ -15,6 +21,7 @@ class Routes {
   static const txConfirmation = '/tx-confirmation';
   static const mintInput = '/mint-input';
   static const settings = '/settings';
+  static const assetDetails = '/asset-details';
   static const home = '/home';
   static const addresses = '/addresses';
   static const externalSigning = '/ext-signing';

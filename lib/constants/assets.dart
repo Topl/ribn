@@ -60,4 +60,6 @@ class RibnAssets {
   static const diaYellowIcon = 'assets/asset_icons/dia_yellow_icon.png';
   static const addressCopiedIcon = 'assets/icons/address_copied.png';
   static const polysIcon = 'assets/icons/polysIcon.png';
+  static const undefinedIcon = 'assets/icons/undefined_icon.png';
+  static const editIcon = 'assets/icons/edit_icon.png';
 }

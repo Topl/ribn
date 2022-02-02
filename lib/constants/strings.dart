@@ -194,4 +194,5 @@ These words need to be written down carefully and in the exact order shown.''';
       'This is used to view the short name for your \nasset as this will be the information used to\nidentify a particular asset on the blockchain.';
   static const String issuerAddressInfo =
       'This is the address of the party who originally\ncreated a certain asset. You can copy the\nissuer address and paste it into the Topl explorer\nfor more information.';
+  static const String assetDetails = 'Asset Details';
 }
