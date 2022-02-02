@@ -1,7 +1,7 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/colors.dart';
-import 'package:ribn/constants/rules.dart';
+// import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/mint_input_container.dart';
 import 'package:ribn/models/asset_details.dart';
@@ -12,6 +12,7 @@ import 'package:ribn/presentation/transfers/widgets/asset_short_name_field.dart'
 import 'package:ribn/presentation/transfers/widgets/issuer_address_field.dart';
 import 'package:ribn/presentation/transfers/widgets/note_field.dart';
 import 'package:ribn/presentation/transfers/widgets/recipient_field.dart';
+import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/custom_page_title.dart';
 import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn/widgets/large_button.dart';
@@ -134,7 +135,20 @@ class _MintInputPageState extends State<MintInputPage> {
                             validRecipientAddress: _validRecipientAddress,
                             mintingToMyWallet: widget.mintingToMyWallet,
                             // validate the address entered on change
-                            onChanged: (text) => validateRecipientAddress(vm.currNetworkId),
+                            onChanged: (text) => validateRecipientAddress(
+                              networkId: vm.currNetworkId,
+                              address: _recipientController.text,
+                              handleResult: (bool result) {
+                                setState(() {
+                                  if (result) {
+                                    _validRecipientAddress = _recipientController.text;
+                                    _recipientController.text = '';
+                                  } else {
+                                    _validRecipientAddress = '';
+                                  }
+                                });
+                              },
+                            ),
                             // clear the textfield on backspace
                             onBackspacePressed: () {
                               setState(() {
@@ -207,7 +221,7 @@ class _MintInputPageState extends State<MintInputPage> {
   /// Builds the review button to initate tx.
   ///
   /// Upon pressing the review button, the tx flow is initiated via [vm.initiateTx].
-  /// Note: [assetDetails] only provided if a new asset is being minted.
+  /// Note: [assetDetails] only updated if a new asset is being minted.
   Widget _buildReviewButton(MintInputViewmodel vm) {
     // Update assetDetails if minting a new asset
     final AssetDetails? assetDetails = widget.mintingNewAsset
@@ -234,29 +248,5 @@ class _MintInputPageState extends State<MintInputPage> {
         },
       ),
     );
-  }
-
-  /// Validates the recipient address entered by the user.
-  ///
-  /// If valid, [_validRecipientAddress] is updated.
-  /// The [_recipientController.text] is also cleared beacuse the UI is updated with a different widget for a valid recipient address.
-  void validateRecipientAddress(int networkId) {
-    Map<String, dynamic> result = {};
-    try {
-      result = validateAddressByNetwork(
-        Rules.networkStrings[networkId]!,
-        _recipientController.text,
-      );
-    } catch (e) {
-      result['success'] = false;
-    }
-    setState(() {
-      if (result['success'] as bool) {
-        _validRecipientAddress = _recipientController.text;
-        _recipientController.text = '';
-      } else {
-        _validRecipientAddress = '';
-      }
-    });
   }
 }

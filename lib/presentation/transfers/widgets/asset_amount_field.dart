@@ -5,17 +5,18 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
+import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/custom_drop_down.dart';
 import 'package:ribn/widgets/custom_text_field.dart';
 
-/// An input field used on the [MintInputPage].
+/// An input field used on the [MintInputPage] and [AssetTransferInputPage].
 ///
-/// Allows the user to define the amount of asset to be minted and a custom unit for it.
+/// Allows the user to define the amount of asset to be minted/transfered and a custom unit associated with it.
 class AssetAmountField extends StatefulWidget {
   /// Controller for the amount textfield.
   final TextEditingController controller;
 
-  /// The selected unit for the asset to be minted.
+  /// The selected unit for the asset to be minted/transfered.
   final String? selectedUnit;
 
   /// Handler for when a unit is selected.
@@ -54,34 +55,51 @@ class _AssetAmountFieldState extends State<AssetAmountField> {
 
   @override
   Widget build(BuildContext context) {
+    final double textFieldWidth = widget.allowEditingUnit ? 116 : 82;
+
     return CustomInputField(
       itemLabel: Strings.amount,
       item: Stack(
         children: [
           // textfield for entering the asset amount
           CustomTextField(
-            width: 116,
+            width: textFieldWidth,
             height: 30,
             controller: widget.controller,
             hintText: Strings.amountHint,
           ),
-          // dropdown for selecting a custom unit
-          Positioned(
-            right: 0,
-            top: 1,
-            child: CustomDropDown(
-              visible: showUnitDropdown,
-              onDismissed: () {
-                setState(() {
-                  showUnitDropdown = false;
-                });
-              },
-              childAlignment: Alignment.bottomCenter,
-              dropDownAlignment: Alignment.topCenter,
-              dropdownButton: _buildUnitDropdownButton(),
-              dropdownChild: _buildUnitDropdownChild(),
-            ),
-          ),
+          // show dropdown for selecting a custom unit if [widget.allowEditingUnit] is true.
+          // otherwise show the unit already associated with the asset.
+          widget.allowEditingUnit
+              ? Positioned(
+                  right: 0,
+                  top: 1,
+                  child: CustomDropDown(
+                    visible: showUnitDropdown,
+                    onDismissed: () {
+                      setState(() {
+                        showUnitDropdown = false;
+                      });
+                    },
+                    childAlignment: Alignment.bottomCenter,
+                    dropDownAlignment: Alignment.topCenter,
+                    dropdownButton: _buildUnitDropdownButton(),
+                    dropdownChild: _buildUnitDropdownChild(),
+                  ),
+                )
+              : Positioned(
+                  right: 2,
+                  top: 5,
+                  child: SizedBox(
+                    width: 30,
+                    child: Center(
+                      child: Text(
+                        formatAssetUnit(widget.selectedUnit),
+                        style: RibnTextStyles.dropdownButtonStyle.copyWith(color: RibnColors.primary),
+                      ),
+                    ),
+                  ),
+                ),
         ],
       ),
     );
@@ -123,7 +141,7 @@ class _AssetAmountFieldState extends State<AssetAmountField> {
               ),
               child: Center(
                 child: Text(
-                  formatUnit(widget.selectedUnit),
+                  formatAssetUnit(widget.selectedUnit),
                   style: RibnTextStyles.dropdownButtonStyle,
                 ),
               ),
@@ -175,9 +193,5 @@ class _AssetAmountFieldState extends State<AssetAmountField> {
             .toList(),
       ),
     );
-  }
-
-  String formatUnit(String? unit) {
-    return unit?.split(' ').first ?? 'Unit';
   }
 }

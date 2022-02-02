@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/presentation/address_section.dart';
+import 'package:ribn/presentation/asset_details/asset_details_page.dart';
 import 'package:ribn/presentation/home_page.dart';
 import 'package:ribn/presentation/login_page.dart';
 import 'package:ribn/presentation/onboarding/extension_info_page.dart';
@@ -80,6 +81,14 @@ class RootRouter {
               mintingNewAsset: mintInputPageArgs['mintingNewAsset'] as bool,
               mintingToMyWallet: mintInputPageArgs['mintingToMyWallet'] as bool,
             ),
+            settings,
+          );
+        }
+      case Routes.assetDetails:
+        {
+          final Map<String, dynamic> assetDetailsPageArgs = settings.arguments as Map<String, dynamic>;
+          return pageRoute(
+            AssetDetailsPage(asset: assetDetailsPageArgs['assetAmount']!),
             settings,
           );
         }
