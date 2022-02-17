@@ -76,7 +76,7 @@ class _LoginRestoreWalletPageState extends State<LoginRestoreWalletPage> {
   /// Builds the restore option button, with labels [Strings.useSeedPhrase] or [Strings.importToplKey], depeding
   /// on [useSeedPhrase]'s value.
   ///
-  /// Upon press, navigates to either [Routes.loginRestoreWalletSeedPhrase] or [Routes.loginRestoreWalletToplKey].
+  /// Upon press, navigates to either [Routes.loginRestoreWalletWithMnemonic] or [Routes.loginRestoreWalletWithToplKey].
   Widget _buildRestoreOptionButton({required bool useSeedPhrase}) {
     final Color buttonColor = useSeedPhrase ? RibnColors.primary : const Color(0xffb1e7e1);
     final String text = useSeedPhrase ? Strings.useSeedPhrase : Strings.importToplKey;
@@ -90,7 +90,7 @@ class _LoginRestoreWalletPageState extends State<LoginRestoreWalletPage> {
       onPressed: () {
         StoreProvider.of<AppState>(context).dispatch(
           NavigateToRoute(
-            useSeedPhrase ? Routes.loginRestoreWalletSeedPhrase : Routes.loginRestoreWalletToplKey,
+            useSeedPhrase ? Routes.loginRestoreWalletWithMnemonic : Routes.loginRestoreWalletWithToplKey,
           ),
         );
       },
