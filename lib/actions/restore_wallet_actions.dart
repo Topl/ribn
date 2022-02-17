@@ -6,10 +6,10 @@ class RestoreWalletWithMnemonicAction {
   const RestoreWalletWithMnemonicAction({required this.mnemonic, required this.password});
 }
 
-class RestoreWalletWithToplKey {
+class RestoreWalletWithToplKeyAction {
   final String toplKeyStoreJson;
   final String password;
-  const RestoreWalletWithToplKey({required this.toplKeyStoreJson, required this.password});
+  const RestoreWalletWithToplKeyAction({required this.toplKeyStoreJson, required this.password});
 }
 
 class SuccessfullyRestoredWalletAction {
