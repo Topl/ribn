@@ -56,6 +56,12 @@ class _LoginRestoreWithToplKeyPageState extends State<LoginRestoreWithToplKeyPag
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: _buildUploadedFileNameContainer(),
             ),
+            errorUploadingFile
+                ? const Text(
+                    'Error Uploading File',
+                    style: TextStyle(color: Colors.red),
+                  )
+                : const SizedBox(),
             const Spacer(),
             NextButton(
               onPressed: () {
