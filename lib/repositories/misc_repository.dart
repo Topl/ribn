@@ -22,4 +22,8 @@ class MiscRepository {
   Future<bool> isAppOpenedInExtensionView() async {
     return await local.getCurrentAppView() == 'extension';
   }
+
+  Future<bool> isAppOpenedInDebugView() async {
+    return await local.getCurrentAppView() == 'debug';
+  }
 }

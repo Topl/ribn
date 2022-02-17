@@ -37,8 +37,8 @@ Epic<AppState> _persistorEpic(MiscRepository miscRepo) => (Stream<dynamic> actio
       return actions.whereType<PersistAppState>().switchMap((action) {
         Future<dynamic> persistAppState() async {
           try {
-            // state is only persisted when app opened in extension view
-            if (await miscRepo.isAppOpenedInExtensionView()) {
+            // state is not persisted when app opened in debug view
+            if (!await miscRepo.isAppOpenedInDebugView()) {
               await miscRepo.persistAppState(store.state.toJson());
             }
           } catch (e) {
