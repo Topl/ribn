@@ -30,6 +30,9 @@ class _LoginRestoreWithToplKeyPageState extends State<LoginRestoreWithToplKeyPag
   /// The content of the file that is uploaded.
   String toplKey = '';
 
+  /// True if an error occurs when uploading file.
+  bool errorUploadingFile = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,20 +75,29 @@ class _LoginRestoreWithToplKeyPageState extends State<LoginRestoreWithToplKeyPag
     );
   }
 
-  /// Builds the container, when pressed, allows the user to upload a key file.
+  /// Builds the file upload container, when pressed, allows the user to upload a key file.
   ///
   /// When a file is selected, [uploadedFileName] is updated with the file name,
-  /// and [toplKey] is updated with the [utf8] decoded content.
+  /// and [toplKey] is updated with the [utf8] decoded file content.
   Widget _buildFileUploadContainer() {
     return MaterialButton(
       onPressed: () async {
-        final FilePickerResult? result = await FilePicker.platform.pickFiles();
-        if (result != null) {
-          final PlatformFile file = result.files.first;
-          setState(() {
-            uploadedFileName = file.name;
+        try {
+          final FilePickerResult? result = await FilePicker.platform.pickFiles();
+          if (result != null) {
+            final PlatformFile file = result.files.first;
+            // utf8.decode the file bytes to get the file content as a string
             toplKey = utf8.decode(file.bytes!);
-          });
+            // validate that the file content can be json decoded
+            jsonDecode(toplKey);
+            // update the file name
+            uploadedFileName = file.name;
+            errorUploadingFile = false;
+          }
+        } catch (e) {
+          errorUploadingFile = true;
+          uploadedFileName = '';
+          toplKey = '';
         }
       },
       child: Container(
