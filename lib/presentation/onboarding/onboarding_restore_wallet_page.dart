@@ -8,7 +8,7 @@ import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
 
-/// This page allows the wallet user to restore their wallet during the onboarding flow.
+/// This page allows the wallet user to restore their wallet during onboarding.
 ///
 /// The wallet user can choose between restoring wallet using a seed phrase or importing topl key.
 class OnboardingRestoreWalletPage extends StatefulWidget {
@@ -79,7 +79,7 @@ class _OnboardingRestoreWalletPageState extends State<OnboardingRestoreWalletPag
     final Color boxColor = useSeedPhrase ? RibnColors.primary : RibnColors.accent;
     final String text = useSeedPhrase ? Strings.useSeedPhrase : Strings.importToplKey;
     final String navigateToRoute =
-        useSeedPhrase ? Routes.onboardingRestoreWalletSeedPhrase : Routes.onboardingRestoreWalletSeedPhrase;
+        useSeedPhrase ? Routes.onboardingRestoreWalletWithMnemonic : Routes.onboardingRestoreWalletWithMnemonic;
     return MaterialButton(
       padding: EdgeInsets.zero,
       onPressed: () {
@@ -98,9 +98,9 @@ class _OnboardingRestoreWalletPageState extends State<OnboardingRestoreWalletPag
   }
 
   /// Builds the FAQ list item.
-  /// The [header] is the title of the [ExpansionTile]. Once expanded, the [desc] is also displayed.
+  /// The [header] is the title of the [ExpansionTile]. Once expanded, the [desc] is displayed in the container.
   ///
-  /// [faqItemExpanded] keeps track of the expansion state.
+  /// [faqItemExpanded] is updated accordingly to keep track of the expansion state.
   Widget _buildFaqListItem(String header, String desc) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 25.0),
