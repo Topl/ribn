@@ -59,7 +59,7 @@ class _LoginRestoreWithToplKeyPageState extends State<LoginRestoreWithToplKeyPag
             const Spacer(),
             NextButton(
               onPressed: () {
-                if (toplKey.isNotEmpty) {
+                if (toplKey.isNotEmpty && !errorUploadingFile) {
                   StoreProvider.of<AppState>(context).dispatch(
                     NavigateToRoute(
                       Routes.loginRestoreWalletoldPassword,
