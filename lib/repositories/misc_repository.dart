@@ -18,4 +18,8 @@ class MiscRepository {
   void deleteWallet() {
     local.deleteWallet();
   }
+
+  Future<bool> isAppOpenedInExtensionView() async {
+    return await local.getCurrentAppView() == 'extension';
+  }
 }
