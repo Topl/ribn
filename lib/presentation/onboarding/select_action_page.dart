@@ -60,7 +60,9 @@ class SelectActionPage extends StatelessWidget {
                   minimumSize: MaterialStateProperty.all(const Size(285, 165)),
                   backgroundColor: MaterialStateProperty.all(RibnColors.primary),
                 ),
-                onPressed: () => StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(Routes.gettingStarted)),
+                onPressed: () => StoreProvider.of<AppState>(context).dispatch(
+                  NavigateToRoute(Routes.onboardingRestoreWallet),
+                ),
                 child: SvgPicture.asset(iconToDisplay),
               ),
             ),
