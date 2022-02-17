@@ -40,6 +40,8 @@ class SelectActionPage extends StatelessWidget {
 
   Widget _buildOptionContainer(String title, String description, BuildContext context) {
     final String iconToDisplay = title == Strings.createWallet ? RibnAssets.plusIcon : RibnAssets.importWalletIcon;
+    final String navigateToRoute =
+        title == Strings.createWallet ? Routes.gettingStarted : Routes.onboardingRestoreWallet;
     return Container(
       height: 455,
       width: 385,
@@ -60,9 +62,7 @@ class SelectActionPage extends StatelessWidget {
                   minimumSize: MaterialStateProperty.all(const Size(285, 165)),
                   backgroundColor: MaterialStateProperty.all(RibnColors.primary),
                 ),
-                onPressed: () => StoreProvider.of<AppState>(context).dispatch(
-                  NavigateToRoute(Routes.onboardingRestoreWallet),
-                ),
+                onPressed: () => StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(navigateToRoute)),
                 child: SvgPicture.asset(iconToDisplay),
               ),
             ),
