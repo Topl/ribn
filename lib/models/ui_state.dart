@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 /// A helper class that holds the UI State of Ribn.
 class UiState {
   /// A loading indicator used during transfer flows.
@@ -8,10 +10,15 @@ class UiState {
 
   /// True if balances are currently being fetched.
   final bool fetchingBalances;
+
+  /// True if restoring wallet fails, e.g. incorrect wallet password when restoring wallet with Topl key.
+  final bool failedToRestoreWallet;
+
   UiState({
     required this.loadingRawTx,
     required this.failedToFetchBalances,
     required this.fetchingBalances,
+    required this.failedToRestoreWallet,
   });
 
   factory UiState.initial() {
@@ -19,6 +26,7 @@ class UiState {
       loadingRawTx: false,
       failedToFetchBalances: false,
       fetchingBalances: false,
+      failedToRestoreWallet: false,
     );
   }
 
@@ -26,11 +34,13 @@ class UiState {
     bool? loadingRawTx,
     bool? failedToFetchBalances,
     bool? fetchingBalances,
+    bool? failedToRestoreWallet,
   }) {
     return UiState(
       loadingRawTx: loadingRawTx ?? this.loadingRawTx,
       failedToFetchBalances: failedToFetchBalances ?? this.failedToFetchBalances,
       fetchingBalances: fetchingBalances ?? this.fetchingBalances,
+      failedToRestoreWallet: failedToRestoreWallet ?? this.failedToRestoreWallet,
     );
   }
 
@@ -39,12 +49,14 @@ class UiState {
       'loadingRawTx': loadingRawTx,
       'failedToFetchBalances': failedToFetchBalances,
       'fetchingBalances': fetchingBalances,
+      'failedToRestoreWallet': failedToRestoreWallet,
     };
   }
 
   @override
-  String toString() =>
-      'UiState(loadingRawTx: $loadingRawTx, failedToFetchBalances: $failedToFetchBalances, fetchingBalances: $fetchingBalances)';
+  String toString() {
+    return 'UiState(loadingRawTx: $loadingRawTx, failedToFetchBalances: $failedToFetchBalances, fetchingBalances: $fetchingBalances, failedToRestoreWallet: $failedToRestoreWallet)';
+  }
 
   @override
   bool operator ==(Object other) {
@@ -53,9 +65,17 @@ class UiState {
     return other is UiState &&
         other.loadingRawTx == loadingRawTx &&
         other.failedToFetchBalances == failedToFetchBalances &&
-        other.fetchingBalances == fetchingBalances;
+        other.fetchingBalances == fetchingBalances &&
+        other.failedToRestoreWallet == failedToRestoreWallet;
   }
 
   @override
-  int get hashCode => loadingRawTx.hashCode ^ failedToFetchBalances.hashCode ^ fetchingBalances.hashCode;
+  int get hashCode {
+    return loadingRawTx.hashCode ^
+        failedToFetchBalances.hashCode ^
+        fetchingBalances.hashCode ^
+        failedToRestoreWallet.hashCode;
+  }
+
+  String toJson() => json.encode(toMap());
 }
