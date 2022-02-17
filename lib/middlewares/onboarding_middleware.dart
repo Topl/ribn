@@ -34,9 +34,9 @@ void Function(Store<AppState> store, CreatePasswordAction action, NextDispatcher
     OnboardingRespository onboardingRespository) {
   return (store, action, next) async {
     try {
-      final Map<String, dynamic> results = await onboardingRespository.generateKeyStore(
-        store.state.onboardingState.mnemonic!,
-        action.password,
+      final Map<String, dynamic> results = onboardingRespository.generateKeyStore(
+        mnemonic: store.state.onboardingState.mnemonic!,
+        password: action.password,
       );
       next(
         InitializeHDWalletAction(
