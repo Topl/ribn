@@ -72,11 +72,31 @@ function sendPortMessage(msg) {
 	port.postMessage(msg);
 }
 
+
 /**
- * Checks if the extension is opened in an extension-popup view or a new window.
+ * Checks what the current app view is, i.e. whether app is opened as an extension, 
+ * in a tab/window (e.g. during onboarding or dApp interaction), 
+ * or debug mode (e.g. during development).
  */
-async function isExtensionView() {
-	return (await chrome.tabs.getCurrent()) === undefined;
+async function getCurrentView() {
+	try {
+		const currentTab = await chrome.tabs.getCurrent();
+		if (currentTab == undefined) {
+			return 'extension'
+		}
+		else if (currentTab.id > 0){
+			return 'tab'
+		}
+	} catch (e){
+		return 'debug';
+	}
+}
+
+/**
+ * Opens the app in a new tab.
+ */
+async function openAppInNewTab(){
+	await chrome.tabs.create({ url: chrome.runtime.getURL("index.html"), active: true });
 }
 
 /**
