@@ -7,7 +7,10 @@ class LoginRepository {
   const LoginRepository();
 
   /// Decrypt [keyStoreJson] to get topl's extended private key
-  Uint8List decryptKeyStore(String keyStoreJson, String password) {
+  Uint8List decryptKeyStore({
+    required String keyStoreJson,
+    required String password,
+  }) {
     const Base58Encoder base58Encoder = Base58Encoder.instance;
     final KeyStore keyStore = KeyStore.fromV1Json(keyStoreJson, password);
     final Uint8List toplExtendedPrvKeyUint8List = base58Encoder.decode(keyStore.privateKey);
