@@ -34,8 +34,18 @@ class AppState {
     );
   }
 
-  bool keyStoreExists() {
-    return (keychainState.keyStoreJson ?? "").isNotEmpty;
+  factory AppState.test() {
+    return AppState(
+      onboardingState: OnboardingState.test(),
+      loginState: LoginState.initial(),
+      keychainState: KeychainState.test(),
+      uiState: UiState.initial(),
+      userDetailsState: UserDetailsState.initial(),
+    );
+  }
+
+  bool needsOnboarding() {
+    return (keychainState.keyStoreJson ?? '').isEmpty;
   }
 
   @override
