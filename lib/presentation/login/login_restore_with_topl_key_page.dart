@@ -99,6 +99,7 @@ class _LoginRestoreWithToplKeyPageState extends State<LoginRestoreWithToplKeyPag
           uploadedFileName = '';
           toplKey = '';
         }
+        setState(() {});
       },
       child: Container(
         width: 309,
