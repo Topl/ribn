@@ -79,7 +79,7 @@ class _OnboardingRestoreWalletPageState extends State<OnboardingRestoreWalletPag
     final Color boxColor = useSeedPhrase ? RibnColors.primary : RibnColors.accent;
     final String text = useSeedPhrase ? Strings.useSeedPhrase : Strings.importToplKey;
     final String navigateToRoute =
-        useSeedPhrase ? Routes.onboardingRestoreWalletWithMnemonic : Routes.onboardingRestoreWalletWithMnemonic;
+        useSeedPhrase ? Routes.onboardingRestoreWalletWithMnemonic : Routes.onboardingRestoreWalletWithToplKey;
     return MaterialButton(
       padding: EdgeInsets.zero,
       onPressed: () {
