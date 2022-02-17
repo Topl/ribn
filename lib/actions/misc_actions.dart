@@ -34,3 +34,7 @@ class DownloadAsFile {
 class DeleteWalletAction {
   const DeleteWalletAction();
 }
+
+class ResetAppStateAction {
+  const ResetAppStateAction();
+}
