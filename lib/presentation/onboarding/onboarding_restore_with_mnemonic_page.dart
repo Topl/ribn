@@ -1,7 +1,7 @@
 import 'package:bip_topl/bip_topl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:ribn/actions/onboarding_actions.dart';
+import 'package:ribn/actions/restore_wallet_actions.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
@@ -12,15 +12,18 @@ import 'package:ribn/widgets/onboarding_app_bar.dart';
 
 /// Restore wallet using seed phrase during onboarding.
 ///
-/// Allows entering a known seed phrase and a new wallet password to restore their wallet.
-class OnboardingRestoreWithSeedPhrasePage extends StatefulWidget {
-  const OnboardingRestoreWithSeedPhrasePage({Key? key}) : super(key: key);
+/// Allows entering a known seed phrase and a new wallet password to restore a wallet.
+///
+/// This page is used in the 'restore wallet' flow when initiated during onboarding,
+/// hence the widget name is prefixed with 'Onboarding'.
+class OnboardingRestoreWithMnemonicPage extends StatefulWidget {
+  const OnboardingRestoreWithMnemonicPage({Key? key}) : super(key: key);
 
   @override
-  _OnboardingRestoreWithSeedPhrasePageState createState() => _OnboardingRestoreWithSeedPhrasePageState();
+  _OnboardingRestoreWithMnemonicPageState createState() => _OnboardingRestoreWithMnemonicPageState();
 }
 
-class _OnboardingRestoreWithSeedPhrasePageState extends State<OnboardingRestoreWithSeedPhrasePage> {
+class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWithMnemonicPage> {
   final TextEditingController _seedPhraseTextController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
@@ -114,7 +117,7 @@ class _OnboardingRestoreWithSeedPhrasePageState extends State<OnboardingRestoreW
     );
   }
 
-  /// TextField for entering the known seed phrase.
+  /// TextField for entering the seed phrase.
   Widget _buildSeedPhraseTextField() {
     return SizedBox(
       width: 734,
@@ -205,7 +208,7 @@ class _OnboardingRestoreWithSeedPhrasePageState extends State<OnboardingRestoreW
   /// Validates the seedPhrase and password entered.
   ///
   /// Updates [hasErrors] in case any validation errors are found.
-  /// Otherwise, dispatches [RestoreWalletAction].
+  /// Otherwise, dispatches [RestoreWalletWithMnemonicAction].
   void validateSeedPhraseAndPassword() {
     final bool isSeedPhraseValid = validateMnemonic(_seedPhraseTextController.text, 'english');
     if (!isSeedPhraseValid) {
@@ -222,7 +225,7 @@ class _OnboardingRestoreWithSeedPhrasePageState extends State<OnboardingRestoreW
       });
     } else {
       StoreProvider.of<AppState>(context).dispatch(
-        RestoreWalletAction(
+        RestoreWalletWithMnemonicAction(
           mnemonic: _seedPhraseTextController.text,
           password: _confirmPasswordController.text,
         ),
