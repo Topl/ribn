@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/models/keychain_state.dart';
 import 'package:ribn/models/login_state.dart';
 import 'package:ribn/models/onboarding_state.dart';
@@ -15,6 +16,7 @@ class AppState {
   final KeychainState keychainState;
   final UiState uiState;
   final UserDetailsState userDetailsState;
+  final InternalMessage? internalMessage;
 
   const AppState({
     required this.onboardingState,
@@ -22,6 +24,7 @@ class AppState {
     required this.keychainState,
     required this.uiState,
     required this.userDetailsState,
+    this.internalMessage,
   });
 
   factory AppState.initial() {
@@ -57,7 +60,8 @@ class AppState {
         other.loginState == loginState &&
         other.keychainState == keychainState &&
         other.uiState == uiState &&
-        other.userDetailsState == userDetailsState;
+        other.userDetailsState == userDetailsState &&
+        other.internalMessage == internalMessage;
   }
 
   @override
@@ -66,7 +70,8 @@ class AppState {
         loginState.hashCode ^
         keychainState.hashCode ^
         uiState.hashCode ^
-        userDetailsState.hashCode;
+        userDetailsState.hashCode ^
+        internalMessage.hashCode;
   }
 
   AppState copyWith({
@@ -75,6 +80,7 @@ class AppState {
     KeychainState? keychainState,
     UiState? uiState,
     UserDetailsState? userDetailsState,
+    InternalMessage? pendingRequest,
   }) {
     return AppState(
       onboardingState: onboardingState ?? this.onboardingState,
@@ -82,6 +88,7 @@ class AppState {
       keychainState: keychainState ?? this.keychainState,
       uiState: uiState ?? this.uiState,
       userDetailsState: userDetailsState ?? this.userDetailsState,
+      internalMessage: pendingRequest ?? this.internalMessage,
     );
   }
 
@@ -111,6 +118,6 @@ class AppState {
 
   @override
   String toString() {
-    return 'AppState(onboardingState: $onboardingState, loginState: $loginState, keychainState: $keychainState, uiState: $uiState, userDetailsState: $userDetailsState)';
+    return 'AppState(onboardingState: $onboardingState, loginState: $loginState, keychainState: $keychainState, uiState: $uiState, userDetailsState: $userDetailsState, pendingRequest: $internalMessage)';
   }
 }

@@ -75,7 +75,7 @@ Future<void> initBgConnection(Store<AppState> store) async {
     local.connectToBackground();
     local.initPortMessageListener((String msgFromBgScript) {
       final InternalMessage pendingRequest = InternalMessage.fromJson(msgFromBgScript);
-      store.dispatch(UpdatePendingRequestAction(pendingRequest));
+      store.dispatch(ReceivedInternalMsgAction(pendingRequest));
       completer.complete();
     });
     local.sendPortMessage(jsonEncode({'method': Strings.checkPendingRequest}));
