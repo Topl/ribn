@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/presentation/mint_page.dart';
-import 'package:ribn/presentation/tx_history_page.dart';
 import 'package:ribn/presentation/wallet_balance_page.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
 import 'package:ribn/widgets/ribn_app_bar.dart';
@@ -22,7 +21,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final List<Widget> _pages = [
     const WalletBalancePage(),
-    const TransactionHistoryPage(),
     const MintPage(),
   ];
   final List<SvgPicture> _pageIcons = [
