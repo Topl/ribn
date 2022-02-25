@@ -41,10 +41,7 @@ class LoginViewModel {
     return LoginViewModel(
       incorrectPasswordError: store.state.loginState.incorrectPasswordError,
       attemptLogin: (String password) => store.dispatch(
-        AttemptLoginAction(
-          password,
-          store.state.keychainState.keyStoreJson!,
-        ),
+        AttemptLoginAction(password),
       ),
       restoreWallet: () => store.dispatch(NavigateToRoute(Routes.loginRestoreWallet)),
     );

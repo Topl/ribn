@@ -1,7 +1,6 @@
 class AttemptLoginAction {
   final String password;
-  final String keyStoreJson;
-  const AttemptLoginAction(this.password, this.keyStoreJson);
+  const AttemptLoginAction(this.password);
 }
 
 class LoginSuccessAction {
