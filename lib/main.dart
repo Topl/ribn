@@ -8,7 +8,6 @@ import 'package:redux/redux.dart';
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
-import 'package:ribn/constants/strings.dart';
 import 'package:ribn/data/data.dart' as local;
 import 'package:ribn/data/data_web.dart';
 import 'package:ribn/models/app_state.dart';
@@ -78,7 +77,7 @@ Future<void> initBgConnection(Store<AppState> store) async {
       store.dispatch(ReceivedInternalMsgAction(pendingRequest));
       completer.complete();
     });
-    local.sendPortMessage(jsonEncode({'method': Strings.checkPendingRequest}));
+    local.sendPortMessage(jsonEncode({'method': InternalMethods.checkPendingRequest}));
   } catch (e) {
     completer.complete();
     local.closeWindow();
