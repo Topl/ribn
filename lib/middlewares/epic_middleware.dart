@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:redux_epics/redux_epics.dart';
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/actions/keychain_actions.dart';
+import 'package:ribn/actions/login_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
@@ -9,6 +10,7 @@ import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/repositories/misc_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -21,6 +23,7 @@ Epic<AppState> createEpicMiddleware(MiscRepository miscRepo) => combineEpics<App
       _downloadAsFile(miscRepo),
       _deleteWallet(miscRepo),
       _generateInitialAddresses(),
+      TypedEpic<AppState, LoginSuccessAction>(_onLoginSuccess()),
       TypedEpic<AppState, SuccessfullyRestoredWalletAction>(_onSuccessfullyRestoredWallet(miscRepo)),
     ]);
 
@@ -113,6 +116,31 @@ Epic<AppState> _generateInitialAddresses() => (Stream<dynamic> actions, EpicStor
             ),
           );
     };
+
+/// Handles the [LoginSuccessAction] by dispatching actions to initialize the Hd wallet and refresh balances.
+///
+/// Navigation to the next page is dependent on whether the app is currently interacting with a dApp, i.e.
+/// there is a pending [InternalMessage] with method [InternalMethods.enable] or [InternalMethods.signTx],
+/// or if the app is opened in the normal extension view, in which case it navigates to [Routes.home].
+Stream<dynamic> Function(Stream<LoginSuccessAction>, EpicStore<AppState>) _onLoginSuccess() {
+  return (actions, store) {
+    return actions.switchMap(
+      (action) async* {
+        yield* Stream.fromIterable(
+          [
+            InitializeHDWalletAction(toplExtendedPrivateKey: action.toplExtendedPrvKeyUint8List),
+            RefreshBalancesAction(),
+            store.state.internalMessage?.method == InternalMethods.enable
+                ? NavigateToRoute(Routes.enable, arguments: store.state.internalMessage!)
+                : store.state.internalMessage?.method == InternalMethods.signTx
+                    ? NavigateToRoute(Routes.externalSigning, arguments: store.state.internalMessage!)
+                    : NavigateToRoute(Routes.home),
+          ],
+        );
+      },
+    );
+  };
+}
 
 /// Handles [SuccessfullyRestoredWalletAction] by dispatching actions to reset the current app state,
 /// initialize the hd wallet, and navigate to the home page.
