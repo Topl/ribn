@@ -19,7 +19,7 @@ import 'package:url_launcher/url_launcher.dart';
 /// Displays the relevant tx details once the tx has been successfully broadcasted.
 class TxConfirmationPage extends StatelessWidget {
   TxConfirmationPage({required this.transferDetails, Key? key})
-      : mintedAsset = transferDetails.transferType == Strings.minting,
+      : mintedAsset = transferDetails.transferType == TransferType.mintingAsset,
         super(key: key);
 
   /// Holds details about the transaction.
@@ -107,7 +107,7 @@ class TxConfirmationPage extends StatelessWidget {
 
   /// Displays information about the tx that was broadcasted.
   Widget _buildTxInfo() {
-    final String txInfo = transferDetails.transferType == Strings.polyTransfer
+    final String txInfo = transferDetails.transferType == TransferType.polyTransfer
         ? '${transferDetails.amount} ${'POLY'}'
         : '${transferDetails.amount} of ${transferDetails.assetCode!.shortName.show}';
     return SizedBox(
