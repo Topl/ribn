@@ -6,6 +6,7 @@ import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/presentation/address_section.dart';
 import 'package:ribn/presentation/asset_details/asset_details_page.dart';
 import 'package:ribn/presentation/enable_page.dart';
+import 'package:ribn/presentation/external_signing_page.dart';
 import 'package:ribn/presentation/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
 import 'package:ribn/presentation/login/login_restore_wallet_page.dart';
@@ -157,6 +158,11 @@ class RootRouter {
         {
           final InternalMessage pendingRequest = settings.arguments as InternalMessage;
           return pageRoute(EnablePage(pendingRequest), settings);
+        }
+      case Routes.externalSigning:
+        {
+          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
+          return pageRoute(ExternalSigningPage(pendingRequest), settings);
         }
       case Routes.error:
         {
