@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     SvgPicture.asset(RibnAssets.balancePageActiveIcon),
     SvgPicture.asset(RibnAssets.mintPageActiveIcon),
   ];
-  final List<String> _pageLabels = ['HOME', 'HISTORY', 'MINT'];
+  final List<String> _pageLabels = ['HOME', 'MINT'];
   int _currPage = 0;
 
   @override
