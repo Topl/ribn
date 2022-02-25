@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:redux_epics/redux_epics.dart';
-import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/login_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
@@ -19,7 +18,6 @@ Epic<AppState> createEpicMiddleware(MiscRepository miscRepo) => combineEpics<App
       _routerEpic(),
       _errorRedirectEpic(),
       _persistenceTriggerEpic(),
-      _sendToBackground(miscRepo),
       _downloadAsFile(miscRepo),
       _deleteWallet(miscRepo),
       _generateInitialAddresses(),
@@ -83,14 +81,6 @@ Epic<AppState> _persistenceTriggerEpic() => (Stream<dynamic> actions, EpicStore<
       return actions
           .where((action) => (persistenceTriggers.contains(action.runtimeType)))
           .switchMap((action) => Stream.value(PersistAppState()));
-    };
-
-/// Listens for [SendInternalMsgAction] - message to be sent to the background-script
-Epic<AppState> _sendToBackground(MiscRepository miscRepo) => (Stream<dynamic> actions, EpicStore<AppState> store) {
-      return actions.whereType<SendInternalMsgAction>().switchMap((action) {
-        miscRepo.sendInternalMessage(action.msg);
-        return const Stream.empty();
-      });
     };
 
 /// Listens for [DownloadAsFile] and downloads the text data as a file.
