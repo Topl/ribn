@@ -22,7 +22,6 @@ class _ExternalSigningPageState extends State<ExternalSigningPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Column(
         children: [
           Text(widget.request.method),
