@@ -4,12 +4,10 @@
  */
 async function persistToStorage(obj) {
 	const parsedObj = JSON.parse(obj);
-	const stored = await getDataFromLocalStorage("data");
+	const stored = await getDataFromLocalStorage();
 	await chrome.storage.local.set({
-		data: {
-			...stored,
-			...parsedObj,
-		},
+		...stored,
+		...parsedObj,
 	});
 }
 
@@ -18,7 +16,7 @@ async function persistToStorage(obj) {
  * @returns {string} the fetched data
  */
 async function fetchData() {
-	const result = await getDataFromLocalStorage("data");
+	const result = await getDataFromLocalStorage();
 	if (!result) {
 		return "{}";
 	}
@@ -31,14 +29,14 @@ async function fetchData() {
  * @param {string} key the object keys
  * @returns {Promise} A resolved promise with the requested data or a rejected promise in case of runtime error
  */
-function getDataFromLocalStorage(key) {
+function getDataFromLocalStorage() {
 	return new Promise(function (resolve, reject) {
-		chrome.storage.local.get(key, function (items) {
+		chrome.storage.local.get(null, function (items) {
 			if (chrome.runtime.lastError) {
 				console.error(chrome.runtime.lastError.message);
 				reject(chrome.runtime.lastError.message);
 			} else {
-				resolve(items[key]);
+				resolve(items);
 			}
 		});
 	});
@@ -84,10 +82,10 @@ async function getCurrentView() {
 		if (currentTab == undefined) {
 			return 'extension'
 		}
-		else if (currentTab.id > 0){
+		else if (currentTab.id > 0) {
 			return 'tab'
 		}
-	} catch (e){
+	} catch (e) {
 		return 'debug';
 	}
 }
@@ -95,7 +93,7 @@ async function getCurrentView() {
 /**
  * Opens the app in a new tab.
  */
-async function openAppInNewTab(){
+async function openAppInNewTab() {
 	await chrome.tabs.create({ url: chrome.runtime.getURL("index.html"), active: true });
 }
 
