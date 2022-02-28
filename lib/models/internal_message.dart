@@ -85,11 +85,23 @@ class InternalMessage {
 
   @override
   int get hashCode {
-    return method.hashCode ^
-        data.hashCode ^
-        target.hashCode ^
-        sender.hashCode ^
-        id.hashCode ^
-        origin.hashCode;
+    return method.hashCode ^ data.hashCode ^ target.hashCode ^ sender.hashCode ^ id.hashCode ^ origin.hashCode;
   }
+}
+
+/// A helper class to access methods used in [InternalMessage]s between the popup and background script.
+class InternalMethods {
+  InternalMethods._();
+
+  /// Used to check if there is a pending request in the background script, e.g. originating form a dApp.
+  static String get checkPendingRequest => 'checkPendingRequest';
+
+  /// Used to return a response from the popup to the background script.
+  static String get returnResponse => 'returnResponse';
+
+  /// Used to enable/allowlist urls.
+  static String get enable => 'enable';
+
+  /// Used to sign tx through Ribn.
+  static String get signTx => 'signTx';
 }
