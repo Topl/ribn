@@ -1,3 +1,5 @@
+export const TOPL_URLS = ['https://annulus.topl.services', 'https://lattice.topl.services'];
+
 export const API_METHODS = {
 	enable: "enable",
 	signTx: "signTx",
