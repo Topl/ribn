@@ -3,10 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/presentation/address_section.dart';
+import 'package:ribn/presentation/asset_details/asset_details_page.dart';
 import 'package:ribn/presentation/home_page.dart';
-import 'package:ribn/presentation/login_page.dart';
+import 'package:ribn/presentation/login/login_page.dart';
+import 'package:ribn/presentation/login/login_restore_wallet_page.dart';
+import 'package:ribn/presentation/login/login_restore_with_mnemonic_page.dart';
+import 'package:ribn/presentation/login/login_restore_with_topl_key_page.dart';
+import 'package:ribn/presentation/login/new_wallet_password_page.dart';
+import 'package:ribn/presentation/login/old_wallet_password_page.dart';
 import 'package:ribn/presentation/onboarding/extension_info_page.dart';
 import 'package:ribn/presentation/onboarding/getting_started_page.dart';
+import 'package:ribn/presentation/onboarding/onboarding_restore_wallet_page.dart';
+import 'package:ribn/presentation/onboarding/onboarding_restore_with_mnemonic_page.dart';
+import 'package:ribn/presentation/onboarding/onboarding_restore_with_topl_key_page.dart';
 import 'package:ribn/presentation/onboarding/onboarding_steps.dart';
 import 'package:ribn/presentation/onboarding/read_carefully_page_one.dart';
 import 'package:ribn/presentation/onboarding/select_action_page.dart';
@@ -58,6 +67,49 @@ class RootRouter {
           final AssetAmount asset = settings.arguments as AssetAmount;
           return pageRoute(AssetTransferInputPage(asset: asset), settings);
         }
+      case Routes.loginRestoreWallet:
+        {
+          return pageRoute(const LoginRestoreWalletPage(), settings);
+        }
+      case Routes.loginRestoreWalletWithMnemonic:
+        {
+          return pageRoute(const LoginRestoreWithMnemonicPage(), settings);
+        }
+      case Routes.onboardingRestoreWallet:
+        {
+          return pageRoute(const OnboardingRestoreWalletPage(), settings);
+        }
+      case Routes.onboardingRestoreWalletWithMnemonic:
+        {
+          return pageRoute(const OnboardingRestoreWithMnemonicPage(), settings);
+        }
+      case Routes.onboardingRestoreWalletWithToplKey:
+        {
+          return pageRoute(const OnboardingRestoreWithToplKeyPage(), settings);
+        }
+      case Routes.loginRestoreWalletnewPassword:
+        {
+          final String seedPhrase = settings.arguments as String;
+          return pageRoute(
+            NewWalletPasswordPage(
+              seedPhrase: seedPhrase,
+            ),
+            settings,
+          );
+        }
+      case Routes.loginRestoreWalletoldPassword:
+        {
+          final String keyStoreJson = settings.arguments as String;
+          return pageRoute(
+            OldPasswordPage(toplKeyStoreJson: keyStoreJson),
+            settings,
+          );
+        }
+      case Routes.loginRestoreWalletWithToplKey:
+        {
+          return pageRoute(const LoginRestoreWithToplKeyPage(), settings);
+        }
+
       case Routes.polyTransferInput:
         {
           return pageRoute(const PolyTransferInputPage(), settings);
@@ -80,6 +132,14 @@ class RootRouter {
               mintingNewAsset: mintInputPageArgs['mintingNewAsset'] as bool,
               mintingToMyWallet: mintInputPageArgs['mintingToMyWallet'] as bool,
             ),
+            settings,
+          );
+        }
+      case Routes.assetDetails:
+        {
+          final Map<String, dynamic> assetDetailsPageArgs = settings.arguments as Map<String, dynamic>;
+          return pageRoute(
+            AssetDetailsPage(asset: assetDetailsPageArgs['assetAmount']!),
             settings,
           );
         }

@@ -110,3 +110,10 @@ class ApiKeyAuthInterceptor extends AuthInterceptor {
     super.onRequest(options, handler);
   }
 }
+
+enum TransferType {
+  polyTransfer,
+  assetTransfer,
+  mintingAsset,
+  remintingAsset,
+}

@@ -3,8 +3,11 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 import 'package:ribn/actions/login_actions.dart';
+import 'package:ribn/actions/misc_actions.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
 
+/// Intended to wrap the [LoginPage] and provide it with the the [LoginViewModel].
 class LoginContainer extends StatelessWidget {
   const LoginContainer({Key? key, required this.builder}) : super(key: key);
   final ViewModelBuilder<LoginViewModel> builder;
@@ -20,24 +23,30 @@ class LoginContainer extends StatelessWidget {
 }
 
 class LoginViewModel {
+  /// Indicates whether an incorrect password was entered.
   final bool incorrectPasswordError;
-  final bool loadingPasswordCheck;
 
-  final Function(String) attemptLogin;
+  /// Handler for when there is an attempt to login using [password].
+  final Function(String password) attemptLogin;
+
+  /// Handler for when there is attempt to restore wallet from the login page.
+  final VoidCallback restoreWallet;
 
   const LoginViewModel({
     this.incorrectPasswordError = false,
-    this.loadingPasswordCheck = false,
     required this.attemptLogin,
+    required this.restoreWallet,
   });
   static LoginViewModel fromStore(Store<AppState> store) {
     return LoginViewModel(
       incorrectPasswordError: store.state.loginState.incorrectPasswordError,
-      loadingPasswordCheck: store.state.loginState.loadingPasswordCheck,
-      attemptLogin: (password) => store.dispatch(AttemptLoginAction(
-        password,
-        store.state.keychainState.keyStoreJson!,
-      )),
+      attemptLogin: (String password) => store.dispatch(
+        AttemptLoginAction(
+          password,
+          store.state.keychainState.keyStoreJson!,
+        ),
+      ),
+      restoreWallet: () => store.dispatch(NavigateToRoute(Routes.loginRestoreWallet)),
     );
   }
 
@@ -47,10 +56,9 @@ class LoginViewModel {
 
     return other is LoginViewModel &&
         other.incorrectPasswordError == incorrectPasswordError &&
-        other.loadingPasswordCheck == loadingPasswordCheck &&
         other.attemptLogin == attemptLogin;
   }
 
   @override
-  int get hashCode => incorrectPasswordError.hashCode ^ loadingPasswordCheck.hashCode ^ attemptLogin.hashCode;
+  int get hashCode => incorrectPasswordError.hashCode ^ attemptLogin.hashCode;
 }

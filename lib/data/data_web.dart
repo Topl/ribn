@@ -17,6 +17,8 @@ external Future<String> fetchData();
 external Future<bool> isExtensionView();
 external void downloadAsFile(String fileName, String text);
 external void deleteWallet();
+external Future<void> openAppInNewTab();
+external Future<String> getCurrentView();
 
 void initPortMessageListener(Function msgHandler) {
   addPortMessageListener(allowInterop(msgHandler));
@@ -41,4 +43,8 @@ void closeWindow() {
 /// Checks if the extension is opened in the default extension-popup view.
 Future<bool> openedInExtensionView() {
   return promiseToFuture(isExtensionView());
+}
+
+Future<String> getCurrentAppView() {
+  return promiseToFuture(getCurrentView());
 }

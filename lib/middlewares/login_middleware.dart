@@ -18,8 +18,8 @@ void Function(Store<AppState> store, AttemptLoginAction action, NextDispatcher n
   return (store, action, next) async {
     try {
       final Uint8List toplExtendedPrvKeyUint8List = loginRepository.decryptKeyStore(
-        action.keyStoreJson,
-        action.password,
+        keyStoreJson: action.keyStoreJson,
+        password: action.password,
       );
       next(const LoginSuccessAction());
       next(InitializeHDWalletAction(toplExtendedPrivateKey: toplExtendedPrvKeyUint8List));
@@ -27,7 +27,7 @@ void Function(Store<AppState> store, AttemptLoginAction action, NextDispatcher n
       next(NavigateToRoute(Routes.home));
     } catch (e) {
       if (e.runtimeType == ArgumentError &&
-          (e as ArgumentError).message.toString().contains("supplied the wrong password")) {
+          (e as ArgumentError).message.toString().contains('supplied the wrong password')) {
         next(LoginFailureAction());
       } else {
         next(ApiErrorAction(e.toString()));

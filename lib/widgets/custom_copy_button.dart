@@ -70,7 +70,7 @@ class _CustomCopyButtonState extends State<CustomCopyButton> {
             ),
             Text(
               widget.bubbleText,
-              style: RibnTextStyles.tooltipTextStyle,
+              style: RibnTextStyles.smallBody,
             ),
           ],
         ),

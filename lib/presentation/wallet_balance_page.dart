@@ -1,12 +1,13 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/containers/wallet_balance_container.dart';
+import 'package:ribn/models/asset_details.dart';
+import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_dialog.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
 
@@ -16,6 +17,21 @@ import 'package:ribn/widgets/custom_icon_button.dart';
 class WalletBalancePage extends StatelessWidget {
   const WalletBalancePage({Key? key}) : super(key: key);
 
+  /// [TextStyle] for the asset short name.
+  final TextStyle assetShortNameStyle = const TextStyle(
+    fontFamily: 'Nunito',
+    fontWeight: FontWeight.w600,
+    fontSize: 15,
+    color: RibnColors.defaultText,
+  );
+
+  /// [TextStyle] for the asset long name.
+  final TextStyle assetLongNameStyle = const TextStyle(
+    fontFamily: 'Nunito',
+    fontSize: 12,
+    color: Color(0xff585858),
+  );
+
   @override
   Widget build(BuildContext context) {
     return WalletBalanceContainer(
@@ -23,7 +39,7 @@ class WalletBalancePage extends StatelessWidget {
         child: Column(
           children: [
             _buildPolyContainer(vm),
-            _buildAssetsListView(vm.assets, vm.initiateSendAsset),
+            _buildAssetsListView(vm),
           ],
         ),
       ),
@@ -72,7 +88,10 @@ class WalletBalancePage extends StatelessWidget {
     );
   }
 
-  Widget _buildAssetsListView(List<AssetAmount> assets, Function(AssetAmount) initiateSendAsset) {
+  /// Builds a [ListView] of the assets owned by the wallet.
+  ///
+  /// The ViewModel [vm] allows access to the list of assets, asset details, and callbacks.
+  Widget _buildAssetsListView(WalletBalanceViewModel vm) {
     return Container(
       color: RibnColors.background,
       child: Padding(
@@ -87,11 +106,17 @@ class WalletBalancePage extends StatelessWidget {
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: assets.length,
+              itemCount: vm.assets.length,
               itemBuilder: (context, idx) {
+                final AssetAmount asset = vm.assets[idx];
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: _buildAssetListItem(assets[idx], initiateSendAsset),
+                  child: _buildAssetListItem(
+                    asset: asset,
+                    assetDetails: vm.assetDetails[asset.assetCode.toString()],
+                    initiateSendAsset: vm.initiateSendAsset,
+                    viewAssetDetails: vm.viewAssetDetails,
+                  ),
                 );
               },
             ),
@@ -101,63 +126,104 @@ class WalletBalancePage extends StatelessWidget {
     );
   }
 
-  Widget _buildAssetListItem(AssetAmount asset, Function(AssetAmount) initiateSendAsset) {
-    const TextStyle titleStyle = TextStyle(
-      fontFamily: 'Nunito',
-      fontWeight: FontWeight.w600,
-      fontSize: 15,
-      color: RibnColors.defaultText,
-    );
-    const TextStyle shortNameStyle = TextStyle(
-      fontFamily: 'Nunito',
-      fontSize: 12,
-      color: Color(0xff585858),
-    );
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFFFEFEFE),
-        borderRadius: BorderRadius.circular(10),
+  /// Builds the individual asset list item.
+  ///
+  /// Displays information about the [asset], including locally stored details, i.e. [assetDetails].
+  /// More information about the asset can be viewed upon pressing and calling [viewAssetDetails].
+  /// Upon pressing the send button, an asset transfer flow can be initiated, i.e. [initiateSendAsset].
+  Widget _buildAssetListItem({
+    required AssetAmount asset,
+    required AssetDetails? assetDetails,
+    required Function(AssetAmount) initiateSendAsset,
+    required Function(AssetAmount) viewAssetDetails,
+  }) {
+    final String assetIcon = assetDetails?.icon ?? RibnAssets.undefinedIcon;
+    final String assetUnit = assetDetails?.unit != null ? formatAssetUnit(assetDetails!.unit) : 'Units';
+    final String assetLongName = assetDetails?.longName ?? '';
+    final bool isMissingAssetDetails =
+        assetIcon == RibnAssets.undefinedIcon || assetUnit == 'Units' || assetLongName.isEmpty;
+
+    return ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(RibnColors.whiteBackground),
+        padding: MaterialStateProperty.all(EdgeInsets.zero),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        fixedSize: MaterialStateProperty.all(const Size(309, 88)),
       ),
-      height: 73,
+      onPressed: () => viewAssetDetails(asset),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // display asset icon
           Padding(
             padding: const EdgeInsets.only(top: 13, left: 11, right: 16),
-            child: SvgPicture.asset(RibnAssets.coffeeGreenIcon),
+            child: Image.asset(assetIcon),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
-              const SizedBox(
-                width: 165,
+              // display asset short name
+              SizedBox(
+                width: 120,
                 child: Text(
-                  'Long Name',
-                  style: titleStyle,
+                  asset.assetCode.shortName.show,
+                  style: assetShortNameStyle,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              const SizedBox(height: 2),
-              Text(asset.assetCode.shortName.show, style: shortNameStyle),
+              // display asset long name or placeholder if no long name exists
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5.0),
+                child: assetLongName.isNotEmpty
+                    ? Text(assetLongName, style: assetLongNameStyle)
+                    : Container(
+                        width: 139,
+                        height: 13,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(9)),
+                          color: Color(0xcfdadada),
+                        ),
+                      ),
+              ),
+              // display helpful text if some asset details are missing
+              isMissingAssetDetails
+                  ? const Text(
+                      'Add Asset Details',
+                      style: TextStyle(
+                        color: RibnColors.primary,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Nunito',
+                        fontStyle: FontStyle.normal,
+                        fontSize: 10.4,
+                        decoration: TextDecoration.underline,
+                      ),
+                    )
+                  : const SizedBox(),
             ],
           ),
           const Spacer(),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 10),
-              SizedBox(
-                width: 65,
+              // display asset units
+              Container(
+                constraints: const BoxConstraints(maxWidth: 90),
                 child: Text(
-                  '${asset.quantity.toString()} Kg',
+                  '${asset.quantity.toString()} $assetUnit',
                   overflow: TextOverflow.ellipsis,
-                  style: titleStyle.copyWith(
+                  style: assetShortNameStyle.copyWith(
                     color: RibnColors.primary,
                   ),
                 ),
               ),
               const SizedBox(height: 8),
+              // send and receive buttons
               Row(
                 children: [
                   CustomIconButton(

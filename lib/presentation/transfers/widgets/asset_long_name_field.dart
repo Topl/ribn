@@ -44,7 +44,7 @@ class _AssetLongNameFieldState extends State<AssetLongNameField> {
   Widget build(BuildContext context) {
     return CustomInputField(
       informationText: Strings.assetLongNameInfo,
-      itemLabel: Strings.assetShortName,
+      itemLabel: Strings.assetLongName,
       item: Stack(
         children: [
           // textfield for entering the asset long name

@@ -5,7 +5,9 @@ import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/actions/ui_actions.dart';
+import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/routes.dart';
+import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/internal_message.dart';
@@ -102,7 +104,20 @@ void Function(Store<AppState> store, SignAndBroadcastTxAction action, NextDispat
         action.transferDetails.messageToSign!,
       );
       final TransferDetails transferDetails = action.transferDetails.copyWith(transactionId: transactionId);
-      // Navigate to the confirmation page
+
+      /// Update the locally stored asset details if minting a new asset
+      if (transferDetails.transferType == TransferType.mintingAsset) {
+        next(
+          UpdateAssetDetailsAction(
+            assetCode: action.transferDetails.assetCode.toString(),
+            unit: transferDetails.assetDetails?.unit,
+            icon: transferDetails.assetDetails?.icon,
+            longName: transferDetails.assetDetails?.longName,
+          ),
+        );
+      }
+
+      /// Navigate to the confirmation page
       next(NavigateToRoute(Routes.txConfirmation, arguments: transferDetails));
     } catch (e) {
       next(ApiErrorAction((e).toString()));

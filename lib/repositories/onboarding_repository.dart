@@ -42,8 +42,10 @@ class OnboardingRespository {
     return mnemonic;
   }
 
-  /// Generates a [KeyStore] using the provided password.
-  Future<Map<String, dynamic>> generateKeyStore(String mnemonic, String password) async {
+  Map<String, dynamic> generateKeyStore({
+    required String mnemonic,
+    required String password,
+  }) {
     const Base58Encoder base58Encoder = Base58Encoder.instance;
     final Random random = Random.secure();
     final Bip32KeyPair toplExtendedKeyPair = deriveToplExtendedKeys(mnemonic);

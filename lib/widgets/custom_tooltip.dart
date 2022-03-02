@@ -67,7 +67,7 @@ class _CustomToolTipState extends State<CustomToolTip> {
                   ),
                   child: Text(
                     widget.tooltipText,
-                    style: RibnTextStyles.tooltipTextStyle,
+                    style: RibnTextStyles.smallBody,
                   ),
                 ),
                 // close button for dismissing the tooltip

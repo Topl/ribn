@@ -85,8 +85,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 12),
               LargeButton(
-                label: Strings.useSeedPhrase,
-                onPressed: () {},
+                label: Strings.restoreWallet,
+                onPressed: vm.restoreWallet,
                 backgroundColor: RibnColors.primary.withOpacity(0.19),
                 textColor: RibnColors.primary,
               ),

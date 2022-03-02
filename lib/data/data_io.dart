@@ -33,3 +33,7 @@ void downloadAsFile(String fileName, String text) {
 void deleteWallet() {
   throw UnimplementedError();
 }
+
+Future<String> getCurrentAppView() {
+  throw UnimplementedError();
+}
