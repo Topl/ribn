@@ -37,9 +37,12 @@ Epic<AppState> _persistorEpic(MiscRepository miscRepo) => (Stream<dynamic> actio
       return actions.whereType<PersistAppState>().switchMap((action) {
         Future<dynamic> persistAppState() async {
           try {
-            await miscRepo.persistAppState(store.state.toJson());
+            // state is not persisted when app opened in debug view
+            if (!await miscRepo.isAppOpenedInDebugView()) {
+              await miscRepo.persistAppState(store.state.toJson());
+            }
           } catch (e) {
-            return ApiErrorAction(e.toString());
+            return ApiErrorAction('Failed to persist state. Error: ${e.toString()}');
           }
         }
 
