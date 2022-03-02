@@ -150,7 +150,26 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String deleteWallet = 'Delete Wallet';
   static const String enterWalletPassword = 'Enter Wallet Password';
   static const String unlock = 'UNLOCK';
-  static const String useSeedPhrase = 'USE SEED PHRASE';
+  static const String next = 'NEXT';
+  static const String useSeedPhrase = 'USE\nSEED\nPHRASE';
+  static const String importToplKey = 'IMPORT\nTOPL\nKEY';
+  static const String restoreWallet = 'RESTORE WALLET';
+  static const String restoreWalletDesc =
+      'You can either use your 15-word Seed Phrase or your Top Level Key to import or recover your wallet.';
+  static const String seedPhraseDiffFromTopLevelKey = 'How is a Seed Phrase different from a Top Level Key?';
+
+  static const String seedPhraseDiffFromTopLevelKeyDesc =
+      '''Your Seed Phrase is a combination of words that you can use to maintain accounts across multiple blockchains including Topl's. Meanwhile, your Top Level Key is a unique key file, specific to the Topl Blockchain. Either one can be used to access your wallet.''';
+  static const String whereCanIFindMyTopLevelKey = 'Where can I find my Top Level Key?';
+  static const String whereCanIFindMyTopLevelKeyDesc =
+      '''You can find and export your Top Level Key under settings. Please make sure to save this in a secure location as we cannot provide it to you if you lose access to your wallet.''';
+  static const String hintSeedPhrase =
+      'dog jump foot stack hay country fun tree cloud ocean bear alaska fish red sushi';
+  static const String restoreWalletSeedPhraseDesc =
+      '''First, enter your 15-word Seed Phrase that you wrote down when you first created your wallet.\n\nMake sure to include only spaces between the words. There should be no numbers or special characters. ''';
+  static const String restoreWalletToplKeyDesc =
+      '''First, upload your Top Level Key to import or restore your wallet. Please upload your file in .txt format only.''';
+
   static const String needHelp = 'Need help? Contact ';
   static const String ribnSupport = 'Ribn Support';
   static const String importWalletUsingSeedPhrase = 'Import Wallet using Seed Phrase';
@@ -195,4 +214,14 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String issuerAddressInfo =
       'This is the address of the party who originally\ncreated a certain asset. You can copy the\nissuer address and paste it into the Topl explorer\nfor more information.';
   static const String assetDetails = 'Asset Details';
+  static const String newWalletPassword = 'New Wallet Password';
+  static const String newWalletPasswordHint = 'Min 8 characters';
+  static const String confirmWalletPassword = 'Confirm Wallet Password';
+  static const String confirmWalletPasswordHint = 'Re-type your Wallet Password';
+  static const String warning = 'Warning';
+  static const String recoverWalletWarning = '''This action cannot be undone. If you 
+restore using another Seed Phrase, your current wallet, accounts, and assets will 
+be removed from this app permanently. ''';
+  static const String enterSeedPhrase = 'Enter Seed Phrase';
+  static const String chooseMethod = 'Choose Method';
 }

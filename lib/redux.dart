@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:redux/redux.dart';
-import 'package:ribn/constants/strings.dart';
 import 'package:ribn/data/data.dart' as local;
 import 'package:ribn/middlewares/app_middleware.dart';
 import 'package:ribn/models/app_state.dart';
@@ -23,7 +22,7 @@ class Redux {
 
   static Store<AppState>? get store {
     if (_store == null) {
-      throw Exception("Store is not initialized");
+      throw Exception('Store is not initialized');
     } else {
       return _store;
     }
@@ -31,13 +30,19 @@ class Redux {
 
   /// Fetches [AppState] from the extension's storage and initializes the Redux [_store]
   static Future<void> initStore({
+    bool initTestStore = false,
     OnboardingRespository onboardingRepo = onboardingRespository,
     LoginRepository loginRepo = loginRepository,
     MiscRepository miscRepo = miscRepository,
     KeychainRepository keychainRepo = keychainRepository,
     TransactionRepository transactionRepo = transactionRepository,
   }) async {
-    Map<String, dynamic> persistedAppState = await getPersistedAppState();
+    final Map<String, dynamic> persistedAppState = await getPersistedAppState();
+    final AppState initState = persistedAppState.isNotEmpty
+        ? AppState.fromMap(persistedAppState)
+        : initTestStore
+            ? AppState.test()
+            : AppState.initial();
     _store = Store<AppState>(
       appReducer,
       middleware: createAppMiddleware(
@@ -48,7 +53,7 @@ class Redux {
         transactionRepo: transactionRepo,
       ),
       distinct: true,
-      initialState: persistedAppState.isNotEmpty ? AppState.fromMap(persistedAppState) : AppState.initial(),
+      initialState: initState,
     );
   }
 
@@ -60,25 +65,5 @@ class Redux {
     } catch (e) {
       return {};
     }
-  }
-
-  /// Initiates a long-lived connection with the background script.
-  ///
-  /// Also adds a listener for incoming messages.
-  static Future<String> initBgConnection() async {
-    final Completer<String> completer = Completer<String>();
-    try {
-      if (await local.openedInExtensionView() || !store!.state.keyStoreExists()) {
-        completer.complete('');
-      } else {
-        local.connectToBackground();
-        local.initPortMessageListener(completer.complete);
-        local.sendPortMessage(jsonEncode({'method': Strings.checkPendingRequest}));
-      }
-    } catch (e) {
-      completer.complete('');
-      local.closeWindow();
-    }
-    return completer.future;
   }
 }

@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'dart:typed_data';
+import 'package:bip_topl/bip_topl.dart' as t;
 import 'package:brambldart/credentials.dart';
 import 'package:flutter/foundation.dart';
+import 'package:ribn/constants/rules.dart';
+import 'package:ribn/constants/test_data.dart';
 import 'package:ribn/models/ribn_network.dart';
 
 class KeychainState {
@@ -19,10 +23,26 @@ class KeychainState {
   });
 
   factory KeychainState.initial() {
-    List<RibnNetwork> initialNetworks = RibnNetwork.initializeNetworks();
+    final List<RibnNetwork> initialNetworks = RibnNetwork.initializeNetworks();
     return KeychainState(
       networks: initialNetworks,
       currNetworkIdx: 0,
+    );
+  }
+
+  factory KeychainState.test() {
+    final Uint8List toplExtendedPrvKeyUint8List = TestData.toplExtendedPrvKeyUint8List;
+    final List<RibnNetwork> initialNetworks = RibnNetwork.initializeNetworks();
+    return KeychainState(
+      keyStoreJson: TestData.keyStoreJson,
+      networks: initialNetworks,
+      currNetworkIdx: 0,
+      hdWallet: HdWallet(
+        rootSigningKey: t.Bip32SigningKey.fromValidBytes(
+          toplExtendedPrvKeyUint8List,
+          depth: Rules.toplKeyDepth,
+        ),
+      ),
     );
   }
 
@@ -45,8 +65,7 @@ class KeychainState {
 
   String toJson() => json.encode(toMap());
 
-  factory KeychainState.fromJson(String source) =>
-      KeychainState.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory KeychainState.fromJson(String source) => KeychainState.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
