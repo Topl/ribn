@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+import 'package:ribn/actions/keychain_actions.dart';
 
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/routes.dart';
@@ -33,6 +34,7 @@ class WalletBalanceViewModel {
   final bool failedToFetchBalances;
   final bool fetchingBalances;
   final Function(AssetAmount) viewAssetDetails;
+  final VoidCallback refreshBalances;
 
   WalletBalanceViewModel({
     required this.polyBalance,
@@ -43,6 +45,7 @@ class WalletBalanceViewModel {
     required this.fetchingBalances,
     required this.viewAssetDetails,
     required this.assetDetails,
+    required this.refreshBalances,
   });
   static WalletBalanceViewModel fromStore(Store<AppState> store) {
     return WalletBalanceViewModel(
@@ -63,6 +66,7 @@ class WalletBalanceViewModel {
           },
         ),
       ),
+      refreshBalances: () => store.dispatch(RefreshBalancesAction()),
     );
   }
 
