@@ -7,6 +7,7 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/containers/wallet_balance_container.dart';
 import 'package:ribn/models/asset_details.dart';
+import 'package:ribn/presentation/home/error_section.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_dialog.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
@@ -36,12 +37,14 @@ class WalletBalancePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WalletBalanceContainer(
       builder: (BuildContext context, WalletBalanceViewModel vm) => SingleChildScrollView(
-        child: Column(
-          children: [
-            _buildPolyContainer(vm),
-            _buildAssetsListView(vm),
-          ],
-        ),
+        child: vm.failedToFetchBalances
+            ? const Center(child: ErrorSection())
+            : Column(
+                children: [
+                  _buildPolyContainer(vm),
+                  _buildAssetsListView(vm),
+                ],
+              ),
       ),
     );
   }
