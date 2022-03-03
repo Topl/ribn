@@ -9,14 +9,16 @@ class LargeButton extends StatelessWidget {
     required this.onPressed,
     this.backgroundColor = RibnColors.primary,
     this.textColor = Colors.white,
+    this.buttonWidth = 310,
+    this.buttonHeight = 43,
     Key? key,
   }) : super(key: key);
   final String label;
   final VoidCallback onPressed;
   final Color backgroundColor;
   final Color textColor;
-  final double buttonWidth = 310;
-  final double buttonHeight = 43;
+  final double buttonWidth;
+  final double buttonHeight;
   final double borderRadius = 2.2;
 
   @override
