@@ -3,24 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/models/transfer_details.dart';
-import 'package:ribn/presentation/address_section.dart';
 import 'package:ribn/presentation/asset_details/asset_details_page.dart';
 import 'package:ribn/presentation/enable_page.dart';
 import 'package:ribn/presentation/external_signing_page.dart';
-import 'package:ribn/presentation/home_page.dart';
+import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
-import 'package:ribn/presentation/login/login_restore_wallet_page.dart';
-import 'package:ribn/presentation/login/login_restore_with_mnemonic_page.dart';
-import 'package:ribn/presentation/login/login_restore_with_topl_key_page.dart';
-import 'package:ribn/presentation/login/new_wallet_password_page.dart';
-import 'package:ribn/presentation/login/old_wallet_password_page.dart';
+import 'package:ribn/presentation/login/restore_wallet/login_enter_wallet_password_page.dart';
+import 'package:ribn/presentation/login/restore_wallet/login_new_wallet_password_page.dart';
+import 'package:ribn/presentation/login/restore_wallet/login_restore_with_mnemonic_page.dart';
+import 'package:ribn/presentation/login/restore_wallet/login_restore_with_topl_key_page.dart';
 import 'package:ribn/presentation/onboarding/extension_info_page.dart';
 import 'package:ribn/presentation/onboarding/getting_started_page.dart';
-import 'package:ribn/presentation/onboarding/onboarding_restore_wallet_page.dart';
-import 'package:ribn/presentation/onboarding/onboarding_restore_with_mnemonic_page.dart';
-import 'package:ribn/presentation/onboarding/onboarding_restore_with_topl_key_page.dart';
 import 'package:ribn/presentation/onboarding/onboarding_steps.dart';
 import 'package:ribn/presentation/onboarding/read_carefully_page_one.dart';
+import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_enter_wallet_password_page.dart';
+import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_restore_with_mnemonic_page.dart';
+import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_restore_with_topl_key_page.dart';
 import 'package:ribn/presentation/onboarding/select_action_page.dart';
 import 'package:ribn/presentation/onboarding/welcome_page.dart';
 import 'package:ribn/presentation/settings_page.dart';
@@ -70,17 +68,9 @@ class RootRouter {
           final AssetAmount asset = settings.arguments as AssetAmount;
           return pageRoute(AssetTransferInputPage(asset: asset), settings);
         }
-      case Routes.loginRestoreWallet:
-        {
-          return pageRoute(const LoginRestoreWalletPage(), settings);
-        }
       case Routes.loginRestoreWalletWithMnemonic:
         {
           return pageRoute(const LoginRestoreWithMnemonicPage(), settings);
-        }
-      case Routes.onboardingRestoreWallet:
-        {
-          return pageRoute(const OnboardingRestoreWalletPage(), settings);
         }
       case Routes.onboardingRestoreWalletWithMnemonic:
         {
@@ -100,11 +90,19 @@ class RootRouter {
             settings,
           );
         }
-      case Routes.loginRestoreWalletoldPassword:
+      case Routes.loginRestoreWalletEnterPassword:
         {
           final String keyStoreJson = settings.arguments as String;
           return pageRoute(
-            OldPasswordPage(toplKeyStoreJson: keyStoreJson),
+            LoginEnterWalletPasswordPage(toplKeyStoreJson: keyStoreJson),
+            settings,
+          );
+        }
+      case Routes.onboardingRestoreWalletEnterPassword:
+        {
+          final String keyStoreJson = settings.arguments as String;
+          return pageRoute(
+            OnboardingEnterWalletPasswordPage(toplKeyStoreJson: keyStoreJson),
             settings,
           );
         }
@@ -145,10 +143,6 @@ class RootRouter {
             AssetDetailsPage(asset: assetDetailsPageArgs['assetAmount']!),
             settings,
           );
-        }
-      case Routes.addresses:
-        {
-          return pageRoute(AddressSection(), settings);
         }
       case Routes.settings:
         {
