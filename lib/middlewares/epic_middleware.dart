@@ -141,9 +141,9 @@ Stream<dynamic> Function(Stream<SuccessfullyRestoredWalletAction>, EpicStore<App
   MiscRepository miscRepo,
 ) {
   return (actions, store) {
-    return actions.switchMap((action) async* {
-      final String navigateToRoute = await miscRepo.isAppOpenedInExtensionView() ? Routes.home : Routes.extensionInfo;
-      yield* Stream.fromIterable([
+    return actions.switchMap((action) {
+      final String navigateToRoute = store.state.needsOnboarding() ? Routes.extensionInfo : Routes.home;
+      return Stream.fromIterable([
         const ResetAppStateAction(),
         InitializeHDWalletAction(
           keyStoreJson: action.keyStoreJson,
