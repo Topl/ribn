@@ -43,7 +43,7 @@ class LoginViewModel {
       attemptLogin: (String password) => store.dispatch(
         AttemptLoginAction(password),
       ),
-      restoreWallet: () => store.dispatch(NavigateToRoute(Routes.loginRestoreWallet)),
+      restoreWallet: () => store.dispatch(NavigateToRoute(Routes.loginRestoreWalletWithMnemonic)),
     );
   }
 

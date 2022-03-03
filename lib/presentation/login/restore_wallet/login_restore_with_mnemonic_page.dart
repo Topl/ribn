@@ -24,6 +24,8 @@ class LoginRestoreWithMnemonicPage extends StatefulWidget {
 }
 
 class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicPage> {
+  final double maxWidth = 309;
+
   /// Controller for the seed phrase text field.
   final TextEditingController controller = TextEditingController();
 
@@ -55,7 +57,7 @@ class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicP
             const RestoreWalletPageTitle(),
             const SizedBox(height: 30),
             SizedBox(
-              width: 309,
+              width: maxWidth,
               height: 80,
               child: Center(
                 child: Text(
@@ -64,9 +66,9 @@ class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicP
                 ),
               ),
             ),
-            const SizedBox(
-              width: 309,
-              child: Text(
+            SizedBox(
+              width: maxWidth,
+              child: const Text(
                 Strings.enterSeedPhrase,
                 style: RibnTextStyles.extH3,
               ),
@@ -78,9 +80,12 @@ class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicP
               height: 57,
               hasError: invalidSeedPhraseEntered,
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 15.0),
-              child: AdvancedOptionButton(),
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: SizedBox(
+                width: maxWidth,
+                child: const AdvancedOptionButton(),
+              ),
             ),
             const Spacer(),
             Padding(
