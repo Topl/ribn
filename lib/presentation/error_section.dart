@@ -6,9 +6,13 @@ import 'package:ribn/constants/styles.dart';
 import 'package:ribn/widgets/large_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-/// A generic error section that is displayed on the home page in case of unexpected errors.
+/// A generic error section that is displayed in case of unexpected errors.
 class ErrorSection extends StatelessWidget {
-  const ErrorSection({Key? key}) : super(key: key);
+  final VoidCallback onTryAgain;
+  const ErrorSection({
+    Key? key,
+    required this.onTryAgain,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +44,7 @@ class ErrorSection extends StatelessWidget {
         ),
         LargeButton(
           label: Strings.contactSupport,
-          backgroundColor: RibnColors.accent,
+          backgroundColor: RibnColors.primary.withOpacity(0.19),
           textColor: RibnColors.primary,
           onPressed: () async {
             await launch(Strings.supportEmailLink);
@@ -49,7 +53,7 @@ class ErrorSection extends StatelessWidget {
         const SizedBox(height: 10),
         LargeButton(
           label: Strings.tryAgain,
-          onPressed: () {},
+          onPressed: onTryAgain,
         )
       ],
     );
