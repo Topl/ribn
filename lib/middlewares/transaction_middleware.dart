@@ -163,12 +163,11 @@ void Function(Store<AppState> store, SignExternalTxAction action, NextDispatcher
         credentials,
         transferDetails,
       );
-
       final InternalMessage response = InternalMessage(
         method: InternalMethods.returnResponse,
         data: signedTx.toBroadcastJson(),
         target: action.pendingRequest.target,
-        sender: 'ribn',
+        sender: InternalMessage.defaultSender,
         id: action.pendingRequest.id,
         origin: action.pendingRequest.origin,
       );
@@ -176,9 +175,9 @@ void Function(Store<AppState> store, SignExternalTxAction action, NextDispatcher
     } catch (e) {
       final InternalMessage response = InternalMessage(
         method: InternalMethods.returnResponse,
-        data: {'error': 'Unable to sign tx'},
+        data: {'message': 'Unable to sign tx'},
         target: action.pendingRequest.target,
-        sender: 'ribn',
+        sender: InternalMessage.defaultSender,
         id: action.pendingRequest.id,
         origin: action.pendingRequest.origin,
       );
