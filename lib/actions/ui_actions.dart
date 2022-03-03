@@ -1,6 +1,23 @@
-class SetLoadingRawTxAction {
+class ToggleLoadingRawTxAction {
   final bool loading;
-  const SetLoadingRawTxAction(this.loading);
+  const ToggleLoadingRawTxAction(this.loading);
+}
+
+class ToggleLoadingSignAndBroadcastTxAction {
+  final bool loading;
+  const ToggleLoadingSignAndBroadcastTxAction(this.loading);
+}
+
+class FailedToCreateRawTxAction {
+  const FailedToCreateRawTxAction();
+}
+
+class FailedToSignAndBroadcastTxAction {
+  const FailedToSignAndBroadcastTxAction();
+}
+
+class ResetTxUiAction {
+  const ResetTxUiAction();
 }
 
 class FetchingBalancesAction {
