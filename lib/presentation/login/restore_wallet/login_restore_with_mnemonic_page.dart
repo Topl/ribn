@@ -7,6 +7,7 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:ribn/presentation/login/widgets/advanced_option_button.dart';
 import 'package:ribn/presentation/login/widgets/next_button.dart';
 import 'package:ribn/presentation/login/widgets/restore_page_title.dart';
 import 'package:ribn/widgets/custom_text_field.dart';
@@ -51,11 +52,11 @@ class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicP
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const RestoreWalletPageTitle(currPage: 1),
+            const RestoreWalletPageTitle(),
             const SizedBox(height: 30),
             SizedBox(
               width: 309,
-              height: 198,
+              height: 80,
               child: Center(
                 child: Text(
                   Strings.restoreWalletSeedPhraseDesc,
@@ -77,9 +78,15 @@ class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicP
               height: 57,
               hasError: invalidSeedPhraseEntered,
             ),
+            const Padding(
+              padding: EdgeInsets.only(top: 15.0),
+              child: AdvancedOptionButton(),
+            ),
             const Spacer(),
-            NextButton(onPressed: onNextPressed),
-            const SizedBox(height: 17),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 17.0),
+              child: NextButton(onPressed: onNextPressed),
+            ),
           ],
         ),
       ),
