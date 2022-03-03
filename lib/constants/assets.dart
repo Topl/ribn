@@ -64,4 +64,7 @@ class RibnAssets {
   static const editIcon = 'assets/icons/edit_icon.png';
   static const keyLightIcon = 'assets/icons/key_light.png';
   static const keyDarkIcon = 'assets/icons/key_dark.png';
+  static const errorFace = 'assets/icons/error_face.png';
+  static const fileCopyIcon = 'assets/icons/file_copy.png';
+  static const checkCircleIcon = 'assets/icons/check_circle.png';
 }

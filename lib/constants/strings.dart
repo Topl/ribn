@@ -162,9 +162,9 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String hintSeedPhrase =
       'dog jump foot stack hay country fun tree cloud ocean bear alaska fish red sushi';
   static const String restoreWalletSeedPhraseDesc =
-      '''First, enter your 15-word Seed Phrase that you wrote down when you first created your wallet.\n\nMake sure to include only spaces between the words. There should be no numbers or special characters. ''';
+      '''Let’s restore your wallet! Enter your 15-word Seed Phrase that you wrote down when you first created your wallet. ''';
   static const String restoreWalletToplKeyDesc =
-      '''First, upload your Top Level Key to import or restore your wallet. Please upload your file in .txt format only.''';
+      '''First, upload your Topl Main Key to import or restore your wallet. Please upload your file in JSON format only.''';
 
   static const String needHelp = 'Need help? Contact ';
   static const String ribnSupport = 'Ribn Support';
@@ -215,9 +215,22 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String confirmWalletPassword = 'Confirm Wallet Password';
   static const String confirmWalletPasswordHint = 'Re-type your Wallet Password';
   static const String warning = 'Warning';
-  static const String recoverWalletWarning = '''This action cannot be undone. If you 
-restore using another Seed Phrase, your current wallet, accounts, and assets will 
-be removed from this app permanently. ''';
+  static const String restoreWalletWarning =
+      '''For your security, restoration of a wallet will overwrite all previously stored Ribn activity. This will not affect any activity recorded on the blockchain itself.''';
   static const String enterSeedPhrase = 'Enter Seed Phrase';
   static const String chooseMethod = 'Choose Method';
+  static const String errorTitle = 'Oops!\nSomething went wrong';
+  static const String errorDescription =
+      '''Ribn failed to reach the internet. This could be related to wifi connectivity or network issues.\n\nCheck your internet connection and try again, or contact the Ribn support team.''';
+  static const String contactSupport = 'Contact Support';
+  static const String tryAgain = 'Try Again';
+  static const String returnHome = 'Return Home';
+  static const String advancedOption = 'Advanced option';
+  static const String useToplMainKey = 'USE TOPL MAIN KEY';
+  static const String uploadFile = 'Upload File';
+  static const String browse = 'BROWSE';
+  static const String enterWalletPasswordToRestoreWallet =
+      'Now, enter your Wallet Password to restore your Ribn wallet!';
+  static const String restoreWalletReadCarefully =
+      'For your security, restoration of a wallet will overwrite all previously stored Ribn activity. This will not affect any activity recorded on the blockchain itself.';
 }
