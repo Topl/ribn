@@ -10,8 +10,9 @@ import 'package:ribn/models/transfer_details.dart';
 
 /// Intended to wrap the [PolyTransferInputPage] and provide it with the the [PolyTransferInputViewModel].
 class PolyTransferInputContainer extends StatelessWidget {
-  const PolyTransferInputContainer({Key? key, required this.builder}) : super(key: key);
+  const PolyTransferInputContainer({Key? key, required this.builder, this.onWillChange}) : super(key: key);
   final ViewModelBuilder<PolyTransferInputViewModel> builder;
+  final Function(PolyTransferInputViewModel?, PolyTransferInputViewModel)? onWillChange;
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +20,26 @@ class PolyTransferInputContainer extends StatelessWidget {
       distinct: true,
       converter: PolyTransferInputViewModel.fromStore,
       builder: builder,
+      onWillChange: onWillChange,
     );
   }
 }
 
 /// ViewModel for [PolyTransferInputPage]
 class PolyTransferInputViewModel {
+  /// True if loading raw tx.
+  final bool loadingRawTx;
+
+  /// True if unexpected error occurs while creating rawTx.
+  final bool failedToCreateRawTx;
+
+  /// Tx fee for the current network.
+  final num networkFee;
+
+  /// Current network id.
+  final int currNetworkId;
+
+  /// Handler for initiating poly transfer tx.
   final void Function({
     required String amount,
     required String recipient,
@@ -32,19 +47,12 @@ class PolyTransferInputViewModel {
     bool mintingToMyWallet,
   }) initiateTx;
 
-  /// True if loading raw tx.
-  final bool loadingRawTx;
-
-  /// Tx fee for the current network.
-  final num networkFee;
-
-  /// Current network id.
-  final int currNetworkId;
   PolyTransferInputViewModel({
     required this.initiateTx,
     required this.loadingRawTx,
     required this.networkFee,
     required this.currNetworkId,
+    required this.failedToCreateRawTx,
   });
 
   static PolyTransferInputViewModel fromStore(Store<AppState> store) {
@@ -67,6 +75,7 @@ class PolyTransferInputViewModel {
       loadingRawTx: store.state.uiState.loadingRawTx,
       currNetworkId: store.state.keychainState.currentNetwork.networkId,
       networkFee: Rules.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
+      failedToCreateRawTx: store.state.uiState.failedToCreateRawTx,
     );
   }
 
@@ -76,12 +85,13 @@ class PolyTransferInputViewModel {
 
     return other is PolyTransferInputViewModel &&
         other.loadingRawTx == loadingRawTx &&
+        other.failedToCreateRawTx == failedToCreateRawTx &&
         other.networkFee == networkFee &&
         other.currNetworkId == currNetworkId;
   }
 
   @override
   int get hashCode {
-    return loadingRawTx.hashCode ^ networkFee.hashCode ^ currNetworkId.hashCode;
+    return loadingRawTx.hashCode ^ failedToCreateRawTx.hashCode ^ networkFee.hashCode ^ currNetworkId.hashCode;
   }
 }

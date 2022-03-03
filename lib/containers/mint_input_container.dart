@@ -12,8 +12,9 @@ import 'package:ribn/models/transfer_details.dart';
 
 /// Intended to wrap the [MintInputPage] and provide it with the the [MintInputViewmodel].
 class MintInputContainer extends StatelessWidget {
-  const MintInputContainer({Key? key, required this.builder}) : super(key: key);
+  const MintInputContainer({Key? key, required this.builder, this.onWillChange}) : super(key: key);
   final ViewModelBuilder<MintInputViewmodel> builder;
+  final Function(MintInputViewmodel?, MintInputViewmodel)? onWillChange;
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +22,31 @@ class MintInputContainer extends StatelessWidget {
       distinct: true,
       converter: MintInputViewmodel.fromStore,
       builder: builder,
+      onWillChange: onWillChange,
     );
   }
 }
 
 class MintInputViewmodel {
+  /// True if loading indicator needs to be shown while rawTx is being created.
+  final bool loadingRawTx;
+
+  /// The tx fee on the current network.
+  final num networkFee;
+
+  /// The list of assets previously issued/minted by this wallet.
+  final List<AssetAmount> assets;
+
+  /// The current network ID.
+  final int currNetworkId;
+
+  /// Locally stored asset details.
+  final Map<String, AssetDetails> assetDetails;
+
+  /// True if unexpected error occurs while creating rawTx.
+  final bool failedToCreateRawTx;
+
+  /// Handler for initiating mint asset tx.
   final void Function({
     required String assetShortName,
     required String amount,
@@ -35,11 +56,7 @@ class MintInputViewmodel {
     bool mintingNewAsset,
     AssetDetails? assetDetails,
   }) initiateTx;
-  final bool loadingRawTx;
-  final num networkFee;
-  final List<AssetAmount> assets;
-  final int currNetworkId;
-  final Map<String, AssetDetails> assetDetails;
+
   MintInputViewmodel({
     required this.initiateTx,
     required this.loadingRawTx,
@@ -47,6 +64,7 @@ class MintInputViewmodel {
     required this.assets,
     required this.currNetworkId,
     required this.assetDetails,
+    required this.failedToCreateRawTx,
   });
 
   static MintInputViewmodel fromStore(Store<AppState> store) {
@@ -82,6 +100,7 @@ class MintInputViewmodel {
       currNetworkId: store.state.keychainState.currentNetwork.networkId,
       networkFee: Rules.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
       assetDetails: store.state.userDetailsState.assetDetails,
+      failedToCreateRawTx: store.state.uiState.failedToCreateRawTx,
     );
   }
 
@@ -93,11 +112,18 @@ class MintInputViewmodel {
         other.loadingRawTx == loadingRawTx &&
         other.networkFee == networkFee &&
         listEquals(other.assets, assets) &&
-        other.currNetworkId == currNetworkId;
+        other.currNetworkId == currNetworkId &&
+        mapEquals(other.assetDetails, assetDetails) &&
+        other.failedToCreateRawTx == failedToCreateRawTx;
   }
 
   @override
   int get hashCode {
-    return loadingRawTx.hashCode ^ networkFee.hashCode ^ assets.hashCode ^ currNetworkId.hashCode;
+    return loadingRawTx.hashCode ^
+        networkFee.hashCode ^
+        assets.hashCode ^
+        currNetworkId.hashCode ^
+        assetDetails.hashCode ^
+        failedToCreateRawTx.hashCode;
   }
 }

@@ -15,8 +15,10 @@ class AssetTransferInputContainer extends StatelessWidget {
   const AssetTransferInputContainer({
     Key? key,
     required this.builder,
+    this.onWillChange,
   }) : super(key: key);
   final ViewModelBuilder<AssetTransferInputViewModel> builder;
+  final Function(AssetTransferInputViewModel?, AssetTransferInputViewModel)? onWillChange;
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +26,38 @@ class AssetTransferInputContainer extends StatelessWidget {
       distinct: true,
       converter: AssetTransferInputViewModel.fromStore,
       builder: builder,
+      onWillChange: onWillChange,
     );
   }
 }
 
 class AssetTransferInputViewModel {
-  final List<AssetAmount> assets;
-  final Function(String, String, String, AssetCode, AssetDetails?) initiateTx;
+  /// True if loading indicator needs to be shown while rawTx is being created.
   final bool loadingRawTx;
+
+  /// All assets owned by this wallet.
+  final List<AssetAmount> assets;
+
+  /// The tx fee on the current network.
   final num networkFee;
+
+  /// Locally stored asset details.
   final Map<String, AssetDetails> assetDetails;
+
+  /// The current network ID.
   final int currNetworkId;
+
+  /// True if unexpected error occurs while creating rawTx.
+  final bool failedToCreateRawTx;
+
+  /// Handler for initiating tx.
+  final Function(
+    String recipient,
+    String amount,
+    String note,
+    AssetCode assetCode,
+    AssetDetails? assetDetails,
+  ) initiateTx;
 
   AssetTransferInputViewModel({
     required this.assets,
@@ -43,6 +66,7 @@ class AssetTransferInputViewModel {
     required this.networkFee,
     required this.assetDetails,
     required this.currNetworkId,
+    required this.failedToCreateRawTx,
   });
 
   static AssetTransferInputViewModel fromStore(Store<AppState> store) {
@@ -58,14 +82,12 @@ class AssetTransferInputViewModel {
         );
         store.dispatch((InitiateTxAction(transferDetails)));
       },
-      assets: store.state.keychainState.currentNetwork.addresses
-          .map((addr) => addr.balance.assets ?? [])
-          .expand((amount) => amount)
-          .toList(),
+      assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
       loadingRawTx: store.state.uiState.loadingRawTx,
       currNetworkId: store.state.keychainState.currentNetwork.networkId,
       networkFee: Rules.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
       assetDetails: store.state.userDetailsState.assetDetails,
+      failedToCreateRawTx: store.state.uiState.failedToCreateRawTx,
     );
   }
 
@@ -79,7 +101,8 @@ class AssetTransferInputViewModel {
         other.loadingRawTx == loadingRawTx &&
         other.networkFee == networkFee &&
         mapEquals(other.assetDetails, assetDetails) &&
-        other.currNetworkId == currNetworkId;
+        other.currNetworkId == currNetworkId &&
+        other.failedToCreateRawTx == failedToCreateRawTx;
   }
 
   @override
@@ -89,6 +112,7 @@ class AssetTransferInputViewModel {
         loadingRawTx.hashCode ^
         networkFee.hashCode ^
         assetDetails.hashCode ^
-        currNetworkId.hashCode;
+        currNetworkId.hashCode ^
+        failedToCreateRawTx.hashCode;
   }
 }

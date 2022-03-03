@@ -5,6 +5,7 @@ import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/mint_input_container.dart';
 import 'package:ribn/models/asset_details.dart';
+import 'package:ribn/presentation/error_section.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_amount_field.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_long_name_field.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_selection_field.dart';
@@ -90,6 +91,17 @@ class _MintInputPageState extends State<MintInputPage> {
   @override
   Widget build(BuildContext context) {
     return MintInputContainer(
+      onWillChange: (prevVm, currVm) async {
+        if (currVm.failedToCreateRawTx && currVm.failedToCreateRawTx != prevVm?.failedToCreateRawTx) {
+          await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              backgroundColor: RibnColors.accent,
+              title: ErrorSection(onTryAgain: () => Navigator.of(context).pop()),
+            ),
+          );
+        }
+      },
       builder: (BuildContext context, MintInputViewmodel vm) => Scaffold(
         backgroundColor: RibnColors.accent,
         body: Stack(

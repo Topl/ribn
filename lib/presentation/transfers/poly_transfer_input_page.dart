@@ -3,6 +3,7 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/poly_transfer_input_container.dart';
+import 'package:ribn/presentation/error_section.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
 import 'package:ribn/presentation/transfers/widgets/note_field.dart';
@@ -65,6 +66,17 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
   @override
   Widget build(BuildContext context) {
     return PolyTransferInputContainer(
+      onWillChange: (prevVm, currVm) async {
+        if (currVm.failedToCreateRawTx && currVm.failedToCreateRawTx != prevVm?.failedToCreateRawTx) {
+          await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              backgroundColor: RibnColors.accent,
+              title: ErrorSection(onTryAgain: () => Navigator.of(context).pop()),
+            ),
+          );
+        }
+      },
       builder: (BuildContext context, PolyTransferInputViewModel vm) {
         return Scaffold(
           backgroundColor: RibnColors.accent,
@@ -208,28 +220,4 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
       ),
     );
   }
-
-  // /// Validates the recipient address entered by the user.
-  // ///
-  // /// If valid, [_validRecipientAddress] is updated.
-  // /// The [_recipientController.text] is also cleared beacuse the UI is updated with a different widget for a valid recipient address.
-  // void validateRecipientAddress(int networkId) {
-  //   Map<String, dynamic> result = {};
-  //   try {
-  //     result = validateAddressByNetwork(
-  //       Rules.networkStrings[networkId]!,
-  //       _recipientController.text,
-  //     );
-  //   } catch (e) {
-  //     result['success'] = false;
-  //   }
-  //   setState(() {
-  //     if (result['success'] as bool) {
-  //       _validRecipientAddress = _recipientController.text;
-  //       _recipientController.text = '';
-  //     } else {
-  //       _validRecipientAddress = '';
-  //     }
-  //   });
-  // }
 }
