@@ -5,7 +5,10 @@ import 'package:ribn/models/ui_state.dart';
 
 final uiReducer = combineReducers<UiState>(
   [
-    TypedReducer<UiState, SetLoadingRawTxAction>(_setLoadingRawTx),
+    TypedReducer<UiState, ToggleLoadingRawTxAction>(_onToggleLoadingRawTx),
+    TypedReducer<UiState, ToggleLoadingRawTxAction>(_onToggleLoadingSignAndBroadcastTx),
+    TypedReducer<UiState, FailedToCreateRawTxAction>(_onFailedToCreateRawTx),
+    TypedReducer<UiState, FailedToSignAndBroadcastTxAction>(_onFailedToSignAndBroadcastTx),
     TypedReducer<UiState, FetchingBalancesAction>(_onFetchingBalances),
     TypedReducer<UiState, SuccessfullyFetchedBalancesAction>(_onSuccessfullyFetchedBalances),
     TypedReducer<UiState, FailedToFetchBalancesAction>(_onFailedToLoadBalances),
@@ -14,8 +17,32 @@ final uiReducer = combineReducers<UiState>(
   ],
 );
 
-UiState _setLoadingRawTx(UiState uiState, SetLoadingRawTxAction action) {
-  return uiState.copyWith(loadingRawTx: action.loading);
+UiState _onToggleLoadingRawTx(UiState uiState, ToggleLoadingRawTxAction action) {
+  return uiState.copyWith(
+    loadingRawTx: action.loading,
+    failedToCreateRawTx: false,
+  );
+}
+
+UiState _onToggleLoadingSignAndBroadcastTx(UiState uiState, ToggleLoadingRawTxAction action) {
+  return uiState.copyWith(
+    loadingSignAndBroadcastTx: action.loading,
+    failedToSignAndBroadcastTx: false,
+  );
+}
+
+UiState _onFailedToCreateRawTx(UiState uiState, FailedToCreateRawTxAction action) {
+  return uiState.copyWith(
+    failedToCreateRawTx: true,
+    loadingRawTx: false,
+  );
+}
+
+UiState _onFailedToSignAndBroadcastTx(UiState uiState, FailedToSignAndBroadcastTxAction action) {
+  return uiState.copyWith(
+    failedToSignAndBroadcastTx: true,
+    loadingSignAndBroadcastTx: false,
+  );
 }
 
 UiState _onFailedToLoadBalances(UiState uiState, FailedToFetchBalancesAction action) {
