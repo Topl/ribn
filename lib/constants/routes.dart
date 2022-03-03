@@ -15,14 +15,13 @@ class Routes {
   static const seedPhraseConfirm = '/seed-phrase-confirm';
   static const extensionInfo = '/extension-info';
   static const login = '/login';
-  static const loginRestoreWallet = '/login/restore-wallet';
   static const loginRestoreWalletWithMnemonic = '/login/restore-wallet/mnemonic';
   static const loginRestoreWalletWithToplKey = '/login/restore-wallet/topl-key';
   static const loginRestoreWalletnewPassword = '/login/restore-wallet/new-password';
-  static const loginRestoreWalletoldPassword = '/login/restore-wallet/old-password';
-  static const onboardingRestoreWallet = '/onboarding/restore-wallet';
+  static const loginRestoreWalletEnterPassword = '/login/restore-wallet/enter-password';
   static const onboardingRestoreWalletWithMnemonic = '/onboarding/restore-wallet/mnemonic';
   static const onboardingRestoreWalletWithToplKey = '/onboarding/restore-wallet/topl-key';
+  static const onboardingRestoreWalletEnterPassword = '/onboarding/restore-wallet/enter-password';
   static const assetTransferInput = '/asset-transfer-input';
   static const polyTransferInput = '/poly-transfer-input';
   static const txReview = '/tx-review';
