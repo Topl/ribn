@@ -41,7 +41,7 @@ class SelectActionPage extends StatelessWidget {
   Widget _buildOptionContainer(String title, String description, BuildContext context) {
     final String iconToDisplay = title == Strings.createWallet ? RibnAssets.plusIcon : RibnAssets.importWalletIcon;
     final String navigateToRoute =
-        title == Strings.createWallet ? Routes.gettingStarted : Routes.onboardingRestoreWallet;
+        title == Strings.createWallet ? Routes.gettingStarted : Routes.onboardingRestoreWalletWithMnemonic;
     return Container(
       height: 455,
       width: 385,
