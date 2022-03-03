@@ -84,7 +84,7 @@ class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicP
               padding: const EdgeInsets.only(top: 15.0),
               child: SizedBox(
                 width: maxWidth,
-                child: const AdvancedOptionButton(),
+                child: const AdvancedOptionButton(restoreWithToplKeyRoute: Routes.loginRestoreWalletWithToplKey),
               ),
             ),
             const Spacer(),
