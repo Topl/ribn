@@ -115,8 +115,8 @@ Epic<AppState> _generateInitialAddresses() => (Stream<dynamic> actions, EpicStor
 Stream<dynamic> Function(Stream<LoginSuccessAction>, EpicStore<AppState>) _onLoginSuccess() {
   return (actions, store) {
     return actions.switchMap(
-      (action) async* {
-        yield* Stream.fromIterable(
+      (action) {
+        return Stream.fromIterable(
           [
             InitializeHDWalletAction(toplExtendedPrivateKey: action.toplExtendedPrvKeyUint8List),
             RefreshBalancesAction(),

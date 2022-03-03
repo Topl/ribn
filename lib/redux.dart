@@ -38,7 +38,8 @@ class Redux {
     TransactionRepository transactionRepo = transactionRepository,
   }) async {
     final Map<String, dynamic> persistedAppState = await getPersistedAppState();
-    final AppState initState = persistedAppState.isNotEmpty
+    final bool isValidPersistedState = validatePersistedState(persistedAppState);
+    final AppState initState = isValidPersistedState
         ? AppState.fromMap(persistedAppState)
         : initTestStore
             ? AppState.test()
@@ -65,5 +66,9 @@ class Redux {
     } catch (e) {
       return {};
     }
+  }
+
+  static bool validatePersistedState(Map<String, dynamic> persistedAppState) {
+    return persistedAppState.containsKey('keychainState');
   }
 }
