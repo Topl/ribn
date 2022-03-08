@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
-import 'package:ribn/presentation/settings/sections/delete_wallet_confirmation_dialog.dart';
 
 /// The section on the settings page that allows user to delete their wallet.
 class DeleteWalletSection extends StatelessWidget {
   /// Handler for when user confirms wallet deletion.
-  final void Function({
-    required String password,
-    required VoidCallback onIncorrectPasswordEntered,
-  }) onConfirmDeletePressed;
+  final Function(BuildContext context) onDeletePressed;
 
   const DeleteWalletSection({
-    required this.onConfirmDeletePressed,
+    required this.onDeletePressed,
     Key? key,
   }) : super(key: key);
 
@@ -52,14 +48,7 @@ class DeleteWalletSection extends StatelessWidget {
                   width: 107,
                   height: 22,
                   child: OutlinedButton(
-                    onPressed: () async {
-                      await showDialog(
-                        context: context,
-                        builder: (context) => DeleteWalletConfirmationDialog(
-                          onConfirmDeletePressed: onConfirmDeletePressed,
-                        ),
-                      );
-                    },
+                    onPressed: () => onDeletePressed(context),
                     style: OutlinedButton.styleFrom(
                       padding: EdgeInsets.zero,
                       side: const BorderSide(

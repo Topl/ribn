@@ -86,7 +86,7 @@ class SettingsPage extends StatelessWidget {
             _buildDivider(),
             ExportToplMainKeySection(onExportPressed: vm.exportToplMainKey),
             _buildDivider(),
-            DeleteWalletSection(onConfirmDeletePressed: vm.deleteWallet),
+            DeleteWalletSection(onDeletePressed: vm.onDeletePressed),
             const SizedBox(height: 20),
           ],
         ),

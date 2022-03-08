@@ -11,10 +11,10 @@ import 'package:ribn/widgets/large_button.dart';
 /// The user is prompted to enter their wallet password before confirming deletion.
 class DeleteWalletConfirmationDialog extends StatefulWidget {
   /// Handler for when user confirms wallet deletion.
-  final void Function({
-    required String password,
-    required VoidCallback onIncorrectPasswordEntered,
-  }) onConfirmDeletePressed;
+  final void Function(
+    String password,
+    VoidCallback onIncorrectPasswordEntered,
+  ) onConfirmDeletePressed;
 
   const DeleteWalletConfirmationDialog({required this.onConfirmDeletePressed, Key? key}) : super(key: key);
 
@@ -107,8 +107,8 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
                   label: Strings.yesIWantToDelete,
                   onPressed: () {
                     widget.onConfirmDeletePressed(
-                      password: _passwordController.text,
-                      onIncorrectPasswordEntered: () {
+                      _passwordController.text,
+                      () {
                         setState(() {
                           _incorrectPasswordError = true;
                         });
