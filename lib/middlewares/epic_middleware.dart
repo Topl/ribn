@@ -19,7 +19,6 @@ Epic<AppState> createEpicMiddleware(MiscRepository miscRepo) => combineEpics<App
       _errorRedirectEpic(),
       _persistenceTriggerEpic(),
       _downloadAsFile(miscRepo),
-      _deleteWallet(miscRepo),
       _generateInitialAddresses(),
       TypedEpic<AppState, LoginSuccessAction>(_onLoginSuccess()),
       TypedEpic<AppState, SuccessfullyRestoredWalletAction>(_onSuccessfullyRestoredWallet(miscRepo)),
@@ -28,6 +27,7 @@ Epic<AppState> createEpicMiddleware(MiscRepository miscRepo) => combineEpics<App
 /// A list of all the actions that should trigger appState persistence
 const List<dynamic> persistenceTriggers = [
   AddAddressesAction,
+  UpdateCurrentNetworkAction,
   UpdateBalancesAction,
   InitializeHDWalletAction,
   MnemonicSuccessfullyVerifiedAction,
@@ -83,18 +83,10 @@ Epic<AppState> _persistenceTriggerEpic() => (Stream<dynamic> actions, EpicStore<
           .switchMap((action) => Stream.value(PersistAppState()));
     };
 
-/// Listens for [DownloadAsFile] and downloads the text data as a file.
+/// Listens for [DownloadAsFileAction] and downloads the text data as a file.
 Epic<AppState> _downloadAsFile(MiscRepository miscRepo) => (Stream<dynamic> actions, EpicStore<AppState> store) {
-      return actions.whereType<DownloadAsFile>().switchMap((action) {
+      return actions.whereType<DownloadAsFileAction>().switchMap((action) {
         miscRepo.downloadAsFile(action.fileName, action.text);
-        return const Stream.empty();
-      });
-    };
-
-/// Listens for [DeleteWalletAction] and downloads the text data as a file.
-Epic<AppState> _deleteWallet(MiscRepository miscRepo) => (Stream<dynamic> actions, EpicStore<AppState> store) {
-      return actions.whereType<DeleteWalletAction>().switchMap((action) {
-        miscRepo.deleteWallet();
         return const Stream.empty();
       });
     };
