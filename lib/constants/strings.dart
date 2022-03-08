@@ -137,13 +137,18 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String termsOfUse = 'Terms of Use';
   static const String privacyPolicy = 'Privacy Policy';
   static const String export = 'Export';
-  static const String exportKeyStore = 'Export Key Store';
-  static const String exportKeyStoreDesc =
-      '''Export Key Store and save it somewhere secure.\nYou can reimport it to restore your wallet.''';
+  static const String exportToplMainKey = 'Export Topl Main Key';
+  static const String exportToplMainKeyDesc =
+      '''Export Topl Main Key and save it somewhere secure.\nYou can reimport this to restore your wallet.''';
   static const String exportWallet = 'Export Wallet';
   static const String dangerZone = 'Danger Zone';
   static const String actionNotReversible = 'Careful, this action is not reversible!';
   static const String deleteWallet = 'Delete Wallet';
+  static const String deleteRibnWallet = 'Delete Ribn Wallet';
+  static const String deleteRibnWalletDesc =
+      'Enter your wallet password to delete this wallet.\n\nThis action is not reversible. Your Ribn wallet will be deleted from this device.';
+  static const String noIChangedMyMind = 'NO, I CHANGED MY MIND!';
+  static const String yesIWantToDelete = 'YES, I WANT TO DELETE.';
   static const String enterWalletPassword = 'Enter Wallet Password';
   static const String unlock = 'UNLOCK';
   static const String next = 'NEXT';
