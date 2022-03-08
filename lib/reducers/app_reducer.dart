@@ -19,6 +19,7 @@ AppState appReducer(AppState state, dynamic action) {
       uiState: uiReducer(state.uiState, action),
       userDetailsState: userDetailsReducer(state.userDetailsState, action),
       internalMessage: internalMessageReducer(state.internalMessage, action),
+      appVersion: state.appVersion,
     );
   }
 }

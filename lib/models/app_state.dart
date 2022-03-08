@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+import 'package:ribn/data/data.dart' as local;
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/models/keychain_state.dart';
 import 'package:ribn/models/login_state.dart';
@@ -17,6 +18,7 @@ class AppState {
   final UiState uiState;
   final UserDetailsState userDetailsState;
   final InternalMessage? internalMessage;
+  final String appVersion;
 
   const AppState({
     required this.onboardingState,
@@ -25,6 +27,7 @@ class AppState {
     required this.uiState,
     required this.userDetailsState,
     this.internalMessage,
+    required this.appVersion,
   });
 
   factory AppState.initial() {
@@ -34,21 +37,32 @@ class AppState {
       keychainState: KeychainState.initial(),
       uiState: UiState.initial(),
       userDetailsState: UserDetailsState.initial(),
+      appVersion: getAppVersion(),
     );
   }
 
   factory AppState.test() {
+    final String appVersion = getAppVersion();
     return AppState(
       onboardingState: OnboardingState.test(),
       loginState: LoginState.initial(),
       keychainState: KeychainState.test(),
       uiState: UiState.initial(),
       userDetailsState: UserDetailsState.initial(),
+      appVersion: appVersion,
     );
   }
 
   bool needsOnboarding() {
     return (keychainState.keyStoreJson ?? '').isEmpty;
+  }
+
+  static String getAppVersion() {
+    try {
+      return local.getAppVersion();
+    } catch (e) {
+      return 'Dev';
+    }
   }
 
   @override
@@ -61,7 +75,8 @@ class AppState {
         other.keychainState == keychainState &&
         other.uiState == uiState &&
         other.userDetailsState == userDetailsState &&
-        other.internalMessage == internalMessage;
+        other.internalMessage == internalMessage &&
+        other.appVersion == appVersion;
   }
 
   @override
@@ -71,7 +86,8 @@ class AppState {
         keychainState.hashCode ^
         uiState.hashCode ^
         userDetailsState.hashCode ^
-        internalMessage.hashCode;
+        internalMessage.hashCode ^
+        appVersion.hashCode;
   }
 
   AppState copyWith({
@@ -80,7 +96,8 @@ class AppState {
     KeychainState? keychainState,
     UiState? uiState,
     UserDetailsState? userDetailsState,
-    InternalMessage? pendingRequest,
+    InternalMessage? internalMessage,
+    String? appVersion,
   }) {
     return AppState(
       onboardingState: onboardingState ?? this.onboardingState,
@@ -88,7 +105,8 @@ class AppState {
       keychainState: keychainState ?? this.keychainState,
       uiState: uiState ?? this.uiState,
       userDetailsState: userDetailsState ?? this.userDetailsState,
-      internalMessage: pendingRequest ?? this.internalMessage,
+      internalMessage: internalMessage ?? this.internalMessage,
+      appVersion: appVersion ?? this.appVersion,
     );
   }
 
@@ -99,6 +117,8 @@ class AppState {
       'keychainState': keychainState.toMap(),
       'uiState': uiState.toMap(),
       'userDetailsState': userDetailsState.toMap(),
+      'internalMessage': internalMessage?.toMap(),
+      'appVersion': appVersion,
     };
   }
 
@@ -107,8 +127,10 @@ class AppState {
       onboardingState: OnboardingState.fromMap(map['onboardingState']),
       loginState: LoginState.fromMap(map['loginState']),
       keychainState: KeychainState.fromMap(map['keychainState']),
-      uiState: UiState.initial(),
+      uiState: UiState.fromMap(map['uiState']),
       userDetailsState: UserDetailsState.fromMap(map['userDetailsState']),
+      internalMessage: map['internalMessage'] != null ? InternalMessage.fromMap(map['internalMessage']) : null,
+      appVersion: map['appVersion'] ?? getAppVersion(),
     );
   }
 
@@ -118,6 +140,6 @@ class AppState {
 
   @override
   String toString() {
-    return 'AppState(onboardingState: $onboardingState, loginState: $loginState, keychainState: $keychainState, uiState: $uiState, userDetailsState: $userDetailsState, pendingRequest: $internalMessage)';
+    return 'AppState(onboardingState: $onboardingState, loginState: $loginState, keychainState: $keychainState, uiState: $uiState, userDetailsState: $userDetailsState, internalMessage: $internalMessage, appVersion: $appVersion)';
   }
 }

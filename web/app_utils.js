@@ -42,6 +42,14 @@ function getDataFromLocalStorage() {
 	});
 }
 
+/**
+ * 
+ * @returns the current app version as specified in the manifest file.
+ */
+function getAppVersion() {
+	return chrome.runtime.getManifest().version;
+}
+
 let port;
 
 /**
