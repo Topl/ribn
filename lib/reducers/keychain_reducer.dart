@@ -66,7 +66,6 @@ KeychainState _onNetworkUpdated(KeychainState keychainState, UpdateCurrentNetwor
 KeychainState _onBalancesUpdated(KeychainState keychainState, UpdateBalancesAction action) {
   RibnNetwork updatedNetwork = keychainState.currentNetwork.copyWith(
     addresses: action.updatedAddresses,
-    fetchingBalance: false,
   );
   return keychainState.copyWith(
     networks: List.from(keychainState.networks)

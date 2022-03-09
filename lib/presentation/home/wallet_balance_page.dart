@@ -15,9 +15,14 @@ import 'package:ribn/widgets/custom_icon_button.dart';
 /// One of the 3 main pages on the home screen.
 ///
 /// Displays poly balance section and the assets list view.
-class WalletBalancePage extends StatelessWidget {
+class WalletBalancePage extends StatefulWidget {
   const WalletBalancePage({Key? key}) : super(key: key);
 
+  @override
+  State<WalletBalancePage> createState() => _WalletBalancePageState();
+}
+
+class _WalletBalancePageState extends State<WalletBalancePage> {
   /// [TextStyle] for the asset short name.
   final TextStyle assetShortNameStyle = const TextStyle(
     fontFamily: 'Nunito',
@@ -33,12 +38,50 @@ class WalletBalancePage extends StatelessWidget {
     color: Color(0xff585858),
   );
 
+  /// True if currently fetching balances.
+  bool _fetchingBalances = true;
+
+  /// True if ribn failed to fetch balances.
+  bool _failedToFetchBalances = false;
+
+  /// Refreshes balances on the current network.
+  ///
+  /// Updates [_fetchingBalances] and [_failedToFetchBalances] to indicate that balances are being fetched.
+  void refreshBalances(WalletBalanceViewModel vm) {
+    setState(() {
+      _fetchingBalances = true;
+      _failedToFetchBalances = false;
+    });
+    vm.refreshBalances(onBalancesRefreshed: onBalancesRefreshed);
+  }
+
+  /// Updates [_fetchingBalances] and [_failedToFetchBalances] to indicate that balances have been fetched.
+  void onBalancesRefreshed(bool success) {
+    setState(() {
+      _fetchingBalances = false;
+      _failedToFetchBalances = !success;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WalletBalanceContainer(
+      // refresh balances on initial build
+      onInitialBuild: refreshBalances,
+      onWillChange: (prevVm, currVm) {
+        // refresh balances on vm change
+        if (prevVm?.networkId != currVm.networkId) refreshBalances(currVm);
+      },
       builder: (BuildContext context, WalletBalanceViewModel vm) => SingleChildScrollView(
-        child: vm.failedToFetchBalances
-            ? Center(child: ErrorSection(onTryAgain: vm.refreshBalances))
+        child: _failedToFetchBalances
+            ? Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: ErrorSection(
+                    onTryAgain: () => refreshBalances(vm),
+                  ),
+                ),
+              )
             : Column(
                 children: [
                   _buildPolyContainer(vm),
@@ -71,18 +114,18 @@ class WalletBalancePage extends StatelessWidget {
               SizedBox(width: 10, child: Image.asset(RibnAssets.infoIcon)),
             ],
           ),
-          vm.fetchingBalances
+          _fetchingBalances
               ? const CircularProgressIndicator()
-              : vm.failedToFetchBalances
+              : _failedToFetchBalances
                   ? const Text('Network Failure', style: TextStyle(color: Colors.red))
                   : Text('${vm.polyBalance} POLY', style: polyBalanceTextStyle),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _buildButton(Strings.send, vm.initiateSendPolys),
+              _buildButton(Strings.send, vm.navigateToSendPolys),
               const SizedBox(width: 10),
               _buildButton(Strings.receive, () async {
-                await showReceivingAddress('uihadi3ewfihdsiofhso');
+                await showReceivingAddress();
               }),
             ],
           ),
@@ -117,7 +160,7 @@ class WalletBalancePage extends StatelessWidget {
                   child: _buildAssetListItem(
                     asset: asset,
                     assetDetails: vm.assetDetails[asset.assetCode.toString()],
-                    initiateSendAsset: vm.initiateSendAsset,
+                    initiateSendAsset: vm.navigateToSendAsset,
                     viewAssetDetails: vm.viewAssetDetails,
                   ),
                 );
@@ -244,7 +287,7 @@ class WalletBalancePage extends StatelessWidget {
                       width: 12,
                     ),
                     color: RibnColors.primary,
-                    onPressed: () async => await showReceivingAddress('uihadi3ewfihdsiofhso'),
+                    onPressed: () async => await showReceivingAddress(),
                   ),
                 ],
               ),
@@ -291,7 +334,7 @@ class WalletBalancePage extends StatelessWidget {
     );
   }
 
-  Future<void> showReceivingAddress(String address) async {
+  Future<void> showReceivingAddress() async {
     await showDialog(
       context: Keys.navigatorKey.currentContext!,
       builder: (context) {

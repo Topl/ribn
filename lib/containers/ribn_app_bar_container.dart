@@ -50,7 +50,6 @@ class RibnAppBarViewModel {
       currentNetwork: store.state.keychainState.currentNetwork.networkId,
       updateNetwork: (String networkId) {
         store.dispatch(UpdateCurrentNetworkAction(networkId));
-        store.dispatch(RefreshBalancesAction());
       },
       selectSettingsOption: (String selectedOption) {
         switch (selectedOption) {

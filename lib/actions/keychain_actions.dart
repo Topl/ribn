@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 import 'package:brambldart/credentials.dart';
 import 'package:ribn/constants/rules.dart';
@@ -43,7 +44,10 @@ class UpdateCurrentNetworkAction {
   UpdateCurrentNetworkAction(this.networkId);
 }
 
-class RefreshBalancesAction {}
+class RefreshBalancesAction {
+  final Completer<bool> completer;
+  const RefreshBalancesAction(this.completer);
+}
 
 class UpdateBalancesAction {
   List<RibnAddress> updatedAddresses;

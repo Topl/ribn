@@ -2,7 +2,6 @@ import 'package:brambldart/brambldart.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
-import 'package:ribn/actions/ui_actions.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/models/ribn_network.dart';
@@ -65,23 +64,27 @@ void Function(Store<AppState> store, RefreshBalancesAction action, NextDispatche
     KeychainRepository keychainRepo) {
   return (store, action, next) async {
     try {
-      next(const FetchingBalancesAction());
-      List<ToplAddress> addresses =
+      // get addresses in the wallet
+      final List<ToplAddress> addresses =
           store.state.keychainState.currentNetwork.addresses.map((addr) => addr.address).toList();
-      List<Balance> balances = await keychainRepo.getBalances(
+      // get balances for all the addresses
+      final List<Balance> balances = await keychainRepo.getBalances(
         store.state.keychainState.currentNetwork.client!,
         addresses,
       );
-      Map<String, Balance> addrBalanceMap = {for (Balance bal in balances) bal.address: bal};
-      List<RibnAddress> updatedAddresses = store.state.keychainState.currentNetwork.addresses.map((addr) {
+      // map addresses and balances
+      final Map<String, Balance> addrBalanceMap = {for (Balance bal in balances) bal.address: bal};
+      // addresses with updated balances
+      final List<RibnAddress> updatedAddresses = store.state.keychainState.currentNetwork.addresses.map((addr) {
         return addr.copyWith(
           balance: addrBalanceMap[addr.address.toBase58()],
         );
       }).toList();
       next(UpdateBalancesAction(updatedAddresses));
-      next(const SuccessfullyFetchedBalancesAction());
+
+      action.completer.complete(true);
     } catch (e) {
-      next(const FailedToFetchBalancesAction());
+      action.completer.complete(false);
     }
   };
 }

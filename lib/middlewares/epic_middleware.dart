@@ -111,7 +111,6 @@ Stream<dynamic> Function(Stream<LoginSuccessAction>, EpicStore<AppState>) _onLog
         return Stream.fromIterable(
           [
             InitializeHDWalletAction(toplExtendedPrivateKey: action.toplExtendedPrvKeyUint8List),
-            RefreshBalancesAction(),
             store.state.internalMessage?.method == InternalMethods.enable
                 ? NavigateToRoute(Routes.enable, arguments: store.state.internalMessage!)
                 : store.state.internalMessage?.method == InternalMethods.signTx

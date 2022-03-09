@@ -5,7 +5,6 @@ import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/actions/transaction_actions.dart';
-import 'package:ribn/actions/ui_actions.dart';
 import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/rules.dart';
@@ -89,8 +88,6 @@ void Function(Store<AppState> store, SignAndBroadcastTxAction action, NextDispat
     TransactionRepository transactionRepo, KeychainRepository keychainRepo) {
   return (store, action, next) async {
     try {
-      // Start loading indicator
-      next(const ToggleLoadingSignAndBroadcastTxAction(true));
       final List<Credentials> credentials = keychainRepo.getCredentials(
         store.state.keychainState.hdWallet!,
         action.transferDetails.senders,
@@ -114,12 +111,10 @@ void Function(Store<AppState> store, SignAndBroadcastTxAction action, NextDispat
           ),
         );
       }
-      // Stop loading indicator
-      next(const ToggleLoadingSignAndBroadcastTxAction(false));
       // Navigate to the confirmation page
       next(NavigateToRoute(Routes.txConfirmation, arguments: transferDetails));
     } catch (e) {
-      next(const FailedToSignAndBroadcastTxAction());
+      next(ApiErrorAction(e.toString()));
     }
   };
 }
