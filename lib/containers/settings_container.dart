@@ -74,9 +74,12 @@ class SettingsViewModel {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is SettingsViewModel && other.exportToplMainKey == exportToplMainKey && other.appVersion == appVersion;
+    return other is SettingsViewModel &&
+        other.exportToplMainKey == exportToplMainKey &&
+        other.onDeletePressed == onDeletePressed &&
+        other.appVersion == appVersion;
   }
 
   @override
-  int get hashCode => exportToplMainKey.hashCode ^ appVersion.hashCode;
+  int get hashCode => exportToplMainKey.hashCode ^ onDeletePressed.hashCode ^ appVersion.hashCode;
 }
