@@ -24,7 +24,12 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final double _baseWidth = 310;
   final TextEditingController _textEditingController = TextEditingController();
+
+  /// True if password being entered is obscured.
   bool _obscurePassword = true;
+
+  /// True if login was attempted with an incorrect password.
+  bool _incorrectPasswordEntered = false;
 
   @override
   void dispose() {
@@ -79,7 +84,14 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 35),
               LargeButton(
                 label: Strings.unlock,
-                onPressed: () => vm.attemptLogin(_textEditingController.text),
+                onPressed: () => vm.attemptLogin(
+                  password: _textEditingController.text,
+                  onIncorrectPasswordEntered: () {
+                    setState(() {
+                      _incorrectPasswordEntered = true;
+                    });
+                  },
+                ),
                 backgroundColor: RibnColors.primary,
                 textColor: Colors.white,
               ),
@@ -93,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 18),
               _buildSupportLink(),
               UIConstants.sizedBox,
-              vm.incorrectPasswordError
+              _incorrectPasswordEntered
                   ? const Text(
                       'Incorrect Password',
                       style: TextStyle(

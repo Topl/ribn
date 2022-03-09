@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 class AttemptLoginAction {
   final String password;
-  const AttemptLoginAction(this.password);
+  final Completer completer;
+  const AttemptLoginAction(this.password, this.completer);
 }
 
 class LoginSuccessAction {
