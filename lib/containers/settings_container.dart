@@ -24,10 +24,10 @@ class SettingsContainer extends StatelessWidget {
 }
 
 class SettingsViewModel {
-  /// Callback to download Topl Main Key
+  /// Callback to download the Topl Main Key.
   final VoidCallback exportToplMainKey;
 
-  /// Handler for deleting the wallet.
+  /// Handler for when user selects 'delete wallet'
   final Future<void> Function(BuildContext context) onDeletePressed;
 
   /// The current app version.
@@ -50,7 +50,7 @@ class SettingsViewModel {
         await showDialog(
           context: context,
           builder: (context) => DeleteWalletConfirmationDialog(
-            onConfirmDeletePressed: (String password, VoidCallback onIncorrectPasswordEntered) {
+            onConfirmDeletePressed: (String password, VoidCallback onIncorrectPasswordEntered) async {
               final Completer<bool> actionCompleter = Completer();
               store.dispatch(
                 DeleteWalletAction(
@@ -59,8 +59,8 @@ class SettingsViewModel {
                 ),
               );
               // onIncorrectPasswordEntered called if response returned is false
-              actionCompleter.future.asStream().listen((response) {
-                if (response == false) onIncorrectPasswordEntered();
+              await actionCompleter.future.then((value) {
+                if (!value) onIncorrectPasswordEntered();
               });
             },
           ),
