@@ -4,7 +4,6 @@ import 'package:ribn/reducers/internal_message_reducer.dart';
 import 'package:ribn/reducers/keychain_reducer.dart';
 import 'package:ribn/reducers/login_reducer.dart';
 import 'package:ribn/reducers/onboarding_reducer.dart';
-import 'package:ribn/reducers/ui_reducer.dart';
 import 'package:ribn/reducers/user_details_reducer.dart';
 
 /// Main reducer for [AppState]
@@ -16,7 +15,6 @@ AppState appReducer(AppState state, dynamic action) {
       onboardingState: onboardingReducer(state.onboardingState, action),
       loginState: loginReducer(state.loginState, action),
       keychainState: keychainReducer(state.keychainState, action),
-      uiState: uiReducer(state.uiState, action),
       userDetailsState: userDetailsReducer(state.userDetailsState, action),
       internalMessage: internalMessageReducer(state.internalMessage, action),
       appVersion: state.appVersion,
