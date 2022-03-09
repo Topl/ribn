@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +14,8 @@ import 'package:ribn/models/transfer_details.dart';
 
 /// Intended to wrap the [MintInputPage] and provide it with the the [MintInputViewmodel].
 class MintInputContainer extends StatelessWidget {
-  const MintInputContainer({Key? key, required this.builder, this.onWillChange}) : super(key: key);
+  const MintInputContainer({Key? key, required this.builder}) : super(key: key);
   final ViewModelBuilder<MintInputViewmodel> builder;
-  final Function(MintInputViewmodel?, MintInputViewmodel)? onWillChange;
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +23,11 @@ class MintInputContainer extends StatelessWidget {
       distinct: true,
       converter: MintInputViewmodel.fromStore,
       builder: builder,
-      onWillChange: onWillChange,
     );
   }
 }
 
 class MintInputViewmodel {
-  /// True if loading indicator needs to be shown while rawTx is being created.
-  final bool loadingRawTx;
-
   /// The tx fee on the current network.
   final num networkFee;
 
@@ -43,11 +40,8 @@ class MintInputViewmodel {
   /// Locally stored asset details.
   final Map<String, AssetDetails> assetDetails;
 
-  /// True if unexpected error occurs while creating rawTx.
-  final bool failedToCreateRawTx;
-
   /// Handler for initiating mint asset tx.
-  final void Function({
+  final Future<void> Function({
     required String assetShortName,
     required String amount,
     required String recipient,
@@ -55,16 +49,15 @@ class MintInputViewmodel {
     bool mintingToMyWallet,
     bool mintingNewAsset,
     AssetDetails? assetDetails,
+    required Function(bool success) onRawTxCreated,
   }) initiateTx;
 
   MintInputViewmodel({
     required this.initiateTx,
-    required this.loadingRawTx,
     required this.networkFee,
     required this.assets,
     required this.currNetworkId,
     required this.assetDetails,
-    required this.failedToCreateRawTx,
   });
 
   static MintInputViewmodel fromStore(Store<AppState> store) {
@@ -77,7 +70,8 @@ class MintInputViewmodel {
         bool mintingToMyWallet = false,
         bool mintingNewAsset = true,
         AssetDetails? assetDetails,
-      }) {
+        required Function(bool success) onRawTxCreated,
+      }) async {
         final ToplAddress issuerAddress = store.state.keychainState.currentNetwork.myWalletAddress.address;
         final TransferType transferType = mintingNewAsset ? TransferType.mintingAsset : TransferType.remintingAsset;
         final TransferDetails transferDetails = TransferDetails(
@@ -93,14 +87,14 @@ class MintInputViewmodel {
           data: note,
           assetDetails: assetDetails,
         );
-        store.dispatch(InitiateTxAction(transferDetails));
+        final Completer<bool> actionCompleter = Completer();
+        store.dispatch(InitiateTxAction(transferDetails, actionCompleter));
+        await actionCompleter.future.then(onRawTxCreated);
       },
-      loadingRawTx: store.state.uiState.loadingRawTx,
       assets: store.state.keychainState.currentNetwork.getAssetsIssuedByWallet(),
       currNetworkId: store.state.keychainState.currentNetwork.networkId,
       networkFee: Rules.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
       assetDetails: store.state.userDetailsState.assetDetails,
-      failedToCreateRawTx: store.state.uiState.failedToCreateRawTx,
     );
   }
 
@@ -109,21 +103,14 @@ class MintInputViewmodel {
     if (identical(this, other)) return true;
 
     return other is MintInputViewmodel &&
-        other.loadingRawTx == loadingRawTx &&
         other.networkFee == networkFee &&
         listEquals(other.assets, assets) &&
         other.currNetworkId == currNetworkId &&
-        mapEquals(other.assetDetails, assetDetails) &&
-        other.failedToCreateRawTx == failedToCreateRawTx;
+        mapEquals(other.assetDetails, assetDetails);
   }
 
   @override
   int get hashCode {
-    return loadingRawTx.hashCode ^
-        networkFee.hashCode ^
-        assets.hashCode ^
-        currNetworkId.hashCode ^
-        assetDetails.hashCode ^
-        failedToCreateRawTx.hashCode;
+    return networkFee.hashCode ^ assets.hashCode ^ currNetworkId.hashCode ^ assetDetails.hashCode;
   }
 }

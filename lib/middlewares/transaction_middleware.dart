@@ -39,9 +39,6 @@ void Function(Store<AppState> store, InitiateTxAction action, NextDispatcher nex
     TransactionRepository transactionRepo, KeychainRepository keychainRepo) {
   return (store, action, next) async {
     try {
-      /// Initiate the loading indicator
-      next(const ToggleLoadingRawTxAction(true));
-
       /// The sender defaults to the first address in the list of locally stored addresses
       final RibnAddress sender = store.state.keychainState.currentNetwork.addresses.first;
       final RibnNetwork currNetwork = store.state.keychainState.currentNetwork;
@@ -51,9 +48,9 @@ void Function(Store<AppState> store, InitiateTxAction action, NextDispatcher nex
         consolidation: sender,
         networkId: currNetwork.networkId,
       );
-      next(CreateRawTxAction(transferDetails));
+      next(CreateRawTxAction(transferDetails, action.completer));
     } catch (e) {
-      next(ApiErrorAction(e.toString()));
+      action.completer.complete(false);
     }
   };
 }
@@ -75,12 +72,11 @@ void Function(Store<AppState> store, CreateRawTxAction action, NextDispatcher ne
         transactionReceipt: transactionReceipt,
         messageToSign: messageToSign,
       );
-      // Stop the loading indicator
-      next(const ToggleLoadingRawTxAction(false));
+      action.completer.complete(true);
       // Navigate to the review page
       next(NavigateToRoute(Routes.txReview, arguments: transferDetails));
     } catch (e) {
-      next(const FailedToCreateRawTxAction());
+      action.completer.complete(false);
     }
   };
 }

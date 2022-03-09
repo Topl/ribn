@@ -3,7 +3,7 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/poly_transfer_input_container.dart';
-import 'package:ribn/presentation/error_section.dart';
+import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
 import 'package:ribn/presentation/transfers/widgets/note_field.dart';
@@ -35,6 +35,9 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
   /// Assigned the valid recipient address
   String _validRecipientAddress = '';
 
+  /// True if currently loading raw tx creation.
+  bool _loadingRawTx = false;
+
   @override
   void initState() {
     _controllers = [
@@ -42,6 +45,7 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
       _amountController,
       _recipientController,
     ];
+
     // initialize listeners for each of the TextEditingControllers
     _controllers.forEach(initListener);
     super.initState();
@@ -66,17 +70,6 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
   @override
   Widget build(BuildContext context) {
     return PolyTransferInputContainer(
-      onWillChange: (prevVm, currVm) async {
-        if (currVm.failedToCreateRawTx && currVm.failedToCreateRawTx != prevVm?.failedToCreateRawTx) {
-          await showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              backgroundColor: RibnColors.accent,
-              title: ErrorSection(onTryAgain: () => Navigator.of(context).pop()),
-            ),
-          );
-        }
-      },
       builder: (BuildContext context, PolyTransferInputViewModel vm) {
         return Scaffold(
           backgroundColor: RibnColors.accent,
@@ -148,7 +141,7 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
                   ],
                 ),
               ),
-              vm.loadingRawTx ? const LoadingSpinner() : const SizedBox(),
+              _loadingRawTx ? const LoadingSpinner() : const SizedBox(),
             ],
           ),
         );
@@ -211,10 +204,21 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
       child: LargeButton(
         label: Strings.review,
         onPressed: () {
+          setState(() {
+            _loadingRawTx = true;
+          });
           vm.initiateTx(
             amount: _amountController.text,
             recipient: _validRecipientAddress,
             note: _noteController.text,
+            onRawTxCreated: (bool success) async {
+              _loadingRawTx = false;
+              setState(() {});
+              // Display error dialog if failed to create raw tx
+              if (!success) {
+                await TransferUtils.showErrorDialog(context);
+              }
+            },
           );
         },
       ),

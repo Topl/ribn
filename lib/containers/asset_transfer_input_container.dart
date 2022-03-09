@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +17,8 @@ class AssetTransferInputContainer extends StatelessWidget {
   const AssetTransferInputContainer({
     Key? key,
     required this.builder,
-    this.onWillChange,
   }) : super(key: key);
   final ViewModelBuilder<AssetTransferInputViewModel> builder;
-  final Function(AssetTransferInputViewModel?, AssetTransferInputViewModel)? onWillChange;
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +26,11 @@ class AssetTransferInputContainer extends StatelessWidget {
       distinct: true,
       converter: AssetTransferInputViewModel.fromStore,
       builder: builder,
-      onWillChange: onWillChange,
     );
   }
 }
 
 class AssetTransferInputViewModel {
-  /// True if loading indicator needs to be shown while rawTx is being created.
-  final bool loadingRawTx;
-
   /// All assets owned by this wallet.
   final List<AssetAmount> assets;
 
@@ -47,31 +43,34 @@ class AssetTransferInputViewModel {
   /// The current network ID.
   final int currNetworkId;
 
-  /// True if unexpected error occurs while creating rawTx.
-  final bool failedToCreateRawTx;
-
   /// Handler for initiating tx.
-  final Function(
-    String recipient,
-    String amount,
-    String note,
-    AssetCode assetCode,
+  final Future<void> Function({
+    required String recipient,
+    required String amount,
+    required String note,
+    required AssetCode assetCode,
     AssetDetails? assetDetails,
-  ) initiateTx;
+    required Function(bool success) onRawTxCreated,
+  }) initiateTx;
 
   AssetTransferInputViewModel({
     required this.assets,
     required this.initiateTx,
-    required this.loadingRawTx,
     required this.networkFee,
     required this.assetDetails,
     required this.currNetworkId,
-    required this.failedToCreateRawTx,
   });
 
   static AssetTransferInputViewModel fromStore(Store<AppState> store) {
     return AssetTransferInputViewModel(
-      initiateTx: (String recipient, String amount, String note, AssetCode assetCode, AssetDetails? assetDetails) {
+      initiateTx: ({
+        required String recipient,
+        required String amount,
+        required String note,
+        required AssetCode assetCode,
+        AssetDetails? assetDetails,
+        required Function(bool success) onRawTxCreated,
+      }) async {
         final TransferDetails transferDetails = TransferDetails(
           transferType: TransferType.assetTransfer,
           recipient: recipient,
@@ -80,14 +79,14 @@ class AssetTransferInputViewModel {
           assetCode: assetCode,
           assetDetails: assetDetails,
         );
-        store.dispatch((InitiateTxAction(transferDetails)));
+        final Completer<bool> actionCompleter = Completer();
+        store.dispatch((InitiateTxAction(transferDetails, actionCompleter)));
+        await actionCompleter.future.then(onRawTxCreated);
       },
       assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
-      loadingRawTx: store.state.uiState.loadingRawTx,
       currNetworkId: store.state.keychainState.currentNetwork.networkId,
       networkFee: Rules.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
       assetDetails: store.state.userDetailsState.assetDetails,
-      failedToCreateRawTx: store.state.uiState.failedToCreateRawTx,
     );
   }
 
@@ -97,22 +96,13 @@ class AssetTransferInputViewModel {
 
     return other is AssetTransferInputViewModel &&
         listEquals(other.assets, assets) &&
-        other.initiateTx == initiateTx &&
-        other.loadingRawTx == loadingRawTx &&
         other.networkFee == networkFee &&
         mapEquals(other.assetDetails, assetDetails) &&
-        other.currNetworkId == currNetworkId &&
-        other.failedToCreateRawTx == failedToCreateRawTx;
+        other.currNetworkId == currNetworkId;
   }
 
   @override
   int get hashCode {
-    return assets.hashCode ^
-        initiateTx.hashCode ^
-        loadingRawTx.hashCode ^
-        networkFee.hashCode ^
-        assetDetails.hashCode ^
-        currNetworkId.hashCode ^
-        failedToCreateRawTx.hashCode;
+    return assets.hashCode ^ networkFee.hashCode ^ assetDetails.hashCode ^ currNetworkId.hashCode;
   }
 }

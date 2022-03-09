@@ -66,30 +66,6 @@ class TransactionRepository {
           return rawTx;
         }
       case (TransferType.mintingAsset):
-        {
-          final ToplAddress issuer = transferDetails.assetCode!.issuer;
-          final ToplAddress recipient = ToplAddress.fromBase58(transferDetails.recipient);
-          final AssetValue assetValue = AssetValue(
-            transferDetails.amount,
-            transferDetails.assetCode!,
-            SecurityRoot.empty(),
-            '',
-            'Asset',
-          );
-          final AssetTransaction assetTransaction = AssetTransaction(
-            recipients: [AssetRecipient(recipient, assetValue)],
-            sender: [issuer],
-            changeAddress: issuer,
-            consolidationAddress: issuer,
-            propositionType: issuer.proposition.propositionName,
-            minting: true,
-            assetCode: transferDetails.assetCode!,
-            fee: Rules.networkFees[transferDetails.networkId],
-            data: Latin1Data.validated(transferDetails.data),
-          );
-          final Map<String, dynamic> rawTx = await client.sendRawAssetTransfer(assetTransaction: assetTransaction);
-          return rawTx;
-        }
       case (TransferType.remintingAsset):
         {
           final ToplAddress issuer = transferDetails.assetCode!.issuer;
