@@ -139,7 +139,7 @@ class _MintInputPageState extends State<MintInputPage> {
                             mintingToMyWallet: widget.mintingToMyWallet,
                             // validate the address entered on change
                             onChanged: (text) => validateRecipientAddress(
-                              networkId: vm.currNetworkId,
+                              networkName: vm.currentNetwork.networkName,
                               address: _recipientController.text,
                               handleResult: (bool result) {
                                 setState(() {

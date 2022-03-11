@@ -105,7 +105,7 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
                               validRecipientAddress: _validRecipientAddress,
                               // validate the address entered on text change
                               onChanged: (text) => validateRecipientAddress(
-                                networkId: vm.currNetworkId,
+                                networkName: vm.currentNetwork.networkName,
                                 address: _recipientController.text,
                                 handleResult: (bool result) {
                                   setState(() {
