@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:typed_data';
-import 'package:brambldart/credentials.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/ribn_address.dart';
 
@@ -18,10 +17,8 @@ class GenerateAddressAction {
   final int accountIndex;
   final int changeIndex;
   final int addressIndex;
-  HdWallet? hdWallet;
   GenerateAddressAction(
-    this.addressIndex,
-    this.hdWallet, {
+    this.addressIndex, {
     this.accountIndex = Rules.defaultAccountIndex,
     this.changeIndex = Rules.defaultChangeIndex,
   });

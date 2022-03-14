@@ -66,7 +66,9 @@ class RibnNetwork {
 
   /// Ribn only supports a single wallet address at this time.
   /// The wallet address is the first generated address.
-  RibnAddress get myWalletAddress => addresses.first;
+  RibnAddress? get myWalletAddress {
+    return addresses.isNotEmpty ? addresses.first : null;
+  }
 
   int getNextExternalAddressIndex() {
     return addresses.lastIndexWhere((addr) => addr.changeIndex == Rules.defaultChangeIndex) + 1;
@@ -83,7 +85,7 @@ class RibnNetwork {
   /// and compiles them into a list based on asset codes.
   List<AssetAmount> getAllAssetsInWallet() {
     final Map<String, AssetAmount> myAssets = {};
-    for (AssetAmount asset in myWalletAddress.balance.assets ?? []) {
+    for (AssetAmount asset in myWalletAddress?.balance.assets ?? []) {
       final num assetQuantity = asset.quantity;
       myAssets.update(asset.assetCode.serialize(), (AssetAmount currAsset) {
         return AssetAmount(quantity: currAsset.quantity + assetQuantity, assetCode: asset.assetCode);
@@ -94,13 +96,13 @@ class RibnNetwork {
 
   /// Returns the number of polys owned by this wallet, i.e. [myWalletAddress].
   num getPolysInWallet() {
-    return myWalletAddress.balance.polys.getInNanopoly;
+    return myWalletAddress?.balance.polys.getInNanopoly ?? 0;
   }
 
   /// Returns the list of all assets issued/minted by this wallet.
   List<AssetAmount> getAssetsIssuedByWallet() {
     return getAllAssetsInWallet()
-        .where((AssetAmount asset) => asset.assetCode.issuer.toBase58() == myWalletAddress.toplAddress.toBase58())
+        .where((AssetAmount asset) => asset.assetCode.issuer.toBase58() == myWalletAddress?.toplAddress.toBase58())
         .toList();
   }
 

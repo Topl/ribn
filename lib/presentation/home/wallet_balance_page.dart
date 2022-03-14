@@ -71,7 +71,8 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       onWillChange: (prevVm, currVm) {
         // refresh balances on network toggle
         if (prevVm?.currentNetwork.networkName != currVm.currentNetwork.networkName ||
-            prevVm!.currentNetwork.lastCheckedTimestamp != currVm.currentNetwork.lastCheckedTimestamp) {
+            prevVm?.currentNetwork.lastCheckedTimestamp != currVm.currentNetwork.lastCheckedTimestamp ||
+            prevVm?.currentNetwork.addresses.length != currVm.currentNetwork.addresses.length) {
           refreshBalances(currVm);
         }
       },

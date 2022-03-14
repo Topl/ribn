@@ -62,7 +62,7 @@ class PolyTransferInputViewModel {
         final Completer<bool> actionCompleter = Completer();
         final TransferDetails transferDetails = TransferDetails(
           transferType: TransferType.polyTransfer,
-          senders: [store.state.keychainState.currentNetwork.myWalletAddress],
+          senders: [store.state.keychainState.currentNetwork.myWalletAddress!],
           recipient: recipient,
           amount: amount,
           data: note,
