@@ -29,10 +29,19 @@ class RibnAppBarContainer extends StatelessWidget {
 }
 
 class RibnAppBarViewModel {
-  final List<int> networks;
-  final int currentNetwork;
+  /// The list of networks in the wallet.
+  final List<String> networks;
+
+  /// The name of the current network being viewed.
+  final String currentNetworkName;
+
+  /// Callback for updating/toggling the current network.
   final void Function(String) updateNetwork;
+
+  /// Callback for when an item is selected from the settings drop down menu.
   final void Function(String) selectSettingsOption;
+
+  /// Items in the settings drop down menu.
   final Map<String, SvgPicture> settingsOptions = {
     Strings.support: SvgPicture.asset(RibnAssets.supportIcon),
     Strings.settings: SvgPicture.asset(RibnAssets.settingsIcon),
@@ -41,15 +50,15 @@ class RibnAppBarViewModel {
   RibnAppBarViewModel({
     required this.networks,
     required this.updateNetwork,
-    required this.currentNetwork,
+    required this.currentNetworkName,
     required this.selectSettingsOption,
   });
   static RibnAppBarViewModel fromStore(Store<AppState> store) {
     return RibnAppBarViewModel(
-      networks: store.state.keychainState.networks.map((e) => e.networkId).toList(),
-      currentNetwork: store.state.keychainState.currentNetwork.networkId,
-      updateNetwork: (String networkId) {
-        store.dispatch(UpdateCurrentNetworkAction(networkId));
+      networks: store.state.keychainState.allNetworks.map((e) => e.networkName).toList(),
+      currentNetworkName: store.state.keychainState.currentNetworkName,
+      updateNetwork: (String network) {
+        store.dispatch(UpdateCurrentNetworkAction(network));
       },
       selectSettingsOption: (String selectedOption) {
         switch (selectedOption) {
@@ -71,13 +80,13 @@ class RibnAppBarViewModel {
 
     return other is RibnAppBarViewModel &&
         listEquals(other.networks, networks) &&
-        other.currentNetwork == currentNetwork &&
+        other.currentNetworkName == currentNetworkName &&
         other.updateNetwork == updateNetwork &&
         other.selectSettingsOption == selectSettingsOption;
   }
 
   @override
   int get hashCode {
-    return networks.hashCode ^ currentNetwork.hashCode ^ updateNetwork.hashCode ^ selectSettingsOption.hashCode;
+    return networks.hashCode ^ currentNetworkName.hashCode ^ updateNetwork.hashCode ^ selectSettingsOption.hashCode;
   }
 }
