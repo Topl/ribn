@@ -69,8 +69,11 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       // refresh balances on initial build
       onInitialBuild: refreshBalances,
       onWillChange: (prevVm, currVm) {
-        // refresh balances on vm change
-        if (prevVm?.networkId != currVm.networkId) refreshBalances(currVm);
+        // refresh balances on network toggle
+        if (prevVm?.currentNetwork.networkName != currVm.currentNetwork.networkName ||
+            prevVm!.currentNetwork.lastCheckedTimestamp != currVm.currentNetwork.lastCheckedTimestamp) {
+          refreshBalances(currVm);
+        }
       },
       builder: (BuildContext context, WalletBalanceViewModel vm) => SingleChildScrollView(
         child: _failedToFetchBalances
