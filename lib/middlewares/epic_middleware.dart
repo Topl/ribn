@@ -15,18 +15,17 @@ import 'package:rxdart/rxdart.dart';
 
 Epic<AppState> createEpicMiddleware(MiscRepository miscRepo) => combineEpics<AppState>([
       _persistorEpic(miscRepo),
-      _routerEpic(),
       _errorRedirectEpic(),
       _persistenceTriggerEpic(),
-      _downloadAsFile(miscRepo),
       _generateInitialAddresses(),
+      TypedEpic<AppState, NavigateToRoute>(_onNavigateToRoute()),
       TypedEpic<AppState, LoginSuccessAction>(_onLoginSuccess()),
       TypedEpic<AppState, SuccessfullyRestoredWalletAction>(_onSuccessfullyRestoredWallet(miscRepo)),
     ]);
 
 /// A list of all the actions that should trigger appState persistence
 const List<dynamic> persistenceTriggers = [
-  AddAddressesAction,
+  AddAddressAction,
   UpdateCurrentNetworkAction,
   UpdateBalancesAction,
   InitializeHDWalletAction,
@@ -52,19 +51,6 @@ Epic<AppState> _persistorEpic(MiscRepository miscRepo) => (Stream<dynamic> actio
       });
     };
 
-/// Platform conditional navigator to avoid a null navigator during tests.
-/// Support for other platforms will be added in the future.
-Epic<AppState> _routerEpic() => (Stream<dynamic> actions, EpicStore<AppState> store) {
-      return actions.whereType<NavigateToRoute>().switchMap(
-        (action) {
-          if (kIsWeb) {
-            Keys.navigatorKey.currentState!.pushNamed(action.route, arguments: action.arguments);
-          }
-          return const Stream.empty();
-        },
-      );
-    };
-
 /// Swallows action and redirects to error page whenever [ApiErrorAction] is emitted
 /// Currently only for dev purposes
 /// @TODO: Replace with user-friendly error-handling in the future
@@ -83,21 +69,27 @@ Epic<AppState> _persistenceTriggerEpic() => (Stream<dynamic> actions, EpicStore<
           .switchMap((action) => Stream.value(PersistAppState()));
     };
 
-/// Listens for [DownloadAsFileAction] and downloads the text data as a file.
-Epic<AppState> _downloadAsFile(MiscRepository miscRepo) => (Stream<dynamic> actions, EpicStore<AppState> store) {
-      return actions.whereType<DownloadAsFileAction>().switchMap((action) {
-        miscRepo.downloadAsFile(action.fileName, action.text);
-        return const Stream.empty();
-      });
-    };
-
 Epic<AppState> _generateInitialAddresses() => (Stream<dynamic> actions, EpicStore<AppState> store) {
       return actions.whereType<InitializeHDWalletAction>().switchMap(
-            (action) => Stream.value(
-              GenerateInitialAddressesAction(store.state.keychainState.hdWallet),
-            ),
+            (action) => Stream.value(GenerateInitialAddressesAction()),
           );
     };
+
+/// Handles [NavigateToRoute] by pushing [action.route] on the current navigation stack.
+///
+/// Only supports Web platform at this time, i.e. [kIsWeb] should be True.
+Stream<dynamic> Function(Stream<NavigateToRoute>, EpicStore<AppState>) _onNavigateToRoute() {
+  return (actions, store) {
+    return actions.switchMap(
+      (action) {
+        if (kIsWeb) {
+          Keys.navigatorKey.currentState!.pushNamed(action.route, arguments: action.arguments);
+        }
+        return const Stream.empty();
+      },
+    );
+  };
+}
 
 /// Handles the [LoginSuccessAction] by dispatching actions to initialize the Hd wallet and refresh balances.
 ///
