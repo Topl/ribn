@@ -14,10 +14,10 @@ import 'package:ribn/repositories/misc_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 Epic<AppState> createEpicMiddleware(MiscRepository miscRepo) => combineEpics<AppState>([
-      _persistorEpic(miscRepo),
-      _errorRedirectEpic(),
       _persistenceTriggerEpic(),
       _generateInitialAddresses(),
+      TypedEpic<AppState, ApiErrorAction>(_onApiError()),
+      TypedEpic<AppState, PersistAppState>(_onPersistAppState(miscRepo)),
       TypedEpic<AppState, NavigateToRoute>(_onNavigateToRoute()),
       TypedEpic<AppState, LoginSuccessAction>(_onLoginSuccess()),
       TypedEpic<AppState, SuccessfullyRestoredWalletAction>(_onSuccessfullyRestoredWallet(miscRepo)),
@@ -33,9 +33,41 @@ const List<dynamic> persistenceTriggers = [
   UpdateAssetDetailsAction,
 ];
 
-/// Persists the latest [AppState] whenever [PersistAppState] action is emitted
-Epic<AppState> _persistorEpic(MiscRepository miscRepo) => (Stream<dynamic> actions, EpicStore<AppState> store) {
-      return actions.whereType<PersistAppState>().switchMap((action) {
+/// If an action that exists in the list [persistenceTriggers] is received, this epic emits the [PersistAppState] action.
+Epic<AppState> _persistenceTriggerEpic() => (Stream<dynamic> actions, EpicStore<AppState> store) {
+      return actions
+          .where((action) => (persistenceTriggers.contains(action.runtimeType)))
+          .switchMap((action) => Stream.value(PersistAppState()));
+    };
+
+/// When HD Wallet is initialized, i.e. upon onboarding, wallet restoration, or successful login,
+/// this epic checks if initial addresses need to be generated, i.e. if no addresses currently exist under any network,
+/// and dispatches [GenerateInitialAddressesAction].
+Epic<AppState> _generateInitialAddresses() => (Stream<dynamic> actions, EpicStore<AppState> store) {
+      return actions.whereType<InitializeHDWalletAction>().switchMap((action) {
+        final bool needsInitialAddressGeneration =
+            store.state.keychainState.allNetworks.every((network) => network.addresses.isEmpty);
+        if (needsInitialAddressGeneration) {
+          return Stream.value(GenerateInitialAddressesAction());
+        }
+        return const Stream.empty();
+      });
+    };
+
+/// Redirects to [Routes.error] whenever [ApiErrorAction] is received.
+Stream<dynamic> Function(Stream<ApiErrorAction>, EpicStore<AppState>) _onApiError() {
+  return (actions, store) {
+    return actions.switchMap((action) => Stream.value(NavigateToRoute(Routes.error, arguments: action.errorMessage)));
+  };
+}
+
+/// Handles [PersistAppState] action.
+///
+/// Persists the current [AppState] to local storage.
+Stream<dynamic> Function(Stream<PersistAppState>, EpicStore<AppState>) _onPersistAppState(MiscRepository miscRepo) {
+  return (actions, store) {
+    return actions.whereType<PersistAppState>().switchMap(
+      (action) {
         Future<dynamic> persistAppState() async {
           try {
             // state is not persisted when app opened in debug view
@@ -48,32 +80,10 @@ Epic<AppState> _persistorEpic(MiscRepository miscRepo) => (Stream<dynamic> actio
         }
 
         return Stream.fromFuture(persistAppState());
-      });
-    };
-
-/// Swallows action and redirects to error page whenever [ApiErrorAction] is emitted
-/// Currently only for dev purposes
-/// @TODO: Replace with user-friendly error-handling in the future
-Epic<AppState> _errorRedirectEpic() => (Stream<dynamic> actions, EpicStore<AppState> store) {
-      return actions.whereType<ApiErrorAction>().switchMap(
-        (action) {
-          return Stream.value(NavigateToRoute(Routes.error, arguments: action.errorMessage));
-        },
-      );
-    };
-
-/// If an action that exists in the list [persistenceTriggers] is received, this epic emits the [PersistAppState] action.
-Epic<AppState> _persistenceTriggerEpic() => (Stream<dynamic> actions, EpicStore<AppState> store) {
-      return actions
-          .where((action) => (persistenceTriggers.contains(action.runtimeType)))
-          .switchMap((action) => Stream.value(PersistAppState()));
-    };
-
-Epic<AppState> _generateInitialAddresses() => (Stream<dynamic> actions, EpicStore<AppState> store) {
-      return actions.whereType<InitializeHDWalletAction>().switchMap(
-            (action) => Stream.value(GenerateInitialAddressesAction()),
-          );
-    };
+      },
+    );
+  };
+}
 
 /// Handles [NavigateToRoute] by pushing [action.route] on the current navigation stack.
 ///
