@@ -62,8 +62,8 @@ class KeychainState {
   Map<String, dynamic> toMap() {
     return {
       'keyStoreJson': keyStoreJson,
-      'currentNetworkId': currentNetworkName,
-      'networks': networks.map((key, value) => MapEntry(key, value.toMap())),
+      'currentNetworkName': currentNetworkName,
+      'networks': networks.map((String key, RibnNetwork value) => MapEntry(key, value.toMap())),
     };
   }
 
@@ -71,7 +71,7 @@ class KeychainState {
     return KeychainState(
       keyStoreJson: map['keyStoreJson'] as String?,
       currentNetworkName: map['currentNetworkName'] as String,
-      networks: Map<String, RibnNetwork>.from(
+      networks: Map<String, RibnNetwork>.unmodifiable(
         (map['networks'] as Map<String, dynamic>).map(
           (key, value) => MapEntry(
             key,
