@@ -2,7 +2,6 @@ import 'dart:typed_data';
 import 'package:brambldart/brambldart.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/actions/internal_message_actions.dart';
-import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/actions/user_details_actions.dart';
@@ -25,7 +24,6 @@ List<Middleware<AppState>> createTransactionMiddleware(
     TypedMiddleware<AppState, InitiateTxAction>(_initiateTx(transactionRepo, keychainRepo)),
     TypedMiddleware<AppState, CreateRawTxAction>(_createRawTx(transactionRepo)),
     TypedMiddleware<AppState, SignAndBroadcastTxAction>(_signAndBroadcastTx(transactionRepo, keychainRepo)),
-    TypedMiddleware<AppState, BroadcastTxAction>(_broadcastTx(transactionRepo)),
     TypedMiddleware<AppState, SignExternalTxAction>(_signExternalTx(transactionRepo, keychainRepo)),
   ];
 }
@@ -119,23 +117,6 @@ void Function(Store<AppState> store, SignAndBroadcastTxAction action, NextDispat
   };
 }
 
-void Function(Store<AppState> store, BroadcastTxAction action, NextDispatcher next) _broadcastTx(
-    TransactionRepository transactionRepo) {
-  return (store, action, next) async {
-    try {
-      await transactionRepo.broadcastTx(
-        store.state.keychainState.currentNetwork.client!,
-        action.signedTx,
-      );
-      if (action.changeAddress != null) {
-        store.dispatch(AddAddressesAction(addresses: [action.changeAddress!]));
-      }
-    } catch (e) {
-      next(ApiErrorAction(e.toString()));
-    }
-  };
-}
-
 void Function(Store<AppState> store, SignExternalTxAction action, NextDispatcher next) _signExternalTx(
     TransactionRepository transactionRepo, KeychainRepository keychainRepo) {
   return (store, action, next) async {
@@ -147,7 +128,7 @@ void Function(Store<AppState> store, SignExternalTxAction action, NextDispatcher
       transferDetails['rawTx'] = transactionReceipt;
       final List<String> rawTxSenders = transactionReceipt.from!.map((e) => e.senderAddress.toBase58()).toList();
       final List<RibnAddress> sendersInWallet = List.from(store.state.keychainState.currentNetwork.addresses)
-        ..retainWhere((addr) => rawTxSenders.contains(addr.address.toBase58()));
+        ..retainWhere((addr) => rawTxSenders.contains(addr.toplAddress.toBase58()));
       final List<Credentials> credentials = keychainRepo.getCredentials(
         store.state.keychainState.hdWallet!,
         sendersInWallet,

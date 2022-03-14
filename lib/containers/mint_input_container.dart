@@ -74,7 +74,7 @@ class MintInputViewmodel {
         AssetDetails? assetDetails,
         required Function(bool success) onRawTxCreated,
       }) async {
-        final ToplAddress issuerAddress = store.state.keychainState.currentNetwork.myWalletAddress.address;
+        final ToplAddress issuerAddress = store.state.keychainState.currentNetwork.myWalletAddress.toplAddress;
         final TransferType transferType = mintingNewAsset ? TransferType.mintingAsset : TransferType.remintingAsset;
         final TransferDetails transferDetails = TransferDetails(
           transferType: transferType,
