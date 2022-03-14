@@ -34,7 +34,7 @@ void Function(Store<AppState> store, DeleteWalletAction action, NextDispatcher n
 void Function(Store<AppState> store, DownloadAsFileAction action, NextDispatcher next) _onDownloadAsFile(
   MiscRepository miscRepo,
 ) {
-  return (store, action, next) async {
+  return (store, action, next) {
     try {
       miscRepo.downloadAsFile(action.fileName, action.text);
     } catch (e) {
