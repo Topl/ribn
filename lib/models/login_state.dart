@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 class LoginState {
-  final bool isLoggedIn; // never persisted
+  /// True if user is currently logged in.
+  final bool isLoggedIn;
+
+  /// The time of last login.
   final String? lastLogin;
 
   LoginState({
@@ -25,14 +28,12 @@ class LoginState {
 
   Map<String, dynamic> toMap() {
     return {
-      'isLoggedIn': isLoggedIn,
       'lastLogin': lastLogin,
     };
   }
 
   factory LoginState.fromMap(Map<String, dynamic> map) {
     return LoginState(
-      isLoggedIn: map['isLoggedIn'] ?? false,
       lastLogin: map['lastLogin'],
     );
   }
