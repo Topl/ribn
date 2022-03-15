@@ -261,4 +261,8 @@ These words need to be written down carefully and in the exact order shown.''';
       'For your security, restoration of a wallet will overwrite all previously stored Ribn activity. This will not affect any activity recorded on the blockchain itself.';
   static const String loginPasswordInfo =
       'Your Wallet Password can lock and unlock your\n wallet on a device where it is already stored.';
+  static const String refillCurrentPolyBalance =
+      'You can refill your Poly balance anytime by\n signing into';
+  static const String refillEmptyPolyBalance =
+      'Time to refill your Poly balance.\nSign into';
 }

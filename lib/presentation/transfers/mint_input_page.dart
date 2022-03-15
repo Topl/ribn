@@ -38,8 +38,10 @@ class MintInputPage extends StatefulWidget {
 
 class _MintInputPageState extends State<MintInputPage> {
   final TextEditingController _noteController = TextEditingController();
-  final TextEditingController _assetLongNameController = TextEditingController();
-  final TextEditingController _assetShortNameController = TextEditingController();
+  final TextEditingController _assetLongNameController =
+      TextEditingController();
+  final TextEditingController _assetShortNameController =
+      TextEditingController();
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _recipientController = TextEditingController();
   late List<TextEditingController> _controllers;
@@ -92,12 +94,14 @@ class _MintInputPageState extends State<MintInputPage> {
   Widget build(BuildContext context) {
     return MintInputContainer(
       onWillChange: (prevVm, currVm) async {
-        if (currVm.failedToCreateRawTx && currVm.failedToCreateRawTx != prevVm?.failedToCreateRawTx) {
+        if (currVm.failedToCreateRawTx &&
+            currVm.failedToCreateRawTx != prevVm?.failedToCreateRawTx) {
           await showDialog(
             context: context,
             builder: (context) => AlertDialog(
               backgroundColor: RibnColors.accent,
-              title: ErrorSection(onTryAgain: () => Navigator.of(context).pop()),
+              title:
+                  ErrorSection(onTryAgain: () => Navigator.of(context).pop()),
             ),
           );
         }
@@ -124,9 +128,12 @@ class _MintInputPageState extends State<MintInputPage> {
                             children: [
                               // field for defining a short name for the asset if minting a new asset
                               widget.mintingNewAsset
-                                  ? AssetShortNameField(controller: _assetShortNameController)
+                                  ? AssetShortNameField(
+                                      controller: _assetShortNameController)
                                   : const SizedBox(),
-                              widget.mintingNewAsset ? const Spacer() : const SizedBox(),
+                              widget.mintingNewAsset
+                                  ? const Spacer()
+                                  : const SizedBox(),
                               // field for defining asset amount & custom unit
                               AssetAmountField(
                                 selectedUnit: _selectedUnit,
@@ -153,7 +160,8 @@ class _MintInputPageState extends State<MintInputPage> {
                               handleResult: (bool result) {
                                 setState(() {
                                   if (result) {
-                                    _validRecipientAddress = _recipientController.text;
+                                    _validRecipientAddress =
+                                        _recipientController.text;
                                     _recipientController.text = '';
                                   } else {
                                     _validRecipientAddress = '';
@@ -195,7 +203,8 @@ class _MintInputPageState extends State<MintInputPage> {
   Widget _buildPageTitle() {
     return Padding(
       padding: const EdgeInsets.only(top: 45),
-      child: CustomPageTitle(title: widget.mintingNewAsset ? Strings.mint : Strings.remint),
+      child: CustomPageTitle(
+          title: widget.mintingNewAsset ? Strings.mint : Strings.remint),
     );
   }
 
@@ -223,7 +232,8 @@ class _MintInputPageState extends State<MintInputPage> {
             onSelected: (AssetAmount? asset) {
               setState(() {
                 _selectedAsset = asset;
-                _selectedUnit = vm.assetDetails[asset!.assetCode.toString()]?.unit;
+                _selectedUnit =
+                    vm.assetDetails[asset!.assetCode.toString()]?.unit;
                 _assetShortNameController.text = asset.assetCode.shortName.show;
               });
             },

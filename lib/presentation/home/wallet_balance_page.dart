@@ -1,5 +1,6 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/keys.dart';
@@ -11,6 +12,7 @@ import 'package:ribn/presentation/error_section.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_dialog.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
+import 'package:ribn/widgets/custom_tooltip.dart';
 
 /// One of the 3 main pages on the home screen.
 ///
@@ -36,7 +38,8 @@ class WalletBalancePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WalletBalanceContainer(
-      builder: (BuildContext context, WalletBalanceViewModel vm) => SingleChildScrollView(
+      builder: (BuildContext context, WalletBalanceViewModel vm) =>
+          SingleChildScrollView(
         child: vm.failedToFetchBalances
             ? Center(child: ErrorSection(onTryAgain: vm.refreshBalances))
             : Column(
@@ -68,13 +71,24 @@ class WalletBalancePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(Strings.totalAmount, style: RibnTextStyles.extH3),
-              SizedBox(width: 10, child: Image.asset(RibnAssets.infoIcon)),
+              SizedBox(
+                width: 10,
+                child: CustomToolTip(
+                  tooltipText: Strings.refillEmptyPolyBalance,
+                  offsetPositionLeftValue: 140,
+                  tooltipIcon: SvgPicture.asset(
+                    RibnAssets.smsFailed,
+                    width: 10,
+                  ),
+                ),
+              ),
             ],
           ),
           vm.fetchingBalances
               ? const CircularProgressIndicator()
               : vm.failedToFetchBalances
-                  ? const Text('Network Failure', style: TextStyle(color: Colors.red))
+                  ? const Text('Network Failure',
+                      style: TextStyle(color: Colors.red))
                   : Text('${vm.polyBalance} POLY', style: polyBalanceTextStyle),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -141,10 +155,13 @@ class WalletBalancePage extends StatelessWidget {
     required Function(AssetAmount) viewAssetDetails,
   }) {
     final String assetIcon = assetDetails?.icon ?? RibnAssets.undefinedIcon;
-    final String assetUnit = assetDetails?.unit != null ? formatAssetUnit(assetDetails!.unit) : 'Units';
+    final String assetUnit = assetDetails?.unit != null
+        ? formatAssetUnit(assetDetails!.unit)
+        : 'Units';
     final String assetLongName = assetDetails?.longName ?? '';
-    final bool isMissingAssetDetails =
-        assetIcon == RibnAssets.undefinedIcon || assetUnit == 'Units' || assetLongName.isEmpty;
+    final bool isMissingAssetDetails = assetIcon == RibnAssets.undefinedIcon ||
+        assetUnit == 'Units' ||
+        assetLongName.isEmpty;
 
     return ElevatedButton(
       style: ButtonStyle(
@@ -244,7 +261,8 @@ class WalletBalancePage extends StatelessWidget {
                       width: 12,
                     ),
                     color: RibnColors.primary,
-                    onPressed: () async => await showReceivingAddress('uihadi3ewfihdsiofhso'),
+                    onPressed: () async =>
+                        await showReceivingAddress('uihadi3ewfihdsiofhso'),
                   ),
                 ],
               ),
@@ -279,7 +297,9 @@ class WalletBalancePage extends StatelessWidget {
             SizedBox(
               width: 10,
               child: Image.asset(
-                label == Strings.send ? RibnAssets.sendIcon : RibnAssets.receiveIcon,
+                label == Strings.send
+                    ? RibnAssets.sendIcon
+                    : RibnAssets.receiveIcon,
               ),
             ),
             const SizedBox(width: 5),

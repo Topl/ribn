@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn/constants/colors.dart';
 import 'package:ribn/widgets/custom_close_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// A custom widget for displaying tooltips.
 ///
@@ -10,12 +12,14 @@ class CustomToolTip extends StatefulWidget {
   /// Text to be displayed in the tooltip.
   final String tooltipText;
   final int offsetPositionLeftValue;
+  final dynamic tooltipIcon;
   // final int offsetPositionLeftValue;
 
   const CustomToolTip(
       {Key? key,
       required this.tooltipText,
-      required this.offsetPositionLeftValue})
+      required this.offsetPositionLeftValue,
+      required this.tooltipIcon})
       : super(key: key);
 
   @override
@@ -35,7 +39,7 @@ class _CustomToolTipState extends State<CustomToolTip> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Image.asset(RibnAssets.helpIcon),
+      child: widget.tooltipIcon,
       onTap: () {
         // build tooltip if it is not already being displayed
         if (!overlayEntry.mounted) _buildTooltip(context);
@@ -52,9 +56,6 @@ class _CustomToolTipState extends State<CustomToolTip> {
     final RenderBox renderbox = context.findRenderObject() as RenderBox;
     // Position of the tooltip
     Offset offset = renderbox.localToGlobal(Offset.zero);
-
-    // 170 for login
-    // 100 for everything else
 
     overlayEntry = OverlayEntry(
       builder: (context) {
@@ -76,9 +77,45 @@ class _CustomToolTipState extends State<CustomToolTip> {
                     color: const Color(0xffeef9f8),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Text(
-                    widget.tooltipText,
-                    style: RibnTextStyles.smallBody,
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: widget.tooltipText,
+                        ),
+                        WidgetSpan(
+                          child: Container(
+                            margin: const EdgeInsets.only(left: 4),
+                            child: GestureDetector(
+                              onTap: () async {
+                                const url = 'https://topl.services';
+                                if (await canLaunch(url)) await launch(url);
+                              },
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    'BaaS.',
+                                    style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      fontWeight: FontWeight.w400,
+                                      color: RibnColors.primary,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(2),
+                                    child: SvgPicture.asset(
+                                      RibnAssets.openInNewWindow,
+                                      width: 10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 // close button for dismissing the tooltip

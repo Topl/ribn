@@ -114,18 +114,21 @@ class _LoginPageState extends State<LoginPage> {
     return SizedBox(
       width: _baseWidth,
       child: Row(
-        children: const [
-          Text(
+        children: [
+          const Text(
             Strings.enterWalletPassword,
             style: RibnTextStyles.extH3,
-            // style: TextStyle(fontWeight: FontWeight.bold),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 2.0),
-            // child: Image.asset(RibnAssets.helpIcon),
+            padding: const EdgeInsets.symmetric(horizontal: 2.0),
             child: CustomToolTip(
-                tooltipText: Strings.loginPasswordInfo,
-                offsetPositionLeftValue: 170),
+              tooltipText: Strings.loginPasswordInfo,
+              offsetPositionLeftValue: 170,
+              tooltipIcon: SvgPicture.asset(
+                RibnAssets.roundInfoCircle,
+                width: 10,
+              ),
+            ),
           ),
         ],
       ),
