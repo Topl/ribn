@@ -3,7 +3,6 @@ import 'package:redux_epics/redux_epics.dart';
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/login_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
-import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
 import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/keys.dart';
@@ -29,7 +28,6 @@ const List<dynamic> persistenceTriggers = [
   UpdateCurrentNetworkAction,
   UpdateBalancesAction,
   InitializeHDWalletAction,
-  MnemonicSuccessfullyVerifiedAction,
   UpdateAssetDetailsAction,
 ];
 
