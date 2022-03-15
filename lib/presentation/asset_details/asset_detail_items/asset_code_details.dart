@@ -23,7 +23,8 @@ class AssetCodeDetails extends StatelessWidget {
         Row(
           children: const [
             Text('Asset code', style: RibnTextStyles.extH4),
-            CustomToolTip(tooltipText: 'Asset code'),
+            CustomToolTip(
+                tooltipText: 'Asset code', offsetPositionLeftValue: 100),
           ],
         ),
         const SizedBox(height: 3),

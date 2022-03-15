@@ -110,7 +110,8 @@ class _AssetLongNameFieldState extends State<AssetLongNameField> {
                       color: Color(0xff26a69a),
                     ),
                     child: const Center(
-                      child: Text('Icon', style: RibnTextStyles.dropdownButtonStyle),
+                      child: Text('Icon',
+                          style: RibnTextStyles.dropdownButtonStyle),
                     ),
                   ),
             SizedBox(

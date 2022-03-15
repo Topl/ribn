@@ -11,6 +11,8 @@ import 'package:ribn/widgets/custom_icon_button.dart';
 import 'package:ribn/widgets/large_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../widgets/custom_tooltip.dart';
+
 /// Builds the login page.
 ///
 /// Prompts the user to unlock their wallet by entering their wallet-locking password.
@@ -112,14 +114,18 @@ class _LoginPageState extends State<LoginPage> {
     return SizedBox(
       width: _baseWidth,
       child: Row(
-        children: [
-          const Text(
+        children: const [
+          Text(
             Strings.enterWalletPassword,
             style: RibnTextStyles.extH3,
+            // style: TextStyle(fontWeight: FontWeight.bold),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2.0),
-            child: Image.asset(RibnAssets.helpIcon),
+            padding: EdgeInsets.symmetric(horizontal: 2.0),
+            // child: Image.asset(RibnAssets.helpIcon),
+            child: CustomToolTip(
+                tooltipText: Strings.loginPasswordInfo,
+                offsetPositionLeftValue: 170),
           ),
         ],
       ),
@@ -142,7 +148,9 @@ class _LoginPageState extends State<LoginPage> {
         decoration: InputDecoration(
           suffixIcon: CustomIconButton(
             icon: SvgPicture.asset(
-              _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
+              _obscurePassword
+                  ? RibnAssets.passwordVisibleIon
+                  : RibnAssets.passwordHiddenIcon,
               width: 12,
             ),
             onPressed: () {
@@ -183,7 +191,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
               TextSpan(
                 text: Strings.ribnSupport,
-                style: const TextStyle(color: RibnColors.primary, fontWeight: FontWeight.w600),
+                style: const TextStyle(
+                    color: RibnColors.primary, fontWeight: FontWeight.w600),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
                     await launch(Strings.supportEmailLink);

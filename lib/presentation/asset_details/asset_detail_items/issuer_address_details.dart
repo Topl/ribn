@@ -23,7 +23,8 @@ class IssuerAddressDetails extends StatelessWidget {
         Row(
           children: const [
             Text(Strings.issuerAddress, style: RibnTextStyles.extH4),
-            CustomToolTip(tooltipText: 'Issuer Address'),
+            CustomToolTip(
+                tooltipText: 'Issuer Address', offsetPositionLeftValue: 100),
           ],
         ),
         const SizedBox(height: 3),

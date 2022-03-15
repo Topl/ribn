@@ -9,15 +9,22 @@ import 'package:ribn/widgets/custom_close_button.dart';
 class CustomToolTip extends StatefulWidget {
   /// Text to be displayed in the tooltip.
   final String tooltipText;
+  final int offsetPositionLeftValue;
+  // final int offsetPositionLeftValue;
 
-  const CustomToolTip({Key? key, required this.tooltipText}) : super(key: key);
+  const CustomToolTip(
+      {Key? key,
+      required this.tooltipText,
+      required this.offsetPositionLeftValue})
+      : super(key: key);
 
   @override
   _CustomToolTipState createState() => _CustomToolTipState();
 }
 
 class _CustomToolTipState extends State<CustomToolTip> {
-  OverlayEntry overlayEntry = OverlayEntry(builder: (context) => const SizedBox());
+  OverlayEntry overlayEntry =
+      OverlayEntry(builder: (context) => const SizedBox());
 
   @override
   void dispose() {
@@ -46,10 +53,13 @@ class _CustomToolTipState extends State<CustomToolTip> {
     // Position of the tooltip
     Offset offset = renderbox.localToGlobal(Offset.zero);
 
+    // 170 for login
+    // 100 for everything else
+
     overlayEntry = OverlayEntry(
       builder: (context) {
         return Positioned(
-          left: offset.dx - 100,
+          left: offset.dx - widget.offsetPositionLeftValue,
           top: offset.dy + 10,
           child: GestureDetector(
             onPanUpdate: (details) {
@@ -59,7 +69,8 @@ class _CustomToolTipState extends State<CustomToolTip> {
             child: Stack(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   constraints: const BoxConstraints(),
                   decoration: BoxDecoration(
                     color: const Color(0xffeef9f8),

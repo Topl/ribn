@@ -21,7 +21,8 @@ class AssetCodeShortDetails extends StatelessWidget {
         Row(
           children: const [
             Text('Asset code · short', style: RibnTextStyles.extH4),
-            CustomToolTip(tooltipText: 'Helloooo'),
+            CustomToolTip(
+                tooltipText: 'Helloooo', offsetPositionLeftValue: 100),
           ],
         ),
         const SizedBox(height: 3),

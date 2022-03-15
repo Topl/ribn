@@ -44,7 +44,7 @@ class CustomInputField extends StatelessWidget {
               informationText != null
                   ? CustomToolTip(
                       tooltipText: informationText!,
-                    )
+                      offsetPositionLeftValue: 100)
                   : const SizedBox(),
             ],
           ),
