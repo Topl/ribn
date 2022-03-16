@@ -133,6 +133,7 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
               tooltipIcon: SvgPicture.asset(
                 RibnAssets.roundInfoCircle,
                 width: 24,
+                color: checked ? RibnColors.defaultText : RibnColors.inactive,
               ),
               alternateTooltipText:
                   Strings.howIsMySeedPhraseUnrecoverableNewLine,
