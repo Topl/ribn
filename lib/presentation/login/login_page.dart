@@ -128,6 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                 RibnAssets.roundInfoCircle,
                 width: 10,
               ),
+              toolTipBackgroundColor: const Color(0xffeef9f8),
             ),
           ),
         ],

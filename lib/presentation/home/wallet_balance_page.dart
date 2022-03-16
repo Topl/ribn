@@ -86,6 +86,7 @@ class WalletBalancePage extends StatelessWidget {
                           width: tooltipIconWidth,
                         ),
                         tooltipUrl: tooltipUrl,
+                        toolTipBackgroundColor: const Color(0xffeef9f8),
                       )
                     : CustomToolTip(
                         tooltipText: Strings.refillEmptyPolyBalance,
@@ -95,6 +96,7 @@ class WalletBalancePage extends StatelessWidget {
                           width: tooltipIconWidth,
                         ),
                         tooltipUrl: tooltipUrl,
+                        toolTipBackgroundColor: const Color(0xffeef9f8),
                       ),
               ),
             ],

@@ -130,6 +130,8 @@ You'll need it to recover your wallet if your device is lost or broken.''';
       'How is my Seed Phrase or Wallet Password unrecoverable?';
   static const String howIsMySeedPhraseUnrecoverableAns =
       '''You are the only one with a record of your Seed Phrase or Wallet Password. Topl does not maintain or have any way to generate either of these for you.''';
+  static const String howIsMySeedPhraseUnrecoverableNewLine =
+      '''You are the only one with a record of your Seed Phrase or Wallet Password.\nTopl does not maintain or have any way to generate either of these for you.''';
 
   static const String seedPhraseGenerating = 'Seed Phrase Generating...';
   static const String goGrabAPenAndPaper = 'Go grab a pen and paper';

@@ -11,16 +11,22 @@ import 'package:url_launcher/url_launcher.dart';
 class CustomToolTip extends StatefulWidget {
   /// Text to be displayed in the tooltip.
   final String tooltipText;
+  final String? alternateTooltipText;
   final int offsetPositionLeftValue;
-  final dynamic tooltipIcon;
+  final SvgPicture tooltipIcon;
+  final Color toolTipBackgroundColor;
   final String? tooltipUrl;
+  final bool? tooltipTextBold;
 
   const CustomToolTip({
     Key? key,
     required this.tooltipText,
     required this.offsetPositionLeftValue,
     required this.tooltipIcon,
+    required this.toolTipBackgroundColor,
     this.tooltipUrl,
+    this.alternateTooltipText,
+    this.tooltipTextBold,
   }) : super(key: key);
 
   @override
@@ -78,14 +84,26 @@ class _CustomToolTipState extends State<CustomToolTip> {
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   constraints: const BoxConstraints(),
                   decoration: BoxDecoration(
-                    color: const Color(0xffeef9f8),
+                    color: widget.toolTipBackgroundColor,
                     borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 2,
+                        blurRadius: 2,
+                      ),
+                    ],
                   ),
                   child: RichText(
                     text: TextSpan(
                       children: [
                         TextSpan(
                           text: widget.tooltipText,
+                          style: TextStyle(
+                            fontWeight: widget.tooltipTextBold == true
+                                ? FontWeight.w500
+                                : FontWeight.normal,
+                          ),
                         ),
                         if (widget.tooltipUrl != null)
                           WidgetSpan(
@@ -118,7 +136,11 @@ class _CustomToolTipState extends State<CustomToolTip> {
                                 ),
                               ),
                             ),
-                          )
+                          ),
+                        if (widget.alternateTooltipText != null)
+                          TextSpan(
+                            text: '\n${widget.alternateTooltipText}',
+                          ),
                       ],
                     ),
                   ),

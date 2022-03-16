@@ -51,6 +51,7 @@ class CustomInputField extends StatelessWidget {
                         RibnAssets.roundInfoCircle,
                         width: 10,
                       ),
+                      toolTipBackgroundColor: const Color(0xffeef9f8),
                     )
                   : const SizedBox(),
             ],
