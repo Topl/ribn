@@ -35,6 +35,9 @@ class WalletBalancePage extends StatelessWidget {
     color: Color(0xff585858),
   );
 
+  final String tooltipUrl = 'https://topl.services';
+  final double tooltipIconWidth = 10;
+
   @override
   Widget build(BuildContext context) {
     return WalletBalanceContainer(
@@ -61,6 +64,7 @@ class WalletBalancePage extends StatelessWidget {
       fontWeight: FontWeight.w600,
       color: Color(0xFF36A190),
     );
+
     return Container(
       constraints: const BoxConstraints.expand(height: 122),
       color: RibnColors.accent,
@@ -73,15 +77,25 @@ class WalletBalancePage extends StatelessWidget {
               const Text(Strings.totalAmount, style: RibnTextStyles.extH3),
               SizedBox(
                 width: 10,
-                child: CustomToolTip(
-                  tooltipText: Strings.refillEmptyPolyBalance,
-                  offsetPositionLeftValue: 140,
-                  tooltipIcon: SvgPicture.asset(
-                    RibnAssets.smsFailed,
-                    width: 10,
-                  ),
-                  tooltipUrl: 'https://topl.services',
-                ),
+                child: vm.polyBalance > 0
+                    ? CustomToolTip(
+                        tooltipText: Strings.refillCurrentPolyBalance,
+                        offsetPositionLeftValue: 190,
+                        tooltipIcon: SvgPicture.asset(
+                          RibnAssets.roundInfoCircle,
+                          width: tooltipIconWidth,
+                        ),
+                        tooltipUrl: tooltipUrl,
+                      )
+                    : CustomToolTip(
+                        tooltipText: Strings.refillEmptyPolyBalance,
+                        offsetPositionLeftValue: 140,
+                        tooltipIcon: SvgPicture.asset(
+                          RibnAssets.smsFailed,
+                          width: tooltipIconWidth,
+                        ),
+                        tooltipUrl: tooltipUrl,
+                      ),
               ),
             ],
           ),
