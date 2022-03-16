@@ -39,12 +39,15 @@ class _CustomToolTipState extends State<CustomToolTip> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: widget.tooltipIcon,
-      onTap: () {
-        // build tooltip if it is not already being displayed
-        if (!overlayEntry.mounted) _buildTooltip(context);
-      },
+    return Container(
+      margin: const EdgeInsets.only(left: 2),
+      child: GestureDetector(
+        child: widget.tooltipIcon,
+        onTap: () {
+          // build tooltip if it is not already being displayed
+          if (!overlayEntry.mounted) _buildTooltip(context);
+        },
+      ),
     );
   }
 
