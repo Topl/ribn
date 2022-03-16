@@ -13,14 +13,15 @@ class CustomToolTip extends StatefulWidget {
   final String tooltipText;
   final int offsetPositionLeftValue;
   final dynamic tooltipIcon;
-  // final int offsetPositionLeftValue;
+  final String? tooltipUrl;
 
-  const CustomToolTip(
-      {Key? key,
-      required this.tooltipText,
-      required this.offsetPositionLeftValue,
-      required this.tooltipIcon})
-      : super(key: key);
+  const CustomToolTip({
+    Key? key,
+    required this.tooltipText,
+    required this.offsetPositionLeftValue,
+    required this.tooltipIcon,
+    this.tooltipUrl,
+  }) : super(key: key);
 
   @override
   _CustomToolTipState createState() => _CustomToolTipState();
@@ -83,37 +84,38 @@ class _CustomToolTipState extends State<CustomToolTip> {
                         TextSpan(
                           text: widget.tooltipText,
                         ),
-                        WidgetSpan(
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 4),
-                            child: GestureDetector(
-                              onTap: () async {
-                                const url = 'https://topl.services';
-                                if (await canLaunch(url)) await launch(url);
-                              },
-                              child: Row(
-                                children: [
-                                  const Text(
-                                    'BaaS.',
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      fontWeight: FontWeight.w400,
-                                      color: RibnColors.primary,
-                                      fontSize: 14,
+                        if (widget.tooltipUrl != null)
+                          WidgetSpan(
+                            child: Container(
+                              margin: const EdgeInsets.only(left: 4),
+                              child: GestureDetector(
+                                onTap: () async {
+                                  final url = widget.tooltipUrl;
+                                  if (await canLaunch(url!)) await launch(url);
+                                },
+                                child: Row(
+                                  children: [
+                                    const Text(
+                                      'BaaS.',
+                                      style: TextStyle(
+                                        decoration: TextDecoration.none,
+                                        fontWeight: FontWeight.w400,
+                                        color: RibnColors.primary,
+                                        fontSize: 14,
+                                      ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(2),
-                                    child: SvgPicture.asset(
-                                      RibnAssets.openInNewWindow,
-                                      width: 10,
+                                    Padding(
+                                      padding: const EdgeInsets.all(2),
+                                      child: SvgPicture.asset(
+                                        RibnAssets.openInNewWindow,
+                                        width: 10,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ),
+                          )
                       ],
                     ),
                   ),

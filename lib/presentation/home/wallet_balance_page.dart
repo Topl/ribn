@@ -80,6 +80,7 @@ class WalletBalancePage extends StatelessWidget {
                     RibnAssets.smsFailed,
                     width: 10,
                   ),
+                  tooltipUrl: 'https://topl.services',
                 ),
               ),
             ],
