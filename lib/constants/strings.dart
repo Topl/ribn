@@ -125,7 +125,7 @@ You'll need it to recover your wallet if your device is lost or broken.''';
   static const String howIsASeedPhraseDifferent =
       'How is a Seed Phrase different from a Wallet Password?';
   static const String howIsASeedPhraseDifferentAns =
-      '''Your Seed Phrase essentially is your wallet. From just this piece of information, your entire wallet can be recreated and accessed. Meanwhile, your Wallet Password can only lock and unlock your wallet on a device where it is already stored.''';
+      '''The Seed Phrase is different because you can restore your wallet with it. The Wallet Password is for security and only lets you unlock the wallet after it has been imported (or created) in wallet software. Your Wallet Password isn't required to lock your wallet.''';
   static const String howIsMySeedPhraseUnrecoverable =
       'How is my Seed Phrase or Wallet Password unrecoverable?';
   static const String howIsMySeedPhraseUnrecoverableAns =
