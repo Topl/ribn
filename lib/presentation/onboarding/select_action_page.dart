@@ -24,12 +24,26 @@ class SelectActionPage extends StatelessWidget {
           OnboardingAppBar(onBackPressed: onBackPressed),
           Padding(
             padding: const EdgeInsets.only(top: 40),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Column(
               children: [
-                _buildOptionContainer(Strings.createWallet, Strings.createWalletDescription, context),
-                const SizedBox(width: 65),
-                _buildOptionContainer(Strings.importWallet, Strings.importWalletDescription, context),
+                const Text(
+                  'What would you like to do?',
+                  style: RibnTextStyles.h1,
+                  textAlign: TextAlign.center,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 80),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildOptionContainer(Strings.createWallet,
+                          Strings.createWalletDescription, context),
+                      const SizedBox(width: 65),
+                      _buildOptionContainer(Strings.restoreWallet,
+                          Strings.restoreWalletDescription, context),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -38,53 +52,82 @@ class SelectActionPage extends StatelessWidget {
     );
   }
 
-  Widget _buildOptionContainer(String title, String description, BuildContext context) {
-    final String iconToDisplay = title == Strings.createWallet ? RibnAssets.plusIcon : RibnAssets.importWalletIcon;
-    final String navigateToRoute =
-        title == Strings.createWallet ? Routes.gettingStarted : Routes.onboardingRestoreWalletWithMnemonic;
-    return Container(
-      height: 455,
-      width: 385,
-      decoration: BoxDecoration(
-        color: RibnColors.accent,
-        borderRadius: BorderRadius.circular(11),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 50),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 55, bottom: 40),
-              child: OutlinedButton(
-                style: ButtonStyle(
-                  minimumSize: MaterialStateProperty.all(const Size(285, 165)),
-                  backgroundColor: MaterialStateProperty.all(RibnColors.primary),
+  Widget _buildOptionContainer(
+      String title, String description, BuildContext context) {
+    final String iconToDisplay = title == Strings.createWallet
+        ? RibnAssets.plusIcon
+        : RibnAssets.importWalletIcon;
+    final String navigateToRoute = title == Strings.createWallet
+        ? Routes.gettingStarted
+        : Routes.onboardingRestoreWalletWithMnemonic;
+
+    return Column(
+      children: [
+        SizedBox(
+          height: 220,
+          width: 320,
+          child: OutlinedButton(
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(11),
                 ),
-                onPressed: () => StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(navigateToRoute)),
-                child: SvgPicture.asset(iconToDisplay),
               ),
-            ),
-            Text(
-              title,
-              style: RibnTextStyles.h2,
-              textAlign: TextAlign.start,
-              textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: 300,
-              height: 85,
-              child: Text(
-                description,
-                style: RibnTextStyles.body1,
-                textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+              minimumSize: MaterialStateProperty.all(
+                const Size(285, 165),
               ),
+              padding: MaterialStateProperty.all<EdgeInsets>(
+                const EdgeInsets.all(0),
+              ),
+              backgroundColor: MaterialStateProperty.all(RibnColors.primary),
             ),
-          ],
+            onPressed: () => StoreProvider.of<AppState>(context).dispatch(
+              NavigateToRoute(navigateToRoute),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 30, right: 30),
+                    child: Container(
+                      width: 60,
+                      height: 60,
+                      decoration: const BoxDecoration(
+                        color: RibnColors.accent,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(50),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(18),
+                        child: SvgPicture.asset(
+                          iconToDisplay,
+                          width: 30,
+                          color: RibnColors.primary,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 30, bottom: 30),
+                    child: Text(title, style: RibnTextStyles.btnLarge),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
-      ),
+        const SizedBox(height: 40),
+        Text(
+          description,
+          style: RibnTextStyles.body1,
+        ),
+      ],
     );
   }
 }

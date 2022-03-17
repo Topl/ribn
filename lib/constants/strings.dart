@@ -43,12 +43,12 @@ class Strings {
   static const String intro =
       'Topl’s blockchain wallet for tracking, tokenizing, and transacting impact.';
   static const String getStarted = 'Get Started';
-  static const String createWallet = 'Create Wallet';
+  static const String createWallet = 'CREATE\nWALLET';
   static const String createWalletDescription =
-      'This will create your new wallet and 15 word seed phrase.';
+      'First time? Create your new wallet\nand 15 word seed phrase.';
   static const String importWallet = 'Import Wallet';
-  static const String importWalletDescription =
-      'Import your existing Ribn wallet using your 15 word seed phrase.';
+  static const String restoreWalletDescription =
+      'Restore your existing Ribn wallet\nusing a seed phrase or Topl key.';
   static const String gettingStarted = 'Getting Started';
   static const String download = 'Download';
   static const String gettingStartedDescription =
@@ -171,7 +171,7 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String next = 'NEXT';
   static const String useSeedPhrase = 'USE\nSEED\nPHRASE';
   static const String importToplKey = 'IMPORT\nTOPL\nKEY';
-  static const String restoreWallet = 'RESTORE WALLET';
+  static const String restoreWallet = 'RESTORE\nWALLET';
   static const String restoreWalletDesc =
       'You can either use your 15-word Seed Phrase or your Top Level Key to import or recover your wallet.';
   static const String seedPhraseDiffFromTopLevelKey =
