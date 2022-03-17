@@ -177,6 +177,7 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String useSeedPhrase = 'USE\nSEED\nPHRASE';
   static const String importToplKey = 'IMPORT\nTOPL\nKEY';
   static const String restoreWallet = 'RESTORE WALLET';
+  static const String restoreWalletNewline = 'RESTORE\nWALLET';
   static const String restoreWalletDesc =
       'You can either use your 15-word Seed Phrase or your Top Level Key to import or recover your wallet.';
   static const String seedPhraseDiffFromTopLevelKey =

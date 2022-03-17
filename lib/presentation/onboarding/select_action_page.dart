@@ -39,7 +39,7 @@ class SelectActionPage extends StatelessWidget {
                       _buildOptionContainer(Strings.createWallet,
                           Strings.createWalletDescription, context),
                       const SizedBox(width: 65),
-                      _buildOptionContainer(Strings.restoreWallet,
+                      _buildOptionContainer(Strings.restoreWalletNewline,
                           Strings.restoreWalletDescription, context),
                     ],
                   ),
