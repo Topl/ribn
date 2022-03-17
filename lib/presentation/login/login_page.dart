@@ -8,10 +8,9 @@ import 'package:ribn/constants/styles.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/login_container.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
+import 'package:ribn/widgets/custom_tooltip.dart';
 import 'package:ribn/widgets/large_button.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../widgets/custom_tooltip.dart';
 
 /// Builds the login page.
 ///
