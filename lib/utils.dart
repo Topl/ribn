@@ -1,5 +1,4 @@
 import 'package:brambldart/utils.dart';
-import 'package:ribn/constants/rules.dart';
 
 /// Formats an address string to only dispaly its first and last 10 characters.
 String formatAddrString(String addr, {int charsToDisplay = 10}) {
@@ -22,16 +21,13 @@ String formatAssetUnit(String? unit) {
 /// Based on the current network, i.e. [networkId], and the [address], [validateAddressByNetwork] validates the address,
 /// and [handleResult] is called with the resulting value.
 void validateRecipientAddress({
-  required int networkId,
+  required String networkName,
   required String address,
   required Function(bool) handleResult,
 }) {
   Map<String, dynamic> result = {};
   try {
-    result = validateAddressByNetwork(
-      Rules.networkStrings[networkId]!,
-      address,
-    );
+    result = validateAddressByNetwork(networkName, address);
   } catch (e) {
     result['success'] = false;
   }

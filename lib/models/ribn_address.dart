@@ -7,16 +7,30 @@ import 'package:ribn/constants/rules.dart';
 
 @immutable
 class RibnAddress {
-  final ToplAddress address;
-  final int addressIndex;
-  final int accountIndex;
-  final int changeIndex;
+  /// Helpful representation of the address as a [ToplAddress].
+  final ToplAddress toplAddress;
+
+  /// The full HD key derivation path of this address.
+  /// Follows the format: m / purpose' / coin_type' / account' / role / index
   final String keyPath;
+
+  /// The address level index, i.e. last index in the hd path of this address.
+  final int addressIndex;
+
+  /// The account level index, i.e. second last index in the hd path of this address.
+  final int accountIndex;
+
+  /// The change level index, i.e. third last index in the hd path of this address.
+  final int changeIndex;
+
+  /// The [Balance] owned by this address.
   final Balance balance;
+
+  /// The networkId that this address is associated with.
   final int networkId;
 
   const RibnAddress({
-    required this.address,
+    required this.toplAddress,
     required this.addressIndex,
     this.accountIndex = Rules.defaultAccountIndex,
     this.changeIndex = Rules.defaultChangeIndex,
@@ -26,20 +40,20 @@ class RibnAddress {
   });
 
   RibnAddress copyWith({
-    ToplAddress? address,
+    ToplAddress? toplAddress,
+    String? keyPath,
     int? addressIndex,
     int? accountIndex,
     int? changeIndex,
-    String? keyPath,
     Balance? balance,
     int? networkId,
   }) {
     return RibnAddress(
-      address: address ?? this.address,
+      toplAddress: toplAddress ?? this.toplAddress,
+      keyPath: keyPath ?? this.keyPath,
       addressIndex: addressIndex ?? this.addressIndex,
       accountIndex: accountIndex ?? this.accountIndex,
       changeIndex: changeIndex ?? this.changeIndex,
-      keyPath: keyPath ?? this.keyPath,
       balance: balance ?? this.balance,
       networkId: networkId ?? this.networkId,
     );
@@ -47,7 +61,7 @@ class RibnAddress {
 
   Map<String, dynamic> toMap() {
     return {
-      'address': address.toBase58(),
+      'address': toplAddress.toBase58(),
       'addressIndex': addressIndex,
       'accountIndex': accountIndex,
       'changeIndex': changeIndex,
@@ -58,7 +72,7 @@ class RibnAddress {
 
   factory RibnAddress.fromMap(Map<String, dynamic> map) {
     return RibnAddress(
-      address: ToplAddress.fromBase58(
+      toplAddress: ToplAddress.fromBase58(
         map['address'] as String,
         networkPrefix: map['networkId'] as int,
       ),
@@ -79,7 +93,7 @@ class RibnAddress {
 
   @override
   String toString() {
-    return 'RibnAddress(address: $address, addressIndex: $addressIndex, accountIndex: $accountIndex, changeIndex: $changeIndex, keyPath: $keyPath, balance: $balance, networkId: $networkId)';
+    return 'RibnAddress(address: $toplAddress, addressIndex: $addressIndex, accountIndex: $accountIndex, changeIndex: $changeIndex, keyPath: $keyPath, balance: $balance, networkId: $networkId)';
   }
 
   @override
@@ -87,22 +101,22 @@ class RibnAddress {
     if (identical(this, other)) return true;
 
     return other is RibnAddress &&
-        other.address == address &&
+        other.toplAddress == toplAddress &&
+        other.keyPath == keyPath &&
         other.addressIndex == addressIndex &&
         other.accountIndex == accountIndex &&
         other.changeIndex == changeIndex &&
-        other.keyPath == keyPath &&
         other.balance == balance &&
         other.networkId == networkId;
   }
 
   @override
   int get hashCode {
-    return address.hashCode ^
+    return toplAddress.hashCode ^
+        keyPath.hashCode ^
         addressIndex.hashCode ^
         accountIndex.hashCode ^
         changeIndex.hashCode ^
-        keyPath.hashCode ^
         balance.hashCode ^
         networkId.hashCode;
   }

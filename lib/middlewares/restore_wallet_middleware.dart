@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:redux/redux.dart';
+import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/repositories/login_repository.dart';
@@ -36,7 +37,7 @@ void Function(Store<AppState> store, RestoreWalletWithMnemonicAction action, Nex
         ),
       );
     } catch (e) {
-      next(FailedToRestoreWalletAction());
+      next(ApiErrorAction(e.toString()));
     }
   };
 }
@@ -53,6 +54,7 @@ void Function(Store<AppState> store, RestoreWalletWithToplKeyAction action, Next
         keyStoreJson: action.toplKeyStoreJson,
         password: action.password,
       );
+      action.completer.complete(true);
       next(
         SuccessfullyRestoredWalletAction(
           keyStoreJson: action.toplKeyStoreJson,
@@ -60,7 +62,7 @@ void Function(Store<AppState> store, RestoreWalletWithToplKeyAction action, Next
         ),
       );
     } catch (e) {
-      next(FailedToRestoreWalletAction());
+      action.completer.complete(false);
     }
   };
 }

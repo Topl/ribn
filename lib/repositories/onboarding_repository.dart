@@ -36,7 +36,7 @@ class OnboardingRespository {
   }
 
   /// Generates a 15 word mnemonic for the wallet owner.
-  Future<String> generateMnemonicForUser() async {
+  String generateMnemonicForUser() {
     final Random random = Random.secure();
     final String mnemonic = generateMnemonic(random, strength: 160);
     return mnemonic;

@@ -1,11 +1,10 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/colors.dart';
-// import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/mint_input_container.dart';
 import 'package:ribn/models/asset_details.dart';
-import 'package:ribn/presentation/error_section.dart';
+import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_amount_field.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_long_name_field.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_selection_field.dart';
@@ -58,6 +57,9 @@ class _MintInputPageState extends State<MintInputPage> {
   /// The selected icon for the asset to be minted
   String? _selectedIcon;
 
+  /// True if currently loading raw tx creation.
+  bool _loadingRawTx = false;
+
   final GlobalKey _formKey = GlobalKey<FormState>();
 
   @override
@@ -93,19 +95,6 @@ class _MintInputPageState extends State<MintInputPage> {
   @override
   Widget build(BuildContext context) {
     return MintInputContainer(
-      onWillChange: (prevVm, currVm) async {
-        if (currVm.failedToCreateRawTx &&
-            currVm.failedToCreateRawTx != prevVm?.failedToCreateRawTx) {
-          await showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              backgroundColor: RibnColors.accent,
-              title:
-                  ErrorSection(onTryAgain: () => Navigator.of(context).pop()),
-            ),
-          );
-        }
-      },
       builder: (BuildContext context, MintInputViewmodel vm) => Scaffold(
         backgroundColor: RibnColors.accent,
         body: Stack(
@@ -155,7 +144,7 @@ class _MintInputPageState extends State<MintInputPage> {
                             mintingToMyWallet: widget.mintingToMyWallet,
                             // validate the address entered on change
                             onChanged: (text) => validateRecipientAddress(
-                              networkId: vm.currNetworkId,
+                              networkName: vm.currentNetwork.networkName,
                               address: _recipientController.text,
                               handleResult: (bool result) {
                                 setState(() {
@@ -192,7 +181,7 @@ class _MintInputPageState extends State<MintInputPage> {
                 ],
               ),
             ),
-            vm.loadingRawTx ? const LoadingSpinner() : const SizedBox(),
+            _loadingRawTx ? const LoadingSpinner() : const SizedBox(),
           ],
         ),
       ),
@@ -258,6 +247,9 @@ class _MintInputPageState extends State<MintInputPage> {
       child: LargeButton(
         label: Strings.review,
         onPressed: () {
+          setState(() {
+            _loadingRawTx = true;
+          });
           vm.initiateTx(
             assetShortName: _assetShortNameController.text,
             amount: _amountController.text,
@@ -266,6 +258,14 @@ class _MintInputPageState extends State<MintInputPage> {
             mintingToMyWallet: widget.mintingToMyWallet,
             mintingNewAsset: widget.mintingNewAsset,
             assetDetails: assetDetails,
+            onRawTxCreated: (bool success) async {
+              _loadingRawTx = false;
+              setState(() {});
+              // Display error dialog if failed to create raw tx
+              if (!success) {
+                await TransferUtils.showErrorDialog(context);
+              }
+            },
           );
         },
       ),

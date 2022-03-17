@@ -6,6 +6,7 @@ import 'package:brambldart/credentials.dart';
 import 'package:brambldart/model.dart';
 // ignore: implementation_imports
 import 'package:brambldart/src/model/box/token_value_holder.dart';
+import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/transfer_details.dart';
@@ -22,7 +23,7 @@ class TransactionRepository {
     switch (transferDetails.transferType) {
       case TransferType.polyTransfer:
         {
-          final List<ToplAddress> senders = transferDetails.senders.map((e) => e.address).toList();
+          final List<ToplAddress> senders = transferDetails.senders.map((e) => e.toplAddress).toList();
           final ToplAddress recipient = ToplAddress.fromBase58(transferDetails.recipient);
           final PolyTransaction polyTransaction = PolyTransaction(
             recipients: [
@@ -33,8 +34,8 @@ class TransactionRepository {
             ],
             sender: senders,
             propositionType: senders.first.proposition.propositionName,
-            changeAddress: transferDetails.change!.address,
-            fee: Rules.networkFees[transferDetails.networkId],
+            changeAddress: transferDetails.change!.toplAddress,
+            fee: NetworkUtils.networkFees[transferDetails.networkId],
             data: Latin1Data.validated(transferDetails.data),
           );
           final Map<String, dynamic> rawTx = await client.sendRawPolyTransfer(polyTransaction: polyTransaction);
@@ -42,7 +43,7 @@ class TransactionRepository {
         }
       case TransferType.assetTransfer:
         {
-          final List<ToplAddress> senders = transferDetails.senders.map((e) => e.address).toList();
+          final List<ToplAddress> senders = transferDetails.senders.map((e) => e.toplAddress).toList();
           final ToplAddress recipient = ToplAddress.fromBase58(transferDetails.recipient);
           final AssetValue assetValue = AssetValue(
             transferDetails.amount,
@@ -54,42 +55,18 @@ class TransactionRepository {
           final AssetTransaction assetTransaction = AssetTransaction(
             recipients: [AssetRecipient(recipient, assetValue)],
             sender: senders,
-            changeAddress: transferDetails.change!.address,
-            consolidationAddress: transferDetails.consolidation!.address,
+            changeAddress: transferDetails.change!.toplAddress,
+            consolidationAddress: transferDetails.consolidation!.toplAddress,
             propositionType: senders.first.proposition.propositionName,
             minting: false,
             assetCode: transferDetails.assetCode!,
-            fee: Rules.networkFees[transferDetails.networkId],
+            fee: NetworkUtils.networkFees[transferDetails.networkId],
             data: Latin1Data.validated(transferDetails.data),
           );
           final Map<String, dynamic> rawTx = await client.sendRawAssetTransfer(assetTransaction: assetTransaction);
           return rawTx;
         }
       case (TransferType.mintingAsset):
-        {
-          final ToplAddress issuer = transferDetails.assetCode!.issuer;
-          final ToplAddress recipient = ToplAddress.fromBase58(transferDetails.recipient);
-          final AssetValue assetValue = AssetValue(
-            transferDetails.amount,
-            transferDetails.assetCode!,
-            SecurityRoot.empty(),
-            '',
-            'Asset',
-          );
-          final AssetTransaction assetTransaction = AssetTransaction(
-            recipients: [AssetRecipient(recipient, assetValue)],
-            sender: [issuer],
-            changeAddress: issuer,
-            consolidationAddress: issuer,
-            propositionType: issuer.proposition.propositionName,
-            minting: true,
-            assetCode: transferDetails.assetCode!,
-            fee: Rules.networkFees[transferDetails.networkId],
-            data: Latin1Data.validated(transferDetails.data),
-          );
-          final Map<String, dynamic> rawTx = await client.sendRawAssetTransfer(assetTransaction: assetTransaction);
-          return rawTx;
-        }
       case (TransferType.remintingAsset):
         {
           final ToplAddress issuer = transferDetails.assetCode!.issuer;
@@ -109,7 +86,7 @@ class TransactionRepository {
             propositionType: issuer.proposition.propositionName,
             minting: true,
             assetCode: transferDetails.assetCode!,
-            fee: Rules.networkFees[transferDetails.networkId],
+            fee: NetworkUtils.networkFees[transferDetails.networkId],
             data: Latin1Data.validated(transferDetails.data),
           );
           final Map<String, dynamic> rawTx = await client.sendRawAssetTransfer(assetTransaction: assetTransaction);
