@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:ribn/constants/test_data.dart';
 
 @immutable
@@ -44,6 +43,7 @@ class OnboardingState {
     return {};
   }
 
+  // ignore: avoid_unused_constructor_parameters
   factory OnboardingState.fromMap(Map<String, dynamic> map) {
     return const OnboardingState();
   }
