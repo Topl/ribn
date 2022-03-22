@@ -1,6 +1,6 @@
 {
   "name": "Ribn",
-  "description": "A lightweight flutter wallet to interact with the Topl blockchain",
+  "description": "Web wallet for Topl Blockchain",
   "version": "0.0.1",
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
@@ -10,19 +10,13 @@
     "type": "module"
   },
   "action": {
-    "default_popup": "index.html",
-    "default_icon": {
-      "16": "/icons/Icon-192.png",
-      "32": "/icons/Icon-192.png",
-      "48": "/icons/Icon-192.png",
-      "128": "/icons/Icon-192.png"
-    }
+    "default_popup": "index.html"
   },
   "icons": {
-    "16": "/icons/Icon-192.png",
-    "32": "/icons/Icon-192.png",
-    "48": "/icons/Icon-192.png",
-    "128": "/icons/Icon-192.png"
+    "16": "icons/ribn_small.png",
+    "32": "icons/ribn_medium.png",
+    "48": "icons/ribn_medium.png",
+    "128": "icons/ribn_large.png"
   },
   "permissions": ["storage"],
   "web_accessible_resources": [
