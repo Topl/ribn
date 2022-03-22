@@ -115,6 +115,32 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       color: Color(0xFF36A190),
     );
 
+    CustomToolTip renderTooltip() {
+      if (vm.polyBalance > 0) {
+        return CustomToolTip(
+          tooltipText: Strings.refillCurrentPolyBalance,
+          offsetPositionLeftValue: 190,
+          tooltipIcon: SvgPicture.asset(
+            RibnAssets.roundInfoCircle,
+            width: tooltipIconWidth,
+          ),
+          tooltipUrl: tooltipUrl,
+          toolTipBackgroundColor: const Color(0xffeef9f8),
+        );
+      } else {
+        return CustomToolTip(
+          tooltipText: Strings.refillEmptyPolyBalance,
+          offsetPositionLeftValue: 140,
+          tooltipIcon: SvgPicture.asset(
+            RibnAssets.smsFailed,
+            width: tooltipIconWidth,
+          ),
+          tooltipUrl: tooltipUrl,
+          toolTipBackgroundColor: const Color(0xffeef9f8),
+        );
+      }
+    }
+
     return Container(
       constraints: const BoxConstraints.expand(height: 122),
       color: RibnColors.accent,
@@ -127,27 +153,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
               const Text(Strings.totalAmount, style: RibnTextStyles.extH3),
               SizedBox(
                 width: 10,
-                child: vm.polyBalance > 0
-                    ? CustomToolTip(
-                        tooltipText: Strings.refillCurrentPolyBalance,
-                        offsetPositionLeftValue: 190,
-                        tooltipIcon: SvgPicture.asset(
-                          RibnAssets.roundInfoCircle,
-                          width: tooltipIconWidth,
-                        ),
-                        tooltipUrl: tooltipUrl,
-                        toolTipBackgroundColor: const Color(0xffeef9f8),
-                      )
-                    : CustomToolTip(
-                        tooltipText: Strings.refillEmptyPolyBalance,
-                        offsetPositionLeftValue: 140,
-                        tooltipIcon: SvgPicture.asset(
-                          RibnAssets.smsFailed,
-                          width: tooltipIconWidth,
-                        ),
-                        tooltipUrl: tooltipUrl,
-                        toolTipBackgroundColor: const Color(0xffeef9f8),
-                      ),
+                child: renderTooltip(),
               ),
             ],
           ),

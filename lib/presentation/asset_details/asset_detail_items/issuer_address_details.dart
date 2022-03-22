@@ -24,8 +24,8 @@ class IssuerAddressDetails extends StatelessWidget {
           children: [
             const Text(Strings.issuerAddress, style: RibnTextStyles.extH4),
             CustomToolTip(
-              tooltipText: 'Issuer Address',
-              offsetPositionLeftValue: 100,
+              tooltipText: Strings.issuerAddressInfo,
+              offsetPositionLeftValue: 120,
               tooltipIcon: SvgPicture.asset(
                 RibnAssets.roundInfoCircle,
                 width: 10,
