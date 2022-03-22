@@ -124,6 +124,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
             RibnAssets.roundInfoCircle,
             width: tooltipIconWidth,
           ),
+          tooltipUrlText: 'BaaS.',
           tooltipUrl: tooltipUrl,
           toolTipBackgroundColor: const Color(0xffeef9f8),
         );
@@ -135,6 +136,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
             RibnAssets.smsFailed,
             width: tooltipIconWidth,
           ),
+          tooltipUrlText: 'BaaS.',
           tooltipUrl: tooltipUrl,
           toolTipBackgroundColor: const Color(0xffeef9f8),
         );

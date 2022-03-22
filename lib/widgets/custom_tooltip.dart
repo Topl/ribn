@@ -11,11 +11,19 @@ import 'package:url_launcher/url_launcher.dart';
 class CustomToolTip extends StatefulWidget {
   /// Text to be displayed in the tooltip.
   final String tooltipText;
+  // Alternative text to be displayed below the main text.
   final String? alternateTooltipText;
+  // Integer to offset the tooltip on the x axis to fit on screen.
   final int offsetPositionLeftValue;
+  // An SVG icon which acts as the trigger to open the tooltip.
   final SvgPicture tooltipIcon;
+  // A color value to change the background.
   final Color toolTipBackgroundColor;
+  // The text for the tooltip link.
+  final String? tooltipUrlText;
+  // The url for the tooltip link.
   final String? tooltipUrl;
+  // Conditional for making the tooltipText bold like a title.
   final bool? tooltipTextBold;
 
   const CustomToolTip({
@@ -24,6 +32,7 @@ class CustomToolTip extends StatefulWidget {
     required this.offsetPositionLeftValue,
     required this.tooltipIcon,
     required this.toolTipBackgroundColor,
+    this.tooltipUrlText,
     this.tooltipUrl,
     this.alternateTooltipText,
     this.tooltipTextBold,
@@ -105,7 +114,8 @@ class _CustomToolTipState extends State<CustomToolTip> {
                                 : FontWeight.normal,
                           ),
                         ),
-                        if (widget.tooltipUrl != null)
+                        if (widget.tooltipUrl != null &&
+                            widget.tooltipUrlText != null)
                           WidgetSpan(
                             child: Container(
                               margin: const EdgeInsets.only(left: 4),
@@ -116,9 +126,9 @@ class _CustomToolTipState extends State<CustomToolTip> {
                                 },
                                 child: Row(
                                   children: [
-                                    const Text(
-                                      'BaaS.',
-                                      style: TextStyle(
+                                    Text(
+                                      widget.tooltipUrlText!,
+                                      style: const TextStyle(
                                         decoration: TextDecoration.none,
                                         fontWeight: FontWeight.w400,
                                         color: RibnColors.primary,
