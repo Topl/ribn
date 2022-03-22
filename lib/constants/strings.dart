@@ -238,4 +238,6 @@ These words need to be written down carefully and in the exact order shown.''';
       'Now, enter your Wallet Password to restore your Ribn wallet!';
   static const String restoreWalletReadCarefully =
       'For your security, restoration of a wallet will overwrite all previously stored Ribn activity. This will not affect any activity recorded on the blockchain itself.';
+  static const String myRibnWalletAddress = 'My Ribn Wallet Address';
+  static const String copyAddress = 'Copy address';
 }
