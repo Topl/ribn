@@ -18,7 +18,7 @@ import 'package:ribn/redux.dart';
 import 'package:ribn/router/root_router.dart';
 
 void main() async {
-  await Redux.initStore(initTestStore: true);
+  await Redux.initStore(initTestStore: false);
   final String currentAppView = await getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
   // Open app in new tab if user needs onboarding
