@@ -238,6 +238,8 @@ These words need to be written down carefully and in the exact order shown.''';
       'Your Wallet Password can lock and unlock your\nwallet on a device where it is already stored.';
   static const String assetLongNameInfo =
       'The descriptive name used to identify your\nassets locally in your Ribn Wallet.';
+  static const String assetCodeLongInfo =
+      'AssetCode serves as a unique identifier\nfor user issued assets.';
   static const String assetCodeShortInfo =
       'This is used to view the short name for your \nasset as this will be the information used to\nidentify a particular asset on the blockchain.';
   static const String issuerAddressInfo =

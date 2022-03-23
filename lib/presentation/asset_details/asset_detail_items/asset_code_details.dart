@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/custom_copy_button.dart';
@@ -26,8 +27,8 @@ class AssetCodeDetails extends StatelessWidget {
           children: [
             const Text('Asset code', style: RibnTextStyles.extH4),
             CustomToolTip(
-              tooltipText: 'Asset code',
-              offsetPositionLeftValue: 100,
+              tooltipText: Strings.assetCodeLongInfo,
+              offsetPositionLeftValue: 80,
               tooltipIcon: SvgPicture.asset(
                 RibnAssets.roundInfoCircle,
                 width: 10,
