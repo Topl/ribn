@@ -1,10 +1,10 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/colors.dart';
-// import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/mint_input_container.dart';
 import 'package:ribn/models/asset_details.dart';
+import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_amount_field.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_long_name_field.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_selection_field.dart';
@@ -37,8 +37,10 @@ class MintInputPage extends StatefulWidget {
 
 class _MintInputPageState extends State<MintInputPage> {
   final TextEditingController _noteController = TextEditingController();
-  final TextEditingController _assetLongNameController = TextEditingController();
-  final TextEditingController _assetShortNameController = TextEditingController();
+  final TextEditingController _assetLongNameController =
+      TextEditingController();
+  final TextEditingController _assetShortNameController =
+      TextEditingController();
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _recipientController = TextEditingController();
   late List<TextEditingController> _controllers;
@@ -54,6 +56,9 @@ class _MintInputPageState extends State<MintInputPage> {
 
   /// The selected icon for the asset to be minted
   String? _selectedIcon;
+
+  /// True if currently loading raw tx creation.
+  bool _loadingRawTx = false;
 
   final GlobalKey _formKey = GlobalKey<FormState>();
 
@@ -112,9 +117,12 @@ class _MintInputPageState extends State<MintInputPage> {
                             children: [
                               // field for defining a short name for the asset if minting a new asset
                               widget.mintingNewAsset
-                                  ? AssetShortNameField(controller: _assetShortNameController)
+                                  ? AssetShortNameField(
+                                      controller: _assetShortNameController)
                                   : const SizedBox(),
-                              widget.mintingNewAsset ? const Spacer() : const SizedBox(),
+                              widget.mintingNewAsset
+                                  ? const Spacer()
+                                  : const SizedBox(),
                               // field for defining asset amount & custom unit
                               AssetAmountField(
                                 selectedUnit: _selectedUnit,
@@ -136,12 +144,13 @@ class _MintInputPageState extends State<MintInputPage> {
                             mintingToMyWallet: widget.mintingToMyWallet,
                             // validate the address entered on change
                             onChanged: (text) => validateRecipientAddress(
-                              networkId: vm.currNetworkId,
+                              networkName: vm.currentNetwork.networkName,
                               address: _recipientController.text,
                               handleResult: (bool result) {
                                 setState(() {
                                   if (result) {
-                                    _validRecipientAddress = _recipientController.text;
+                                    _validRecipientAddress =
+                                        _recipientController.text;
                                     _recipientController.text = '';
                                   } else {
                                     _validRecipientAddress = '';
@@ -172,7 +181,7 @@ class _MintInputPageState extends State<MintInputPage> {
                 ],
               ),
             ),
-            vm.loadingRawTx ? const LoadingSpinner() : const SizedBox(),
+            _loadingRawTx ? const LoadingSpinner() : const SizedBox(),
           ],
         ),
       ),
@@ -183,7 +192,8 @@ class _MintInputPageState extends State<MintInputPage> {
   Widget _buildPageTitle() {
     return Padding(
       padding: const EdgeInsets.only(top: 45),
-      child: CustomPageTitle(title: widget.mintingNewAsset ? Strings.mint : Strings.remint),
+      child: CustomPageTitle(
+          title: widget.mintingNewAsset ? Strings.mint : Strings.remint),
     );
   }
 
@@ -211,7 +221,8 @@ class _MintInputPageState extends State<MintInputPage> {
             onSelected: (AssetAmount? asset) {
               setState(() {
                 _selectedAsset = asset;
-                _selectedUnit = vm.assetDetails[asset!.assetCode.toString()]?.unit;
+                _selectedUnit =
+                    vm.assetDetails[asset!.assetCode.toString()]?.unit;
                 _assetShortNameController.text = asset.assetCode.shortName.show;
               });
             },
@@ -236,6 +247,9 @@ class _MintInputPageState extends State<MintInputPage> {
       child: LargeButton(
         label: Strings.review,
         onPressed: () {
+          setState(() {
+            _loadingRawTx = true;
+          });
           vm.initiateTx(
             assetShortName: _assetShortNameController.text,
             amount: _amountController.text,
@@ -244,6 +258,14 @@ class _MintInputPageState extends State<MintInputPage> {
             mintingToMyWallet: widget.mintingToMyWallet,
             mintingNewAsset: widget.mintingNewAsset,
             assetDetails: assetDetails,
+            onRawTxCreated: (bool success) async {
+              _loadingRawTx = false;
+              setState(() {});
+              // Display error dialog if failed to create raw tx
+              if (!success) {
+                await TransferUtils.showErrorDialog(context);
+              }
+            },
           );
         },
       ),

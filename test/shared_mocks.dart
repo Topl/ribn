@@ -4,14 +4,14 @@ import 'package:ribn/repositories/keychain_repository.dart';
 import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/repositories/misc_repository.dart';
 import 'package:ribn/repositories/onboarding_repository.dart';
-import 'package:mubrambl/src/credentials/hd_wallet_helper.dart';
+import 'package:ribn/repositories/transaction_repository.dart';
 
 @GenerateMocks([
   OnboardingRespository,
   LoginRepository,
   MiscRepository,
   KeychainRepository,
+  TransactionRepository,
   RibnAddress,
-  HdWallet,
 ])
 void main() {}

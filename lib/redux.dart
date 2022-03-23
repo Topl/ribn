@@ -37,12 +37,7 @@ class Redux {
     KeychainRepository keychainRepo = keychainRepository,
     TransactionRepository transactionRepo = transactionRepository,
   }) async {
-    final Map<String, dynamic> persistedAppState = await getPersistedAppState();
-    final AppState initState = persistedAppState.isNotEmpty
-        ? AppState.fromMap(persistedAppState)
-        : initTestStore
-            ? AppState.test()
-            : AppState.initial();
+    final AppState appState = await getInitialAppState(initTestStore);
     _store = Store<AppState>(
       appReducer,
       middleware: createAppMiddleware(
@@ -53,7 +48,7 @@ class Redux {
         transactionRepo: transactionRepo,
       ),
       distinct: true,
-      initialState: initState,
+      initialState: appState,
     );
   }
 
@@ -64,6 +59,24 @@ class Redux {
       return mappedAppState;
     } catch (e) {
       return {};
+    }
+  }
+
+  /// Gets the persisted app state from local storage, and if valid, initializes AppState with the persisted state.
+  ///
+  /// Otherwise, a new AppState is initialized depending on [initTestStore].
+  static Future<AppState> getInitialAppState(bool initTestStore) async {
+    try {
+      final Map<String, dynamic> persistedAppState = await getPersistedAppState();
+      // A valid persisted app state must contain 'keychainState' as a key.
+      final isPersistedStateValid = persistedAppState.containsKey('keychainState');
+      return isPersistedStateValid
+          ? AppState.fromMap(persistedAppState)
+          : initTestStore
+              ? AppState.test()
+              : AppState.initial();
+    } catch (e) {
+      return AppState.initial();
     }
   }
 }

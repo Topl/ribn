@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
-import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/containers/ribn_app_bar_container.dart';
 import 'package:ribn/utils.dart';
@@ -35,7 +34,7 @@ class _RibnAppBarState extends State<RibnAppBar> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              _buildNetworkMenu(vm.currentNetwork, vm.networks, vm.updateNetwork),
+              _buildNetworkMenu(vm.currentNetworkName, vm.networks, vm.updateNetwork),
               const Spacer(),
               _buildSettingsMenu(vm.settingsOptions, vm.selectSettingsOption),
             ],
@@ -48,8 +47,8 @@ class _RibnAppBarState extends State<RibnAppBar> {
 
   /// Builds the network drop down menu.
   Widget _buildNetworkMenu(
-    int selectedNetwork,
-    List<int> networks,
+    String selectedNetwork,
+    List<String> networks,
     Function(String) onChange,
   ) {
     return Container(
@@ -66,9 +65,9 @@ class _RibnAppBarState extends State<RibnAppBar> {
           elevation: 0,
           itemBuilder: (context) {
             return networks.map(
-              (int networkId) {
+              (String networkName) {
                 return PopupMenuItem(
-                  value: networkId.toString(),
+                  value: networkName,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -77,11 +76,11 @@ class _RibnAppBarState extends State<RibnAppBar> {
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: CircleAvatar(
                           backgroundColor:
-                              networkId == selectedNetwork ? const Color(0xFF80FF00) : const Color(0xffbdbdbd),
+                              networkName == selectedNetwork ? const Color(0xFF80FF00) : const Color(0xffbdbdbd),
                           radius: 3,
                         ),
                       ),
-                      Text(capitalize(Rules.networkStrings[networkId]!)),
+                      Text(capitalize(networkName)),
                     ],
                   ),
                 );
@@ -100,15 +99,15 @@ class _RibnAppBarState extends State<RibnAppBar> {
                 height: 15,
                 width: 50,
                 child: Text(
-                  capitalize(Rules.networkStrings[selectedNetwork]!),
+                  capitalize(selectedNetwork),
                   style: RibnTextStyles.h3.copyWith(color: Colors.white, fontSize: 10),
                 ),
               ),
               const Icon(Icons.arrow_drop_down, color: Colors.white, size: 10),
             ],
           ),
-          onSelected: (String? networkId) {
-            onChange(networkId ?? Rules.valhallaId.toString());
+          onSelected: (String network) {
+            onChange(network);
           }),
     );
   }

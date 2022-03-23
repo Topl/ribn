@@ -1,15 +1,13 @@
+import 'dart:async';
+import 'dart:typed_data';
+
 class AttemptLoginAction {
   final String password;
-  final String keyStoreJson;
-  const AttemptLoginAction(this.password, this.keyStoreJson);
+  final Completer completer;
+  const AttemptLoginAction(this.password, this.completer);
 }
 
 class LoginSuccessAction {
-  const LoginSuccessAction();
+  final Uint8List toplExtendedPrvKeyUint8List;
+  const LoginSuccessAction(this.toplExtendedPrvKeyUint8List);
 }
-
-class LoginFailureAction {}
-
-class LoginLoadingAction {}
-
-class FirstTimeLoginAction {}

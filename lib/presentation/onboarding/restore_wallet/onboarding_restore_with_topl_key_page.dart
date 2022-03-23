@@ -9,9 +9,11 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:ribn/presentation/login/widgets/uploaded_file_container.dart';
+import 'package:ribn/widgets/large_button.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
 
-/// This page allows the user to upload their Topl Key File in order to restore a wallet.
+/// This page allows the user to upload their Topl Main Key in order to restore a wallet.
 ///
 /// This page is used in the 'restore wallet' flow when initiated during Onboarding,
 /// hence the widget name is prefixed with 'Onboarding'.
@@ -23,6 +25,8 @@ class OnboardingRestoreWithToplKeyPage extends StatefulWidget {
 }
 
 class _OnboardingRestoreWithToplKeyPageState extends State<OnboardingRestoreWithToplKeyPage> {
+  final double maxWidth = 754;
+
   /// The name of the file that is uploaded.
   String uploadedFileName = '';
 
@@ -40,28 +44,25 @@ class _OnboardingRestoreWithToplKeyPageState extends State<OnboardingRestoreWith
           children: [
             OnboardingAppBar(onBackPressed: () => Navigator.of(context).pop()),
             _buildTitle(),
-            const SizedBox(
-              width: 734,
-              child: Text(
-                'First, upload your Top Level Key to import or restore your wallet. Please upload your file in .json format only.',
+            SizedBox(
+              width: maxWidth,
+              child: const Text(
+                Strings.restoreWalletToplKeyDesc,
                 style: TextStyle(
                   fontFamily: 'Nunito',
                   fontSize: 15,
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: SizedBox(
-                width: 734,
-                child: Text('Upload File', style: RibnTextStyles.extH3),
+                width: maxWidth,
+                child: const Text(Strings.uploadFile, style: RibnTextStyles.extH3),
               ),
             ),
-            _buildFileUploadContainer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: _buildUploadedFileNameContainer(),
-            ),
+            _buildUploadFileButton(),
+            _buildUploadedFileContainer(),
             errorUploadingFile
                 ? const Text(
                     'Error Uploading File',
@@ -75,59 +76,58 @@ class _OnboardingRestoreWithToplKeyPageState extends State<OnboardingRestoreWith
     );
   }
 
-  /// Builds the file upload container, when pressed, allows the user to upload a key file.
+  /// Builds the upload file button, when pressed, allows the user to upload a key file.
   ///
   /// When a file is selected, [uploadedFileName] is updated with the file name,
   /// and [toplKey] is updated with the [utf8] decoded file content.
-  Widget _buildFileUploadContainer() {
-    return MaterialButton(
-      onPressed: () async {
-        try {
-          final FilePickerResult? result = await FilePicker.platform.pickFiles();
-          if (result != null) {
-            final PlatformFile file = result.files.first;
-            // utf8.decode the file bytes to get the file content as a string
-            toplKey = utf8.decode(file.bytes!);
-            // validate that the file content can be json decoded
-            jsonDecode(toplKey);
-            // update the file name
-            uploadedFileName = file.name;
-            errorUploadingFile = false;
-          }
-        } catch (e) {
-          errorUploadingFile = true;
-          uploadedFileName = '';
-          toplKey = '';
-        }
-        setState(() {});
-      },
-      child: Container(
-        width: 734,
-        height: 345,
-        color: const Color(0xffB1E7E1),
-        child: const Center(
-          child: Text('Browse'),
-        ),
+  Widget _buildUploadFileButton() {
+    return SizedBox(
+      width: maxWidth,
+      child: Row(
+        children: [
+          LargeButton(
+            label: Strings.browse,
+            buttonWidth: 234,
+            buttonHeight: 45,
+            onPressed: () async {
+              try {
+                final FilePickerResult? result = await FilePicker.platform.pickFiles();
+                if (result != null) {
+                  final PlatformFile file = result.files.first;
+                  // utf8.decode the file bytes to get the file content as a string
+                  toplKey = utf8.decode(file.bytes!);
+                  // validate that the file content can be json decoded
+                  jsonDecode(toplKey);
+                  // update the file name
+                  uploadedFileName = file.name;
+                  errorUploadingFile = false;
+                }
+              } catch (e) {
+                errorUploadingFile = true;
+                uploadedFileName = '';
+                toplKey = '';
+              }
+              setState(() {});
+            },
+          ),
+          const Spacer(),
+        ],
       ),
     );
   }
 
-  /// Builds a container to display the [uploadedFileName].
-  Widget _buildUploadedFileNameContainer() {
-    return SizedBox(
-      width: 734,
-      child: Row(
-        children: [
-          uploadedFileName.isNotEmpty
-              ? Container(
-                  width: 309,
-                  height: 35,
-                  color: const Color(0xffB1E7E1),
-                  child: Text(uploadedFileName),
-                )
-              : const SizedBox(height: 35),
-          const Spacer(),
-        ],
+  /// Builds the container to display the uploaded file name.
+  Widget _buildUploadedFileContainer() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: SizedBox(
+        width: maxWidth,
+        child: Row(
+          children: [
+            UploadedFileContainer(uploadedFileName: uploadedFileName, width: 484, height: 46),
+            const Spacer(),
+          ],
+        ),
       ),
     );
   }
@@ -141,7 +141,7 @@ class _OnboardingRestoreWithToplKeyPageState extends State<OnboardingRestoreWith
         if (toplKey.isNotEmpty && !errorUploadingFile) {
           StoreProvider.of<AppState>(context).dispatch(
             NavigateToRoute(
-              Routes.loginRestoreWalletoldPassword,
+              Routes.onboardingRestoreWalletEnterPassword,
               arguments: toplKey,
             ),
           );

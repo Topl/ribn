@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
@@ -23,30 +25,26 @@ class LoginContainer extends StatelessWidget {
 }
 
 class LoginViewModel {
-  /// Indicates whether an incorrect password was entered.
-  final bool incorrectPasswordError;
-
   /// Handler for when there is an attempt to login using [password].
-  final Function(String password) attemptLogin;
+  final Function({required String password, required VoidCallback onIncorrectPasswordEntered}) attemptLogin;
 
   /// Handler for when there is attempt to restore wallet from the login page.
   final VoidCallback restoreWallet;
 
   const LoginViewModel({
-    this.incorrectPasswordError = false,
     required this.attemptLogin,
     required this.restoreWallet,
   });
   static LoginViewModel fromStore(Store<AppState> store) {
     return LoginViewModel(
-      incorrectPasswordError: store.state.loginState.incorrectPasswordError,
-      attemptLogin: (String password) => store.dispatch(
-        AttemptLoginAction(
-          password,
-          store.state.keychainState.keyStoreJson!,
-        ),
-      ),
-      restoreWallet: () => store.dispatch(NavigateToRoute(Routes.loginRestoreWallet)),
+      attemptLogin: ({required String password, required VoidCallback onIncorrectPasswordEntered}) async {
+        final Completer<bool> actionCompleter = Completer();
+        store.dispatch(AttemptLoginAction(password, actionCompleter));
+        await actionCompleter.future.then((value) {
+          if (!value) onIncorrectPasswordEntered();
+        });
+      },
+      restoreWallet: () => store.dispatch(NavigateToRoute(Routes.loginRestoreWalletWithMnemonic)),
     );
   }
 
@@ -54,11 +52,9 @@ class LoginViewModel {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is LoginViewModel &&
-        other.incorrectPasswordError == incorrectPasswordError &&
-        other.attemptLogin == attemptLogin;
+    return other is LoginViewModel && other.restoreWallet == restoreWallet;
   }
 
   @override
-  int get hashCode => incorrectPasswordError.hashCode ^ attemptLogin.hashCode;
+  int get hashCode => restoreWallet.hashCode;
 }

@@ -37,3 +37,7 @@ void deleteWallet() {
 Future<String> getCurrentAppView() {
   throw UnimplementedError();
 }
+
+String getAppVersion() {
+  throw UnimplementedError();
+}

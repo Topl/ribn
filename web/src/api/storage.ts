@@ -14,19 +14,20 @@ export const ExtensionStorage = {
 	},
 	getStorage: () => {
 		return new Promise<Record<string, any>>((resolve, reject) => {
-			chrome.storage.local.get("data", (items) => {
+			chrome.storage.local.get(null, (items) => {
 				if (chrome.runtime.lastError) reject(API_ERRORS.internalError);
-				resolve(items["data"]);
+				resolve(items);
 			});
 		});
 	},
 	setStorage: async (key: string, val: any) => {
 		const storage = await ExtensionStorage.getStorage();
 		storage[key] = val;
-		await chrome.storage.local.set({ data: storage });
+		await chrome.storage.local.set({...storage });
 	},
-	isOriginAllowed: async (url: string) => {
+	
+	isOriginAllowed: async (originUrl: string) => {
 		const currentAllowList: string[] = await ExtensionStorage.getAllowList();
-		return currentAllowList.includes(url);
+		return currentAllowList.some((allowedUrl) => allowedUrl.includes(originUrl));
 	},
 };

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/asset_transfer_input_container.dart';
+import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_amount_field.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_selection_field.dart';
 import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
@@ -37,6 +38,9 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
 
   /// Assigned the valid recipient address.
   String _validRecipientAddress = '';
+
+  /// True if currently loading raw tx creation.
+  bool _loadingRawTx = false;
 
   @override
   void initState() {
@@ -121,7 +125,7 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
                             validRecipientAddress: _validRecipientAddress,
                             // validate the address on change
                             onChanged: (text) => validateRecipientAddress(
-                              networkId: vm.currNetworkId,
+                              networkName: vm.currentNetwork.networkName,
                               address: _recipientController.text,
                               handleResult: (bool result) {
                                 if (mounted) {
@@ -156,7 +160,7 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
                   ],
                 ),
               ),
-              vm.loadingRawTx ? const LoadingSpinner() : const SizedBox(),
+              _loadingRawTx ? const LoadingSpinner() : const SizedBox(),
             ],
           ),
         );
@@ -171,12 +175,23 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
     return LargeButton(
       label: Strings.review,
       onPressed: () {
+        setState(() {
+          _loadingRawTx = true;
+        });
         vm.initiateTx(
-          _recipientController.text,
-          _amountController.text,
-          _noteController.text,
-          _selectedAsset.assetCode,
-          vm.assetDetails[_selectedAsset.assetCode.toString()],
+          recipient: _validRecipientAddress,
+          amount: _amountController.text,
+          note: _noteController.text,
+          assetCode: _selectedAsset.assetCode,
+          assetDetails: vm.assetDetails[_selectedAsset.assetCode.toString()],
+          onRawTxCreated: (bool success) async {
+            _loadingRawTx = false;
+            setState(() {});
+            // Display error dialog if failed to create raw tx
+            if (!success) {
+              await TransferUtils.showErrorDialog(context);
+            }
+          },
         );
       },
     );

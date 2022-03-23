@@ -1,4 +1,4 @@
-import 'package:ribn/models/internal_message.dart';
+import 'dart:async';
 
 class PersistAppState {}
 
@@ -15,26 +15,23 @@ class NavigateToRoute {
   NavigateToRoute(this.route, {this.arguments});
 }
 
-class SendInternalMsgAction {
-  final InternalMessage msg;
-  SendInternalMsgAction(this.msg);
-}
-
-class ReceiveInternalMsgAction {
-  final String msg;
-  ReceiveInternalMsgAction(this.msg);
-}
-
-class DownloadAsFile {
+class DownloadAsFileAction {
   final String fileName;
   final String text;
-  const DownloadAsFile(this.fileName, this.text);
+  const DownloadAsFileAction(this.fileName, this.text);
 }
 
 class DeleteWalletAction {
-  const DeleteWalletAction();
+  final String password;
+  final Completer<bool> completer;
+  const DeleteWalletAction({required this.password, required this.completer});
 }
 
 class ResetAppStateAction {
   const ResetAppStateAction();
+}
+
+class SetAppVersion {
+  final String appVersion;
+  const SetAppVersion(this.appVersion);
 }

@@ -1,14 +1,12 @@
 import 'dart:typed_data';
 import 'package:brambldart/brambldart.dart';
 import 'package:redux/redux.dart';
-import 'package:ribn/actions/keychain_actions.dart';
+import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/actions/transaction_actions.dart';
-import 'package:ribn/actions/ui_actions.dart';
 import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/rules.dart';
-import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/models/ribn_address.dart';
@@ -26,12 +24,11 @@ List<Middleware<AppState>> createTransactionMiddleware(
     TypedMiddleware<AppState, InitiateTxAction>(_initiateTx(transactionRepo, keychainRepo)),
     TypedMiddleware<AppState, CreateRawTxAction>(_createRawTx(transactionRepo)),
     TypedMiddleware<AppState, SignAndBroadcastTxAction>(_signAndBroadcastTx(transactionRepo, keychainRepo)),
-    TypedMiddleware<AppState, BroadcastTxAction>(_broadcastTx(transactionRepo)),
     TypedMiddleware<AppState, SignExternalTxAction>(_signExternalTx(transactionRepo, keychainRepo)),
   ];
 }
 
-/// Dispatches [SetLoadingRawTxAction] to indicate that the tx has been initiated.
+/// Dispatches [ToggleLoadingRawTxAction] to indicate that the tx has been initiated.
 ///
 /// Updates the [TransferDetails] with some defaults like the sender, change, and consolidation addresses, as well as
 /// the current network, before dispatching [CreateRawTxAction].
@@ -39,9 +36,6 @@ void Function(Store<AppState> store, InitiateTxAction action, NextDispatcher nex
     TransactionRepository transactionRepo, KeychainRepository keychainRepo) {
   return (store, action, next) async {
     try {
-      /// Initiate the loading indicator
-      next(const SetLoadingRawTxAction(true));
-
       /// The sender defaults to the first address in the list of locally stored addresses
       final RibnAddress sender = store.state.keychainState.currentNetwork.addresses.first;
       final RibnNetwork currNetwork = store.state.keychainState.currentNetwork;
@@ -51,16 +45,16 @@ void Function(Store<AppState> store, InitiateTxAction action, NextDispatcher nex
         consolidation: sender,
         networkId: currNetwork.networkId,
       );
-      next(CreateRawTxAction(transferDetails));
+      next(CreateRawTxAction(transferDetails, action.completer));
     } catch (e) {
-      next(ApiErrorAction(e.toString()));
+      action.completer.complete(false);
     }
   };
 }
 
 /// Creates the rawTx and navigates to the [Routes.txReview] page.
 ///
-/// Also dispatches [SetLoadingRawTxAction] to stop the loading indicator.
+/// Also dispatches [ToggleLoadingRawTxAction] to stop the loading indicator.
 void Function(Store<AppState> store, CreateRawTxAction action, NextDispatcher next) _createRawTx(
     TransactionRepository transactionRepo) {
   return (store, action, next) async {
@@ -75,12 +69,11 @@ void Function(Store<AppState> store, CreateRawTxAction action, NextDispatcher ne
         transactionReceipt: transactionReceipt,
         messageToSign: messageToSign,
       );
-      // Stop the loading indicator
-      next(const SetLoadingRawTxAction(false));
+      action.completer.complete(true);
       // Navigate to the review page
       next(NavigateToRoute(Routes.txReview, arguments: transferDetails));
     } catch (e) {
-      next(ApiErrorAction((e).toString()));
+      action.completer.complete(false);
     }
   };
 }
@@ -116,26 +109,8 @@ void Function(Store<AppState> store, SignAndBroadcastTxAction action, NextDispat
           ),
         );
       }
-
-      /// Navigate to the confirmation page
+      // Navigate to the confirmation page
       next(NavigateToRoute(Routes.txConfirmation, arguments: transferDetails));
-    } catch (e) {
-      next(ApiErrorAction((e).toString()));
-    }
-  };
-}
-
-void Function(Store<AppState> store, BroadcastTxAction action, NextDispatcher next) _broadcastTx(
-    TransactionRepository transactionRepo) {
-  return (store, action, next) async {
-    try {
-      await transactionRepo.broadcastTx(
-        store.state.keychainState.currentNetwork.client!,
-        action.signedTx,
-      );
-      if (action.changeAddress != null) {
-        store.dispatch(AddAddressesAction(addresses: [action.changeAddress!]));
-      }
     } catch (e) {
       next(ApiErrorAction(e.toString()));
     }
@@ -146,13 +121,14 @@ void Function(Store<AppState> store, SignExternalTxAction action, NextDispatcher
     TransactionRepository transactionRepo, KeychainRepository keychainRepo) {
   return (store, action, next) async {
     try {
-      final Map<String, dynamic> transferDetails = action.pendingRequest.data!;
-      transferDetails['messageToSign'] = Base58Data.validated(transferDetails['messageToSign'] as String).value;
-      final TransactionReceipt transactionReceipt = TransactionReceipt.fromJson(transferDetails);
+      final Map<String, dynamic> transferDetails = {};
+      transferDetails['messageToSign'] =
+          Base58Data.validated(action.pendingRequest.data!['messageToSign'] as String).value;
+      final TransactionReceipt transactionReceipt = TransactionReceipt.fromJson(action.pendingRequest.data!['rawTx']);
       transferDetails['rawTx'] = transactionReceipt;
       final List<String> rawTxSenders = transactionReceipt.from!.map((e) => e.senderAddress.toBase58()).toList();
       final List<RibnAddress> sendersInWallet = List.from(store.state.keychainState.currentNetwork.addresses)
-        ..retainWhere((addr) => rawTxSenders.contains(addr.address.toBase58()));
+        ..retainWhere((addr) => rawTxSenders.contains(addr.toplAddress.toBase58()));
       final List<Credentials> credentials = keychainRepo.getCredentials(
         store.state.keychainState.hdWallet!,
         sendersInWallet,
@@ -162,21 +138,22 @@ void Function(Store<AppState> store, SignExternalTxAction action, NextDispatcher
         credentials,
         transferDetails,
       );
+
       final InternalMessage response = InternalMessage(
-        method: Strings.returnResponse,
+        method: InternalMethods.returnResponse,
         data: signedTx.toBroadcastJson(),
         target: action.pendingRequest.target,
-        sender: 'ribn',
+        sender: InternalMessage.defaultSender,
         id: action.pendingRequest.id,
         origin: action.pendingRequest.origin,
       );
       next(SendInternalMsgAction(response));
     } catch (e) {
       final InternalMessage response = InternalMessage(
-        method: Strings.returnResponse,
-        data: {'error': e.toString()},
+        method: InternalMethods.returnResponse,
+        data: {'message': 'Unable to sign tx'},
         target: action.pendingRequest.target,
-        sender: 'ribn',
+        sender: InternalMessage.defaultSender,
         id: action.pendingRequest.id,
         origin: action.pendingRequest.origin,
       );

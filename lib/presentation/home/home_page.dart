@@ -3,9 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
-import 'package:ribn/presentation/mint_page.dart';
-import 'package:ribn/presentation/tx_history_page.dart';
-import 'package:ribn/presentation/wallet_balance_page.dart';
+import 'package:ribn/presentation/home/mint_page.dart';
+import 'package:ribn/presentation/home/wallet_balance_page.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
 import 'package:ribn/widgets/ribn_app_bar.dart';
 
@@ -22,20 +21,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final List<Widget> _pages = [
     const WalletBalancePage(),
-    const TransactionHistoryPage(),
     const MintPage(),
   ];
   final List<SvgPicture> _pageIcons = [
     SvgPicture.asset(RibnAssets.balancePageIcon),
-    SvgPicture.asset(RibnAssets.txHistoryPageIcon),
     SvgPicture.asset(RibnAssets.mintPageIcon),
   ];
   final List<SvgPicture> _activePageIcons = [
     SvgPicture.asset(RibnAssets.balancePageActiveIcon),
-    SvgPicture.asset(RibnAssets.txHistoryPageActiveIcon),
     SvgPicture.asset(RibnAssets.mintPageActiveIcon),
   ];
-  final List<String> _pageLabels = ['HOME', 'HISTORY', 'MINT'];
+  final List<String> _pageLabels = ['HOME', 'MINT'];
   int _currPage = 0;
 
   @override
@@ -74,7 +70,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       fontFamily: 'Nunito',
                       fontWeight: FontWeight.w600,
                       fontSize: 7,
-                      color: isActive ? RibnColors.primary : const Color(0xff979797),
+                      color: isActive
+                          ? RibnColors.primary
+                          : const Color(0xff979797),
                     ),
                   )
                 ],

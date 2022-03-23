@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:ribn/actions/misc_actions.dart';
-import 'package:ribn/constants/strings.dart';
+import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/internal_message.dart';
@@ -34,7 +33,7 @@ class EnablePage extends StatelessWidget {
 
   void sendResponse(BuildContext context, bool accept) {
     final InternalMessage response = pendingRequest.copyWith(
-      method: Strings.returnResponse,
+      method: InternalMethods.returnResponse,
       sender: InternalMessage.defaultSender,
       data: {
         'enabled': accept,

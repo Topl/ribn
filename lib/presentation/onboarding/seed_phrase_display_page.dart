@@ -136,8 +136,8 @@ class SeedPhraseDisplayPage extends StatelessWidget {
             focusColor: Colors.transparent,
             minWidth: 100,
             height: 45,
-            onPressed: () =>
-                StoreProvider.of<AppState>(context).dispatch(DownloadAsFile(Strings.seedPhraseFileName, seedPhrase)),
+            onPressed: () => StoreProvider.of<AppState>(context)
+                .dispatch(DownloadAsFileAction(Strings.seedPhraseFileName, seedPhrase)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

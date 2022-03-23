@@ -3,6 +3,7 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/poly_transfer_input_container.dart';
+import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
 import 'package:ribn/presentation/transfers/widgets/note_field.dart';
@@ -34,6 +35,9 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
   /// Assigned the valid recipient address
   String _validRecipientAddress = '';
 
+  /// True if currently loading raw tx creation.
+  bool _loadingRawTx = false;
+
   @override
   void initState() {
     _controllers = [
@@ -41,6 +45,7 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
       _amountController,
       _recipientController,
     ];
+
     // initialize listeners for each of the TextEditingControllers
     _controllers.forEach(initListener);
     super.initState();
@@ -100,7 +105,7 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
                               validRecipientAddress: _validRecipientAddress,
                               // validate the address entered on text change
                               onChanged: (text) => validateRecipientAddress(
-                                networkId: vm.currNetworkId,
+                                networkName: vm.currentNetwork.networkName,
                                 address: _recipientController.text,
                                 handleResult: (bool result) {
                                   setState(() {
@@ -136,7 +141,7 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
                   ],
                 ),
               ),
-              vm.loadingRawTx ? const LoadingSpinner() : const SizedBox(),
+              _loadingRawTx ? const LoadingSpinner() : const SizedBox(),
             ],
           ),
         );
@@ -199,37 +204,24 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
       child: LargeButton(
         label: Strings.review,
         onPressed: () {
+          setState(() {
+            _loadingRawTx = true;
+          });
           vm.initiateTx(
             amount: _amountController.text,
             recipient: _validRecipientAddress,
             note: _noteController.text,
+            onRawTxCreated: (bool success) async {
+              _loadingRawTx = false;
+              setState(() {});
+              // Display error dialog if failed to create raw tx
+              if (!success) {
+                await TransferUtils.showErrorDialog(context);
+              }
+            },
           );
         },
       ),
     );
   }
-
-  // /// Validates the recipient address entered by the user.
-  // ///
-  // /// If valid, [_validRecipientAddress] is updated.
-  // /// The [_recipientController.text] is also cleared beacuse the UI is updated with a different widget for a valid recipient address.
-  // void validateRecipientAddress(int networkId) {
-  //   Map<String, dynamic> result = {};
-  //   try {
-  //     result = validateAddressByNetwork(
-  //       Rules.networkStrings[networkId]!,
-  //       _recipientController.text,
-  //     );
-  //   } catch (e) {
-  //     result['success'] = false;
-  //   }
-  //   setState(() {
-  //     if (result['success'] as bool) {
-  //       _validRecipientAddress = _recipientController.text;
-  //       _recipientController.text = '';
-  //     } else {
-  //       _validRecipientAddress = '';
-  //     }
-  //   });
-  // }
 }
