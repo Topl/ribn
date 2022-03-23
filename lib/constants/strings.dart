@@ -42,10 +42,10 @@ class Strings {
   static const String welcomeToRibn = 'Welcome to Ribn';
   static const String intro = 'Topl’s blockchain wallet for tracking, tokenizing, and transacting impact.';
   static const String getStarted = 'Get Started';
-  static const String createWallet = 'Create Wallet';
-  static const String createWalletDescription = 'This will create your new wallet and 15 word seed phrase.';
+  static const String createWallet = 'CREATE\nWALLET';
+  static const String createWalletDescription = 'First time? Create your new wallet\nand 15 word seed phrase.';
   static const String importWallet = 'Import Wallet';
-  static const String importWalletDescription = 'Import your existing Ribn wallet using your 15 word seed phrase.';
+  static const String restoreWalletDescription = 'Restore your existing Ribn wallet\nusing a seed phrase or Topl key.';
   static const String gettingStarted = 'Getting Started';
   static const String download = 'Download';
   static const String gettingStartedDescription =
@@ -111,10 +111,12 @@ You'll need it to recover your wallet if your device is lost or broken.''';
       '''• Save in a password manager.\n• Keep in a safe deposit box.\n• Encrypt and store on an external drive.''';
   static const String howIsASeedPhraseDifferent = 'How is a Seed Phrase different from a Wallet Password?';
   static const String howIsASeedPhraseDifferentAns =
-      '''Your Seed Phrase essentially is your wallet. From just this piece of information, your entire wallet can be recreated and accessed. Meanwhile, your Wallet Password can only lock and unlock your wallet on a device where it is already stored.''';
+      '''The Seed Phrase is different because you can restore your wallet with it. The Wallet Password is for security and only lets you unlock the wallet after it has been imported (or created) in wallet software. Your Wallet Password isn't required to lock your wallet.''';
   static const String howIsMySeedPhraseUnrecoverable = 'How is my Seed Phrase or Wallet Password unrecoverable?';
   static const String howIsMySeedPhraseUnrecoverableAns =
       '''You are the only one with a record of your Seed Phrase or Wallet Password. Topl does not maintain or have any way to generate either of these for you.''';
+  static const String howIsMySeedPhraseUnrecoverableNewLine =
+      '''You are the only one with a record of your Seed Phrase or Wallet Password.\nTopl does not maintain or have any way to generate either of these for you.''';
 
   static const String seedPhraseGenerating = 'Seed Phrase Generating...';
   static const String goGrabAPenAndPaper = 'Go grab a pen and paper';
@@ -155,6 +157,7 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String useSeedPhrase = 'USE\nSEED\nPHRASE';
   static const String importToplKey = 'IMPORT\nTOPL\nKEY';
   static const String restoreWallet = 'RESTORE WALLET';
+  static const String restoreWalletNewline = 'RESTORE\nWALLET';
   static const String restoreWalletDesc =
       'You can either use your 15-word Seed Phrase or your Top Level Key to import or recover your wallet.';
   static const String seedPhraseDiffFromTopLevelKey = 'How is a Seed Phrase different from a Top Level Key?';
@@ -210,6 +213,7 @@ These words need to be written down carefully and in the exact order shown.''';
       'Your Wallet Password can lock and unlock your\nwallet on a device where it is already stored.';
   static const String assetLongNameInfo =
       'The descriptive name used to identify your\nassets locally in your Ribn Wallet.';
+  static const String assetCodeLongInfo = 'AssetCode serves as a unique identifier\nfor user issued assets.';
   static const String assetCodeShortInfo =
       'This is used to view the short name for your \nasset as this will be the information used to\nidentify a particular asset on the blockchain.';
   static const String issuerAddressInfo =
@@ -242,4 +246,8 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String copyAddress = 'Copy address';
   static const String privacyPolicyUrl = 'https://legal.topl.co/Privacy_Policy';
   static const String termsOfUseUrl = 'https://legal.topl.co/Ribn_License_Agreement';
+  static const String loginPasswordInfo =
+      'Your Wallet Password can lock and unlock your\n wallet on a device where it is already stored.';
+  static const String refillCurrentPolyBalance = 'You can refill your Poly balance anytime by\n signing into';
+  static const String refillEmptyPolyBalance = 'Time to refill your Poly balance.\nSign into';
 }
