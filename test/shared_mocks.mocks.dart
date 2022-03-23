@@ -2,18 +2,20 @@
 // in ribn/test/shared_mocks.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i7;
-import 'dart:typed_data' as _i9;
+import 'dart:async' as _i6;
+import 'dart:typed_data' as _i8;
 
-import 'package:bip_topl/bip_topl.dart' as _i5;
+import 'package:brambldart/brambldart.dart' as _i4;
+import 'package:brambldart/credentials.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mubrambl/src/credentials/address.dart' as _i4;
-import 'package:mubrambl/src/credentials/hd_wallet_helper.dart' as _i2;
+import 'package:ribn/models/internal_message.dart' as _i10;
 import 'package:ribn/models/ribn_address.dart' as _i3;
+import 'package:ribn/models/transfer_details.dart' as _i13;
 import 'package:ribn/repositories/keychain_repository.dart' as _i11;
-import 'package:ribn/repositories/login_repository.dart' as _i8;
-import 'package:ribn/repositories/misc_repository.dart' as _i10;
-import 'package:ribn/repositories/onboarding_repository.dart' as _i6;
+import 'package:ribn/repositories/login_repository.dart' as _i7;
+import 'package:ribn/repositories/misc_repository.dart' as _i9;
+import 'package:ribn/repositories/onboarding_repository.dart' as _i5;
+import 'package:ribn/repositories/transaction_repository.dart' as _i12;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -27,33 +29,35 @@ class _FakeBip32KeyPair_0 extends _i1.Fake implements _i2.Bip32KeyPair {}
 
 class _FakeRibnAddress_1 extends _i1.Fake implements _i3.RibnAddress {}
 
-class _FakeToplAddress_2 extends _i1.Fake implements _i4.ToplAddress {}
+class _FakeTransactionReceipt_2 extends _i1.Fake implements _i4.TransactionReceipt {}
 
-class _FakeBip32SigningKey_3 extends _i1.Fake implements _i5.Bip32SigningKey {}
+class _FakeToplAddress_3 extends _i1.Fake implements _i2.ToplAddress {}
 
-class _FakeBip32VerifyKey_4 extends _i1.Fake implements _i5.Bip32VerifyKey {}
+class _FakeBalance_4 extends _i1.Fake implements _i4.Balance {}
 
 /// A class which mocks [OnboardingRespository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockOnboardingRespository extends _i1.Mock
-    implements _i6.OnboardingRespository {
+class MockOnboardingRespository extends _i1.Mock implements _i5.OnboardingRespository {
   MockOnboardingRespository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i7.Future<Map<dynamic, dynamic>> generateMnemonicAndKeystore(
-          String? password) =>
-      (super.noSuchMethod(
-              Invocation.method(#generateMnemonicAndKeystore, [password]),
-              returnValue:
-                  Future<Map<dynamic, dynamic>>.value(<dynamic, dynamic>{}))
-          as _i7.Future<Map<dynamic, dynamic>>);
+  _i6.Future<Map<dynamic, dynamic>> generateMnemonicAndKeystore(String? password) =>
+      (super.noSuchMethod(Invocation.method(#generateMnemonicAndKeystore, [password]),
+          returnValue: Future<Map<dynamic, dynamic>>.value(<dynamic, dynamic>{})) as _i6.Future<Map<dynamic, dynamic>>);
   @override
-  _i2.Bip32KeyPair deriveToplExtendedKeys(String? mnemonic) => (super
-      .noSuchMethod(Invocation.method(#deriveToplExtendedKeys, [mnemonic]),
-          returnValue: _FakeBip32KeyPair_0()) as _i2.Bip32KeyPair);
+  String generateMnemonicForUser() =>
+      (super.noSuchMethod(Invocation.method(#generateMnemonicForUser, []), returnValue: '') as String);
+  @override
+  Map<String, dynamic> generateKeyStore({String? mnemonic, String? password}) =>
+      (super.noSuchMethod(Invocation.method(#generateKeyStore, [], {#mnemonic: mnemonic, #password: password}),
+          returnValue: <String, dynamic>{}) as Map<String, dynamic>);
+  @override
+  _i2.Bip32KeyPair deriveToplExtendedKeys(String? mnemonic) =>
+      (super.noSuchMethod(Invocation.method(#deriveToplExtendedKeys, [mnemonic]), returnValue: _FakeBip32KeyPair_0())
+          as _i2.Bip32KeyPair);
   @override
   String toString() => super.toString();
 }
@@ -61,16 +65,15 @@ class MockOnboardingRespository extends _i1.Mock
 /// A class which mocks [LoginRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLoginRepository extends _i1.Mock implements _i8.LoginRepository {
+class MockLoginRepository extends _i1.Mock implements _i7.LoginRepository {
   MockLoginRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i9.Uint8List decryptKeyStore(String? keyStoreJson, String? password) =>
-      (super.noSuchMethod(
-          Invocation.method(#decryptKeyStore, [keyStoreJson, password]),
-          returnValue: _i9.Uint8List(0)) as _i9.Uint8List);
+  _i8.Uint8List decryptKeyStore({String? keyStoreJson, String? password}) =>
+      (super.noSuchMethod(Invocation.method(#decryptKeyStore, [], {#keyStoreJson: keyStoreJson, #password: password}),
+          returnValue: _i8.Uint8List(0)) as _i8.Uint8List);
   @override
   String toString() => super.toString();
 }
@@ -78,16 +81,31 @@ class MockLoginRepository extends _i1.Mock implements _i8.LoginRepository {
 /// A class which mocks [MiscRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMiscRepository extends _i1.Mock implements _i10.MiscRepository {
+class MockMiscRepository extends _i1.Mock implements _i9.MiscRepository {
   MockMiscRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i7.Future<void> persistAppState(String? appState) =>
+  _i6.Future<void> persistAppState(String? appState) =>
       (super.noSuchMethod(Invocation.method(#persistAppState, [appState]),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
+          returnValue: Future<void>.value(), returnValueForMissingStub: Future<void>.value()) as _i6.Future<void>);
+  @override
+  void sendInternalMessage(_i10.InternalMessage? msg) =>
+      super.noSuchMethod(Invocation.method(#sendInternalMessage, [msg]), returnValueForMissingStub: null);
+  @override
+  void downloadAsFile(String? fileName, String? text) =>
+      super.noSuchMethod(Invocation.method(#downloadAsFile, [fileName, text]), returnValueForMissingStub: null);
+  @override
+  void deleteWallet() => super.noSuchMethod(Invocation.method(#deleteWallet, []), returnValueForMissingStub: null);
+  @override
+  _i6.Future<bool> isAppOpenedInExtensionView() =>
+      (super.noSuchMethod(Invocation.method(#isAppOpenedInExtensionView, []), returnValue: Future<bool>.value(false))
+          as _i6.Future<bool>);
+  @override
+  _i6.Future<bool> isAppOpenedInDebugView() =>
+      (super.noSuchMethod(Invocation.method(#isAppOpenedInDebugView, []), returnValue: Future<bool>.value(false))
+          as _i6.Future<bool>);
   @override
   String toString() => super.toString();
 }
@@ -95,8 +113,7 @@ class MockMiscRepository extends _i1.Mock implements _i10.MiscRepository {
 /// A class which mocks [KeychainRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockKeychainRepository extends _i1.Mock
-    implements _i11.KeychainRepository {
+class MockKeychainRepository extends _i1.Mock implements _i11.KeychainRepository {
   MockKeychainRepository() {
     _i1.throwOnMissingStub(this);
   }
@@ -107,7 +124,8 @@ class MockKeychainRepository extends _i1.Mock
           int? coinType = 2147490739,
           int? account = 2147483648,
           int? change = 0,
-          int? addr = 0}) =>
+          int? addr = 0,
+          int? networkId}) =>
       (super.noSuchMethod(
           Invocation.method(#generateAddress, [
             hdWallet
@@ -116,16 +134,53 @@ class MockKeychainRepository extends _i1.Mock
             #coinType: coinType,
             #account: account,
             #change: change,
-            #addr: addr
+            #addr: addr,
+            #networkId: networkId
           }),
           returnValue: _FakeRibnAddress_1()) as _i3.RibnAddress);
   @override
-  String getKeyPath(int? purpose, int? coinType, int? account, int? change,
-          int? address) =>
-      (super.noSuchMethod(
-          Invocation.method(
-              #getKeyPath, [purpose, coinType, account, change, address]),
-          returnValue: '') as String);
+  String getKeyPath(int? purpose, int? coinType, int? account, int? change, int? address) => (super
+          .noSuchMethod(Invocation.method(#getKeyPath, [purpose, coinType, account, change, address]), returnValue: '')
+      as String);
+  @override
+  _i6.Future<List<_i4.Balance>> getBalances(_i4.BramblClient? client, List<_i2.ToplAddress>? addresses) =>
+      (super.noSuchMethod(Invocation.method(#getBalances, [client, addresses]),
+          returnValue: Future<List<_i4.Balance>>.value(<_i4.Balance>[])) as _i6.Future<List<_i4.Balance>>);
+  @override
+  List<_i2.Credentials> getCredentials(_i2.HdWallet? hdWallet, List<_i3.RibnAddress>? addresses) =>
+      (super.noSuchMethod(Invocation.method(#getCredentials, [hdWallet, addresses]), returnValue: <_i2.Credentials>[])
+          as List<_i2.Credentials>);
+  @override
+  String toString() => super.toString();
+}
+
+/// A class which mocks [TransactionRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockTransactionRepository extends _i1.Mock implements _i12.TransactionRepository {
+  MockTransactionRepository() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i6.Future<Map<String, dynamic>> createRawTx(_i4.BramblClient? client, _i13.TransferDetails? transferDetails) =>
+      (super.noSuchMethod(Invocation.method(#createRawTx, [client, transferDetails]),
+          returnValue: Future<Map<String, dynamic>>.value(<String, dynamic>{})) as _i6.Future<Map<String, dynamic>>);
+  @override
+  _i6.Future<_i4.TransactionReceipt> signTx(
+          _i4.BramblClient? client, List<_i2.Credentials>? creds, Map<String, dynamic>? transferDetails) =>
+      (super.noSuchMethod(Invocation.method(#signTx, [client, creds, transferDetails]),
+              returnValue: Future<_i4.TransactionReceipt>.value(_FakeTransactionReceipt_2()))
+          as _i6.Future<_i4.TransactionReceipt>);
+  @override
+  _i6.Future<String> broadcastTx(_i4.BramblClient? client, _i4.TransactionReceipt? signedTx) =>
+      (super.noSuchMethod(Invocation.method(#broadcastTx, [client, signedTx]), returnValue: Future<String>.value(''))
+          as _i6.Future<String>);
+  @override
+  _i6.Future<String> signAndBroadcastTx(_i4.BramblClient? client, List<_i2.Credentials>? creds,
+          _i4.TransactionReceipt? rawTx, _i8.Uint8List? messageToSign) =>
+      (super.noSuchMethod(Invocation.method(#signAndBroadcastTx, [client, creds, rawTx, messageToSign]),
+          returnValue: Future<String>.value('')) as _i6.Future<String>);
   @override
   String toString() => super.toString();
 }
@@ -140,115 +195,46 @@ class MockRibnAddress extends _i1.Mock implements _i3.RibnAddress {
   }
 
   @override
-  _i4.ToplAddress get address =>
-      (super.noSuchMethod(Invocation.getter(#address),
-          returnValue: _FakeToplAddress_2()) as _i4.ToplAddress);
+  _i2.ToplAddress get toplAddress =>
+      (super.noSuchMethod(Invocation.getter(#toplAddress), returnValue: _FakeToplAddress_3()) as _i2.ToplAddress);
   @override
-  int get addressIndex =>
-      (super.noSuchMethod(Invocation.getter(#addressIndex), returnValue: 0)
-          as int);
+  String get keyPath => (super.noSuchMethod(Invocation.getter(#keyPath), returnValue: '') as String);
   @override
-  int get accountIndex =>
-      (super.noSuchMethod(Invocation.getter(#accountIndex), returnValue: 0)
-          as int);
+  int get addressIndex => (super.noSuchMethod(Invocation.getter(#addressIndex), returnValue: 0) as int);
   @override
-  int get changeIndex =>
-      (super.noSuchMethod(Invocation.getter(#changeIndex), returnValue: 0)
-          as int);
+  int get accountIndex => (super.noSuchMethod(Invocation.getter(#accountIndex), returnValue: 0) as int);
   @override
-  String get keyPath =>
-      (super.noSuchMethod(Invocation.getter(#keyPath), returnValue: '')
-          as String);
+  int get changeIndex => (super.noSuchMethod(Invocation.getter(#changeIndex), returnValue: 0) as int);
+  @override
+  _i4.Balance get balance =>
+      (super.noSuchMethod(Invocation.getter(#balance), returnValue: _FakeBalance_4()) as _i4.Balance);
+  @override
+  int get networkId => (super.noSuchMethod(Invocation.getter(#networkId), returnValue: 0) as int);
   @override
   _i3.RibnAddress copyWith(
-          {_i4.ToplAddress? address,
+          {_i2.ToplAddress? toplAddress,
+          String? keyPath,
           int? addressIndex,
           int? accountIndex,
           int? changeIndex,
-          String? keyPath}) =>
+          _i4.Balance? balance,
+          int? networkId}) =>
       (super.noSuchMethod(
           Invocation.method(#copyWith, [], {
-            #address: address,
+            #toplAddress: toplAddress,
+            #keyPath: keyPath,
             #addressIndex: addressIndex,
             #accountIndex: accountIndex,
             #changeIndex: changeIndex,
-            #keyPath: keyPath
+            #balance: balance,
+            #networkId: networkId
           }),
           returnValue: _FakeRibnAddress_1()) as _i3.RibnAddress);
   @override
   Map<String, dynamic> toMap() =>
-      (super.noSuchMethod(Invocation.method(#toMap, []),
-          returnValue: <String, dynamic>{}) as Map<String, dynamic>);
+      (super.noSuchMethod(Invocation.method(#toMap, []), returnValue: <String, dynamic>{}) as Map<String, dynamic>);
   @override
-  String toJson() =>
-      (super.noSuchMethod(Invocation.method(#toJson, []), returnValue: '')
-          as String);
-  @override
-  String toString() => super.toString();
-}
-
-/// A class which mocks [HdWallet].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockHdWallet extends _i1.Mock implements _i2.HdWallet {
-  MockHdWallet() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i9.Uint8List get entropy => (super.noSuchMethod(Invocation.getter(#entropy),
-      returnValue: _i9.Uint8List(0)) as _i9.Uint8List);
-  @override
-  set entropy(_i9.Uint8List? _entropy) =>
-      super.noSuchMethod(Invocation.setter(#entropy, _entropy),
-          returnValueForMissingStub: null);
-  @override
-  String get password =>
-      (super.noSuchMethod(Invocation.getter(#password), returnValue: '')
-          as String);
-  @override
-  _i5.Bip32SigningKey get rootSigningKey =>
-      (super.noSuchMethod(Invocation.getter(#rootSigningKey),
-          returnValue: _FakeBip32SigningKey_3()) as _i5.Bip32SigningKey);
-  @override
-  _i5.Bip32VerifyKey get rootVerifyKey =>
-      (super.noSuchMethod(Invocation.getter(#rootVerifyKey),
-          returnValue: _FakeBip32VerifyKey_4()) as _i5.Bip32VerifyKey);
-  @override
-  _i2.Bip32KeyPair derive({_i2.Bip32KeyPair? keys, int? index}) =>
-      (super.noSuchMethod(
-          Invocation.method(#derive, [], {#keys: keys, #index: index}),
-          returnValue: _FakeBip32KeyPair_0()) as _i2.Bip32KeyPair);
-  @override
-  _i2.Bip32KeyPair deriveAddress(
-          {int? purpose = 2147485500,
-          int? coinType = 2147490739,
-          int? account = 2147483648,
-          int? change = 0,
-          int? address = 0}) =>
-      (super.noSuchMethod(
-          Invocation.method(#deriveAddress, [], {
-            #purpose: purpose,
-            #coinType: coinType,
-            #account: account,
-            #change: change,
-            #address: address
-          }),
-          returnValue: _FakeBip32KeyPair_0()) as _i2.Bip32KeyPair);
-  @override
-  _i2.Bip32KeyPair deriveLastThreeLayers(
-          {int? account = 2147483648, int? change = 0, int? address = 0}) =>
-      (super.noSuchMethod(
-          Invocation.method(#deriveLastThreeLayers, [],
-              {#account: account, #change: change, #address: address}),
-          returnValue: _FakeBip32KeyPair_0()) as _i2.Bip32KeyPair);
-  @override
-  _i4.ToplAddress toBaseAddress(
-          {_i5.Bip32PublicKey? spend, int? networkId = 16}) =>
-      (super.noSuchMethod(
-          Invocation.method(
-              #toBaseAddress, [], {#spend: spend, #networkId: networkId}),
-          returnValue: _FakeToplAddress_2()) as _i4.ToplAddress);
+  String toJson() => (super.noSuchMethod(Invocation.method(#toJson, []), returnValue: '') as String);
   @override
   String toString() => super.toString();
 }

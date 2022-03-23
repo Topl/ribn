@@ -129,25 +129,36 @@ void Function(Store<AppState> store, SignExternalTxAction action, NextDispatcher
       final List<String> rawTxSenders = transactionReceipt.from!.map((e) => e.senderAddress.toBase58()).toList();
       final List<RibnAddress> sendersInWallet = List.from(store.state.keychainState.currentNetwork.addresses)
         ..retainWhere((addr) => rawTxSenders.contains(addr.toplAddress.toBase58()));
-      final List<Credentials> credentials = keychainRepo.getCredentials(
-        store.state.keychainState.hdWallet!,
-        sendersInWallet,
-      );
-      final TransactionReceipt signedTx = await transactionRepo.signTx(
-        store.state.keychainState.currentNetwork.client!,
-        credentials,
-        transferDetails,
-      );
-
-      final InternalMessage response = InternalMessage(
-        method: InternalMethods.returnResponse,
-        data: signedTx.toBroadcastJson(),
-        target: action.pendingRequest.target,
-        sender: InternalMessage.defaultSender,
-        id: action.pendingRequest.id,
-        origin: action.pendingRequest.origin,
-      );
-      next(SendInternalMsgAction(response));
+      if (sendersInWallet.isEmpty) {
+        final InternalMessage response = InternalMessage(
+          method: InternalMethods.returnResponse,
+          data: {'message': 'No matching senders found in wallet'},
+          target: action.pendingRequest.target,
+          sender: InternalMessage.defaultSender,
+          id: action.pendingRequest.id,
+          origin: action.pendingRequest.origin,
+        );
+        next(SendInternalMsgAction(response));
+      } else {
+        final List<Credentials> credentials = keychainRepo.getCredentials(
+          store.state.keychainState.hdWallet!,
+          sendersInWallet,
+        );
+        final TransactionReceipt signedTx = await transactionRepo.signTx(
+          store.state.keychainState.currentNetwork.client!,
+          credentials,
+          transferDetails,
+        );
+        final InternalMessage response = InternalMessage(
+          method: InternalMethods.returnResponse,
+          data: signedTx.toBroadcastJson(),
+          target: action.pendingRequest.target,
+          sender: InternalMessage.defaultSender,
+          id: action.pendingRequest.id,
+          origin: action.pendingRequest.origin,
+        );
+        next(SendInternalMsgAction(response));
+      }
     } catch (e) {
       final InternalMessage response = InternalMessage(
         method: InternalMethods.returnResponse,

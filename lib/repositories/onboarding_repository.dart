@@ -19,7 +19,7 @@ class OnboardingRespository {
     const Base58Encoder base58Encoder = Base58Encoder.instance;
     final String mnemonic = generateMnemonic(random);
     final Bip32KeyPair toplExtendedKeyPair = deriveToplExtendedKeys(mnemonic);
-    Uint8List toplExtendedPrvKeyUint8List = Uint8List.fromList(toplExtendedKeyPair.privateKey!);
+    final Uint8List toplExtendedPrvKeyUint8List = Uint8List.fromList(toplExtendedKeyPair.privateKey!);
     final String base58EncodedToplExtendedPrvKey = base58Encoder.encode(toplExtendedPrvKeyUint8List);
     final KeyStore keyStore = KeyStore.createNew(
       base58EncodedToplExtendedPrvKey,

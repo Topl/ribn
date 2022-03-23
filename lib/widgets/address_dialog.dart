@@ -1,14 +1,14 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
+import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn/widgets/custom_icon_button.dart';
+import 'package:ribn/widgets/custom_close_button.dart';
+import 'package:ribn/widgets/custom_copy_button.dart';
+import 'package:ribn/widgets/custom_divider.dart';
 
 /// The dialog that displays the address barcode and text.
 class AddressDialog extends StatelessWidget {
@@ -21,19 +21,14 @@ class AddressDialog extends StatelessWidget {
     return StoreConnector<AppState, RibnAddress>(
       converter: (store) => store.state.keychainState.currentNetwork.addresses.first,
       builder: (context, ribnAddress) => AlertDialog(
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
         titlePadding: EdgeInsets.zero,
         title: Stack(
           children: [
-            Positioned(
+            const Positioned(
               top: 18,
               right: 14,
-              child: CustomIconButton(
-                onPressed: () => Navigator.of(context).pop(),
-                icon: const Icon(
-                  Icons.close,
-                  color: Color(0xffb9b9b9),
-                ),
-              ),
+              child: CustomCloseButton(),
             ),
             Column(
               children: [
@@ -42,11 +37,11 @@ class AddressDialog extends StatelessWidget {
                   width: 176,
                   height: 58,
                   child: Text(
-                    'My Ribn Wallet Address',
+                    Strings.myRibnWalletAddress,
                     style: TextStyle(
                       fontFamily: 'Spectral',
                       fontSize: 24,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w700,
                       color: RibnColors.defaultText,
                       height: 1.40,
                     ),
@@ -71,28 +66,23 @@ class AddressDialog extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                Container(height: 1, color: const Color(0xffe9e9e9)),
+                const CustomDivider(),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        'Copy address',
+                        Strings.copyAddress,
                         style: TextStyle(
                           fontFamily: 'Nunito',
                           fontSize: 14,
+                          fontWeight: FontWeight.w400,
                           color: RibnColors.defaultText,
                         ),
                       ),
                       const SizedBox(width: 5),
-                      CustomIconButton(
-                        color: const Color(0xfff9f9f9),
-                        icon: SvgPicture.asset(RibnAssets.contentCopyIcon),
-                        onPressed: () {
-                          Clipboard.setData(ClipboardData(text: ribnAddress.toplAddress.toBase58()));
-                        },
-                      ),
+                      CustomCopyButton(textToBeCopied: ribnAddress.toplAddress.toBase58()),
                     ],
                   ),
                 ),

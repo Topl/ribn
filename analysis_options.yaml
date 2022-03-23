@@ -12,10 +12,11 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   exclude:
     - lib/src/*.g.dart
-    - test/
+    - test/shared_mocks.mocks.dart
   errors:
     unused_element: error
     unused_import: error
+    unnecessary_import: warning
     unused_local_variable: error
     dead_code: error
   strong-mode:
