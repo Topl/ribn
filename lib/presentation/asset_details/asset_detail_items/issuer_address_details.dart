@@ -21,9 +21,17 @@ class IssuerAddressDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          children: const [
-            Text(Strings.issuerAddress, style: RibnTextStyles.extH4),
-            CustomToolTip(tooltipText: 'Issuer Address'),
+          children: [
+            const Text(Strings.issuerAddress, style: RibnTextStyles.extH4),
+            CustomToolTip(
+              tooltipText: Strings.issuerAddressInfo,
+              offsetPositionLeftValue: 120,
+              tooltipIcon: SvgPicture.asset(
+                RibnAssets.roundInfoCircle,
+                width: 10,
+              ),
+              toolTipBackgroundColor: const Color(0xffeef9f8),
+            ),
           ],
         ),
         const SizedBox(height: 3),
