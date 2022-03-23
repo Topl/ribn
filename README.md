@@ -1,22 +1,27 @@
 # Ribn
 
 ## Description
-A lightweight flutter wallet to interact with the Topl blockchain.
+A lightweight web wallet to interact with the Topl blockchain.
 
-## Project Setup
+Ribn allows users to:
+- View their Poly balance and assets held by the wallet
+- Mint assets to their own or to another wallet
+- Transfer Polys and assets
+- Connect their wallet with dApps and sign transactions
 
-#### Flutter installation:
-* Follow instructions from Flutter's official docs for installation on your platform: https://flutter.dev/docs/get-started/install
-* Confirm that flutter has been installed on your system by typing in the command:
-```
-which flutter
-```
+## Build locally 
+* Ensure you have [Node.js](https://nodejs.org) v16 installed. 
+    * Recommended: If you are using nvm, you can run `nvm use` to install the right Node version.
+* Ensure you have [Flutter](https://docs.flutter.dev/get-started/install) v2 installed.
+* Install dependencies
+    * Install Flutter dependencies: `flutter pub get`
+    * Install Node dependencies: `npm install`
+* Bundle [extension scripts](web/src/) using webpack: `npm run build`
+* Build the flutter application: `flutter build web --web-renderer html --csp` 
 
-#### NodeJS Version (NVM)
-* This application was likely be using a specific NodeJS version. In order to develop locally, ensure that the correct node version is running using NVM. There is a .nvmrc file in the project root. With NVM installed, type the following:
-```
-nvm use
-```
-
-## Launch
-* Once everything is installed, launch the application using `flutter run`
+## Run local build on Chrome
+* On Chrome, go to Settings -> Extensions. Or click on the extensions icon in the top right corner and select 'Manage Exensions'
+* Toggle 'Developer mode' from the top-right corner
+* Select 'Load unpacked' from the menu that appears on the top
+* Navigate to and select the directory with path `ribn/build/web/`
+* The app should be loaded and you should be able to open it like you would any other extension 
