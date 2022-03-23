@@ -75,17 +75,13 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       onInitialBuild: refreshBalances,
       onWillChange: (prevVm, currVm) {
         // refresh balances on network toggle
-        if (prevVm?.currentNetwork.networkName !=
-                currVm.currentNetwork.networkName ||
-            prevVm?.currentNetwork.lastCheckedTimestamp !=
-                currVm.currentNetwork.lastCheckedTimestamp ||
-            prevVm?.currentNetwork.addresses.length !=
-                currVm.currentNetwork.addresses.length) {
-          refreshBalances(currVm);
+        if (prevVm?.currentNetwork.networkName != currVm.currentNetwork.networkName ||
+            prevVm?.currentNetwork.lastCheckedTimestamp != currVm.currentNetwork.lastCheckedTimestamp ||
+            prevVm?.currentNetwork.addresses.length != currVm.currentNetwork.addresses.length) {
+          if (currVm.currentNetwork.addresses.isNotEmpty) refreshBalances(currVm);
         }
       },
-      builder: (BuildContext context, WalletBalanceViewModel vm) =>
-          SingleChildScrollView(
+      builder: (BuildContext context, WalletBalanceViewModel vm) => SingleChildScrollView(
         child: _failedToFetchBalances
             ? Center(
                 child: Padding(
@@ -162,8 +158,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
           _fetchingBalances
               ? const CircularProgressIndicator()
               : _failedToFetchBalances
-                  ? const Text('Network Failure',
-                      style: TextStyle(color: Colors.red))
+                  ? const Text('Network Failure', style: TextStyle(color: Colors.red))
                   : Text('${vm.polyBalance} POLY', style: polyBalanceTextStyle),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -230,13 +225,10 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     required Function(AssetAmount) viewAssetDetails,
   }) {
     final String assetIcon = assetDetails?.icon ?? RibnAssets.undefinedIcon;
-    final String assetUnit = assetDetails?.unit != null
-        ? formatAssetUnit(assetDetails!.unit)
-        : 'Units';
+    final String assetUnit = assetDetails?.unit != null ? formatAssetUnit(assetDetails!.unit) : 'Units';
     final String assetLongName = assetDetails?.longName ?? '';
-    final bool isMissingAssetDetails = assetIcon == RibnAssets.undefinedIcon ||
-        assetUnit == 'Units' ||
-        assetLongName.isEmpty;
+    final bool isMissingAssetDetails =
+        assetIcon == RibnAssets.undefinedIcon || assetUnit == 'Units' || assetLongName.isEmpty;
 
     return ElevatedButton(
       style: ButtonStyle(
@@ -371,9 +363,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
             SizedBox(
               width: 10,
               child: Image.asset(
-                label == Strings.send
-                    ? RibnAssets.sendIcon
-                    : RibnAssets.receiveIcon,
+                label == Strings.send ? RibnAssets.sendIcon : RibnAssets.receiveIcon,
               ),
             ),
             const SizedBox(width: 5),
