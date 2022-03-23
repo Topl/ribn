@@ -30,7 +30,7 @@ List<Middleware<AppState>> createAppMiddleware({
     ...(createTransactionMiddleware(transactionRepo, keychainRepo)),
     ...(createRestorewalletMiddleware(onboardingRepo, loginRepo)),
     ...(createInternalMessageMiddleware(miscRepo)),
-    ...(createMiscMiddleware(loginRepo)),
+    ...(createMiscMiddleware(loginRepo, miscRepo)),
     EpicMiddleware<AppState>(createEpicMiddleware(miscRepo))
   ];
 }

@@ -103,7 +103,6 @@ class AppState {
 
   Map<String, dynamic> toMap() {
     return {
-      'onboardingState': onboardingState.toMap(),
       'loginState': loginState.toMap(),
       'keychainState': keychainState.toMap(),
       'userDetailsState': userDetailsState.toMap(),
@@ -113,7 +112,7 @@ class AppState {
 
   factory AppState.fromMap(Map<String, dynamic> map) {
     return AppState(
-      onboardingState: OnboardingState.fromMap(map['onboardingState']),
+      onboardingState: OnboardingState.initial(),
       loginState: LoginState.fromMap(map['loginState']),
       keychainState: KeychainState.fromMap(map['keychainState']),
       userDetailsState: UserDetailsState.fromMap(map['userDetailsState']),

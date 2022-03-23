@@ -6,8 +6,10 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 import 'package:ribn/actions/transaction_actions.dart';
+import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:ribn/models/ribn_network.dart';
 import 'package:ribn/models/transfer_details.dart';
 
 /// Intended to wrap the [PolyTransferInputPage] and provide it with the the [PolyTransferInputViewModel].
@@ -31,7 +33,7 @@ class PolyTransferInputViewModel {
   final num networkFee;
 
   /// Current network id.
-  final int currNetworkId;
+  final RibnNetwork currentNetwork;
 
   /// Handler for initiating poly transfer tx.
   final Future<void> Function({
@@ -45,7 +47,7 @@ class PolyTransferInputViewModel {
   PolyTransferInputViewModel({
     required this.initiateTx,
     required this.networkFee,
-    required this.currNetworkId,
+    required this.currentNetwork,
   });
 
   static PolyTransferInputViewModel fromStore(Store<AppState> store) {
@@ -60,7 +62,7 @@ class PolyTransferInputViewModel {
         final Completer<bool> actionCompleter = Completer();
         final TransferDetails transferDetails = TransferDetails(
           transferType: TransferType.polyTransfer,
-          senders: [store.state.keychainState.currentNetwork.myWalletAddress],
+          senders: [store.state.keychainState.currentNetwork.myWalletAddress!],
           recipient: recipient,
           amount: amount,
           data: note,
@@ -68,8 +70,8 @@ class PolyTransferInputViewModel {
         store.dispatch(InitiateTxAction(transferDetails, actionCompleter));
         await actionCompleter.future.then(onRawTxCreated);
       },
-      currNetworkId: store.state.keychainState.currentNetwork.networkId,
-      networkFee: Rules.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
+      currentNetwork: store.state.keychainState.currentNetwork,
+      networkFee: NetworkUtils.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
     );
   }
 
@@ -79,9 +81,9 @@ class PolyTransferInputViewModel {
 
     return other is PolyTransferInputViewModel &&
         other.networkFee == networkFee &&
-        other.currNetworkId == currNetworkId;
+        other.currentNetwork == currentNetwork;
   }
 
   @override
-  int get hashCode => networkFee.hashCode ^ currNetworkId.hashCode;
+  int get hashCode => networkFee.hashCode ^ currentNetwork.hashCode;
 }

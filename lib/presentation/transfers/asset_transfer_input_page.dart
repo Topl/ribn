@@ -125,7 +125,7 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
                             validRecipientAddress: _validRecipientAddress,
                             // validate the address on change
                             onChanged: (text) => validateRecipientAddress(
-                              networkId: vm.currNetworkId,
+                              networkName: vm.currentNetwork.networkName,
                               address: _recipientController.text,
                               handleResult: (bool result) {
                                 if (mounted) {

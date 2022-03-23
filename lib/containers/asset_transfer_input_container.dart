@@ -7,9 +7,11 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 import 'package:ribn/actions/transaction_actions.dart';
+import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
+import 'package:ribn/models/ribn_network.dart';
 import 'package:ribn/models/transfer_details.dart';
 
 /// Intended to wrap the [AssetTransferInputPage] and provide it with the the [AssetTransferInputViewModel].
@@ -40,8 +42,8 @@ class AssetTransferInputViewModel {
   /// Locally stored asset details.
   final Map<String, AssetDetails> assetDetails;
 
-  /// The current network ID.
-  final int currNetworkId;
+  /// The current network.
+  final RibnNetwork currentNetwork;
 
   /// Handler for initiating tx.
   final Future<void> Function({
@@ -58,7 +60,7 @@ class AssetTransferInputViewModel {
     required this.initiateTx,
     required this.networkFee,
     required this.assetDetails,
-    required this.currNetworkId,
+    required this.currentNetwork,
   });
 
   static AssetTransferInputViewModel fromStore(Store<AppState> store) {
@@ -84,8 +86,8 @@ class AssetTransferInputViewModel {
         await actionCompleter.future.then(onRawTxCreated);
       },
       assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
-      currNetworkId: store.state.keychainState.currentNetwork.networkId,
-      networkFee: Rules.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
+      currentNetwork: store.state.keychainState.currentNetwork,
+      networkFee: NetworkUtils.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
       assetDetails: store.state.userDetailsState.assetDetails,
     );
   }
@@ -98,11 +100,11 @@ class AssetTransferInputViewModel {
         listEquals(other.assets, assets) &&
         other.networkFee == networkFee &&
         mapEquals(other.assetDetails, assetDetails) &&
-        other.currNetworkId == currNetworkId;
+        other.currentNetwork == currentNetwork;
   }
 
   @override
   int get hashCode {
-    return assets.hashCode ^ networkFee.hashCode ^ assetDetails.hashCode ^ currNetworkId.hashCode;
+    return assets.hashCode ^ networkFee.hashCode ^ assetDetails.hashCode ^ currentNetwork.hashCode;
   }
 }

@@ -11,6 +11,7 @@ import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
+import 'package:ribn/models/ribn_network.dart';
 
 /// Intended to wrap the [WalletBalancePage] and provide it with the the [WalletBalanceViewModel].
 class WalletBalanceContainer extends StatelessWidget {
@@ -58,7 +59,8 @@ class WalletBalanceViewModel {
   /// Callback to refresh balances.
   final void Function({required Function(bool success) onBalancesRefreshed}) refreshBalances;
 
-  final int networkId;
+  /// The current network being viewed.
+  final RibnNetwork currentNetwork;
 
   WalletBalanceViewModel({
     required this.polyBalance,
@@ -68,7 +70,7 @@ class WalletBalanceViewModel {
     required this.viewAssetDetails,
     required this.assetDetails,
     required this.refreshBalances,
-    required this.networkId,
+    required this.currentNetwork,
   });
   static WalletBalanceViewModel fromStore(Store<AppState> store) {
     return WalletBalanceViewModel(
@@ -92,7 +94,7 @@ class WalletBalanceViewModel {
         store.dispatch(RefreshBalancesAction(actionCompleter));
         actionCompleter.future.then((bool value) => onBalancesRefreshed(value));
       },
-      networkId: store.state.keychainState.currentNetwork.networkId,
+      currentNetwork: store.state.keychainState.currentNetwork,
     );
   }
 
@@ -107,7 +109,7 @@ class WalletBalanceViewModel {
         other.navigateToSendAsset == navigateToSendAsset &&
         other.navigateToSendPolys == navigateToSendPolys &&
         other.viewAssetDetails == viewAssetDetails &&
-        other.networkId == networkId;
+        other.currentNetwork == currentNetwork;
   }
 
   @override
@@ -118,6 +120,6 @@ class WalletBalanceViewModel {
         navigateToSendAsset.hashCode ^
         navigateToSendPolys.hashCode ^
         viewAssetDetails.hashCode ^
-        networkId.hashCode;
+        currentNetwork.hashCode;
   }
 }

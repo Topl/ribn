@@ -7,9 +7,11 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 import 'package:ribn/actions/transaction_actions.dart';
+import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
+import 'package:ribn/models/ribn_network.dart';
 import 'package:ribn/models/transfer_details.dart';
 
 /// Intended to wrap the [MintInputPage] and provide it with the the [MintInputViewmodel].
@@ -34,8 +36,8 @@ class MintInputViewmodel {
   /// The list of assets previously issued/minted by this wallet.
   final List<AssetAmount> assets;
 
-  /// The current network ID.
-  final int currNetworkId;
+  /// The current network.
+  final RibnNetwork currentNetwork;
 
   /// Locally stored asset details.
   final Map<String, AssetDetails> assetDetails;
@@ -56,7 +58,7 @@ class MintInputViewmodel {
     required this.initiateTx,
     required this.networkFee,
     required this.assets,
-    required this.currNetworkId,
+    required this.currentNetwork,
     required this.assetDetails,
   });
 
@@ -72,7 +74,7 @@ class MintInputViewmodel {
         AssetDetails? assetDetails,
         required Function(bool success) onRawTxCreated,
       }) async {
-        final ToplAddress issuerAddress = store.state.keychainState.currentNetwork.myWalletAddress.address;
+        final ToplAddress issuerAddress = store.state.keychainState.currentNetwork.myWalletAddress!.toplAddress;
         final TransferType transferType = mintingNewAsset ? TransferType.mintingAsset : TransferType.remintingAsset;
         final TransferDetails transferDetails = TransferDetails(
           transferType: transferType,
@@ -80,7 +82,7 @@ class MintInputViewmodel {
             Rules.assetCodeVersion,
             issuerAddress,
             assetShortName,
-            Rules.networkStrings[store.state.keychainState.currentNetwork.networkId]!,
+            store.state.keychainState.currentNetwork.networkName,
           ),
           recipient: mintingToMyWallet ? issuerAddress.toBase58() : recipient,
           amount: amount,
@@ -92,8 +94,8 @@ class MintInputViewmodel {
         await actionCompleter.future.then(onRawTxCreated);
       },
       assets: store.state.keychainState.currentNetwork.getAssetsIssuedByWallet(),
-      currNetworkId: store.state.keychainState.currentNetwork.networkId,
-      networkFee: Rules.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
+      currentNetwork: store.state.keychainState.currentNetwork,
+      networkFee: NetworkUtils.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
       assetDetails: store.state.userDetailsState.assetDetails,
     );
   }
@@ -105,12 +107,12 @@ class MintInputViewmodel {
     return other is MintInputViewmodel &&
         other.networkFee == networkFee &&
         listEquals(other.assets, assets) &&
-        other.currNetworkId == currNetworkId &&
+        other.currentNetwork == currentNetwork &&
         mapEquals(other.assetDetails, assetDetails);
   }
 
   @override
   int get hashCode {
-    return networkFee.hashCode ^ assets.hashCode ^ currNetworkId.hashCode ^ assetDetails.hashCode;
+    return networkFee.hashCode ^ assets.hashCode ^ currentNetwork.hashCode ^ assetDetails.hashCode;
   }
 }

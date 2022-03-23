@@ -3,10 +3,12 @@ import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/data/data.dart' as local;
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/repositories/login_repository.dart';
+import 'package:ribn/repositories/misc_repository.dart';
 
-List<Middleware<AppState>> createMiscMiddleware(LoginRepository loginRep) {
+List<Middleware<AppState>> createMiscMiddleware(LoginRepository loginRep, MiscRepository miscRepo) {
   return <Middleware<AppState>>[
     TypedMiddleware<AppState, DeleteWalletAction>(_onDeleteWallet(loginRep)),
+    TypedMiddleware<AppState, DownloadAsFileAction>(_onDownloadAsFile(miscRepo)),
   ];
 }
 
@@ -25,6 +27,18 @@ void Function(Store<AppState> store, DeleteWalletAction action, NextDispatcher n
     } catch (e) {
       // Complete with false to indicate error, i.e. incorrect password was entered
       action.completer.complete(false);
+    }
+  };
+}
+
+void Function(Store<AppState> store, DownloadAsFileAction action, NextDispatcher next) _onDownloadAsFile(
+  MiscRepository miscRepo,
+) {
+  return (store, action, next) {
+    try {
+      miscRepo.downloadAsFile(action.fileName, action.text);
+    } catch (e) {
+      next(ApiErrorAction(e.toString()));
     }
   };
 }

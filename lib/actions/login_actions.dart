@@ -11,9 +11,3 @@ class LoginSuccessAction {
   final Uint8List toplExtendedPrvKeyUint8List;
   const LoginSuccessAction(this.toplExtendedPrvKeyUint8List);
 }
-
-class LoginFailureAction {}
-
-class LoginLoadingAction {}
-
-class FirstTimeLoginAction {}
