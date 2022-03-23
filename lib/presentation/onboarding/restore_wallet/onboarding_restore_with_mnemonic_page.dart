@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
 import 'package:ribn/constants/colors.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:ribn/presentation/login/widgets/advanced_option_button.dart';
 import 'package:ribn/presentation/login/widgets/password_text_field.dart';
 import 'package:ribn/widgets/custom_text_field.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
 
-/// Restore wallet using seed phrase during onboarding.
+/// Restore wallet using mnemonic / seed phrase during onboarding.
 ///
 /// Allows entering a known seed phrase and a new wallet password to restore a wallet.
 ///
@@ -24,15 +26,17 @@ class OnboardingRestoreWithMnemonicPage extends StatefulWidget {
 }
 
 class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWithMnemonicPage> {
+  final double maxWidth = 734;
   final TextEditingController _seedPhraseTextController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
+
   late List<TextEditingController> controllers;
 
   /// Map to keep track of any textfield errors.
   Map<TextEditingController, bool> hasErrors = {};
 
-  /// True if password entered is at least 8 characters.
+  /// True if paTextEditingControllerssword entered is at least 8 characters.
   bool passwordAtLeast8Chars = false;
 
   /// True if both passwords match.
@@ -75,28 +79,35 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
           children: [
             OnboardingAppBar(onBackPressed: () => Navigator.of(context).pop()),
             _buildTitle(),
-            const SizedBox(
-              width: 734,
-              child: Text(
-                'First, enter your 15-word Seed Phrase that you wrote down when you first created your wallet',
+            SizedBox(
+              width: maxWidth,
+              child: const Text(
+                Strings.restoreWalletSeedPhraseDesc,
                 style: descriptionStyle,
               ),
             ),
             const SizedBox(height: 20),
             _buildSeedPhraseTextField(),
-            const Padding(
-              padding: EdgeInsets.only(top: 34, bottom: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: SizedBox(
-                width: 734,
-                child: Text(
+                width: maxWidth,
+                child: const AdvancedOptionButton(restoreWithToplKeyRoute: Routes.onboardingRestoreWalletWithToplKey),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 15, bottom: 16),
+              child: SizedBox(
+                width: maxWidth,
+                child: const Text(
                   'Next, let’s make a new Wallet Password.',
                   style: descriptionStyle,
                 ),
               ),
             ),
-            _buildNewPasswordTextField(),
+            _buildPasswordTextField(_newPasswordController),
             const SizedBox(height: 15),
-            _buildConfirmPasswordTextField(),
+            _buildPasswordTextField(_confirmPasswordController),
             const SizedBox(height: 65),
             _buildRestoreButton(),
           ],
@@ -120,13 +131,13 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
   /// TextField for entering the seed phrase.
   Widget _buildSeedPhraseTextField() {
     return SizedBox(
-      width: 734,
+      width: maxWidth,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(Strings.enterSeedPhrase, style: RibnTextStyles.extH3),
           CustomTextField(
-            width: 734,
+            width: maxWidth,
             height: 36,
             hasError: hasErrors[_seedPhraseTextController] ?? false,
             controller: _seedPhraseTextController,
@@ -138,40 +149,24 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
     );
   }
 
-  /// TextField for allowing user to enter a new wallet password.
-  Widget _buildNewPasswordTextField() {
+  /// Builds the password text field for entering and confirming new wallet password.
+  Widget _buildPasswordTextField(TextEditingController controller) {
+    final String labelText =
+        controller == _newPasswordController ? Strings.newWalletPassword : Strings.confirmWalletPassword;
+    final String hintText =
+        controller == _newPasswordController ? Strings.newWalletPasswordHint : Strings.confirmWalletPasswordHint;
     return SizedBox(
-      width: 734,
+      width: maxWidth,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(Strings.newWalletPassword, style: RibnTextStyles.extH3),
+          Text(labelText, style: RibnTextStyles.extH3),
           PasswordTextField(
             width: 352,
             height: 36,
-            controller: _newPasswordController,
-            hintText: Strings.newWalletPasswordHint,
-            hasError: hasErrors[_newPasswordController] ?? false,
-          ),
-        ],
-      ),
-    );
-  }
-
-  /// Textfield to enter the wallet password a second time for confirmation.
-  Widget _buildConfirmPasswordTextField() {
-    return SizedBox(
-      width: 734,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(Strings.confirmWalletPassword, style: RibnTextStyles.extH3),
-          PasswordTextField(
-            width: 352,
-            height: 36,
-            controller: _confirmPasswordController,
-            hintText: Strings.confirmWalletPasswordHint,
-            hasError: hasErrors[_confirmPasswordController] ?? false,
+            controller: controller,
+            hintText: hintText,
+            hasError: hasErrors[controller] ?? false,
           ),
         ],
       ),

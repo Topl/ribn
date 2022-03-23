@@ -10,9 +10,9 @@ import 'package:ribn/models/ribn_network.dart';
 final keychainReducer = combineReducers<KeychainState>(
   [
     TypedReducer<KeychainState, InitializeHDWalletAction>(_onHdWalletInitialization),
-    TypedReducer<KeychainState, UpdateNetworksAction>(_onNetworksUpdated),
-    TypedReducer<KeychainState, AddAddressesAction>(_onAddAddresses),
-    TypedReducer<KeychainState, UpdateCurrentNetworkAction>(_onNetworkUpdated),
+    TypedReducer<KeychainState, UpdateNetworksWithAddressesAction>(_onNetworksUpdated),
+    TypedReducer<KeychainState, AddAddressAction>(_onAddAddresses),
+    TypedReducer<KeychainState, UpdateCurrentNetworkAction>(_onCurrentNetworkUpdated),
     TypedReducer<KeychainState, UpdateBalancesAction>(_onBalancesUpdated),
   ],
 );
@@ -32,47 +32,57 @@ KeychainState _onHdWalletInitialization(KeychainState keychainState, InitializeH
   );
 }
 
-/// Updates the networks stored in local state with [action.updatedRibnNetworkList].
-KeychainState _onNetworksUpdated(KeychainState keychainState, UpdateNetworksAction action) {
+/// Updates ribn networks with [action.networkAddresses].
+KeychainState _onNetworksUpdated(KeychainState keychainState, UpdateNetworksWithAddressesAction action) {
+  final Map<String, RibnNetwork> networks = Map.from(keychainState.networks);
+  networks.forEach(
+    (networkName, ribnNetwork) {
+      networks[networkName] = ribnNetwork.copyWith(
+        addresses: action.networkAddresses[networkName],
+      );
+    },
+  );
+  return keychainState.copyWith(networks: networks);
+}
+
+/// Add [action.addresses] to the list of addresses under the network specified by [action.networkName].
+KeychainState _onAddAddresses(KeychainState keychainState, AddAddressAction action) {
+  final RibnNetwork network = keychainState.networks[action.networkName]!;
+  final RibnNetwork updatedNetwork = network.copyWith(
+    addresses: List.from(network.addresses)..add(action.address),
+  );
   return keychainState.copyWith(
-    networks: List.from(action.updatedRibnNetworkList),
+    networks: {
+      ...keychainState.networks,
+      action.networkName: updatedNetwork,
+    },
   );
 }
 
-/// Updates the list of addresses in the current network
-KeychainState _onAddAddresses(KeychainState keychainState, AddAddressesAction action) {
-  RibnNetwork updatedNetwork = keychainState.currentNetwork.copyWith(
-    addresses: List.from(keychainState.currentNetwork.addresses)..addAll(action.addresses),
-  );
+/// Updates the current network in [KeychainState].
+///
+/// More specifically, updates the [keychainState.currentNetworkName] and the [lastCheckedTimestamp] of the network associated with
+/// [action.networkName].
+KeychainState _onCurrentNetworkUpdated(KeychainState keychainState, UpdateCurrentNetworkAction action) {
   return keychainState.copyWith(
-    networks: List.from(keychainState.networks)
-      ..setAll(
-        keychainState.currNetworkIdx,
-        [updatedNetwork],
+    currentNetworkName: action.networkName,
+    networks: {
+      ...keychainState.networks,
+      action.networkName: keychainState.networks[action.networkName]!.copyWith(
+        lastCheckedTimestamp: DateTime.now().millisecondsSinceEpoch,
       ),
+    },
   );
 }
 
-/// Updates the [currNetworkIdx] in [KeychainState].
-KeychainState _onNetworkUpdated(KeychainState keychainState, UpdateCurrentNetworkAction action) {
-  return keychainState.copyWith(
-    currNetworkIdx: keychainState.networks.indexWhere(
-      (network) => network.networkId == int.parse(action.networkId),
-    ),
-  );
-}
-
-/// Updates balances for all addresses in the current network
+/// Updates the current network with a list of addresses that have updated balances.
 KeychainState _onBalancesUpdated(KeychainState keychainState, UpdateBalancesAction action) {
-  RibnNetwork updatedNetwork = keychainState.currentNetwork.copyWith(
-    addresses: action.updatedAddresses,
-    fetchingBalance: false,
-  );
   return keychainState.copyWith(
-    networks: List.from(keychainState.networks)
-      ..setAll(
-        keychainState.currNetworkIdx,
-        [updatedNetwork],
-      ),
+    networks: {
+      ...keychainState.networks,
+      keychainState.currentNetworkName: keychainState.currentNetwork.copyWith(
+        addresses: action.updatedAddresses,
+      )
+    },
   );
 }

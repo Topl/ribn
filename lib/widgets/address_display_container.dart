@@ -48,7 +48,7 @@ class _AddressDisplayContainerState extends State<AddressDisplayContainer> {
               ),
             ),
             const Spacer(),
-            CustomCopyButton(textToBeCopied: ribnAddress.address.toBase58()),
+            CustomCopyButton(textToBeCopied: ribnAddress.toplAddress.toBase58()),
             const SizedBox(width: 4),
           ],
         ),

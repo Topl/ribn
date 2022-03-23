@@ -1,8 +1,7 @@
+import 'dart:async';
 import 'dart:typed_data';
-import 'package:brambldart/credentials.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/ribn_address.dart';
-import 'package:ribn/models/ribn_network.dart';
 
 class InitializeHDWalletAction {
   final String? keyStoreJson;
@@ -11,39 +10,40 @@ class InitializeHDWalletAction {
 }
 
 class GenerateInitialAddressesAction {
-  HdWallet? hdWallet;
-  GenerateInitialAddressesAction(this.hdWallet);
+  GenerateInitialAddressesAction();
 }
 
 class GenerateAddressAction {
   final int accountIndex;
   final int changeIndex;
   final int addressIndex;
-  HdWallet? hdWallet;
   GenerateAddressAction(
-    this.addressIndex,
-    this.hdWallet, {
+    this.addressIndex, {
     this.accountIndex = Rules.defaultAccountIndex,
     this.changeIndex = Rules.defaultChangeIndex,
   });
 }
 
-class UpdateNetworksAction {
-  final List<RibnNetwork> updatedRibnNetworkList;
-  const UpdateNetworksAction(this.updatedRibnNetworkList);
+class UpdateNetworksWithAddressesAction {
+  final Map<String, List<RibnAddress>> networkAddresses;
+  const UpdateNetworksWithAddressesAction(this.networkAddresses);
 }
 
-class AddAddressesAction {
-  final List<RibnAddress> addresses;
-  const AddAddressesAction({this.addresses = const []});
+class AddAddressAction {
+  final String networkName;
+  final RibnAddress address;
+  const AddAddressAction({required this.networkName, required this.address});
 }
 
 class UpdateCurrentNetworkAction {
-  String networkId;
-  UpdateCurrentNetworkAction(this.networkId);
+  String networkName;
+  UpdateCurrentNetworkAction(this.networkName);
 }
 
-class RefreshBalancesAction {}
+class RefreshBalancesAction {
+  final Completer<bool> completer;
+  const RefreshBalancesAction(this.completer);
+}
 
 class UpdateBalancesAction {
   List<RibnAddress> updatedAddresses;

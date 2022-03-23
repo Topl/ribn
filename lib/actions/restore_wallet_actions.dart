@@ -1,15 +1,22 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 class RestoreWalletWithMnemonicAction {
   final String mnemonic;
   final String password;
-  const RestoreWalletWithMnemonicAction({required this.mnemonic, required this.password});
+  RestoreWalletWithMnemonicAction({required this.mnemonic, required this.password});
 }
 
 class RestoreWalletWithToplKeyAction {
   final String toplKeyStoreJson;
   final String password;
-  const RestoreWalletWithToplKeyAction({required this.toplKeyStoreJson, required this.password});
+  final Completer<bool> completer;
+
+  const RestoreWalletWithToplKeyAction({
+    required this.toplKeyStoreJson,
+    required this.password,
+    required this.completer,
+  });
 }
 
 class SuccessfullyRestoredWalletAction {

@@ -56,13 +56,13 @@ class AddressDialog extends StatelessWidget {
                 const SizedBox(height: 20),
                 BarcodeWidget(
                   barcode: Barcode.qrCode(),
-                  data: ribnAddress.address.toBase58(),
+                  data: ribnAddress.toplAddress.toBase58(),
                   width: 130,
                   height: 130,
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  formatAddrString(ribnAddress.address.toBase58()),
+                  formatAddrString(ribnAddress.toplAddress.toBase58()),
                   style: const TextStyle(
                     fontFamily: 'Nunito',
                     fontWeight: FontWeight.w600,
@@ -90,7 +90,7 @@ class AddressDialog extends StatelessWidget {
                         color: const Color(0xfff9f9f9),
                         icon: SvgPicture.asset(RibnAssets.contentCopyIcon),
                         onPressed: () {
-                          Clipboard.setData(ClipboardData(text: ribnAddress.address.toBase58()));
+                          Clipboard.setData(ClipboardData(text: ribnAddress.toplAddress.toBase58()));
                         },
                       ),
                     ],

@@ -20,9 +20,10 @@ void Function(Store<AppState> store, AttemptLoginAction action, NextDispatcher n
         keyStoreJson: store.state.keychainState.keyStoreJson!,
         password: action.password,
       );
+      action.completer.complete(true);
       next(LoginSuccessAction(toplExtendedPrvKeyUint8List));
     } catch (e) {
-      next(LoginFailureAction());
+      action.completer.complete(false);
     }
   };
 }

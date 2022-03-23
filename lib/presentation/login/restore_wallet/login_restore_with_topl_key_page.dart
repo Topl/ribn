@@ -11,8 +11,10 @@ import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/login/widgets/next_button.dart';
 import 'package:ribn/presentation/login/widgets/restore_page_title.dart';
+import 'package:ribn/presentation/login/widgets/uploaded_file_container.dart';
+import 'package:ribn/widgets/large_button.dart';
 
-/// This page allows the user to upload their Topl Key File in order to restore a wallet.
+/// This page allows the user to upload their Topl Main Key in order to restore wallet.
 ///
 /// This page is used in the 'restore wallet' flow when initiated from the login page,
 /// hence the widget name is prefixed with 'Login'.
@@ -41,7 +43,7 @@ class _LoginRestoreWithToplKeyPageState extends State<LoginRestoreWithToplKeyPag
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
-            const RestoreWalletPageTitle(currPage: 1),
+            const RestoreWalletPageTitle(),
             const SizedBox(height: 30),
             SizedBox(
               height: 75,
@@ -51,10 +53,25 @@ class _LoginRestoreWithToplKeyPageState extends State<LoginRestoreWithToplKeyPag
                 style: RibnTextStyles.smallBody.copyWith(fontSize: 15),
               ),
             ),
-            _buildFileUploadContainer(),
+            const SizedBox(
+              width: 309,
+              child: Text(
+                Strings.uploadFile,
+                style: TextStyle(
+                  fontFamily: 'Nunito',
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: RibnColors.defaultText,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: _buildFileUploadContainer(),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
-              child: _buildUploadedFileNameContainer(),
+              child: UploadedFileContainer(uploadedFileName: uploadedFileName),
             ),
             errorUploadingFile
                 ? const Text(
@@ -63,17 +80,20 @@ class _LoginRestoreWithToplKeyPageState extends State<LoginRestoreWithToplKeyPag
                   )
                 : const SizedBox(),
             const Spacer(),
-            NextButton(
-              onPressed: () {
-                if (toplKey.isNotEmpty && !errorUploadingFile) {
-                  StoreProvider.of<AppState>(context).dispatch(
-                    NavigateToRoute(
-                      Routes.loginRestoreWalletoldPassword,
-                      arguments: toplKey,
-                    ),
-                  );
-                }
-              },
+            Padding(
+              padding: const EdgeInsets.only(bottom: 17.0),
+              child: NextButton(
+                onPressed: () {
+                  if (toplKey.isNotEmpty && !errorUploadingFile) {
+                    StoreProvider.of<AppState>(context).dispatch(
+                      NavigateToRoute(
+                        Routes.loginRestoreWalletEnterPassword,
+                        arguments: toplKey,
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
           ],
         ),
@@ -86,7 +106,8 @@ class _LoginRestoreWithToplKeyPageState extends State<LoginRestoreWithToplKeyPag
   /// When a file is selected, [uploadedFileName] is updated with the file name,
   /// and [toplKey] is updated with the [utf8] decoded file content.
   Widget _buildFileUploadContainer() {
-    return MaterialButton(
+    return LargeButton(
+      label: Strings.browse,
       onPressed: () async {
         try {
           final FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -107,24 +128,6 @@ class _LoginRestoreWithToplKeyPageState extends State<LoginRestoreWithToplKeyPag
         }
         setState(() {});
       },
-      child: Container(
-        width: 309,
-        height: 148,
-        color: RibnColors.primary,
-        child: const Center(child: Text('Browse')),
-      ),
     );
-  }
-
-  /// Builds a container to display the [uploadedFileName].
-  Widget _buildUploadedFileNameContainer() {
-    return uploadedFileName.isNotEmpty
-        ? Container(
-            width: 309,
-            height: 35,
-            color: const Color(0xffB1E7E1),
-            child: Text(uploadedFileName),
-          )
-        : const SizedBox();
   }
 }

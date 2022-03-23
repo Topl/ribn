@@ -182,7 +182,7 @@ class TxReviewPage extends StatelessWidget {
               style: defaultTextStyle,
             ),
           ),
-          CustomCopyButton(textToBeCopied: transferDetails.senders.first.address.toBase58()),
+          CustomCopyButton(textToBeCopied: transferDetails.senders.first.toplAddress.toBase58()),
         ],
       ),
     );
@@ -209,7 +209,7 @@ class TxReviewPage extends StatelessWidget {
               style: defaultTextStyle,
             ),
           ),
-          CustomCopyButton(textToBeCopied: transferDetails.senders.first.address.toBase58()),
+          CustomCopyButton(textToBeCopied: transferDetails.senders.first.toplAddress.toBase58()),
         ],
       ),
     );

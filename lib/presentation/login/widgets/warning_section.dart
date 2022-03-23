@@ -10,7 +10,7 @@ class WarningSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 309,
-      height: 158,
+      height: 165,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(4)),
         color: Color(0x17e80e00),
@@ -33,7 +33,7 @@ class WarningSection extends StatelessWidget {
               width: 270,
               height: 102,
               child: Text(
-                Strings.recoverWalletWarning,
+                Strings.restoreWalletWarning,
                 style: RibnTextStyles.smallBody.copyWith(fontSize: 15),
               ),
             ),

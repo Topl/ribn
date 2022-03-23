@@ -3,6 +3,7 @@ import 'package:brambldart/credentials.dart' as hd;
 import 'package:brambldart/utils.dart' as constants;
 import 'package:dio/dio.dart';
 import 'package:logging/logging.dart';
+import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/strings.dart';
 
 class Rules {
@@ -21,50 +22,23 @@ class Rules {
       constants.defaultChangeIndex; // 0=external/payments, 1=internal/change, 2=staking
   static const int defaultAddressIndex = constants.defaultAddressIndex;
   static const int assetCodeVersion = constants.supportedAssetCodeVersion;
-  static const int numInitialAddresses = 5;
   static const int internalIdx = 1;
-  static const int numHomeTabs = 3;
-  static int toplnetId = constants.networkRegistry[Strings.toplnet]!;
-  static int valhallaId = constants.networkRegistry[Strings.valhalla]!;
-  static int privateId = constants.networkRegistry[Strings.private]!;
-  static Map<int, String> networkStrings = {
-    valhallaId: Strings.valhalla,
-    toplnetId: Strings.toplnet,
-    privateId: Strings.private
-  };
-  static const String projectId = '60ff001754b7c75558146daf';
-  static Map<int, String> networkApiKeys = {
-    valhallaId: 'Mjc0ODg3MTktYTU3ZS00MGM2LWJkMmMtYTRjMzQxMWY3MjM4',
-    toplnetId: 'N2IyNDljZmQtZjlkNS00Nzc4LWE1MGQtMmVhMzBjMzIyYjBi',
-    privateId: 'topl_the_world!'
-  };
-  static Map<int, String> networkUrls = {
-    // staging.vertx.
-    valhallaId: 'https://vertx.topl.services/valhalla/$projectId',
-    toplnetId: 'https://vertx.topl.services/mainnet/$projectId',
-    privateId: 'http://localhost:9085'
-  };
   static Map<int, String> txHistoryUrls = {
-    valhallaId: 'https://annulus-api.topl.services/staging/valhalla/',
-    toplnetId: 'https://annulus-api.topl.services/staging/toplnet/',
+    NetworkUtils.valhallaId: 'https://annulus-api.topl.services/staging/valhalla/',
+    NetworkUtils.toplNetId: 'https://annulus-api.topl.services/staging/toplnet/',
   };
   static Map<int, String> txDetailsRedirectUrls = {
-    valhallaId: 'https://staging.valhalla.annulus.topl.services/#/transaction/',
-    toplnetId: 'https://staging.toplnet.annulus.topl.services/#/transaction/',
+    NetworkUtils.valhallaId: 'https://staging.valhalla.annulus.topl.services/#/transaction/',
+    NetworkUtils.toplNetId: 'https://staging.toplnet.annulus.topl.services/#/transaction/',
   };
   static String txHistoryUrl(String addr, int networkId) => '${txHistoryUrls[networkId]!}/v1/address/history/$addr';
   static String txDetailsUrl(String txId, int networkId) => '${txDetailsRedirectUrls[networkId]!}$txId';
-  static Map<int, PolyAmount> networkFees = {
-    valhallaId: PolyAmount.fromUnitAndValue(PolyUnit.nanopoly, constants.valhallaFee),
-    toplnetId: PolyAmount.fromUnitAndValue(PolyUnit.nanopoly, constants.toplnetFee),
-    privateId: PolyAmount.zero(),
-  };
   static const transferTypes = [Strings.polyTransfer, Strings.assetTransfer, Strings.minting];
   static BramblClient getBramblCient(int networkId) {
     final Logger logger = Logger('BramblClient');
     final Dio httpClient = Dio(
       BaseOptions(
-        baseUrl: networkUrls[networkId]!,
+        baseUrl: NetworkUtils.networkUrls[networkId]!,
         contentType: 'application/json',
         connectTimeout: 5000,
         receiveTimeout: 3000,
@@ -73,7 +47,7 @@ class Rules {
     return BramblClient(
       httpClient: httpClient,
       interceptors: [
-        ApiKeyAuthInterceptor(networkApiKeys[networkId]!),
+        ApiKeyAuthInterceptor(NetworkUtils.networkApiKeys[networkId]!),
         RetryInterceptor(
           dio: httpClient,
           logger: logger,

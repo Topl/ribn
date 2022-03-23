@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -5,9 +7,11 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 import 'package:ribn/actions/transaction_actions.dart';
+import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
+import 'package:ribn/models/ribn_network.dart';
 import 'package:ribn/models/transfer_details.dart';
 
 /// Intended to wrap the [AssetTransferInputPage] and provide it with the the [AssetTransferInputViewModel].
@@ -29,25 +33,46 @@ class AssetTransferInputContainer extends StatelessWidget {
 }
 
 class AssetTransferInputViewModel {
+  /// All assets owned by this wallet.
   final List<AssetAmount> assets;
-  final Function(String, String, String, AssetCode, AssetDetails?) initiateTx;
-  final bool loadingRawTx;
+
+  /// The tx fee on the current network.
   final num networkFee;
+
+  /// Locally stored asset details.
   final Map<String, AssetDetails> assetDetails;
-  final int currNetworkId;
+
+  /// The current network.
+  final RibnNetwork currentNetwork;
+
+  /// Handler for initiating tx.
+  final Future<void> Function({
+    required String recipient,
+    required String amount,
+    required String note,
+    required AssetCode assetCode,
+    AssetDetails? assetDetails,
+    required Function(bool success) onRawTxCreated,
+  }) initiateTx;
 
   AssetTransferInputViewModel({
     required this.assets,
     required this.initiateTx,
-    required this.loadingRawTx,
     required this.networkFee,
     required this.assetDetails,
-    required this.currNetworkId,
+    required this.currentNetwork,
   });
 
   static AssetTransferInputViewModel fromStore(Store<AppState> store) {
     return AssetTransferInputViewModel(
-      initiateTx: (String recipient, String amount, String note, AssetCode assetCode, AssetDetails? assetDetails) {
+      initiateTx: ({
+        required String recipient,
+        required String amount,
+        required String note,
+        required AssetCode assetCode,
+        AssetDetails? assetDetails,
+        required Function(bool success) onRawTxCreated,
+      }) async {
         final TransferDetails transferDetails = TransferDetails(
           transferType: TransferType.assetTransfer,
           recipient: recipient,
@@ -56,15 +81,13 @@ class AssetTransferInputViewModel {
           assetCode: assetCode,
           assetDetails: assetDetails,
         );
-        store.dispatch((InitiateTxAction(transferDetails)));
+        final Completer<bool> actionCompleter = Completer();
+        store.dispatch((InitiateTxAction(transferDetails, actionCompleter)));
+        await actionCompleter.future.then(onRawTxCreated);
       },
-      assets: store.state.keychainState.currentNetwork.addresses
-          .map((addr) => addr.balance.assets ?? [])
-          .expand((amount) => amount)
-          .toList(),
-      loadingRawTx: store.state.uiState.loadingRawTx,
-      currNetworkId: store.state.keychainState.currentNetwork.networkId,
-      networkFee: Rules.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
+      assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
+      currentNetwork: store.state.keychainState.currentNetwork,
+      networkFee: NetworkUtils.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
       assetDetails: store.state.userDetailsState.assetDetails,
     );
   }
@@ -75,20 +98,13 @@ class AssetTransferInputViewModel {
 
     return other is AssetTransferInputViewModel &&
         listEquals(other.assets, assets) &&
-        other.initiateTx == initiateTx &&
-        other.loadingRawTx == loadingRawTx &&
         other.networkFee == networkFee &&
         mapEquals(other.assetDetails, assetDetails) &&
-        other.currNetworkId == currNetworkId;
+        other.currentNetwork == currentNetwork;
   }
 
   @override
   int get hashCode {
-    return assets.hashCode ^
-        initiateTx.hashCode ^
-        loadingRawTx.hashCode ^
-        networkFee.hashCode ^
-        assetDetails.hashCode ^
-        currNetworkId.hashCode;
+    return assets.hashCode ^ networkFee.hashCode ^ assetDetails.hashCode ^ currentNetwork.hashCode;
   }
 }

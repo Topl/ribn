@@ -7,6 +7,7 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:ribn/presentation/login/widgets/advanced_option_button.dart';
 import 'package:ribn/presentation/login/widgets/next_button.dart';
 import 'package:ribn/presentation/login/widgets/restore_page_title.dart';
 import 'package:ribn/widgets/custom_text_field.dart';
@@ -23,6 +24,8 @@ class LoginRestoreWithMnemonicPage extends StatefulWidget {
 }
 
 class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicPage> {
+  final double maxWidth = 309;
+
   /// Controller for the seed phrase text field.
   final TextEditingController controller = TextEditingController();
 
@@ -51,11 +54,11 @@ class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicP
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const RestoreWalletPageTitle(currPage: 1),
+            const RestoreWalletPageTitle(),
             const SizedBox(height: 30),
             SizedBox(
-              width: 309,
-              height: 198,
+              width: maxWidth,
+              height: 80,
               child: Center(
                 child: Text(
                   Strings.restoreWalletSeedPhraseDesc,
@@ -63,9 +66,9 @@ class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicP
                 ),
               ),
             ),
-            const SizedBox(
-              width: 309,
-              child: Text(
+            SizedBox(
+              width: maxWidth,
+              child: const Text(
                 Strings.enterSeedPhrase,
                 style: RibnTextStyles.extH3,
               ),
@@ -77,9 +80,18 @@ class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicP
               height: 57,
               hasError: invalidSeedPhraseEntered,
             ),
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: SizedBox(
+                width: maxWidth,
+                child: const AdvancedOptionButton(restoreWithToplKeyRoute: Routes.loginRestoreWalletWithToplKey),
+              ),
+            ),
             const Spacer(),
-            NextButton(onPressed: onNextPressed),
-            const SizedBox(height: 17),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 17.0),
+              child: NextButton(onPressed: onNextPressed),
+            ),
           ],
         ),
       ),

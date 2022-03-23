@@ -71,7 +71,7 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
         child: Column(
           children: [
             // page title
-            const RestoreWalletPageTitle(currPage: 2),
+            const RestoreWalletPageTitle(),
             // warning section
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 24.0),
