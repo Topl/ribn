@@ -244,6 +244,8 @@ These words need to be written down carefully and in the exact order shown.''';
       'For your security, restoration of a wallet will overwrite all previously stored Ribn activity. This will not affect any activity recorded on the blockchain itself.';
   static const String myRibnWalletAddress = 'My Ribn Wallet Address';
   static const String copyAddress = 'Copy address';
+  static const String privacyPolicyUrl = 'https://legal.topl.co/Privacy_Policy';
+  static const String termsOfUseUrl = 'https://legal.topl.co/Ribn_License_Agreement';
   static const String loginPasswordInfo =
       'Your Wallet Password can lock and unlock your\n wallet on a device where it is already stored.';
   static const String refillCurrentPolyBalance = 'You can refill your Poly balance anytime by\n signing into';
