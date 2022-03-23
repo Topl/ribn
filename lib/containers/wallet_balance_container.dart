@@ -1,19 +1,29 @@
+import 'dart:async';
+
 import 'package:brambldart/model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-import 'package:ribn/actions/keychain_actions.dart';
 
+import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
+import 'package:ribn/models/ribn_network.dart';
 
 /// Intended to wrap the [WalletBalancePage] and provide it with the the [WalletBalanceViewModel].
 class WalletBalanceContainer extends StatelessWidget {
-  const WalletBalanceContainer({Key? key, required this.builder}) : super(key: key);
   final ViewModelBuilder<WalletBalanceViewModel> builder;
+  final void Function(WalletBalanceViewModel vm) onInitialBuild;
+  final void Function(WalletBalanceViewModel?, WalletBalanceViewModel) onWillChange;
+  const WalletBalanceContainer({
+    Key? key,
+    required this.builder,
+    required this.onInitialBuild,
+    required this.onWillChange,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,43 +31,56 @@ class WalletBalanceContainer extends StatelessWidget {
       distinct: true,
       converter: WalletBalanceViewModel.fromStore,
       builder: builder,
+      onInitialBuild: onInitialBuild,
+      onWillChange: onWillChange,
     );
   }
 }
 
 class WalletBalanceViewModel {
+  /// The current poly balance in the wallet.
   final num polyBalance;
+
+  /// All the assets owned by this wallet.
   final List<AssetAmount> assets;
+
+  /// Locally stored custom asset details.
   final Map<String, AssetDetails> assetDetails;
-  final Function(AssetAmount) initiateSendAsset;
-  final Function() initiateSendPolys;
-  final bool failedToFetchBalances;
-  final bool fetchingBalances;
+
+  /// Callback to initiate send asset flow, i.e. navigate to [Routes.assetTransferInput].
+  final Function(AssetAmount) navigateToSendAsset;
+
+  /// Callback to initiate send polys flow, i.e. navigate to [Routes.polyTransferInput].
+  final Function() navigateToSendPolys;
+
+  /// Callback to view asset details, i.e. navigate to [Routes.assetDetails].
   final Function(AssetAmount) viewAssetDetails;
-  final VoidCallback refreshBalances;
+
+  /// Callback to refresh balances.
+  final void Function({required Function(bool success) onBalancesRefreshed}) refreshBalances;
+
+  /// The current network being viewed.
+  final RibnNetwork currentNetwork;
 
   WalletBalanceViewModel({
     required this.polyBalance,
     required this.assets,
-    required this.initiateSendAsset,
-    required this.initiateSendPolys,
-    required this.failedToFetchBalances,
-    required this.fetchingBalances,
+    required this.navigateToSendAsset,
+    required this.navigateToSendPolys,
     required this.viewAssetDetails,
     required this.assetDetails,
     required this.refreshBalances,
+    required this.currentNetwork,
   });
   static WalletBalanceViewModel fromStore(Store<AppState> store) {
     return WalletBalanceViewModel(
       polyBalance: store.state.keychainState.currentNetwork.getPolysInWallet(),
       assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
       assetDetails: store.state.userDetailsState.assetDetails,
-      initiateSendAsset: (AssetAmount asset) => store.dispatch(
+      navigateToSendAsset: (AssetAmount asset) => store.dispatch(
         NavigateToRoute(Routes.assetTransferInput, arguments: asset),
       ),
-      initiateSendPolys: () => store.dispatch(NavigateToRoute(Routes.polyTransferInput)),
-      failedToFetchBalances: store.state.uiState.failedToFetchBalances,
-      fetchingBalances: store.state.uiState.fetchingBalances,
+      navigateToSendPolys: () => store.dispatch(NavigateToRoute(Routes.polyTransferInput)),
       viewAssetDetails: (AssetAmount assetAmount) => store.dispatch(
         NavigateToRoute(
           Routes.assetDetails,
@@ -66,7 +89,12 @@ class WalletBalanceViewModel {
           },
         ),
       ),
-      refreshBalances: () => store.dispatch(RefreshBalancesAction()),
+      refreshBalances: ({required Function(bool success) onBalancesRefreshed}) {
+        final Completer<bool> actionCompleter = Completer();
+        store.dispatch(RefreshBalancesAction(actionCompleter));
+        actionCompleter.future.then((bool value) => onBalancesRefreshed(value));
+      },
+      currentNetwork: store.state.keychainState.currentNetwork,
     );
   }
 
@@ -77,21 +105,21 @@ class WalletBalanceViewModel {
     return other is WalletBalanceViewModel &&
         other.polyBalance == polyBalance &&
         listEquals(other.assets, assets) &&
-        other.initiateSendAsset == initiateSendAsset &&
-        other.initiateSendPolys == initiateSendPolys &&
-        other.failedToFetchBalances == failedToFetchBalances &&
-        other.fetchingBalances == fetchingBalances &&
-        other.viewAssetDetails == viewAssetDetails;
+        mapEquals(other.assetDetails, assetDetails) &&
+        other.navigateToSendAsset == navigateToSendAsset &&
+        other.navigateToSendPolys == navigateToSendPolys &&
+        other.viewAssetDetails == viewAssetDetails &&
+        other.currentNetwork == currentNetwork;
   }
 
   @override
   int get hashCode {
     return polyBalance.hashCode ^
         assets.hashCode ^
-        initiateSendAsset.hashCode ^
-        initiateSendPolys.hashCode ^
-        failedToFetchBalances.hashCode ^
-        fetchingBalances.hashCode ^
-        viewAssetDetails.hashCode;
+        assetDetails.hashCode ^
+        navigateToSendAsset.hashCode ^
+        navigateToSendPolys.hashCode ^
+        viewAssetDetails.hashCode ^
+        currentNetwork.hashCode;
   }
 }

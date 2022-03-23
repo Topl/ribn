@@ -64,6 +64,14 @@ class RibnTextStyles {
     fontSize: 12,
     color: RibnColors.hintTextColor,
   );
+
+  static const TextStyle btnLarge = TextStyle(
+      fontFamily: 'Nunito',
+      fontSize: 28,
+      color: RibnColors.accent,
+      fontWeight: FontWeight.w500,
+      letterSpacing: 2.5);
+
   static const TextStyle btnMedium = TextStyle(
     fontFamily: 'Nunito',
     fontSize: 18,
@@ -84,5 +92,12 @@ class RibnTextStyles {
     fontFamily: 'Nunito',
     fontSize: 12.0,
     decoration: TextDecoration.none,
+  );
+
+  static const TextStyle settingsSmallText = TextStyle(
+    fontSize: 9.3,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Nunito',
+    color: Color(0xFF585858),
   );
 }

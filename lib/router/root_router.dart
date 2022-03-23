@@ -21,7 +21,7 @@ import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_restore_w
 import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_restore_with_topl_key_page.dart';
 import 'package:ribn/presentation/onboarding/select_action_page.dart';
 import 'package:ribn/presentation/onboarding/welcome_page.dart';
-import 'package:ribn/presentation/settings_page.dart';
+import 'package:ribn/presentation/settings/settings_page.dart';
 import 'package:ribn/presentation/transfers/asset_transfer_input_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
 import 'package:ribn/presentation/transfers/poly_transfer_input_page.dart';
