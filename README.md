@@ -25,3 +25,8 @@ Ribn allows users to:
 * Select 'Load unpacked' from the menu that appears on the top
 * Navigate to and select the directory with path `ribn/build/web/`
 * The app should be loaded and you should be able to open it like you would any other extension 
+
+
+## Feature requests and bugs
+Please file feature requests and bugs at the [issue tracker](https://github.com/Topl/ribn/issues). If you want to contribute to this library, please submit a Pull Request.
+
