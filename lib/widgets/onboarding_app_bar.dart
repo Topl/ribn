@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
 import 'package:ribn/widgets/progress_bar.dart';
 
 /// Custom [AppBar] displayed during onboarding.
@@ -33,13 +32,22 @@ class OnboardingAppBar extends StatelessWidget {
                       iconSize: 20,
                       padding: EdgeInsets.zero,
                       onPressed: onBackPressed,
-                      icon: const Icon(
-                        Icons.arrow_back_ios,
-                      ),
+                      icon: const Icon(Icons.arrow_back_sharp),
                     ),
                   )
                 : const SizedBox(),
-            onBackPressed != null ? const Text(Strings.back, style: RibnTextStyles.body1Bold) : const SizedBox(),
+            const SizedBox(width: 9),
+            onBackPressed != null
+                ? const Text(
+                    Strings.back,
+                    style: TextStyle(
+                      fontFamily: 'Nunito',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20,
+                      color: Color(0xff333333),
+                    ),
+                  )
+                : const SizedBox(),
             const Spacer(),
             showProgressBar
                 ? Padding(
