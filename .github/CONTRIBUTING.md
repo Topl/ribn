@@ -66,7 +66,7 @@ Each time you want to work on a fix or a new feature, create a new branch based 
 
 ## Versioning
 
-BramblDart is maintained by using the [Semantic Versioning Specification (SemVer)](http://semver.org).
+Ribn is maintained by using the [Semantic Versioning Specification (SemVer)](http://semver.org).
 
 <a name="license"></a>
 ## License
