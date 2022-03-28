@@ -36,11 +36,9 @@ class SelectActionPage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildOptionContainer(Strings.createWallet,
-                          Strings.createWalletDescription, context),
+                      _buildOptionContainer(Strings.createWallet, Strings.createWalletDescription, context),
                       const SizedBox(width: 65),
-                      _buildOptionContainer(Strings.restoreWalletNewline,
-                          Strings.restoreWalletDescription, context),
+                      _buildOptionContainer(Strings.restoreWalletNewline, Strings.restoreWalletDescription, context),
                     ],
                   ),
                 ),
@@ -52,14 +50,10 @@ class SelectActionPage extends StatelessWidget {
     );
   }
 
-  Widget _buildOptionContainer(
-      String title, String description, BuildContext context) {
-    final String iconToDisplay = title == Strings.createWallet
-        ? RibnAssets.plusIcon
-        : RibnAssets.importWalletIcon;
-    final String navigateToRoute = title == Strings.createWallet
-        ? Routes.gettingStarted
-        : Routes.onboardingRestoreWalletWithMnemonic;
+  Widget _buildOptionContainer(String title, String description, BuildContext context) {
+    final String iconToDisplay = title == Strings.createWallet ? RibnAssets.plusIcon : RibnAssets.importWalletIcon;
+    final String navigateToRoute =
+        title == Strings.createWallet ? Routes.gettingStarted : Routes.onboardingRestoreWalletWithMnemonic;
 
     return Column(
       children: [
@@ -95,18 +89,14 @@ class SelectActionPage extends StatelessWidget {
                       width: 60,
                       height: 60,
                       decoration: const BoxDecoration(
-                        color: RibnColors.accent,
+                        color: Color(0xffB1E7E1),
                         borderRadius: BorderRadius.all(
                           Radius.circular(50),
                         ),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(18),
-                        child: SvgPicture.asset(
-                          iconToDisplay,
-                          width: 30,
-                          color: RibnColors.primary,
-                        ),
+                        child: SvgPicture.asset(iconToDisplay, width: 30),
                       ),
                     ),
                   ),
