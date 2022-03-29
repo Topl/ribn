@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/widgets/custom_tooltip.dart';
@@ -45,9 +44,12 @@ class CustomInputField extends StatelessWidget {
               ),
               informationText != null
                   ? CustomToolTip(
-                      tooltipText: informationText!,
+                      toolTipChild: Text(
+                        informationText!,
+                        style: RibnTextStyles.toolTipTextStyle,
+                      ),
                       offsetPositionLeftValue: 100,
-                      tooltipIcon: SvgPicture.asset(
+                      toolTipIcon: Image.asset(
                         RibnAssets.roundInfoCircle,
                         width: 10,
                       ),
