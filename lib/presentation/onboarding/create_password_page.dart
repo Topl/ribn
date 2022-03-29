@@ -22,10 +22,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
   bool _readTermsOfAgreement = false;
-  bool _hasAtLeast8Chars = false;
-  bool _hasOneOrMoreNumbers = false;
-  bool _hasOneUpperCaseLetter = false;
-  bool _hasOneOrMoreLowerCaseLetters = false;
+  bool _hasAtLeast12Chars = false;
   bool _hasSpace = false;
   bool _validPassword = false;
   bool _passwordsMatch = false;
@@ -44,21 +41,12 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   }
 
   void validatePassword(String password) {
-    _hasAtLeast8Chars = false;
-    _hasOneOrMoreNumbers = false;
-    _hasOneUpperCaseLetter = false;
-    _hasOneOrMoreLowerCaseLetters = false;
+    _hasAtLeast12Chars = false;
     _hasSpace = false;
     _validPassword = false;
-    if (password.length >= 8) _hasAtLeast8Chars = true;
-    if (password.contains(RegExp(r'[0-9]'))) _hasOneOrMoreNumbers = true;
-    if (password.contains(RegExp(r'[a-z]'))) _hasOneOrMoreLowerCaseLetters = true;
-    if (RegExp(r'[A-Z]').allMatches(password).length == 1) _hasOneUpperCaseLetter = true;
+    if (password.length >= 12) _hasAtLeast12Chars = true;
     if (password.contains(' ') && password.length >= 8) _hasSpace = true;
-    _validPassword = _hasAtLeast8Chars &&
-        _hasOneOrMoreNumbers &&
-        _hasOneOrMoreLowerCaseLetters & _hasOneUpperCaseLetter &&
-        !_hasSpace;
+    _validPassword = _hasAtLeast12Chars && !_hasSpace;
     setState(() {});
   }
 
@@ -140,20 +128,8 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
       child: Column(
         children: [
           Text(
-            Strings.atLeast8Chars,
-            style: TextStyle(color: _hasAtLeast8Chars ? Colors.green : Colors.grey),
-          ),
-          Text(
-            Strings.oneOrMoreNumbers,
-            style: TextStyle(color: _hasOneOrMoreNumbers ? Colors.green : Colors.grey),
-          ),
-          Text(
-            Strings.oneUpperCaseLetter,
-            style: TextStyle(color: _hasOneUpperCaseLetter ? Colors.green : Colors.grey),
-          ),
-          Text(
-            Strings.oneOrMoreLowerCaseLetters,
-            style: TextStyle(color: _hasOneOrMoreLowerCaseLetters ? Colors.green : Colors.grey),
+            Strings.atLeast12Chars,
+            style: TextStyle(color: _hasAtLeast12Chars ? Colors.green : Colors.grey),
           ),
           Text(
             Strings.spacesAreNotAllowed,
