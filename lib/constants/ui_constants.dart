@@ -8,7 +8,7 @@ class UIConstants {
   static const double generalPadding = 12;
   static const double textFieldSize = 200;
   static const double maxWidth = 200;
-  static const double loginTextFieldWidth = 300;
+  static const double loginTextFieldWidth = 420;
   static const double addressListTileSize = 40;
   static const List<String> assetUnitsList = [
     'G - Gram',

@@ -102,10 +102,15 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
 
   Widget _buildTextField(TextEditingController textEditingController, String label) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.only(top: 20, bottom: 20),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label),
+          Text(
+            label,
+            style: RibnTextStyles.body1Bold,
+          ),
           SizedBox(
             width: UIConstants.loginTextFieldWidth,
             child: TextField(
@@ -113,7 +118,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
               decoration: const InputDecoration(
                 isDense: true,
                 border: OutlineInputBorder(),
-                contentPadding: EdgeInsets.all(10),
+                contentPadding: EdgeInsets.all(20),
               ),
             ),
           ),
@@ -123,17 +128,28 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   }
 
   Widget _buildEnterPasswordValidations() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0),
+    return SizedBox(
+      width: 420,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             Strings.atLeast12Chars,
-            style: TextStyle(color: _hasAtLeast12Chars ? Colors.green : Colors.grey),
+            style: TextStyle(
+              color: _hasAtLeast12Chars ? Colors.green : Colors.grey,
+              fontFamily: 'Roboto',
+              fontSize: 20,
+              height: 1.5,
+            ),
           ),
           Text(
             Strings.spacesAreNotAllowed,
-            style: TextStyle(color: _hasSpace ? Colors.grey : Colors.green),
+            style: TextStyle(
+              color: _hasSpace ? Colors.grey : Colors.green,
+              fontFamily: 'Roboto',
+              fontSize: 20,
+              height: 1.5,
+            ),
           ),
         ],
       ),
@@ -141,9 +157,22 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   }
 
   Widget _buildConfirmPasswordValidation() {
-    return Text(
-      Strings.passwordsMustMatch,
-      style: TextStyle(color: _passwordsMatch ? Colors.green : Colors.grey),
+    return SizedBox(
+      width: 420,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            Strings.passwordsMustMatch,
+            style: TextStyle(
+              color: _passwordsMatch ? Colors.green : Colors.grey,
+              fontFamily: 'Roboto',
+              fontSize: 20,
+              height: 1.5,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -152,7 +181,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
       width: 700,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 16),
