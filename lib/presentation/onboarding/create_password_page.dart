@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
@@ -8,6 +9,7 @@ import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/create_password_container.dart';
 import 'package:ribn/presentation/login/widgets/password_text_field.dart';
 import 'package:ribn/widgets/continue_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// Builds the form for creating a wallet password.
 /// Allows creation of password once all validation steps are satisfied.
@@ -184,12 +186,25 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
           ),
           SizedBox(
             height: 50,
-            child: Text(
-              Strings.readAndAgreedToU,
-              style: RibnTextStyles.body1
-                  .copyWith(color: _readTermsOfAgreement ? RibnColors.defaultText : RibnColors.inactive),
-              textAlign: TextAlign.start,
-              textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+            child: RichText(
+              text: TextSpan(
+                style: RibnTextStyles.body1
+                    .copyWith(color: _readTermsOfAgreement ? RibnColors.defaultText : RibnColors.inactive),
+                children: [
+                  const TextSpan(
+                    text: Strings.readAndAgreedToU,
+                  ),
+                  TextSpan(
+                    text: 'Terms of Use',
+                    style: RibnTextStyles.body1
+                        .copyWith(color: _readTermsOfAgreement ? RibnColors.primary : RibnColors.inactive),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async {
+                        await launch(Strings.termsOfUseUrl);
+                      },
+                  )
+                ],
+              ),
             ),
           ),
         ],

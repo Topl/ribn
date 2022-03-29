@@ -52,7 +52,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           suffixIcon: CustomIconButton(
             icon: SvgPicture.asset(
               _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
-              width: 12,
+              width: 20,
             ),
             onPressed: () {
               setState(() {

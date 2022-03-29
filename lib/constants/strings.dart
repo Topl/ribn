@@ -89,7 +89,7 @@ A Wallet Password is used to unlock your wallet.''';
   static const String atLeast12Chars = 'At least 12 characters.';
   static const String passwordsMustMatch = 'Both passwords must match.';
   static const String createPassword = 'Create Password';
-  static const String readAndAgreedToU = 'I have read and agreed to the Terms of Use';
+  static const String readAndAgreedToU = 'I have read and agreed to the ';
   static const String readFollowingCarefully = 'Read Following Carefully';
   static const String readFollowingCarefullyPointOne =
       'I have saved my Wallet Password safely. I will use this password to unlock my wallet.';
