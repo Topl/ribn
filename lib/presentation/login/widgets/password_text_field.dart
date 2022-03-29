@@ -43,8 +43,8 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 310,
-      height: 35,
+      width: widget.width,
+      height: widget.height,
       child: TextField(
         obscureText: _obscurePassword,
         controller: widget.controller,
@@ -66,9 +66,9 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           fillColor: Colors.white,
           floatingLabelBehavior: FloatingLabelBehavior.never,
           filled: true,
-          contentPadding: const EdgeInsets.all(10),
+          contentPadding: const EdgeInsets.all(20),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: widget.hasError ? Colors.red : Colors.transparent),
+            borderSide: BorderSide(color: widget.hasError ? Colors.red : Colors.black),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: widget.hasError ? Colors.red : RibnColors.primary),

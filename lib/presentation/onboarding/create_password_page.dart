@@ -6,6 +6,7 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/create_password_container.dart';
+import 'package:ribn/presentation/login/widgets/password_text_field.dart';
 import 'package:ribn/widgets/continue_button.dart';
 
 /// Builds the form for creating a wallet password.
@@ -23,8 +24,6 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   final TextEditingController _confirmPasswordController = TextEditingController();
   bool _readTermsOfAgreement = false;
   bool _hasAtLeast12Chars = false;
-  bool _hasSpace = false;
-  bool _validPassword = false;
   bool _passwordsMatch = false;
 
   @override
@@ -42,11 +41,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
 
   void validatePassword(String password) {
     _hasAtLeast12Chars = false;
-    _hasSpace = false;
-    _validPassword = false;
     if (password.length >= 12) _hasAtLeast12Chars = true;
-    if (password.contains(' ') && password.length >= 8) _hasSpace = true;
-    _validPassword = _hasAtLeast12Chars && !_hasSpace;
     setState(() {});
   }
 
@@ -82,16 +77,16 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                 textAlign: TextAlign.left,
                 textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
               ),
-              _buildTextField(_newPasswordController, Strings.newPassword),
+              _buildPasswordField(_newPasswordController, Strings.newPassword),
               _buildEnterPasswordValidations(),
-              _buildTextField(_confirmPasswordController, Strings.confirmPassword),
+              _buildPasswordField(_confirmPasswordController, Strings.confirmPassword),
               _buildConfirmPasswordValidation(),
               const SizedBox(height: 30),
               _buildTermsOfAgreementCheck(),
               ContinueButton(
                 Strings.createPassword,
                 () => vm.attemptCreatePassword(_confirmPasswordController.text),
-                disabled: !_validPassword || !_passwordsMatch || !_readTermsOfAgreement,
+                disabled: !_passwordsMatch || !_readTermsOfAgreement,
               ),
             ],
           ),
@@ -100,7 +95,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
     );
   }
 
-  Widget _buildTextField(TextEditingController textEditingController, String label) {
+  Widget _buildPasswordField(TextEditingController textEditingController, String label) {
     return Padding(
       padding: const EdgeInsets.only(top: 20, bottom: 20),
       child: Column(
@@ -111,16 +106,11 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
             label,
             style: RibnTextStyles.body1Bold,
           ),
-          SizedBox(
+          PasswordTextField(
+            controller: textEditingController,
+            hintText: Strings.newWalletPasswordHint,
             width: UIConstants.loginTextFieldWidth,
-            child: TextField(
-              controller: textEditingController,
-              decoration: const InputDecoration(
-                isDense: true,
-                border: OutlineInputBorder(),
-                contentPadding: EdgeInsets.all(20),
-              ),
-            ),
+            height: UIConstants.loginTextFieldHeight,
           ),
         ],
       ),
@@ -137,15 +127,6 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
             Strings.atLeast12Chars,
             style: TextStyle(
               color: _hasAtLeast12Chars ? Colors.green : Colors.grey,
-              fontFamily: 'Roboto',
-              fontSize: 20,
-              height: 1.5,
-            ),
-          ),
-          Text(
-            Strings.spacesAreNotAllowed,
-            style: TextStyle(
-              color: _hasSpace ? Colors.grey : Colors.green,
               fontFamily: 'Roboto',
               fontSize: 20,
               height: 1.5,
