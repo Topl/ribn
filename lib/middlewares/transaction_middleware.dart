@@ -33,7 +33,9 @@ List<Middleware<AppState>> createTransactionMiddleware(
 /// Updates the [TransferDetails] with some defaults like the sender, change, and consolidation addresses, as well as
 /// the current network, before dispatching [CreateRawTxAction].
 void Function(Store<AppState> store, InitiateTxAction action, NextDispatcher next) _initiateTx(
-    TransactionRepository transactionRepo, KeychainRepository keychainRepo) {
+  TransactionRepository transactionRepo,
+  KeychainRepository keychainRepo,
+) {
   return (store, action, next) async {
     try {
       /// The sender defaults to the first address in the list of locally stored addresses
@@ -56,7 +58,8 @@ void Function(Store<AppState> store, InitiateTxAction action, NextDispatcher nex
 ///
 /// Also dispatches [ToggleLoadingRawTxAction] to stop the loading indicator.
 void Function(Store<AppState> store, CreateRawTxAction action, NextDispatcher next) _createRawTx(
-    TransactionRepository transactionRepo) {
+  TransactionRepository transactionRepo,
+) {
   return (store, action, next) async {
     try {
       final Map<String, dynamic> result = await transactionRepo.createRawTx(
@@ -83,7 +86,9 @@ void Function(Store<AppState> store, CreateRawTxAction action, NextDispatcher ne
 /// Signs and broadcasts the transactions, updates the [TransferDetails] with the txId,
 /// and navigates to the confirmation page.
 void Function(Store<AppState> store, SignAndBroadcastTxAction action, NextDispatcher next) _signAndBroadcastTx(
-    TransactionRepository transactionRepo, KeychainRepository keychainRepo) {
+  TransactionRepository transactionRepo,
+  KeychainRepository keychainRepo,
+) {
   return (store, action, next) async {
     try {
       final List<Credentials> credentials = keychainRepo.getCredentials(
@@ -118,7 +123,9 @@ void Function(Store<AppState> store, SignAndBroadcastTxAction action, NextDispat
 }
 
 void Function(Store<AppState> store, SignExternalTxAction action, NextDispatcher next) _signExternalTx(
-    TransactionRepository transactionRepo, KeychainRepository keychainRepo) {
+  TransactionRepository transactionRepo,
+  KeychainRepository keychainRepo,
+) {
   return (store, action, next) async {
     try {
       final Map<String, dynamic> transferDetails = {};
