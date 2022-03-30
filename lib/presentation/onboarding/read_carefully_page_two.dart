@@ -66,12 +66,16 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
                   },
                   false,
                 ),
-                _buildCheckListTile(Strings.readFollowingCarefullyPointThree,
-                    _pointThreeChecked, (bool? val) {
-                  setState(() {
-                    _pointThreeChecked = val ?? false;
-                  });
-                }, true),
+                _buildCheckListTile(
+                  Strings.readFollowingCarefullyPointThree,
+                  _pointThreeChecked,
+                  (bool? val) {
+                    setState(() {
+                      _pointThreeChecked = val ?? false;
+                    });
+                  },
+                  true,
+                ),
               ],
             ),
           ),
@@ -79,16 +83,14 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
           ContinueButton(
             Strings.iUnderstand,
             () => widget.goToNextPage(),
-            disabled:
-                !_pointOneChecked || !_pointTwoChecked || !_pointThreeChecked,
+            disabled: !_pointOneChecked || !_pointTwoChecked || !_pointThreeChecked,
           )
         ],
       ),
     );
   }
 
-  Widget _buildCheckListTile(String label, bool checked,
-      Function(bool?)? onChecked, bool renderTooltipIcon) {
+  Widget _buildCheckListTile(String label, bool checked, Function(bool?)? onChecked, bool renderTooltipIcon) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
@@ -101,7 +103,8 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(2),
                 border: Border.all(
-                    color: checked ? RibnColors.active : RibnColors.inactive),
+                  color: checked ? RibnColors.active : RibnColors.inactive,
+                ),
               ),
               constraints: const BoxConstraints(maxHeight: 20, maxWidth: 20),
               child: Checkbox(
@@ -117,27 +120,34 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
               height: 40,
               child: Text(
                 label,
-                style: RibnTextStyles.body1.copyWith(
-                    color:
-                        checked ? RibnColors.defaultText : RibnColors.inactive),
+                style: RibnTextStyles.body1.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),
                 textAlign: TextAlign.start,
-                textHeightBehavior:
-                    const TextHeightBehavior(applyHeightToFirstAscent: false),
+                textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
               ),
             ),
           ),
           if (renderTooltipIcon == true)
             CustomToolTip(
-              tooltipText: Strings.howIsMySeedPhraseUnrecoverable,
               offsetPositionLeftValue: 450,
-              tooltipIcon: SvgPicture.asset(
+              toolTipIcon: Image.asset(
                 RibnAssets.roundInfoCircle,
                 width: 24,
                 color: checked ? RibnColors.defaultText : RibnColors.inactive,
               ),
-              alternateTooltipText:
-                  Strings.howIsMySeedPhraseUnrecoverableNewLine,
-              tooltipTextBold: true,
+              toolTipChild: Column(
+                children: [
+                  Text(
+                    Strings.howIsMySeedPhraseUnrecoverable,
+                    style: RibnTextStyles.toolTipTextStyle.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Text(
+                    Strings.howIsMySeedPhraseUnrecoverableNewLine,
+                    style: RibnTextStyles.toolTipTextStyle,
+                  )
+                ],
+              ),
               toolTipBackgroundColor: const Color(0xffb1e7e1),
             )
         ],

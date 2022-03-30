@@ -36,7 +36,8 @@ void Function(Store<AppState> store, GenerateInitialAddressesAction action, Next
 /// On receiving [GenerateAddressAction] action, generates a new address and dispatches [AddAddressAction]
 /// to add the generated addresses under the current network.
 void Function(Store<AppState> store, GenerateAddressAction action, NextDispatcher next) _onGenerateAddress(
-    KeychainRepository keychainRepo) {
+  KeychainRepository keychainRepo,
+) {
   return (store, action, next) {
     try {
       final RibnAddress newAddress = keychainRepo.generateAddress(
