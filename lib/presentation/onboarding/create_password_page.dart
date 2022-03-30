@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
@@ -6,7 +7,9 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/create_password_container.dart';
+import 'package:ribn/presentation/login/widgets/password_text_field.dart';
 import 'package:ribn/widgets/continue_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// Builds the form for creating a wallet password.
 /// Allows creation of password once all validation steps are satisfied.
@@ -22,12 +25,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
   bool _readTermsOfAgreement = false;
-  bool _hasAtLeast8Chars = false;
-  bool _hasOneOrMoreNumbers = false;
-  bool _hasOneUpperCaseLetter = false;
-  bool _hasOneOrMoreLowerCaseLetters = false;
-  bool _hasSpace = false;
-  bool _validPassword = false;
+  bool _hasAtLeast12Chars = false;
   bool _passwordsMatch = false;
 
   @override
@@ -44,21 +42,8 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   }
 
   void validatePassword(String password) {
-    _hasAtLeast8Chars = false;
-    _hasOneOrMoreNumbers = false;
-    _hasOneUpperCaseLetter = false;
-    _hasOneOrMoreLowerCaseLetters = false;
-    _hasSpace = false;
-    _validPassword = false;
-    if (password.length >= 8) _hasAtLeast8Chars = true;
-    if (password.contains(RegExp(r'[0-9]'))) _hasOneOrMoreNumbers = true;
-    if (password.contains(RegExp(r'[a-z]'))) _hasOneOrMoreLowerCaseLetters = true;
-    if (RegExp(r'[A-Z]').allMatches(password).length == 1) _hasOneUpperCaseLetter = true;
-    if (password.contains(' ') && password.length >= 8) _hasSpace = true;
-    _validPassword = _hasAtLeast8Chars &&
-        _hasOneOrMoreNumbers &&
-        _hasOneOrMoreLowerCaseLetters & _hasOneUpperCaseLetter &&
-        !_hasSpace;
+    _hasAtLeast12Chars = false;
+    if (password.length >= 12) _hasAtLeast12Chars = true;
     setState(() {});
   }
 
@@ -94,16 +79,16 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                 textAlign: TextAlign.left,
                 textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
               ),
-              _buildTextField(_newPasswordController, Strings.newPassword),
+              _buildPasswordField(_newPasswordController, Strings.newPassword),
               _buildEnterPasswordValidations(),
-              _buildTextField(_confirmPasswordController, Strings.confirmPassword),
+              _buildPasswordField(_confirmPasswordController, Strings.confirmPassword),
               _buildConfirmPasswordValidation(),
               const SizedBox(height: 30),
               _buildTermsOfAgreementCheck(),
               ContinueButton(
                 Strings.createPassword,
                 () => vm.attemptCreatePassword(_confirmPasswordController.text),
-                disabled: !_validPassword || !_passwordsMatch || !_readTermsOfAgreement,
+                disabled: !_passwordsMatch || !_readTermsOfAgreement,
               ),
             ],
           ),
@@ -112,22 +97,22 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
     );
   }
 
-  Widget _buildTextField(TextEditingController textEditingController, String label) {
+  Widget _buildPasswordField(TextEditingController textEditingController, String label) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.only(top: 20, bottom: 20),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label),
-          SizedBox(
+          Text(
+            label,
+            style: RibnTextStyles.body1Bold,
+          ),
+          PasswordTextField(
+            controller: textEditingController,
+            hintText: Strings.newWalletPasswordHint,
             width: UIConstants.loginTextFieldWidth,
-            child: TextField(
-              controller: textEditingController,
-              decoration: const InputDecoration(
-                isDense: true,
-                border: OutlineInputBorder(),
-                contentPadding: EdgeInsets.all(10),
-              ),
-            ),
+            height: UIConstants.loginTextFieldHeight,
           ),
         ],
       ),
@@ -135,29 +120,19 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   }
 
   Widget _buildEnterPasswordValidations() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0),
+    return SizedBox(
+      width: 420,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            Strings.atLeast8Chars,
-            style: TextStyle(color: _hasAtLeast8Chars ? Colors.green : Colors.grey),
-          ),
-          Text(
-            Strings.oneOrMoreNumbers,
-            style: TextStyle(color: _hasOneOrMoreNumbers ? Colors.green : Colors.grey),
-          ),
-          Text(
-            Strings.oneUpperCaseLetter,
-            style: TextStyle(color: _hasOneUpperCaseLetter ? Colors.green : Colors.grey),
-          ),
-          Text(
-            Strings.oneOrMoreLowerCaseLetters,
-            style: TextStyle(color: _hasOneOrMoreLowerCaseLetters ? Colors.green : Colors.grey),
-          ),
-          Text(
-            Strings.spacesAreNotAllowed,
-            style: TextStyle(color: _hasSpace ? Colors.grey : Colors.green),
+            Strings.atLeast12Chars,
+            style: TextStyle(
+              color: _hasAtLeast12Chars ? Colors.green : Colors.grey,
+              fontFamily: 'Roboto',
+              fontSize: 20,
+              height: 1.5,
+            ),
           ),
         ],
       ),
@@ -165,9 +140,22 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   }
 
   Widget _buildConfirmPasswordValidation() {
-    return Text(
-      Strings.passwordsMustMatch,
-      style: TextStyle(color: _passwordsMatch ? Colors.green : Colors.grey),
+    return SizedBox(
+      width: 420,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            Strings.passwordsMustMatch,
+            style: TextStyle(
+              color: _passwordsMatch ? Colors.green : Colors.grey,
+              fontFamily: 'Roboto',
+              fontSize: 20,
+              height: 1.5,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -176,7 +164,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
       width: 700,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 16),
@@ -198,12 +186,25 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
           ),
           SizedBox(
             height: 50,
-            child: Text(
-              Strings.readAndAgreedToU,
-              style: RibnTextStyles.body1
-                  .copyWith(color: _readTermsOfAgreement ? RibnColors.defaultText : RibnColors.inactive),
-              textAlign: TextAlign.start,
-              textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+            child: RichText(
+              text: TextSpan(
+                style: RibnTextStyles.body1
+                    .copyWith(color: _readTermsOfAgreement ? RibnColors.defaultText : RibnColors.inactive),
+                children: [
+                  const TextSpan(
+                    text: Strings.readAndAgreedToU,
+                  ),
+                  TextSpan(
+                    text: 'Terms of Use',
+                    style: RibnTextStyles.body1
+                        .copyWith(color: _readTermsOfAgreement ? RibnColors.primary : RibnColors.inactive),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async {
+                        await launch(Strings.termsOfUseUrl);
+                      },
+                  )
+                ],
+              ),
             ),
           ),
         ],
