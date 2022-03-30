@@ -17,7 +17,8 @@ List<Middleware<AppState>> createOnboardingMiddleware(OnboardingRespository onbo
 
 /// Generates mnemonic for the user and redirects to [Routes.onboardingSteps]
 void Function(Store<AppState> store, GenerateMnemonicAction action, NextDispatcher next) _generateMnemonic(
-    OnboardingRespository onboardingRespository) {
+  OnboardingRespository onboardingRespository,
+) {
   return (store, action, next) async {
     try {
       final String mnemonic = onboardingRespository.generateMnemonicForUser();
@@ -31,7 +32,8 @@ void Function(Store<AppState> store, GenerateMnemonicAction action, NextDispatch
 
 /// Generates a [KeyStore] with the provided password and initializes the HdWallet
 void Function(Store<AppState> store, CreatePasswordAction action, NextDispatcher next) _createPassword(
-    OnboardingRespository onboardingRespository) {
+  OnboardingRespository onboardingRespository,
+) {
   return (store, action, next) async {
     try {
       final Map<String, dynamic> results = onboardingRespository.generateKeyStore(

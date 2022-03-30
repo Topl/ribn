@@ -61,8 +61,7 @@ class MintPage extends StatelessWidget {
             children: [
               const SizedBox(
                 width: double.infinity,
-                child: Text(Strings.whatWouldYouLikeToDo,
-                    style: RibnTextStyles.extH3),
+                child: Text(Strings.whatWouldYouLikeToDo, style: RibnTextStyles.extH3),
               ),
               const SizedBox(height: 20),
               // buttons to choose between 'mint new asset' and 'remint same asset'
@@ -85,11 +84,11 @@ class MintPage extends StatelessWidget {
   ///
   /// Depending on [mintingNewAsset]'s value,
   /// either [RibnAssets.mintNewAssetButton] or [RibnAssets.remintSameAssetButton] is displayed.
-  Widget _buildMintOption(BuildContext context,
-      {required bool mintingNewAsset}) {
-    final String icon = mintingNewAsset
-        ? RibnAssets.mintNewAssetButton
-        : RibnAssets.remintSameAssetButton;
+  Widget _buildMintOption(
+    BuildContext context, {
+    required bool mintingNewAsset,
+  }) {
+    final String icon = mintingNewAsset ? RibnAssets.mintNewAssetButton : RibnAssets.remintSameAssetButton;
     return MaterialButton(
       onPressed: () async => await _buildMintDialog(mintingNewAsset),
       padding: EdgeInsets.zero,
@@ -104,8 +103,7 @@ class MintPage extends StatelessWidget {
       context: Keys.navigatorKey.currentContext!,
       builder: (context) {
         return AlertDialog(
-          insetPadding:
-              const EdgeInsets.symmetric(horizontal: 4, vertical: 100),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 100),
           backgroundColor: RibnColors.accent,
           titlePadding: EdgeInsets.zero,
           title: Stack(
@@ -151,8 +149,7 @@ class MintPage extends StatelessWidget {
                     Row(
                       children: [
                         MaterialButton(
-                          onPressed: () =>
-                              StoreProvider.of<AppState>(context).dispatch(
+                          onPressed: () => StoreProvider.of<AppState>(context).dispatch(
                             NavigateToRoute(
                               Routes.mintInput,
                               arguments: {
@@ -166,8 +163,7 @@ class MintPage extends StatelessWidget {
                         ),
                         const SizedBox(width: 12.7),
                         MaterialButton(
-                          onPressed: () =>
-                              StoreProvider.of<AppState>(context).dispatch(
+                          onPressed: () => StoreProvider.of<AppState>(context).dispatch(
                             NavigateToRoute(
                               Routes.mintInput,
                               arguments: {
@@ -177,8 +173,7 @@ class MintPage extends StatelessWidget {
                             ),
                           ),
                           padding: EdgeInsets.zero,
-                          child:
-                              SvgPicture.asset(RibnAssets.anotherWalletButton),
+                          child: SvgPicture.asset(RibnAssets.anotherWalletButton),
                         ),
                       ],
                     ),

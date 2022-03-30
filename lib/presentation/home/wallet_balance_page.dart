@@ -1,6 +1,5 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/keys.dart';
@@ -13,6 +12,7 @@ import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_dialog.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
 import 'package:ribn/widgets/custom_tooltip.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// One of the 3 main pages on the home screen.
 ///
@@ -46,6 +46,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
   /// True if ribn failed to fetch balances.
   bool _failedToFetchBalances = false;
 
+  /// BaaS redirect url for refilling Poly balance.
   final String tooltipUrl = 'https://topl.services';
   final double tooltipIconWidth = 10;
 
@@ -112,31 +113,39 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     );
 
     CustomToolTip renderTooltip() {
-      if (vm.polyBalance > 0) {
-        return CustomToolTip(
-          tooltipText: Strings.refillCurrentPolyBalance,
-          offsetPositionLeftValue: 190,
-          tooltipIcon: SvgPicture.asset(
-            RibnAssets.roundInfoCircle,
-            width: tooltipIconWidth,
+      final bool hasPolys = vm.polyBalance > 0;
+      return CustomToolTip(
+        toolTipIcon: hasPolys ? Image.asset(RibnAssets.roundInfoCircle) : Image.asset(RibnAssets.smsFailed),
+        toolTipChild: RichText(
+          text: TextSpan(
+            style: RibnTextStyles.toolTipTextStyle,
+            children: [
+              TextSpan(
+                text: hasPolys ? Strings.refillCurrentPolyBalance : Strings.refillEmptyPolyBalance,
+              ),
+              WidgetSpan(
+                child: GestureDetector(
+                  onTap: () async => await launch(tooltipUrl),
+                  child: Row(
+                    children: [
+                      Text(
+                        ' Baas. ',
+                        style: RibnTextStyles.toolTipTextStyle.copyWith(
+                          color: const Color(0xff00B5AB),
+                        ),
+                      ),
+                      Image.asset(
+                        RibnAssets.openInNewWindow,
+                        width: 10,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-          tooltipUrlText: 'BaaS.',
-          tooltipUrl: tooltipUrl,
-          toolTipBackgroundColor: const Color(0xffeef9f8),
-        );
-      } else {
-        return CustomToolTip(
-          tooltipText: Strings.refillEmptyPolyBalance,
-          offsetPositionLeftValue: 140,
-          tooltipIcon: SvgPicture.asset(
-            RibnAssets.smsFailed,
-            width: tooltipIconWidth,
-          ),
-          tooltipUrlText: 'BaaS.',
-          tooltipUrl: tooltipUrl,
-          toolTipBackgroundColor: const Color(0xffeef9f8),
-        );
-      }
+        ),
+      );
     }
 
     return Container(

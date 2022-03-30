@@ -66,11 +66,12 @@ class RibnTextStyles {
   );
 
   static const TextStyle btnLarge = TextStyle(
-      fontFamily: 'Nunito',
-      fontSize: 28,
-      color: RibnColors.accent,
-      fontWeight: FontWeight.w500,
-      letterSpacing: 2.5);
+    fontFamily: 'Nunito',
+    fontSize: 28,
+    color: RibnColors.accent,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 2.5,
+  );
 
   static const TextStyle btnMedium = TextStyle(
     fontFamily: 'Nunito',
@@ -99,5 +100,13 @@ class RibnTextStyles {
     fontWeight: FontWeight.w400,
     fontFamily: 'Nunito',
     color: Color(0xFF585858),
+  );
+
+  static const TextStyle toolTipTextStyle = TextStyle(
+    color: RibnColors.defaultText,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Nunito',
+    fontSize: 12,
+    decoration: TextDecoration.none,
   );
 }
