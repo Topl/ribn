@@ -29,8 +29,8 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
   final TextEditingController _newWalletPasswordController = TextEditingController();
   final TextEditingController _confirmWalletPasswordController = TextEditingController();
 
-  /// True if the password entered is at least 8 characters.
-  bool passwordAtLeast8Chars = false;
+  /// True if the password entered is at least 12 characters.
+  bool passwordAtLeast12Chars = false;
 
   /// True if both passwords match.
   bool passwordsMatch = false;
@@ -45,7 +45,7 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
       hasErrors[controller] = false;
       controller.addListener(() {
         setState(() {
-          passwordAtLeast8Chars = _newWalletPasswordController.text.length >= 8;
+          passwordAtLeast12Chars = _newWalletPasswordController.text.length >= 12;
           passwordsMatch = _newWalletPasswordController.text == _confirmWalletPasswordController.text;
         });
       });
@@ -113,7 +113,7 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
   /// Validates that the password entered is at least 8 characters and both passwords match
   /// before attempting to restore wallet.
   void onNextPressed() {
-    if (!passwordAtLeast8Chars) {
+    if (!passwordAtLeast12Chars) {
       hasErrors[_newWalletPasswordController] = true;
     } else if (!passwordsMatch) {
       hasErrors[_confirmWalletPasswordController] = true;

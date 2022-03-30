@@ -36,8 +36,8 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
   /// Map to keep track of any textfield errors.
   Map<TextEditingController, bool> hasErrors = {};
 
-  /// True if paTextEditingControllerssword entered is at least 8 characters.
-  bool passwordAtLeast8Chars = false;
+  /// True if paTextEditingControllerssword entered is at least 12 characters.
+  bool passwordAtLeast12Chars = false;
 
   /// True if both passwords match.
   bool passwordsMatch = false;
@@ -49,7 +49,7 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
       controller.addListener(() {
         setState(() {
           hasErrors[controller] = false;
-          passwordAtLeast8Chars = _newPasswordController.text.length >= 8;
+          passwordAtLeast12Chars = _newPasswordController.text.length >= 12;
           passwordsMatch = _newPasswordController.text == _confirmPasswordController.text;
         });
       });
@@ -210,7 +210,7 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
       setState(() {
         hasErrors[_seedPhraseTextController] = true;
       });
-    } else if (!passwordAtLeast8Chars) {
+    } else if (!passwordAtLeast12Chars) {
       setState(() {
         hasErrors[_newPasswordController] = true;
       });
