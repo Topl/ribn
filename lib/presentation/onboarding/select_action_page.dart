@@ -89,18 +89,14 @@ class SelectActionPage extends StatelessWidget {
                       width: 60,
                       height: 60,
                       decoration: const BoxDecoration(
-                        color: RibnColors.accent,
+                        color: Color(0xffB1E7E1),
                         borderRadius: BorderRadius.all(
                           Radius.circular(50),
                         ),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(18),
-                        child: SvgPicture.asset(
-                          iconToDisplay,
-                          width: 30,
-                          color: RibnColors.primary,
-                        ),
+                        child: SvgPicture.asset(iconToDisplay, width: 30),
                       ),
                     ),
                   ),

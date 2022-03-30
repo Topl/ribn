@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/widgets/custom_tooltip.dart';
@@ -22,16 +20,13 @@ class AssetCodeShortDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          children: [
-            const Text('Asset code · short', style: RibnTextStyles.extH4),
+          children: const [
+            Text('Asset code · short', style: RibnTextStyles.extH4),
             CustomToolTip(
-              tooltipText: Strings.assetCodeShortInfo,
-              offsetPositionLeftValue: 120,
-              tooltipIcon: SvgPicture.asset(
-                RibnAssets.roundInfoCircle,
-                width: 10,
+              toolTipChild: Text(
+                Strings.assetCodeShortInfo,
+                style: RibnTextStyles.toolTipTextStyle,
               ),
-              toolTipBackgroundColor: const Color(0xffeef9f8),
             ),
           ],
         ),

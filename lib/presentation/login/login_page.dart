@@ -125,21 +125,18 @@ class _LoginPageState extends State<LoginPage> {
     return SizedBox(
       width: _baseWidth,
       child: Row(
-        children: [
-          const Text(
+        children: const [
+          Text(
             Strings.enterWalletPassword,
             style: RibnTextStyles.extH3,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2.0),
+            padding: EdgeInsets.symmetric(horizontal: 2.0),
             child: CustomToolTip(
-              tooltipText: Strings.loginPasswordInfo,
-              offsetPositionLeftValue: 170,
-              tooltipIcon: SvgPicture.asset(
-                RibnAssets.roundInfoCircle,
-                width: 10,
+              toolTipChild: Text(
+                Strings.loginPasswordInfo,
+                style: RibnTextStyles.toolTipTextStyle,
               ),
-              toolTipBackgroundColor: const Color(0xffeef9f8),
             ),
           ),
         ],
@@ -163,9 +160,7 @@ class _LoginPageState extends State<LoginPage> {
         decoration: InputDecoration(
           suffixIcon: CustomIconButton(
             icon: SvgPicture.asset(
-              _obscurePassword
-                  ? RibnAssets.passwordVisibleIon
-                  : RibnAssets.passwordHiddenIcon,
+              _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
               width: 12,
             ),
             onPressed: () {
@@ -207,7 +202,9 @@ class _LoginPageState extends State<LoginPage> {
               TextSpan(
                 text: Strings.ribnSupport,
                 style: const TextStyle(
-                    color: RibnColors.primary, fontWeight: FontWeight.w600),
+                  color: RibnColors.primary,
+                  fontWeight: FontWeight.w600,
+                ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
                     await launch(Strings.supportEmailLink);

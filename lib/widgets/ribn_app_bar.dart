@@ -60,55 +60,56 @@ class _RibnAppBarState extends State<RibnAppBar> {
       ),
       padding: const EdgeInsets.all(5),
       child: PopupMenuButton<String>(
-          offset: const Offset(0, 25),
-          padding: const EdgeInsets.all(0.0),
-          elevation: 0,
-          itemBuilder: (context) {
-            return networks.map(
-              (String networkName) {
-                return PopupMenuItem(
-                  value: networkName,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: CircleAvatar(
-                          backgroundColor:
-                              networkName == selectedNetwork ? const Color(0xFF80FF00) : const Color(0xffbdbdbd),
-                          radius: 3,
-                        ),
+        offset: const Offset(0, 25),
+        padding: const EdgeInsets.all(0.0),
+        elevation: 0,
+        itemBuilder: (context) {
+          return networks.map(
+            (String networkName) {
+              return PopupMenuItem(
+                value: networkName,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: CircleAvatar(
+                        backgroundColor:
+                            networkName == selectedNetwork ? const Color(0xFF80FF00) : const Color(0xffbdbdbd),
+                        radius: 3,
                       ),
-                      Text(capitalize(networkName)),
-                    ],
-                  ),
-                );
-              },
-            ).toList();
-          },
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5),
-                child: CircleAvatar(backgroundColor: Color(0xFF80FF00), radius: 3),
-              ),
-              SizedBox(
-                height: 15,
-                width: 50,
-                child: Text(
-                  capitalize(selectedNetwork),
-                  style: RibnTextStyles.h3.copyWith(color: Colors.white, fontSize: 10),
+                    ),
+                    Text(capitalize(networkName)),
+                  ],
                 ),
+              );
+            },
+          ).toList();
+        },
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5),
+              child: CircleAvatar(backgroundColor: Color(0xFF80FF00), radius: 3),
+            ),
+            SizedBox(
+              height: 15,
+              width: 50,
+              child: Text(
+                capitalize(selectedNetwork),
+                style: RibnTextStyles.h3.copyWith(color: Colors.white, fontSize: 10),
               ),
-              const Icon(Icons.arrow_drop_down, color: Colors.white, size: 10),
-            ],
-          ),
-          onSelected: (String network) {
-            onChange(network);
-          }),
+            ),
+            const Icon(Icons.arrow_drop_down, color: Colors.white, size: 10),
+          ],
+        ),
+        onSelected: (String network) {
+          onChange(network);
+        },
+      ),
     );
   }
 
