@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 
 class ShimmerLoader extends StatelessWidget {
   Shimmer applyShimmer({required double borderRadius, required double height, required double width}) {
-    return Shimmer.fromColors(
-      baseColor: const Color(0xffc7c7c7),
-      highlightColor: const Color(0xffececeb),
+    return Shimmer(
+      duration: const Duration(seconds: 1),
+      interval: const Duration(seconds: 1),
       child: Container(
         width: width,
         height: height,

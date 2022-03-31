@@ -158,9 +158,11 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
               ),
             ],
           ),
-          _failedToFetchBalances
-              ? const Text('Network Failure', style: TextStyle(color: Colors.red))
-              : Text('${vm.polyBalance} POLY', style: polyBalanceTextStyle),
+          _fetchingBalances
+              ? const CircularProgressIndicator()
+              : _failedToFetchBalances
+                  ? const Text('Network Failure', style: TextStyle(color: Colors.red))
+                  : Text('${vm.polyBalance} POLY', style: polyBalanceTextStyle),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
