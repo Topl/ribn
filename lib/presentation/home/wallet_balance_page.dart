@@ -8,6 +8,7 @@ import 'package:ribn/constants/styles.dart';
 import 'package:ribn/containers/wallet_balance_container.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/presentation/error_section.dart';
+import 'package:ribn/presentation/shimmer_loader.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_dialog.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
@@ -93,10 +94,12 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
                 ),
               )
             : Column(
-                children: [
-                  _buildPolyContainer(vm),
-                  _buildAssetsListView(vm),
-                ],
+                children: _fetchingBalances
+                    ? [ShimmerLoader()]
+                    : [
+                        _buildPolyContainer(vm),
+                        _buildAssetsListView(vm),
+                      ],
               ),
       ),
     );
