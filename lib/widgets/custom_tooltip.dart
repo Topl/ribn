@@ -1,41 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
 import 'package:ribn/widgets/custom_close_button.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 /// A custom widget for displaying tooltips.
 ///
-/// Displays a help icon which when pressed opens a draggable tooltip filled with [tooltipText].
+/// Displays [toolTipIcon] which, when pressed, opens a draggable tooltip, i.e. [toolTipChild].
 class CustomToolTip extends StatefulWidget {
-  /// Text to be displayed in the tooltip.
-  final String tooltipText;
-  // Alternative text to be displayed below the main text.
-  final String? alternateTooltipText;
-  // Integer to offset the tooltip on the x axis to fit on screen.
+  /// The icon associated with the tooltip.
+  final Widget? toolTipIcon;
+
+  /// The main tooltip widget that is displayed when [toolTipIcon] is pressed.
+  final Widget toolTipChild;
+
+  /// Integer to offset the tooltip on the x axis to fit on screen.
   final int offsetPositionLeftValue;
-  // An SVG icon which acts as the trigger to open the tooltip.
-  final SvgPicture tooltipIcon;
-  // A color value to change the background.
+
+  /// A color value to change the background.
   final Color toolTipBackgroundColor;
-  // The text for the tooltip link.
-  final String? tooltipUrlText;
-  // The url for the tooltip link.
-  final String? tooltipUrl;
-  // Conditional for making the tooltipText bold like a title.
-  final bool? tooltipTextBold;
 
   const CustomToolTip({
     Key? key,
-    required this.tooltipText,
-    required this.offsetPositionLeftValue,
-    required this.tooltipIcon,
-    required this.toolTipBackgroundColor,
-    this.tooltipUrlText,
-    this.tooltipUrl,
-    this.alternateTooltipText,
-    this.tooltipTextBold,
+    this.offsetPositionLeftValue = 150,
+    this.toolTipBackgroundColor = const Color(0xffeef9f8),
+    this.toolTipIcon,
+    required this.toolTipChild,
   }) : super(key: key);
 
   @override
@@ -43,8 +31,7 @@ class CustomToolTip extends StatefulWidget {
 }
 
 class _CustomToolTipState extends State<CustomToolTip> {
-  OverlayEntry overlayEntry =
-      OverlayEntry(builder: (context) => const SizedBox());
+  OverlayEntry overlayEntry = OverlayEntry(builder: (context) => const SizedBox());
 
   @override
   void dispose() {
@@ -57,7 +44,11 @@ class _CustomToolTipState extends State<CustomToolTip> {
     return Container(
       margin: const EdgeInsets.only(left: 2),
       child: GestureDetector(
-        child: widget.tooltipIcon,
+        child: widget.toolTipIcon ??
+            Image.asset(
+              RibnAssets.roundInfoCircle,
+              width: 10,
+            ),
         onTap: () {
           // build tooltip if it is not already being displayed
           if (!overlayEntry.mounted) _buildTooltip(context);
@@ -83,14 +74,14 @@ class _CustomToolTipState extends State<CustomToolTip> {
           top: offset.dy + 10,
           child: GestureDetector(
             onPanUpdate: (details) {
+              // allow dragging the tooltip container
               offset += details.delta;
               overlayState.setState(() {});
             },
             child: Stack(
               children: [
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   constraints: const BoxConstraints(),
                   decoration: BoxDecoration(
                     color: widget.toolTipBackgroundColor,
@@ -103,57 +94,7 @@ class _CustomToolTipState extends State<CustomToolTip> {
                       ),
                     ],
                   ),
-                  child: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: widget.tooltipText,
-                          style: TextStyle(
-                            fontWeight: widget.tooltipTextBold == true
-                                ? FontWeight.w500
-                                : FontWeight.normal,
-                          ),
-                        ),
-                        if (widget.tooltipUrl != null &&
-                            widget.tooltipUrlText != null)
-                          WidgetSpan(
-                            child: Container(
-                              margin: const EdgeInsets.only(left: 4),
-                              child: GestureDetector(
-                                onTap: () async {
-                                  final url = widget.tooltipUrl;
-                                  if (await canLaunch(url!)) await launch(url);
-                                },
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      widget.tooltipUrlText!,
-                                      style: const TextStyle(
-                                        decoration: TextDecoration.none,
-                                        fontWeight: FontWeight.w400,
-                                        color: RibnColors.primary,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(2),
-                                      child: SvgPicture.asset(
-                                        RibnAssets.openInNewWindow,
-                                        width: 10,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        if (widget.alternateTooltipText != null)
-                          TextSpan(
-                            text: '\n${widget.alternateTooltipText}',
-                          ),
-                      ],
-                    ),
-                  ),
+                  child: widget.toolTipChild,
                 ),
                 // close button for dismissing the tooltip
                 Positioned(

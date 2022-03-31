@@ -169,17 +169,19 @@ class RootRouter {
   }
 
   Route<MaterialPageRoute> errorRoute({String errorMsg = 'Unknown error occurred'}) {
-    return MaterialPageRoute(builder: (context) {
-      return Center(
-        child: Text(
-          errorMsg,
-          style: const TextStyle(
-            color: Colors.red,
-            fontSize: 12,
+    return MaterialPageRoute(
+      builder: (context) {
+        return Center(
+          child: Text(
+            errorMsg,
+            style: const TextStyle(
+              color: Colors.red,
+              fontSize: 12,
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 
   /// Builds a page route without any animation.

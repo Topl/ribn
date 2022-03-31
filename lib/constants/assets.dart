@@ -10,8 +10,7 @@ class RibnAssets {
   static const seedPhraseCreatedIcon = 'assets/icons/seedphrase_created.png';
   static const passwordManagerIcon = 'assets/icons/password_manager.svg';
   static const encryptFileIcon = 'assets/icons/encrypt_file.svg';
-  static const seedPhraseConfirmedIcon =
-      'assets/icons/seed_phrase_confirmed.svg';
+  static const seedPhraseConfirmedIcon = 'assets/icons/seed_phrase_confirmed.svg';
   static const walletPasswordIcon = 'assets/icons/wallet_password.svg';
   static const addIcon = 'assets/icons/add.svg';
   static const removeIcon = 'assets/icons/remove.svg';
@@ -27,8 +26,7 @@ class RibnAssets {
   static const menuIcon = 'assets/icons/menu.svg';
   static const balancePageIcon = 'assets/icons/balance_page.svg';
   static const balancePageActiveIcon = 'assets/icons/balance_page_active.svg';
-  static const txHistoryPageActiveIcon =
-      'assets/icons/tx_history_page_active.svg';
+  static const txHistoryPageActiveIcon = 'assets/icons/tx_history_page_active.svg';
   static const txHistoryPageIcon = 'assets/icons/tx_history_page.svg';
   static const mintPageIcon = 'assets/icons/mint_page.svg';
   static const mintPageActiveIcon = 'assets/icons/mint_page_active.svg';
@@ -69,7 +67,7 @@ class RibnAssets {
   static const errorFace = 'assets/icons/error_face.png';
   static const fileCopyIcon = 'assets/icons/file_copy.png';
   static const checkCircleIcon = 'assets/icons/check_circle.png';
-  static const smsFailed = 'assets/icons/sms_failed.svg';
-  static const openInNewWindow = 'assets/icons/open_in_new.svg';
-  static const roundInfoCircle = 'assets/icons/round_info_circle.svg';
+  static const smsFailed = 'assets/icons/sms_failed.png';
+  static const openInNewWindow = 'assets/icons/open_in_new.png';
+  static const roundInfoCircle = 'assets/icons/round_info_circle.png';
 }

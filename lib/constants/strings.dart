@@ -38,7 +38,7 @@ class Strings {
   static const String rawTx = 'rawTx';
   static const String messageToSign = 'messageToSign';
   static const String sign = 'Sign';
-  static const String back = 'Back';
+  static const String back = 'BACK';
   static const String welcomeToRibn = 'Welcome to Ribn';
   static const String intro = 'Topl’s blockchain wallet for tracking, tokenizing, and transacting impact.';
   static const String getStarted = 'Get Started';

@@ -87,9 +87,13 @@ class RibnNetwork {
     final Map<String, AssetAmount> myAssets = {};
     for (AssetAmount asset in myWalletAddress?.balance.assets ?? []) {
       final num assetQuantity = asset.quantity;
-      myAssets.update(asset.assetCode.serialize(), (AssetAmount currAsset) {
-        return AssetAmount(quantity: currAsset.quantity + assetQuantity, assetCode: asset.assetCode);
-      }, ifAbsent: () => asset);
+      myAssets.update(
+        asset.assetCode.serialize(),
+        (AssetAmount currAsset) {
+          return AssetAmount(quantity: currAsset.quantity + assetQuantity, assetCode: asset.assetCode);
+        },
+        ifAbsent: () => asset,
+      );
     }
     return myAssets.values.toList();
   }

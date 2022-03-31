@@ -5,8 +5,7 @@ import { TOPL_URLS } from "../utils/configs";
 /**
  * Event fired upon initial installation of the extension
  */
-chrome.runtime.onInstalled.addListener(async (details: chrome.runtime.InstalledDetails) => {
-	console.log("Extension installed:", details);
+chrome.runtime.onInstalled.addListener(async () => {
 	for (const url of TOPL_URLS){
 		await ExtensionStorage.addToAllowList(url);
 	}
