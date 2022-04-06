@@ -1,9 +1,16 @@
-Future<String> getDataFromLocalStorage() {
-  throw UnimplementedError();
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+
+/// Gets persisted app state data from 'app_state.json' - A file that is stored locally.
+Future<String> getDataFromLocalStorage() async {
+  final File file = File('${(await getApplicationDocumentsDirectory()).path}/app_state.json');
+  return await file.readAsString();
 }
 
-Future<void> persistAppState(String data) async {
-  throw UnimplementedError();
+/// Writes current app state data, i.e. [appStateJson], to a locally stored file 'app_state.json'
+Future<void> persistAppState(String appStateJson) async {
+  final file = File('${(await getApplicationDocumentsDirectory()).path}/app_state.json');
+  await file.writeAsString(appStateJson, flush: true);
 }
 
 void connectToBackground() async {
@@ -35,9 +42,13 @@ void deleteWallet() {
 }
 
 Future<String> getCurrentAppView() {
-  throw UnimplementedError();
+  return Future.value('mobile');
 }
 
 String getAppVersion() {
+  throw UnimplementedError();
+}
+
+Future<void> openAppInNewTab() {
   throw UnimplementedError();
 }
