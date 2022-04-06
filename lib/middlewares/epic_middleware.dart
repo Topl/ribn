@@ -90,7 +90,7 @@ Stream<dynamic> Function(Stream<NavigateToRoute>, EpicStore<AppState>) _onNaviga
   return (actions, store) {
     return actions.switchMap(
       (action) {
-        Keys.navigatorKey.currentState!.pushNamed(action.route, arguments: action.arguments);
+        if (kIsWeb) Keys.navigatorKey.currentState!.pushNamed(action.route, arguments: action.arguments);
         return const Stream.empty();
       },
     );
