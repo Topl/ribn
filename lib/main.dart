@@ -9,7 +9,6 @@ import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/data/data.dart' as local;
-import 'package:ribn/data/data_web.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/presentation/login/login_page.dart';
@@ -19,11 +18,11 @@ import 'package:ribn/router/root_router.dart';
 
 void main() async {
   await Redux.initStore(initTestStore: false);
-  final String currentAppView = await getCurrentAppView();
+  final String currentAppView = await local.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
   // Open app in new tab if user needs onboarding
   if (currentAppView == 'extension' && needsOnboarding) {
-    await openAppInNewTab();
+    await local.openAppInNewTab();
     // Initiate background connection if new window/tab opens up for dApp interaction.
   } else if (currentAppView == 'tab' && !needsOnboarding) {
     await initBgConnection(Redux.store!);
