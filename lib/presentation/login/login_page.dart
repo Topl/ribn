@@ -44,77 +44,79 @@ class _LoginPageState extends State<LoginPage> {
       builder: (context, vm) {
         return Scaffold(
           backgroundColor: RibnColors.accent,
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 65),
-              const Text(
-                Strings.ribnWallet,
-                style: TextStyle(
-                  fontFamily: 'Spectral',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 32,
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 65),
+                const Text(
+                  Strings.ribnWallet,
+                  style: TextStyle(
+                    fontFamily: 'Spectral',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 32,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 15),
-              SvgPicture.asset(RibnAssets.menuIcon, width: 77),
-              const SizedBox(height: 20),
-              const Center(
-                child: SizedBox(
-                  width: 245,
-                  height: 50,
-                  child: Center(
-                    child: Text(
-                      Strings.intro,
-                      style: TextStyle(
-                        fontFamily: 'Nunito',
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        height: 1.6,
+                const SizedBox(height: 15),
+                SvgPicture.asset(RibnAssets.menuIcon, width: 77),
+                const SizedBox(height: 20),
+                const Center(
+                  child: SizedBox(
+                    width: 245,
+                    height: 50,
+                    child: Center(
+                      child: Text(
+                        Strings.intro,
+                        style: TextStyle(
+                          fontFamily: 'Nunito',
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          height: 1.6,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 25),
-              _buildTextFieldLabel(),
-              const SizedBox(height: 8),
-              _buildTextField(),
-              const SizedBox(height: 35),
-              LargeButton(
-                label: Strings.unlock,
-                onPressed: () => vm.attemptLogin(
-                  password: _textEditingController.text,
-                  onIncorrectPasswordEntered: () {
-                    setState(() {
-                      _incorrectPasswordEntered = true;
-                    });
-                  },
+                const SizedBox(height: 25),
+                _buildTextFieldLabel(),
+                const SizedBox(height: 8),
+                _buildTextField(),
+                const SizedBox(height: 35),
+                LargeButton(
+                  label: Strings.unlock,
+                  onPressed: () => vm.attemptLogin(
+                    password: _textEditingController.text,
+                    onIncorrectPasswordEntered: () {
+                      setState(() {
+                        _incorrectPasswordEntered = true;
+                      });
+                    },
+                  ),
+                  backgroundColor: RibnColors.primary,
+                  textColor: Colors.white,
                 ),
-                backgroundColor: RibnColors.primary,
-                textColor: Colors.white,
-              ),
-              const SizedBox(height: 12),
-              LargeButton(
-                label: Strings.restoreWallet,
-                onPressed: vm.restoreWallet,
-                backgroundColor: RibnColors.primary.withOpacity(0.19),
-                textColor: RibnColors.primary,
-              ),
-              const SizedBox(height: 18),
-              _buildSupportLink(),
-              UIConstants.sizedBox,
-              _incorrectPasswordEntered
-                  ? const Text(
-                      'Incorrect Password',
-                      style: TextStyle(
-                        color: Colors.red,
-                      ),
-                    )
-                  : const SizedBox()
-            ],
+                const SizedBox(height: 12),
+                LargeButton(
+                  label: Strings.restoreWallet,
+                  onPressed: vm.restoreWallet,
+                  backgroundColor: RibnColors.primary.withOpacity(0.19),
+                  textColor: RibnColors.primary,
+                ),
+                const SizedBox(height: 18),
+                _buildSupportLink(),
+                UIConstants.sizedBox,
+                _incorrectPasswordEntered
+                    ? const Text(
+                        'Incorrect Password',
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                      )
+                    : const SizedBox()
+              ],
+            ),
           ),
         );
       },
