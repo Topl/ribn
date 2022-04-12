@@ -1,0 +1,84 @@
+# This file configures the analyzer, which statically analyzes Dart code to
+# check for errors, warnings, and lints.
+#
+# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
+# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
+# invoked from the command line by running `flutter analyze`.
+
+# The following line activates a set of recommended lints for Flutter apps,
+# packages, and plugins designed to encourage good coding practices.
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - lib/src/*.g.dart
+    - test/shared_mocks.mocks.dart
+  errors:
+    unused_element: error
+    unused_import: error
+    unnecessary_import: warning
+    unused_local_variable: error
+    dead_code: error
+  strong-mode:
+    implicit-casts: true
+
+
+linter:
+  # The lint rules applied to this project can be customized in the
+  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
+  # included above or to enable additional rules. A list of all available lints
+  # and their documentation is published at
+  # https://dart-lang.github.io/linter/lints/index.html.
+  #
+  # Instead of disabling a lint rule for the entire project in the
+  # section below, it can also be suppressed for a single line of code
+  # or a specific dart file by using the `// ignore: name_of_lint` and
+  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
+  # producing the lint.
+  rules:
+  - annotate_overrides
+  - require_trailing_commas
+  - avoid_unused_constructor_parameters
+  - await_only_futures
+  - camel_case_types
+  - cancel_subscriptions
+  - directives_ordering
+  - empty_catches
+  - empty_statements
+  - hash_and_equals
+  - iterable_contains_unrelated_type
+  - list_remove_unrelated_type
+  - no_adjacent_strings_in_list
+  - no_duplicate_case_values
+  - non_constant_identifier_names
+  - only_throw_errors
+  - overridden_fields
+  - prefer_collection_literals
+  - prefer_conditional_assignment
+  - prefer_contains
+  - prefer_final_fields
+  - prefer_final_locals
+  - prefer_initializing_formals
+  - prefer_interpolation_to_compose_strings
+  - prefer_is_empty
+  - prefer_is_not_empty
+  - prefer_single_quotes
+  - prefer_typing_uninitialized_variables
+  - recursive_getters
+  - slash_for_doc_comments
+  - test_types_in_equals
+  - throw_in_finally
+  - type_init_formals
+  - unawaited_futures
+  - unnecessary_brace_in_string_interps
+  - unnecessary_getters_setters
+  - unnecessary_lambdas
+  - unnecessary_new
+  - unnecessary_null_aware_assignments
+  - unnecessary_statements
+  - unnecessary_this
+  - unrelated_type_equality_checks
+  - use_rethrow_when_possible
+  - valid_regexps
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options
