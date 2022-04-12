@@ -8,8 +8,7 @@ import 'package:redux/redux.dart';
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
-import 'package:ribn/data/data.dart' as local;
-import 'package:ribn/data/data_web.dart';
+import 'package:ribn/data/data.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/presentation/login/login_page.dart';
@@ -18,7 +17,11 @@ import 'package:ribn/redux.dart';
 import 'package:ribn/router/root_router.dart';
 
 void main() async {
-  await Redux.initStore(initTestStore: false);
+  await Redux.initStore(initTestStore: true);
+  print("TESTINGGG!");
+  // figure out if this should just be functions or have a class dedicated to it and
+  // final Messenger messenger = Messenger();
+  // await storage.persistToLocalStorageW('TESTING');
   final String currentAppView = await getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
   // Open app in new tab if user needs onboarding
@@ -71,16 +74,16 @@ String getInitialRoute(Store<AppState> store) => store.state.needsOnboarding() ?
 Future<void> initBgConnection(Store<AppState> store) async {
   final Completer<void> completer = Completer<void>();
   try {
-    local.connectToBackground();
-    local.initPortMessageListener((String msgFromBgScript) {
+    connectToBackground();
+    initPortMessageListener((String msgFromBgScript) {
       final InternalMessage pendingRequest = InternalMessage.fromJson(msgFromBgScript);
       store.dispatch(ReceivedInternalMsgAction(pendingRequest));
       completer.complete();
     });
-    local.sendPortMessage(jsonEncode({'method': InternalMethods.checkPendingRequest}));
+    sendPortMessage(jsonEncode({'method': InternalMethods.checkPendingRequest}));
   } catch (e) {
     completer.complete();
-    local.closeWindow();
+    closeWindow();
   }
   return completer.future;
 }

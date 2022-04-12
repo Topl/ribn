@@ -50,33 +50,33 @@ function getAppVersion() {
 	return chrome.runtime.getManifest().version;
 }
 
-let port;
+// let port;
 
-/**
- * Initiates a long-lived connection with the background script
- */
-function connectToBackground() {
-	port = chrome.runtime.connect({ name: "ribn-bg" });
-}
+// /**
+//  * Initiates a long-lived connection with the background script
+//  */
+// function connectToBackground() {
+// 	port = chrome.runtime.connect({ name: "ribn-bg" });
+// }
 
-/**
- * Attaches a listener for incoming messages from the connection held by `port`
- * @param {Function} fn callback function
- */
-function addPortMessageListener(fn) {
-	port.onMessage.addListener(function messageHandler(msg) {
-		port.onMessage.removeListener(messageHandler);
-		fn(msg);
-	});
-}
+// /**
+//  * Attaches a listener for incoming messages from the connection held by `port`
+//  * @param {Function} fn callback function
+//  */
+// function addPortMessageListener(fn) {
+// 	port.onMessage.addListener(function messageHandler(msg) {
+// 		port.onMessage.removeListener(messageHandler);
+// 		fn(msg);
+// 	});
+// }
 
-/**
- * Sends a message to the connection held by `port`
- * @param {any} msg: - message to send
- */
-function sendPortMessage(msg) {
-	port.postMessage(msg);
-}
+// /**
+//  * Sends a message to the connection held by `port`
+//  * @param {any} msg: - message to send
+//  */
+// function sendPortMessage(msg) {
+// 	port.postMessage(msg);
+// }
 
 
 /**
@@ -128,3 +128,35 @@ function deleteWallet() {
 		window.close();
 	});
 }
+
+// console.log("ASAAS");
+// class Test {
+// 	constructor() {
+// 		console.log("MyClass instance created");
+// 		this.answer = 42;
+// 	}
+// }
+
+// var myModule = {
+// 	Test: Test
+// }
+
+
+// class Test {
+// 	constructor() {
+// 		console.log("MyClass instance created");
+// 		this.answer = 42;
+// 	}
+// }
+
+// const myModule = {
+// 	Test: Test
+// }
+
+// class Test {
+// 		constructor() {
+// 			console.log("MyClass instance created");
+// 			this.answer = 42;
+// 		}
+// }
+// window.Test = Test;

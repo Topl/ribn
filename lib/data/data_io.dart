@@ -1,43 +1,39 @@
-Future<String> getDataFromLocalStorage() {
-  throw UnimplementedError();
-}
+export 'package:ribn/data/mobile/storage.dart';
+export 'package:ribn/data/mobile/stubs.dart';
 
-Future<void> persistAppState(String data) async {
-  throw UnimplementedError();
-}
 
-void connectToBackground() async {
-  throw UnimplementedError();
-}
+// void connectToBackground() async {
+//   throw UnimplementedError();
+// }
 
-void sendPortMessage(String data) {
-  throw UnimplementedError();
-}
+// void sendPortMessage(String data) {
+//   throw UnimplementedError();
+// }
 
-void initPortMessageListener(Function fn) {
-  throw UnimplementedError();
-}
+// void initPortMessageListener(Function fn) {
+//   throw UnimplementedError();
+// }
 
-void closeWindow() {
-  throw UnimplementedError();
-}
+// void closeWindow() {
+//   throw UnimplementedError();
+// }
 
-Future<bool> openedInExtensionView() {
-  throw UnimplementedError();
-}
+// Future<bool> openedInExtensionView() {
+//   throw UnimplementedError();
+// }
 
-void downloadAsFile(String fileName, String text) {
-  throw UnimplementedError();
-}
+// void downloadAsFile(String fileName, String text) {
+//   throw UnimplementedError();
+// }
 
-void deleteWallet() {
-  throw UnimplementedError();
-}
+// void deleteWallet() {
+//   throw UnimplementedError();
+// }
 
-Future<String> getCurrentAppView() {
-  throw UnimplementedError();
-}
+// Future<String> getCurrentAppView() {
+//   throw UnimplementedError();
+// }
 
-String getAppVersion() {
-  throw UnimplementedError();
-}
+// String getAppVersion() {
+//   throw UnimplementedError();
+// }

@@ -1,49 +1,59 @@
-@JS()
-library js_utils;
+export 'package:ribn/data/web/maincheez.dart';
+export 'package:ribn/data/web/messenger.dart';
+export 'package:ribn/data/web/storage.dart' hide Dartify;
 
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:html';
+// @JS()
+// library js_utils;
 
-import 'package:js/js.dart';
-import 'package:js/js_util.dart';
+// // ignore: avoid_web_libraries_in_flutter
+// import 'dart:html';
 
-@JS()
-external void sendMessage();
-external void connectToBackground();
-external void addPortMessageListener(Function fn);
-external void sendPortMessage(String data);
-external Future<void> persistToStorage(String data);
-external Future<String> fetchData();
-external Future<bool> isExtensionView();
-external void downloadAsFile(String fileName, String text);
-external void deleteWallet();
-external Future<void> openAppInNewTab();
-external Future<String> getCurrentView();
-external String getAppVersion();
+// import 'package:js/js.dart';
+// import 'package:js/js_util.dart';
 
-void initPortMessageListener(Function msgHandler) {
-  addPortMessageListener(allowInterop(msgHandler));
-}
+// // @JS('messenger.Test')
+// // class Test {
+// //   external int get answer;
+// //   external set answer(int value);
+// // }
 
-/// Calls the JS function [fetchData] defined in "utils.js" to fetch data from local storage
-/// [promiseToFuture] converts a javascript promise into a dart [Future]
-Future<String> getDataFromLocalStorage() {
-  return promiseToFuture(fetchData());
-}
+// @JS()
+// external void sendMessage();
+// external void connectToBackground();
+// external void addPortMessageListener(Function fn);
+// external void sendPortMessage(String data);
+// external Future<void> persistToStorage(String data);
+// external Future<String> fetchData();
+// external Future<bool> isExtensionView();
+// external void downloadAsFile(String fileName, String text);
+// external void deleteWallet();
+// external Future<void> openAppInNewTab();
+// external Future<String> getCurrentView();
+// external String getAppVersion();
 
-/// Calls the JS function [persistToStorage] defined in "utils.js" to persist [data] to local storage
-/// [promiseToFuture] converts a javascript promise into a dart [Future]
-Future<void> persistAppState(String data) async {
-  await promiseToFuture(persistToStorage(data));
-}
+// void initPortMessageListener(Function msgHandler) {
+//   addPortMessageListener(allowInterop(msgHandler));
+// }
 
-void closeWindow() => window.close();
+// /// Calls the JS function [fetchData] defined in "utils.js" to fetch data from local storage
+// /// [promiseToFuture] converts a javascript promise into a dart [Future]
+// Future<String> getDataFromLocalStorage() {
+//   return promiseToFuture(fetchData());
+// }
 
-/// Checks if the extension is opened in the default extension-popup view.
-Future<bool> openedInExtensionView() {
-  return promiseToFuture(isExtensionView());
-}
+// /// Calls the JS function [persistToStorage] defined in "utils.js" to persist [data] to local storage
+// /// [promiseToFuture] converts a javascript promise into a dart [Future]
+// Future<void> persistAppState(String data) async {
+//   await promiseToFuture(persistToStorage(data));
+// }
 
-Future<String> getCurrentAppView() {
-  return promiseToFuture(getCurrentView());
-}
+// void closeWindow() => window.close();
+
+// /// Checks if the extension is opened in the default extension-popup view.
+// Future<bool> openedInExtensionView() {
+//   return promiseToFuture(isExtensionView());
+// }
+
+// Future<String> getCurrentAppView() {
+//   return promiseToFuture(getCurrentView());
+// }
