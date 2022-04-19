@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/widgets/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 class NextButton extends StatelessWidget {
   final VoidCallback onPressed;

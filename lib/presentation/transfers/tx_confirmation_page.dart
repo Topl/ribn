@@ -11,7 +11,7 @@ import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/custom_copy_button.dart';
-import 'package:ribn/widgets/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// The transaction confirmation page.

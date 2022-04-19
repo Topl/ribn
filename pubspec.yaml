@@ -48,7 +48,7 @@ dependencies:
   bip_topl: ^0.0.2
   js: ^0.6.3
   google_fonts: ^2.1.0
-  flutter_svg: ^0.23.0+1
+  flutter_svg: ^1.0.3 
   dotted_border: ^2.0.0+1
   accordion: ^2.1.1
   progress_indicators: ^1.0.0
@@ -57,6 +57,8 @@ dependencies:
   flutter_portal: ^0.4.0
   file_picker: ^4.3.3
   shimmer_animation: ^2.1.0+1
+  ribn_toolkit:
+    path: ../ribn_toolkit
   
 dev_dependencies:
   flutter_test:

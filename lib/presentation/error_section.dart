@@ -3,7 +3,7 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
-import 'package:ribn/widgets/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// A generic error section that is displayed in case of unexpected errors.

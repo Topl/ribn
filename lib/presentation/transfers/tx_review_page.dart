@@ -15,7 +15,7 @@ import 'package:ribn/widgets/custom_copy_button.dart';
 import 'package:ribn/widgets/custom_divider.dart';
 import 'package:ribn/widgets/custom_page_title.dart';
 import 'package:ribn/widgets/fee_info.dart';
-import 'package:ribn/widgets/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The transaction review page.
 ///

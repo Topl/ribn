@@ -4,7 +4,7 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/presentation/login/widgets/password_text_field.dart';
 import 'package:ribn/widgets/custom_close_button.dart';
-import 'package:ribn/widgets/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The confimation dialog that is displayed before deleting the wallet.
 ///

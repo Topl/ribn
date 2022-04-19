@@ -10,8 +10,8 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/login/widgets/uploaded_file_container.dart';
-import 'package:ribn/widgets/large_button.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// This page allows the user to upload their Topl Main Key in order to restore a wallet.
 ///
