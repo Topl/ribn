@@ -1,4 +1,6 @@
-class PlatformLocalStorage {
+import 'package:ribn/platform/interfaces.dart';
+
+class PlatformLocalStorage implements PlatformLocalStorageI {
   PlatformLocalStorage._internal();
   static PlatformLocalStorage? _instance;
   factory PlatformLocalStorage() {
@@ -7,11 +9,13 @@ class PlatformLocalStorage {
   }
   static PlatformLocalStorage get instance => PlatformLocalStorage();
 
-  Future<void> persistToLocalStorageW(String data) async {
+  @override
+  Future<String> getState() {
     throw UnimplementedError();
   }
 
-  Future<String> getFromLocalStorageStringifiedW() async {
+  @override
+  Future<void> saveState(String data) {
     throw UnimplementedError();
   }
 }

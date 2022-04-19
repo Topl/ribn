@@ -8,9 +8,9 @@ import 'package:redux/redux.dart';
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
-import 'package:ribn/data/data.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/internal_message.dart';
+import 'package:ribn/platform/platform.dart';
 import 'package:ribn/presentation/login/login_page.dart';
 import 'package:ribn/presentation/onboarding/welcome_page.dart';
 import 'package:ribn/redux.dart';
@@ -18,15 +18,11 @@ import 'package:ribn/router/root_router.dart';
 
 void main() async {
   await Redux.initStore(initTestStore: true);
-  print("TESTINGGG!");
-  // figure out if this should just be functions or have a class dedicated to it and
-  // final Messenger messenger = Messenger();
-  // await storage.persistToLocalStorageW('TESTING');
-  final String currentAppView = await getCurrentAppView();
+  final String currentAppView = await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
   // Open app in new tab if user needs onboarding
   if (currentAppView == 'extension' && needsOnboarding) {
-    await openAppInNewTab();
+    await PlatformUtils.instance.openInNewTab();
     // Initiate background connection if new window/tab opens up for dApp interaction.
   } else if (currentAppView == 'tab' && !needsOnboarding) {
     await initBgConnection(Redux.store!);
@@ -74,16 +70,16 @@ String getInitialRoute(Store<AppState> store) => store.state.needsOnboarding() ?
 Future<void> initBgConnection(Store<AppState> store) async {
   final Completer<void> completer = Completer<void>();
   try {
-    connectToBackground();
-    initPortMessageListener((String msgFromBgScript) {
+    Messenger.instance.connect();
+    Messenger.instance.initMsgListener((String msgFromBgScript) {
       final InternalMessage pendingRequest = InternalMessage.fromJson(msgFromBgScript);
       store.dispatch(ReceivedInternalMsgAction(pendingRequest));
       completer.complete();
     });
-    sendPortMessage(jsonEncode({'method': InternalMethods.checkPendingRequest}));
+    Messenger.instance.sendMsg(jsonEncode({'method': InternalMethods.checkPendingRequest}));
   } catch (e) {
     completer.complete();
-    closeWindow();
+    PlatformUtils.instance.closeWindow();
   }
   return completer.future;
 }

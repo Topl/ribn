@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:redux/redux.dart';
-import 'package:ribn/data/data.dart';
 import 'package:ribn/middlewares/app_middleware.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:ribn/platform/platform.dart';
 import 'package:ribn/reducers/app_reducer.dart';
 import 'package:ribn/repositories/keychain_repository.dart';
 import 'package:ribn/repositories/login_repository.dart';
@@ -54,7 +54,7 @@ class Redux {
 
   static Future<Map<String, dynamic>> getPersistedAppState() async {
     try {
-      final String persistedAppState = await PlatformLocalStorage().getFromLocalStorageStringified();
+      final String persistedAppState = await PlatformLocalStorage.instance.getState();
       final Map<String, dynamic> mappedAppState = jsonDecode(persistedAppState) as Map<String, dynamic>;
       return mappedAppState;
     } catch (e) {
