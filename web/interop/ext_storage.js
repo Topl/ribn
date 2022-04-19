@@ -24,7 +24,7 @@ var ext_storage = {
     */
     persistToLocalStorage: async (obj) => {
         const parsedObj = JSON.parse(obj);
-        const stored = await this.getFromLocalStorage();
+        const stored = await ext_storage.getFromLocalStorage();
         await chrome.storage.local.set({
             ...stored,
             ...parsedObj,
@@ -37,12 +37,11 @@ var ext_storage = {
      * @returns {string} Stringified json of locally stored data.
      */
     getFromLocalStorageStringified: async () => {
-        const result = await this.getFromLocalStorage();
+        const result = await ext_storage.getFromLocalStorage();
         if (!result) {
             return "{}";
         }
         const stringifiedJson = JSON.stringify(result);
         return stringifiedJson;
     }
-
-}
+};
