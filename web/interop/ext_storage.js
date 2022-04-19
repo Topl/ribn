@@ -1,23 +1,10 @@
-// define namespace
-// var storage = function () {
-//     return {
-//         persistToStorage: () => {
-//             console.log('Persisting to storage');
-//         }
-//     };
-// }();
-
-class PlatformLocalStorage {
-    constructor() {
-        console.log("Storage class instantiated");
-    }
-
+var ext_storage = {
     /**
-     * Uses the `chrome.storage` api to get data from extension's local storage.
-     * 
-     * @returns Promise returning the persisted data.
-     */
-    getFromLocalStorage() {
+    * Uses the `chrome.storage` api to get data from extension's local storage.
+    * 
+    * @returns Promise that resolves with all items in local storage.
+    */
+    getFromLocalStorage: () => {
         return new Promise((resolve, reject) => {
             console.log("Attempting to get from local storage");
             // `null` gets everything in local storage
@@ -30,27 +17,26 @@ class PlatformLocalStorage {
                 }
             });
         });
-    }
+    },
 
     /**
-     * Updates the extension's local storage with `obj`.
-     */
-    async persistToLocalStorage(obj) {
-        console.log("Attempting to PERSISTTTT");
+    * Updates the extension's local storage with `obj`.
+    */
+    persistToLocalStorage: async (obj) => {
         const parsedObj = JSON.parse(obj);
         const stored = await this.getFromLocalStorage();
         await chrome.storage.local.set({
             ...stored,
             ...parsedObj,
         });
-    }
+    },
 
     /**
-     * Get's data from the extension's local storage and returns a stringified copy of it.
+     * Get's data from the extension's local storage and returns a stringified version of it.
      * 
      * @returns {string} Stringified json of locally stored data.
      */
-    async getFromLocalStorageStringified() {
+    getFromLocalStorageStringified: async () => {
         const result = await this.getFromLocalStorage();
         if (!result) {
             return "{}";
@@ -60,6 +46,3 @@ class PlatformLocalStorage {
     }
 
 }
-
-window.PlatformLocalStorage = PlatformLocalStorage;
-// export default PlatformLocalStorage;
