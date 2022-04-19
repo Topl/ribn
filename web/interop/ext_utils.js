@@ -4,7 +4,7 @@ var ext_utils = {
         try {
             return chrome.runtime.getManifest().version;
         } catch (e) {
-            return 'debug';
+            return 'Dev';
         }
     },
     deleteWallet: () => {

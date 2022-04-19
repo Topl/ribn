@@ -1,13 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-
-import 'package:ribn/data/data.dart' as local;
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/models/keychain_state.dart';
 import 'package:ribn/models/login_state.dart';
 import 'package:ribn/models/onboarding_state.dart';
 import 'package:ribn/models/user_details_state.dart';
+import 'package:ribn/platform/platform.dart';
 
 @immutable
 class AppState {
@@ -54,7 +53,7 @@ class AppState {
 
   static String getAppVersion() {
     try {
-      return local.getAppVersion();
+      return PlatformUtils.instance.getCurrentAppVersion();
     } catch (e) {
       return 'Dev';
     }

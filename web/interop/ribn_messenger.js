@@ -2,7 +2,7 @@
 var ribn_messenger = function () {
     let port;
     return {
-        connectToBackground: () => {
+        openConnection: () => {
             try {
                 port = chrome.runtime.connect({ name: "ribn-bg" });
             } catch (e) {
