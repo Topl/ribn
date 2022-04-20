@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -43,18 +43,28 @@ class ErrorSection extends StatelessWidget {
           ),
         ),
         LargeButton(
-          label: Strings.contactSupport,
           backgroundColor: RibnColors.primary.withOpacity(0.19),
-          textColor: RibnColors.primary,
           onPressed: () async {
             await launch(Strings.supportEmailLink);
           },
+          buttonChild: Text(
+            Strings.contactSupport,
+            style: RibnTextStyles.btnMedium.copyWith(
+              color: RibnColors.primary,
+            ),
+          ),
         ),
         const SizedBox(height: 10),
         LargeButton(
-          label: Strings.tryAgain,
+          backgroundColor: RibnColors.primary,
           onPressed: onTryAgain,
-        )
+          buttonChild: Text(
+            Strings.tryAgain,
+            style: RibnTextStyles.btnMedium.copyWith(
+              color: Colors.white,
+            ),
+          ),
+        ),
       ],
     );
   }

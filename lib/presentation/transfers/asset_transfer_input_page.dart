@@ -13,6 +13,7 @@ import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/custom_page_title.dart';
 import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn/widgets/loading_spinner.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The asset transfer input page that allows the initiation of an asset transfer.
@@ -173,7 +174,12 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
   /// Upon pressing the review button, the tx flow is initiated via [vm.initiateTx].
   Widget _buildReviewButton(AssetTransferInputViewModel vm) {
     return LargeButton(
-      label: Strings.review,
+      buttonChild: Text(
+        Strings.review,
+        style: RibnTextStyles.btnMedium.copyWith(
+          color: Colors.white,
+        ),
+      ),
       onPressed: () {
         setState(() {
           _loadingRawTx = true;

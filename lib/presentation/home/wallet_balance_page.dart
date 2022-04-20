@@ -4,7 +4,6 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
 import 'package:ribn/containers/wallet_balance_container.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/presentation/error_section.dart';
@@ -13,6 +12,8 @@ import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_dialog.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
 import 'package:ribn/widgets/custom_tooltip.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// One of the 3 main pages on the home screen.
@@ -362,14 +363,10 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     return SizedBox(
       width: 75,
       height: 22,
-      child: MaterialButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-        elevation: 0,
-        hoverElevation: 0,
-        highlightElevation: 0,
-        color: RibnColors.primary,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
+      child: LargeButton(
+        backgroundColor: RibnColors.primary,
+        onPressed: onPressed,
+        buttonChild: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
@@ -382,7 +379,6 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
             Text(label, style: textStyle),
           ],
         ),
-        onPressed: onPressed,
       ),
     );
   }

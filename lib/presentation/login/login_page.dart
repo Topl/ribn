@@ -4,11 +4,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/login_container.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
 import 'package:ribn/widgets/custom_tooltip.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -84,7 +84,12 @@ class _LoginPageState extends State<LoginPage> {
               _buildTextField(),
               const SizedBox(height: 35),
               LargeButton(
-                label: Strings.unlock,
+                buttonChild: Text(
+                  Strings.unlock,
+                  style: RibnTextStyles.btnMedium.copyWith(
+                    color: Colors.white,
+                  ),
+                ),
                 onPressed: () => vm.attemptLogin(
                   password: _textEditingController.text,
                   onIncorrectPasswordEntered: () {
@@ -94,14 +99,17 @@ class _LoginPageState extends State<LoginPage> {
                   },
                 ),
                 backgroundColor: RibnColors.primary,
-                textColor: Colors.white,
               ),
               const SizedBox(height: 12),
               LargeButton(
-                label: Strings.restoreWallet,
+                buttonChild: Text(
+                  Strings.restoreWallet,
+                  style: RibnTextStyles.btnMedium.copyWith(
+                    color: RibnColors.primary,
+                  ),
+                ),
                 onPressed: vm.restoreWallet,
                 backgroundColor: RibnColors.primary.withOpacity(0.19),
-                textColor: RibnColors.primary,
               ),
               const SizedBox(height: 18),
               _buildSupportLink(),

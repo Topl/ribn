@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
 import 'package:ribn/presentation/login/widgets/password_text_field.dart';
 import 'package:ribn/widgets/custom_close_button.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The confimation dialog that is displayed before deleting the wallet.
@@ -95,16 +95,25 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
                 const SizedBox(height: 20),
                 // cancel delete
                 LargeButton(
-                  label: Strings.noIChangedMyMind,
+                  buttonChild: Text(
+                    Strings.noIChangedMyMind,
+                    style: RibnTextStyles.btnMedium.copyWith(
+                      color: RibnColors.primary,
+                    ),
+                  ),
                   backgroundColor: RibnColors.primary.withOpacity(0.19),
-                  textColor: RibnColors.primary,
                   onPressed: () => Navigator.of(context).pop(),
                   buttonWidth: 285,
                 ),
                 const SizedBox(height: 10),
                 // confirm delete
                 LargeButton(
-                  label: Strings.yesIWantToDelete,
+                  buttonChild: Text(
+                    Strings.yesIWantToDelete,
+                    style: RibnTextStyles.btnMedium.copyWith(
+                      color: Colors.white,
+                    ),
+                  ),
                   onPressed: () {
                     widget.onConfirmDeletePressed(
                       _passwordController.text,

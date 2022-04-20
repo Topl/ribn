@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 class NextButton extends StatelessWidget {
@@ -11,7 +12,12 @@ class NextButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 17.0),
       child: LargeButton(
-        label: Strings.next,
+        buttonChild: Text(
+          Strings.next,
+          style: RibnTextStyles.btnMedium.copyWith(
+            color: Colors.white,
+          ),
+        ),
         onPressed: onPressed,
       ),
     );

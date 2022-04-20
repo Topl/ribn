@@ -7,11 +7,11 @@ import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/login/widgets/next_button.dart';
 import 'package:ribn/presentation/login/widgets/restore_page_title.dart';
 import 'package:ribn/presentation/login/widgets/uploaded_file_container.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// This page allows the user to upload their Topl Main Key in order to restore wallet.
@@ -107,7 +107,12 @@ class _LoginRestoreWithToplKeyPageState extends State<LoginRestoreWithToplKeyPag
   /// and [toplKey] is updated with the [utf8] decoded file content.
   Widget _buildFileUploadContainer() {
     return LargeButton(
-      label: Strings.browse,
+      buttonChild: Text(
+        Strings.browse,
+        style: RibnTextStyles.btnMedium.copyWith(
+          color: Colors.white,
+        ),
+      ),
       onPressed: () async {
         try {
           final FilePickerResult? result = await FilePicker.platform.pickFiles();

@@ -7,10 +7,10 @@ import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/custom_copy_button.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -61,7 +61,12 @@ class TxConfirmationPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 90),
             child: LargeButton(
-              label: Strings.done,
+              buttonChild: Text(
+                Strings.done,
+                style: RibnTextStyles.btnMedium.copyWith(
+                  color: Colors.white,
+                ),
+              ),
               onPressed: () {
                 Keys.navigatorKey.currentState!.popUntil((route) => route.settings.name == Routes.home);
               },

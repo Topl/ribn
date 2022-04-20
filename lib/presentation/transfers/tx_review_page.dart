@@ -6,7 +6,6 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/utils.dart';
@@ -15,6 +14,7 @@ import 'package:ribn/widgets/custom_copy_button.dart';
 import 'package:ribn/widgets/custom_divider.dart';
 import 'package:ribn/widgets/custom_page_title.dart';
 import 'package:ribn/widgets/fee_info.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The transaction review page.
@@ -82,22 +82,30 @@ class TxReviewPage extends StatelessWidget {
             ),
             // cancel button
             LargeButton(
-              label: Strings.cancel,
+              buttonChild: Text(
+                Strings.cancel,
+                style: RibnTextStyles.btnMedium.copyWith(
+                  color: RibnColors.primary,
+                ),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
               backgroundColor: RibnColors.primary.withOpacity(0.19),
-              textColor: RibnColors.primary,
             ),
             const SizedBox(height: 13),
             // confirm button
             LargeButton(
-              label: Strings.confirm,
+              buttonChild: Text(
+                Strings.confirm,
+                style: RibnTextStyles.btnMedium.copyWith(
+                  color: Colors.white,
+                ),
+              ),
               onPressed: () {
                 StoreProvider.of<AppState>(context).dispatch(SignAndBroadcastTxAction(transferDetails));
               },
               backgroundColor: RibnColors.primary,
-              textColor: Colors.white,
             ),
           ],
         ),
