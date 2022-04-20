@@ -31,7 +31,7 @@ class PlatformUtils implements PlatformUtilsI {
 
   @override
   Future<String> getCurrentAppView() {
-    throw UnimplementedError();
+    return Future.value('mobile');
   }
 
   @override

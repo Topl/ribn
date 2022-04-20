@@ -17,6 +17,7 @@ import 'package:ribn/redux.dart';
 import 'package:ribn/router/root_router.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Redux.initStore(initTestStore: true);
   final String currentAppView = await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
