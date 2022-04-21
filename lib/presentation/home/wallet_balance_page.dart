@@ -1,7 +1,6 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/wallet_balance_container.dart';
@@ -10,10 +9,11 @@ import 'package:ribn/presentation/error_section.dart';
 import 'package:ribn/presentation/home/shimmer_loader.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_dialog.dart';
-import 'package:ribn/widgets/custom_icon_button.dart';
 import 'package:ribn/widgets/custom_tooltip.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/asset_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// One of the 3 main pages on the home screen.
@@ -243,113 +243,42 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     final bool isMissingAssetDetails =
         assetIcon == RibnAssets.undefinedIcon || assetUnit == 'Units' || assetLongName.isEmpty;
 
-    return ElevatedButton(
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(RibnColors.whiteBackground),
-        padding: MaterialStateProperty.all(EdgeInsets.zero),
-        shape: MaterialStateProperty.all(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+    return AssetCard(
+      onCardPress: () => viewAssetDetails(asset),
+      iconImage: Image.asset(assetIcon),
+      shortName: Text(
+        asset.assetCode.shortName.show,
+        style: assetShortNameStyle,
+        overflow: TextOverflow.ellipsis,
+      ),
+      assetLongName: assetLongName.isNotEmpty
+          ? Text(assetLongName, style: assetLongNameStyle)
+          : Container(
+              width: 139,
+              height: 13,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(9)),
+                color: Color(0xcfdadada),
+              ),
+            ),
+      missingAsstDetailsCondition: isMissingAssetDetails,
+      assetQuantityDetails: Text(
+        '${asset.quantity.toString()} $assetUnit',
+        overflow: TextOverflow.ellipsis,
+        style: assetShortNameStyle.copyWith(
+          color: RibnColors.primary,
         ),
-        fixedSize: MaterialStateProperty.all(const Size(309, 88)),
       ),
-      onPressed: () => viewAssetDetails(asset),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // display asset icon
-          Padding(
-            padding: const EdgeInsets.only(top: 13, left: 11, right: 16),
-            child: Image.asset(assetIcon),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 10),
-              // display asset short name
-              SizedBox(
-                width: 120,
-                child: Text(
-                  asset.assetCode.shortName.show,
-                  style: assetShortNameStyle,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              // display asset long name or placeholder if no long name exists
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5.0),
-                child: assetLongName.isNotEmpty
-                    ? Text(assetLongName, style: assetLongNameStyle)
-                    : Container(
-                        width: 139,
-                        height: 13,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(9)),
-                          color: Color(0xcfdadada),
-                        ),
-                      ),
-              ),
-              // display helpful text if some asset details are missing
-              isMissingAssetDetails
-                  ? const Text(
-                      'Add Asset Details',
-                      style: TextStyle(
-                        color: RibnColors.primary,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Nunito',
-                        fontStyle: FontStyle.normal,
-                        fontSize: 10.4,
-                        decoration: TextDecoration.underline,
-                      ),
-                    )
-                  : const SizedBox(),
-            ],
-          ),
-          const Spacer(),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 10),
-              // display asset units
-              Container(
-                constraints: const BoxConstraints(maxWidth: 90),
-                child: Text(
-                  '${asset.quantity.toString()} $assetUnit',
-                  overflow: TextOverflow.ellipsis,
-                  style: assetShortNameStyle.copyWith(
-                    color: RibnColors.primary,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
-              // send and receive buttons
-              Row(
-                children: [
-                  CustomIconButton(
-                    icon: Image.asset(
-                      RibnAssets.sendIcon,
-                      width: 12,
-                    ),
-                    color: RibnColors.primary,
-                    onPressed: () => initiateSendAsset(asset),
-                  ),
-                  const SizedBox(width: 7),
-                  CustomIconButton(
-                    icon: Image.asset(
-                      RibnAssets.receiveIcon,
-                      width: 12,
-                    ),
-                    color: RibnColors.primary,
-                    onPressed: () async => await showReceivingAddress(),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(width: 12),
-        ],
+      firstIcon: Image.asset(
+        RibnAssets.sendIcon,
+        width: 12,
       ),
+      onFirstIconPress: () => initiateSendAsset(asset),
+      secondIcon: Image.asset(
+        RibnAssets.receiveIcon,
+        width: 12,
+      ),
+      onSecondIconPress: () async => await showReceivingAddress(),
     );
   }
 
