@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/login/widgets/next_button.dart';

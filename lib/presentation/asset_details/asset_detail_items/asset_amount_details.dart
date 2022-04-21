@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 
 /// One of the asset details displayed on [AssetDetailsPage].
 ///
@@ -19,11 +19,11 @@ class AssetAmountDetails extends StatelessWidget {
       children: [
         Row(
           children: const [
-            Text('Total Amount', style: RibnTextStyles.extH4),
+            Text('Total Amount', style: RibnToolkitTextStyles.extH4),
           ],
         ),
         const SizedBox(height: 3),
-        Text(assetQuantity.toString(), style: RibnTextStyles.smallBody),
+        Text(assetQuantity.toString(), style: RibnToolkitTextStyles.smallBody),
       ],
     );
   }

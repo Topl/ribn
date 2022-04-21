@@ -2,9 +2,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/create_password_container.dart';
 import 'package:ribn/presentation/login/widgets/password_text_field.dart';
@@ -65,7 +65,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                 height: 100,
                 child: Text(
                   Strings.createWalletPassword,
-                  style: RibnTextStyles.h1,
+                  style: RibnToolkitTextStyles.h1,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -75,7 +75,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
               ),
               const Text(
                 Strings.createWalletPasswordDesc,
-                style: RibnTextStyles.body1,
+                style: RibnToolkitTextStyles.body1,
                 textAlign: TextAlign.left,
                 textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
               ),
@@ -106,7 +106,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
         children: [
           Text(
             label,
-            style: RibnTextStyles.body1Bold,
+            style: RibnToolkitTextStyles.body1Bold,
           ),
           PasswordTextField(
             controller: textEditingController,
@@ -188,7 +188,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
             height: 50,
             child: RichText(
               text: TextSpan(
-                style: RibnTextStyles.body1
+                style: RibnToolkitTextStyles.body1
                     .copyWith(color: _readTermsOfAgreement ? RibnColors.defaultText : RibnColors.inactive),
                 children: [
                   const TextSpan(
@@ -196,7 +196,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                   ),
                   TextSpan(
                     text: 'Terms of Use',
-                    style: RibnTextStyles.body1
+                    style: RibnToolkitTextStyles.body1
                         .copyWith(color: _readTermsOfAgreement ? RibnColors.primary : RibnColors.inactive),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () async {

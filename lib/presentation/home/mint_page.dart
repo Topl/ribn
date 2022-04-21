@@ -3,11 +3,11 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/custom_close_button.dart';
 
@@ -61,7 +61,7 @@ class MintPage extends StatelessWidget {
             children: [
               const SizedBox(
                 width: double.infinity,
-                child: Text(Strings.whatWouldYouLikeToDo, style: RibnTextStyles.extH3),
+                child: Text(Strings.whatWouldYouLikeToDo, style: RibnToolkitTextStyles.extH3),
               ),
               const SizedBox(height: 20),
               // buttons to choose between 'mint new asset' and 'remint same asset'
@@ -125,7 +125,7 @@ class MintPage extends StatelessWidget {
                       height: 58,
                       child: Text(
                         Strings.gettingStarted,
-                        style: RibnTextStyles.extH2,
+                        style: RibnToolkitTextStyles.extH2,
                       ),
                     ),
                     // dialog description
@@ -134,7 +134,7 @@ class MintPage extends StatelessWidget {
                       height: 43,
                       child: Text(
                         Strings.mintAssetDesc,
-                        style: RibnTextStyles.hintStyle.copyWith(
+                        style: RibnToolkitTextStyles.hintStyle.copyWith(
                           fontSize: 15,
                           color: RibnColors.greyedOut,
                         ),
@@ -142,7 +142,7 @@ class MintPage extends StatelessWidget {
                     ),
                     const SizedBox(
                       width: double.infinity,
-                      child: Text('Mint to', style: RibnTextStyles.extH3),
+                      child: Text('Mint to', style: RibnToolkitTextStyles.extH3),
                     ),
                     const SizedBox(height: 15),
                     // buttons to choose between 'mint to my wallet' and 'mint to another wallet'

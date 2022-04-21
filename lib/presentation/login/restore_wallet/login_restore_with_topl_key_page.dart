@@ -4,7 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/actions/misc_actions.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
@@ -50,7 +50,7 @@ class _LoginRestoreWithToplKeyPageState extends State<LoginRestoreWithToplKeyPag
               width: 309,
               child: Text(
                 Strings.restoreWalletToplKeyDesc,
-                style: RibnTextStyles.smallBody.copyWith(fontSize: 15),
+                style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15),
               ),
             ),
             const SizedBox(
@@ -109,7 +109,7 @@ class _LoginRestoreWithToplKeyPageState extends State<LoginRestoreWithToplKeyPag
     return LargeButton(
       buttonChild: Text(
         Strings.browse,
-        style: RibnTextStyles.btnMedium.copyWith(
+        style: RibnToolkitTextStyles.btnMedium.copyWith(
           color: Colors.white,
         ),
       ),

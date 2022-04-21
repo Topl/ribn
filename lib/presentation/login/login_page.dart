@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/login_container.dart';
@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
               LargeButton(
                 buttonChild: Text(
                   Strings.unlock,
-                  style: RibnTextStyles.btnMedium.copyWith(
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(
                     color: Colors.white,
                   ),
                 ),
@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
               LargeButton(
                 buttonChild: Text(
                   Strings.restoreWallet,
-                  style: RibnTextStyles.btnMedium.copyWith(
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(
                     color: RibnColors.primary,
                   ),
                 ),
@@ -136,14 +136,14 @@ class _LoginPageState extends State<LoginPage> {
         children: const [
           Text(
             Strings.enterWalletPassword,
-            style: RibnTextStyles.extH3,
+            style: RibnToolkitTextStyles.extH3,
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 2.0),
             child: CustomToolTip(
               toolTipChild: Text(
                 Strings.loginPasswordInfo,
-                style: RibnTextStyles.toolTipTextStyle,
+                style: RibnToolkitTextStyles.toolTipTextStyle,
               ),
             ),
           ),
@@ -178,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
             },
           ),
           labelText: Strings.typeSomething,
-          labelStyle: RibnTextStyles.hintStyle,
+          labelStyle: RibnToolkitTextStyles.hintStyle,
           isDense: true,
           fillColor: Colors.white,
           floatingLabelBehavior: FloatingLabelBehavior.never,

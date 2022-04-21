@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 
 /// The edit button used for asset detail items that can be edited.
 class EditButton extends StatefulWidget {
@@ -50,7 +50,7 @@ class _EditButtonState extends State<EditButton> {
               const Spacer(),
               Text(
                 'Edit',
-                style: RibnTextStyles.dropdownButtonStyle.copyWith(color: RibnColors.primary),
+                style: RibnToolkitTextStyles.dropdownButtonStyle.copyWith(color: RibnColors.primary),
               ),
             ],
           ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
 
 /// Builds a custom [TextField] for inputting password.
@@ -61,7 +61,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
             },
           ),
           labelText: widget.hintText,
-          labelStyle: RibnTextStyles.hintStyle,
+          labelStyle: RibnToolkitTextStyles.hintStyle,
           isDense: true,
           fillColor: Colors.white,
           floatingLabelBehavior: FloatingLabelBehavior.never,

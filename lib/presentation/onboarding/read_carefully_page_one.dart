@@ -5,10 +5,10 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/continue_button.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
@@ -43,7 +43,7 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
                 height: 55,
                 child: Text(
                   Strings.readCarefully,
-                  style: RibnTextStyles.h1,
+                  style: RibnToolkitTextStyles.h1,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -113,7 +113,8 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
             height: 100,
             child: Text(
               label,
-              style: RibnTextStyles.body1.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),
+              style:
+                  RibnToolkitTextStyles.body1.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),
               textAlign: TextAlign.start,
               textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
             ),
@@ -153,7 +154,7 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
                 child: Center(
                   child: Text(
                     Strings.weRecommend,
-                    style: RibnTextStyles.h1,
+                    style: RibnToolkitTextStyles.h1,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -168,7 +169,7 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
           children: [
             const Text(
               Strings.weRecommendSub,
-              style: RibnTextStyles.body1,
+              style: RibnToolkitTextStyles.body1,
               textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
             ),
             const SizedBox(height: 20),
@@ -183,7 +184,7 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
                     const SizedBox(width: 15),
                     const Text(
                       Strings.paperAndPen,
-                      style: RibnTextStyles.body1,
+                      style: RibnToolkitTextStyles.body1,
                       textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
                     ),
                   ],
@@ -201,7 +202,7 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
                     const SizedBox(width: 15),
                     const Text(
                       Strings.securePasswordManager,
-                      style: RibnTextStyles.body1,
+                      style: RibnToolkitTextStyles.body1,
                       textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
                     ),
                   ],
@@ -219,7 +220,7 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
                     const SizedBox(width: 15),
                     const Text(
                       Strings.encryptTextFile,
-                      style: RibnTextStyles.body1,
+                      style: RibnToolkitTextStyles.body1,
                       textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
                     ),
                   ],

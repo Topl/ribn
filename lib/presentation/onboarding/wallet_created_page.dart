@@ -3,10 +3,10 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/continue_button.dart';
 
@@ -40,7 +40,7 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
               height: 100,
               child: Text(
                 Strings.walletCreated,
-                style: RibnTextStyles.h1,
+                style: RibnToolkitTextStyles.h1,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -51,7 +51,7 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
               width: 680,
               child: Text(
                 Strings.walletCreatedDesc,
-                style: RibnTextStyles.body1,
+                style: RibnToolkitTextStyles.body1,
                 textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
               ),
             ),
@@ -66,7 +66,7 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                 children: [
                   Text(
                     Strings.frequentlyAskedQuestions,
-                    style: RibnTextStyles.body1Bold.copyWith(fontSize: 25),
+                    style: RibnToolkitTextStyles.body1Bold.copyWith(fontSize: 25),
                     textAlign: TextAlign.left,
                   ),
                   const Spacer(),
@@ -115,7 +115,7 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
               collapsedBackgroundColor: RibnColors.accent,
               title: Text(
                 header,
-                style: RibnTextStyles.body1Bold,
+                style: RibnToolkitTextStyles.body1Bold,
                 textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
               ),
               children: [
@@ -129,7 +129,7 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                     width: 500,
                     child: Text(
                       desc,
-                      style: RibnTextStyles.body1,
+                      style: RibnToolkitTextStyles.body1,
                       textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
                     ),
                   ),

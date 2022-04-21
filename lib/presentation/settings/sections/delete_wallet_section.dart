@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 
 /// The section on the settings page that allows user to delete their wallet.
 class DeleteWalletSection extends StatelessWidget {
@@ -41,7 +41,7 @@ class DeleteWalletSection extends StatelessWidget {
               children: [
                 const Text(
                   Strings.actionNotReversible,
-                  style: RibnTextStyles.settingsSmallText,
+                  style: RibnToolkitTextStyles.settingsSmallText,
                 ),
                 const SizedBox(height: 10),
                 SizedBox(

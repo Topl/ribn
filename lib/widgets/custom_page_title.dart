@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
 
 /// A widget to display the title and back button on top of the page.
@@ -31,7 +31,7 @@ class CustomPageTitle extends StatelessWidget {
         Center(
           child: Text(
             title,
-            style: RibnTextStyles.extH2,
+            style: RibnToolkitTextStyles.extH2,
             textAlign: TextAlign.center,
           ),
         ),

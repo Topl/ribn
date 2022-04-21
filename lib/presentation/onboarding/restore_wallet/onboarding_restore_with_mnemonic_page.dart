@@ -2,10 +2,10 @@ import 'package:bip_topl/bip_topl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/login/widgets/advanced_option_button.dart';
 import 'package:ribn/presentation/login/widgets/password_text_field.dart';
@@ -122,7 +122,7 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
       padding: EdgeInsets.only(top: 22, bottom: 76),
       child: Text(
         Strings.restoreWallet,
-        style: RibnTextStyles.h1,
+        style: RibnToolkitTextStyles.h1,
         textAlign: TextAlign.center,
       ),
     );
@@ -135,7 +135,7 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(Strings.enterSeedPhrase, style: RibnTextStyles.extH3),
+          const Text(Strings.enterSeedPhrase, style: RibnToolkitTextStyles.extH3),
           CustomTextField(
             width: maxWidth,
             height: 36,
@@ -160,7 +160,7 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(labelText, style: RibnTextStyles.extH3),
+          Text(labelText, style: RibnToolkitTextStyles.extH3),
           PasswordTextField(
             width: 352,
             height: 36,

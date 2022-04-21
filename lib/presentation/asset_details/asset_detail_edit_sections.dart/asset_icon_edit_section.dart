@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/presentation/asset_details/widgets/action_button.dart';
 

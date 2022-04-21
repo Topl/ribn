@@ -14,7 +14,7 @@ class NextButton extends StatelessWidget {
       child: LargeButton(
         buttonChild: Text(
           Strings.next,
-          style: RibnTextStyles.btnMedium.copyWith(
+          style: RibnToolkitTextStyles.btnMedium.copyWith(
             color: Colors.white,
           ),
         ),

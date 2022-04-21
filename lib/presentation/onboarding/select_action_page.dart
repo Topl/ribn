@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/misc_actions.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
@@ -29,7 +29,7 @@ class SelectActionPage extends StatelessWidget {
               children: [
                 const Text(
                   'What would you like to do?',
-                  style: RibnTextStyles.h1,
+                  style: RibnToolkitTextStyles.h1,
                   textAlign: TextAlign.center,
                 ),
                 Padding(
@@ -61,7 +61,7 @@ class SelectActionPage extends StatelessWidget {
         SquareIconButton(
           backgroundColor: RibnColors.primary,
           icon: SvgPicture.asset(iconToDisplay, width: 30),
-          text: Text(title, style: RibnTextStyles.btnLarge),
+          text: Text(title, style: RibnToolkitTextStyles.btnLarge),
           onPressed: () => StoreProvider.of<AppState>(context).dispatch(
             NavigateToRoute(navigateToRoute),
           ),
@@ -69,7 +69,7 @@ class SelectActionPage extends StatelessWidget {
         const SizedBox(height: 40),
         Text(
           description,
-          style: RibnTextStyles.body1,
+          style: RibnToolkitTextStyles.body1,
         ),
       ],
     );

@@ -1,6 +1,6 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/asset_transfer_input_container.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
@@ -176,7 +176,7 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
     return LargeButton(
       buttonChild: Text(
         Strings.review,
-        style: RibnTextStyles.btnMedium.copyWith(
+        style: RibnToolkitTextStyles.btnMedium.copyWith(
           color: Colors.white,
         ),
       ),

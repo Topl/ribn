@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:steps_indicator/steps_indicator.dart';
 
 /// Custom progress bar displayed during onboarding
@@ -83,7 +83,7 @@ class CustomProgressBar extends StatelessWidget {
       child: Center(
         child: Text(
           getLabel(pageNum),
-          style: RibnTextStyles.smallBoldLabel.copyWith(
+          style: RibnToolkitTextStyles.smallBoldLabel.copyWith(
             color: pageNum != currPage ? Colors.transparent : RibnColors.defaultText,
           ),
         ),

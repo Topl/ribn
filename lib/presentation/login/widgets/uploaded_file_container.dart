@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 
 /// A container that displays the uploaded file name, when restoring wallet with Topl Main Key.
 ///

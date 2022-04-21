@@ -2,10 +2,10 @@ import 'package:bip_topl/bip_topl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/actions/misc_actions.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/login/widgets/advanced_option_button.dart';
 import 'package:ribn/presentation/login/widgets/next_button.dart';
@@ -62,7 +62,7 @@ class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicP
               child: Center(
                 child: Text(
                   Strings.restoreWalletSeedPhraseDesc,
-                  style: RibnTextStyles.smallBody.copyWith(fontSize: 15),
+                  style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15),
                 ),
               ),
             ),
@@ -70,7 +70,7 @@ class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicP
               width: maxWidth,
               child: const Text(
                 Strings.enterSeedPhrase,
-                style: RibnTextStyles.extH3,
+                style: RibnToolkitTextStyles.extH3,
               ),
             ),
             // seed phrase text field

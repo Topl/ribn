@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/poly_transfer_input_container.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
@@ -205,7 +205,7 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
       child: LargeButton(
         buttonChild: Text(
           Strings.review,
-          style: RibnTextStyles.btnMedium.copyWith(
+          style: RibnToolkitTextStyles.btnMedium.copyWith(
             color: Colors.white,
           ),
         ),

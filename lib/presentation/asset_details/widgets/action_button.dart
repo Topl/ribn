@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:ribn/actions/user_details_actions.dart';
-import 'package:ribn/constants/colors.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 
 /// The action button used on the edit sections, e.g. see [AssetIconEditSection].
@@ -67,7 +67,7 @@ class ActionButton extends StatelessWidget {
         child: Center(
           child: Text(
             label,
-            style: RibnTextStyles.btnMedium,
+            style: RibnToolkitTextStyles.btnMedium,
           ),
         ),
       ),

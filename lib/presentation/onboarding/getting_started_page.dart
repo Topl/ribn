@@ -6,7 +6,7 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/continue_button.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
@@ -32,7 +32,7 @@ class GettingStartedPage extends StatelessWidget {
                 child: Center(
                   child: Text(
                     Strings.gettingStarted,
-                    style: RibnTextStyles.h1,
+                    style: RibnToolkitTextStyles.h1,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -47,7 +47,7 @@ class GettingStartedPage extends StatelessWidget {
               height: 100,
               child: Text(
                 Strings.gettingStartedDescription,
-                style: RibnTextStyles.body1,
+                style: RibnToolkitTextStyles.body1,
                 textAlign: TextAlign.start,
                 textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
               ),

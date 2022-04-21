@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 
 /// A section to display important warning message when restoring wallet.
 class WarningSection extends StatelessWidget {
@@ -24,7 +24,7 @@ class WarningSection extends StatelessWidget {
             children: [
               Text(
                 Strings.warning,
-                style: RibnTextStyles.extH3.copyWith(color: const Color(0xffe80e00)),
+                style: RibnToolkitTextStyles.extH3.copyWith(color: const Color(0xffe80e00)),
               ),
             ],
           ),
@@ -34,7 +34,7 @@ class WarningSection extends StatelessWidget {
               height: 102,
               child: Text(
                 Strings.restoreWalletWarning,
-                style: RibnTextStyles.smallBody.copyWith(fontSize: 15),
+                style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15),
               ),
             ),
           ),

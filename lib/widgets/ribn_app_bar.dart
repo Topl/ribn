@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/containers/ribn_app_bar_container.dart';
 import 'package:ribn/utils.dart';
 
@@ -100,7 +100,7 @@ class _RibnAppBarState extends State<RibnAppBar> {
               width: 50,
               child: Text(
                 capitalize(selectedNetwork),
-                style: RibnTextStyles.h3.copyWith(color: Colors.white, fontSize: 10),
+                style: RibnToolkitTextStyles.h3.copyWith(color: Colors.white, fontSize: 10),
               ),
             ),
             const Icon(Icons.arrow_drop_down, color: Colors.white, size: 10),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/utils.dart';
@@ -95,7 +95,7 @@ class _AssetAmountFieldState extends State<AssetAmountField> {
                     child: Center(
                       child: Text(
                         formatAssetUnit(widget.selectedUnit),
-                        style: RibnTextStyles.dropdownButtonStyle.copyWith(color: RibnColors.primary),
+                        style: RibnToolkitTextStyles.dropdownButtonStyle.copyWith(color: RibnColors.primary),
                       ),
                     ),
                   ),
@@ -142,7 +142,7 @@ class _AssetAmountFieldState extends State<AssetAmountField> {
               child: Center(
                 child: Text(
                   formatAssetUnit(widget.selectedUnit),
-                  style: RibnTextStyles.dropdownButtonStyle,
+                  style: RibnToolkitTextStyles.dropdownButtonStyle,
                 ),
               ),
             ),

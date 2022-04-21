@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/login/widgets/next_button.dart';
 import 'package:ribn/presentation/login/widgets/password_text_field.dart';
@@ -117,7 +117,7 @@ class _OnboardingEnterWalletPasswordPageState extends State<OnboardingEnterWalle
       padding: EdgeInsets.only(top: 22, bottom: 76),
       child: Text(
         Strings.restoreWallet,
-        style: RibnTextStyles.h1,
+        style: RibnToolkitTextStyles.h1,
         textAlign: TextAlign.center,
       ),
     );

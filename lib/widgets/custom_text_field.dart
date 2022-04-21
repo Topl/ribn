@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/colors.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 
 class CustomTextField extends StatelessWidget {
   /// Controller for the textfield.
@@ -65,7 +65,7 @@ class CustomTextField extends StatelessWidget {
           isDense: true,
           counterText: '',
           hintText: hintText,
-          hintStyle: RibnTextStyles.hintStyle,
+          hintStyle: RibnToolkitTextStyles.hintStyle,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4.7),
           ),

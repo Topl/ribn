@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/widgets/custom_tooltip.dart';
 
 /// One of the asset details displayed on [AssetDetailsPage].
@@ -21,17 +21,17 @@ class AssetCodeShortDetails extends StatelessWidget {
       children: [
         Row(
           children: const [
-            Text('Asset code · short', style: RibnTextStyles.extH4),
+            Text('Asset code · short', style: RibnToolkitTextStyles.extH4),
             CustomToolTip(
               toolTipChild: Text(
                 Strings.assetCodeShortInfo,
-                style: RibnTextStyles.toolTipTextStyle,
+                style: RibnToolkitTextStyles.toolTipTextStyle,
               ),
             ),
           ],
         ),
         const SizedBox(height: 3),
-        Text(assetShortName, style: RibnTextStyles.smallBody),
+        Text(assetShortName, style: RibnToolkitTextStyles.smallBody),
       ],
     );
   }

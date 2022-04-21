@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/colors.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 
 /// A custom styled large button used on several screens, e.g. login, asset transfer, and mint screens.
 class LargeButton extends StatelessWidget {
@@ -31,7 +31,7 @@ class LargeButton extends StatelessWidget {
         color: backgroundColor,
         child: Text(
           label,
-          style: RibnTextStyles.btnMedium.copyWith(
+          style: RibnToolkitTextStyles.btnMedium.copyWith(
             color: textColor,
           ),
         ),

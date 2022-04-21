@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 
 /// A button to copy [textToBeCopied] to [Clipboard] and display a confirmation bubble.
 class CustomCopyButton extends StatefulWidget {
@@ -70,7 +70,7 @@ class _CustomCopyButtonState extends State<CustomCopyButton> {
             ),
             Text(
               widget.bubbleText,
-              style: RibnTextStyles.smallBody,
+              style: RibnToolkitTextStyles.smallBody,
             ),
           ],
         ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
@@ -25,7 +25,7 @@ class ErrorSection extends StatelessWidget {
           height: 64,
           child: Text(
             Strings.errorTitle,
-            style: RibnTextStyles.extH2.copyWith(
+            style: RibnToolkitTextStyles.extH2.copyWith(
               height: 1.1,
             ),
           ),
@@ -36,7 +36,7 @@ class ErrorSection extends StatelessWidget {
           height: 133,
           child: Text(
             Strings.errorDescription,
-            style: RibnTextStyles.smallBody.copyWith(
+            style: RibnToolkitTextStyles.smallBody.copyWith(
               fontSize: 15,
               height: 1,
             ),
@@ -49,7 +49,7 @@ class ErrorSection extends StatelessWidget {
           },
           buttonChild: Text(
             Strings.contactSupport,
-            style: RibnTextStyles.btnMedium.copyWith(
+            style: RibnToolkitTextStyles.btnMedium.copyWith(
               color: RibnColors.primary,
             ),
           ),
@@ -60,7 +60,7 @@ class ErrorSection extends StatelessWidget {
           onPressed: onTryAgain,
           buttonChild: Text(
             Strings.tryAgain,
-            style: RibnTextStyles.btnMedium.copyWith(
+            style: RibnToolkitTextStyles.btnMedium.copyWith(
               color: Colors.white,
             ),
           ),

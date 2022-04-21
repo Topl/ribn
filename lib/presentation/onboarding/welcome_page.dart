@@ -6,7 +6,7 @@ import 'package:ribn/constants/assets.dart';
 
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/continue_button.dart';
 
@@ -24,7 +24,7 @@ class WelcomePage extends StatelessWidget {
           children: [
             const Text(
               Strings.welcomeToRibn,
-              style: RibnTextStyles.h1,
+              style: RibnToolkitTextStyles.h1,
               textAlign: TextAlign.center,
             ),
             padding,
@@ -36,7 +36,7 @@ class WelcomePage extends StatelessWidget {
               child: Center(
                 child: Text(
                   Strings.intro,
-                  style: RibnTextStyles.body1,
+                  style: RibnToolkitTextStyles.body1,
                   textAlign: TextAlign.center,
                   textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
                 ),

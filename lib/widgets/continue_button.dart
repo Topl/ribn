@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/colors.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 
 /// A custom button being used on several onboarding pages.
 class ContinueButton extends StatelessWidget {
@@ -32,7 +32,7 @@ class ContinueButton extends StatelessWidget {
       disabledColor: Colors.transparent,
       child: Text(
         label,
-        style: RibnTextStyles.h3.copyWith(color: disabled ? RibnColors.inactive : Colors.white),
+        style: RibnToolkitTextStyles.h3.copyWith(color: disabled ? RibnColors.inactive : Colors.white),
       ),
       onPressed: disabled ? null : onPressed,
     );

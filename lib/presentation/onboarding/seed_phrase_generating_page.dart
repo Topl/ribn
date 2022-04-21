@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/widgets/continue_button.dart';
 
 /// Builds the custom animation when generating seed phrase.
@@ -77,7 +77,7 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
       const SizedBox(
         height: 100,
         width: 700,
-        child: Text(Strings.aboutToShowSeedPhrase, style: RibnTextStyles.body1),
+        child: Text(Strings.aboutToShowSeedPhrase, style: RibnToolkitTextStyles.body1),
       ),
     ];
   }
@@ -91,7 +91,7 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
           width: 312,
           child: Text(
             Strings.seedPhraseGenerated,
-            style: RibnTextStyles.h1,
+            style: RibnToolkitTextStyles.h1,
             textAlign: TextAlign.center,
           ),
         ),
@@ -103,7 +103,7 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
       const SizedBox(
         height: 100,
         width: 715,
-        child: Text(Strings.seedPhraseGeneratedDesc, style: RibnTextStyles.body1),
+        child: Text(Strings.seedPhraseGeneratedDesc, style: RibnToolkitTextStyles.body1),
       ),
       const SizedBox(height: 30),
       ContinueButton(Strings.cont, widget.goToNextPage),
@@ -118,7 +118,7 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
         {
           return const Text(
             Strings.seedPhraseGenerating,
-            style: RibnTextStyles.h1,
+            style: RibnToolkitTextStyles.h1,
             textAlign: TextAlign.center,
           );
         }
@@ -126,7 +126,7 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
         {
           return const Text(
             Strings.goGrabAPenAndPaper,
-            style: RibnTextStyles.h1,
+            style: RibnToolkitTextStyles.h1,
             textAlign: TextAlign.center,
           );
         }
@@ -134,7 +134,7 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
         {
           return const Text(
             Strings.seriouslyGetAPenAndPaper,
-            style: RibnTextStyles.h1,
+            style: RibnToolkitTextStyles.h1,
             textAlign: TextAlign.center,
           );
         }

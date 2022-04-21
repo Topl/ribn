@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/widgets/continue_button.dart';
 import 'package:ribn/widgets/custom_tooltip.dart';
 
@@ -34,7 +34,7 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
             width: 315,
             child: Text(
               Strings.readFollowingCarefully,
-              style: RibnTextStyles.h1,
+              style: RibnToolkitTextStyles.h1,
               textAlign: TextAlign.center,
             ),
           ),
@@ -120,7 +120,8 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
               height: 40,
               child: Text(
                 label,
-                style: RibnTextStyles.body1.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),
+                style:
+                    RibnToolkitTextStyles.body1.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),
                 textAlign: TextAlign.start,
                 textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
               ),
@@ -138,13 +139,13 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
                 children: [
                   Text(
                     Strings.howIsMySeedPhraseUnrecoverable,
-                    style: RibnTextStyles.toolTipTextStyle.copyWith(
+                    style: RibnToolkitTextStyles.toolTipTextStyle.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const Text(
                     Strings.howIsMySeedPhraseUnrecoverableNewLine,
-                    style: RibnTextStyles.toolTipTextStyle,
+                    style: RibnToolkitTextStyles.toolTipTextStyle,
                   )
                 ],
               ),

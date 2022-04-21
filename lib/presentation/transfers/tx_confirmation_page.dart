@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/rules.dart';
@@ -63,7 +63,7 @@ class TxConfirmationPage extends StatelessWidget {
             child: LargeButton(
               buttonChild: Text(
                 Strings.done,
-                style: RibnTextStyles.btnMedium.copyWith(
+                style: RibnToolkitTextStyles.btnMedium.copyWith(
                   color: Colors.white,
                 ),
               ),
@@ -104,7 +104,7 @@ class TxConfirmationPage extends StatelessWidget {
       height: 70,
       child: Text(
         text,
-        style: RibnTextStyles.extH2,
+        style: RibnToolkitTextStyles.extH2,
         textAlign: TextAlign.center,
       ),
     );

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/actions/misc_actions.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 
 /// The advanced option button that allows advanced users to restore their wallet using the Topl Main Key.
@@ -35,7 +35,7 @@ class _AdvancedOptionButtonState extends State<AdvancedOptionButton> {
             children: [
               Text(
                 Strings.advancedOption,
-                style: RibnTextStyles.smallBody.copyWith(fontSize: 15),
+                style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15),
               ),
               Icon(
                 showingAdvancedOption ? Icons.keyboard_arrow_down_outlined : Icons.keyboard_arrow_up_outlined,
@@ -59,7 +59,7 @@ class _AdvancedOptionButtonState extends State<AdvancedOptionButton> {
                   },
                   child: Text(
                     Strings.useToplMainKey,
-                    style: RibnTextStyles.dropdownButtonStyle.copyWith(fontSize: 11, color: RibnColors.primary),
+                    style: RibnToolkitTextStyles.dropdownButtonStyle.copyWith(fontSize: 11, color: RibnColors.primary),
                   ),
                 ),
               )

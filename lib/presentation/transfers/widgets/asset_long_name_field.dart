@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/widgets/custom_drop_down.dart';
@@ -112,7 +112,7 @@ class _AssetLongNameFieldState extends State<AssetLongNameField> {
                     child: const Center(
                       child: Text(
                         'Icon',
-                        style: RibnTextStyles.dropdownButtonStyle,
+                        style: RibnToolkitTextStyles.dropdownButtonStyle,
                       ),
                     ),
                   ),

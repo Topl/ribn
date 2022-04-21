@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 
 /// The section that allows for downloading the Topl Main Key.
 class ExportToplMainKeySection extends StatelessWidget {
@@ -20,13 +20,13 @@ class ExportToplMainKeySection extends StatelessWidget {
       children: [
         const Text(
           Strings.exportToplMainKey,
-          style: RibnTextStyles.extH3,
+          style: RibnToolkitTextStyles.extH3,
         ),
         const Padding(
           padding: EdgeInsets.only(top: 6, bottom: 8),
           child: Text(
             Strings.exportToplMainKeyDesc,
-            style: RibnTextStyles.settingsSmallText,
+            style: RibnToolkitTextStyles.settingsSmallText,
           ),
         ),
         SizedBox(

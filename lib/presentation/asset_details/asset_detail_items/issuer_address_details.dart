@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/custom_copy_button.dart';
 import 'package:ribn/widgets/custom_tooltip.dart';
@@ -22,12 +22,12 @@ class IssuerAddressDetails extends StatelessWidget {
       children: [
         Row(
           children: const [
-            Text(Strings.issuerAddress, style: RibnTextStyles.extH4),
+            Text(Strings.issuerAddress, style: RibnToolkitTextStyles.extH4),
             CustomToolTip(
               offsetPositionLeftValue: 100,
               toolTipChild: Text(
                 Strings.issuerAddressInfo,
-                style: RibnTextStyles.toolTipTextStyle,
+                style: RibnToolkitTextStyles.toolTipTextStyle,
               ),
             ),
           ],
@@ -38,7 +38,7 @@ class IssuerAddressDetails extends StatelessWidget {
             SvgPicture.asset(RibnAssets.issuerFingerprint),
             Text(
               formatAddrString(issuerAddress),
-              style: RibnTextStyles.smallBody,
+              style: RibnToolkitTextStyles.smallBody,
             ),
             CustomCopyButton(textToBeCopied: issuerAddress),
           ],

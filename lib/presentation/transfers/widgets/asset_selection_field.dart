@@ -1,6 +1,6 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/widgets/asset_info.dart';

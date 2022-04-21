@@ -3,9 +3,9 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/continue_button.dart';
 
@@ -31,7 +31,7 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                 width: 315,
                 child: Text(
                   backButtonPressed ? Strings.letsTryThatAgain : Strings.writeDownSeedPhrase,
-                  style: RibnTextStyles.h1,
+                  style: RibnToolkitTextStyles.h1,
                   textAlign: TextAlign.center,
                   textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
                 ),
@@ -54,7 +54,7 @@ class SeedPhraseDisplayPage extends StatelessWidget {
               width: 690,
               child: Text(
                 backButtonPressed ? Strings.heyIWasntKidding : Strings.writeDownSeedPhraseDesc,
-                style: RibnTextStyles.body1,
+                style: RibnToolkitTextStyles.body1,
                 textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
               ),
             ),
@@ -103,7 +103,7 @@ class SeedPhraseDisplayPage extends StatelessWidget {
             height: 20,
             child: Text(
               '${index + 1}.',
-              style: RibnTextStyles.body1Bold.copyWith(
+              style: RibnToolkitTextStyles.body1Bold.copyWith(
                 color: idxColor,
               ),
               textHeightBehavior: const TextHeightBehavior(
@@ -116,7 +116,7 @@ class SeedPhraseDisplayPage extends StatelessWidget {
             width: 100,
             child: Text(
               word,
-              style: RibnTextStyles.body1Bold,
+              style: RibnToolkitTextStyles.body1Bold,
             ),
           ),
         ],
@@ -152,7 +152,7 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                 const SizedBox(width: 10),
                 Text(
                   Strings.download,
-                  style: RibnTextStyles.body1Bold.copyWith(color: RibnColors.primary),
+                  style: RibnToolkitTextStyles.body1Bold.copyWith(color: RibnColors.primary),
                   textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
                 ),
               ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/colors.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/presentation/asset_details/widgets/action_button.dart';
 import 'package:ribn/widgets/custom_drop_down.dart';
@@ -120,7 +120,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
               child: Center(
                 child: Text(
                   selectedUnit ?? widget.currentUnit ?? 'Select Unit type',
-                  style: RibnTextStyles.dropdownButtonStyle,
+                  style: RibnToolkitTextStyles.dropdownButtonStyle,
                 ),
               ),
             ),
@@ -156,7 +156,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
               (unit) => MaterialButton(
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(unit, style: RibnTextStyles.smallBody),
+                  child: Text(unit, style: RibnToolkitTextStyles.smallBody),
                 ),
                 onPressed: () {
                   setState(() {

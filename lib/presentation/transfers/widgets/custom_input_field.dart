@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/widgets/custom_tooltip.dart';
 
 /// A wrapper widget used for custom input fields on transfer input pages.
@@ -40,13 +40,13 @@ class CustomInputField extends StatelessWidget {
             children: [
               Text(
                 itemLabel,
-                style: RibnTextStyles.extH4,
+                style: RibnToolkitTextStyles.extH4,
               ),
               informationText != null
                   ? CustomToolTip(
                       toolTipChild: Text(
                         informationText!,
-                        style: RibnTextStyles.toolTipTextStyle,
+                        style: RibnToolkitTextStyles.toolTipTextStyle,
                       ),
                       offsetPositionLeftValue: 100,
                       toolTipIcon: Image.asset(

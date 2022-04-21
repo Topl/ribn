@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/presentation/asset_details/widgets/edit_button.dart';
 
 /// One of the asset details displayed on [AssetDetailsPage].
@@ -30,7 +30,7 @@ class AssetIconDetails extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Text('Icon', style: RibnTextStyles.extH4),
+            const Text('Icon', style: RibnToolkitTextStyles.extH4),
             const Spacer(),
             editingSectionOpened ? const SizedBox() : EditButton(onEditPressed: onEditPressed),
           ],

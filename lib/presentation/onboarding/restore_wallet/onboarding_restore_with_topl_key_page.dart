@@ -4,7 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/actions/misc_actions.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
@@ -58,7 +58,7 @@ class _OnboardingRestoreWithToplKeyPageState extends State<OnboardingRestoreWith
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: SizedBox(
                 width: maxWidth,
-                child: const Text(Strings.uploadFile, style: RibnTextStyles.extH3),
+                child: const Text(Strings.uploadFile, style: RibnToolkitTextStyles.extH3),
               ),
             ),
             _buildUploadFileButton(),
@@ -88,7 +88,7 @@ class _OnboardingRestoreWithToplKeyPageState extends State<OnboardingRestoreWith
           LargeButton(
             buttonChild: Text(
               Strings.browse,
-              style: RibnTextStyles.btnMedium.copyWith(
+              style: RibnToolkitTextStyles.btnMedium.copyWith(
                 color: Colors.white,
               ),
             ),
@@ -176,7 +176,7 @@ class _OnboardingRestoreWithToplKeyPageState extends State<OnboardingRestoreWith
       padding: EdgeInsets.only(top: 22, bottom: 76),
       child: Text(
         Strings.restoreWallet,
-        style: RibnTextStyles.h1,
+        style: RibnToolkitTextStyles.h1,
         textAlign: TextAlign.center,
       ),
     );

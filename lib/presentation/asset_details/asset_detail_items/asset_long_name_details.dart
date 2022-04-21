@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/presentation/asset_details/widgets/edit_button.dart';
@@ -34,13 +34,13 @@ class AssetLongNameDetails extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Text('Asset name', style: RibnTextStyles.extH4),
+            const Text('Asset name', style: RibnToolkitTextStyles.extH4),
             const Spacer(),
             editingSectionOpened ? const SizedBox() : EditButton(onEditPressed: onEditPressed),
           ],
         ),
         const SizedBox(height: 3),
-        Text(currLongName ?? 'Undefined', style: RibnTextStyles.smallBody),
+        Text(currLongName ?? 'Undefined', style: RibnToolkitTextStyles.smallBody),
       ],
     );
   }

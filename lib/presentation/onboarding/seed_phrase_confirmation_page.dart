@@ -2,9 +2,9 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/containers/seed_phrase_confirmation_container.dart';
 import 'package:ribn/widgets/continue_button.dart';
 
@@ -33,7 +33,7 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
                   height: 100,
                   child: Text(
                     vm.finishedInputting ? Strings.seedPhraseConfirmed : Strings.confirmYourSeedPhrase,
-                    style: RibnTextStyles.h1,
+                    style: RibnToolkitTextStyles.h1,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -51,7 +51,7 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
                     width: 650,
                     child: Text(
                       vm.finishedInputting ? Strings.seedPhraseConfirmedDesc : Strings.confirmYourSeedPhraseDesc,
-                      style: RibnTextStyles.body1,
+                      style: RibnToolkitTextStyles.body1,
                       textAlign: TextAlign.left,
                       textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
                     ),
@@ -125,7 +125,7 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
                     child: Center(
                       child: Text(
                         word,
-                        style: RibnTextStyles.body1,
+                        style: RibnToolkitTextStyles.body1,
                         textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
                       ),
                     ),
@@ -148,7 +148,7 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
             height: idxContainerHeight,
             child: Text(
               '${idx + 1}.',
-              style: RibnTextStyles.body1Bold.copyWith(
+              style: RibnToolkitTextStyles.body1Bold.copyWith(
                 color: idxColor,
               ),
               textHeightBehavior: const TextHeightBehavior(
@@ -171,7 +171,7 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
                 child: Center(
                   child: Text(
                     word,
-                    style: RibnTextStyles.body1Bold,
+                    style: RibnToolkitTextStyles.body1Bold,
                     textAlign: TextAlign.center,
                     textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
                   ),

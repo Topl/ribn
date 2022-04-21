@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/presentation/home/mint_page.dart';
 import 'package:ribn/presentation/home/wallet_balance_page.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';

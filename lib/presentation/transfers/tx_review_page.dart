@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
@@ -84,7 +84,7 @@ class TxReviewPage extends StatelessWidget {
             LargeButton(
               buttonChild: Text(
                 Strings.cancel,
-                style: RibnTextStyles.btnMedium.copyWith(
+                style: RibnToolkitTextStyles.btnMedium.copyWith(
                   color: RibnColors.primary,
                 ),
               ),
@@ -98,7 +98,7 @@ class TxReviewPage extends StatelessWidget {
             LargeButton(
               buttonChild: Text(
                 Strings.confirm,
-                style: RibnTextStyles.btnMedium.copyWith(
+                style: RibnToolkitTextStyles.btnMedium.copyWith(
                   color: Colors.white,
                 ),
               ),
@@ -120,7 +120,7 @@ class TxReviewPage extends StatelessWidget {
       children: [
         Text(
           itemLabel,
-          style: RibnTextStyles.extH4,
+          style: RibnToolkitTextStyles.extH4,
         ),
         const SizedBox(height: 6),
         item,

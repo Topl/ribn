@@ -1,7 +1,7 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/wallet_balance_container.dart';
@@ -122,7 +122,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
         toolTipIcon: hasPolys ? Image.asset(RibnAssets.roundInfoCircle) : Image.asset(RibnAssets.smsFailed),
         toolTipChild: RichText(
           text: TextSpan(
-            style: RibnTextStyles.toolTipTextStyle,
+            style: RibnToolkitTextStyles.toolTipTextStyle,
             children: [
               TextSpan(
                 text: hasPolys ? Strings.refillCurrentPolyBalance : Strings.refillEmptyPolyBalance,
@@ -134,7 +134,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
                     children: [
                       Text(
                         ' Baas. ',
-                        style: RibnTextStyles.toolTipTextStyle.copyWith(
+                        style: RibnToolkitTextStyles.toolTipTextStyle.copyWith(
                           color: const Color(0xff00B5AB),
                         ),
                       ),
@@ -161,7 +161,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(Strings.totalAmount, style: RibnTextStyles.extH3),
+              const Text(Strings.totalAmount, style: RibnToolkitTextStyles.extH3),
               SizedBox(
                 width: 10,
                 child: renderTooltip(),
@@ -201,7 +201,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
           children: [
             const Text(
               Strings.assets,
-              style: RibnTextStyles.extH3,
+              style: RibnToolkitTextStyles.extH3,
             ),
             ListView.builder(
               shrinkWrap: true,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/login/widgets/password_text_field.dart';
 import 'package:ribn/widgets/custom_close_button.dart';
@@ -54,7 +54,7 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
                   height: 26,
                   child: Text(
                     Strings.deleteRibnWallet,
-                    style: RibnTextStyles.extH2,
+                    style: RibnToolkitTextStyles.extH2,
                   ),
                 ),
                 const SizedBox(height: 25),
@@ -64,7 +64,7 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
                   height: 125,
                   child: Text(
                     Strings.deleteRibnWalletDesc,
-                    style: RibnTextStyles.smallBody.copyWith(fontSize: 15),
+                    style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15),
                   ),
                 ),
                 const SizedBox(height: 15),
@@ -97,7 +97,7 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
                 LargeButton(
                   buttonChild: Text(
                     Strings.noIChangedMyMind,
-                    style: RibnTextStyles.btnMedium.copyWith(
+                    style: RibnToolkitTextStyles.btnMedium.copyWith(
                       color: RibnColors.primary,
                     ),
                   ),
@@ -110,7 +110,7 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
                 LargeButton(
                   buttonChild: Text(
                     Strings.yesIWantToDelete,
-                    style: RibnTextStyles.btnMedium.copyWith(
+                    style: RibnToolkitTextStyles.btnMedium.copyWith(
                       color: Colors.white,
                     ),
                   ),

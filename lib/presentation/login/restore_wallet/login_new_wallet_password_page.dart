@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/login/widgets/next_button.dart';
 import 'package:ribn/presentation/login/widgets/password_text_field.dart';
@@ -80,7 +80,7 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
             // new wallet password
             SizedBox(
               width: 309,
-              child: Text(Strings.newWalletPassword, style: RibnTextStyles.extH3.copyWith()),
+              child: Text(Strings.newWalletPassword, style: RibnToolkitTextStyles.extH3.copyWith()),
             ),
             // enter new wallet password text field
             PasswordTextField(
@@ -91,7 +91,7 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
             const SizedBox(height: 20),
             SizedBox(
               width: 309,
-              child: Text(Strings.confirmWalletPassword, style: RibnTextStyles.extH3.copyWith()),
+              child: Text(Strings.confirmWalletPassword, style: RibnToolkitTextStyles.extH3.copyWith()),
             ),
             // confirm wallet password text field
             PasswordTextField(
