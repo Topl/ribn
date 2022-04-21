@@ -5,6 +5,7 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/widgets/custom_copy_button.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 
 class AddressDisplayContainer extends StatefulWidget {
   const AddressDisplayContainer({

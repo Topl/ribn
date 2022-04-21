@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/assets.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
 
 class UIConstants {
   static const sizedBox = SizedBox(height: 10);

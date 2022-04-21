@@ -6,7 +6,7 @@ import 'package:redux/redux.dart';
 
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
-import 'package:ribn/constants/assets.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';

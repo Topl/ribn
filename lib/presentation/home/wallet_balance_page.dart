@@ -1,6 +1,6 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/assets.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/wallet_balance_container.dart';
@@ -27,21 +27,6 @@ class WalletBalancePage extends StatefulWidget {
 }
 
 class _WalletBalancePageState extends State<WalletBalancePage> {
-  /// [TextStyle] for the asset short name.
-  final TextStyle assetShortNameStyle = const TextStyle(
-    fontFamily: 'Nunito',
-    fontWeight: FontWeight.w600,
-    fontSize: 15,
-    color: RibnColors.defaultText,
-  );
-
-  /// [TextStyle] for the asset long name.
-  final TextStyle assetLongNameStyle = const TextStyle(
-    fontFamily: 'Nunito',
-    fontSize: 12,
-    color: Color(0xff585858),
-  );
-
   /// True if currently fetching balances.
   bool _fetchingBalances = true;
 
@@ -248,11 +233,11 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       iconImage: Image.asset(assetIcon),
       shortName: Text(
         asset.assetCode.shortName.show,
-        style: assetShortNameStyle,
+        style: RibnToolkitTextStyles.assetShortNameStyle,
         overflow: TextOverflow.ellipsis,
       ),
       assetLongName: assetLongName.isNotEmpty
-          ? Text(assetLongName, style: assetLongNameStyle)
+          ? Text(assetLongName, style: RibnToolkitTextStyles.assetLongNameStyle)
           : Container(
               width: 139,
               height: 13,
@@ -265,7 +250,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       assetQuantityDetails: Text(
         '${asset.quantity.toString()} $assetUnit',
         overflow: TextOverflow.ellipsis,
-        style: assetShortNameStyle.copyWith(
+        style: RibnToolkitTextStyles.assetShortNameStyle.copyWith(
           color: RibnColors.primary,
         ),
       ),

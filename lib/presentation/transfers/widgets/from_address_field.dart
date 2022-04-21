@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/assets.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/widgets/address_display_container.dart';
