@@ -1,6 +1,6 @@
 import 'package:ribn/platform/interfaces.dart';
 
-class PlatformLocalStorage implements PlatformLocalStorageI {
+class PlatformLocalStorage implements IPlatformLocalStorage {
   PlatformLocalStorage._internal();
   static PlatformLocalStorage? _instance;
   factory PlatformLocalStorage() {

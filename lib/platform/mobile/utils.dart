@@ -1,6 +1,6 @@
 import 'package:ribn/platform/interfaces.dart';
 
-class PlatformUtils implements PlatformUtilsI {
+class PlatformUtils implements IPlatformUtils {
   PlatformUtils._internal();
   static PlatformUtils? _instance;
   factory PlatformUtils() {
