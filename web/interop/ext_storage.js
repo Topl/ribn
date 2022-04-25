@@ -6,7 +6,6 @@ var ext_storage = {
     */
     getFromLocalStorage: () => {
         return new Promise((resolve, reject) => {
-            console.log("Attempting to get from local storage");
             // `null` gets everything in local storage
             chrome.storage.local.get(null, function (items) {
                 if (chrome.runtime.lastError) {
