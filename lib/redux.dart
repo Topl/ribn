@@ -68,15 +68,9 @@ class Redux {
   static Future<AppState> getInitialAppState(bool initTestStore) async {
     try {
       final Map<String, dynamic> persistedAppState = await getPersistedAppState();
-      // A valid persisted app state must contain 'keychainState' as a key.
-      final isPersistedStateValid = persistedAppState.containsKey('keychainState');
-      return isPersistedStateValid
-          ? AppState.fromMap(persistedAppState)
-          : initTestStore
-              ? AppState.test()
-              : AppState.initial();
+      return AppState.fromMap(persistedAppState);
     } catch (e) {
-      return AppState.initial();
+      return initTestStore ? AppState.test() : AppState.initial();
     }
   }
 }
