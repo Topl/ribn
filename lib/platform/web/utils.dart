@@ -16,7 +16,7 @@ external void downloadAsFile(String fileName, String text);
 external Future<void> openAppInNewTab();
 external Future<String> getCurrentView();
 
-class PlatformUtils implements PlatformUtilsI {
+class PlatformUtils implements IPlatformUtils {
   PlatformUtils._internal();
   static PlatformUtils? _instance;
   factory PlatformUtils() {

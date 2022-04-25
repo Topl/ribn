@@ -1,6 +1,6 @@
 import 'package:ribn/platform/interfaces.dart';
 
-class Messenger implements MessengerI {
+class Messenger implements IMessenger {
   Messenger._internal();
   static Messenger? _instance;
   factory Messenger() {
