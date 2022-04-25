@@ -12,6 +12,7 @@ import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/continue_button.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_checkbox.dart';
 
 /// Builds checks to ensure that the user understands the importance of the seed phrase.
 class ReadCarefullyPageOne extends StatefulWidget {
@@ -88,39 +89,21 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
   }
 
   Widget _buildCheckListTile(String label, bool checked, Function(bool?)? onChecked) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(2),
-              border: Border.all(color: checked ? RibnColors.active : RibnColors.inactive),
-            ),
-            constraints: const BoxConstraints(maxHeight: 20, maxWidth: 20),
-            child: Checkbox(
-              fillColor: MaterialStateProperty.all(Colors.transparent),
-              checkColor: RibnColors.active,
-              value: checked,
-              onChanged: onChecked,
-            ),
-          ),
+    return CustomCheckbox(
+      fillColor: MaterialStateProperty.all(Colors.transparent),
+      checkColor: RibnColors.active,
+      borderColor: checked ? RibnColors.active : RibnColors.inactive,
+      value: checked,
+      onChanged: onChecked,
+      label: Padding(
+        padding: const EdgeInsets.only(top: 38),
+        child: Text(
+          label,
+          style: RibnToolkitTextStyles.body1.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),
+          textAlign: TextAlign.start,
+          textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
         ),
-        Expanded(
-          child: SizedBox(
-            height: 100,
-            child: Text(
-              label,
-              style:
-                  RibnToolkitTextStyles.body1.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),
-              textAlign: TextAlign.start,
-              textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 

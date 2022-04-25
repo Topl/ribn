@@ -9,6 +9,7 @@ import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/create_password_container.dart';
 import 'package:ribn/presentation/login/widgets/password_text_field.dart';
 import 'package:ribn/widgets/continue_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_checkbox.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Builds the form for creating a wallet password.
@@ -160,54 +161,36 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   }
 
   Widget _buildTermsOfAgreementCheck() {
-    return SizedBox(
-      width: 700,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 16),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(2),
-                border: Border.all(color: _readTermsOfAgreement ? RibnColors.active : RibnColors.inactive),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 40),
+      child: CustomCheckbox(
+        fillColor: MaterialStateProperty.all(Colors.transparent),
+        checkColor: RibnColors.active,
+        borderColor: _readTermsOfAgreement ? RibnColors.active : RibnColors.inactive,
+        value: _readTermsOfAgreement,
+        onChanged: (val) => setState(() {
+          _readTermsOfAgreement = val ?? false;
+        }),
+        label: RichText(
+          text: TextSpan(
+            style: RibnToolkitTextStyles.body1
+                .copyWith(color: _readTermsOfAgreement ? RibnColors.defaultText : RibnColors.inactive),
+            children: [
+              const TextSpan(
+                text: Strings.readAndAgreedToU,
               ),
-              constraints: const BoxConstraints(maxHeight: 20, maxWidth: 20),
-              child: Checkbox(
-                fillColor: MaterialStateProperty.all(Colors.transparent),
-                checkColor: RibnColors.active,
-                value: _readTermsOfAgreement,
-                onChanged: (val) => setState(() {
-                  _readTermsOfAgreement = val ?? false;
-                }),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 50,
-            child: RichText(
-              text: TextSpan(
+              TextSpan(
+                text: 'Terms of Use',
                 style: RibnToolkitTextStyles.body1
-                    .copyWith(color: _readTermsOfAgreement ? RibnColors.defaultText : RibnColors.inactive),
-                children: [
-                  const TextSpan(
-                    text: Strings.readAndAgreedToU,
-                  ),
-                  TextSpan(
-                    text: 'Terms of Use',
-                    style: RibnToolkitTextStyles.body1
-                        .copyWith(color: _readTermsOfAgreement ? RibnColors.primary : RibnColors.inactive),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () async {
-                        await launch(Strings.termsOfUseUrl);
-                      },
-                  )
-                ],
-              ),
-            ),
+                    .copyWith(color: _readTermsOfAgreement ? RibnColors.primary : RibnColors.inactive),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () async {
+                    await launch(Strings.termsOfUseUrl);
+                  },
+              )
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

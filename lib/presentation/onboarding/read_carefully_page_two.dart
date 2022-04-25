@@ -6,6 +6,7 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/widgets/continue_button.dart';
 import 'package:ribn/widgets/custom_tooltip.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_checkbox.dart';
 
 /// Builds checks to ensure that the user understands the importance of the wallet password and seed phrase.
 class ReadCarefullyPageTwo extends StatefulWidget {
@@ -91,68 +92,55 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
   }
 
   Widget _buildCheckListTile(String label, bool checked, Function(bool?)? onChecked, bool renderTooltipIcon) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(2),
-                border: Border.all(
-                  color: checked ? RibnColors.active : RibnColors.inactive,
-                ),
-              ),
-              constraints: const BoxConstraints(maxHeight: 20, maxWidth: 20),
-              child: Checkbox(
-                fillColor: MaterialStateProperty.all(Colors.transparent),
-                checkColor: RibnColors.active,
-                value: checked,
-                onChanged: onChecked,
-              ),
-            ),
-          ),
-          Expanded(
-            child: SizedBox(
-              height: 40,
-              child: Text(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        CustomCheckbox(
+          fillColor: MaterialStateProperty.all(Colors.transparent),
+          checkColor: RibnColors.active,
+          borderColor: checked ? RibnColors.defaultText : RibnColors.inactive,
+          value: checked,
+          onChanged: onChecked,
+          label: Row(
+            children: [
+              Text(
                 label,
                 style:
                     RibnToolkitTextStyles.body1.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),
                 textAlign: TextAlign.start,
                 textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
               ),
-            ),
-          ),
-          if (renderTooltipIcon == true)
-            CustomToolTip(
-              offsetPositionLeftValue: 450,
-              toolTipIcon: Image.asset(
-                RibnAssets.roundInfoCircle,
-                width: 24,
-                color: checked ? RibnColors.defaultText : RibnColors.inactive,
-              ),
-              toolTipChild: Column(
-                children: [
-                  Text(
-                    Strings.howIsMySeedPhraseUnrecoverable,
-                    style: RibnToolkitTextStyles.toolTipTextStyle.copyWith(
-                      fontWeight: FontWeight.bold,
+              if (renderTooltipIcon == true)
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: CustomToolTip(
+                    offsetPositionLeftValue: 400,
+                    toolTipIcon: Image.asset(
+                      RibnAssets.roundInfoCircle,
+                      width: 24,
+                      color: checked ? RibnColors.defaultText : RibnColors.inactive,
                     ),
+                    toolTipChild: Column(
+                      children: [
+                        Text(
+                          Strings.howIsMySeedPhraseUnrecoverable,
+                          style: RibnToolkitTextStyles.toolTipTextStyle.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const Text(
+                          Strings.howIsMySeedPhraseUnrecoverableNewLine,
+                          style: RibnToolkitTextStyles.toolTipTextStyle,
+                        )
+                      ],
+                    ),
+                    toolTipBackgroundColor: const Color(0xffb1e7e1),
                   ),
-                  const Text(
-                    Strings.howIsMySeedPhraseUnrecoverableNewLine,
-                    style: RibnToolkitTextStyles.toolTipTextStyle,
-                  )
-                ],
-              ),
-              toolTipBackgroundColor: const Color(0xffb1e7e1),
-            )
-        ],
-      ),
+                )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
