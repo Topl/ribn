@@ -9,7 +9,7 @@ import 'package:ribn/platform/interfaces.dart';
 external Future<String> getFromLocalStorageStringified();
 external Future<void> persistToLocalStorage(String data);
 
-class PlatformLocalStorage implements PlatformLocalStorageI {
+class PlatformLocalStorage implements IPlatformLocalStorage {
   PlatformLocalStorage._internal();
   static PlatformLocalStorage? _instance;
   factory PlatformLocalStorage() {

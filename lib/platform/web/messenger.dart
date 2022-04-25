@@ -9,7 +9,7 @@ external void openConnection();
 external void addPortMessageListener(Function fn);
 external void sendPortMessage(String msg);
 
-class Messenger implements MessengerI {
+class Messenger implements IMessenger {
   Messenger._internal();
   static Messenger? _instance;
   factory Messenger() {

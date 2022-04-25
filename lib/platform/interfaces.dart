@@ -1,4 +1,4 @@
-abstract class PlatformUtilsI {
+abstract class IPlatformUtils {
   /// Returns the current application version.
   String getCurrentAppVersion();
 
@@ -18,7 +18,7 @@ abstract class PlatformUtilsI {
   void closeWindow();
 }
 
-abstract class MessengerI {
+abstract class IMessenger {
   /// Send [msg] to the background script.
   void sendMsg(String msg);
 
@@ -29,7 +29,7 @@ abstract class MessengerI {
   void initMsgListener(Function fn);
 }
 
-abstract class PlatformLocalStorageI {
+abstract class IPlatformLocalStorage {
   /// Save [data] to local storage.
   Future<void> saveState(String data);
 
