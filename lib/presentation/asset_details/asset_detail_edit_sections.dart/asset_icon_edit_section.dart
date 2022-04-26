@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
+import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/ui_constants.dart';
-import 'package:ribn/presentation/asset_details/widgets/action_button.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn/models/app_state.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The section for editing asset icon.
 ///
@@ -42,18 +46,35 @@ class _AssetIconEditSectionState extends State<AssetIconEditSection> {
           const SizedBox(height: 20),
           Row(
             children: [
-              ActionButton(
-                saveChanges: true,
-                assetCode: widget.assetCode,
-                onPressed: widget.onActionTaken,
-                icon: _selectedIcon,
+              LargeButton(
+                buttonWidth: 123,
+                buttonHeight: 33,
+                buttonChild: Text(
+                  'Save',
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
+                ),
+                backgroundColor: RibnColors.primary,
+                onPressed: () {
+                  StoreProvider.of<AppState>(context).dispatch(
+                    UpdateAssetDetailsAction(
+                      assetCode: widget.assetCode,
+                      icon: _selectedIcon,
+                    ),
+                  );
+                  widget.onActionTaken();
+                },
               ),
               const SizedBox(width: 15),
-              ActionButton(
-                saveChanges: false,
-                assetCode: widget.assetCode,
-                onPressed: widget.onActionTaken,
-              ),
+              LargeButton(
+                buttonWidth: 123,
+                buttonHeight: 33,
+                buttonChild: Text(
+                  'Cancel',
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.primary),
+                ),
+                backgroundColor: RibnColors.accent,
+                onPressed: () => widget.onActionTaken(),
+              )
             ],
           ),
         ],
