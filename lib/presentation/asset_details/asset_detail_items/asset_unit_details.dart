@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn/presentation/asset_details/widgets/edit_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/hover_icon_button.dart';
 
 /// One of the asset details displayed on [AssetDetailsPage].
 ///
@@ -32,7 +34,16 @@ class AssetUnitDetails extends StatelessWidget {
           children: [
             const Text('Unit', style: RibnToolkitTextStyles.extH4),
             const Spacer(),
-            editingSectionOpened ? const SizedBox() : EditButton(onEditPressed: onEditPressed),
+            editingSectionOpened
+                ? const SizedBox()
+                : HoverIconButton(
+                    buttonText: Text(
+                      'Edit',
+                      style: RibnToolkitTextStyles.dropdownButtonStyle.copyWith(color: RibnColors.primary),
+                    ),
+                    buttonIcon: Image.asset(RibnAssets.editIcon),
+                    onPressed: onEditPressed,
+                  ),
           ],
         ),
         const SizedBox(height: 3),
