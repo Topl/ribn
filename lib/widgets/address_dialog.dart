@@ -1,14 +1,14 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/custom_close_button.dart';
-import 'package:ribn/widgets/custom_copy_button.dart';
 import 'package:ribn/widgets/custom_divider.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
 
 /// The dialog that displays the address barcode and text.
 class AddressDialog extends StatelessWidget {

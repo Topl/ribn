@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn/widgets/custom_copy_button.dart';
 import 'package:ribn/widgets/custom_tooltip.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
 
 class IssuerAddressDetails extends StatelessWidget {
   final String issuerAddress;
