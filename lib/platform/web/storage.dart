@@ -22,5 +22,5 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   Future<void> saveState(String data) => promiseToFuture(persistToLocalStorage(data));
 
   @override
-  Future<String> getState() => promiseToFuture(getFromLocalStorageStringified);
+  Future<String> getState() => promiseToFuture(getFromLocalStorageStringified());
 }
