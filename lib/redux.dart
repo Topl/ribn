@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:redux/redux.dart';
-import 'package:ribn/data/data.dart' as local;
 import 'package:ribn/middlewares/app_middleware.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:ribn/platform/platform.dart';
 import 'package:ribn/reducers/app_reducer.dart';
 import 'package:ribn/repositories/keychain_repository.dart';
 import 'package:ribn/repositories/login_repository.dart';
@@ -54,7 +54,7 @@ class Redux {
 
   static Future<Map<String, dynamic>> getPersistedAppState() async {
     try {
-      final String persistedAppState = await local.getDataFromLocalStorage();
+      final String persistedAppState = await PlatformLocalStorage.instance.getState();
       final Map<String, dynamic> mappedAppState = jsonDecode(persistedAppState) as Map<String, dynamic>;
       return mappedAppState;
     } catch (e) {
@@ -68,15 +68,9 @@ class Redux {
   static Future<AppState> getInitialAppState(bool initTestStore) async {
     try {
       final Map<String, dynamic> persistedAppState = await getPersistedAppState();
-      // A valid persisted app state must contain 'keychainState' as a key.
-      final isPersistedStateValid = persistedAppState.containsKey('keychainState');
-      return isPersistedStateValid
-          ? AppState.fromMap(persistedAppState)
-          : initTestStore
-              ? AppState.test()
-              : AppState.initial();
+      return AppState.fromMap(persistedAppState);
     } catch (e) {
-      return AppState.initial();
+      return initTestStore ? AppState.test() : AppState.initial();
     }
   }
 }
