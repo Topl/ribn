@@ -31,7 +31,7 @@ class AssetIconDetails extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Text('Icon', style: RibnToolkitTextStyles.extH4),
+            const Text('Icon', style: RibnToolkitTextStyles.h4),
             const Spacer(),
             editingSectionOpened
                 ? const SizedBox()

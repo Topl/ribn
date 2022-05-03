@@ -19,7 +19,7 @@ class AssetAmountDetails extends StatelessWidget {
       children: [
         Row(
           children: const [
-            Text('Total Amount', style: RibnToolkitTextStyles.extH4),
+            Text('Total Amount', style: RibnToolkitTextStyles.h4),
           ],
         ),
         const SizedBox(height: 3),

@@ -36,7 +36,7 @@ class UploadedFileContainer extends StatelessWidget {
                 Text(
                   uploadedFileName,
                   style: const TextStyle(
-                    fontFamily: 'Nunito',
+                    fontFamily: 'DM Sans',
                     fontSize: 15,
                     fontWeight: FontWeight.w400,
                     color: RibnColors.primary,

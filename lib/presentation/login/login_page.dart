@@ -1,14 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:ribn_toolkit/constants/assets.dart';
+import 'package:ribn/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/login_container.dart';
-import 'package:ribn/widgets/custom_icon_button.dart';
 import 'package:ribn/widgets/custom_tooltip.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -43,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
     return LoginContainer(
       builder: (context, vm) {
         return Scaffold(
-          backgroundColor: RibnColors.accent,
+          backgroundColor: Colors.white,
           body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,13 +51,13 @@ class _LoginPageState extends State<LoginPage> {
               const Text(
                 Strings.ribnWallet,
                 style: TextStyle(
-                  fontFamily: 'Spectral',
+                  fontFamily: 'DM Sans',
                   fontWeight: FontWeight.bold,
                   fontSize: 32,
                 ),
               ),
               const SizedBox(height: 15),
-              SvgPicture.asset(RibnAssets.menuIcon, width: 77),
+              Image.asset(RibnAssets.newRibnLogo, width: 77),
               const SizedBox(height: 20),
               const Center(
                 child: SizedBox(
@@ -68,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text(
                       Strings.intro,
                       style: TextStyle(
-                        fontFamily: 'Nunito',
+                        fontFamily: 'DM Sans',
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
                         height: 1.6,
@@ -155,38 +154,19 @@ class _LoginPageState extends State<LoginPage> {
   /// Builds the text field for the wallet password.
   /// Allows showing/hiding the text input.
   Widget _buildTextField() {
-    final OutlineInputBorder textFieldBorder = OutlineInputBorder(
-      borderSide: const BorderSide(color: RibnColors.primary),
-      borderRadius: BorderRadius.circular(4.7),
-    );
     return SizedBox(
       width: _baseWidth,
       height: 35,
-      child: TextField(
+      child: CustomTextField(
+        passwordField: true,
         obscureText: _obscurePassword,
         controller: _textEditingController,
-        decoration: InputDecoration(
-          suffixIcon: CustomIconButton(
-            icon: SvgPicture.asset(
-              _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
-              width: 12,
-            ),
-            onPressed: () {
-              setState(() {
-                _obscurePassword = !_obscurePassword;
-              });
-            },
-          ),
-          labelText: Strings.typeSomething,
-          labelStyle: RibnToolkitTextStyles.hintStyle,
-          isDense: true,
-          fillColor: Colors.white,
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          filled: true,
-          contentPadding: const EdgeInsets.all(10),
-          enabledBorder: textFieldBorder,
-          focusedBorder: textFieldBorder,
-        ),
+        onObscureClick: () {
+          setState(() {
+            _obscurePassword = !_obscurePassword;
+          });
+        },
+        hintText: Strings.typeSomething,
       ),
     );
   }
@@ -200,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
           text: TextSpan(
             style: const TextStyle(
               color: RibnColors.defaultText,
-              fontFamily: 'Nunito',
+              fontFamily: 'DM Sans',
               fontSize: 15,
             ),
             children: [

@@ -21,7 +21,7 @@ class IssuerAddressDetails extends StatelessWidget {
       children: [
         Row(
           children: const [
-            Text(Strings.issuerAddress, style: RibnToolkitTextStyles.extH4),
+            Text(Strings.issuerAddress, style: RibnToolkitTextStyles.h4),
             CustomToolTip(
               offsetPositionLeftValue: 100,
               toolTipChild: Text(

@@ -9,8 +9,8 @@ import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/login/widgets/advanced_option_button.dart';
 import 'package:ribn/presentation/login/widgets/password_text_field.dart';
-import 'package:ribn/widgets/custom_text_field.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 
 /// Restore wallet using mnemonic / seed phrase during onboarding.
 ///
@@ -69,7 +69,7 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
   Widget build(BuildContext context) {
     /// Style used for descriptive text on the page.
     const TextStyle descriptionStyle = TextStyle(
-      fontFamily: 'Nunito',
+      fontFamily: 'DM Sans',
       fontSize: 15,
     );
 
@@ -189,7 +189,7 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
           child: Text(
             'Restore',
             style: TextStyle(
-              fontFamily: 'Nunito',
+              fontFamily: 'DM Sans',
               fontSize: 20,
               color: Colors.white,
               fontWeight: FontWeight.w600,

@@ -110,6 +110,7 @@ flutter:
     #     - asset: assets/fonts/spectral/Spectral-Regular.ttf
     #     - asset: assets/fonts/spectral/Spectral-Medium.ttf
     #       weight: 500
-    - family: Nunito
+    - family: DM Sans
       fonts:
-        - asset: packages/ribn_toolkit/fonts/Nunito-Regular.ttf
+        - asset: packages/ribn_toolkit/fonts/DMSans-Medium.ttf
+        - asset: packages/ribn_toolkit/fonts/DMSans-Regular.ttf

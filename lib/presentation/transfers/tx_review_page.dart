@@ -31,7 +31,7 @@ class TxReviewPage extends StatelessWidget {
 
   /// Default text style being used on this page.
   final TextStyle defaultTextStyle = const TextStyle(
-    fontFamily: 'Nunito',
+    fontFamily: 'DM Sans',
     fontSize: 12,
     color: RibnColors.defaultText,
   );
@@ -120,7 +120,7 @@ class TxReviewPage extends StatelessWidget {
       children: [
         Text(
           itemLabel,
-          style: RibnToolkitTextStyles.extH4,
+          style: RibnToolkitTextStyles.h4,
         ),
         const SizedBox(height: 6),
         item,
@@ -149,7 +149,7 @@ class TxReviewPage extends StatelessWidget {
               '${transferDetails.amount} of ',
               style: const TextStyle(
                 fontSize: 12,
-                fontFamily: 'Nunito',
+                fontFamily: 'DM Sans',
               ),
               overflow: TextOverflow.ellipsis,
             ),
@@ -235,7 +235,7 @@ class TxReviewPage extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           maxLines: 3,
           style: const TextStyle(
-            fontFamily: 'Nunito',
+            fontFamily: 'DM Sans',
             fontSize: 12,
             color: Color(0xFF585858),
           ),

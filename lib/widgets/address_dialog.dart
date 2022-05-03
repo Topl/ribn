@@ -39,7 +39,7 @@ class AddressDialog extends StatelessWidget {
                   child: Text(
                     Strings.myRibnWalletAddress,
                     style: TextStyle(
-                      fontFamily: 'Spectral',
+                      fontFamily: 'DM Sans',
                       fontSize: 24,
                       fontWeight: FontWeight.w700,
                       color: RibnColors.defaultText,
@@ -59,7 +59,7 @@ class AddressDialog extends StatelessWidget {
                 Text(
                   formatAddrString(ribnAddress.toplAddress.toBase58()),
                   style: const TextStyle(
-                    fontFamily: 'Nunito',
+                    fontFamily: 'DM Sans',
                     fontWeight: FontWeight.w600,
                     fontSize: 15,
                     color: RibnColors.defaultText,
@@ -75,7 +75,7 @@ class AddressDialog extends StatelessWidget {
                       const Text(
                         Strings.copyAddress,
                         style: TextStyle(
-                          fontFamily: 'Nunito',
+                          fontFamily: 'DM Sans',
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: RibnColors.defaultText,

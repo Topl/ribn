@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   Text(
                     _pageLabels[key],
                     style: TextStyle(
-                      fontFamily: 'Nunito',
+                      fontFamily: 'DM Sans',
                       fontWeight: FontWeight.w600,
                       fontSize: 7,
                       color: isActive ? RibnColors.primary : const Color(0xff979797),

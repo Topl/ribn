@@ -4,7 +4,7 @@ import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/widgets/custom_drop_down.dart';
-import 'package:ribn/widgets/custom_text_field.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 
 /// An input field used on the [MintInputPage].
 ///

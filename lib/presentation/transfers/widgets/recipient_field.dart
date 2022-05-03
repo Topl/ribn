@@ -10,7 +10,7 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_display_container.dart';
-import 'package:ribn/widgets/custom_text_field.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 
 /// An input field used on the input transfer pages.
 ///
@@ -121,7 +121,7 @@ class _RecipientFieldState extends State<RecipientField> {
             Text(
               formatAddrString(widget.validRecipientAddress),
               style: const TextStyle(
-                fontFamily: 'Nunito',
+                fontFamily: 'DM Sans',
                 fontSize: 12,
                 color: RibnColors.defaultText,
               ),

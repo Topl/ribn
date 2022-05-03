@@ -21,7 +21,7 @@ class AssetCodeShortDetails extends StatelessWidget {
       children: [
         Row(
           children: const [
-            Text('Asset code · short', style: RibnToolkitTextStyles.extH4),
+            Text('Asset code · short', style: RibnToolkitTextStyles.h4),
             CustomToolTip(
               toolTipChild: Text(
                 Strings.assetCodeShortInfo,

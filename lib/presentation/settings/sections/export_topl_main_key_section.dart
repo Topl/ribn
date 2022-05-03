@@ -45,7 +45,7 @@ class ExportToplMainKeySection extends StatelessWidget {
               Strings.exportWallet,
               style: TextStyle(
                 fontSize: 10,
-                fontFamily: 'Poppins',
+                fontFamily: 'DM Sans',
                 fontWeight: FontWeight.w500,
                 color: Colors.white,
               ),

@@ -23,7 +23,7 @@ class AssetCodeDetails extends StatelessWidget {
       children: [
         Row(
           children: const [
-            Text('Asset code', style: RibnToolkitTextStyles.extH4),
+            Text('Asset code', style: RibnToolkitTextStyles.h4),
             CustomToolTip(
               offsetPositionLeftValue: 50,
               toolTipChild: Text(

@@ -20,7 +20,7 @@ class DeleteWalletSection extends StatelessWidget {
         const Text(
           Strings.dangerZone,
           style: TextStyle(
-            fontFamily: 'Spectral',
+            fontFamily: 'DM Sans',
             fontWeight: FontWeight.w700,
             fontSize: 16,
             color: Color(0xFFE80E00),
@@ -63,7 +63,7 @@ class DeleteWalletSection extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 10.45,
                         fontWeight: FontWeight.w600,
-                        fontFamily: 'Nunito',
+                        fontFamily: 'DM Sans',
                         color: Color(0xFf585858),
                       ),
                     ),

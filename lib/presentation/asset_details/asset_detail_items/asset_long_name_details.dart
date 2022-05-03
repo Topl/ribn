@@ -36,7 +36,7 @@ class AssetLongNameDetails extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Text('Asset name', style: RibnToolkitTextStyles.extH4),
+            const Text('Asset name', style: RibnToolkitTextStyles.h4),
             const Spacer(),
             editingSectionOpened
                 ? const SizedBox()

@@ -96,7 +96,7 @@ class _OnboardingEnterWalletPasswordPageState extends State<OnboardingEnterWalle
           const Text(
             Strings.enterWalletPassword,
             style: TextStyle(
-              fontFamily: 'Spectral',
+              fontFamily: 'DM Sans',
               fontSize: 15,
               fontWeight: FontWeight.w700,
             ),
@@ -138,7 +138,7 @@ class _OnboardingEnterWalletPasswordPageState extends State<OnboardingEnterWalle
                 SizedBox(width: 40, height: 35, child: SvgPicture.asset(RibnAssets.warningIcon)),
                 Text(
                   Strings.readCarefully.toUpperCase(),
-                  style: const TextStyle(fontFamily: 'Nunito', fontSize: 28, fontWeight: FontWeight.w600),
+                  style: const TextStyle(fontFamily: 'DM Sans', fontSize: 28, fontWeight: FontWeight.w600),
                 ),
               ],
             ),

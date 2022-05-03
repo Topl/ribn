@@ -58,7 +58,7 @@ class _LoginRestoreWithToplKeyPageState extends State<LoginRestoreWithToplKeyPag
               child: Text(
                 Strings.uploadFile,
                 style: TextStyle(
-                  fontFamily: 'Nunito',
+                  fontFamily: 'DM Sans',
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
                   color: RibnColors.defaultText,

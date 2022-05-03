@@ -40,7 +40,7 @@ class CustomInputField extends StatelessWidget {
             children: [
               Text(
                 itemLabel,
-                style: RibnToolkitTextStyles.extH4,
+                style: RibnToolkitTextStyles.h4,
               ),
               informationText != null
                   ? CustomToolTip(

@@ -10,7 +10,7 @@ class LinksSection extends StatelessWidget {
   const LinksSection({Key? key}) : super(key: key);
   final TextStyle linkStyle = const TextStyle(
     fontSize: 10.5,
-    fontFamily: 'Poppins',
+    fontFamily: 'DM Sans',
     fontWeight: FontWeight.w500,
     color: RibnColors.primary,
   );

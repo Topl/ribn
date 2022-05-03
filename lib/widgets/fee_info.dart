@@ -15,12 +15,12 @@ class FeeInfo extends StatelessWidget {
       children: [
         const Text(
           Strings.totalTxFee,
-          style: RibnToolkitTextStyles.extH4,
+          style: RibnToolkitTextStyles.h4,
         ),
         Text(
           '$fee POLY',
           style: const TextStyle(
-            fontFamily: 'Nunito',
+            fontFamily: 'DM Sans',
             fontSize: 16,
             color: RibnColors.primary,
             fontWeight: FontWeight.w600,

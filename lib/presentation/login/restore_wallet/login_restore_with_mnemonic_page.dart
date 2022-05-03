@@ -10,7 +10,7 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/login/widgets/advanced_option_button.dart';
 import 'package:ribn/presentation/login/widgets/next_button.dart';
 import 'package:ribn/presentation/login/widgets/restore_page_title.dart';
-import 'package:ribn/widgets/custom_text_field.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 
 /// This page allows the user to enter a known mnemonic / seed phrase in order to restore a wallet.
 ///

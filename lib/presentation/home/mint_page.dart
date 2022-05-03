@@ -31,7 +31,7 @@ class MintPage extends StatelessWidget {
             child: Text(
               Strings.mintAsset,
               style: TextStyle(
-                fontFamily: 'Spectral',
+                fontFamily: 'DM Sans',
                 fontWeight: FontWeight.bold,
                 fontSize: 32,
               ),
@@ -48,7 +48,7 @@ class MintPage extends StatelessWidget {
               Strings.letsMintANewAsset,
               style: TextStyle(
                 color: RibnColors.greyedOut,
-                fontFamily: 'Nunito',
+                fontFamily: 'DM Sans',
                 fontSize: 15,
               ),
             ),

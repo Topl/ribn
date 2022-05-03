@@ -145,7 +145,7 @@ class _RibnAppBarState extends State<RibnAppBar> {
                           style: const TextStyle(
                             color: RibnColors.primary,
                             fontSize: 12,
-                            fontFamily: 'Poppins',
+                            fontFamily: 'DM Sans',
                             fontWeight: FontWeight.w500,
                           ),
                         ),

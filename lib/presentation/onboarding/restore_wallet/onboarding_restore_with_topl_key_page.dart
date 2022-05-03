@@ -49,7 +49,7 @@ class _OnboardingRestoreWithToplKeyPageState extends State<OnboardingRestoreWith
               child: const Text(
                 Strings.restoreWalletToplKeyDesc,
                 style: TextStyle(
-                  fontFamily: 'Nunito',
+                  fontFamily: 'DM Sans',
                   fontSize: 15,
                 ),
               ),
@@ -159,7 +159,7 @@ class _OnboardingRestoreWithToplKeyPageState extends State<OnboardingRestoreWith
           child: Text(
             'NEXT',
             style: TextStyle(
-              fontFamily: 'Nunito',
+              fontFamily: 'DM Sans',
               fontSize: 20,
               color: Colors.white,
               fontWeight: FontWeight.w600,

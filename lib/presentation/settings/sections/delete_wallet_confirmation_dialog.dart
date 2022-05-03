@@ -77,7 +77,7 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
                       const Text(
                         Strings.enterWalletPassword,
                         style: TextStyle(
-                          fontFamily: 'Spectral',
+                          fontFamily: 'DM Sans',
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
                         ),

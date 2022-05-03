@@ -30,7 +30,7 @@ class TxConfirmationPage extends StatelessWidget {
 
   /// Default text style used on this page.
   final TextStyle defaultTextStyle = const TextStyle(
-    fontFamily: 'Nunito',
+    fontFamily: 'DM Sans',
     fontSize: 15,
     color: RibnColors.greyedOut,
   );

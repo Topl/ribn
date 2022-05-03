@@ -32,7 +32,7 @@ class AssetUnitDetails extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Text('Unit', style: RibnToolkitTextStyles.extH4),
+            const Text('Unit', style: RibnToolkitTextStyles.h4),
             const Spacer(),
             editingSectionOpened
                 ? const SizedBox()

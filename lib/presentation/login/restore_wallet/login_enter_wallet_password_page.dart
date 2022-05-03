@@ -54,7 +54,7 @@ class _LoginEnterWalletPasswordPageState extends State<LoginEnterWalletPasswordP
                 child: const Text(
                   'Now, enter your Wallet Password to recover your Ribn wallet!',
                   style: TextStyle(
-                    fontFamily: 'Nunito',
+                    fontFamily: 'DM Sans',
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
                   ),
@@ -70,7 +70,7 @@ class _LoginEnterWalletPasswordPageState extends State<LoginEnterWalletPasswordP
                 child: const Text(
                   Strings.enterWalletPassword,
                   style: TextStyle(
-                    fontFamily: 'Spectral',
+                    fontFamily: 'DM Sans',
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
                   ),

@@ -41,7 +41,7 @@ class OnboardingAppBar extends StatelessWidget {
                 ? const Text(
                     Strings.back,
                     style: TextStyle(
-                      fontFamily: 'Nunito',
+                      fontFamily: 'DM Sans',
                       fontWeight: FontWeight.w400,
                       fontSize: 20,
                       color: Color(0xff333333),

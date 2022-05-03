@@ -94,13 +94,6 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
   /// Builds the top-half container on the balance page.
   /// Displays the balance in Polys and send/receive buttons.
   Widget _buildPolyContainer(WalletBalanceViewModel vm) {
-    const TextStyle polyBalanceTextStyle = TextStyle(
-      fontSize: 26.6,
-      fontFamily: 'Poppins',
-      fontWeight: FontWeight.w600,
-      color: Color(0xFF36A190),
-    );
-
     CustomToolTip renderTooltip() {
       final bool hasPolys = vm.polyBalance > 0;
       return CustomToolTip(
@@ -157,7 +150,12 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
               ? const CircularProgressIndicator()
               : _failedToFetchBalances
                   ? const Text('Network Failure', style: TextStyle(color: Colors.red))
-                  : Text('${vm.polyBalance} POLY', style: polyBalanceTextStyle),
+                  : Text(
+                      '${vm.polyBalance} POLY',
+                      style: RibnToolkitTextStyles.body1Bold.copyWith(
+                        color: const Color(0xff00B5AB),
+                      ),
+                    ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -270,7 +268,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
   Widget _buildButton(String label, VoidCallback onPressed) {
     const TextStyle textStyle = TextStyle(
       fontSize: 10.5,
-      fontFamily: 'Poppins',
+      fontFamily: 'DM Sans',
       fontWeight: FontWeight.bold,
       color: Color(0xFFFEFEFE),
     );

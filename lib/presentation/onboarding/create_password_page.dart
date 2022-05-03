@@ -130,7 +130,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
             Strings.atLeast12Chars,
             style: TextStyle(
               color: _hasAtLeast12Chars ? Colors.green : Colors.grey,
-              fontFamily: 'Roboto',
+              fontFamily: 'DM Sans',
               fontSize: 20,
               height: 1.5,
             ),
@@ -150,7 +150,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
             Strings.passwordsMustMatch,
             style: TextStyle(
               color: _passwordsMatch ? Colors.green : Colors.grey,
-              fontFamily: 'Roboto',
+              fontFamily: 'DM Sans',
               fontSize: 20,
               height: 1.5,
             ),
