@@ -12,6 +12,14 @@ var ext_utils = {
             window.close();
         });
     },
+
+    /**
+     * 
+     * Downloads a new file with name as `filename` and content as `text`.
+     * 
+     * @param {string} filename 
+     * @param {string} text 
+     */
     downloadAsFile: (filename, text) => {
         var element = document.createElement('a');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
@@ -30,9 +38,10 @@ var ext_utils = {
             if (currentTab == undefined) {
                 return 'extension'
             }
-            else if (currentTab.id > 0) {
+            else if (currentTab.id) {
                 return 'tab'
             }
+            return 'invalid';
         } catch (e) {
             return 'debug';
         }
