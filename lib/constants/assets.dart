@@ -71,4 +71,5 @@ class RibnAssets {
   static const openInNewWindow = 'assets/icons/open_in_new.png';
   static const roundInfoCircle = 'assets/icons/round_info_circle.png';
   static const newRibnLogo = 'packages/ribn_toolkit/assets/icons/new_ribn_logo.png';
+  static const chevronDown = 'packages/ribn_toolkit/assets/icons/chevron_down.png';
 }
