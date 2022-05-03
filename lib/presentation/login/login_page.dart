@@ -1,13 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/login_container.dart';
+import 'package:ribn/widgets/custom_icon_button.dart';
 import 'package:ribn/widgets/custom_tooltip.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -154,19 +155,42 @@ class _LoginPageState extends State<LoginPage> {
   /// Builds the text field for the wallet password.
   /// Allows showing/hiding the text input.
   Widget _buildTextField() {
+    final OutlineInputBorder textFieldBorder = OutlineInputBorder(
+      borderSide: const BorderSide(color: RibnColors.lightGrey),
+      borderRadius: BorderRadius.circular(5),
+    );
+    final OutlineInputBorder textFieldFocusBorder = OutlineInputBorder(
+      borderSide: const BorderSide(color: RibnColors.active),
+      borderRadius: BorderRadius.circular(5),
+    );
     return SizedBox(
       width: _baseWidth,
       height: 35,
-      child: CustomTextField(
-        passwordField: true,
+      child: TextField(
         obscureText: _obscurePassword,
         controller: _textEditingController,
-        onObscureClick: () {
-          setState(() {
-            _obscurePassword = !_obscurePassword;
-          });
-        },
-        hintText: Strings.typeSomething,
+        decoration: InputDecoration(
+          suffixIcon: CustomIconButton(
+            icon: SvgPicture.asset(
+              _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
+              width: 12,
+            ),
+            onPressed: () {
+              setState(() {
+                _obscurePassword = !_obscurePassword;
+              });
+            },
+          ),
+          labelText: Strings.typeSomething,
+          labelStyle: RibnToolkitTextStyles.hintStyle,
+          isDense: true,
+          fillColor: Colors.white,
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          filled: true,
+          contentPadding: const EdgeInsets.all(10),
+          enabledBorder: textFieldBorder,
+          focusedBorder: textFieldFocusBorder,
+        ),
       ),
     );
   }
