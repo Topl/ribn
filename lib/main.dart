@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
       store: store,
       child: Portal(
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Ribn',
           navigatorObservers: [Routes.routeObserver],
           onGenerateRoute: rootRouter.generateRoutes,

@@ -10,7 +10,7 @@ import 'package:ribn/presentation/settings/sections/delete_wallet_section.dart';
 import 'package:ribn/presentation/settings/sections/export_topl_main_key_section.dart';
 import 'package:ribn/presentation/settings/sections/links_section.dart';
 import 'package:ribn/presentation/settings/sections/ribn_version_section.dart';
-import 'package:ribn/widgets/ribn_app_bar.dart';
+import 'package:ribn/widgets/ribn_app_bar_wapper.dart';
 
 /// The settings page of the application.
 class SettingsPage extends StatelessWidget {
@@ -20,7 +20,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SettingsContainer(
       builder: (BuildContext context, SettingsViewModel vm) => Scaffold(
-        appBar: const RibnAppBar(),
+        appBar: const RibnAppBarWrapper(),
         body: SingleChildScrollView(
           child: Column(
             children: [

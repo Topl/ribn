@@ -5,7 +5,7 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/presentation/home/mint_page.dart';
 import 'package:ribn/presentation/home/wallet_balance_page.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
-import 'package:ribn/widgets/ribn_app_bar.dart';
+import 'package:ribn/widgets/ribn_app_bar_wapper.dart';
 
 /// The 'home page' of Ribn.
 ///
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const RibnAppBar(),
+      appBar: const RibnAppBarWrapper(),
       bottomNavigationBar: _buildBottomAppBar(),
       backgroundColor: RibnColors.background,
       body: _pages[_currPage],

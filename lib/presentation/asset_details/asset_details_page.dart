@@ -19,7 +19,7 @@ import 'package:ribn/presentation/asset_details/asset_detail_items/asset_unit_de
 import 'package:ribn/presentation/asset_details/asset_detail_items/issuer_address_details.dart';
 import 'package:ribn/widgets/custom_divider.dart';
 import 'package:ribn/widgets/custom_page_title.dart';
-import 'package:ribn/widgets/ribn_app_bar.dart';
+import 'package:ribn/widgets/ribn_app_bar_wapper.dart';
 
 /// This page presents all details associated with an asset.
 ///
@@ -106,7 +106,7 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
       builder: (context, assetDetails) {
         return Scaffold(
           backgroundColor: RibnColors.background,
-          appBar: const RibnAppBar(),
+          appBar: const RibnAppBarWrapper(),
           body: SingleChildScrollView(
             child: Column(
               children: [
