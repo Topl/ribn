@@ -6,20 +6,18 @@ var ext_storage = {
     */
     getFromLocalStorage: () => {
         return new Promise((resolve, reject) => {
-            // `null` gets everything in local storage
-            chrome.storage.local.get(null, function (items) {
-                if (chrome.runtime.lastError) {
-                    console.error(chrome.runtime.lastError.message);
-                    reject(chrome.runtime.lastError.message);
-                } else {
-                    resolve(items);
-                }
+            // `undefined` gets everything from local storage
+            chrome.storage.local.get(undefined, function (items) {
+                // @ts-ignore
+                if (chrome.runtime.lastError) reject(chrome.runtime.lastError.message);
+                resolve(items);
             });
         });
     },
 
     /**
     * Updates the extension's local storage with `obj`.
+    * @param {string} obj - Stringified json of data to persist.
     */
     persistToLocalStorage: async (obj) => {
         const parsedObj = JSON.parse(obj);
@@ -33,7 +31,7 @@ var ext_storage = {
     /**
      * Get's data from the extension's local storage and returns a stringified version of it.
      * 
-     * @returns {string} Stringified json of locally stored data.
+     * @returns Stringified json of locally stored data.
      */
     getFromLocalStorageStringified: async () => {
         const result = await ext_storage.getFromLocalStorage();
@@ -42,5 +40,5 @@ var ext_storage = {
         }
         const stringifiedJson = JSON.stringify(result);
         return stringifiedJson;
-    }
+    },
 };
