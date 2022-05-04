@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
-// import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn/containers/ribn_app_bar_container.dart';
-// import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/organisms/ribn_app_bar.dart';
 
 /// Builds a wrapper around the AppBar from ToplToolkit to provide ViewModel & AppBarContainer
@@ -31,6 +28,8 @@ class _RibnAppBarWrapperState extends State<RibnAppBarWrapper> {
         settingsOptions: vm.settingsOptions,
         selectSettingsOption: vm.selectSettingsOption,
         chevronIconLink: RibnAssets.chevronDown,
+        ribnLogoIconLink: RibnAssets.newRibnLogo,
+        hamburgerIconLink: RibnAssets.hamburgerMenu,
       ),
     );
   }
