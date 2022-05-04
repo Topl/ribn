@@ -132,7 +132,13 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
 
     return Container(
       constraints: const BoxConstraints.expand(height: 122),
-      color: RibnColors.accent,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: <Color>[RibnColors.tertiary, RibnColors.primaryOffColor],
+        ),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

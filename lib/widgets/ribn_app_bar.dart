@@ -24,10 +24,18 @@ class _RibnAppBarState extends State<RibnAppBar> {
   Widget build(BuildContext context) {
     return RibnAppBarContainer(
       builder: (BuildContext context, RibnAppBarViewModel vm) => AppBar(
-        backgroundColor: Colors.transparent,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: <Color>[RibnColors.tertiary, RibnColors.primaryOffColor],
+            ),
+          ),
+        ),
         automaticallyImplyLeading: false,
         titleSpacing: 0,
-        elevation: 0,
+        elevation: 3,
         title: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
