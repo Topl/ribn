@@ -11,6 +11,9 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/platform/platform.dart';
+import 'package:ribn/presentation/enable_page.dart';
+import 'package:ribn/presentation/external_signing_page.dart';
+import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
 import 'package:ribn/presentation/onboarding/welcome_page.dart';
 import 'package:ribn/redux.dart';
@@ -50,6 +53,12 @@ class MyApp extends StatelessWidget {
             switch (route) {
               case Routes.login:
                 return [MaterialPageRoute(builder: (context) => const LoginPage())];
+              case Routes.home:
+                return [MaterialPageRoute(builder: (context) => const HomePage())];
+              case Routes.enable:
+                return [MaterialPageRoute(builder: (context) => EnablePage(store.state.internalMessage!))];
+              case Routes.externalSigning:
+                return [MaterialPageRoute(builder: (context) => ExternalSigningPage(store.state.internalMessage!))];
               default:
                 return [MaterialPageRoute(builder: (context) => const WelcomePage())];
             }
@@ -62,7 +71,18 @@ class MyApp extends StatelessWidget {
   }
 }
 
-String getInitialRoute(Store<AppState> store) => store.state.needsOnboarding() ? Routes.welcome : Routes.login;
+String getInitialRoute(Store<AppState> store) {
+  if (store.state.needsOnboarding()) {
+    return Routes.welcome;
+  } else if (store.state.needsLogin()) {
+    return Routes.login;
+  } else if (store.state.internalMessage?.method == InternalMethods.enable) {
+    return Routes.enable;
+  } else if (store.state.internalMessage?.method == InternalMethods.signTx) {
+    return Routes.externalSigning;
+  }
+  return Routes.home;
+}
 
 /// Initiates a long-lived connection with the background script.
 ///

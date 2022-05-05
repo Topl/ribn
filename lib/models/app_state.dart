@@ -51,6 +51,8 @@ class AppState {
     return (keychainState.keyStoreJson ?? '').isEmpty;
   }
 
+  bool needsLogin() => keychainState.hdWallet == null;
+
   static String getAppVersion() {
     try {
       return PlatformUtils.instance.getCurrentAppVersion();

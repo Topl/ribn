@@ -67,8 +67,9 @@ class Redux {
   /// Otherwise, a new AppState is initialized depending on [initTestStore].
   static Future<AppState> getInitialAppState(bool initTestStore) async {
     try {
-      final Map<String, dynamic> persistedAppState = await getPersistedAppState();
-      return AppState.fromMap(persistedAppState);
+      final Map<String, dynamic> appState = await getPersistedAppState();
+      appState['keychainState']['toplKey'] = await PlatformLocalStorage.instance.getSessionKey();
+      return AppState.fromMap(appState);
     } catch (e) {
       return initTestStore ? AppState.test() : AppState.initial();
     }
