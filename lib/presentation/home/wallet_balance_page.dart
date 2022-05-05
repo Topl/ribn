@@ -1,6 +1,6 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
-import 'package:ribn_toolkit/constants/assets.dart';
+import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/wallet_balance_container.dart';
@@ -9,7 +9,7 @@ import 'package:ribn/presentation/error_section.dart';
 import 'package:ribn/presentation/home/shimmer_loader.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_dialog.dart';
-import 'package:ribn/widgets/custom_tooltip.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
@@ -97,7 +97,16 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     CustomToolTip renderTooltip() {
       final bool hasPolys = vm.polyBalance > 0;
       return CustomToolTip(
-        toolTipIcon: hasPolys ? Image.asset(RibnAssets.roundInfoCircle) : Image.asset(RibnAssets.smsFailed),
+        offsetPositionLeftValue: 180,
+        toolTipIcon: hasPolys
+            ? Image.asset(
+                RibnAssets.circleExclamation,
+                width: 24,
+              )
+            : Image.asset(
+                RibnAssets.smsFailed,
+                width: 24,
+              ),
         toolTipChild: RichText(
           text: TextSpan(
             style: RibnToolkitTextStyles.toolTipTextStyle,
@@ -131,7 +140,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     }
 
     return Container(
-      constraints: const BoxConstraints.expand(height: 122),
+      constraints: const BoxConstraints.expand(height: 183),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.centerLeft,
@@ -142,26 +151,38 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(Strings.totalAmount, style: RibnToolkitTextStyles.extH3),
-              SizedBox(
-                width: 10,
-                child: renderTooltip(),
-              ),
-            ],
-          ),
           _fetchingBalances
               ? const CircularProgressIndicator()
               : _failedToFetchBalances
                   ? const Text('Network Failure', style: TextStyle(color: Colors.red))
-                  : Text(
-                      '${vm.polyBalance} POLY',
-                      style: RibnToolkitTextStyles.body1Bold.copyWith(
-                        color: const Color(0xff00B5AB),
-                      ),
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${vm.polyBalance} POLY',
+                          style: RibnToolkitTextStyles.body1Bold.copyWith(
+                            color: const Color(0xFFE5E5E5),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 6.0),
+                          child: SizedBox(
+                            width: 24,
+                            child: renderTooltip(),
+                          ),
+                        ),
+                      ],
                     ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Text(
+              '\$${vm.polyBalance}',
+              style: RibnToolkitTextStyles.h3.copyWith(
+                color: RibnColors.secondary,
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -184,13 +205,16 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     return Container(
       color: RibnColors.background,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.only(top: 16.0, right: 16.0, left: 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              Strings.assets,
-              style: RibnToolkitTextStyles.extH3,
+            const Padding(
+              padding: EdgeInsets.only(bottom: 8.0),
+              child: Text(
+                Strings.assets,
+                style: RibnToolkitTextStyles.extH3,
+              ),
             ),
             ListView.builder(
               shrinkWrap: true,
@@ -272,29 +296,19 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
   }
 
   Widget _buildButton(String label, VoidCallback onPressed) {
-    const TextStyle textStyle = TextStyle(
-      fontSize: 10.5,
-      fontFamily: 'DM Sans',
-      fontWeight: FontWeight.bold,
-      color: Color(0xFFFEFEFE),
-    );
     return SizedBox(
-      width: 75,
-      height: 22,
+      width: 135,
+      height: 35,
       child: LargeButton(
+        buttonWidth: 135,
+        buttonHeight: 35,
         backgroundColor: RibnColors.primary,
+        dropShadowColor: RibnColors.whiteButtonShadow,
         onPressed: onPressed,
         buttonChild: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              width: 10,
-              child: Image.asset(
-                label == Strings.send ? RibnAssets.sendIcon : RibnAssets.receiveIcon,
-              ),
-            ),
-            const SizedBox(width: 5),
-            Text(label, style: textStyle),
+            Text(label, style: RibnToolkitTextStyles.h4.copyWith(color: Colors.white)),
           ],
         ),
       ),

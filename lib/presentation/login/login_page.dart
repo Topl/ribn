@@ -7,7 +7,7 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/login_container.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
-import 'package:ribn/widgets/custom_tooltip.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -133,15 +133,20 @@ class _LoginPageState extends State<LoginPage> {
     return SizedBox(
       width: _baseWidth,
       child: Row(
-        children: const [
-          Text(
+        children: [
+          const Text(
             Strings.enterWalletPassword,
             style: RibnToolkitTextStyles.extH3,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 2.0),
+            padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: CustomToolTip(
-              toolTipChild: Text(
+              offsetPositionLeftValue: 160,
+              toolTipIcon: Image.asset(
+                RibnAssets.circleExclamation,
+                width: 24,
+              ),
+              toolTipChild: const Text(
                 Strings.loginPasswordInfo,
                 style: RibnToolkitTextStyles.toolTipTextStyle,
               ),

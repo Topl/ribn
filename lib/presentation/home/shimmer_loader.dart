@@ -58,11 +58,11 @@ class ShimmerLoader extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            applyShimmer(width: 60, height: 20, borderRadius: 5),
+            applyShimmer(width: 135, height: 35, borderRadius: 50),
             const SizedBox(
               width: 25,
             ),
-            applyShimmer(width: 60, height: 20, borderRadius: 5),
+            applyShimmer(width: 135, height: 35, borderRadius: 50),
           ],
         ),
         const SizedBox(

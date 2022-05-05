@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     SvgPicture.asset(RibnAssets.balancePageActiveIcon),
     SvgPicture.asset(RibnAssets.mintPageActiveIcon),
   ];
-  final List<String> _pageLabels = ['HOME', 'MINT'];
   int _currPage = 0;
 
   @override
@@ -63,15 +62,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   isActive ? _activePageIcons[key] : _pageIcons[key],
-                  Text(
-                    _pageLabels[key],
-                    style: TextStyle(
-                      fontFamily: 'DM Sans',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 7,
-                      color: isActive ? RibnColors.primary : const Color(0xff979797),
-                    ),
-                  )
                 ],
               ),
               onPressed: () {
