@@ -143,8 +143,8 @@ class _LoginPageState extends State<LoginPage> {
             child: CustomToolTip(
               offsetPositionLeftValue: 160,
               toolTipIcon: Image.asset(
-                RibnAssets.circleExclamation,
-                width: 24,
+                RibnAssets.greyHelpBubble,
+                width: 18,
               ),
               toolTipChild: const Text(
                 Strings.loginPasswordInfo,

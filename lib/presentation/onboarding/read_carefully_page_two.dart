@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ribn_toolkit/constants/assets.dart';
+import 'package:ribn/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/widgets/continue_button.dart';
-import 'package:ribn/widgets/custom_tooltip.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_checkbox.dart';
 
 /// Builds checks to ensure that the user understands the importance of the wallet password and seed phrase.
@@ -116,8 +116,8 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
                   child: CustomToolTip(
                     offsetPositionLeftValue: 400,
                     toolTipIcon: Image.asset(
-                      RibnAssets.roundInfoCircle,
-                      width: 24,
+                      RibnAssets.greyHelpBubble,
+                      width: 18,
                       color: checked ? RibnColors.defaultText : RibnColors.inactive,
                     ),
                     toolTipChild: Column(
@@ -134,7 +134,6 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
                         )
                       ],
                     ),
-                    toolTipBackgroundColor: const Color(0xffb1e7e1),
                   ),
                 )
             ],

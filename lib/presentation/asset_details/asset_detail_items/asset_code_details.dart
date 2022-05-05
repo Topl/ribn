@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn/widgets/custom_tooltip.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
 
@@ -22,13 +23,20 @@ class AssetCodeDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          children: const [
-            Text('Asset code', style: RibnToolkitTextStyles.h4),
-            CustomToolTip(
-              offsetPositionLeftValue: 50,
-              toolTipChild: Text(
-                Strings.assetCodeLongInfo,
-                style: RibnToolkitTextStyles.toolTipTextStyle,
+          children: [
+            const Text('Asset code', style: RibnToolkitTextStyles.h4),
+            Padding(
+              padding: const EdgeInsets.only(left: 4.0),
+              child: CustomToolTip(
+                toolTipIcon: Image.asset(
+                  RibnAssets.greyHelpBubble,
+                  width: 18,
+                ),
+                offsetPositionLeftValue: 80,
+                toolTipChild: const Text(
+                  Strings.assetCodeLongInfo,
+                  style: RibnToolkitTextStyles.toolTipTextStyle,
+                ),
               ),
             ),
           ],
