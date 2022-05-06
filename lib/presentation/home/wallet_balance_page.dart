@@ -9,6 +9,7 @@ import 'package:ribn/presentation/error_section.dart';
 import 'package:ribn/presentation/home/shimmer_loader.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_dialog.dart';
+import 'package:ribn_toolkit/widgets/atoms/wave_container.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
@@ -139,16 +140,9 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       );
     }
 
-    return Container(
-      constraints: const BoxConstraints.expand(height: 183),
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: <Color>[RibnColors.tertiary, RibnColors.primaryOffColor],
-        ),
-      ),
-      child: Column(
+    return WaveContainer(
+      containerHeight: 183,
+      containerChild: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _fetchingBalances
