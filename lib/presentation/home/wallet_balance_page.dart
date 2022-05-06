@@ -142,6 +142,8 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
 
     return WaveContainer(
       containerHeight: 183,
+      containerWidth: double.infinity,
+      waveAmplitude: 0,
       containerChild: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

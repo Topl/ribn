@@ -148,7 +148,7 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String noIChangedMyMind = 'NO, I CHANGED MY MIND!';
   static const String yesIWantToDelete = 'YES, I WANT TO DELETE.';
   static const String enterWalletPassword = 'Enter Wallet Password';
-  static const String unlock = 'UNLOCK';
+  static const String unlock = 'Unlock';
   static const String next = 'NEXT';
   static const String useSeedPhrase = 'USE\nSEED\nPHRASE';
   static const String importToplKey = 'IMPORT\nTOPL\nKEY';
@@ -246,4 +246,5 @@ These words need to be written down carefully and in the exact order shown.''';
       'Your Wallet Password can lock and unlock your\n wallet on a device where it is already stored.';
   static const String refillCurrentPolyBalance = 'You can refill your Poly balance anytime by\n signing into';
   static const String refillEmptyPolyBalance = 'Time to refill your Poly balance.\nSign into';
+  static const String forgotPassword = 'Forgot password?';
 }
