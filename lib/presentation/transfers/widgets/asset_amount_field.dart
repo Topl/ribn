@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
@@ -67,6 +68,8 @@ class _AssetAmountFieldState extends State<AssetAmountField> {
             height: 30,
             controller: widget.controller,
             hintText: Strings.amountHint,
+            keyboardType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           ),
           // show dropdown for selecting a custom unit if [widget.allowEditingUnit] is true.
           // otherwise show the unit already associated with the asset.

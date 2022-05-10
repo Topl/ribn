@@ -228,6 +228,9 @@ class _MintInputPageState extends State<MintInputPage> {
   /// Upon pressing the review button, the tx flow is initiated via [vm.initiateTx].
   /// Note: [assetDetails] only updated if a new asset is being minted.
   Widget _buildReviewButton(MintInputViewmodel vm) {
+    final bool enteredValidInputs = _amountController.text.isNotEmpty &&
+        _assetShortNameController.text.isNotEmpty &&
+        (widget.mintingToMyWallet || _validRecipientAddress.isNotEmpty);
     // Update assetDetails if minting a new asset
     final AssetDetails? assetDetails = widget.mintingNewAsset
         ? AssetDetails(
@@ -240,28 +243,30 @@ class _MintInputPageState extends State<MintInputPage> {
       padding: const EdgeInsets.only(top: 20.0, bottom: 10),
       child: LargeButton(
         label: Strings.review,
-        onPressed: () {
-          setState(() {
-            _loadingRawTx = true;
-          });
-          vm.initiateTx(
-            assetShortName: _assetShortNameController.text,
-            amount: _amountController.text,
-            recipient: _validRecipientAddress,
-            note: _noteController.text,
-            mintingToMyWallet: widget.mintingToMyWallet,
-            mintingNewAsset: widget.mintingNewAsset,
-            assetDetails: assetDetails,
-            onRawTxCreated: (bool success) async {
-              _loadingRawTx = false;
-              setState(() {});
-              // Display error dialog if failed to create raw tx
-              if (!success) {
-                await TransferUtils.showErrorDialog(context);
+        onPressed: enteredValidInputs
+            ? () {
+                setState(() {
+                  _loadingRawTx = true;
+                });
+                vm.initiateTx(
+                  assetShortName: _assetShortNameController.text,
+                  amount: _amountController.text,
+                  recipient: _validRecipientAddress,
+                  note: _noteController.text,
+                  mintingToMyWallet: widget.mintingToMyWallet,
+                  mintingNewAsset: widget.mintingNewAsset,
+                  assetDetails: assetDetails,
+                  onRawTxCreated: (bool success) async {
+                    _loadingRawTx = false;
+                    setState(() {});
+                    // Display error dialog if failed to create raw tx
+                    if (!success) {
+                      await TransferUtils.showErrorDialog(context);
+                    }
+                  },
+                );
               }
-            },
-          );
-        },
+            : null,
       ),
     );
   }
