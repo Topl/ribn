@@ -30,8 +30,8 @@ class RibnAssets {
   static const txHistoryPageIcon = 'assets/icons/tx_history_page.svg';
   static const mintPageIcon = 'assets/icons/mint_page.svg';
   static const mintPageActiveIcon = 'assets/icons/mint_page_active.svg';
-  static const settingsIcon = 'assets/icons/settings.svg';
-  static const supportIcon = 'assets/icons/support.svg';
+  static const settingsIcon = 'packages/ribn_toolkit/assets/icons/settings.png';
+  static const supportIcon = 'packages/ribn_toolkit/assets/icons/support.png';
   static const importIcon = 'assets/icons/import.svg';
   static const passwordVisibleIon = 'assets/icons/visibility.svg';
   static const passwordHiddenIcon = 'assets/icons/visibility_off.svg';
