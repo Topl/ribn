@@ -132,7 +132,10 @@ class _MintInputPageState extends State<MintInputPage> {
                                     _selectedUnit = unit;
                                   });
                                 },
-                                chevronIconLink: RibnAssets.chevronDownDark,
+                                chevronIcon: Image.asset(
+                                  RibnAssets.chevronDownDark,
+                                  width: 24,
+                                ),
                               )
                             ],
                           ),
