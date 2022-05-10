@@ -21,8 +21,8 @@ class Strings {
   static const String minting = 'Minting';
   static const String totalAmount = 'Total Amount';
   static const String assetName = 'Asset name';
-  static const String assetLongName = 'Asset long name';
-  static const String assetShortName = 'Asset short name';
+  static const String assetLongName = 'Asset';
+  static const String assetShortName = 'Asset code • short';
   static const String transferType = 'transferType';
   static const String recipient = 'recipient';
   static const String noAssets = 'You have no assets :(';

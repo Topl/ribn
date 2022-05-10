@@ -1,11 +1,10 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/mint_input_container.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
-import 'package:ribn/presentation/transfers/widgets/asset_amount_field.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_long_name_field.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_selection_field.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_short_name_field.dart';
@@ -16,7 +15,9 @@ import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/custom_page_title.dart';
 import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn/widgets/loading_spinner.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/asset_amount_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The mint input page that allows the initiation of an mint asset transaction.
@@ -131,7 +132,8 @@ class _MintInputPageState extends State<MintInputPage> {
                                     _selectedUnit = unit;
                                   });
                                 },
-                              ),
+                                chevronIconLink: RibnAssets.chevronDownDark,
+                              )
                             ],
                           ),
                           const IssuerAddressField(),

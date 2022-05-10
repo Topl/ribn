@@ -9,12 +9,12 @@ import 'package:ribn/presentation/error_section.dart';
 import 'package:ribn/presentation/home/shimmer_loader.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_dialog.dart';
-import 'package:ribn_toolkit/widgets/atoms/wave_container.dart';
-import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_card.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
+import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// One of the 3 main pages on the home screen.
@@ -158,6 +158,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
                           '${vm.polyBalance} POLY',
                           style: RibnToolkitTextStyles.body1Bold.copyWith(
                             color: const Color(0xFFE5E5E5),
+                            letterSpacing: 1.42,
                           ),
                         ),
                         Padding(
@@ -247,10 +248,10 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     required Function(AssetAmount) viewAssetDetails,
   }) {
     final String assetIcon = assetDetails?.icon ?? RibnAssets.undefinedIcon;
-    final String assetUnit = assetDetails?.unit != null ? formatAssetUnit(assetDetails!.unit) : 'Units';
+    final String assetUnit = assetDetails?.unit != null ? formatAssetUnit(assetDetails!.unit) : 'Unit';
     final String assetLongName = assetDetails?.longName ?? '';
     final bool isMissingAssetDetails =
-        assetIcon == RibnAssets.undefinedIcon || assetUnit == 'Units' || assetLongName.isEmpty;
+        assetIcon == RibnAssets.undefinedIcon || assetUnit == 'Unit' || assetLongName.isEmpty;
 
     return AssetCard(
       onCardPress: () => viewAssetDetails(asset),

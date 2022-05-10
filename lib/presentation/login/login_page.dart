@@ -2,14 +2,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/login_container.dart';
 import 'package:ribn/widgets/custom_icon_button.dart';
-import 'package:ribn_toolkit/widgets/atoms/wave_container.dart';
-import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
+import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Builds the login page.
@@ -46,9 +46,9 @@ class _LoginPageState extends State<LoginPage> {
           body: WaveContainer(
             containerHeight: double.infinity,
             containerWidth: double.infinity,
-            waveAmplitude: 20,
+            waveAmplitude: 30,
             containerChild: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Column(
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                             Strings.intro,
                             style: RibnToolkitTextStyles.h3.copyWith(
                               color: Colors.white,
-                              fontWeight: FontWeight.normal,
+                              fontWeight: FontWeight.w300,
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -91,6 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                         Strings.unlock,
                         style: RibnToolkitTextStyles.btnLarge.copyWith(
                           color: Colors.white,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       onPressed: () => vm.attemptLogin(
@@ -244,9 +245,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
               TextSpan(
                 text: Strings.ribnSupport,
-                style: const TextStyle(
+                style: RibnToolkitTextStyles.h3.copyWith(
                   color: RibnColors.secondary,
-                  fontWeight: FontWeight.w600,
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
