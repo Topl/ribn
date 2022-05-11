@@ -8,7 +8,7 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/widgets/continue_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// Wallet created success page.
 /// Displays several FAQs to the user.
@@ -56,9 +56,20 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
               ),
             ),
             const SizedBox(height: 30),
-            ContinueButton(Strings.cont, () {
-              StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(Routes.extensionInfo));
-            }),
+            LargeButton(
+              buttonChild: Text(
+                Strings.cont,
+                style: RibnToolkitTextStyles.btnLarge.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+              backgroundColor: RibnColors.primary,
+              hoverColor: RibnColors.primaryButtonHover,
+              dropShadowColor: RibnColors.primaryButtonShadow,
+              onPressed: () => StoreProvider.of<AppState>(context).dispatch(
+                NavigateToRoute(Routes.extensionInfo),
+              ),
+            ),
             const SizedBox(height: 60),
             SizedBox(
               width: 660,

@@ -6,7 +6,7 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/containers/seed_phrase_confirmation_container.dart';
-import 'package:ribn/widgets/continue_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// Builds a grid containing the seed phrase words in a shuffled order.
 /// Allows user to confirm the seed phrase by selecting the words in the correct order.
@@ -61,7 +61,20 @@ class SeedPhraseConfirmationPage extends StatelessWidget {
                 _buildSeedPhraseGrid(vm, isShuffledGrid: false),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: vm.finishedInputting ? ContinueButton(Strings.cont, goToNextPage) : const SizedBox(),
+                  child: vm.finishedInputting
+                      ? LargeButton(
+                          buttonChild: Text(
+                            Strings.cont,
+                            style: RibnToolkitTextStyles.btnLarge.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                          backgroundColor: RibnColors.primary,
+                          hoverColor: RibnColors.primaryButtonHover,
+                          dropShadowColor: RibnColors.primaryButtonShadow,
+                          onPressed: goToNextPage,
+                        )
+                      : const SizedBox(),
                 ),
               ],
             ),

@@ -6,7 +6,7 @@ import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn/widgets/continue_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// Builds the custom animation when generating seed phrase.
 class SeedPhraseGeneratingPage extends StatefulWidget {
@@ -106,7 +106,18 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
         child: Text(Strings.seedPhraseGeneratedDesc, style: RibnToolkitTextStyles.body1),
       ),
       const SizedBox(height: 30),
-      ContinueButton(Strings.cont, widget.goToNextPage),
+      LargeButton(
+        buttonChild: Text(
+          Strings.cont,
+          style: RibnToolkitTextStyles.btnLarge.copyWith(
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: RibnColors.primary,
+        hoverColor: RibnColors.primaryButtonHover,
+        dropShadowColor: RibnColors.primaryButtonShadow,
+        onPressed: widget.goToNextPage,
+      ),
     ];
   }
 

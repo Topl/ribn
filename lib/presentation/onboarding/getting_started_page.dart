@@ -6,10 +6,11 @@ import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/widgets/continue_button.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 class GettingStartedPage extends StatelessWidget {
   const GettingStartedPage({Key? key}) : super(key: key);
@@ -53,9 +54,19 @@ class GettingStartedPage extends StatelessWidget {
               ),
             ),
           ),
-          ContinueButton(
-            Strings.ok,
-            () => StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(Routes.readCarefully)),
+          LargeButton(
+            buttonChild: Text(
+              Strings.ok,
+              style: RibnToolkitTextStyles.btnLarge.copyWith(
+                color: Colors.white,
+              ),
+            ),
+            backgroundColor: RibnColors.primary,
+            hoverColor: RibnColors.primaryButtonHover,
+            dropShadowColor: RibnColors.primaryButtonShadow,
+            onPressed: () => StoreProvider.of<AppState>(context).dispatch(
+              NavigateToRoute(Routes.readCarefully),
+            ),
           ),
         ],
       ),

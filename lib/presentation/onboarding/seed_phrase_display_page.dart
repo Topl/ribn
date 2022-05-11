@@ -7,7 +7,7 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/widgets/continue_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// Displays a grid of the seed phrase words listed in the correct order.
 class SeedPhraseDisplayPage extends StatelessWidget {
@@ -84,7 +84,18 @@ class SeedPhraseDisplayPage extends StatelessWidget {
             _buildDownloadButton(context, seedPhraseList),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 30.0),
-              child: ContinueButton(Strings.done, goToNextPage),
+              child: LargeButton(
+                buttonChild: Text(
+                  Strings.done,
+                  style: RibnToolkitTextStyles.btnLarge.copyWith(
+                    color: Colors.white,
+                  ),
+                ),
+                backgroundColor: RibnColors.primary,
+                hoverColor: RibnColors.primaryButtonHover,
+                dropShadowColor: RibnColors.primaryButtonShadow,
+                onPressed: goToNextPage,
+              ),
             ),
           ],
         ),

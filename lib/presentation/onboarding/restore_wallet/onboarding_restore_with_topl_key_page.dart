@@ -88,12 +88,15 @@ class _OnboardingRestoreWithToplKeyPageState extends State<OnboardingRestoreWith
           LargeButton(
             buttonChild: Text(
               Strings.browse,
-              style: RibnToolkitTextStyles.btnMedium.copyWith(
-                color: Colors.white,
+              style: RibnToolkitTextStyles.btnLarge.copyWith(
+                color: RibnColors.ghostButtonText,
               ),
             ),
+            backgroundColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            dropShadowColor: Colors.transparent,
+            borderColor: RibnColors.ghostButtonText,
             buttonWidth: 234,
-            buttonHeight: 45,
             onPressed: () async {
               try {
                 final FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -139,9 +142,16 @@ class _OnboardingRestoreWithToplKeyPageState extends State<OnboardingRestoreWith
 
   /// Button to continue to the next step.
   Widget _buildContinueButton() {
-    return MaterialButton(
-      color: RibnColors.primary,
-      padding: EdgeInsets.zero,
+    return LargeButton(
+      buttonChild: Text(
+        'Next',
+        style: RibnToolkitTextStyles.btnLarge.copyWith(
+          color: Colors.white,
+        ),
+      ),
+      backgroundColor: RibnColors.primary,
+      hoverColor: RibnColors.primaryButtonHover,
+      dropShadowColor: RibnColors.primaryButtonShadow,
       onPressed: () {
         if (toplKey.isNotEmpty && !errorUploadingFile) {
           StoreProvider.of<AppState>(context).dispatch(
@@ -152,21 +162,6 @@ class _OnboardingRestoreWithToplKeyPageState extends State<OnboardingRestoreWith
           );
         }
       },
-      child: const SizedBox(
-        width: 234,
-        height: 45,
-        child: Center(
-          child: Text(
-            'NEXT',
-            style: TextStyle(
-              fontFamily: 'DM Sans',
-              fontSize: 20,
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-      ),
     );
   }
 

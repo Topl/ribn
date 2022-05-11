@@ -8,8 +8,8 @@ import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/create_password_container.dart';
 import 'package:ribn/presentation/login/widgets/password_text_field.dart';
-import 'package:ribn/widgets/continue_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_checkbox.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Builds the form for creating a wallet password.
@@ -86,9 +86,21 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
               _buildConfirmPasswordValidation(),
               const SizedBox(height: 30),
               _buildTermsOfAgreementCheck(),
-              ContinueButton(
-                Strings.createPassword,
-                () => vm.attemptCreatePassword(_confirmPasswordController.text),
+              LargeButton(
+                buttonChild: Text(
+                  Strings.createPassword,
+                  style: !_passwordsMatch || !_readTermsOfAgreement
+                      ? RibnToolkitTextStyles.btnLarge.copyWith(
+                          color: RibnColors.inactive,
+                        )
+                      : RibnToolkitTextStyles.btnLarge.copyWith(
+                          color: Colors.white,
+                        ),
+                ),
+                backgroundColor: RibnColors.primary,
+                hoverColor: RibnColors.primaryButtonHover,
+                dropShadowColor: RibnColors.primaryButtonShadow,
+                onPressed: () => vm.attemptCreatePassword(_confirmPasswordController.text),
                 disabled: !_passwordsMatch || !_readTermsOfAgreement,
               ),
             ],

@@ -10,9 +10,9 @@ import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/widgets/continue_button.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_checkbox.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// Builds checks to ensure that the user understands the importance of the seed phrase.
 class ReadCarefullyPageOne extends StatefulWidget {
@@ -78,11 +78,23 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
               ],
             ),
           ),
-          ContinueButton(
-            Strings.iUnderstand,
-            () async => await _showRecommendationDialog(),
+          LargeButton(
+            buttonChild: Text(
+              Strings.iUnderstand,
+              style: !pointOneChecked || !pointTwoChecked
+                  ? RibnToolkitTextStyles.btnLarge.copyWith(
+                      color: RibnColors.inactive,
+                    )
+                  : RibnToolkitTextStyles.btnLarge.copyWith(
+                      color: Colors.white,
+                    ),
+            ),
+            backgroundColor: RibnColors.primary,
+            hoverColor: RibnColors.primaryButtonHover,
+            dropShadowColor: RibnColors.primaryButtonShadow,
+            onPressed: () async => await _showRecommendationDialog(),
             disabled: !pointOneChecked || !pointTwoChecked,
-          )
+          ),
         ],
       ),
     );
@@ -217,11 +229,22 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(top: 40.0, bottom: 40),
-            child: ContinueButton(Strings.letsGo, () {
-              Keys.navigatorKey.currentState!.pop();
-              StoreProvider.of<AppState>(context).dispatch(GenerateMnemonicAction());
-            }),
-          )
+            child: LargeButton(
+              buttonChild: Text(
+                Strings.cont,
+                style: RibnToolkitTextStyles.btnLarge.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+              backgroundColor: RibnColors.primary,
+              hoverColor: RibnColors.primaryButtonHover,
+              dropShadowColor: RibnColors.primaryButtonShadow,
+              onPressed: () {
+                Keys.navigatorKey.currentState!.pop();
+                StoreProvider.of<AppState>(context).dispatch(GenerateMnemonicAction());
+              },
+            ),
+          ),
         ],
       ),
       transitionBuilder: (context, _, __, child) => BackdropFilter(

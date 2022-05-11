@@ -6,9 +6,10 @@ import 'package:ribn_toolkit/constants/assets.dart';
 
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/widgets/continue_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The initial welcome page displayed during onboarding.
 class WelcomePage extends StatelessWidget {
@@ -43,9 +44,17 @@ class WelcomePage extends StatelessWidget {
               ),
             ),
             padding,
-            ContinueButton(
-              Strings.getStarted,
-              () => StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(Routes.selectAction)),
+            LargeButton(
+              buttonChild: Text(
+                Strings.getStarted,
+                style: RibnToolkitTextStyles.btnLarge.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+              backgroundColor: RibnColors.primary,
+              hoverColor: RibnColors.primaryButtonHover,
+              dropShadowColor: RibnColors.primaryButtonShadow,
+              onPressed: () => StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(Routes.selectAction)),
             ),
           ],
         ),

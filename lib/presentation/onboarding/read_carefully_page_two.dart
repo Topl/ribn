@@ -4,7 +4,7 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn/widgets/continue_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_checkbox.dart';
 
@@ -81,11 +81,23 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
             ),
           ),
           const SizedBox(height: 30),
-          ContinueButton(
-            Strings.iUnderstand,
-            () => widget.goToNextPage(),
+          LargeButton(
+            buttonChild: Text(
+              Strings.iUnderstand,
+              style: !_pointOneChecked || !_pointTwoChecked || !_pointThreeChecked
+                  ? RibnToolkitTextStyles.btnLarge.copyWith(
+                      color: RibnColors.inactive,
+                    )
+                  : RibnToolkitTextStyles.btnLarge.copyWith(
+                      color: Colors.white,
+                    ),
+            ),
+            backgroundColor: RibnColors.primary,
+            hoverColor: RibnColors.primaryButtonHover,
+            dropShadowColor: RibnColors.primaryButtonShadow,
+            onPressed: () => widget.goToNextPage(),
             disabled: !_pointOneChecked || !_pointTwoChecked || !_pointThreeChecked,
-          )
+          ),
         ],
       ),
     );
