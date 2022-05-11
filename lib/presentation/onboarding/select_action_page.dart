@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
@@ -52,7 +51,7 @@ class SelectActionPage extends StatelessWidget {
   }
 
   Widget _buildOptionContainer(String title, String description, BuildContext context) {
-    final String iconToDisplay = title == Strings.createWallet ? RibnAssets.plusIcon : RibnAssets.importWalletIcon;
+    final String iconToDisplay = title == Strings.createWallet ? RibnAssets.plusBlue : RibnAssets.importWalletIcon;
     final String navigateToRoute =
         title == Strings.createWallet ? Routes.gettingStarted : Routes.onboardingRestoreWalletWithMnemonic;
 
@@ -60,7 +59,7 @@ class SelectActionPage extends StatelessWidget {
       children: [
         SquareButtonWithIcon(
           backgroundColor: RibnColors.primary,
-          icon: SvgPicture.asset(iconToDisplay, width: 30),
+          icon: Image.asset(iconToDisplay, width: 30),
           text: Text(title, style: RibnToolkitTextStyles.btnLarge),
           onPressed: () => StoreProvider.of<AppState>(context).dispatch(
             NavigateToRoute(navigateToRoute),

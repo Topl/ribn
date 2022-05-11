@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  final List<Widget> _pages = [
+  final List<dynamic> _pages = [
     const WalletBalancePage(),
     const MintPage(),
   ];

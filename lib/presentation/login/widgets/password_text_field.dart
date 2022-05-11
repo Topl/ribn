@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn/widgets/custom_icon_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
 
 /// Builds a custom [TextField] for inputting password.
 ///

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn/widgets/custom_icon_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
 
 /// A widget to display the title and back button on top of the page.
 ///
