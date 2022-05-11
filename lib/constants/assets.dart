@@ -16,7 +16,7 @@ class RibnAssets {
   static const removeIcon = 'assets/icons/remove.svg';
   static const extensionIcon = 'assets/icons/extension.svg';
   static const plusIcon = 'assets/icons/plus.svg';
-  static const importWalletIcon = 'assets/icons/import_wallet.svg';
+  static const importWalletIcon = 'packages/ribn_toolkit/assets/icons/restore_wallet.png';
   static const closeGreyIcon = 'assets/icons/close_grey.svg';
   static const downloadIcon = 'assets/icons/download.svg';
   static const infoIcon = 'assets/icons/info.png';

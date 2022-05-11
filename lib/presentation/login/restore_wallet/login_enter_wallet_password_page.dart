@@ -6,10 +6,11 @@ import 'package:ribn/actions/restore_wallet_actions.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/presentation/login/widgets/next_button.dart';
 import 'package:ribn/presentation/login/widgets/password_text_field.dart';
 import 'package:ribn/presentation/login/widgets/restore_page_title.dart';
 import 'package:ribn/presentation/login/widgets/warning_section.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// Allows the user to enter their wallet password to decrypt the Topl Key in [toplKeyStoreJson].
 class LoginEnterWalletPasswordPage extends StatefulWidget {
@@ -86,7 +87,13 @@ class _LoginEnterWalletPasswordPageState extends State<LoginEnterWalletPasswordP
                       style: TextStyle(color: Colors.red),
                     )
                   : const SizedBox(),
-              NextButton(
+              LargeButton(
+                buttonChild: Text(
+                  Strings.next,
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(
+                    color: Colors.white,
+                  ),
+                ),
                 onPressed: () async {
                   final Completer<bool> actionCompleter = Completer();
                   StoreProvider.of<AppState>(context).dispatch(

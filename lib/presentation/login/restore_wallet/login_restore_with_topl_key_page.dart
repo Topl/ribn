@@ -8,7 +8,6 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/presentation/login/widgets/next_button.dart';
 import 'package:ribn/presentation/login/widgets/restore_page_title.dart';
 import 'package:ribn/presentation/login/widgets/uploaded_file_container.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
@@ -82,7 +81,13 @@ class _LoginRestoreWithToplKeyPageState extends State<LoginRestoreWithToplKeyPag
             const Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: 17.0),
-              child: NextButton(
+              child: LargeButton(
+                buttonChild: Text(
+                  Strings.next,
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(
+                    color: Colors.white,
+                  ),
+                ),
                 onPressed: () {
                   if (toplKey.isNotEmpty && !errorUploadingFile) {
                     StoreProvider.of<AppState>(context).dispatch(

@@ -5,10 +5,10 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/presentation/login/widgets/next_button.dart';
 import 'package:ribn/presentation/login/widgets/password_text_field.dart';
 import 'package:ribn/presentation/login/widgets/restore_page_title.dart';
 import 'package:ribn/presentation/login/widgets/warning_section.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// Page for creating a new wallet password, when restoring wallet with a [seedPhrase].
 class NewWalletPasswordPage extends StatefulWidget {
@@ -101,14 +101,21 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
             ),
             const Spacer(),
             // Confirmation button
-            NextButton(onPressed: onNextPressed),
+            LargeButton(
+                buttonChild: Text(
+                  Strings.next,
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(
+                    color: Colors.white,
+                  ),
+                ),
+                onPressed: onNextPressed),
           ],
         ),
       ),
     );
   }
 
-  /// Handler for when [NextButton] is pressed.
+  /// Handler for when [LargeButton] is pressed.
   ///
   /// Validates that the password entered is at least 8 characters and both passwords match
   /// before attempting to restore wallet.

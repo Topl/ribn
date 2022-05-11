@@ -8,9 +8,9 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/login/widgets/advanced_option_button.dart';
-import 'package:ribn/presentation/login/widgets/next_button.dart';
 import 'package:ribn/presentation/login/widgets/restore_page_title.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// This page allows the user to enter a known mnemonic / seed phrase in order to restore a wallet.
 ///
@@ -90,7 +90,14 @@ class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicP
             const Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: 17.0),
-              child: NextButton(onPressed: onNextPressed),
+              child: LargeButton(
+                  buttonChild: Text(
+                    Strings.next,
+                    style: RibnToolkitTextStyles.btnMedium.copyWith(
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: onNextPressed),
             ),
           ],
         ),
@@ -98,7 +105,7 @@ class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicP
     );
   }
 
-  /// Handler for when [NextButton] is pressed.
+  /// Handler for when [LargeButton] is pressed.
   ///
   /// Validates the seedphrase entered and if valid, navigates to the next page, i.e. [Routes.loginRestoreWalletnewPassword].
   void onNextPressed() {
