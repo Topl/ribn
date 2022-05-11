@@ -24,12 +24,8 @@ class RibnAssets {
   static const sentIcon = 'assets/icons/sent.svg';
   static const receiveIcon = 'assets/icons/receive.png';
   static const menuIcon = 'assets/icons/menu.svg';
-  static const balancePageIcon = 'assets/icons/balance_page.svg';
-  static const balancePageActiveIcon = 'assets/icons/balance_page_active.svg';
   static const txHistoryPageActiveIcon = 'assets/icons/tx_history_page_active.svg';
   static const txHistoryPageIcon = 'assets/icons/tx_history_page.svg';
-  static const mintPageIcon = 'assets/icons/mint_page.svg';
-  static const mintPageActiveIcon = 'assets/icons/mint_page_active.svg';
   static const settingsIcon = 'packages/ribn_toolkit/assets/icons/settings.png';
   static const supportIcon = 'packages/ribn_toolkit/assets/icons/support.png';
   static const importIcon = 'assets/icons/import.svg';
@@ -76,4 +72,8 @@ class RibnAssets {
   static const hamburgerMenu = 'packages/ribn_toolkit/assets/icons/hamburger_menu.png';
   static const circleExclamation = 'packages/ribn_toolkit/assets/icons/error.png';
   static const greyHelpBubble = 'packages/ribn_toolkit/assets/icons/gray_help_bubble.png';
+  static const plusBlue = 'packages/ribn_toolkit/assets/icons/plus_blue.png';
+  static const plusGrey = 'packages/ribn_toolkit/assets/icons/plus_grey.png';
+  static const walletBlue = 'packages/ribn_toolkit/assets/icons/wallet_blue.png';
+  static const walletGrey = 'packages/ribn_toolkit/assets/icons/wallet_grey.png';
 }

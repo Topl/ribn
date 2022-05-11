@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:ribn_toolkit/constants/assets.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn/constants/assets.dart';
 import 'package:ribn/presentation/home/mint_page.dart';
 import 'package:ribn/presentation/home/wallet_balance_page.dart';
-import 'package:ribn/widgets/custom_icon_button.dart';
 import 'package:ribn/widgets/ribn_app_bar_wapper.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/organisms/ribn_bottom_app_bar.dart';
 
 /// The 'home page' of Ribn.
 ///
@@ -22,13 +21,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     const WalletBalancePage(),
     const MintPage(),
   ];
-  final List<SvgPicture> _pageIcons = [
-    SvgPicture.asset(RibnAssets.balancePageIcon),
-    SvgPicture.asset(RibnAssets.mintPageIcon),
+  final List<Image> _pageIcons = [
+    Image.asset(RibnAssets.walletGrey),
+    Image.asset(RibnAssets.plusGrey),
   ];
-  final List<SvgPicture> _activePageIcons = [
-    SvgPicture.asset(RibnAssets.balancePageActiveIcon),
-    SvgPicture.asset(RibnAssets.mintPageActiveIcon),
+  final List<Image> _activePageIcons = [
+    Image.asset(RibnAssets.walletBlue),
+    Image.asset(RibnAssets.plusBlue),
   ];
   int _currPage = 0;
 
@@ -36,43 +35,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const RibnAppBarWrapper(),
-      bottomNavigationBar: _buildBottomAppBar(),
+      bottomNavigationBar: RibnBottomAppBar(
+        pages: _pages,
+        currPage: _currPage,
+        activePageIcons: _activePageIcons,
+        pageIcons: _pageIcons,
+        setCurrentPage: setCurrentPage,
+      ),
       backgroundColor: RibnColors.background,
       body: _pages[_currPage],
     );
   }
 
-  /// Builds the [BottomAppBar], allowing navigation to the three main pages.
-  Widget _buildBottomAppBar() {
-    const double iconHeight = 40;
-    const double iconWidth = 40;
-    const double radius = 8;
-    return BottomAppBar(
-      color: Colors.white,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: _pages.asMap().keys.map(
-          (key) {
-            final bool isActive = key == _currPage;
-            return CustomIconButton(
-              radius: radius,
-              height: iconHeight,
-              width: iconWidth,
-              icon: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  isActive ? _activePageIcons[key] : _pageIcons[key],
-                ],
-              ),
-              onPressed: () {
-                setState(() {
-                  _currPage = key;
-                });
-              },
-            );
-          },
-        ).toList(),
-      ),
-    );
+  void setCurrentPage(key) {
+    setState(() {
+      _currPage = key;
+    });
   }
 }
