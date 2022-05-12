@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/poly_transfer_input_container.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
+import 'package:ribn/presentation/transfers/widgets/asset_amount_field.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
 import 'package:ribn/presentation/transfers/widgets/note_field.dart';
 import 'package:ribn/presentation/transfers/widgets/recipient_field.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/custom_page_title.dart';
-import 'package:ribn/widgets/custom_text_field.dart';
 import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn/widgets/large_button.dart';
 import 'package:ribn/widgets/loading_spinner.dart';
@@ -39,8 +38,8 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
   /// True if currently loading raw tx creation.
   bool _loadingRawTx = false;
 
-  /// True if invalid amount entered.
-  bool _invalidAmount = false;
+  /// True if amount is valid.
+  bool _validAmount = false;
 
   @override
   void initState() {
@@ -98,7 +97,20 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
                                 _buildPolyDisplay(),
                                 const SizedBox(width: 20),
                                 // field for entering amount of polys needed for transfer
-                                _buildAmountField(vm),
+                                AssetAmountField(
+                                  controller: _amountController,
+                                  allowEditingUnit: false,
+                                  showUnit: false,
+                                  maxTransferrableAmount: vm.maxTransferrableAmount,
+                                  onChanged: (String amount) {
+                                    setState(() {
+                                      _validAmount = TransferUtils.validateAmount(
+                                        amount,
+                                        vm.maxTransferrableAmount,
+                                      );
+                                    });
+                                  },
+                                ),
                               ],
                             ),
                             // field for displaying the sender addresss
@@ -192,35 +204,10 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
     );
   }
 
-  /// Builds the TextField for entering amount needed for the transfer.
-  Widget _buildAmountField(PolyTransferInputViewModel vm) {
-    return CustomInputField(
-      itemLabel: Strings.amount,
-      item: CustomTextField(
-        hasError: _invalidAmount,
-        onChanged: (amount) {
-          setState(() {
-            if ((int.tryParse(amount) ?? 0) > vm.maxTransferrableAmount) {
-              _invalidAmount = true;
-            } else {
-              _invalidAmount = false;
-            }
-          });
-        },
-        width: 82,
-        height: 31,
-        controller: _amountController,
-        hintText: Strings.amountHint,
-        keyboardType: TextInputType.number,
-        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-      ),
-    );
-  }
-
   /// Builds the review button to initate tx.
   Widget _buildReviewButton(PolyTransferInputViewModel vm) {
     final bool enteredValidInputs =
-        _validRecipientAddress.isNotEmpty && _amountController.text.isNotEmpty && !_invalidAmount;
+        _validRecipientAddress.isNotEmpty && _amountController.text.isNotEmpty && _validAmount;
     return Padding(
       padding: const EdgeInsets.only(top: 20.0, bottom: 10),
       child: LargeButton(
