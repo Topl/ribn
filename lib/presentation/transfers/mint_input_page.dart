@@ -154,10 +154,14 @@ class _MintInputPageState extends State<MintInputPage> {
                                 });
                               },
                             ),
-                            // clear the textfield on backspace
                             onBackspacePressed: () {
                               setState(() {
-                                _recipientController.clear();
+                                if (_validRecipientAddress.isNotEmpty) {
+                                  _recipientController.text = _validRecipientAddress;
+                                  _recipientController
+                                    ..text = _recipientController.text.substring(0, _recipientController.text.length)
+                                    ..selection = TextSelection.collapsed(offset: _recipientController.text.length);
+                                }
                                 _validRecipientAddress = '';
                               });
                             },
