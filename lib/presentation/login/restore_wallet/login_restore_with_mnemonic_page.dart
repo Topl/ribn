@@ -7,10 +7,10 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/presentation/login/widgets/advanced_option_button.dart';
 import 'package:ribn/presentation/login/widgets/restore_page_title.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/peekaboo_button.dart';
 
 /// This page allows the user to enter a known mnemonic / seed phrase in order to restore a wallet.
 ///
@@ -84,20 +84,48 @@ class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicP
               padding: const EdgeInsets.only(top: 15.0),
               child: SizedBox(
                 width: maxWidth,
-                child: const AdvancedOptionButton(restoreWithToplKeyRoute: Routes.loginRestoreWalletWithToplKey),
+                child: PeekabooButton(
+                  buttonText: Text(
+                    Strings.advancedOption,
+                    style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15),
+                  ),
+                  buttonChild: SizedBox(
+                    width: 137,
+                    height: 22,
+                    child: LargeButton(
+                      buttonChild: Text(
+                        Strings.useToplMainKey,
+                        style: RibnToolkitTextStyles.dropdownButtonStyle
+                            .copyWith(fontSize: 11, color: RibnColors.ghostButtonText),
+                      ),
+                      backgroundColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      dropShadowColor: Colors.transparent,
+                      borderColor: RibnColors.ghostButtonText,
+                      onPressed: () {
+                        StoreProvider.of<AppState>(context).dispatch(
+                          NavigateToRoute(
+                            Routes.loginRestoreWalletWithToplKey,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
               ),
             ),
             const Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: 17.0),
               child: LargeButton(
-                  buttonChild: Text(
-                    Strings.next,
-                    style: RibnToolkitTextStyles.btnMedium.copyWith(
-                      color: Colors.white,
-                    ),
+                buttonChild: Text(
+                  Strings.next,
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(
+                    color: Colors.white,
                   ),
-                  onPressed: onNextPressed),
+                ),
+                onPressed: onNextPressed,
+              ),
             ),
           ],
         ),

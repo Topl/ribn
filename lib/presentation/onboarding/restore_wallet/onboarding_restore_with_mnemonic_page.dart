@@ -1,16 +1,18 @@
 import 'package:bip_topl/bip_topl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/presentation/login/widgets/advanced_option_button.dart';
 import 'package:ribn/presentation/login/widgets/password_text_field.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/peekaboo_button.dart';
 
 /// Restore wallet using mnemonic / seed phrase during onboarding.
 ///
@@ -92,7 +94,34 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: SizedBox(
                 width: maxWidth,
-                child: const AdvancedOptionButton(restoreWithToplKeyRoute: Routes.onboardingRestoreWalletWithToplKey),
+                child: PeekabooButton(
+                  buttonText: Text(
+                    Strings.advancedOption,
+                    style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15),
+                  ),
+                  buttonChild: SizedBox(
+                    width: 137,
+                    height: 22,
+                    child: LargeButton(
+                      buttonChild: Text(
+                        Strings.useToplMainKey,
+                        style: RibnToolkitTextStyles.dropdownButtonStyle
+                            .copyWith(fontSize: 11, color: RibnColors.ghostButtonText),
+                      ),
+                      backgroundColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      dropShadowColor: Colors.transparent,
+                      borderColor: RibnColors.ghostButtonText,
+                      onPressed: () {
+                        StoreProvider.of<AppState>(context).dispatch(
+                          NavigateToRoute(
+                            Routes.onboardingRestoreWalletWithToplKey,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
               ),
             ),
             Padding(
