@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/login/widgets/password_text_field.dart';
-import 'package:ribn/widgets/custom_close_button.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The confimation dialog that is displayed before deleting the wallet.
@@ -38,10 +38,16 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
       title: Stack(
         children: [
           // top-right close button
-          const Positioned(
+          Positioned(
             top: 18,
             right: 14,
-            child: CustomCloseButton(),
+            child: CustomIconButton(
+              icon: const Icon(
+                Icons.close,
+                color: Color(0xffb9b9b9),
+              ),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14),

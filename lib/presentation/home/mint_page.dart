@@ -6,10 +6,10 @@ import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/widgets/custom_close_button.dart';
 import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
 
 /// One of the 3 main pages on the home screen.
 ///
@@ -109,10 +109,16 @@ class MintPage extends StatelessWidget {
           title: Stack(
             children: [
               // top-right close button
-              const Positioned(
+              Positioned(
                 top: 18,
                 right: 14,
-                child: CustomCloseButton(),
+                child: CustomIconButton(
+                  icon: const Icon(
+                    Icons.close,
+                    color: Color(0xffb9b9b9),
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 14),
