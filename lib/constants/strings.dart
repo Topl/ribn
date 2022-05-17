@@ -86,7 +86,7 @@ Rest assured, you have saved the correct words, in the correct order.''';
 A Wallet Password is used to unlock your wallet.''';
   static const String newPassword = 'New Password';
   static const String confirmPassword = 'Confirm Password';
-  static const String atLeast12Chars = 'At least 12 characters.';
+  static const String atLeast8Chars = 'At least 8 characters.';
   static const String passwordsMustMatch = 'Both passwords must match.';
   static const String createPassword = 'Create Password';
   static const String readAndAgreedToU = 'I have read and agreed to the ';
