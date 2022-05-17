@@ -246,4 +246,8 @@ These words need to be written down carefully and in the exact order shown.''';
       'Your Wallet Password can lock and unlock your\n wallet on a device where it is already stored.';
   static const String refillCurrentPolyBalance = 'You can refill your Poly balance anytime by\n signing into';
   static const String refillEmptyPolyBalance = 'Time to refill your Poly balance.\nSign into';
+  static const String invalidAmountError =
+      'The amount you entered exceeds\nyour wallet balance for this asset.\nPlease enter a valid amount!';
+  static const String invalidRecipientAddressError =
+      "Hmmm... That's not a valid Recipient address.\nTip: Instead of typing it out, try copy\nand pasting your Recipient's address.";
 }

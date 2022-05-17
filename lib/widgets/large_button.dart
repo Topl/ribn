@@ -14,7 +14,7 @@ class LargeButton extends StatelessWidget {
     Key? key,
   }) : super(key: key);
   final String label;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color backgroundColor;
   final Color textColor;
   final double buttonWidth;
@@ -29,6 +29,7 @@ class LargeButton extends StatelessWidget {
       child: MaterialButton(
         elevation: 0,
         color: backgroundColor,
+        disabledColor: Colors.grey,
         child: Text(
           label,
           style: RibnTextStyles.btnMedium.copyWith(

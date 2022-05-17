@@ -35,4 +35,16 @@ abstract class IPlatformLocalStorage {
 
   /// Get locally stored data.
   Future<String> getState();
+
+  /// Save [key] for the app's session.
+  ///
+  /// [key] should be the Base58Encoded Topl Main Key.
+  Future<void> saveSessionKey(String key);
+
+  /// Get key, if it exists, from the session storage.
+  ///
+  /// For chrome, this means accessing session storage using the `chrome.storage.session` API.
+  ///
+  /// For mobile, the key is retrieved from `FlutterSecureStorage`.
+  Future<String?> getSessionKey();
 }
