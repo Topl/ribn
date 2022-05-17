@@ -206,26 +206,17 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
   ///
   /// Upon press, [validateSeedPhraseAndPassword] is called to validate the user's input.
   Widget _buildRestoreButton() {
-    return MaterialButton(
-      padding: EdgeInsets.zero,
-      minWidth: 0,
-      onPressed: validateSeedPhraseAndPassword,
-      color: RibnColors.primary,
-      child: const SizedBox(
-        width: 234,
-        height: 45,
-        child: Center(
-          child: Text(
-            'Restore',
-            style: TextStyle(
-              fontFamily: 'DM Sans',
-              fontSize: 20,
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+    return LargeButton(
+      buttonChild: Text(
+        'Restore',
+        style: RibnToolkitTextStyles.btnLarge.copyWith(
+          color: Colors.white,
         ),
       ),
+      backgroundColor: RibnColors.primary,
+      hoverColor: RibnColors.primaryButtonHover,
+      dropShadowColor: RibnColors.primaryButtonShadow,
+      onPressed: validateSeedPhraseAndPassword,
     );
   }
 
