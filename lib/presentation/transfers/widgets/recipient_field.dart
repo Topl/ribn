@@ -8,6 +8,7 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
+import 'package:ribn/presentation/transfers/widgets/error_bubble.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/custom_text_field.dart';
@@ -59,6 +60,12 @@ class _RecipientFieldState extends State<RecipientField> {
   Timer? errorTimer;
 
   @override
+  void dispose() {
+    errorTimer?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FormField<String>(
       builder: (FormFieldState<String> formFieldState) => CustomInputField(
@@ -88,7 +95,9 @@ class _RecipientFieldState extends State<RecipientField> {
                         showCursor: !widget.isValidRecipient(),
                         hasError: hasError,
                       ),
-                      portal: Image.asset('assets/icons/invalid_recipient.png'),
+                      portal: const ErrorBubble(
+                        errorText: Strings.invalidRecipientAddressError,
+                      ),
                       portalAnchor: Alignment.topLeft,
                       childAnchor: Alignment.bottomLeft,
                     ),
@@ -144,7 +153,7 @@ class _RecipientFieldState extends State<RecipientField> {
         hasError = true;
         displayErrorBubble = true;
       });
-      errorTimer = Timer(const Duration(seconds: 2), () {
+      errorTimer = Timer(const Duration(seconds: 3), () {
         setState(() {
           displayErrorBubble = false;
         });

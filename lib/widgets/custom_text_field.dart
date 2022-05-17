@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/styles.dart';
 
@@ -30,6 +31,13 @@ class CustomTextField extends StatelessWidget {
   /// True if the textfield has an error
   final bool hasError;
 
+  /// Define input type for the textfield.
+  /// This also affects the keyboard type on mobile.
+  final TextInputType keyboardType;
+
+  /// Allows formatting text input in a custom manner.
+  final List<TextInputFormatter> inputFormatters;
+
   const CustomTextField({
     required this.controller,
     required this.hintText,
@@ -40,6 +48,8 @@ class CustomTextField extends StatelessWidget {
     this.onChanged,
     this.showCursor = true,
     this.hasError = false,
+    this.keyboardType = TextInputType.text,
+    this.inputFormatters = const [],
     Key? key,
   }) : super(key: key);
 
@@ -56,11 +66,14 @@ class CustomTextField extends StatelessWidget {
           color: RibnColors.defaultText,
         ),
         textAlignVertical: textAlignVertical,
+        textInputAction: TextInputAction.next,
         onChanged: onChanged,
         expands: true,
         maxLines: null,
         maxLength: maxLength,
         showCursor: showCursor,
+        keyboardType: keyboardType,
+        inputFormatters: inputFormatters,
         decoration: InputDecoration(
           isDense: true,
           counterText: '',
