@@ -43,7 +43,8 @@ abstract class IPlatformLocalStorage {
 
   /// Get key, if it exists, from the session storage.
   ///
-  /// For chrome, this means accessing session storage using the `chrome.session` API.
-  /// For mobile, `FlutterSecureStorage` is used.
+  /// For chrome, this means accessing session storage using the `chrome.storage.session` API.
+  ///
+  /// For mobile, the key is retrieved from `FlutterSecureStorage`.
   Future<String?> getSessionKey();
 }
