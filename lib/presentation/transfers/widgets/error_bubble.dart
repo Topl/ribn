@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../constants/styles.dart';
+import 'package:ribn/constants/styles.dart';
 
 /// A custom container used to display error messages during tx flows.
 class ErrorBubble extends StatelessWidget {
