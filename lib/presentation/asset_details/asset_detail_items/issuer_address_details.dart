@@ -46,7 +46,13 @@ class IssuerAddressDetails extends StatelessWidget {
               formatAddrString(issuerAddress),
               style: RibnToolkitTextStyles.smallBody,
             ),
-            CustomCopyButton(textToBeCopied: issuerAddress),
+            CustomCopyButton(
+              textToBeCopied: issuerAddress,
+              icon: Image.asset(
+                RibnAssets.copyIcon,
+                width: 26,
+              ),
+            ),
           ],
         ),
       ],

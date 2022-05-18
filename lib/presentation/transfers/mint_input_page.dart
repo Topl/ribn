@@ -1,5 +1,6 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/mint_input_container.dart';
@@ -10,8 +11,8 @@ import 'package:ribn/presentation/transfers/widgets/asset_selection_field.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_short_name_field.dart';
 import 'package:ribn/presentation/transfers/widgets/issuer_address_field.dart';
 import 'package:ribn/presentation/transfers/widgets/note_field.dart';
-import 'package:ribn/presentation/transfers/widgets/recipient_field.dart';
 import 'package:ribn/utils.dart';
+import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/custom_page_title.dart';
 import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn/widgets/loading_spinner.dart';
@@ -19,6 +20,7 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/asset_amount_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/recipient_field.dart';
 
 /// The mint input page that allows the initiation of an mint asset transaction.
 class MintInputPage extends StatefulWidget {
@@ -96,7 +98,7 @@ class _MintInputPageState extends State<MintInputPage> {
   Widget build(BuildContext context) {
     return MintInputContainer(
       builder: (BuildContext context, MintInputViewmodel vm) => Scaffold(
-        backgroundColor: RibnColors.accent,
+        backgroundColor: RibnColors.background,
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -139,7 +141,7 @@ class _MintInputPageState extends State<MintInputPage> {
                               )
                             ],
                           ),
-                          const IssuerAddressField(),
+                          const IssuerAddressField(width: 213),
                           // field for entering the recipient address
                           RecipientField(
                             controller: _recipientController,
@@ -167,6 +169,13 @@ class _MintInputPageState extends State<MintInputPage> {
                                 _validRecipientAddress = '';
                               });
                             },
+                            icon: SvgPicture.asset(RibnAssets.recipientFingerprint),
+                            alternativeDisplayChild: const AddressDisplayContainer(
+                              text: Strings.yourRibnWalletAddress,
+                              icon: RibnAssets.myFingerprint,
+                              width: 256,
+                            ),
+                            errorBubbleIcon: Image.asset('assets/icons/invalid_recipient.png'),
                           ),
                           // field for adding a note to the tx
                           NoteField(

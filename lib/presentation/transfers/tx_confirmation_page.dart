@@ -150,6 +150,10 @@ class TxConfirmationPage extends StatelessWidget {
         CustomCopyButton(
           textToBeCopied: transferDetails.transactionId!,
           bubbleText: 'Copied!',
+          icon: Image.asset(
+            RibnAssets.copyIcon,
+            width: 26,
+          ),
         ),
       ],
     );

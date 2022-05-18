@@ -48,7 +48,13 @@ class AssetCodeDetails extends StatelessWidget {
               formatAddrString(assetCode),
               style: RibnToolkitTextStyles.smallBody,
             ),
-            CustomCopyButton(textToBeCopied: assetCode),
+            CustomCopyButton(
+              textToBeCopied: assetCode,
+              icon: Image.asset(
+                RibnAssets.copyIcon,
+                width: 26,
+              ),
+            ),
           ],
         ),
       ],

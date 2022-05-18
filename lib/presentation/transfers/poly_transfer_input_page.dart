@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ribn_toolkit/constants/assets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ribn/constants/assets.dart';
+import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/poly_transfer_input_container.dart';
@@ -7,7 +9,6 @@ import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
 import 'package:ribn/presentation/transfers/widgets/note_field.dart';
-import 'package:ribn/presentation/transfers/widgets/recipient_field.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/custom_page_title.dart';
 import 'package:ribn/widgets/fee_info.dart';
@@ -15,6 +16,7 @@ import 'package:ribn/widgets/loading_spinner.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/recipient_field.dart';
 
 /// The input page that allows initiating poly transfer transaction.
 ///
@@ -126,6 +128,13 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
                                   _validRecipientAddress = '';
                                 });
                               },
+                              icon: SvgPicture.asset(RibnAssets.recipientFingerprint),
+                              alternativeDisplayChild: const AddressDisplayContainer(
+                                text: Strings.yourRibnWalletAddress,
+                                icon: RibnAssets.myFingerprint,
+                                width: 300,
+                              ),
+                              errorBubbleIcon: Image.asset('assets/icons/invalid_recipient.png'),
                             ),
                             // field for adding a note to the tx
                             NoteField(

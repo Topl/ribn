@@ -17,6 +17,7 @@ class FromAddressField extends StatelessWidget {
       item: AddressDisplayContainer(
         text: Strings.yourRibnWalletAddress,
         icon: RibnAssets.issuerFingerprint,
+        width: 240,
       ),
     );
   }

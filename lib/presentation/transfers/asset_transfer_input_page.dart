@@ -1,5 +1,6 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/asset_transfer_input_container.dart';
@@ -7,8 +8,8 @@ import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_selection_field.dart';
 import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
 import 'package:ribn/presentation/transfers/widgets/note_field.dart';
-import 'package:ribn/presentation/transfers/widgets/recipient_field.dart';
 import 'package:ribn/utils.dart';
+import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/custom_page_title.dart';
 import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn/widgets/loading_spinner.dart';
@@ -16,6 +17,7 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/asset_amount_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/recipient_field.dart';
 
 /// The asset transfer input page that allows the initiation of an asset transfer.
 ///
@@ -146,6 +148,13 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
                                 }
                               },
                             ),
+                            icon: SvgPicture.asset(RibnAssets.recipientFingerprint),
+                            alternativeDisplayChild: const AddressDisplayContainer(
+                              text: Strings.yourRibnWalletAddress,
+                              icon: RibnAssets.myFingerprint,
+                              width: 240,
+                            ),
+                            errorBubbleIcon: Image.asset('assets/icons/invalid_recipient.png'),
                             // clear the textfield on backspace
                             onBackspacePressed: () {
                               setState(() {

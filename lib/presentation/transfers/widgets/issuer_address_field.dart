@@ -8,16 +8,19 @@ import 'package:ribn/widgets/address_display_container.dart';
 ///
 /// Used to display the issuer's address on the [MintInputPage].
 class IssuerAddressField extends StatelessWidget {
-  const IssuerAddressField({Key? key}) : super(key: key);
+  const IssuerAddressField({required this.width, Key? key}) : super(key: key);
+
+  final double width;
 
   @override
   Widget build(BuildContext context) {
-    return const CustomInputField(
+    return CustomInputField(
       informationText: Strings.issuerAddressInfo,
       itemLabel: Strings.issuerAddress,
       item: AddressDisplayContainer(
         text: Strings.yourIssuerAddress,
         icon: RibnAssets.issuerFingerprint,
+        width: width,
       ),
     );
   }

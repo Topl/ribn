@@ -34,9 +34,9 @@ class RibnAssets {
   static const coffeeGreenIcon = 'assets/icons/coffee-green-icon.svg';
   static const contentCopyIcon = 'assets/icons/content_copy.svg';
   static const helpIcon = 'assets/icons/help_icon.png';
-  static const myFingerprint = 'assets/icons/my_fingerprint.svg';
+  static const myFingerprint = 'packages/ribn_toolkit/assets/icons/my_fingerprint.svg';
   static const issuerFingerprint = 'assets/icons/issuer_fingerprint.svg';
-  static const recipientFingerprint = 'assets/icons/recipient_fingerprint.svg';
+  static const recipientFingerprint = 'packages/ribn_toolkit/assets/icons/recipient_fingerprint.svg';
   static const mintLarge = 'assets/icons/mint_large.svg';
   static const mintNewAssetButton = 'assets/icons/mint_new_asset.svg';
   static const remintSameAssetButton = 'assets/icons/remint_same_asset.svg';
@@ -76,4 +76,5 @@ class RibnAssets {
   static const plusGrey = 'packages/ribn_toolkit/assets/icons/plus_grey.png';
   static const walletBlue = 'packages/ribn_toolkit/assets/icons/wallet_blue.png';
   static const walletGrey = 'packages/ribn_toolkit/assets/icons/wallet_grey.png';
+  static const copyIcon = 'packages/ribn_toolkit/assets/icons/copy_icon.png';
 }

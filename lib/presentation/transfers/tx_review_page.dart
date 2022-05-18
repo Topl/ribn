@@ -190,7 +190,13 @@ class TxReviewPage extends StatelessWidget {
               style: defaultTextStyle,
             ),
           ),
-          CustomCopyButton(textToBeCopied: transferDetails.senders.first.toplAddress.toBase58()),
+          CustomCopyButton(
+            textToBeCopied: transferDetails.senders.first.toplAddress.toBase58(),
+            icon: Image.asset(
+              RibnAssets.copyIcon,
+              width: 26,
+            ),
+          ),
         ],
       ),
     );
@@ -217,7 +223,13 @@ class TxReviewPage extends StatelessWidget {
               style: defaultTextStyle,
             ),
           ),
-          CustomCopyButton(textToBeCopied: transferDetails.senders.first.toplAddress.toBase58()),
+          CustomCopyButton(
+            textToBeCopied: transferDetails.senders.first.toplAddress.toBase58(),
+            icon: Image.asset(
+              RibnAssets.copyIcon,
+              width: 26,
+            ),
+          ),
         ],
       ),
     );
