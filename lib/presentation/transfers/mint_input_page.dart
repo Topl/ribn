@@ -8,7 +8,6 @@ import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_long_name_field.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_selection_field.dart';
-import 'package:ribn/presentation/transfers/widgets/asset_short_name_field.dart';
 import 'package:ribn/presentation/transfers/widgets/issuer_address_field.dart';
 import 'package:ribn/presentation/transfers/widgets/note_field.dart';
 import 'package:ribn/utils.dart';
@@ -19,6 +18,7 @@ import 'package:ribn/widgets/loading_spinner.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/asset_amount_field.dart';
+import 'package:ribn_toolkit/widgets/atoms/asset_short_name_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/recipient_field.dart';
 
@@ -121,6 +121,10 @@ class _MintInputPageState extends State<MintInputPage> {
                               widget.mintingNewAsset
                                   ? AssetShortNameField(
                                       controller: _assetShortNameController,
+                                      tooltipIcon: Image.asset(
+                                        RibnAssets.greyHelpBubble,
+                                        width: 18,
+                                      ),
                                     )
                                   : const SizedBox(),
                               widget.mintingNewAsset ? const Spacer() : const SizedBox(),
