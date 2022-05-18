@@ -29,6 +29,7 @@ class AssetIconEditSection extends StatefulWidget {
 
 class _AssetIconEditSectionState extends State<AssetIconEditSection> {
   String? _selectedIcon;
+
   @override
   Widget build(BuildContext context) {
     return Container(

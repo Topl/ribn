@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/mint_input_container.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
-import 'package:ribn/presentation/transfers/widgets/asset_long_name_field.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_selection_field.dart';
 import 'package:ribn/presentation/transfers/widgets/issuer_address_field.dart';
 import 'package:ribn/presentation/transfers/widgets/note_field.dart';
@@ -21,6 +21,7 @@ import 'package:ribn_toolkit/widgets/atoms/asset_amount_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/asset_short_name_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/recipient_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/asset_long_name_field.dart';
 
 /// The mint input page that allows the initiation of an mint asset transaction.
 class MintInputPage extends StatefulWidget {
@@ -227,6 +228,15 @@ class _MintInputPageState extends State<MintInputPage> {
                 _selectedIcon = icon;
               });
             },
+            tooltipIcon: Image.asset(
+              RibnAssets.greyHelpBubble,
+              width: 18,
+            ),
+            chevronIcon: Image.asset(
+              RibnAssets.chevronDownDark,
+              width: 24,
+            ),
+            assetsIconList: UIConstants.assetIconsList,
           )
         : AssetSelectionField(
             selectedAsset: _selectedAsset,
