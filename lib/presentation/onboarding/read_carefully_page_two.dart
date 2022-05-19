@@ -17,9 +17,11 @@ class ReadCarefullyPageTwo extends StatefulWidget {
 }
 
 class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
-  bool _pointOneChecked = false;
-  bool _pointTwoChecked = false;
-  bool _pointThreeChecked = false;
+  final Map<String, bool> pointsChecked = {
+    Strings.readFollowingCarefullyPointOne: false,
+    Strings.readFollowingCarefullyPointTwo: false,
+    Strings.readFollowingCarefullyPointThree: false,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -47,34 +49,26 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
             child: Column(
               children: [
                 _buildCheckListTile(
-                  Strings.readFollowingCarefullyPointOne,
-                  _pointOneChecked,
-                  (bool? val) {
-                    setState(() {
-                      _pointOneChecked = val ?? false;
-                    });
-                  },
-                  false,
+                  label: Strings.readFollowingCarefullyPointOne,
+                  checked: pointsChecked[Strings.readFollowingCarefullyPointOne]!,
+                  onChecked: (bool? val) => onChecked(val ?? false, Strings.readFollowingCarefullyPointOne),
                 ),
                 _buildCheckListTile(
-                  Strings.readFollowingCarefullyPointTwo,
-                  _pointTwoChecked,
-                  (bool? val) {
-                    setState(() {
-                      _pointTwoChecked = val ?? false;
-                    });
-                  },
-                  false,
+                  label: Strings.readFollowingCarefullyPointTwo,
+                  checked: pointsChecked[Strings.readFollowingCarefullyPointTwo]!,
+                  isActiveText: pointsChecked[Strings.readFollowingCarefullyPointOne]!,
+                  onChecked: pointsChecked[Strings.readFollowingCarefullyPointOne]!
+                      ? (bool? val) => onChecked(val ?? false, Strings.readFollowingCarefullyPointTwo)
+                      : null,
                 ),
                 _buildCheckListTile(
-                  Strings.readFollowingCarefullyPointThree,
-                  _pointThreeChecked,
-                  (bool? val) {
-                    setState(() {
-                      _pointThreeChecked = val ?? false;
-                    });
-                  },
-                  true,
+                  label: Strings.readFollowingCarefullyPointThree,
+                  checked: pointsChecked[Strings.readFollowingCarefullyPointThree]!,
+                  isActiveText: pointsChecked[Strings.readFollowingCarefullyPointTwo]!,
+                  onChecked: pointsChecked[Strings.readFollowingCarefullyPointTwo]!
+                      ? (bool? val) => onChecked(val ?? false, Strings.readFollowingCarefullyPointThree)
+                      : null,
+                  renderTooltipIcon: true,
                 ),
               ],
             ),
@@ -83,14 +77,34 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
           ContinueButton(
             Strings.iUnderstand,
             () => widget.goToNextPage(),
-            disabled: !_pointOneChecked || !_pointTwoChecked || !_pointThreeChecked,
+            disabled: pointsChecked.values.contains(false),
           )
         ],
       ),
     );
   }
 
-  Widget _buildCheckListTile(String label, bool checked, Function(bool?)? onChecked, bool renderTooltipIcon) {
+  void onChecked(bool val, String key) {
+    setState(() {
+      if (!val) {
+        bool shouldUncheck = false;
+        pointsChecked.keys.toList().forEach((element) {
+          if (element == key) shouldUncheck = true;
+          if (shouldUncheck) pointsChecked[element] = false;
+        });
+      } else {
+        pointsChecked[key] = true;
+      }
+    });
+  }
+
+  Widget _buildCheckListTile({
+    required String label,
+    required bool checked,
+    required Function(bool?)? onChecked,
+    bool isActiveText = true,
+    bool renderTooltipIcon = false,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
@@ -120,7 +134,9 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
               height: 40,
               child: Text(
                 label,
-                style: RibnTextStyles.body1.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),
+                style: RibnTextStyles.body1.copyWith(
+                  color: isActiveText ? RibnColors.defaultText : RibnColors.inactive,
+                ),
                 textAlign: TextAlign.start,
                 textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
               ),

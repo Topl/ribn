@@ -22,8 +22,10 @@ class ReadCarefullyPageOne extends StatefulWidget {
 }
 
 class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
-  bool pointOneChecked = false;
-  bool pointTwoChecked = false;
+  final Map<String, bool> pointsChecked = {
+    Strings.readCarefullyPointOne: false,
+    Strings.readCarefullyPointTwo: false,
+  };
   final Color barrierColor = const Color(0xb538726c);
   void onBackPressed() => Keys.navigatorKey.currentState!.pop();
 
@@ -56,22 +58,17 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
             child: Column(
               children: [
                 _buildCheckListTile(
-                  Strings.readCarefullyPointOne,
-                  pointOneChecked,
-                  (bool? val) {
-                    setState(() {
-                      pointOneChecked = val ?? false;
-                    });
-                  },
+                  label: Strings.readCarefullyPointOne,
+                  checked: pointsChecked[Strings.readCarefullyPointOne]!,
+                  onChecked: (bool? val) => onChecked(val ?? false, Strings.readCarefullyPointOne),
                 ),
                 _buildCheckListTile(
-                  Strings.readCarefullyPointTwo,
-                  pointTwoChecked,
-                  (bool? val) {
-                    setState(() {
-                      pointTwoChecked = val ?? false;
-                    });
-                  },
+                  label: Strings.readCarefullyPointTwo,
+                  isActiveText: pointsChecked[Strings.readCarefullyPointOne]!,
+                  checked: pointsChecked[Strings.readCarefullyPointTwo]!,
+                  onChecked: pointsChecked[Strings.readCarefullyPointOne]!
+                      ? (bool? val) => onChecked(val ?? false, Strings.readCarefullyPointTwo)
+                      : null,
                 ),
                 const SizedBox(height: 20),
               ],
@@ -80,14 +77,34 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
           ContinueButton(
             Strings.iUnderstand,
             () async => await _showRecommendationDialog(),
-            disabled: !pointOneChecked || !pointTwoChecked,
+            disabled: pointsChecked.values.contains(false),
           )
         ],
       ),
     );
   }
 
-  Widget _buildCheckListTile(String label, bool checked, Function(bool?)? onChecked) {
+  void onChecked(bool val, String key) {
+    setState(() {
+      // Uncheck all checkboxes underneathh if one is unselected
+      if (!val) {
+        bool shouldUncheck = false;
+        pointsChecked.keys.toList().forEach((element) {
+          if (element == key) shouldUncheck = true;
+          if (shouldUncheck) pointsChecked[element] = false;
+        });
+      } else {
+        pointsChecked[key] = true;
+      }
+    });
+  }
+
+  Widget _buildCheckListTile({
+    required String label,
+    required bool checked,
+    bool isActiveText = true,
+    required Function(bool?)? onChecked,
+  }) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -113,7 +130,7 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
             height: 100,
             child: Text(
               label,
-              style: RibnTextStyles.body1.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),
+              style: RibnTextStyles.body1.copyWith(color: isActiveText ? RibnColors.defaultText : RibnColors.inactive),
               textAlign: TextAlign.start,
               textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
             ),
