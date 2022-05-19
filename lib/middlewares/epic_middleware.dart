@@ -27,7 +27,6 @@ const List<dynamic> persistenceTriggers = [
   AddAddressAction,
   UpdateCurrentNetworkAction,
   UpdateBalancesAction,
-  InitializeHDWalletAction,
   UpdateAssetDetailsAction,
 ];
 
