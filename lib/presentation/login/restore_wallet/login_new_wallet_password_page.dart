@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
+import 'package:ribn/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/presentation/login/widgets/password_text_field.dart';
 import 'package:ribn/presentation/login/widgets/restore_page_title.dart';
 import 'package:ribn/presentation/login/widgets/warning_section.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 
 /// Page for creating a new wallet password, when restoring wallet with a [seedPhrase].
 class NewWalletPasswordPage extends StatefulWidget {
@@ -37,6 +39,9 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
 
   /// Map to keep track of any textfield errors.
   Map<TextEditingController, bool> hasErrors = {};
+
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
 
   @override
   void initState() {
@@ -87,6 +92,11 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
               hintText: Strings.newWalletPasswordHint,
               controller: _newWalletPasswordController,
               hasError: hasErrors[_newWalletPasswordController] ?? false,
+              icon: SvgPicture.asset(
+                _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
+                width: 20,
+              ),
+              obscurePassword: _obscurePassword,
             ),
             const SizedBox(height: 20),
             SizedBox(
@@ -98,6 +108,11 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
               hintText: Strings.confirmWalletPasswordHint,
               controller: _confirmWalletPasswordController,
               hasError: hasErrors[_confirmWalletPasswordController] ?? false,
+              icon: SvgPicture.asset(
+                _obscureConfirmPassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
+                width: 12,
+              ),
+              obscurePassword: _obscurePassword,
             ),
             const Spacer(),
             // Confirmation button

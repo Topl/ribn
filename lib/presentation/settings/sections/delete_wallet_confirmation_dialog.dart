@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:ribn/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/presentation/login/widgets/password_text_field.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 
 /// The confimation dialog that is displayed before deleting the wallet.
 ///
@@ -27,6 +29,8 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
 
   /// True if incorrect password was entered.
   bool _incorrectPasswordError = false;
+
+  bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +95,11 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
                       PasswordTextField(
                         controller: _passwordController,
                         hintText: Strings.typeSomething,
+                        icon: SvgPicture.asset(
+                          _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
+                          width: 12,
+                        ),
+                        obscurePassword: _obscurePassword,
                       ),
                       _incorrectPasswordError
                           ? const Text('Incorrect Password', style: TextStyle(color: Colors.red))

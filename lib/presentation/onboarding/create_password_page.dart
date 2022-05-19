@@ -7,9 +7,9 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/create_password_container.dart';
-import 'package:ribn/presentation/login/widgets/password_text_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_checkbox.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Builds the form for creating a wallet password.
@@ -28,6 +28,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   bool _readTermsOfAgreement = false;
   bool _hasAtLeast12Chars = false;
   bool _passwordsMatch = false;
+  bool _obscurePassword = true;
 
   @override
   void initState() {
@@ -126,6 +127,11 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
             hintText: Strings.newWalletPasswordHint,
             width: UIConstants.loginTextFieldWidth,
             height: UIConstants.loginTextFieldHeight,
+            icon: SvgPicture.asset(
+              _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
+              width: 12,
+            ),
+            obscurePassword: _obscurePassword,
           ),
         ],
       ),

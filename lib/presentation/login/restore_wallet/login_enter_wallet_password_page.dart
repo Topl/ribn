@@ -2,15 +2,17 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
+import 'package:ribn/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/presentation/login/widgets/password_text_field.dart';
 import 'package:ribn/presentation/login/widgets/restore_page_title.dart';
 import 'package:ribn/presentation/login/widgets/warning_section.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 
 /// Allows the user to enter their wallet password to decrypt the Topl Key in [toplKeyStoreJson].
 class LoginEnterWalletPasswordPage extends StatefulWidget {
@@ -29,6 +31,7 @@ class _LoginEnterWalletPasswordPageState extends State<LoginEnterWalletPasswordP
   final double maxWidth = 309;
   final TextEditingController _passwordController = TextEditingController();
   bool _failedToRestoreWallet = false;
+  bool _obscurePassword = true;
   @override
   void initState() {
     _passwordController.addListener(() {
@@ -80,6 +83,11 @@ class _LoginEnterWalletPasswordPageState extends State<LoginEnterWalletPasswordP
               PasswordTextField(
                 controller: _passwordController,
                 hintText: Strings.newWalletPasswordHint,
+                icon: SvgPicture.asset(
+                  _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
+                  width: 12,
+                ),
+                obscurePassword: _obscurePassword,
               ),
               _failedToRestoreWallet
                   ? const Text(

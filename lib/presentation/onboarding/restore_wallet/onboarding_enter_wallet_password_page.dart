@@ -8,9 +8,9 @@ import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/presentation/login/widgets/password_text_field.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 
 /// Allows the user to enter their wallet password to decrypt the Topl Key in [toplKeyStoreJson].
 class OnboardingEnterWalletPasswordPage extends StatefulWidget {
@@ -29,6 +29,7 @@ class _OnboardingEnterWalletPasswordPageState extends State<OnboardingEnterWalle
   final double maxWidth = 734;
   final TextEditingController _passwordController = TextEditingController();
   bool _failedToRestoreWallet = false;
+  bool _obscurePassword = true;
 
   @override
   void initState() {
@@ -111,6 +112,11 @@ class _OnboardingEnterWalletPasswordPageState extends State<OnboardingEnterWalle
             controller: _passwordController,
             hintText: Strings.newWalletPasswordHint,
             width: 352,
+            icon: SvgPicture.asset(
+              _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
+              width: 12,
+            ),
+            obscurePassword: _obscurePassword,
           ),
         ],
       ),

@@ -6,9 +6,9 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/login_container.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
+import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -82,7 +82,15 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     _buildTextFieldLabel(),
                     const SizedBox(height: 8),
-                    _buildTextField(),
+                    PasswordTextField(
+                      hintText: Strings.typeSomething,
+                      controller: _textEditingController,
+                      icon: SvgPicture.asset(
+                        _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
+                        width: 12,
+                      ),
+                      obscurePassword: _obscurePassword,
+                    ),
                     const SizedBox(height: 25),
                     LargeButton(
                       backgroundColor: RibnColors.primary,
@@ -160,49 +168,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  /// Builds the text field for the wallet password.
-  /// Allows showing/hiding the text input.
-  Widget _buildTextField() {
-    final OutlineInputBorder textFieldBorder = OutlineInputBorder(
-      borderSide: const BorderSide(color: RibnColors.lightGrey),
-      borderRadius: BorderRadius.circular(5),
-    );
-    final OutlineInputBorder textFieldFocusBorder = OutlineInputBorder(
-      borderSide: const BorderSide(color: RibnColors.active),
-      borderRadius: BorderRadius.circular(5),
-    );
-    return SizedBox(
-      width: _baseWidth,
-      height: 35,
-      child: TextField(
-        obscureText: _obscurePassword,
-        controller: _textEditingController,
-        decoration: InputDecoration(
-          suffixIcon: CustomIconButton(
-            icon: SvgPicture.asset(
-              _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
-              width: 12,
-            ),
-            onPressed: () {
-              setState(() {
-                _obscurePassword = !_obscurePassword;
-              });
-            },
-          ),
-          labelText: Strings.typeSomething,
-          labelStyle: RibnToolkitTextStyles.hintStyle,
-          isDense: true,
-          fillColor: Colors.white,
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          filled: true,
-          contentPadding: const EdgeInsets.all(10),
-          enabledBorder: textFieldBorder,
-          focusedBorder: textFieldFocusBorder,
-        ),
       ),
     );
   }
