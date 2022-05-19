@@ -137,6 +137,7 @@ Stream<dynamic> Function(Stream<SuccessfullyRestoredWalletAction>, EpicStore<App
           keyStoreJson: action.keyStoreJson,
           toplExtendedPrivateKey: action.toplExtendedPrivateKey,
         ),
+        PersistAppState(),
         NavigateToRoute(navigateToRoute),
       ]);
     });
