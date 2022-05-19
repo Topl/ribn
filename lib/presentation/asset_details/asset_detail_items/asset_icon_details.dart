@@ -49,7 +49,12 @@ class AssetIconDetails extends StatelessWidget {
         SizedBox(
           width: 20,
           height: 20,
-          child: currIcon == null ? Image.asset(RibnAssets.undefinedIcon) : Image.asset(currIcon!),
+          child: currIcon == null
+              ? Image.asset(RibnAssets.undefinedIcon)
+              : Image.asset(
+                  currIcon!,
+                  width: 31,
+                ),
         ),
       ],
     );

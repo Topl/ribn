@@ -255,7 +255,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
 
     return AssetCard(
       onCardPress: () => viewAssetDetails(asset),
-      iconImage: Image.asset(assetIcon),
+      iconImage: Image.asset(assetIcon, width: 31),
       shortName: Text(
         asset.assetCode.shortName.show,
         style: RibnToolkitTextStyles.assetShortNameStyle,
