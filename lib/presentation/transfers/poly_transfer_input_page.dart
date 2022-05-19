@@ -8,7 +8,6 @@ import 'package:ribn/containers/poly_transfer_input_container.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
-import 'package:ribn/presentation/transfers/widgets/note_field.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/custom_page_title.dart';
 import 'package:ribn/widgets/fee_info.dart';
@@ -16,6 +15,7 @@ import 'package:ribn/widgets/loading_spinner.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 
 /// The input page that allows initiating poly transfer transaction.
@@ -140,6 +140,10 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
                             NoteField(
                               controller: _noteController,
                               noteLength: _noteController.text.length,
+                              tooltipIcon: Image.asset(
+                                RibnAssets.greyHelpBubble,
+                                width: 18,
+                              ),
                             ),
                             // fee info for the tx
                             FeeInfo(fee: vm.networkFee),

@@ -9,7 +9,6 @@ import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_selection_field.dart';
 import 'package:ribn/presentation/transfers/widgets/issuer_address_field.dart';
-import 'package:ribn/presentation/transfers/widgets/note_field.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/custom_page_title.dart';
@@ -20,6 +19,7 @@ import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_short_name_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_long_name_field.dart';
 
@@ -186,6 +186,10 @@ class _MintInputPageState extends State<MintInputPage> {
                           NoteField(
                             controller: _noteController,
                             noteLength: _noteController.text.length,
+                            tooltipIcon: Image.asset(
+                              RibnAssets.greyHelpBubble,
+                              width: 18,
+                            ),
                           ),
                           // fee info for the tx
                           FeeInfo(fee: vm.networkFee),

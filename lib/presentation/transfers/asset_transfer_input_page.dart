@@ -7,7 +7,6 @@ import 'package:ribn/containers/asset_transfer_input_container.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/asset_selection_field.dart';
 import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
-import 'package:ribn/presentation/transfers/widgets/note_field.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/custom_page_title.dart';
@@ -17,6 +16,7 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 
 /// The asset transfer input page that allows the initiation of an asset transfer.
@@ -164,7 +164,14 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
                             },
                           ),
                           // Field for attaching a note to the tx.
-                          NoteField(controller: _noteController, noteLength: _noteController.text.length),
+                          NoteField(
+                            controller: _noteController,
+                            noteLength: _noteController.text.length,
+                            tooltipIcon: Image.asset(
+                              RibnAssets.greyHelpBubble,
+                              width: 18,
+                            ),
+                          ),
                           FeeInfo(fee: vm.networkFee),
                           const SizedBox(height: 20),
                           _buildReviewButton(vm),
