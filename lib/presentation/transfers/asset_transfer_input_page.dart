@@ -15,9 +15,9 @@ import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn/widgets/loading_spinner.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/asset_amount_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/atoms/recipient_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 
 /// The asset transfer input page that allows the initiation of an asset transfer.
 ///

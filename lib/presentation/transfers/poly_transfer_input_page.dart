@@ -16,7 +16,7 @@ import 'package:ribn/widgets/loading_spinner.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/atoms/recipient_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 
 /// The input page that allows initiating poly transfer transaction.
 ///
