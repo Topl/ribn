@@ -1,21 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:ribn_toolkit/widgets/molecules/shimmer_loader.dart';
 
-class ShimmerLoader extends StatelessWidget {
-  Shimmer applyShimmer({required double borderRadius, required double height, required double width}) {
-    return Shimmer(
-      duration: const Duration(seconds: 1),
-      interval: const Duration(seconds: 1),
-      child: Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(borderRadius),
-          color: const Color(0xffc7c7c7),
-        ),
-      ),
-    );
-  }
+class WalletBalanceShimmer extends StatelessWidget {
+  const WalletBalanceShimmer({Key? key}) : super(key: key);
 
   Widget returnShimmerRow() {
     return Padding(
@@ -24,17 +11,17 @@ class ShimmerLoader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          applyShimmer(width: 28, height: 28, borderRadius: 100),
+          const ShimmerLoader(width: 28, height: 28, borderRadius: 100),
           Padding(
             padding: const EdgeInsets.only(left: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                applyShimmer(width: 150, height: 15, borderRadius: 100),
-                const SizedBox(
+              children: const [
+                ShimmerLoader(width: 150, height: 15, borderRadius: 100),
+                SizedBox(
                   height: 10,
                 ),
-                applyShimmer(width: 70, height: 15, borderRadius: 100),
+                ShimmerLoader(width: 70, height: 15, borderRadius: 100),
               ],
             ),
           ),
@@ -51,28 +38,28 @@ class ShimmerLoader extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        applyShimmer(width: 160, height: 40, borderRadius: 50),
+        const ShimmerLoader(width: 160, height: 40, borderRadius: 50),
         const SizedBox(
           height: 17,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            applyShimmer(width: 135, height: 35, borderRadius: 50),
-            const SizedBox(
+          children: const [
+            ShimmerLoader(width: 135, height: 35, borderRadius: 50),
+            SizedBox(
               width: 25,
             ),
-            applyShimmer(width: 135, height: 35, borderRadius: 50),
+            ShimmerLoader(width: 135, height: 35, borderRadius: 50),
           ],
         ),
         const SizedBox(
           height: 30,
         ),
-        Align(
+        const Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: applyShimmer(width: 60, height: 15, borderRadius: 50),
+            padding: EdgeInsets.only(left: 16),
+            child: ShimmerLoader(width: 60, height: 15, borderRadius: 50),
           ),
         ),
         const SizedBox(
