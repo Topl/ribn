@@ -18,11 +18,9 @@ import 'package:ribn/presentation/login/login_page.dart';
 import 'package:ribn/presentation/onboarding/welcome_page.dart';
 import 'package:ribn/redux.dart';
 import 'package:ribn/router/root_router.dart';
-import 'package:url_strategy/url_strategy.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setPathUrlStrategy();
   await Redux.initStore(initTestStore: false);
   final String currentAppView = await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
