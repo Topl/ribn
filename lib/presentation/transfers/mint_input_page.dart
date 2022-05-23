@@ -7,7 +7,6 @@ import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/mint_input_container.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
-import 'package:ribn/presentation/transfers/widgets/asset_selection_field.dart';
 import 'package:ribn/presentation/transfers/widgets/issuer_address_field.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_display_container.dart';
@@ -17,6 +16,7 @@ import 'package:ribn/widgets/loading_spinner.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/asset_selection_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_short_name_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
@@ -243,9 +243,20 @@ class _MintInputPageState extends State<MintInputPage> {
             assetsIconList: UIConstants.assetIconsList,
           )
         : AssetSelectionField(
-            selectedAsset: _selectedAsset,
+            formattedSelectedAsset: {
+              'assetCode': _selectedAsset?.assetCode.toString(),
+              'longName': vm.assetDetails[_selectedAsset?.assetCode.toString()]?.longName,
+              'shortName': _selectedAsset?.assetCode.shortName.show,
+              'assetIcon': vm.assetDetails[_selectedAsset?.assetCode.toString()]?.icon,
+            },
+            formattedAsset: (asset) {
+              return {
+                'longName': vm.assetDetails[asset!.assetCode.toString()]?.longName,
+                'shortName': asset.assetCode.shortName.show,
+                'assetIcon': vm.assetDetails[asset!.assetCode.toString()]?.icon,
+              };
+            },
             assets: vm.assets,
-            assetDetails: vm.assetDetails,
             onSelected: (AssetAmount? asset) {
               setState(() {
                 _selectedAsset = asset;
@@ -253,6 +264,10 @@ class _MintInputPageState extends State<MintInputPage> {
                 _assetShortNameController.text = asset.assetCode.shortName.show;
               });
             },
+            tooltipIcon: Image.asset(
+              RibnAssets.greyHelpBubble,
+              width: 18,
+            ),
           );
   }
 

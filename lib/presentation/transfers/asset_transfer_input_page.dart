@@ -5,7 +5,6 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/asset_transfer_input_container.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
-import 'package:ribn/presentation/transfers/widgets/asset_selection_field.dart';
 import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_display_container.dart';
@@ -16,6 +15,7 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/asset_selection_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 
@@ -100,15 +100,30 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
                               // Field for displaying the selected asset for the transfer.
                               // Allows changing the asset for the transfer via a dropdown.
                               AssetSelectionField(
-                                selectedAsset: _selectedAsset,
-                                label: Strings.youSend,
+                                formattedSelectedAsset: {
+                                  'assetCode': _selectedAsset.assetCode.toString(),
+                                  'longName': vm.assetDetails[_selectedAsset.assetCode.toString()]?.longName,
+                                  'shortName': _selectedAsset.assetCode.shortName.show,
+                                  'assetIcon': vm.assetDetails[_selectedAsset.assetCode.toString()]?.icon,
+                                },
+                                formattedAsset: (asset) {
+                                  return {
+                                    'longName': vm.assetDetails[asset!.assetCode.toString()]?.longName,
+                                    'shortName': asset.assetCode.shortName.show,
+                                    'assetIcon': vm.assetDetails[asset!.assetCode.toString()]?.icon,
+                                  };
+                                },
                                 assets: vm.assets,
-                                assetDetails: vm.assetDetails,
+                                label: Strings.youSend,
                                 onSelected: (AssetAmount? asset) {
                                   setState(() {
                                     _selectedAsset = asset!;
                                   });
                                 },
+                                tooltipIcon: Image.asset(
+                                  RibnAssets.greyHelpBubble,
+                                  width: 18,
+                                ),
                               ),
                               const Spacer(),
                               // Field for entering the amount for the asset transfer.
