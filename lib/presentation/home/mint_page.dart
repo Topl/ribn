@@ -9,7 +9,7 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
 
 /// One of the 3 main pages on the home screen.
 ///
@@ -99,98 +99,73 @@ class MintPage extends StatelessWidget {
   /// Builds a dialog with buttons to
   /// allow the user to choose between 'mint to my own wallet' and 'mint to another wallet'.
   Future<void> _buildMintDialog(bool mintingNewAsset) async {
-    await showDialog(
+    return CustomModal().getCustomDialog(
+      title: const Text(
+        Strings.gettingStarted,
+        style: RibnToolkitTextStyles.extH2,
+      ),
       context: Keys.navigatorKey.currentContext!,
-      builder: (context) {
-        return AlertDialog(
-          insetPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 100),
-          backgroundColor: RibnColors.accent,
-          titlePadding: EdgeInsets.zero,
-          title: Stack(
+      body: Column(
+        children: [
+          SizedBox(
+            // width: 245,
+            height: 43,
+            child: Text(
+              Strings.mintAssetDesc,
+              style: RibnToolkitTextStyles.hintStyle.copyWith(
+                fontSize: 15,
+                color: RibnColors.greyedOut,
+              ),
+            ),
+          ),
+          const SizedBox(height: 30),
+          const SizedBox(
+            width: double.infinity,
+            child: Text('Mint to', style: RibnToolkitTextStyles.extH3),
+          ),
+          const SizedBox(height: 15),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // top-right close button
-              Positioned(
-                top: 18,
-                right: 14,
-                child: CustomIconButton(
-                  icon: const Icon(
-                    Icons.close,
-                    color: Color(0xffb9b9b9),
+              Expanded(
+                flex: 1,
+                child: MaterialButton(
+                  onPressed: () => StoreProvider.of<AppState>(Keys.navigatorKey.currentContext!).dispatch(
+                    NavigateToRoute(
+                      Routes.mintInput,
+                      arguments: {
+                        'mintingNewAsset': mintingNewAsset,
+                        'mintingToMyWallet': true,
+                      },
+                    ),
                   ),
-                  onPressed: () => Navigator.of(context).pop(),
+                  padding: EdgeInsets.zero,
+                  child: SvgPicture.asset(RibnAssets.myWalletButton),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 30),
-                    // dialog title
-                    const SizedBox(
-                      width: 176,
-                      height: 58,
-                      child: Text(
-                        Strings.gettingStarted,
-                        style: RibnToolkitTextStyles.extH2,
-                      ),
+              const SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                flex: 1,
+                child: MaterialButton(
+                  onPressed: () => StoreProvider.of<AppState>(Keys.navigatorKey.currentContext!).dispatch(
+                    NavigateToRoute(
+                      Routes.mintInput,
+                      arguments: {
+                        'mintingNewAsset': mintingNewAsset,
+                        'mintingToMyWallet': false,
+                      },
                     ),
-                    // dialog description
-                    SizedBox(
-                      width: 245,
-                      height: 43,
-                      child: Text(
-                        Strings.mintAssetDesc,
-                        style: RibnToolkitTextStyles.hintStyle.copyWith(
-                          fontSize: 15,
-                          color: RibnColors.greyedOut,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: double.infinity,
-                      child: Text('Mint to', style: RibnToolkitTextStyles.extH3),
-                    ),
-                    const SizedBox(height: 15),
-                    // buttons to choose between 'mint to my wallet' and 'mint to another wallet'
-                    Row(
-                      children: [
-                        MaterialButton(
-                          onPressed: () => StoreProvider.of<AppState>(context).dispatch(
-                            NavigateToRoute(
-                              Routes.mintInput,
-                              arguments: {
-                                'mintingNewAsset': mintingNewAsset,
-                                'mintingToMyWallet': true,
-                              },
-                            ),
-                          ),
-                          padding: EdgeInsets.zero,
-                          child: SvgPicture.asset(RibnAssets.myWalletButton),
-                        ),
-                        const SizedBox(width: 12.7),
-                        MaterialButton(
-                          onPressed: () => StoreProvider.of<AppState>(context).dispatch(
-                            NavigateToRoute(
-                              Routes.mintInput,
-                              arguments: {
-                                'mintingNewAsset': mintingNewAsset,
-                                'mintingToMyWallet': false,
-                              },
-                            ),
-                          ),
-                          padding: EdgeInsets.zero,
-                          child: SvgPicture.asset(RibnAssets.anotherWalletButton),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 26),
-                  ],
+                  ),
+                  padding: EdgeInsets.zero,
+                  child: SvgPicture.asset(RibnAssets.anotherWalletButton),
                 ),
-              )
+              ),
             ],
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }
