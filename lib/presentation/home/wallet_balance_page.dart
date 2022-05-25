@@ -1,18 +1,24 @@
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/wallet_balance_container.dart';
+import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
+import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/presentation/error_section.dart';
 import 'package:ribn/presentation/home/wallet_balance_shimmer.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn/widgets/address_dialog.dart';
+import 'package:ribn/widgets/custom_divider.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_card.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -185,9 +191,10 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
             children: [
               _buildButton(Strings.send, vm.navigateToSendPolys),
               const SizedBox(width: 10),
-              _buildButton(Strings.receive, () async {
-                await showReceivingAddress();
-              }),
+              _buildButton(
+                Strings.receive,
+                () async => await showReceivingAddress(),
+              ),
             ],
           ),
         ],
@@ -316,7 +323,66 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     await showDialog(
       context: Keys.navigatorKey.currentContext!,
       builder: (context) {
-        return const AddressDialog();
+        return StoreConnector<AppState, RibnAddress>(
+          converter: (store) => store.state.keychainState.currentNetwork.addresses.first,
+          builder: (context, ribnAddress) {
+            return CustomModal.renderCustomModal(
+              context: Keys.navigatorKey.currentContext!,
+              title: const Text(
+                Strings.myRibnWalletAddress,
+                style: RibnToolkitTextStyles.extH2,
+              ),
+              body: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  BarcodeWidget(
+                    barcode: Barcode.qrCode(),
+                    data: ribnAddress.toplAddress.toBase58(),
+                    width: 130,
+                    height: 130,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    formatAddrString(ribnAddress.toplAddress.toBase58()),
+                    style: const TextStyle(
+                      fontFamily: 'DM Sans',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: RibnColors.defaultText,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const CustomDivider(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          Strings.copyAddress,
+                          style: TextStyle(
+                            fontFamily: 'DM Sans',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: RibnColors.defaultText,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        CustomCopyButton(
+                          textToBeCopied: ribnAddress.toplAddress.toBase58(),
+                          icon: Image.asset(
+                            RibnAssets.copyIcon,
+                            width: 26,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
       },
     );
   }

@@ -99,73 +99,77 @@ class MintPage extends StatelessWidget {
   /// Builds a dialog with buttons to
   /// allow the user to choose between 'mint to my own wallet' and 'mint to another wallet'.
   Future<void> _buildMintDialog(bool mintingNewAsset) async {
-    return CustomModal().getCustomDialog(
-      title: const Text(
-        Strings.gettingStarted,
-        style: RibnToolkitTextStyles.extH2,
-      ),
+    await showDialog(
       context: Keys.navigatorKey.currentContext!,
-      body: Column(
-        children: [
-          SizedBox(
-            // width: 245,
-            height: 43,
-            child: Text(
-              Strings.mintAssetDesc,
-              style: RibnToolkitTextStyles.hintStyle.copyWith(
-                fontSize: 15,
-                color: RibnColors.greyedOut,
-              ),
-            ),
+      builder: (context) {
+        return CustomModal.renderCustomModal(
+          title: const Text(
+            Strings.gettingStarted,
+            style: RibnToolkitTextStyles.extH2,
           ),
-          const SizedBox(height: 30),
-          const SizedBox(
-            width: double.infinity,
-            child: Text('Mint to', style: RibnToolkitTextStyles.extH3),
-          ),
-          const SizedBox(height: 15),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          context: Keys.navigatorKey.currentContext!,
+          body: Column(
             children: [
-              Expanded(
-                flex: 1,
-                child: MaterialButton(
-                  onPressed: () => StoreProvider.of<AppState>(Keys.navigatorKey.currentContext!).dispatch(
-                    NavigateToRoute(
-                      Routes.mintInput,
-                      arguments: {
-                        'mintingNewAsset': mintingNewAsset,
-                        'mintingToMyWallet': true,
-                      },
-                    ),
+              SizedBox(
+                height: 43,
+                child: Text(
+                  Strings.mintAssetDesc,
+                  style: RibnToolkitTextStyles.hintStyle.copyWith(
+                    fontSize: 15,
+                    color: RibnColors.greyedOut,
                   ),
-                  padding: EdgeInsets.zero,
-                  child: SvgPicture.asset(RibnAssets.myWalletButton),
                 ),
               ),
+              const SizedBox(height: 30),
               const SizedBox(
-                width: 10,
+                width: double.infinity,
+                child: Text('Mint to', style: RibnToolkitTextStyles.extH3),
               ),
-              Expanded(
-                flex: 1,
-                child: MaterialButton(
-                  onPressed: () => StoreProvider.of<AppState>(Keys.navigatorKey.currentContext!).dispatch(
-                    NavigateToRoute(
-                      Routes.mintInput,
-                      arguments: {
-                        'mintingNewAsset': mintingNewAsset,
-                        'mintingToMyWallet': false,
-                      },
+              const SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: MaterialButton(
+                      onPressed: () => StoreProvider.of<AppState>(Keys.navigatorKey.currentContext!).dispatch(
+                        NavigateToRoute(
+                          Routes.mintInput,
+                          arguments: {
+                            'mintingNewAsset': mintingNewAsset,
+                            'mintingToMyWallet': true,
+                          },
+                        ),
+                      ),
+                      padding: EdgeInsets.zero,
+                      child: SvgPicture.asset(RibnAssets.myWalletButton),
                     ),
                   ),
-                  padding: EdgeInsets.zero,
-                  child: SvgPicture.asset(RibnAssets.anotherWalletButton),
-                ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: MaterialButton(
+                      onPressed: () => StoreProvider.of<AppState>(Keys.navigatorKey.currentContext!).dispatch(
+                        NavigateToRoute(
+                          Routes.mintInput,
+                          arguments: {
+                            'mintingNewAsset': mintingNewAsset,
+                            'mintingToMyWallet': false,
+                          },
+                        ),
+                      ),
+                      padding: EdgeInsets.zero,
+                      child: SvgPicture.asset(RibnAssets.anotherWalletButton),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
