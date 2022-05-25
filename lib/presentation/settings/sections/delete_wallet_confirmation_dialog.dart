@@ -40,7 +40,6 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
         style: RibnToolkitTextStyles.extH2,
       ),
       context: context,
-      maxModalHeight: 418,
       body: Column(
         children: [
           SizedBox(
@@ -81,45 +80,51 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
               ],
             ),
           ),
-          const SizedBox(height: 30),
-          // confirm delete
-          LargeButton(
-            buttonChild: Text(
-              Strings.yesIWantToDelete,
-              style: RibnToolkitTextStyles.btnMedium.copyWith(
-                color: Colors.white,
-              ),
-            ),
-            onPressed: () {
-              widget.onConfirmDeletePressed(
-                _passwordController.text,
-                () {
-                  setState(() {
-                    _incorrectPasswordError = true;
-                  });
-                },
-              );
-            },
-            buttonWidth: 285,
-          ),
-          const SizedBox(height: 20),
-          // cancel delete
-          LargeButton(
-            buttonChild: Text(
-              Strings.noIChangedMyMind,
-              style: RibnToolkitTextStyles.btnMedium.copyWith(
-                color: RibnColors.ghostButtonText,
-              ),
-            ),
-            backgroundColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            dropShadowColor: Colors.transparent,
-            borderColor: RibnColors.ghostButtonText,
-            onPressed: () => Navigator.of(context).pop(),
-            buttonWidth: 285,
-          ),
         ],
       ),
+      actionsAlignment: MainAxisAlignment.center,
+      actions: [
+        Column(
+          children: [
+            // confirm delete
+            LargeButton(
+              buttonChild: Text(
+                Strings.yesIWantToDelete,
+                style: RibnToolkitTextStyles.btnMedium.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () {
+                widget.onConfirmDeletePressed(
+                  _passwordController.text,
+                  () {
+                    setState(() {
+                      _incorrectPasswordError = true;
+                    });
+                  },
+                );
+              },
+              buttonWidth: 285,
+            ),
+            const SizedBox(height: 20),
+            // cancel delete
+            LargeButton(
+              buttonChild: Text(
+                Strings.noIChangedMyMind,
+                style: RibnToolkitTextStyles.btnMedium.copyWith(
+                  color: RibnColors.ghostButtonText,
+                ),
+              ),
+              backgroundColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              dropShadowColor: Colors.transparent,
+              borderColor: RibnColors.ghostButtonText,
+              onPressed: () => Navigator.of(context).pop(),
+              buttonWidth: 285,
+            ),
+          ],
+        )
+      ],
     );
   }
 }

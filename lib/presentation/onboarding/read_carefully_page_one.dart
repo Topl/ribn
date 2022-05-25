@@ -13,6 +13,7 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_checkbox.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
 
 /// Builds checks to ensure that the user understands the importance of the seed phrase.
 class ReadCarefullyPageOne extends StatefulWidget {
@@ -124,40 +125,14 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
     await showGeneralDialog(
       barrierDismissible: false,
       barrierColor: barrierColor,
-      pageBuilder: (context, _, __) => AlertDialog(
-        backgroundColor: RibnColors.accent,
-        titlePadding: EdgeInsets.zero,
-        contentPadding: EdgeInsets.zero,
-        title: Stack(
-          children: [
-            Positioned(
-              right: 20,
-              top: 20,
-              child: IconButton(
-                padding: EdgeInsets.zero,
-                color: Colors.grey,
-                constraints: const BoxConstraints(),
-                onPressed: () => Navigator.of(context).pop(),
-                icon: SvgPicture.asset(RibnAssets.closeGreyIcon),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 50, bottom: 20, left: 100, right: 100),
-              child: SizedBox(
-                height: 67,
-                width: 497,
-                child: Center(
-                  child: Text(
-                    Strings.weRecommend,
-                    style: RibnToolkitTextStyles.h1,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ),
-          ],
+      pageBuilder: (context, _, __) => CustomModal.renderCustomModal(
+        context: context,
+        title: const Text(
+          Strings.weRecommend,
+          style: RibnToolkitTextStyles.h1,
+          textAlign: TextAlign.center,
         ),
-        content: Column(
+        body: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -224,26 +199,23 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
             ),
           ],
         ),
-        elevation: 2,
         actionsAlignment: MainAxisAlignment.center,
+        elevation: 2,
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(top: 40.0, bottom: 40),
-            child: LargeButton(
-              buttonChild: Text(
-                Strings.cont,
-                style: RibnToolkitTextStyles.btnLarge.copyWith(
-                  color: Colors.white,
-                ),
+          LargeButton(
+            buttonChild: Text(
+              Strings.cont,
+              style: RibnToolkitTextStyles.btnLarge.copyWith(
+                color: Colors.white,
               ),
-              backgroundColor: RibnColors.primary,
-              hoverColor: RibnColors.primaryButtonHover,
-              dropShadowColor: RibnColors.primaryButtonShadow,
-              onPressed: () {
-                Keys.navigatorKey.currentState!.pop();
-                StoreProvider.of<AppState>(context).dispatch(GenerateMnemonicAction());
-              },
             ),
+            backgroundColor: RibnColors.primary,
+            hoverColor: RibnColors.primaryButtonHover,
+            dropShadowColor: RibnColors.primaryButtonShadow,
+            onPressed: () {
+              Keys.navigatorKey.currentState!.pop();
+              StoreProvider.of<AppState>(context).dispatch(GenerateMnemonicAction());
+            },
           ),
         ],
       ),
