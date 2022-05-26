@@ -57,5 +57,12 @@ var ext_storage = {
             ...stored,
             ...parsedObj,
         });
+    },
+    
+    /**
+     * Clears the extension's session storage.
+     */
+    clearSessionStorage: async () => {
+        await chrome.storage.session.clear();
     }
 };

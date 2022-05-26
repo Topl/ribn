@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
+import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/continue_button.dart';
 import 'package:ribn/widgets/custom_tooltip.dart';
 
@@ -76,7 +79,10 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
           const SizedBox(height: 30),
           ContinueButton(
             Strings.iUnderstand,
-            () => widget.goToNextPage(),
+            () {
+              StoreProvider.of<AppState>(context).dispatch(PersistAppState());
+              widget.goToNextPage();
+            },
             disabled: pointsChecked.values.contains(false),
           )
         ],

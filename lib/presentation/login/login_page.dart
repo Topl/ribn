@@ -42,6 +42,17 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return LoginContainer(
       builder: (context, vm) {
+        void attemptLogin() {
+          vm.attemptLogin(
+            password: _textEditingController.text,
+            onIncorrectPasswordEntered: () {
+              setState(() {
+                _incorrectPasswordEntered = true;
+              });
+            },
+          );
+        }
+
         return Scaffold(
           backgroundColor: RibnColors.accent,
           body: SingleChildScrollView(
@@ -82,18 +93,11 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 25),
                 _buildTextFieldLabel(),
                 const SizedBox(height: 8),
-                _buildTextField(),
+                _buildTextField(attemptLogin),
                 const SizedBox(height: 35),
                 LargeButton(
                   label: Strings.unlock,
-                  onPressed: () => vm.attemptLogin(
-                    password: _textEditingController.text,
-                    onIncorrectPasswordEntered: () {
-                      setState(() {
-                        _incorrectPasswordEntered = true;
-                      });
-                    },
-                  ),
+                  onPressed: attemptLogin,
                   backgroundColor: RibnColors.primary,
                   textColor: Colors.white,
                 ),
@@ -148,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
 
   /// Builds the text field for the wallet password.
   /// Allows showing/hiding the text input.
-  Widget _buildTextField() {
+  Widget _buildTextField(VoidCallback attemptLogin) {
     final OutlineInputBorder textFieldBorder = OutlineInputBorder(
       borderSide: const BorderSide(color: RibnColors.primary),
       borderRadius: BorderRadius.circular(4.7),
@@ -157,6 +161,7 @@ class _LoginPageState extends State<LoginPage> {
       width: _baseWidth,
       height: 35,
       child: TextField(
+        onSubmitted: (_) => attemptLogin(),
         obscureText: _obscurePassword,
         controller: _textEditingController,
         decoration: InputDecoration(
