@@ -95,51 +95,47 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              // Field for displaying the selected asset for the transfer.
-                              // Allows changing the asset for the transfer via a dropdown.
-                              AssetSelectionField(
-                                formattedSelectedAsset: {
-                                  'assetCode': _selectedAsset.assetCode.toString(),
-                                  'longName': vm.assetDetails[_selectedAsset.assetCode.toString()]?.longName,
-                                  'shortName': _selectedAsset.assetCode.shortName.show,
-                                  'assetIcon': vm.assetDetails[_selectedAsset.assetCode.toString()]?.icon,
-                                },
-                                formattedAsset: (asset) {
-                                  return {
-                                    'longName': vm.assetDetails[asset!.assetCode.toString()]?.longName,
-                                    'shortName': asset.assetCode.shortName.show,
-                                    'assetIcon': vm.assetDetails[asset!.assetCode.toString()]?.icon,
-                                  };
-                                },
-                                assets: vm.assets,
-                                label: Strings.youSend,
-                                onSelected: (AssetAmount? asset) {
-                                  setState(() {
-                                    _selectedAsset = asset!;
-                                  });
-                                },
-                                tooltipIcon: Image.asset(
-                                  RibnAssets.greyHelpBubble,
-                                  width: 18,
-                                ),
-                              ),
-                              const Spacer(),
-                              // Field for entering the amount for the asset transfer.
-                              AssetAmountField(
-                                selectedUnit: vm.assetDetails[_selectedAsset.assetCode.toString()]?.unit,
-                                controller: _amountController,
-                                allowEditingUnit: false,
-                                onUnitSelected: (String unit) {},
-                                chevronIcon: Image.asset(
-                                  RibnAssets.chevronDownDark,
-                                  width: 24,
-                                ),
-                              ),
-                            ],
+                          AssetSelectionField(
+                            formattedSelectedAsset: {
+                              'assetCode': _selectedAsset.assetCode.toString(),
+                              'longName': vm.assetDetails[_selectedAsset.assetCode.toString()]?.longName,
+                              'shortName': _selectedAsset.assetCode.shortName.show,
+                              'assetIcon': vm.assetDetails[_selectedAsset.assetCode.toString()]?.icon,
+                            },
+                            formattedAsset: (asset) {
+                              return {
+                                'longName': vm.assetDetails[asset!.assetCode.toString()]?.longName,
+                                'shortName': asset.assetCode.shortName.show,
+                                'assetIcon': vm.assetDetails[asset!.assetCode.toString()]?.icon,
+                              };
+                            },
+                            assets: vm.assets,
+                            label: Strings.youSend,
+                            onSelected: (AssetAmount? asset) {
+                              setState(() {
+                                _selectedAsset = asset!;
+                              });
+                            },
+                            tooltipIcon: Image.asset(
+                              RibnAssets.greyHelpBubble,
+                              width: 18,
+                            ),
+                            chevronIcon: Image.asset(
+                              RibnAssets.chevronDownDark,
+                              width: 24,
+                            ),
                           ),
-                          const SizedBox(height: 14),
+                          // const Spacer(),
+                          AssetAmountField(
+                            selectedUnit: vm.assetDetails[_selectedAsset.assetCode.toString()]?.unit,
+                            controller: _amountController,
+                            allowEditingUnit: false,
+                            onUnitSelected: (String unit) {},
+                            chevronIcon: Image.asset(
+                              RibnAssets.chevronDownDark,
+                              width: 24,
+                            ),
+                          ),
                           // Displays the sender address.
                           const FromAddressField(),
                           // Field for entering the recipient address.

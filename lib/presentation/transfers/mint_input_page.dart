@@ -261,6 +261,10 @@ class _MintInputPageState extends State<MintInputPage> {
               RibnAssets.greyHelpBubble,
               width: 18,
             ),
+            chevronIcon: Image.asset(
+              RibnAssets.chevronDownDark,
+              width: 24,
+            ),
           );
   }
 

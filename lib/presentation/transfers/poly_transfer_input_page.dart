@@ -91,15 +91,10 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                // UI to indicate poly transfer
-                                _buildPolyDisplay(),
-                                const SizedBox(width: 20),
-                                // field for entering amount of polys needed for transfer
-                                _buildAmountField(),
-                              ],
-                            ),
+                            // UI to indicate poly transfer
+                            _buildPolyDisplay(),
+                            // field for entering amount of polys needed for transfer
+                            _buildAmountField(),
                             // field for displaying the sender addresss
                             const FromAddressField(),
                             // field for entering the recipient address
@@ -176,8 +171,8 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
     return CustomInputField(
       itemLabel: Strings.youSend,
       item: Container(
-        width: 207,
-        height: 31,
+        width: 310,
+        height: 36,
         decoration: const BoxDecoration(
           color: RibnColors.whiteBackground,
           borderRadius: BorderRadius.all(
@@ -203,8 +198,8 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
     return CustomInputField(
       itemLabel: Strings.amount,
       item: CustomTextField(
-        width: 82,
-        height: 31,
+        width: 310,
+        height: 36,
         controller: _amountController,
         hintText: Strings.amountHint,
       ),
