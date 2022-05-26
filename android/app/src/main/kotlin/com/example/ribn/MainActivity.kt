@@ -1,4 +1,4 @@
-package com.example.ribn
+package co.topl.ribn
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.FlutterEngine

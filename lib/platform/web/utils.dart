@@ -15,6 +15,7 @@ external void deleteWallet();
 external void downloadAsFile(String fileName, String text);
 external Future<void> openAppInNewTab();
 external Future<String> getCurrentView();
+external void createSessionAlarm();
 
 class PlatformUtils implements IPlatformUtils {
   PlatformUtils._internal();
@@ -42,4 +43,7 @@ class PlatformUtils implements IPlatformUtils {
 
   @override
   void closeWindow() => window.close();
+
+  @override
+  void createLoginSessionAlarm() => createSessionAlarm();
 }

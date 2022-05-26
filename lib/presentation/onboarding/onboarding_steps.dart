@@ -35,17 +35,24 @@ class OnboardingStepsPageState extends State<OnboardingStepsPage> {
   Widget build(BuildContext context) {
     // back button only shows up after the 1st page
     final bool showBackButton = currPage > 1;
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            OnboardingAppBar(
-              onBackPressed: showBackButton ? onBackPressed : null,
-              currPage: currPage,
-            ),
-            Flexible(child: buildPage()),
-          ],
+    return WillPopScope(
+      onWillPop: () async {
+        if (currPage == 0) return true;
+        onBackPressed();
+        return false;
+      },
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              OnboardingAppBar(
+                onBackPressed: showBackButton ? onBackPressed : null,
+                currPage: currPage,
+              ),
+              Flexible(child: buildPage()),
+            ],
+          ),
         ),
       ),
     );

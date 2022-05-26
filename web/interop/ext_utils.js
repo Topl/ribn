@@ -45,5 +45,11 @@ var ext_utils = {
         } catch (e) {
             return 'debug';
         }
+    },
+    /**
+     * Creates a new alarm to trigger 60 minutes from now.
+     */
+    createSessionAlarm: () => {
+        chrome.alarms.create('loginSession', {delayInMinutes: 60});
     }
 };
