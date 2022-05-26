@@ -146,7 +146,7 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
           ),
           hasErrors[_seedPhraseTextController] ?? false
               ? const Text(
-                  'Invalid seed phrase.',
+                  Strings.invalidSeedPhrase,
                   style: TextStyle(color: Colors.red),
                 )
               : const SizedBox(),
@@ -219,21 +219,11 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
   /// Otherwise, dispatches [RestoreWalletWithMnemonicAction].
   void validateSeedPhraseAndPassword() {
     final bool isSeedPhraseValid = validateMnemonic(_seedPhraseTextController.text, 'english');
-    if (!isSeedPhraseValid) {
-      setState(() {
-        hasErrors[_seedPhraseTextController] = true;
-      });
-    }
-    if (!passwordAtLeast8Chars) {
-      setState(() {
-        hasErrors[_newPasswordController] = true;
-      });
-    }
-    if (!passwordsMatch) {
-      setState(() {
-        hasErrors[_confirmPasswordController] = true;
-      });
-    }
+    setState(() {
+      hasErrors[_seedPhraseTextController] = !isSeedPhraseValid;
+      hasErrors[_newPasswordController] = !passwordAtLeast8Chars;
+      hasErrors[_confirmPasswordController] = !passwordsMatch;
+    });
     if (isSeedPhraseValid && passwordAtLeast8Chars && passwordsMatch) {
       StoreProvider.of<AppState>(context).dispatch(
         RestoreWalletWithMnemonicAction(
