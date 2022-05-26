@@ -16,6 +16,8 @@ abstract class IPlatformUtils {
 
   /// Closes the current window.
   void closeWindow();
+
+  void createLoginSessionAlarm();
 }
 
 abstract class IMessenger {

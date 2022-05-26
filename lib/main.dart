@@ -21,7 +21,7 @@ import 'package:ribn/router/root_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Redux.initStore();
+  await Redux.initStore(initTestStore: false);
   final String currentAppView = await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
   // Open app in new tab if user needs onboarding
@@ -60,7 +60,14 @@ class MyApp extends StatelessWidget {
               case Routes.externalSigning:
                 return [MaterialPageRoute(builder: (context) => ExternalSigningPage(store.state.internalMessage!))];
               default:
-                return [MaterialPageRoute(builder: (context) => const WelcomePage())];
+                return [
+                  MaterialPageRoute(
+                    builder: (context) => const WelcomePage(),
+                    settings: const RouteSettings(
+                      name: Routes.welcome,
+                    ),
+                  )
+                ];
             }
           },
           initialRoute: getInitialRoute(store),

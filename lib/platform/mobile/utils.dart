@@ -36,4 +36,7 @@ class PlatformUtils implements IPlatformUtils {
 
   @override
   void closeWindow() => throw UnimplementedError();
+
+  @override
+  void createLoginSessionAlarm() => throw UnimplementedError();
 }

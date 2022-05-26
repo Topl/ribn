@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:bip_topl/bip_topl.dart';
+import 'package:flutter/foundation.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/actions/login_actions.dart';
 import 'package:ribn/models/app_state.dart';
@@ -23,6 +24,7 @@ void Function(Store<AppState> store, AttemptLoginAction action, NextDispatcher n
         password: action.password,
       );
       await PlatformLocalStorage.instance.saveSessionKey(Base58Encoder.instance.encode(toplExtendedPrvKeyUint8List));
+      if (kIsWeb) PlatformUtils.instance.createLoginSessionAlarm();
       action.completer.complete(true);
       next(LoginSuccessAction(toplExtendedPrvKeyUint8List));
     } catch (e) {
