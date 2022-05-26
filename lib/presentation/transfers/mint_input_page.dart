@@ -116,35 +116,28 @@ class _MintInputPageState extends State<MintInputPage> {
                         children: [
                           // builds the apt asset defining field, depending on [widget.mintingNewAsset]
                           _buildAssetField(vm),
-                          Row(
-                            children: [
-                              // field for defining a short name for the asset if minting a new asset
-                              widget.mintingNewAsset
-                                  ? AssetShortNameField(
-                                      controller: _assetShortNameController,
-                                      tooltipIcon: Image.asset(
-                                        RibnAssets.greyHelpBubble,
-                                        width: 18,
-                                      ),
-                                    )
-                                  : const SizedBox(),
-                              widget.mintingNewAsset ? const Spacer() : const SizedBox(),
-                              // field for defining asset amount & custom unit
-                              AssetAmountField(
-                                selectedUnit: _selectedUnit,
-                                controller: _amountController,
-                                allowEditingUnit: widget.mintingNewAsset,
-                                onUnitSelected: (String unit) {
-                                  setState(() {
-                                    _selectedUnit = unit;
-                                  });
-                                },
-                                chevronIcon: Image.asset(
-                                  RibnAssets.chevronDownDark,
-                                  width: 24,
-                                ),
-                              )
-                            ],
+                          // field for defining a short name
+                          AssetShortNameField(
+                            controller: _assetShortNameController,
+                            tooltipIcon: Image.asset(
+                              RibnAssets.greyHelpBubble,
+                              width: 18,
+                            ),
+                          ),
+                          // field for defining asset amount & custom unit
+                          AssetAmountField(
+                            selectedUnit: _selectedUnit,
+                            controller: _amountController,
+                            allowEditingUnit: widget.mintingNewAsset,
+                            onUnitSelected: (String unit) {
+                              setState(() {
+                                _selectedUnit = unit;
+                              });
+                            },
+                            chevronIcon: Image.asset(
+                              RibnAssets.chevronDownDark,
+                              width: 24,
+                            ),
                           ),
                           const IssuerAddressField(width: 213),
                           // field for entering the recipient address
