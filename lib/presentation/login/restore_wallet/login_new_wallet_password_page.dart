@@ -7,8 +7,8 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/presentation/login/widgets/restore_page_title.dart';
 import 'package:ribn/presentation/login/widgets/warning_section.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 
@@ -70,62 +70,68 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: RibnColors.accent,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          children: [
-            // page title
-            const RestoreWalletPageTitle(),
-            // warning section
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 24.0),
-              child: WarningSection(),
-            ),
-            // new wallet password
-            SizedBox(
-              width: 309,
-              child: Text(Strings.newWalletPassword, style: RibnToolkitTextStyles.extH3.copyWith()),
-            ),
-            // enter new wallet password text field
-            PasswordTextField(
-              hintText: Strings.newWalletPasswordHint,
-              controller: _newWalletPasswordController,
-              hasError: hasErrors[_newWalletPasswordController] ?? false,
-              icon: SvgPicture.asset(
-                _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
-                width: 20,
-              ),
-              obscurePassword: _obscurePassword,
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: 309,
-              child: Text(Strings.confirmWalletPassword, style: RibnToolkitTextStyles.extH3.copyWith()),
-            ),
-            // confirm wallet password text field
-            PasswordTextField(
-              hintText: Strings.confirmWalletPasswordHint,
-              controller: _confirmWalletPasswordController,
-              hasError: hasErrors[_confirmWalletPasswordController] ?? false,
-              icon: SvgPicture.asset(
-                _obscureConfirmPassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
-                width: 12,
-              ),
-              obscurePassword: _obscurePassword,
-            ),
-            const Spacer(),
-            // Confirmation button
-            LargeButton(
-                buttonChild: Text(
-                  Strings.next,
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(
-                    color: Colors.white,
-                  ),
+      backgroundColor: RibnColors.background,
+      body: Column(
+        children: [
+          // page title
+          const CustomPageTitle(title: Strings.restoreWallet),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              children: [
+                // warning section
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 24.0),
+                  child: WarningSection(),
                 ),
-                onPressed: onNextPressed),
-          ],
-        ),
+                // new wallet password
+                SizedBox(
+                  width: 309,
+                  child: Text(Strings.newWalletPassword, style: RibnToolkitTextStyles.extH3.copyWith()),
+                ),
+                // enter new wallet password text field
+                PasswordTextField(
+                  hintText: Strings.newWalletPasswordHint,
+                  controller: _newWalletPasswordController,
+                  hasError: hasErrors[_newWalletPasswordController] ?? false,
+                  icon: SvgPicture.asset(
+                    _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
+                    width: 20,
+                  ),
+                  obscurePassword: _obscurePassword,
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: 309,
+                  child: Text(Strings.confirmWalletPassword, style: RibnToolkitTextStyles.extH3.copyWith()),
+                ),
+                // confirm wallet password text field
+                PasswordTextField(
+                  hintText: Strings.confirmWalletPasswordHint,
+                  controller: _confirmWalletPasswordController,
+                  hasError: hasErrors[_confirmWalletPasswordController] ?? false,
+                  icon: SvgPicture.asset(
+                    _obscureConfirmPassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
+                    width: 12,
+                  ),
+                  obscurePassword: _obscurePassword,
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                // Confirmation button
+                LargeButton(
+                    buttonChild: Text(
+                      Strings.next,
+                      style: RibnToolkitTextStyles.btnMedium.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                    onPressed: onNextPressed),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

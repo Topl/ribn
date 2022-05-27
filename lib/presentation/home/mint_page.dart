@@ -9,6 +9,7 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
 
 /// One of the 3 main pages on the home screen.
@@ -24,19 +25,9 @@ class MintPage extends StatelessWidget {
     return Column(
       children: [
         // page title
-        Container(
-          height: 122,
-          color: RibnColors.accent,
-          child: const Center(
-            child: Text(
-              Strings.mintAsset,
-              style: TextStyle(
-                fontFamily: 'DM Sans',
-                fontWeight: FontWeight.bold,
-                fontSize: 32,
-              ),
-            ),
-          ),
+        const CustomPageTitle(
+          title: Strings.mintAsset,
+          hideBackArrow: true,
         ),
         const SizedBox(height: 40),
         // page description

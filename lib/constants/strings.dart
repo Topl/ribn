@@ -45,6 +45,7 @@ class Strings {
   static const String createWallet = 'CREATE\nWALLET';
   static const String createWalletDescription = 'First time? Create your new wallet\nand 15 word seed phrase.';
   static const String importWallet = 'Import Wallet';
+  static const String restoreWallet = 'Restore Wallet';
   static const String restoreWalletDescription = 'Restore your existing Ribn wallet\nusing a seed phrase or Topl key.';
   static const String gettingStarted = 'Getting Started';
   static const String download = 'Download';
@@ -152,7 +153,6 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String next = 'NEXT';
   static const String useSeedPhrase = 'USE\nSEED\nPHRASE';
   static const String importToplKey = 'IMPORT\nTOPL\nKEY';
-  static const String restoreWallet = 'RESTORE WALLET';
   static const String restoreWalletNewline = 'RESTORE\nWALLET';
   static const String restoreWalletDesc =
       'You can either use your 15-word Seed Phrase or your Top Level Key to import or recover your wallet.';
@@ -176,10 +176,10 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String typeSomething = 'Type Something';
   static const String supportEmail = 'support@topl.me';
   static const String supportEmailLink = 'mailto:$supportEmail?subject=Ribn Support&body=';
-  static const String sendAssets = 'SEND ASSETS';
+  static const String sendAssets = 'Send Assets';
   static const String yourRibnWalletAddress = 'Your Ribn Wallet address';
   static const String yourIssuerAddress = 'Your issuer address';
-  static const String review = 'REVIEW';
+  static const String review = 'Review';
   static const String noteHint = 'Origin Brazil, max 127 characters';
   static const String assetTransferToHint = 'Paste Recipient’s address.';
   static const String assetLongNameHint = 'Jackfruit, max 16 characters.';

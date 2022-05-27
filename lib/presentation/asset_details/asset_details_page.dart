@@ -18,8 +18,8 @@ import 'package:ribn/presentation/asset_details/asset_detail_items/asset_long_na
 import 'package:ribn/presentation/asset_details/asset_detail_items/asset_unit_details.dart';
 import 'package:ribn/presentation/asset_details/asset_detail_items/issuer_address_details.dart';
 import 'package:ribn/widgets/custom_divider.dart';
-import 'package:ribn/widgets/custom_page_title.dart';
 import 'package:ribn/widgets/ribn_app_bar_wapper.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 
 /// This page presents all details associated with an asset.
 ///
@@ -110,7 +110,9 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                _buildPageTitle(),
+                const CustomPageTitle(
+                  title: Strings.assetDetails,
+                ),
                 const SizedBox(height: 16),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -165,17 +167,6 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
           ),
         );
       },
-    );
-  }
-
-  /// Builds the title for this page.
-  Widget _buildPageTitle() {
-    return Container(
-      height: 90,
-      color: RibnColors.accent,
-      child: const CustomPageTitle(
-        title: Strings.assetDetails,
-      ),
     );
   }
 

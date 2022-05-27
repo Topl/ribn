@@ -7,7 +7,7 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/presentation/login/widgets/restore_page_title.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/peekaboo_button.dart';
@@ -48,87 +48,94 @@ class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicP
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: RibnColors.accent,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const RestoreWalletPageTitle(),
-            const SizedBox(height: 30),
-            SizedBox(
-              width: maxWidth,
-              height: 80,
-              child: Center(
-                child: Text(
-                  Strings.restoreWalletSeedPhraseDesc,
-                  style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15),
-                ),
-              ),
-            ),
-            SizedBox(
-              width: maxWidth,
-              child: const Text(
-                Strings.enterSeedPhrase,
-                style: RibnToolkitTextStyles.extH3,
-              ),
-            ),
-            // seed phrase text field
-            CustomTextField(
-              controller: controller,
-              hintText: Strings.hintSeedPhrase,
-              height: 57,
-              hasError: invalidSeedPhraseEntered,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: SizedBox(
-                width: maxWidth,
-                child: PeekabooButton(
-                  buttonText: Text(
-                    Strings.advancedOption,
-                    style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15),
-                  ),
-                  buttonChild: SizedBox(
-                    width: 137,
-                    height: 22,
-                    child: LargeButton(
-                      buttonChild: Text(
-                        Strings.useToplMainKey,
-                        style: RibnToolkitTextStyles.dropdownButtonStyle
-                            .copyWith(fontSize: 11, color: RibnColors.ghostButtonText),
-                      ),
-                      backgroundColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      dropShadowColor: Colors.transparent,
-                      borderColor: RibnColors.ghostButtonText,
-                      onPressed: () {
-                        StoreProvider.of<AppState>(context).dispatch(
-                          NavigateToRoute(
-                            Routes.loginRestoreWalletWithToplKey,
-                          ),
-                        );
-                      },
+      backgroundColor: RibnColors.background,
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const CustomPageTitle(title: Strings.restoreWallet),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 30),
+                SizedBox(
+                  width: maxWidth,
+                  height: 80,
+                  child: Center(
+                    child: Text(
+                      Strings.restoreWalletSeedPhraseDesc,
+                      style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15),
                     ),
                   ),
                 ),
-              ),
-            ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 17.0),
-              child: LargeButton(
-                buttonChild: Text(
-                  Strings.next,
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(
-                    color: Colors.white,
+                const SizedBox(height: 30),
+                SizedBox(
+                  width: maxWidth,
+                  child: const Text(
+                    Strings.enterSeedPhrase,
+                    style: RibnToolkitTextStyles.extH3,
                   ),
                 ),
-                onPressed: onNextPressed,
-              ),
+                // seed phrase text field
+                CustomTextField(
+                  controller: controller,
+                  hintText: Strings.hintSeedPhrase,
+                  height: 57,
+                  hasError: invalidSeedPhraseEntered,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15.0),
+                  child: SizedBox(
+                    width: maxWidth,
+                    child: PeekabooButton(
+                      buttonText: Text(
+                        Strings.advancedOption,
+                        style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15),
+                      ),
+                      buttonChild: SizedBox(
+                        width: 137,
+                        height: 22,
+                        child: LargeButton(
+                          buttonChild: Text(
+                            Strings.useToplMainKey,
+                            style: RibnToolkitTextStyles.dropdownButtonStyle
+                                .copyWith(fontSize: 11, color: RibnColors.ghostButtonText),
+                          ),
+                          backgroundColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          dropShadowColor: Colors.transparent,
+                          borderColor: RibnColors.ghostButtonText,
+                          onPressed: () {
+                            StoreProvider.of<AppState>(context).dispatch(
+                              NavigateToRoute(
+                                Routes.loginRestoreWalletWithToplKey,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 100,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 17.0),
+                  child: LargeButton(
+                    buttonChild: Text(
+                      Strings.next,
+                      style: RibnToolkitTextStyles.btnMedium.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                    onPressed: onNextPressed,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

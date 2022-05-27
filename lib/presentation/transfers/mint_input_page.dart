@@ -10,10 +10,10 @@ import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/issuer_address_field.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_display_container.dart';
-import 'package:ribn/widgets/custom_page_title.dart';
 import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_selection_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_short_name_field.dart';
@@ -105,7 +105,8 @@ class _MintInputPageState extends State<MintInputPage> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  _buildPageTitle(),
+                  /// Builds the title of the page.
+                  CustomPageTitle(title: widget.mintingNewAsset ? Strings.mint : Strings.remint),
                   const SizedBox(height: 30),
                   SizedBox(
                     width: 310,
@@ -198,14 +199,6 @@ class _MintInputPageState extends State<MintInputPage> {
           ],
         ),
       ),
-    );
-  }
-
-  /// Builds the title of the page.
-  Widget _buildPageTitle() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 45),
-      child: CustomPageTitle(title: widget.mintingNewAsset ? Strings.mint : Strings.remint),
     );
   }
 

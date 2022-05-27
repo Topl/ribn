@@ -9,12 +9,12 @@ import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/asset_info.dart';
 import 'package:ribn/widgets/custom_divider.dart';
-import 'package:ribn/widgets/custom_page_title.dart';
 import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The transaction review page.

@@ -8,10 +8,10 @@ import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_display_container.dart';
-import 'package:ribn/widgets/custom_page_title.dart';
 import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_selection_field.dart';
@@ -77,7 +77,7 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
     return AssetTransferInputContainer(
       builder: (BuildContext context, AssetTransferInputViewModel vm) {
         return Scaffold(
-          backgroundColor: RibnColors.accent,
+          backgroundColor: RibnColors.background,
           body: Stack(
             children: [
               SingleChildScrollView(
@@ -85,10 +85,7 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // page title
-                    const Padding(
-                      padding: EdgeInsets.only(top: 45),
-                      child: CustomPageTitle(title: Strings.sendAssets),
-                    ),
+                    const CustomPageTitle(title: Strings.sendAssets),
                     const SizedBox(height: 40),
                     SizedBox(
                       width: 310,

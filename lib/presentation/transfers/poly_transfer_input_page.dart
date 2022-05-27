@@ -9,9 +9,9 @@ import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn/widgets/custom_page_title.dart';
 import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/loading_spinner.dart';
@@ -75,14 +75,14 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
     return PolyTransferInputContainer(
       builder: (BuildContext context, PolyTransferInputViewModel vm) {
         return Scaffold(
-          backgroundColor: RibnColors.accent,
+          backgroundColor: RibnColors.background,
           body: Stack(
             children: [
               SingleChildScrollView(
                 child: Column(
                   children: [
                     // page title
-                    _buildPageTitle(),
+                    const CustomPageTitle(title: Strings.sendAssets),
                     const SizedBox(height: 30),
                     SizedBox(
                       width: 310,
@@ -155,14 +155,6 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
           ),
         );
       },
-    );
-  }
-
-  /// Builds the title of the page.
-  Widget _buildPageTitle() {
-    return const Padding(
-      padding: EdgeInsets.only(top: 45),
-      child: CustomPageTitle(title: Strings.sendAssets),
     );
   }
 
