@@ -6,6 +6,7 @@ import 'package:ribn/presentation/onboarding/seed_phrase_display_page.dart';
 import 'package:ribn/presentation/onboarding/seed_phrase_generating_page.dart';
 import 'package:ribn/presentation/onboarding/wallet_created_page.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 
 /// Builds PageViews for generating and confirming the seed phrase, and creating a wallet password.
 class OnboardingStepsPage extends StatefulWidget {
@@ -36,6 +37,7 @@ class OnboardingStepsPageState extends State<OnboardingStepsPage> {
     // back button only shows up after the 1st page
     final bool showBackButton = currPage > 1;
     return Scaffold(
+      backgroundColor: RibnColors.background,
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,

@@ -126,6 +126,7 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
       barrierDismissible: false,
       barrierColor: barrierColor,
       pageBuilder: (context, _, __) => CustomModal.renderCustomModal(
+        maxModalHeight: 330,
         context: context,
         title: const Text(
           Strings.weRecommend,

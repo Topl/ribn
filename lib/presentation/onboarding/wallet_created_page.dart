@@ -9,23 +9,12 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/accordion.dart';
 
 /// Wallet created success page.
 /// Displays several FAQs to the user.
-class WalletCreatedPage extends StatefulWidget {
+class WalletCreatedPage extends StatelessWidget {
   const WalletCreatedPage({Key? key}) : super(key: key);
-
-  @override
-  State<WalletCreatedPage> createState() => _WalletCreatedPageState();
-}
-
-class _WalletCreatedPageState extends State<WalletCreatedPage> {
-  final Map<String, bool> faqExpanded = {
-    Strings.howCanIKeepMySeedPhraseSecure: false,
-    Strings.howIsASeedPhraseDifferent: false,
-    Strings.howIsMySeedPhraseUnrecoverable: false,
-  };
-  final Color dividerColor = const Color.fromRGBO(148, 162, 171, 0.47);
 
   @override
   Widget build(BuildContext context) {
@@ -85,70 +74,35 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
               ),
             ),
             const SizedBox(height: 20),
-            _buildFaqListItem(
-              Strings.howCanIKeepMySeedPhraseSecure,
-              Strings.howCanIKeepMySeedPhraseSecureAns,
+            const Accordion(
+              header: Strings.howCanIKeepMySeedPhraseSecure,
+              description: Strings.howCanIKeepMySeedPhraseSecureAns,
+              width: 660,
+              backgroundColor: Colors.white,
+              collapsedBackgroundColor: Colors.white,
+              textColor: RibnColors.defaultText,
+              iconColor: RibnColors.defaultText,
             ),
-            _buildFaqListItem(
-              Strings.howIsASeedPhraseDifferent,
-              Strings.howIsASeedPhraseDifferentAns,
+            const Accordion(
+              header: Strings.howIsASeedPhraseDifferent,
+              description: Strings.howIsASeedPhraseDifferentAns,
+              width: 660,
+              backgroundColor: Colors.white,
+              collapsedBackgroundColor: Colors.white,
+              textColor: RibnColors.defaultText,
+              iconColor: RibnColors.defaultText,
             ),
-            _buildFaqListItem(
-              Strings.howIsMySeedPhraseUnrecoverable,
-              Strings.howIsMySeedPhraseUnrecoverableAns,
+            const Accordion(
+              header: Strings.howIsMySeedPhraseUnrecoverable,
+              description: Strings.howIsMySeedPhraseUnrecoverableAns,
+              width: 660,
+              backgroundColor: Colors.white,
+              collapsedBackgroundColor: Colors.white,
+              textColor: RibnColors.defaultText,
+              iconColor: RibnColors.defaultText,
             ),
             const SizedBox(height: 20),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFaqListItem(String header, String desc) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(4),
-        child: SizedBox(
-          width: 660,
-          child: Theme(
-            data: ThemeData().copyWith(dividerColor: Colors.transparent),
-            child: ExpansionTile(
-              tilePadding: const EdgeInsets.symmetric(horizontal: 30),
-              trailing: faqExpanded[header]! ? const Icon(Icons.remove) : const Icon(Icons.add),
-              iconColor: RibnColors.defaultText,
-              onExpansionChanged: (bool val) {
-                setState(() {
-                  faqExpanded[header] = val;
-                });
-              },
-              backgroundColor: RibnColors.accent,
-              collapsedBackgroundColor: RibnColors.accent,
-              title: Text(
-                header,
-                style: RibnToolkitTextStyles.body1Bold,
-                textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
-              ),
-              children: [
-                Container(
-                  color: dividerColor,
-                  height: 1,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 50, top: 30, bottom: 30),
-                  child: SizedBox(
-                    width: 500,
-                    child: Text(
-                      desc,
-                      style: RibnToolkitTextStyles.body1,
-                      textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
-                    ),
-                  ),
-                ),
-              ],
-              expandedCrossAxisAlignment: CrossAxisAlignment.start,
-            ),
-          ),
         ),
       ),
     );
