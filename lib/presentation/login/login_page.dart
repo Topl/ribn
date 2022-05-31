@@ -56,7 +56,6 @@ class _LoginPageState extends State<LoginPage> {
         return Listener(
           onPointerDown: (_) {
             if (mounted) setState(() {});
-            // update key attached to (?)
           },
           child: Scaffold(
             backgroundColor: RibnColors.accent,
