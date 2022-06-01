@@ -2,7 +2,7 @@
     package="co.topl.ribn">
       <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
    <application
-        android:label="ribn"
+        android:label="Ribn"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:exported="true"
