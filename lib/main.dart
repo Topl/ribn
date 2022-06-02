@@ -31,14 +31,13 @@ void main() async {
   } else if (currentAppView == 'tab' && !needsOnboarding) {
     await initBgConnection(Redux.store!);
   }
-
-  runApp(MyApp(Redux.store!));
+  runApp(RibnApp(Redux.store!));
 }
 
-class MyApp extends StatelessWidget {
+class RibnApp extends StatelessWidget {
   final RootRouter rootRouter = RootRouter();
   final Store<AppState> store;
-  MyApp(this.store, {Key? key}) : super(key: key);
+  RibnApp(this.store, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +58,7 @@ class MyApp extends StatelessWidget {
                 return [MaterialPageRoute(builder: (context) => EnablePage(store.state.internalMessage!))];
               case Routes.externalSigning:
                 return [MaterialPageRoute(builder: (context) => ExternalSigningPage(store.state.internalMessage!))];
+              case Routes.welcome:
               default:
                 return [
                   MaterialPageRoute(
