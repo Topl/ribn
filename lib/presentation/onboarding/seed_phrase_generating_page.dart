@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn_toolkit/constants/assets.dart';
@@ -7,6 +5,7 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/animated_circle_step_loader.dart';
 
 /// Builds the custom animation when generating seed phrase.
 class SeedPhraseGeneratingPage extends StatefulWidget {
@@ -18,33 +17,7 @@ class SeedPhraseGeneratingPage extends StatefulWidget {
 }
 
 class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
-  late final Timer timer;
-  final int numCircles = 5;
-  final double smallRadius = 8;
-  final double bigRadius = 16;
-  int currCircle = 0;
-  final Duration duration = const Duration(seconds: 2);
-  final List<int> circlePositions = List.generate(5, (idx) => idx).toList();
-  bool seedPhraseGenerating = true;
-
-  @override
-  void initState() {
-    timer = Timer.periodic(duration, (timer) {
-      if (timer.tick == numCircles) {
-        seedPhraseGenerating = false;
-        timer.cancel();
-      }
-      currCircle = (currCircle + 1) % numCircles;
-      setState(() {});
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    timer.cancel();
-    super.dispose();
-  }
+  bool showStepLoader = true;
 
   @override
   Widget build(BuildContext context) {
@@ -52,26 +25,29 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
       padding: const EdgeInsets.only(top: 50.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: seedPhraseGenerating ? seedPhraseGeneratingSection() : seedPhraseGeneratedSection(),
+        children: showStepLoader ? seedPhraseGeneratingSection() : seedPhraseGeneratedSection(),
       ),
     );
+  }
+
+  void updateShowStepLoader() {
+    setState(() {
+      showStepLoader = false;
+    });
   }
 
   /// Display this section when seed phrase is generating.
   List<Widget> seedPhraseGeneratingSection() {
     return [
-      SizedBox(
-        height: 101,
-        width: 312,
-        child: _buildTitle(currCircle),
-      ),
-      const SizedBox(height: 70),
-      SizedBox(
-        height: 30,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: circlePositions.map(_buildAnimatedContainer).toList(),
-        ),
+      AnimatedCircleStepLoader(
+        showStepLoader: updateShowStepLoader,
+        stepLabels: const {
+          0: Strings.seedPhraseGenerating,
+          1: Strings.goGrabAPenAndPaper,
+          2: Strings.seriouslyGetAPenAndPaper,
+          3: Strings.seedPhraseGenerating,
+          4: Strings.seedPhraseGenerating,
+        },
       ),
       const SizedBox(height: 70),
       const SizedBox(
@@ -119,51 +95,5 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
         onPressed: widget.goToNextPage,
       ),
     ];
-  }
-
-  Widget _buildTitle(int position) {
-    switch (position) {
-      case 0:
-      case 3:
-      case 4:
-        {
-          return const Text(
-            Strings.seedPhraseGenerating,
-            style: RibnToolkitTextStyles.h1,
-            textAlign: TextAlign.center,
-          );
-        }
-      case 1:
-        {
-          return const Text(
-            Strings.goGrabAPenAndPaper,
-            style: RibnToolkitTextStyles.h1,
-            textAlign: TextAlign.center,
-          );
-        }
-      case 2:
-        {
-          return const Text(
-            Strings.seriouslyGetAPenAndPaper,
-            style: RibnToolkitTextStyles.h1,
-            textAlign: TextAlign.center,
-          );
-        }
-    }
-    return const Text('');
-  }
-
-  /// Animate color and radius of the active circles.
-  Widget _buildAnimatedContainer(int position) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: AnimatedContainer(
-        duration: duration,
-        child: CircleAvatar(
-          backgroundColor: position <= currCircle ? RibnColors.primary : RibnColors.inactive,
-          radius: currCircle == position ? bigRadius : smallRadius,
-        ),
-      ),
-    );
   }
 }
