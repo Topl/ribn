@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/widgets/progress_bar.dart';
+import 'package:ribn_toolkit/widgets/organisms/progress_bar.dart';
 
 /// Custom [AppBar] displayed during onboarding.
 class OnboardingAppBar extends StatelessWidget {
@@ -52,7 +52,16 @@ class OnboardingAppBar extends StatelessWidget {
             showProgressBar
                 ? Padding(
                     padding: const EdgeInsets.only(top: 30.0, right: 80),
-                    child: CustomProgressBar(currPage),
+                    child: CustomProgressBar(
+                      currPage: currPage,
+                      stepLabels: {
+                        0: Strings.generateSeedPhrase.toUpperCase(),
+                        1: Strings.writeDownSeedPhrase.toUpperCase(),
+                        2: Strings.confirmSeedPhrase.toUpperCase(),
+                        3: Strings.createWalletPassword.toUpperCase(),
+                        4: Strings.finalReview.toUpperCase(),
+                      },
+                    ),
                   )
                 : const SizedBox(height: 70),
             const Spacer(),
