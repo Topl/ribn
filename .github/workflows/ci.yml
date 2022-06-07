@@ -1,0 +1,117 @@
+name: CI
+
+on:
+  # Triggers the workflow on pull request events
+  pull_request:
+    branches: ['*']
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  flutter_analyze:
+    name: "Analysis"
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Analyze code
+        run: flutter analyze
+
+  flutter_test:
+    name: "Unit tests"
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Run tests
+        run: flutter test
+  android_build:
+    name: "Build android app"
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17.0.x
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Install Flutter dependencies
+        run: flutter pub get
+      - name: Decrypt Android keys
+        run: sh ./.github/scripts/decrypt_android_secrets.sh
+        env:
+          ANDROID_KEYS_SECRET_PASSPHRASE: ${{ secrets.ANDROID_KEYS_SECRET_PASSPHRASE }}
+      - name: Build android app
+        run: flutter build appbundle --release
+      - name: Upload android build
+        uses: actions/upload-artifact@v3
+        with:
+          name: android_appbundle
+          path: build/app/outputs/bundle/release/app-release.aab
+
+  ios_build:
+    name: "Build ios app"
+    runs-on: macOS-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Install Flutter dependencies
+        run: flutter pub get
+      - name: Build ios app
+        run: flutter build ios --release --no-codesign
+
+  chrome_build:
+    name: "Build chrome extension"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Read .nvmrc
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id: nvm
+      - name: Use Node.js (.nvmrc)
+        uses: actions/setup-node@v1
+        with:
+          node-version: "${{ steps.nvm.outputs.NVMRC }}"
+      - name: Install NPM dependencies
+        run: npm install
+      - name: Build using Webpack
+        run: npm run build
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Install Flutter dependencies
+        run: flutter pub get
+      - name: Build the Flutter Chrome extension
+        run: flutter build web --web-renderer html --csp --release
+      - name: Zip build
+        uses: papeloto/action-zip@v1
+        with:
+          files: build/web/
+          dest: ribn_chrome_ext.zip
+      - name: Upload extension build
+        uses: actions/upload-artifact@v3
+        with:
+          name: ribn_chrome_ext.zip
+          path: ribn_chrome_ext.zip
