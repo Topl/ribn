@@ -31,10 +31,13 @@ jobs:
         run: flutter pub get
       - name: Prepare appbundle
         run: flutter build appbundle --release
-      - name: Update bundler
-        run: cd android && gem install bundler -v "$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)"      
       - name: Run Fastlane
         uses: maierj/fastlane-action@v2.2.0
         with:
           lane: beta
           subdirectory: android
+      - name: Upload android build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: android_appbundle
+          path: build/app/outputs/bundle/release/app-release.aab
