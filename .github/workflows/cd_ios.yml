@@ -27,7 +27,7 @@ jobs:
         run: flutter build ios --release --no-codesign
       - name: Update bundler
         run: cd ios && gem install bundler -v "$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)"      
-        - name: Deploy iOS Beta to TestFlight via Fastlane
+      - name: Deploy iOS Beta to TestFlight via Fastlane
         uses: maierj/fastlane-action@v2.2.0
         with:
           lane: beta
