@@ -31,11 +31,6 @@ jobs:
         run: flutter --version
       - name: Install Flutter dependencies
         run: flutter pub get
-        # Add build runner commands here if you have any
-      # - name: Analyze files
-      #   run: flutter analyze .
-      # - name: Run the tests
-      #   run: flutter test
       - name: Build the Flutter Chrome extension
         run: flutter build web --web-renderer html --csp --release
       - name: Zip build
@@ -43,7 +38,7 @@ jobs:
         with:
           files: build/web/
           dest: ribn_chrome_ext.zip
-      - name: Chrome Extension upload
+      - name: Upload draft to Chrome Web Store dev portal
         run: sh ./.github/scripts/upload_chrome_ext.sh
         env:
           EXTENSION_CLIENT_ID: ${{ secrets.EXTENSION_CLIENT_ID }}
@@ -51,3 +46,8 @@ jobs:
           EXTENSION_REFRESH_TOKEN: ${{ secrets.EXTENSION_REFRESH_TOKEN }}
           EXTENSION_PATH: ribn_chrome_ext.zip
           EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
+      - name: Upload extension build
+        uses: actions/upload-artifact@v3
+        with:
+          name: ribn_chrome_ext.zip
+          path: ribn_chrome_ext.zip
