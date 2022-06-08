@@ -1,0 +1,53 @@
+name: CD_chrome
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  chrome_e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Read .nvmrc
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id: nvm
+      - name: Use Node.js (.nvmrc)
+        uses: actions/setup-node@v1
+        with:
+          node-version: "${{ steps.nvm.outputs.NVMRC }}"
+      - name: Install NPM dependencies
+        run: npm install
+      - name: Build with Webpack
+        run: npm run build
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Flutter version
+        run: flutter --version
+      - name: Install Flutter dependencies
+        run: flutter pub get
+      - name: Build the Flutter Chrome extension
+        run: flutter build web --web-renderer html --csp --release
+      - name: Zip build
+        uses: papeloto/action-zip@v1
+        with:
+          files: build/web/
+          dest: ribn_chrome_ext.zip
+      - name: Upload draft to Chrome Web Store dev portal
+        run: sh ./.github/scripts/upload_chrome_ext.sh
+        env:
+          EXTENSION_CLIENT_ID: ${{ secrets.EXTENSION_CLIENT_ID }}
+          EXTENSION_CLIENT_SECRET: ${{ secrets.EXTENSION_CLIENT_SECRET }}
+          EXTENSION_REFRESH_TOKEN: ${{ secrets.EXTENSION_REFRESH_TOKEN }}
+          EXTENSION_PATH: ribn_chrome_ext.zip
+          EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
+      - name: Upload extension build
+        uses: actions/upload-artifact@v3
+        with:
+          name: ribn_chrome_ext.zip
+          path: ribn_chrome_ext.zip
