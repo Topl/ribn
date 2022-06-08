@@ -106,8 +106,8 @@ flutter:
           weight: 500
     - family: Spectral
       fonts:
-        - asset: assets/fonts/spectral/Spectral-Regular.ttf
-        - asset: assets/fonts/spectral/Spectral-Medium.ttf
+        - asset: assets/fonts/Spectral/Spectral-Regular.ttf
+        - asset: assets/fonts/Spectral/Spectral-Medium.ttf
           weight: 500
     - family: Nunito
       fonts:
