@@ -40,7 +40,7 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
       - name: Run tests
-        run: flutter test
+        run: flutter test --dart-define=FLUTTER_TEST=true
   android_build:
     name: "Build android app"
     runs-on: ubuntu-latest

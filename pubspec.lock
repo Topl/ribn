@@ -74,9 +74,11 @@ packages:
   brambldart:
     dependency: "direct main"
     description:
-      name: brambldart
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: dev
+      resolved-ref: "9c548499d91335cc68321c616bb4abeb6db31411"
+      url: "https://github.com/Topl/BramblDart.git"
+    source: git
     version: "0.0.1"
   build:
     dependency: transitive
