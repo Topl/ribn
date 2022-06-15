@@ -32,7 +32,7 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
   final TextEditingController _confirmWalletPasswordController = TextEditingController();
 
   /// True if the password entered is at least 12 characters.
-  bool passwordAtLeast12Chars = false;
+  bool passwordAtLeast8Chars = false;
 
   /// True if both passwords match.
   bool passwordsMatch = false;
@@ -47,10 +47,10 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
   void initState() {
     // Initialize listeners for each controller.
     [_newWalletPasswordController, _confirmWalletPasswordController].toList().forEach((controller) {
-      hasErrors[controller] = false;
       controller.addListener(() {
         setState(() {
-          passwordAtLeast12Chars = _newWalletPasswordController.text.length >= 12;
+          hasErrors[controller] = false;
+          passwordAtLeast8Chars = _newWalletPasswordController.text.length >= 8;
           passwordsMatch = _newWalletPasswordController.text == _confirmWalletPasswordController.text;
         });
       });
@@ -141,11 +141,11 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
   /// Validates that the password entered is at least 8 characters and both passwords match
   /// before attempting to restore wallet.
   void onNextPressed() {
-    if (!passwordAtLeast12Chars) {
-      hasErrors[_newWalletPasswordController] = true;
-    } else if (!passwordsMatch) {
-      hasErrors[_confirmWalletPasswordController] = true;
-    } else {
+    setState(() {
+      hasErrors[_newWalletPasswordController] = !passwordAtLeast8Chars;
+      hasErrors[_confirmWalletPasswordController] = !passwordsMatch;
+    });
+    if (passwordAtLeast8Chars && passwordsMatch) {
       StoreProvider.of<AppState>(context).dispatch(
         RestoreWalletWithMnemonicAction(
           mnemonic: widget.seedPhrase,
@@ -153,6 +153,5 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
         ),
       );
     }
-    setState(() {});
   }
 }

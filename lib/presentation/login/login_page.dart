@@ -42,99 +42,109 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return LoginContainer(
       builder: (context, vm) {
-        return Scaffold(
-          body: WaveContainer(
-            containerHeight: double.infinity,
-            containerWidth: double.infinity,
-            waveAmplitude: 30,
-            containerChild: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    Image.asset(RibnAssets.newRibnLogo, width: 138),
-                    Text(
-                      Strings.ribnWallet,
-                      style: RibnToolkitTextStyles.h1.copyWith(
-                        color: Colors.white,
+        void attemptLogin() {
+          vm.attemptLogin(
+            password: _textEditingController.text,
+            onIncorrectPasswordEntered: () {
+              setState(() {
+                _incorrectPasswordEntered = true;
+              });
+            },
+          );
+        }
+
+        return Listener(
+          onPointerDown: (_) {
+            if (mounted) setState(() {});
+          },
+          child: Scaffold(
+            body: WaveContainer(
+              containerHeight: double.infinity,
+              containerWidth: double.infinity,
+              waveAmplitude: 30,
+              containerChild: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      Image.asset(RibnAssets.newRibnLogo, width: 138),
+                      Text(
+                        Strings.ribnWallet,
+                        style: RibnToolkitTextStyles.h1.copyWith(
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 5),
-                    Center(
-                      child: SizedBox(
-                        width: _baseWidth,
-                        child: Center(
-                          child: Text(
-                            Strings.intro,
-                            style: RibnToolkitTextStyles.h3.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w300,
+                      const SizedBox(height: 5),
+                      Center(
+                        child: SizedBox(
+                          width: _baseWidth,
+                          child: Center(
+                            child: Text(
+                              Strings.intro,
+                              style: RibnToolkitTextStyles.h3.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    _buildTextFieldLabel(),
-                    const SizedBox(height: 8),
-                    PasswordTextField(
-                      hintText: Strings.typeSomething,
-                      controller: _textEditingController,
-                      icon: SvgPicture.asset(
-                        _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
-                        width: 12,
-                      ),
-                      obscurePassword: _obscurePassword,
-                    ),
-                    const SizedBox(height: 25),
-                    LargeButton(
-                      backgroundColor: RibnColors.primary,
-                      dropShadowColor: RibnColors.whiteButtonShadow,
-                      buttonChild: Text(
-                        Strings.unlock,
-                        style: RibnToolkitTextStyles.btnLarge.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      _buildTextFieldLabel(),
+                      const SizedBox(height: 8),
+                      PasswordTextField(
+                        onSubmitted: attemptLogin,
+                        hintText: Strings.typeSomething,
+                        controller: _textEditingController,
+                        icon: SvgPicture.asset(
+                          _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
+                          width: 12,
                         ),
+                        obscurePassword: _obscurePassword,
                       ),
-                      onPressed: () => vm.attemptLogin(
-                        password: _textEditingController.text,
-                        onIncorrectPasswordEntered: () {
-                          setState(() {
-                            _incorrectPasswordEntered = true;
-                          });
-                        },
+                      const SizedBox(height: 25),
+                      LargeButton(
+                        backgroundColor: RibnColors.primary,
+                        dropShadowColor: RibnColors.whiteButtonShadow,
+                        buttonChild: Text(
+                          Strings.unlock,
+                          style: RibnToolkitTextStyles.btnLarge.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        onPressed: attemptLogin,
                       ),
-                    ),
-                    const SizedBox(height: 25),
-                    _buildForgetPasswordLink(vm.restoreWallet),
-                    const SizedBox(height: 40),
-                    SizedBox(
-                      height: 50,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          _buildSupportLink(),
-                          const SizedBox(height: 10),
-                          _incorrectPasswordEntered
-                              ? Text(
-                                  'Incorrect Password',
-                                  style: const TextStyle(
-                                    color: Colors.red,
-                                  ).copyWith(fontWeight: FontWeight.bold),
-                                )
-                              : const SizedBox()
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ],
+                      const SizedBox(height: 25),
+                      _buildForgetPasswordLink(vm.restoreWallet),
+                      const SizedBox(height: 40),
+                      SizedBox(
+                        height: 50,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            _buildSupportLink(),
+                            const SizedBox(height: 10),
+                            _incorrectPasswordEntered
+                                ? Text(
+                                    'Incorrect Password',
+                                    style: const TextStyle(
+                                      color: Colors.red,
+                                    ).copyWith(fontWeight: FontWeight.bold),
+                                  )
+                                : const SizedBox()
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -153,6 +163,7 @@ class _LoginPageState extends State<LoginPage> {
               color: Colors.white,
             ),
           ),
+          // ignore: prefer_const_constructors
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: CustomToolTip(

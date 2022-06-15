@@ -40,6 +40,7 @@ class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicP
     controller.addListener(() {
       setState(() {
         seedPhrase = controller.text;
+        invalidSeedPhraseEntered = false;
       });
     });
     super.initState();

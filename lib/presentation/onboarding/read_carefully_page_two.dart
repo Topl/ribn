@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/models/app_state.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_checkbox.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_checkbox.dart';
 
 /// Builds checks to ensure that the user understands the importance of the wallet password and seed phrase.
 class ReadCarefullyPageTwo extends StatefulWidget {
@@ -18,9 +21,11 @@ class ReadCarefullyPageTwo extends StatefulWidget {
 }
 
 class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
-  bool _pointOneChecked = false;
-  bool _pointTwoChecked = false;
-  bool _pointThreeChecked = false;
+  final Map<String, bool> pointsChecked = {
+    Strings.readFollowingCarefullyPointOne: false,
+    Strings.readFollowingCarefullyPointTwo: false,
+    Strings.readFollowingCarefullyPointThree: false,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -48,34 +53,26 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
             child: Column(
               children: [
                 _buildCheckListTile(
-                  Strings.readFollowingCarefullyPointOne,
-                  _pointOneChecked,
-                  (bool? val) {
-                    setState(() {
-                      _pointOneChecked = val ?? false;
-                    });
-                  },
-                  false,
+                  label: Strings.readFollowingCarefullyPointOne,
+                  checked: pointsChecked[Strings.readFollowingCarefullyPointOne]!,
+                  onChecked: (bool? val) => onChecked(val ?? false, Strings.readFollowingCarefullyPointOne),
                 ),
                 _buildCheckListTile(
-                  Strings.readFollowingCarefullyPointTwo,
-                  _pointTwoChecked,
-                  (bool? val) {
-                    setState(() {
-                      _pointTwoChecked = val ?? false;
-                    });
-                  },
-                  false,
+                  label: Strings.readFollowingCarefullyPointTwo,
+                  checked: pointsChecked[Strings.readFollowingCarefullyPointTwo]!,
+                  isActiveText: pointsChecked[Strings.readFollowingCarefullyPointOne]!,
+                  onChecked: pointsChecked[Strings.readFollowingCarefullyPointOne]!
+                      ? (bool? val) => onChecked(val ?? false, Strings.readFollowingCarefullyPointTwo)
+                      : null,
                 ),
                 _buildCheckListTile(
-                  Strings.readFollowingCarefullyPointThree,
-                  _pointThreeChecked,
-                  (bool? val) {
-                    setState(() {
-                      _pointThreeChecked = val ?? false;
-                    });
-                  },
-                  true,
+                  label: Strings.readFollowingCarefullyPointThree,
+                  checked: pointsChecked[Strings.readFollowingCarefullyPointThree]!,
+                  isActiveText: pointsChecked[Strings.readFollowingCarefullyPointTwo]!,
+                  onChecked: pointsChecked[Strings.readFollowingCarefullyPointTwo]!
+                      ? (bool? val) => onChecked(val ?? false, Strings.readFollowingCarefullyPointThree)
+                      : null,
+                  renderTooltipIcon: true,
                 ),
               ],
             ),
@@ -84,7 +81,7 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
           LargeButton(
             buttonChild: Text(
               Strings.iUnderstand,
-              style: !_pointOneChecked || !_pointTwoChecked || !_pointThreeChecked
+              style: pointsChecked.values.contains(false)
                   ? RibnToolkitTextStyles.btnLarge.copyWith(
                       color: RibnColors.inactive,
                     )
@@ -95,15 +92,38 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
             backgroundColor: RibnColors.primary,
             hoverColor: RibnColors.primaryButtonHover,
             dropShadowColor: RibnColors.primaryButtonShadow,
-            onPressed: () => widget.goToNextPage(),
-            disabled: !_pointOneChecked || !_pointTwoChecked || !_pointThreeChecked,
+            onPressed: () {
+              StoreProvider.of<AppState>(context).dispatch(PersistAppState());
+              widget.goToNextPage();
+            },
+            disabled: pointsChecked.values.contains(false),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildCheckListTile(String label, bool checked, Function(bool?)? onChecked, bool renderTooltipIcon) {
+  void onChecked(bool val, String key) {
+    setState(() {
+      if (!val) {
+        bool shouldUncheck = false;
+        pointsChecked.keys.toList().forEach((element) {
+          if (element == key) shouldUncheck = true;
+          if (shouldUncheck) pointsChecked[element] = false;
+        });
+      } else {
+        pointsChecked[key] = true;
+      }
+    });
+  }
+
+  Widget _buildCheckListTile({
+    required String label,
+    required bool checked,
+    required Function(bool?)? onChecked,
+    bool isActiveText = true,
+    bool renderTooltipIcon = false,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -117,8 +137,9 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageTwo> {
             children: [
               Text(
                 label,
-                style:
-                    RibnToolkitTextStyles.body1.copyWith(color: checked ? RibnColors.defaultText : RibnColors.inactive),
+                style: RibnToolkitTextStyles.body1.copyWith(
+                  color: isActiveText ? RibnColors.defaultText : RibnColors.inactive,
+                ),
                 textAlign: TextAlign.start,
                 textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
               ),

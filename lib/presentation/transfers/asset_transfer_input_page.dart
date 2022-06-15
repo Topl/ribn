@@ -46,6 +46,8 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
   /// True if currently loading raw tx creation.
   bool _loadingRawTx = false;
 
+  bool _validAmount = false;
+
   @override
   void initState() {
     _controllers = [
@@ -111,6 +113,10 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
                             onSelected: (AssetAmount? asset) {
                               setState(() {
                                 _selectedAsset = asset!;
+                                _validAmount = TransferUtils.validateAmount(
+                                  _amountController.text,
+                                  vm.getAssetBalance(asset.assetCode.toString()),
+                                );
                               });
                             },
                             tooltipIcon: Image.asset(
@@ -122,16 +128,23 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
                               width: 24,
                             ),
                           ),
-                          // const Spacer(),
                           AssetAmountField(
                             selectedUnit: vm.assetDetails[_selectedAsset.assetCode.toString()]?.unit,
                             controller: _amountController,
                             allowEditingUnit: false,
-                            onUnitSelected: (String unit) {},
+                            onUnitSelected: (String amount) {
+                              setState(() {
+                                _validAmount = TransferUtils.validateAmount(
+                                  amount,
+                                  vm.getAssetBalance(_selectedAsset.assetCode.toString()),
+                                );
+                              });
+                            },
                             chevronIcon: Image.asset(
                               RibnAssets.chevronDownDark,
                               width: 24,
                             ),
+                            maxTransferrableAmount: vm.getAssetBalance(_selectedAsset.assetCode.toString()),
                           ),
                           // Displays the sender address.
                           const FromAddressField(),
@@ -162,11 +175,15 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
                               icon: RibnAssets.myFingerprint,
                               width: 240,
                             ),
-                            errorBubbleIcon: Image.asset('assets/icons/invalid_recipient.png'),
                             // clear the textfield on backspace
                             onBackspacePressed: () {
                               setState(() {
-                                _recipientController.clear();
+                                if (_validRecipientAddress.isNotEmpty) {
+                                  _recipientController.text = _validRecipientAddress;
+                                  _recipientController
+                                    ..text = _recipientController.text.substring(0, _recipientController.text.length)
+                                    ..selection = TextSelection.collapsed(offset: _recipientController.text.length);
+                                }
                                 _validRecipientAddress = '';
                               });
                             },
@@ -202,6 +219,9 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
   ///
   /// Upon pressing the review button, the tx flow is initiated via [vm.initiateTx].
   Widget _buildReviewButton(AssetTransferInputViewModel vm) {
+    final bool enteredValidInputs =
+        _validRecipientAddress.isNotEmpty && _amountController.text.isNotEmpty && _validAmount;
+
     return LargeButton(
       buttonChild: Text(
         Strings.review,
@@ -209,26 +229,28 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
           color: Colors.white,
         ),
       ),
-      onPressed: () {
-        setState(() {
-          _loadingRawTx = true;
-        });
-        vm.initiateTx(
-          recipient: _validRecipientAddress,
-          amount: _amountController.text,
-          note: _noteController.text,
-          assetCode: _selectedAsset.assetCode,
-          assetDetails: vm.assetDetails[_selectedAsset.assetCode.toString()],
-          onRawTxCreated: (bool success) async {
-            _loadingRawTx = false;
-            setState(() {});
-            // Display error dialog if failed to create raw tx
-            if (!success) {
-              await TransferUtils.showErrorDialog(context);
+      onPressed: enteredValidInputs
+          ? () {
+              setState(() {
+                _loadingRawTx = true;
+              });
+              vm.initiateTx(
+                recipient: _validRecipientAddress,
+                amount: _amountController.text,
+                note: _noteController.text,
+                assetCode: _selectedAsset.assetCode,
+                assetDetails: vm.assetDetails[_selectedAsset.assetCode.toString()],
+                onRawTxCreated: (bool success) async {
+                  _loadingRawTx = false;
+                  setState(() {});
+                  // Display error dialog if failed to create raw tx
+                  if (!success) {
+                    await TransferUtils.showErrorDialog(context);
+                  }
+                },
+              );
             }
-          },
-        );
-      },
+          : null,
     );
   }
 }

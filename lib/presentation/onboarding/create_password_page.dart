@@ -23,30 +23,30 @@ class CreatePasswordPage extends StatefulWidget {
 }
 
 class _CreatePasswordPageState extends State<CreatePasswordPage> {
+  final FocusNode _newPasswordFocus = FocusNode();
+  final FocusNode _confirmPasswordFocus = FocusNode();
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
   bool _readTermsOfAgreement = false;
-  bool _hasAtLeast12Chars = false;
+  bool _hasAtLeast8Chars = false;
   bool _passwordsMatch = false;
   bool _obscurePassword = true;
 
   @override
   void initState() {
-    _newPasswordController.addListener(() {
-      validatePassword(_newPasswordController.text);
-    });
-    _confirmPasswordController.addListener(() {
-      setState(() {
-        _passwordsMatch = _newPasswordController.text == _confirmPasswordController.text;
-      });
-    });
+    _newPasswordController.addListener(validatePassword);
+    _confirmPasswordController.addListener(validatePassword);
+    _newPasswordFocus.addListener(validatePassword);
+    _confirmPasswordFocus.addListener(validatePassword);
     super.initState();
   }
 
-  void validatePassword(String password) {
-    _hasAtLeast12Chars = false;
-    if (password.length >= 12) _hasAtLeast12Chars = true;
-    setState(() {});
+  void validatePassword() {
+    setState(() {
+      _hasAtLeast8Chars = _newPasswordController.text.length >= 8;
+      _passwordsMatch =
+          _confirmPasswordController.text.isNotEmpty && _newPasswordController.text == _confirmPasswordController.text;
+    });
   }
 
   @override
@@ -81,9 +81,9 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                 textAlign: TextAlign.left,
                 textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
               ),
-              _buildPasswordField(_newPasswordController, Strings.newPassword),
+              _buildPasswordField(_newPasswordController, Strings.newPassword, _newPasswordFocus),
               _buildEnterPasswordValidations(),
-              _buildPasswordField(_confirmPasswordController, Strings.confirmPassword),
+              _buildPasswordField(_confirmPasswordController, Strings.confirmPassword, _confirmPasswordFocus),
               _buildConfirmPasswordValidation(),
               const SizedBox(height: 30),
               _buildTermsOfAgreementCheck(),
@@ -111,7 +111,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
     );
   }
 
-  Widget _buildPasswordField(TextEditingController textEditingController, String label) {
+  Widget _buildPasswordField(TextEditingController textEditingController, String label, FocusNode focusNode) {
     return Padding(
       padding: const EdgeInsets.only(top: 20, bottom: 20),
       child: Column(
@@ -123,6 +123,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
             style: RibnToolkitTextStyles.body1Bold,
           ),
           PasswordTextField(
+            focusNode: focusNode,
             controller: textEditingController,
             hintText: Strings.newWalletPasswordHint,
             width: UIConstants.loginTextFieldWidth,
@@ -145,12 +146,14 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            Strings.atLeast12Chars,
+            Strings.atLeast8Chars,
             style: TextStyle(
-              color: _hasAtLeast12Chars ? Colors.green : Colors.grey,
+              color: _hasAtLeast8Chars
+                  ? Colors.green
+                  : !_newPasswordFocus.hasPrimaryFocus && _newPasswordController.text.isNotEmpty
+                      ? Colors.red
+                      : Colors.grey,
               fontFamily: 'DM Sans',
-              fontSize: 20,
-              height: 1.5,
             ),
           ),
         ],
@@ -167,10 +170,12 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
           Text(
             Strings.passwordsMustMatch,
             style: TextStyle(
-              color: _passwordsMatch ? Colors.green : Colors.grey,
+              color: _passwordsMatch
+                  ? Colors.green
+                  : !_confirmPasswordFocus.hasPrimaryFocus && _confirmPasswordController.text.isNotEmpty
+                      ? Colors.red
+                      : Colors.grey,
               fontFamily: 'DM Sans',
-              fontSize: 20,
-              height: 1.5,
             ),
           ),
         ],

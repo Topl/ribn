@@ -1,7 +1,7 @@
 {
   "name": "Ribn",
   "description": "Web wallet for Topl Blockchain",
-  "version": "0.0.1",
+  "version": "0.1.2",
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
   },
@@ -18,7 +18,7 @@
     "48": "icons/ribn_medium.png",
     "128": "icons/ribn_large.png"
   },
-  "permissions": ["storage"],
+  "permissions": ["storage", "alarms"],
   "web_accessible_resources": [
     {
       "resources": ["/dist/injected.bundle.js"],

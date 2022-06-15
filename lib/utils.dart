@@ -1,4 +1,5 @@
 import 'package:brambldart/utils.dart';
+import 'package:local_auth/local_auth.dart';
 
 /// Formats an address string to only dispaly its first and last 10 characters.
 String formatAddrString(String addr, {int charsToDisplay = 10}) {
@@ -32,4 +33,11 @@ void validateRecipientAddress({
     result['success'] = false;
   }
   handleResult(result['success']);
+}
+
+Future<bool> isBiometricsAuthenticationSupported(LocalAuthentication auth) async {
+  final bool canCheckBiometrics = await auth.canCheckBiometrics;
+  final bool isDeviceSupported = await auth.isDeviceSupported();
+  final List enrolledBiometrics = await auth.getAvailableBiometrics();
+  return canCheckBiometrics && isDeviceSupported && enrolledBiometrics.isNotEmpty;
 }

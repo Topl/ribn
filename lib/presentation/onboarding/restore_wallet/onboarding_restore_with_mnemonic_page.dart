@@ -41,7 +41,7 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
   Map<TextEditingController, bool> hasErrors = {};
 
   /// True if paTextEditingControllerssword entered is at least 12 characters.
-  bool passwordAtLeast12Chars = false;
+  bool passwordAtLeast8Chars = false;
 
   /// True if both passwords match.
   bool passwordsMatch = false;
@@ -55,7 +55,7 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
       controller.addListener(() {
         setState(() {
           hasErrors[controller] = false;
-          passwordAtLeast12Chars = _newPasswordController.text.length >= 12;
+          passwordAtLeast8Chars = _newPasswordController.text.length >= 8;
           passwordsMatch = _newPasswordController.text == _confirmPasswordController.text;
         });
       });
@@ -177,6 +177,12 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
             hintText: Strings.hintSeedPhrase,
             textAlignVertical: TextAlignVertical.center,
           ),
+          hasErrors[_seedPhraseTextController] ?? false
+              ? const Text(
+                  Strings.invalidSeedPhrase,
+                  style: TextStyle(color: Colors.red),
+                )
+              : const SizedBox(),
         ],
       ),
     );
@@ -188,6 +194,7 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
         controller == _newPasswordController ? Strings.newWalletPassword : Strings.confirmWalletPassword;
     final String hintText =
         controller == _newPasswordController ? Strings.newWalletPasswordHint : Strings.confirmWalletPasswordHint;
+    final String errorText = controller == _newPasswordController ? Strings.atLeast8Chars : Strings.passwordsMustMatch;
     return SizedBox(
       width: maxWidth,
       child: Column(
@@ -206,6 +213,12 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
             ),
             obscurePassword: _obscurePassword,
           ),
+          hasErrors[controller] ?? false
+              ? Text(
+                  errorText,
+                  style: const TextStyle(color: Colors.red),
+                )
+              : const SizedBox(),
         ],
       ),
     );
@@ -235,19 +248,12 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
   /// Otherwise, dispatches [RestoreWalletWithMnemonicAction].
   void validateSeedPhraseAndPassword() {
     final bool isSeedPhraseValid = validateMnemonic(_seedPhraseTextController.text, 'english');
-    if (!isSeedPhraseValid) {
-      setState(() {
-        hasErrors[_seedPhraseTextController] = true;
-      });
-    } else if (!passwordAtLeast12Chars) {
-      setState(() {
-        hasErrors[_newPasswordController] = true;
-      });
-    } else if (!passwordsMatch) {
-      setState(() {
-        hasErrors[_confirmPasswordController] = true;
-      });
-    } else {
+    setState(() {
+      hasErrors[_seedPhraseTextController] = !isSeedPhraseValid;
+      hasErrors[_newPasswordController] = !passwordAtLeast8Chars;
+      hasErrors[_confirmPasswordController] = !passwordsMatch;
+    });
+    if (isSeedPhraseValid && passwordAtLeast8Chars && passwordsMatch) {
       StoreProvider.of<AppState>(context).dispatch(
         RestoreWalletWithMnemonicAction(
           mnemonic: _seedPhraseTextController.text,

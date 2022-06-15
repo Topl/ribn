@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/widgets/address_display_container.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/poly_transfer_input_container.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
 import 'package:ribn/utils.dart';
+import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/fee_info.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
@@ -40,6 +40,9 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
 
   /// True if currently loading raw tx creation.
   bool _loadingRawTx = false;
+
+  /// True if amount is valid.
+  bool _validAmount = false;
 
   @override
   void initState() {
@@ -116,10 +119,14 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
                                   });
                                 },
                               ),
-                              // clear the textfield on backspace pressed
                               onBackspacePressed: () {
                                 setState(() {
-                                  _recipientController.clear();
+                                  if (_validRecipientAddress.isNotEmpty) {
+                                    _recipientController.text = _validRecipientAddress;
+                                    _recipientController
+                                      ..text = _recipientController.text.substring(0, _recipientController.text.length)
+                                      ..selection = TextSelection.collapsed(offset: _recipientController.text.length);
+                                  }
                                   _validRecipientAddress = '';
                                 });
                               },
@@ -129,7 +136,6 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
                                 icon: RibnAssets.myFingerprint,
                                 width: 300,
                               ),
-                              errorBubbleIcon: Image.asset('assets/icons/invalid_recipient.png'),
                             ),
                             // field for adding a note to the tx
                             NoteField(
@@ -200,6 +206,8 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
 
   /// Builds the review button to initate tx.
   Widget _buildReviewButton(PolyTransferInputViewModel vm) {
+    final bool enteredValidInputs =
+        _validRecipientAddress.isNotEmpty && _amountController.text.isNotEmpty && _validAmount;
     return Padding(
       padding: const EdgeInsets.only(top: 20.0, bottom: 10),
       child: LargeButton(
@@ -209,24 +217,26 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
             color: Colors.white,
           ),
         ),
-        onPressed: () {
-          setState(() {
-            _loadingRawTx = true;
-          });
-          vm.initiateTx(
-            amount: _amountController.text,
-            recipient: _validRecipientAddress,
-            note: _noteController.text,
-            onRawTxCreated: (bool success) async {
-              _loadingRawTx = false;
-              setState(() {});
-              // Display error dialog if failed to create raw tx
-              if (!success) {
-                await TransferUtils.showErrorDialog(context);
+        onPressed: enteredValidInputs
+            ? () {
+                setState(() {
+                  _loadingRawTx = true;
+                });
+                vm.initiateTx(
+                  amount: _amountController.text,
+                  recipient: _validRecipientAddress,
+                  note: _noteController.text,
+                  onRawTxCreated: (bool success) async {
+                    _loadingRawTx = false;
+                    setState(() {});
+                    // Display error dialog if failed to create raw tx
+                    if (!success) {
+                      await TransferUtils.showErrorDialog(context);
+                    }
+                  },
+                );
               }
-            },
-          );
-        },
+            : null,
       ),
     );
   }
