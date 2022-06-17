@@ -236,7 +236,7 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
                   },
                 );
               }
-            : null,
+            : () {},
       ),
     );
   }

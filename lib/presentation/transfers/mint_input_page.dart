@@ -320,7 +320,7 @@ class _MintInputPageState extends State<MintInputPage> {
                   },
                 );
               }
-            : null,
+            : () {},
       ),
     );
   }

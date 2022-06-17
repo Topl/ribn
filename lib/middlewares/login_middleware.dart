@@ -24,7 +24,7 @@ void Function(Store<AppState> store, AttemptLoginAction action, NextDispatcher n
         password: action.password,
       );
       await PlatformLocalStorage.instance.saveSessionKey(Base58Encoder.instance.encode(toplExtendedPrvKeyUint8List));
-      if (kIsWeb) PlatformUtils.instance.createLoginSessionAlarm();
+      // if (kIsWeb) PlatformUtils.instance.createLoginSessionAlarm();
       action.completer.complete(true);
       next(LoginSuccessAction(toplExtendedPrvKeyUint8List));
     } catch (e) {
