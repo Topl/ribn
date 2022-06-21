@@ -60,6 +60,7 @@ dependencies:
   flutter_secure_storage: ^5.0.2
   local_auth: ^2.0.0
   url_strategy: ^0.2.0
+  flutter_native_splash: ^2.1.6
 
   
 dev_dependencies:
@@ -115,3 +116,15 @@ flutter:
     - family: Nunito
       fonts:
         - asset: assets/fonts/nunito/Nunito-Regular.ttf
+
+flutter_native_splash:
+  background_image: assets/launch/launch_screen_bg.png
+  image: assets/launch/ribn_logo.png
+  # branding_mode: centre
+  android_12:
+    color: "#185E6B"
+    image: assets/launch/ribn_logo.png
+    icon_background_color: "#ffffff"  
+  web: false
+  ios_content_mode: center
+  android_gravity: center
