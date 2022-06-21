@@ -194,7 +194,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _buildButton(Strings.send, vm.navigateToSendPolys),
+              _buildButton(Strings.send, vm.navigateToSendAssets),
               const SizedBox(width: 10),
               _buildButton(
                 Strings.receive,
@@ -236,7 +236,6 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
                   child: _buildAssetListItem(
                     asset: asset,
                     assetDetails: vm.assetDetails[asset.assetCode.toString()],
-                    initiateSendAsset: vm.navigateToSendAsset,
                     viewAssetDetails: vm.viewAssetDetails,
                   ),
                 );
@@ -256,7 +255,6 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
   Widget _buildAssetListItem({
     required AssetAmount asset,
     required AssetDetails? assetDetails,
-    required Function(AssetAmount) initiateSendAsset,
     required Function(AssetAmount) viewAssetDetails,
   }) {
     final String assetIcon = assetDetails?.icon ?? RibnAssets.undefinedIcon;
@@ -291,16 +289,6 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
           color: RibnColors.primary,
         ),
       ),
-      firstIcon: Image.asset(
-        RibnAssets.sendIcon,
-        width: 12,
-      ),
-      onFirstIconPress: () => initiateSendAsset(asset),
-      secondIcon: Image.asset(
-        RibnAssets.receiveIcon,
-        width: 12,
-      ),
-      onSecondIconPress: () async => await showReceivingAddress(),
     );
   }
 

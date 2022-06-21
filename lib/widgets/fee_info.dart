@@ -17,11 +17,14 @@ class FeeInfo extends StatelessWidget {
           Strings.totalTxFee,
           style: RibnToolkitTextStyles.h4,
         ),
+        SizedBox(
+          height: 5,
+        ),
         Text(
           '$fee POLY',
           style: const TextStyle(
             fontFamily: 'DM Sans',
-            fontSize: 16,
+            fontSize: 11,
             color: RibnColors.primary,
             fontWeight: FontWeight.w600,
           ),

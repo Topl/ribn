@@ -3,20 +3,20 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/poly_transfer_input_container.dart';
+import 'package:ribn/presentation/transfers/bottom_review_button.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_display_container.dart';
-import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/loading_spinner.dart';
 import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/sliding_segment_control.dart';
 
 /// The input page that allows initiating poly transfer transaction.
 ///
@@ -75,6 +75,9 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
 
   @override
   Widget build(BuildContext context) {
+    final bool enteredValidInputs =
+        _validRecipientAddress.isNotEmpty && _amountController.text.isNotEmpty && _validAmount;
+
     return PolyTransferInputContainer(
       builder: (BuildContext context, PolyTransferInputViewModel vm) {
         return Scaffold(
@@ -85,8 +88,35 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
                 child: Column(
                   children: [
                     // page title
-                    const CustomPageTitle(title: Strings.sendAssets),
-                    const SizedBox(height: 30),
+                    const CustomPageTitle(
+                      title: Strings.send,
+                      hideBackArrow: true,
+                    ),
+                    const SizedBox(height: 40),
+                    SizedBox(
+                      width: 310,
+                      child: SlidingSegmentControl(
+                        currentTabIndex: 1,
+                        tabItems: <int, Widget>{
+                          0: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              Strings.sendAssets,
+                              style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                            ),
+                          ),
+                          1: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              Strings.sendNativeCoins,
+                              style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                            ),
+                          ),
+                        },
+                        redirectOnClick: () => vm.navigateToSendAssets(),
+                      ),
+                    ),
+                    const SizedBox(height: 40),
                     SizedBox(
                       width: 310,
                       child: Form(
@@ -146,9 +176,6 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
                                 width: 18,
                               ),
                             ),
-                            // fee info for the tx
-                            FeeInfo(fee: vm.networkFee),
-                            _buildReviewButton(vm),
                           ],
                         ),
                       ),
@@ -158,6 +185,29 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
               ),
               _loadingRawTx ? const LoadingSpinner() : const SizedBox(),
             ],
+          ),
+          bottomNavigationBar: BottomReviewButton(
+            vm: vm,
+            onPressed: enteredValidInputs
+                ? () {
+                    setState(() {
+                      _loadingRawTx = true;
+                    });
+                    vm.initiateTx(
+                      amount: _amountController.text,
+                      recipient: _validRecipientAddress,
+                      note: _noteController.text,
+                      onRawTxCreated: (bool success) async {
+                        _loadingRawTx = false;
+                        setState(() {});
+                        // Display error dialog if failed to create raw tx
+                        if (!success) {
+                          await TransferUtils.showErrorDialog(context);
+                        }
+                      },
+                    );
+                  }
+                : () {},
           ),
         );
       },
@@ -200,43 +250,6 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
         height: 36,
         controller: _amountController,
         hintText: Strings.amountHint,
-      ),
-    );
-  }
-
-  /// Builds the review button to initate tx.
-  Widget _buildReviewButton(PolyTransferInputViewModel vm) {
-    final bool enteredValidInputs =
-        _validRecipientAddress.isNotEmpty && _amountController.text.isNotEmpty && _validAmount;
-    return Padding(
-      padding: const EdgeInsets.only(top: 20.0, bottom: 10),
-      child: LargeButton(
-        buttonChild: Text(
-          Strings.review,
-          style: RibnToolkitTextStyles.btnMedium.copyWith(
-            color: Colors.white,
-          ),
-        ),
-        onPressed: enteredValidInputs
-            ? () {
-                setState(() {
-                  _loadingRawTx = true;
-                });
-                vm.initiateTx(
-                  amount: _amountController.text,
-                  recipient: _validRecipientAddress,
-                  note: _noteController.text,
-                  onRawTxCreated: (bool success) async {
-                    _loadingRawTx = false;
-                    setState(() {});
-                    // Display error dialog if failed to create raw tx
-                    if (!success) {
-                      await TransferUtils.showErrorDialog(context);
-                    }
-                  },
-                );
-              }
-            : () {},
       ),
     );
   }

@@ -1,4 +1,3 @@
-import 'package:brambldart/model.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/internal_message.dart';
@@ -63,10 +62,9 @@ class RootRouter {
         {
           return pageRoute(const HomePage(), settings);
         }
-      case Routes.assetTransferInput:
+      case Routes.assetsTransferInput:
         {
-          final AssetAmount asset = settings.arguments as AssetAmount;
-          return pageRoute(AssetTransferInputPage(asset: asset), settings);
+          return pageRoute(const AssetTransferInputPage(), settings);
         }
       case Routes.loginRestoreWalletWithMnemonic:
         {
