@@ -99,7 +99,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
                 )
               : Column(
                   children: _fetchingBalances
-                      ? [ShimmerLoader()]
+                      ? [const ShimmerLoader()]
                       : [
                           _buildPolyContainer(vm),
                           _buildAssetsListView(vm),

@@ -114,7 +114,7 @@ class _AssetSelectionFieldState extends State<AssetSelectionField> {
       constraints: const BoxConstraints(maxHeight: 86, minHeight: 0),
       child: Scrollbar(
         controller: scrollController,
-        isAlwaysShown: true,
+        thumbVisibility: true,
         child: ListView(
           shrinkWrap: true,
           scrollDirection: Axis.vertical,

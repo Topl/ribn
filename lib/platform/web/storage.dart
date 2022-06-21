@@ -1,10 +1,12 @@
 @JS('ext_storage')
 library platform_storage;
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:js/js.dart';
 import 'package:js/js_util.dart';
+import 'package:ribn/constants/keys.dart';
 import 'package:ribn/platform/interfaces.dart';
 
 @JS()
@@ -30,13 +32,26 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
 
   @override
   Future<void> saveSessionKey(String key) async {
-    final String data = jsonEncode({'toplKey': key});
-    await saveToSessionStorage(data);
+    try {
+      final String data = jsonEncode({'toplKey': key});
+      await saveToSessionStorage(data);
+    } catch (e) {
+      if (!Keys.isTestingEnvironment) {
+        rethrow;
+      }
+    }
   }
 
   @override
   Future<String?> getSessionKey() async {
-    final Map<String, dynamic> sessionStorage = jsonDecode(await promiseToFuture(getFromSessionStorage()));
-    return sessionStorage['toplKey'];
+    try {
+      final Map<String, dynamic> sessionStorage = jsonDecode(await promiseToFuture(getFromSessionStorage()));
+      return sessionStorage['toplKey'];
+    } catch (e) {
+      if (!Keys.isTestingEnvironment) {
+        rethrow;
+      }
+    }
+    return null;
   }
 }

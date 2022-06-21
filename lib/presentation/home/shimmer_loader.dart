@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
 class ShimmerLoader extends StatelessWidget {
+  const ShimmerLoader({Key? key}) : super(key: key);
+
   Shimmer applyShimmer({required double borderRadius, required double height, required double width}) {
     return Shimmer(
       duration: const Duration(seconds: 1),
