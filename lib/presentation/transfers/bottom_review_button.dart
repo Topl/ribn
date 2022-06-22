@@ -5,10 +5,12 @@ import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 class BottomReviewButton extends StatelessWidget {
-  const BottomReviewButton({Key? key, required this.vm, required this.onPressed}) : super(key: key);
+  const BottomReviewButton({Key? key, required this.vm, required this.onPressed, required this.enteredValidInputs})
+      : super(key: key);
 
   final dynamic vm;
   final void Function() onPressed;
+  final bool enteredValidInputs;
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +63,7 @@ class BottomReviewButton extends StatelessWidget {
             ),
           ),
           onPressed: onPressed,
+          disabled: !enteredValidInputs,
         ),
       ),
     );

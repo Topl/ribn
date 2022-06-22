@@ -208,6 +208,7 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
                     );
                   }
                 : () {},
+            enteredValidInputs: enteredValidInputs,
           ),
         );
       },

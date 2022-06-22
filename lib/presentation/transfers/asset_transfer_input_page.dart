@@ -260,6 +260,7 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
                     );
                   }
                 : () {},
+            enteredValidInputs: enteredValidInputs,
           ),
         );
       },
