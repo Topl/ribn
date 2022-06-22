@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/transfer_details.dart';
+import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/asset_info.dart';
 import 'package:ribn/widgets/custom_divider.dart';
@@ -39,61 +39,63 @@ class TxReviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: RibnColors.accent,
+      backgroundColor: RibnColors.background,
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // page title
-            const Padding(
-              padding: EdgeInsets.only(top: 45),
-              child: CustomPageTitle(title: Strings.review),
-            ),
-            const SizedBox(height: 20),
-            // review box
-            Container(
-              width: 310,
-              height: 300,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 19.5,
-                vertical: 15,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4.7),
-                color: RibnColors.whiteBackground,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height - 140,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
                 children: [
-                  _buildSendingDetails(),
-                  _buildFromDetails(),
-                  _buildToDetails(),
-                  _buildNoteDetails(),
+                  // page title
+                  const CustomPageTitle(title: Strings.review),
+                  const SizedBox(height: 40),
+                  // review box
+                  Container(
+                    width: 310,
+                    height: 300,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 19.5,
+                      vertical: 15,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.7),
+                      color: RibnColors.whiteBackground,
+                      border: Border.all(color: RibnColors.lightGrey, width: 1),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildSendingDetails(),
+                        _buildFromDetails(),
+                        _buildToDetails(),
+                        _buildNoteDetails(),
+                      ],
+                    ),
+                  ),
                 ],
               ),
-            ),
-            // fee info
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12.0),
-              child: SizedBox(
-                width: 310,
-                child: FeeInfo(fee: transferDetails.transactionReceipt!.fee!.getInNanopoly),
+              Column(
+                children: [
+                  // fee info
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: SizedBox(
+                      width: 310,
+                      child: FeeInfo(fee: transferDetails.transactionReceipt!.fee!.getInNanopoly),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            // cancel button
-            LargeButton(
-              buttonChild: Text(
-                Strings.cancel,
-                style: RibnToolkitTextStyles.btnMedium.copyWith(
-                  color: RibnColors.primary,
-                ),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              backgroundColor: RibnColors.primary.withOpacity(0.19),
-            ),
-            const SizedBox(height: 13),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomReviewAction(
+        children: Column(
+          children: [
             // confirm button
             LargeButton(
               buttonChild: Text(
@@ -107,6 +109,26 @@ class TxReviewPage extends StatelessWidget {
               },
               backgroundColor: RibnColors.primary,
             ),
+            const SizedBox(
+              height: 15,
+            ),
+            // cancel button
+            LargeButton(
+              buttonChild: Text(
+                Strings.cancel,
+                style: RibnToolkitTextStyles.btnMedium.copyWith(
+                  color: RibnColors.ghostButtonText,
+                ),
+              ),
+              backgroundColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              dropShadowColor: Colors.transparent,
+              borderColor: RibnColors.ghostButtonText,
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            const SizedBox(height: 13),
           ],
         ),
       ),
@@ -179,12 +201,12 @@ class TxReviewPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-            width: 19,
-            height: 19,
-            child: SvgPicture.asset(RibnAssets.myFingerprint),
+            width: 26,
+            height: 26,
+            child: Image.asset(RibnAssets.myFingerprint),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               Strings.yourRibnWalletAddress,
               style: defaultTextStyle,
@@ -212,12 +234,12 @@ class TxReviewPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-            width: 19,
-            height: 19,
-            child: SvgPicture.asset(RibnAssets.recipientFingerprint),
+            width: 26,
+            height: 26,
+            child: Image.asset(RibnAssets.recipientFingerprint),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               formatAddrString(transferDetails.recipient),
               style: defaultTextStyle,
