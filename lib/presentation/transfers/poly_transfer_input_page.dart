@@ -127,7 +127,7 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
                             // UI to indicate poly transfer
                             _buildPolyDisplay(),
                             // field for entering amount of polys needed for transfer
-                            _buildAmountField(),
+                            _buildAmountField(vm),
                             // field for displaying the sender addresss
                             const FromAddressField(),
                             // field for entering the recipient address
@@ -242,7 +242,7 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
   }
 
   /// Builds the TextField for entering amount needed for the transfer.
-  Widget _buildAmountField() {
+  Widget _buildAmountField(vm) {
     return CustomInputField(
       itemLabel: Strings.amount,
       item: CustomTextField(
@@ -250,6 +250,14 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
         height: 36,
         controller: _amountController,
         hintText: Strings.amountHint,
+        onChanged: (String amount) {
+          setState(() {
+            _validAmount = TransferUtils.validateAmount(
+              amount,
+              vm.maxTransferrableAmount,
+            );
+          });
+        },
       ),
     );
   }
