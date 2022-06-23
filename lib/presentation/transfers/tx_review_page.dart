@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
@@ -203,7 +204,7 @@ class TxReviewPage extends StatelessWidget {
           SizedBox(
             width: 26,
             height: 26,
-            child: Image.asset(RibnAssets.myFingerprint),
+            child: SvgPicture.asset(RibnAssets.myFingerprint),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -236,7 +237,7 @@ class TxReviewPage extends StatelessWidget {
           SizedBox(
             width: 26,
             height: 26,
-            child: Image.asset(RibnAssets.recipientFingerprint),
+            child: SvgPicture.asset(RibnAssets.recipientFingerprint),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),

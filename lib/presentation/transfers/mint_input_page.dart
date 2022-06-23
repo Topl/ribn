@@ -179,7 +179,7 @@ class _MintInputPageState extends State<MintInputPage> {
                                   _validRecipientAddress = '';
                                 });
                               },
-                              icon: SvgPicture.asset(RibnAssets.recipientFingerprint),
+                              icon: SvgPicture.asset(RibnAssets.myFingerprint),
                               alternativeDisplayChild: const AddressDisplayContainer(
                                 text: Strings.yourRibnWalletAddress,
                                 icon: RibnAssets.myFingerprint,
