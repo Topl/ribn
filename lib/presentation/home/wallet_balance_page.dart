@@ -110,15 +110,10 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       final bool hasPolys = vm.polyBalance > 0;
       return CustomToolTip(
         offsetPositionLeftValue: 180,
-        toolTipIcon: hasPolys
-            ? Image.asset(
-                RibnAssets.circleExclamation,
-                width: 24,
-              )
-            : Image.asset(
-                RibnAssets.smsFailed,
-                width: 24,
-              ),
+        toolTipIcon: Image.asset(
+          RibnAssets.circleInfo,
+          width: 24,
+        ),
         toolTipChild: RichText(
           text: TextSpan(
             style: RibnToolkitTextStyles.toolTipTextStyle,
@@ -167,7 +162,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
                       children: [
                         Text(
                           '${vm.polyBalance} POLY',
-                          style: RibnToolkitTextStyles.body1Bold.copyWith(
+                          style: RibnToolkitTextStyles.h2.copyWith(
                             color: const Color(0xFFE5E5E5),
                             letterSpacing: 1.42,
                           ),
@@ -186,7 +181,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
             child: Text(
               '\$${vm.polyBalance}',
               style: RibnToolkitTextStyles.h3.copyWith(
-                color: RibnColors.secondary,
+                color: RibnColors.secondaryDark,
               ),
             ),
           ),

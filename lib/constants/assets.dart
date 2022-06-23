@@ -71,10 +71,13 @@ class RibnAssets {
   static const chevronDownDark = 'packages/ribn_toolkit/assets/icons/chevron_down_dark.png';
   static const hamburgerMenu = 'packages/ribn_toolkit/assets/icons/hamburger_menu.png';
   static const circleExclamation = 'packages/ribn_toolkit/assets/icons/error.png';
+  static const circleInfo = 'assets/icons/circle_info.png';
   static const greyHelpBubble = 'packages/ribn_toolkit/assets/icons/gray_help_bubble.png';
   static const plusBlue = 'packages/ribn_toolkit/assets/icons/plus_blue.png';
   static const plusGrey = 'packages/ribn_toolkit/assets/icons/plus_grey.png';
   static const walletBlue = 'packages/ribn_toolkit/assets/icons/wallet_blue.png';
   static const walletGrey = 'packages/ribn_toolkit/assets/icons/wallet_grey.png';
   static const copyIcon = 'packages/ribn_toolkit/assets/icons/copy_icon.png';
+  static const copyIconAlternate = 'assets/icons/copy_icon_alternate.png';
+  static const fingerPrintAssets = 'assets/icons/finger_print_assets.png';
 }
