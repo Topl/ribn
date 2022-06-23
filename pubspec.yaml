@@ -46,8 +46,8 @@ dependencies:
       url: https://github.com/Topl/BramblDart.git
       ref: dev
   bip_topl: ^0.0.2
-  google_fonts: ^2.1.0
   flutter_svg: ^0.23.0+1
+  google_fonts: ^2.1.0
   dotted_border: ^2.0.0+1
   accordion: ^2.1.1
   progress_indicators: ^1.0.0
@@ -60,7 +60,7 @@ dependencies:
   flutter_secure_storage: ^5.0.2
   local_auth: ^2.0.0
   url_strategy: ^0.2.0
-  flutter_native_splash: ^2.1.6
+  flutter_native_splash: #^2.2.3+1
 
   
 dev_dependencies:
@@ -118,13 +118,15 @@ flutter:
         - asset: assets/fonts/nunito/Nunito-Regular.ttf
 
 flutter_native_splash:
-  background_image: assets/launch/launch_screen_bg.png
-  image: assets/launch/ribn_logo.png
-  # branding_mode: centre
+  image: assets/launch/ribn_logo_2.png
+  color: "#185E6B"
   android_12:
     color: "#185E6B"
-    image: assets/launch/ribn_logo.png
-    icon_background_color: "#ffffff"  
+    image: assets/launch/android12.png
+    icon_background_color: "#185E6B"
   web: false
+  android: true
+  android12: true
+  ios: true
   ios_content_mode: center
   android_gravity: center
