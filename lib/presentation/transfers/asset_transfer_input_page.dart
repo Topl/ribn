@@ -112,7 +112,6 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
                             ),
                           ),
                         },
-                        // redirectOnClick: () => vm.routeToSendPolys,
                         redirectOnClick: () => vm.routeToSendPolys(),
                       ),
                     ),
