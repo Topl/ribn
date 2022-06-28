@@ -28,6 +28,8 @@ class WelcomePageMobile extends StatelessWidget {
                 Strings.ribnWallet,
                 style: RibnToolkitTextStyles.h1.copyWith(
                   color: RibnColors.lightGreyTitle,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 34,
                 ),
               ),
               const SizedBox(height: 20),
@@ -36,9 +38,8 @@ class WelcomePageMobile extends StatelessWidget {
                 child: Text(
                   Strings.intro,
                   style: RibnToolkitTextStyles.h3.copyWith(
-                    color: RibnColors.lightGreyTitle,
+                    color: Colors.white,
                     fontSize: 18,
-                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ),
