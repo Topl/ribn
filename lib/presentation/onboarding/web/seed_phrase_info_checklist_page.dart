@@ -14,17 +14,17 @@ import 'package:ribn/widgets/continue_button.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
 
 /// Builds checks to ensure that the user understands the importance of the seed phrase.
-class ReadCarefullyPageOne extends StatefulWidget {
-  const ReadCarefullyPageOne({Key? key}) : super(key: key);
+class SeedPhraseInfoChecklistPageWeb extends StatefulWidget {
+  const SeedPhraseInfoChecklistPageWeb({Key? key}) : super(key: key);
 
   @override
-  State<ReadCarefullyPageOne> createState() => _ReadCarefullyPageState();
+  State<SeedPhraseInfoChecklistPageWeb> createState() => _SeedPhraseInfoChecklistPageWebState();
 }
 
-class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
+class _SeedPhraseInfoChecklistPageWebState extends State<SeedPhraseInfoChecklistPageWeb> {
   final Map<String, bool> pointsChecked = {
-    Strings.readCarefullyPointOne: false,
-    Strings.readCarefullyPointTwo: false,
+    Strings.neverShareMySeedPhrase: false,
+    Strings.walletRecoveryUsingSeedPhrase: false,
   };
   final Color barrierColor = const Color(0xb538726c);
   void onBackPressed() => Keys.navigatorKey.currentState!.pop();
@@ -58,16 +58,16 @@ class _ReadCarefullyPageState extends State<ReadCarefullyPageOne> {
             child: Column(
               children: [
                 _buildCheckListTile(
-                  label: Strings.readCarefullyPointOne,
-                  checked: pointsChecked[Strings.readCarefullyPointOne]!,
-                  onChecked: (bool? val) => onChecked(val ?? false, Strings.readCarefullyPointOne),
+                  label: Strings.neverShareMySeedPhrase,
+                  checked: pointsChecked[Strings.neverShareMySeedPhrase]!,
+                  onChecked: (bool? val) => onChecked(val ?? false, Strings.neverShareMySeedPhrase),
                 ),
                 _buildCheckListTile(
-                  label: Strings.readCarefullyPointTwo,
-                  isActiveText: pointsChecked[Strings.readCarefullyPointOne]!,
-                  checked: pointsChecked[Strings.readCarefullyPointTwo]!,
-                  onChecked: pointsChecked[Strings.readCarefullyPointOne]!
-                      ? (bool? val) => onChecked(val ?? false, Strings.readCarefullyPointTwo)
+                  label: Strings.walletRecoveryUsingSeedPhrase,
+                  isActiveText: pointsChecked[Strings.neverShareMySeedPhrase]!,
+                  checked: pointsChecked[Strings.walletRecoveryUsingSeedPhrase]!,
+                  onChecked: pointsChecked[Strings.neverShareMySeedPhrase]!
+                      ? (bool? val) => onChecked(val ?? false, Strings.walletRecoveryUsingSeedPhrase)
                       : null,
                 ),
                 const SizedBox(height: 20),

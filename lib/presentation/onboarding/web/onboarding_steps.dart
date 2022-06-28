@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/presentation/onboarding/create_password_page.dart';
-import 'package:ribn/presentation/onboarding/read_carefully_page_two.dart';
-import 'package:ribn/presentation/onboarding/seed_phrase_confirmation_page.dart';
-import 'package:ribn/presentation/onboarding/seed_phrase_display_page.dart';
-import 'package:ribn/presentation/onboarding/seed_phrase_generating_page.dart';
-import 'package:ribn/presentation/onboarding/wallet_created_page.dart';
+import 'package:ribn/presentation/onboarding/web/create_password_page.dart';
+import 'package:ribn/presentation/onboarding/web/read_carefully_page_two.dart';
+import 'package:ribn/presentation/onboarding/web/seed_phrase_confirmation_page.dart';
+import 'package:ribn/presentation/onboarding/web/seed_phrase_display_page.dart';
+import 'package:ribn/presentation/onboarding/web/seed_phrase_generating_page.dart';
+import 'package:ribn/presentation/onboarding/web/wallet_created_page.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
 
 /// Builds PageViews for generating and confirming the seed phrase, and creating a wallet password.

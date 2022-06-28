@@ -12,8 +12,8 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
 
 /// Allow the user to select from 'create wallet' or 'import wallet'.
-class SelectActionPage extends StatelessWidget {
-  const SelectActionPage({Key? key}) : super(key: key);
+class SelectActionPageWeb extends StatelessWidget {
+  const SelectActionPageWeb({Key? key}) : super(key: key);
   void onBackPressed() => Keys.navigatorKey.currentState!.pop();
 
   @override

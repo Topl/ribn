@@ -11,8 +11,8 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/continue_button.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
 
-class GettingStartedPage extends StatelessWidget {
-  const GettingStartedPage({Key? key}) : super(key: key);
+class GettingStartedPageWeb extends StatelessWidget {
+  const GettingStartedPageWeb({Key? key}) : super(key: key);
   void onBackPressed() => Keys.navigatorKey.currentState!.pop();
 
   @override
@@ -55,7 +55,7 @@ class GettingStartedPage extends StatelessWidget {
           ),
           ContinueButton(
             Strings.ok,
-            () => StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(Routes.readCarefully)),
+            () => StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(Routes.seedPhraseInfoChecklist)),
           ),
         ],
       ),

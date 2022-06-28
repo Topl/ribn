@@ -9,9 +9,9 @@ import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/continue_button.dart';
 
-/// The initial welcome page displayed during onboarding.
-class WelcomePage extends StatelessWidget {
-  const WelcomePage({Key? key}) : super(key: key);
+/// The initial welcome page displayed during onboarding on web.
+class WelcomePageWeb extends StatelessWidget {
+  const WelcomePageWeb({Key? key}) : super(key: key);
   final SizedBox padding = const SizedBox(height: 40);
 
   @override
