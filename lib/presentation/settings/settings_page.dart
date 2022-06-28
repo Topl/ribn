@@ -21,7 +21,7 @@ class SettingsPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const CustomPageTitle(title: Strings.settings),
+              const CustomPageTitle(title: Strings.settings, hideBackArrow: true,),
               _buildSettingsListItems(vm, context),
             ],
           ),

@@ -41,7 +41,7 @@ class _AssetLongNameEditSectionState extends State<AssetLongNameEditSection> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       height: 100,
-      width: 309,
+      width: 307,
       decoration: const BoxDecoration(
         color: RibnColors.whiteBackground,
         boxShadow: [BoxShadow(color: Color(0x0f000000), offset: Offset(0, 4), blurRadius: 4, spreadRadius: 0)],
@@ -77,9 +77,12 @@ class _AssetLongNameEditSectionState extends State<AssetLongNameEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Cancel',
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.primary),
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.ghostButtonText),
                 ),
-                backgroundColor: RibnColors.accent,
+                backgroundColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                dropShadowColor: Colors.transparent,
+                borderColor: RibnColors.ghostButtonText,
                 onPressed: () => widget.onActionTaken(),
               )
             ],

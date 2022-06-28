@@ -115,15 +115,17 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
                 children: [
                   const CustomPageTitle(
                     title: Strings.assetDetails,
+                    hideBackArrow: true,
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 40),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     width: 309,
                     height: 409,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(4.7)),
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(4.7)),
                       color: RibnColors.whiteBackground,
+                      border: Border.all(color: RibnColors.lightGrey, width: 1),
                     ),
                     child: Column(
                       children: [
@@ -191,7 +193,7 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
       builder: (context) {
         return Positioned(
           left: offset.dx - 20,
-          top: offset.dy + 25,
+          top: offset.dy + 22,
           child: editSection,
         );
       },

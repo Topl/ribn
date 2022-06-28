@@ -44,7 +44,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       height: 100,
-      width: 309,
+      width: 307,
       decoration: const BoxDecoration(
         color: RibnColors.whiteBackground,
         boxShadow: [BoxShadow(color: Color(0x0f000000), offset: Offset(0, 4), blurRadius: 4, spreadRadius: 0)],
@@ -91,9 +91,12 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Cancel',
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.primary),
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.ghostButtonText),
                 ),
-                backgroundColor: RibnColors.accent,
+                backgroundColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                dropShadowColor: Colors.transparent,
+                borderColor: RibnColors.ghostButtonText,
                 onPressed: () => widget.onActionTaken(),
               )
             ],
@@ -135,7 +138,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
               child: Center(
                 child: Text(
                   selectedUnit ?? widget.currentUnit ?? 'Select Unit type',
-                  style: RibnToolkitTextStyles.dropdownButtonStyle,
+                  style: RibnToolkitTextStyles.dropdownButtonStyle.copyWith(color: Colors.white),
                 ),
               ),
             ),
