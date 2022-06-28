@@ -200,8 +200,8 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String letsMintANewAsset =
       '''Let's Mint a new Asset!\n\nYou can either mint a new Asset or remint an exisiting Asset.''';
   static const String whatWouldYouLikeToDo = 'What would you like to do?';
-  static const String mintNewAsset = 'MINT\nNEW\nASSET';
-  static const String remintSameAsset = 'REMINT\nSAME ASSET';
+  static const String mintNewAsset = 'Mint new asset';
+  static const String mintExistingAsset = 'Mint existing asset';
   static const String myRibnWallet = 'MY\nRIBN WALLET';
   static const String anotherRecipientsWallet = 'ANOTHER RECIPIENT\'S WALLET ';
   static const String mintAssetDesc = 'Where would you like your Asset to be minted?';

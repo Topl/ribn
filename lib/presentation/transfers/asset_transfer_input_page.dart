@@ -49,6 +49,8 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
 
   bool _validAmount = false;
 
+  int currentTabIndex = 0;
+
   @override
   void initState() {
     _controllers = [
@@ -95,7 +97,12 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
                     SizedBox(
                       width: 310,
                       child: SlidingSegmentControl(
-                        currentTabIndex: 0,
+                        currentTabIndex: currentTabIndex,
+                        updateTabIndex: (i) => {
+                          setState(() {
+                            currentTabIndex = i as int;
+                          })
+                        },
                         tabItems: <int, Widget>{
                           0: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),

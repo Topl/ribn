@@ -46,6 +46,8 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
   /// True if amount is valid.
   bool _validAmount = false;
 
+  int currentTabIndex = 1;
+
   @override
   void initState() {
     _controllers = [
@@ -95,7 +97,12 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
                     SizedBox(
                       width: 310,
                       child: SlidingSegmentControl(
-                        currentTabIndex: 1,
+                        currentTabIndex: currentTabIndex,
+                        updateTabIndex: (i) => {
+                          setState(() {
+                            currentTabIndex = i as int;
+                          })
+                        },
                         tabItems: <int, Widget>{
                           0: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
