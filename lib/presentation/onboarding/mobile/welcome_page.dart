@@ -45,7 +45,7 @@ class WelcomePageMobile extends StatelessWidget {
               const Spacer(),
               ConfirmationButton(
                 text: Strings.getStarted,
-                onPressed: () => navigateToRoute(context, Routes.gettingStarted),
+                onPressed: () => navigateToRoute(context, Routes.selectAction),
               ),
             ],
           ),
