@@ -1,0 +1,40 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  lane :beta do
+    
+    previous_build_number = google_play_track_version_codes(
+      track: "internal",
+      json_key: 'service_account_key.json',
+    )[0]
+    current_build_number = previous_build_number + 1
+    increment_version_code(
+      gradle_file_path: 'app/build.gradle',
+      version_code: current_build_number
+    )
+    gradle(task: "bundle",build_type: 'Release')
+    upload_to_play_store(
+      track: 'internal',
+        aab: '../build/app/outputs/bundle/release/app-release.aab',
+        skip_upload_metadata: true,
+        skip_upload_images: true,
+        skip_upload_screenshots: true,
+        release_status: "draft",
+    )
+  end
+end

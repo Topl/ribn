@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:ribn/constants/keys.dart';
 import 'package:ribn/platform/interfaces.dart';
 
 class PlatformLocalStorage implements IPlatformLocalStorage {
@@ -37,6 +38,12 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
 
   @override
   Future<void> saveSessionKey(String key) async {
-    await secureStorage.write(key: 'toplKey', value: key);
+    try {
+      await secureStorage.write(key: 'toplKey', value: key);
+    } catch (e) {
+      if (!Keys.isTestingEnvironment) {
+        rethrow;
+      }
+    }
   }
 }
