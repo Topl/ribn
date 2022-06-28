@@ -266,7 +266,7 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
           buttonWidth: double.infinity,
           buttonChild: Text(
             Strings.review,
-            style: RibnToolkitTextStyles.btnMedium.copyWith(
+            style: RibnToolkitTextStyles.btnLarge.copyWith(
               color: Colors.white,
             ),
           ),

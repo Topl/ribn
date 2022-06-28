@@ -101,7 +101,7 @@ class TxReviewPage extends StatelessWidget {
             LargeButton(
               buttonChild: Text(
                 Strings.confirm,
-                style: RibnToolkitTextStyles.btnMedium.copyWith(
+                style: RibnToolkitTextStyles.btnLarge.copyWith(
                   color: Colors.white,
                 ),
               ),
@@ -117,7 +117,7 @@ class TxReviewPage extends StatelessWidget {
             LargeButton(
               buttonChild: Text(
                 Strings.cancel,
-                style: RibnToolkitTextStyles.btnMedium.copyWith(
+                style: RibnToolkitTextStyles.btnLarge.copyWith(
                   color: RibnColors.ghostButtonText,
                 ),
               ),

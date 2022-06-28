@@ -6,6 +6,7 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/mint_input_container.dart';
 import 'package:ribn/models/asset_details.dart';
+import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/issuer_address_field.dart';
 import 'package:ribn/utils.dart';
@@ -225,9 +226,6 @@ class _MintInputPageState extends State<MintInputPage> {
                                 width: 18,
                               ),
                             ),
-                            // fee info for the tx
-                            FeeInfo(fee: vm.networkFee),
-                            _buildReviewButton(vm),
                           ],
                         ),
                       ),
@@ -237,6 +235,16 @@ class _MintInputPageState extends State<MintInputPage> {
               ),
               _loadingRawTx ? const LoadingSpinner() : const SizedBox(),
             ],
+          ),
+          bottomNavigationBar: BottomReviewAction(
+            children: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // fee info for the tx
+                FeeInfo(fee: vm.networkFee),
+                _buildReviewButton(vm),
+              ],
+            ),
           ),
         ),
       ),
@@ -321,9 +329,10 @@ class _MintInputPageState extends State<MintInputPage> {
     return Padding(
       padding: const EdgeInsets.only(top: 20.0, bottom: 10),
       child: LargeButton(
+        buttonWidth: double.infinity,
         buttonChild: Text(
           Strings.review,
-          style: RibnToolkitTextStyles.btnMedium.copyWith(
+          style: RibnToolkitTextStyles.btnLarge.copyWith(
             color: Colors.white,
           ),
         ),
@@ -350,6 +359,7 @@ class _MintInputPageState extends State<MintInputPage> {
                 );
               }
             : () {},
+        disabled: !enteredValidInputs,
       ),
     );
   }
