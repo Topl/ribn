@@ -58,6 +58,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       _currPage = key;
 
       if (_currPage == 1) {
+        _currPage = 0;
+
         StoreProvider.of<AppState>(Keys.navigatorKey.currentContext!).dispatch(
           NavigateToRoute(
             Routes.mintInput,

@@ -183,20 +183,17 @@ class _MintInputPageState extends State<MintInputPage> {
                             RecipientField(
                               controller: _recipientController,
                               validRecipientAddress: _validRecipientAddress,
-                              // validate the address entered on change
                               onChanged: (text) => validateRecipientAddress(
                                 networkName: vm.currentNetwork.networkName,
                                 address: _recipientController.text,
                                 handleResult: (bool result) {
                                   setState(() {
-                                    if (_validRecipientAddress.isNotEmpty) {
-                                      _recipientController.text = _validRecipientAddress;
-                                      _recipientController
-                                        ..text =
-                                            _recipientController.text.substring(0, _recipientController.text.length)
-                                        ..selection = TextSelection.collapsed(offset: _recipientController.text.length);
+                                    if (result) {
+                                      _validRecipientAddress = _recipientController.text;
+                                      _recipientController.text = '';
+                                    } else {
+                                      _validRecipientAddress = '';
                                     }
-                                    _validRecipientAddress = '';
                                   });
                                 },
                               ),
