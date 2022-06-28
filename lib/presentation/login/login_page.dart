@@ -171,6 +171,7 @@ class _LoginPageState extends State<LoginPage> {
               toolTipIcon: Image.asset(
                 RibnAssets.greyHelpBubble,
                 width: 18,
+                color: Colors.white,
               ),
               toolTipChild: const Text(
                 Strings.loginPasswordInfo,
