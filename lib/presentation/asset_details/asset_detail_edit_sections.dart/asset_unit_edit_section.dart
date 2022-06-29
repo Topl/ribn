@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/actions/user_details_actions.dart';
+import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/widgets/custom_drop_down.dart';
+import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_dropdown.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The section for editing asset unit.
@@ -43,7 +45,6 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      height: 100,
       width: 307,
       decoration: const BoxDecoration(
         color: RibnColors.whiteBackground,
@@ -53,7 +54,6 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomDropDown(
-            dropdownButton: _buildUnitDropdownButton(),
             dropdownChild: _buildUnitDropdownChild(),
             childAlignment: Alignment.bottomCenter,
             dropDownAlignment: Alignment.topCenter,
@@ -63,6 +63,17 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
                 dropdownOpened = false;
               });
             },
+            chevronIcon: Image.asset(
+              RibnAssets.chevronDownDark,
+              width: 24,
+            ),
+            hintText: 'Select Unit',
+            selectedItem: Text(
+              formatAssetUnit(
+                selectedUnit ?? widget.currentUnit,
+              ),
+              style: RibnToolkitTextStyles.dropdownButtonStyle,
+            ),
           ),
           const SizedBox(height: 20),
           Row(
@@ -101,57 +112,8 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
               )
             ],
           ),
+          const SizedBox(height: 20),
         ],
-      ),
-    );
-  }
-
-  /// Builds the Unit dropdown button.
-  Widget _buildUnitDropdownButton() {
-    return MaterialButton(
-      padding: EdgeInsets.zero,
-      minWidth: 0,
-      onPressed: () {
-        setState(() {});
-        Overlay.of(context)?.setState(() {
-          dropdownOpened = true;
-        });
-      },
-      child: Container(
-        width: 125,
-        height: 30,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(4.7)),
-          border: Border.all(color: RibnColors.primary),
-          color: const Color(0xffefefef),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 104,
-              height: 21,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-                color: RibnColors.primary,
-              ),
-              child: Center(
-                child: Text(
-                  selectedUnit ?? widget.currentUnit ?? 'Select Unit type',
-                  style: RibnToolkitTextStyles.dropdownButtonStyle.copyWith(color: Colors.white),
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 8,
-              child: Icon(
-                Icons.keyboard_arrow_down_sharp,
-                size: 12,
-                color: Color(0xff859391),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -168,26 +130,34 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
         border: Border.all(color: const Color(0xffeeeeee), width: 1),
         color: const Color(0xffffffff),
       ),
-      child: ListView(
-        children: UIConstants.assetUnitsList
-            .map(
-              (unit) => MaterialButton(
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(unit, style: RibnToolkitTextStyles.smallBody),
-                ),
-                onPressed: () {
-                  setState(() {
-                    dropdownOpened = false;
-                  });
-                  Overlay.of(context)!.setState(() {
-                    selectedUnit = unit;
-                    dropdownOpened = false;
-                  });
-                },
-              ),
-            )
-            .toList(),
+      child: MediaQuery.removePadding(
+        context: context,
+        removeTop: true,
+        child: Scrollbar(
+          isAlwaysShown: true,
+          child: ListView(
+            padding: const EdgeInsets.all(0),
+            children: UIConstants.assetUnitsList
+                .map(
+                  (unit) => MaterialButton(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(unit, style: RibnToolkitTextStyles.smallBody),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        dropdownOpened = false;
+                      });
+                      Overlay.of(context)!.setState(() {
+                        selectedUnit = unit;
+                        dropdownOpened = false;
+                      });
+                    },
+                  ),
+                )
+                .toList(),
+          ),
+        ),
       ),
     );
   }
