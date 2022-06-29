@@ -62,7 +62,7 @@ class _SeedPhraseInfoChecklistPageMobileState extends State<SeedPhraseInfoCheckl
                 const Spacer(),
                 ConfirmationButton(
                   text: Strings.iUnderstand,
-                  onPressed: () => navigateToRoute(context, Routes.generateSeedPhrase),
+                  onPressed: () => navigateToRoute(context, Routes.seedPhraseInstructions),
                 )
               ],
             ),
