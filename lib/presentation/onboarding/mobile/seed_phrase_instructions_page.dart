@@ -48,7 +48,7 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
                 const Spacer(),
                 ConfirmationButton(
                   text: Strings.iUnderstand,
-                  onPressed: () => navigateToRoute(context, Routes.seedPhraseConfirm),
+                  onPressed: () => navigateToRoute(context, Routes.generateSeedPhrase),
                 )
               ],
             ),
