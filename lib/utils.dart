@@ -1,5 +1,11 @@
+import 'dart:ui';
+
 import 'package:brambldart/utils.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:ribn/actions/misc_actions.dart';
+import 'package:ribn/models/app_state.dart';
 
 /// Formats an address string to only dispaly its first and last 10 characters.
 String formatAddrString(String addr, {int charsToDisplay = 10}) {
@@ -41,3 +47,13 @@ Future<bool> isBiometricsAuthenticationSupported(LocalAuthentication auth) async
   final List enrolledBiometrics = await auth.getAvailableBiometrics();
   return canCheckBiometrics && isDeviceSupported && enrolledBiometrics.isNotEmpty;
 }
+
+void navigateToRoute(BuildContext context, String route) {
+  StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(route));
+}
+
+/// Adapt to screen height based on [scaleFactor].
+double adaptHeight(double scaleFactor) => MediaQueryData.fromWindow(window).size.height * scaleFactor;
+
+/// Adapt to screen width based on [scaleFactor].
+double adaptWidth(double scaleFactor) => MediaQueryData.fromWindow(window).size.width * scaleFactor;
