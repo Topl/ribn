@@ -13,7 +13,7 @@ class BottomReviewAction extends StatelessWidget {
         topRight: Radius.circular(25),
       ),
       child: Container(
-        height: 140,
+        constraints: const BoxConstraints(maxHeight: 168),
         decoration: const BoxDecoration(
           boxShadow: [
             BoxShadow(

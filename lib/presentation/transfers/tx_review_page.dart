@@ -82,7 +82,7 @@ class TxReviewPage extends StatelessWidget {
                 children: [
                   // fee info
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 38),
                     child: SizedBox(
                       width: 310,
                       child: FeeInfo(fee: transferDetails.transactionReceipt!.fee!.getInNanopoly),
