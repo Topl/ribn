@@ -16,7 +16,6 @@ import 'package:ribn/presentation/asset_details/asset_detail_items/asset_long_na
 import 'package:ribn/presentation/asset_details/asset_detail_items/asset_unit_details.dart';
 import 'package:ribn/presentation/asset_details/asset_detail_items/issuer_address_details.dart';
 import 'package:ribn/widgets/custom_divider.dart';
-import 'package:ribn/widgets/ribn_app_bar_wapper.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 
@@ -109,7 +108,6 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
           },
           child: Scaffold(
             backgroundColor: RibnColors.background,
-            appBar: const RibnAppBarWrapper(),
             body: SingleChildScrollView(
               child: Column(
                 children: [
