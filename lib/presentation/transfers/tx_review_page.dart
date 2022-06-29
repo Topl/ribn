@@ -43,7 +43,6 @@ class TxReviewPage extends StatelessWidget {
       backgroundColor: RibnColors.background,
       body: SingleChildScrollView(
         child: SizedBox(
-          height: MediaQuery.of(context).size.height - 140,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

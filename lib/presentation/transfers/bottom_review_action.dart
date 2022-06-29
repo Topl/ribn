@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class BottomReviewAction extends StatelessWidget {
@@ -13,7 +14,7 @@ class BottomReviewAction extends StatelessWidget {
         topRight: Radius.circular(25),
       ),
       child: Container(
-        constraints: const BoxConstraints(maxHeight: 168),
+        constraints: const BoxConstraints(maxHeight: kIsWeb ? 135 : 168),
         decoration: const BoxDecoration(
           boxShadow: [
             BoxShadow(

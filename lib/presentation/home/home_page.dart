@@ -5,7 +5,6 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/presentation/home/mint_page.dart';
 import 'package:ribn/presentation/home/wallet_balance_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
 import 'package:ribn/widgets/ribn_app_bar_wapper.dart';
