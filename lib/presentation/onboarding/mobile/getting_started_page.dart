@@ -35,8 +35,7 @@ class GettingStartedPageMobile extends StatelessWidget {
                   child: Image.asset(RibnAssets.gettingStartedPng, width: 70),
                 ),
                 SizedBox(
-                  width: 310,
-                  height: 220,
+                  width: 350,
                   child: Text(
                     Strings.gettingStartedDescription,
                     style: RibnToolkitTextStyles.h3.copyWith(
