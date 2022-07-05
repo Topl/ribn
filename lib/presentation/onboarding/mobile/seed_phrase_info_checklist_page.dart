@@ -63,6 +63,7 @@ class _SeedPhraseInfoChecklistPageMobileState extends State<SeedPhraseInfoCheckl
                 ConfirmationButton(
                   text: Strings.iUnderstand,
                   onPressed: () => navigateToRoute(context, Routes.seedPhraseInstructions),
+                  disabled: checkboxesState.containsValue(false),
                 )
               ],
             ),
@@ -81,7 +82,7 @@ class _SeedPhraseInfoChecklistPageMobileState extends State<SeedPhraseInfoCheckl
     return SizedBox(
       width: 350,
       child: CheckboxWrappableText(
-        fillColor: MaterialStateProperty.all(Colors.transparent),
+        fillColor: Colors.transparent,
         checkColor: const Color(0xff80FF00),
         borderColor: checked
             ? const Color(0xff80FF00)
@@ -90,8 +91,9 @@ class _SeedPhraseInfoChecklistPageMobileState extends State<SeedPhraseInfoCheckl
                 : RibnColors.inactive,
         value: checked,
         onChanged: onChanged,
-        label: text,
+        wrappableText: text,
         activeText: activeText,
+        wrapText: true,
       ),
     );
   }
