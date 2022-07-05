@@ -2,21 +2,24 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/mobile/helpers.dart';
+import 'package:ribn/presentation/onboarding/mobile/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/mobile/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/mobile/widgets/onboarding_page_padding.dart';
+import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 
 /// This page shows a loading animation to indicate seed phrase generation.
-class SeedPhraseGeneratingPage extends StatefulWidget {
-  const SeedPhraseGeneratingPage({Key? key}) : super(key: key);
+class SeedPhraseGeneratingPageMobile extends StatefulWidget {
+  const SeedPhraseGeneratingPageMobile({Key? key}) : super(key: key);
 
   @override
-  _SeedPhraseGeneratingPageState createState() => _SeedPhraseGeneratingPageState();
+  _SeedPhraseGeneratingPageMobileState createState() => _SeedPhraseGeneratingPageMobileState();
 }
 
-class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
+class _SeedPhraseGeneratingPageMobileState extends State<SeedPhraseGeneratingPageMobile> {
   /// Timer for the animation, initialized in [initState].
   late final Timer timer;
 
@@ -118,7 +121,15 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
           Strings.seedPhraseGeneratedDesc,
           style: onboardingH3,
         ),
-      )
+      ),
+      const Spacer(),
+      ConfirmationButton(
+        text: Strings.cont,
+        onPressed: () => navigateToRoute(
+          context,
+          Routes.displaySeedphrase,
+        ),
+      ),
     ];
   }
 
