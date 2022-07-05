@@ -1,9 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/onboarding/mobile/helpers.dart';
 import 'package:ribn/presentation/onboarding/mobile/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/mobile/widgets/onboarding_container.dart';
@@ -41,6 +44,7 @@ class _SeedPhraseGeneratingPageMobileState extends State<SeedPhraseGeneratingPag
 
   @override
   void initState() {
+    StoreProvider.of<AppState>(context).dispatch(GenerateMnemonicAction());
     timer = Timer.periodic(duration, (timer) {
       if (timer.tick == numCircles) {
         seedPhraseGenerating = false;
