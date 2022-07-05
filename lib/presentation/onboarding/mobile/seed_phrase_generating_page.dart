@@ -44,7 +44,6 @@ class _SeedPhraseGeneratingPageMobileState extends State<SeedPhraseGeneratingPag
 
   @override
   void initState() {
-    StoreProvider.of<AppState>(context).dispatch(GenerateMnemonicAction());
     timer = Timer.periodic(duration, (timer) {
       if (timer.tick == numCircles) {
         seedPhraseGenerating = false;
@@ -64,16 +63,22 @@ class _SeedPhraseGeneratingPageMobileState extends State<SeedPhraseGeneratingPag
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: OnboardingContainer(
-        child: OnboardingPagePadding(
-          child: Center(
-            child: Column(
-              children: seedPhraseGenerating ? seedPhraseGeneratingSection() : seedPhraseGeneratedSection(),
+    return StoreConnector<AppState, AppState>(
+      converter: (store) => store.state,
+      onInit: (store) => store.dispatch(GenerateMnemonicAction()),
+      builder: (context, vm) {
+        return Scaffold(
+          body: OnboardingContainer(
+            child: OnboardingPagePadding(
+              child: Center(
+                child: Column(
+                  children: seedPhraseGenerating ? seedPhraseGeneratingSection() : seedPhraseGeneratedSection(),
+                ),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
