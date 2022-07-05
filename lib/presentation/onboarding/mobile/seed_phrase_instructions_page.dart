@@ -10,8 +10,8 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 
 /// This page shows intructions on how to keep the seed phrase secure.
-class SeedPhraseInstructionsPage extends StatelessWidget {
-  const SeedPhraseInstructionsPage({Key? key}) : super(key: key);
+class SeedPhraseInstructionsPageMobile extends StatelessWidget {
+  const SeedPhraseInstructionsPageMobile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,18 +37,20 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 40),
-                _buildListItem(RibnAssets.penPaperPng, Strings.paperAndPen, topTextPadding: 5),
+                _buildListItem(RibnAssets.penPaperPng, Strings.paperAndPen, textTopPadding: 5),
                 _buildListItem(
                   RibnAssets.passwordLockPng,
                   Strings.securePasswordManager,
-                  rightIconPadding: 4,
-                  topTextPadding: 5,
+                  iconRightPadding: 4,
+                  textTopPadding: 5,
                 ),
-                _buildListItem(RibnAssets.programPng, Strings.encryptTextFile, rightIconPadding: 2),
+                _buildListItem(RibnAssets.programPng, Strings.encryptTextFile, iconRightPadding: 2),
                 const Spacer(),
                 ConfirmationButton(
                   text: Strings.iUnderstand,
-                  onPressed: () => navigateToRoute(context, Routes.generateSeedPhrase),
+                  onPressed: () {
+                    navigateToRoute(context, Routes.generateSeedPhrase);
+                  },
                 )
               ],
             ),
@@ -61,9 +63,9 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
   Widget _buildListItem(
     String pngIcon,
     String text, {
-    double leftIconPadding = 0,
-    double rightIconPadding = 0,
-    double topTextPadding = 0,
+    double iconLeftPadding = 0,
+    double iconRightPadding = 0,
+    double textTopPadding = 0,
     double width = 30,
     double height = 30,
   }) {
@@ -77,13 +79,13 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
               width: width,
               height: height,
               child: Padding(
-                padding: EdgeInsets.only(left: leftIconPadding, right: rightIconPadding),
+                padding: EdgeInsets.only(left: iconLeftPadding, right: iconRightPadding),
                 child: Image.asset(pngIcon, width: 30),
               ),
             ),
             const SizedBox(width: 10),
             Padding(
-              padding: EdgeInsets.only(top: topTextPadding),
+              padding: EdgeInsets.only(top: textTopPadding),
               child: SizedBox(
                 width: 295,
                 child: Text(
