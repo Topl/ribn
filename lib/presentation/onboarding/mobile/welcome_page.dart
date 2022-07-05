@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
@@ -22,10 +23,11 @@ class WelcomePageMobile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Spacer(),
+              kIsWeb ? const SizedBox() : const Spacer(),
               Image.asset(RibnAssets.ribnLogoPng, width: 138),
               Text(
                 Strings.ribnWallet,
+                textAlign: TextAlign.center,
                 style: RibnToolkitTextStyles.h1.copyWith(
                   color: RibnColors.lightGreyTitle,
                   fontWeight: FontWeight.w700,
@@ -33,17 +35,18 @@ class WelcomePageMobile extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              SizedBox(
-                width: 309,
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: kIsWeb ? double.infinity : 310),
                 child: Text(
                   Strings.intro,
+                  textAlign: TextAlign.center,
                   style: RibnToolkitTextStyles.h3.copyWith(
                     color: Colors.white,
                     fontSize: 18,
                   ),
                 ),
               ),
-              const Spacer(),
+              kIsWeb ? const SizedBox(height: 150) : const Spacer(),
               ConfirmationButton(
                 text: Strings.getStarted,
                 onPressed: () => navigateToRoute(context, Routes.selectAction),

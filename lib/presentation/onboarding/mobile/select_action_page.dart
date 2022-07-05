@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ribn/constants/assets.dart';
@@ -16,6 +17,27 @@ class SelectActionPageMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> actionButtons = [
+      OnboardingActionButton(
+        containerHeight: adaptHeight(0.25),
+        backgroundColor: RibnColors.primary,
+        icon: Image.asset(RibnAssets.createWalletPng),
+        title: Strings.createWallet,
+        description: Strings.firstTimeWallet,
+        lineHeight: 4,
+        onPressed: () => navigateToRoute(context, Routes.gettingStarted),
+      ),
+      kIsWeb ? const SizedBox(width: 100, height: 50) : const SizedBox(height: 50),
+      OnboardingActionButton(
+        containerHeight: adaptHeight(0.25),
+        backgroundColor: RibnColors.primary,
+        icon: Image.asset(RibnAssets.importWalletPng),
+        description: Strings.importWalletUsingSeedPhrase,
+        title: Strings.importWallet,
+        onPressed: () {},
+      )
+    ];
+
     return Scaffold(
       body: OnboardingContainer(
         child: OnboardingPagePadding(
@@ -23,7 +45,7 @@ class SelectActionPageMobile extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  width: 245,
+                  width: kIsWeb ? double.infinity : 245,
                   child: Text(
                     Strings.whatWouldYouLikeToDo,
                     textAlign: TextAlign.center,
@@ -34,24 +56,10 @@ class SelectActionPageMobile extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: adaptHeight(0.1)),
-                OnboardingActionButton(
-                  containerHeight: adaptHeight(0.25),
-                  backgroundColor: RibnColors.primary,
-                  icon: Image.asset(RibnAssets.createWalletPng),
-                  title: Strings.createWallet,
-                  description: Strings.firstTimeWallet,
-                  lineHeight: 4,
-                  onPressed: () => navigateToRoute(context, Routes.gettingStarted),
-                ),
-                const SizedBox(height: 40),
-                OnboardingActionButton(
-                  containerHeight: adaptHeight(0.25),
-                  backgroundColor: RibnColors.primary,
-                  icon: Image.asset(RibnAssets.importWalletPng),
-                  description: Strings.importWalletUsingSeedPhrase,
-                  title: Strings.importWallet,
-                  onPressed: () {},
-                ),
+                // display actionbuttons in row or column depending on platform
+                kIsWeb
+                    ? Row(mainAxisAlignment: MainAxisAlignment.center, children: actionButtons)
+                    : Column(children: actionButtons)
               ],
             ),
           ),
