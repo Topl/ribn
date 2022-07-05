@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
@@ -32,6 +33,7 @@ class _SeedPhraseInfoChecklistPageMobileState extends State<SeedPhraseInfoCheckl
         child: OnboardingPagePadding(
           child: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   Strings.readCarefully,
@@ -59,7 +61,7 @@ class _SeedPhraseInfoChecklistPageMobileState extends State<SeedPhraseInfoCheckl
                       ? (bool? val) => onChecked(val ?? false, Strings.walletRecoveryUsingSeedPhrase)
                       : null,
                 ),
-                const Spacer(),
+                kIsWeb ? const SizedBox(height: 150) : const Spacer(),
                 ConfirmationButton(
                   text: Strings.iUnderstand,
                   onPressed: () => navigateToRoute(context, Routes.seedPhraseInstructions),
@@ -80,7 +82,7 @@ class _SeedPhraseInfoChecklistPageMobileState extends State<SeedPhraseInfoCheckl
     required Function(bool?)? onChanged,
   }) {
     return SizedBox(
-      width: 350,
+      width: kIsWeb ? 600 : 350,
       child: CheckboxWrappableText(
         fillColor: Colors.transparent,
         checkColor: const Color(0xff80FF00),
