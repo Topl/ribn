@@ -43,6 +43,7 @@ class SelectActionPageMobile extends StatelessWidget {
         child: OnboardingPagePadding(
           child: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
                   width: kIsWeb ? double.infinity : 245,

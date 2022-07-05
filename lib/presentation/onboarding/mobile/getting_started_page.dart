@@ -21,7 +21,7 @@ class GettingStartedPageMobile extends StatelessWidget {
         child: OnboardingPagePadding(
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(

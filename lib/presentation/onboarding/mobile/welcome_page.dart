@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/presentation/onboarding/mobile/helpers.dart';
 import 'package:ribn/presentation/onboarding/mobile/widgets/confirmation_button.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
@@ -46,7 +47,7 @@ class WelcomePageMobile extends StatelessWidget {
                   ),
                 ),
               ),
-              kIsWeb ? const SizedBox(height: 150) : const Spacer(),
+              adaptableSpacer(),
               ConfirmationButton(
                 text: Strings.getStarted,
                 onPressed: () => navigateToRoute(context, Routes.selectAction),

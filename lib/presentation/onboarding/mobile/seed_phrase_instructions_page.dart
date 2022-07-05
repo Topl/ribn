@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/presentation/onboarding/mobile/helpers.dart';
 import 'package:ribn/presentation/onboarding/mobile/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/mobile/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/mobile/widgets/onboarding_page_padding.dart';
@@ -20,6 +22,7 @@ class SeedPhraseInstructionsPageMobile extends StatelessWidget {
         child: OnboardingPagePadding(
           child: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
                   Strings.beforeYouStart,
@@ -29,11 +32,14 @@ class SeedPhraseInstructionsPageMobile extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 60),
-                Text(
-                  Strings.weRecommendSub,
-                  style: RibnToolkitTextStyles.h3.copyWith(
-                    color: RibnColors.lightGreyTitle,
-                    fontSize: 18,
+                SizedBox(
+                  width: kIsWeb ? 550 : 350,
+                  child: Text(
+                    Strings.weRecommendSub,
+                    style: RibnToolkitTextStyles.h3.copyWith(
+                      color: RibnColors.lightGreyTitle,
+                      fontSize: 18,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 40),
@@ -45,7 +51,7 @@ class SeedPhraseInstructionsPageMobile extends StatelessWidget {
                   textTopPadding: 5,
                 ),
                 _buildListItem(RibnAssets.programPng, Strings.encryptTextFile, iconRightPadding: 2),
-                const Spacer(),
+                adaptableSpacer(),
                 ConfirmationButton(
                   text: Strings.iUnderstand,
                   onPressed: () {
@@ -70,7 +76,7 @@ class SeedPhraseInstructionsPageMobile extends StatelessWidget {
     double height = 30,
   }) {
     return SizedBox(
-      width: 350,
+      width: kIsWeb ? 550 : 350,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Wrap(

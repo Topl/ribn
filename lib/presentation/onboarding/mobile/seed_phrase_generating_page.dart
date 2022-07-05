@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/actions/onboarding_actions.dart';
@@ -41,6 +42,8 @@ class _SeedPhraseGeneratingPageMobileState extends State<SeedPhraseGeneratingPag
   final List<int> circlePositions = List.generate(5, (idx) => idx).toList();
   final double smallRadius = 4.5;
   final double bigRadius = 8;
+
+  final double descriptionBoxWidth = kIsWeb ? 640 : 350;
 
   @override
   void initState() {
@@ -86,7 +89,7 @@ class _SeedPhraseGeneratingPageMobileState extends State<SeedPhraseGeneratingPag
   List<Widget> seedPhraseGeneratingSection() {
     return [
       SizedBox(
-        width: 312,
+        width: kIsWeb ? double.infinity : 312,
         child: _buildTitle(currCircle),
       ),
       Padding(
@@ -100,7 +103,7 @@ class _SeedPhraseGeneratingPageMobileState extends State<SeedPhraseGeneratingPag
         ),
       ),
       SizedBox(
-        width: 350,
+        width: descriptionBoxWidth,
         child: Text(
           Strings.aboutToShowSeedPhrase,
           style: onboardingH3,
@@ -113,7 +116,7 @@ class _SeedPhraseGeneratingPageMobileState extends State<SeedPhraseGeneratingPag
   List<Widget> seedPhraseGeneratedSection() {
     return [
       SizedBox(
-        width: 312,
+        width: kIsWeb ? double.infinity : 312,
         child: Text(
           Strings.seedPhraseGenerated,
           style: onboardingH1,
@@ -125,13 +128,13 @@ class _SeedPhraseGeneratingPageMobileState extends State<SeedPhraseGeneratingPag
         child: Image.asset(RibnAssets.walletLockPng, width: 65),
       ),
       SizedBox(
-        width: 350,
+        width: descriptionBoxWidth,
         child: Text(
           Strings.seedPhraseGeneratedDesc,
           style: onboardingH3,
         ),
       ),
-      const Spacer(),
+      adaptableSpacer(),
       ConfirmationButton(
         text: Strings.cont,
         onPressed: () => navigateToRoute(

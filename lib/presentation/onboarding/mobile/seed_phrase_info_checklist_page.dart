@@ -33,7 +33,7 @@ class _SeedPhraseInfoChecklistPageMobileState extends State<SeedPhraseInfoCheckl
         child: OnboardingPagePadding(
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
                   Strings.readCarefully,
