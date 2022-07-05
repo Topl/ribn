@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/presentation/onboarding/mobile/helpers.dart';
 import 'package:ribn/presentation/onboarding/mobile/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/mobile/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/mobile/widgets/onboarding_page_padding.dart';
@@ -35,17 +37,13 @@ class GettingStartedPageMobile extends StatelessWidget {
                   child: Image.asset(RibnAssets.gettingStartedPng, width: 70),
                 ),
                 SizedBox(
-                  width: 350,
+                  width: kIsWeb ? 730 : 350,
                   child: Text(
                     Strings.gettingStartedDescription,
-                    style: RibnToolkitTextStyles.h3.copyWith(
-                      color: RibnColors.lightGreyTitle,
-                      fontSize: 18,
-                      height: 1.6,
-                    ),
+                    style: onboardingH3,
                   ),
                 ),
-                const Spacer(),
+                kIsWeb ? const SizedBox(height: 150) : const Spacer(),
                 ConfirmationButton(
                   text: Strings.okLetsGo,
                   onPressed: () => navigateToRoute(context, Routes.seedPhraseInfoChecklist),
