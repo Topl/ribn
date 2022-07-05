@@ -64,7 +64,7 @@ class SeedPhraseDisplayPageMobile extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 20),
                           child: Align(
                             alignment: Alignment.bottomRight,
-                            child: _buildCopyButton(),
+                            child: _buildCopyButton(seedPhrase),
                           ),
                         ),
                       ],
@@ -116,10 +116,10 @@ class SeedPhraseDisplayPageMobile extends StatelessWidget {
     );
   }
 
-  Widget _buildCopyButton() {
+  Widget _buildCopyButton(String seedphrase) {
     return TextButton(
       onPressed: () {
-        Clipboard.setData(const ClipboardData(text: 'COPIED'));
+        Clipboard.setData(ClipboardData(text: seedphrase));
       },
       child: RichText(
         text: TextSpan(
