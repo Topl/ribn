@@ -5,10 +5,10 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/mobile/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/mobile/widgets/onboarding_page_padding.dart';
-import 'package:ribn/presentation/onboarding/mobile/widgets/square_button.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/molecules/onboarding_action_button.dart';
 
 /// This page allows the user to select between creating a new wallet or importing an existing wallet.
 class SelectActionPageMobile extends StatelessWidget {
@@ -34,7 +34,7 @@ class SelectActionPageMobile extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: adaptHeight(0.1)),
-                SquareButtonWithIcon(
+                OnboardingActionButton(
                   containerHeight: adaptHeight(0.25),
                   backgroundColor: RibnColors.primary,
                   icon: Image.asset(RibnAssets.createWalletPng),
@@ -44,7 +44,7 @@ class SelectActionPageMobile extends StatelessWidget {
                   onPressed: () => navigateToRoute(context, Routes.gettingStarted),
                 ),
                 const SizedBox(height: 40),
-                SquareButtonWithIcon(
+                OnboardingActionButton(
                   containerHeight: adaptHeight(0.25),
                   backgroundColor: RibnColors.primary,
                   icon: Image.asset(RibnAssets.importWalletPng),
