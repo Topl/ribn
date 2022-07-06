@@ -8,7 +8,7 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/presentation/onboarding/helpers.dart';
+import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
