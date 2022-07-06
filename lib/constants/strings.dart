@@ -38,7 +38,7 @@ class Strings {
   static const String rawTx = 'rawTx';
   static const String messageToSign = 'messageToSign';
   static const String sign = 'Sign';
-  static const String back = 'BACK';
+  static const String back = 'Back';
   static const String welcomeToRibn = 'Welcome to Ribn';
   static const String intro = 'Topl’s blockchain wallet for tracking, tokenizing, and transacting impact.';
   static const String getStarted = 'Get Started';
@@ -150,7 +150,7 @@ These words need to be written down carefully and in the exact order shown.''';
   static const String yesIWantToDelete = 'YES, I WANT TO DELETE.';
   static const String enterWalletPassword = 'Enter Wallet Password';
   static const String unlock = 'Unlock';
-  static const String next = 'NEXT';
+  static const String next = 'Next';
   static const String useSeedPhrase = 'USE\nSEED\nPHRASE';
   static const String importToplKey = 'IMPORT\nTOPL\nKEY';
   static const String restoreWalletNewline = 'RESTORE\nWALLET';

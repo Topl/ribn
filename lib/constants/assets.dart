@@ -80,4 +80,5 @@ class RibnAssets {
   static const copyIcon = 'packages/ribn_toolkit/assets/icons/copy_icon.png';
   static const copyIconAlternate = 'assets/icons/copy_icon_alternate.png';
   static const fingerPrintAssets = 'assets/icons/finger_print_assets.png';
+  static const redDangerTriangle = 'assets/icons/red_danger_triangle.png';
 }
