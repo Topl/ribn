@@ -85,4 +85,5 @@ class RibnAssets {
   static const passwordHiddenPng = 'assets/icons/password_hidden.png';
   static const successPng = 'assets/icons/success.png';
   static const contentCopyPng = 'assets/icons/content_copy.png';
+  static const downloadPng = 'assets/icons/download.png';
 }
