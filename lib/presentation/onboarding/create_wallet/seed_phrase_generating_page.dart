@@ -14,6 +14,7 @@ import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 
 /// This page shows a loading animation to indicate seed phrase generation.
 class SeedPhraseGeneratingPage extends StatefulWidget {
@@ -102,9 +103,9 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
       ),
       SizedBox(
         width: descriptionBoxWidth,
-        child: Text(
+        child: const Text(
           Strings.aboutToShowSeedPhrase,
-          style: onboardingH3,
+          style: RibnToolkitTextStyles.onboardingH3,
         ),
       ),
     ];
@@ -114,11 +115,11 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
   List<Widget> seedPhraseGeneratedSection() {
     return [
       renderIfWeb(const WebOnboardingAppBar()),
-      SizedBox(
+      const SizedBox(
         width: kIsWeb ? double.infinity : 312,
         child: Text(
           Strings.seedPhraseGenerated,
-          style: onboardingH1,
+          style: RibnToolkitTextStyles.onboardingH1,
           textAlign: TextAlign.center,
         ),
       ),
@@ -128,9 +129,9 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
       ),
       SizedBox(
         width: descriptionBoxWidth,
-        child: Text(
+        child: const Text(
           Strings.seedPhraseGeneratedDesc,
-          style: onboardingH3,
+          style: RibnToolkitTextStyles.onboardingH3,
         ),
       ),
       adaptableSpacer(),
@@ -151,25 +152,25 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
       case 3:
       case 4:
         {
-          return Text(
+          return const Text(
             Strings.seedPhraseGenerating,
-            style: onboardingH1,
+            style: RibnToolkitTextStyles.onboardingH1,
             textAlign: TextAlign.center,
           );
         }
       case 1:
         {
-          return Text(
+          return const Text(
             Strings.goGrabAPenAndPaper,
-            style: onboardingH1,
+            style: RibnToolkitTextStyles.onboardingH1,
             textAlign: TextAlign.center,
           );
         }
       case 2:
         {
-          return Text(
+          return const Text(
             Strings.seriouslyGetAPenAndPaper,
-            style: onboardingH1,
+            style: RibnToolkitTextStyles.onboardingH1,
             textAlign: TextAlign.center,
           );
         }

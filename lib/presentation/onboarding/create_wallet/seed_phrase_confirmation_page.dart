@@ -7,10 +7,10 @@ import 'package:ribn/containers/seed_phrase_confirmation_container.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
-import 'package:ribn/presentation/onboarding/widgets/text_fieeeld.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/onboarding_progress_bar.dart';
 
 class SeedPhraseConfirmationPage extends StatefulWidget {
@@ -29,7 +29,7 @@ class _SeedPhraseConfirmationPageState extends State<SeedPhraseConfirmationPage>
     return SeedPhraseConfirmationContainer(
       onInit: (store) {
         // populate [controllers] and [hasErrors] maps
-        store.state.onboardingState.mobileConfirmIdxs!.toList().forEach((idx) {
+        store.state.onboardingState.mobileConfirmIdxs.toList().forEach((idx) {
           final TextEditingController controller = TextEditingController();
           idxControllerMap[idx] = controller;
           controllerErrorMap[controller] = false;
@@ -46,16 +46,16 @@ class _SeedPhraseConfirmationPageState extends State<SeedPhraseConfirmationPage>
                   SizedBox(
                     child: Text(
                       Strings.writeDownSeedPhrase,
-                      style: onboardingH1.copyWith(letterSpacing: 0.5),
+                      style: RibnToolkitTextStyles.onboardingH1.copyWith(letterSpacing: 0.5),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   Image.asset(RibnAssets.penPaperPng, width: 70),
                   Padding(
                     padding: EdgeInsets.only(top: adaptHeight(0.04), bottom: adaptHeight(0.02)),
-                    child: Text(
+                    child: const Text(
                       Strings.ensureYourWordsAreCorrect,
-                      style: onboardingH3,
+                      style: RibnToolkitTextStyles.onboardingH3,
                     ),
                   ),
                   _buildSeedphraseConfirmationGrid(vm.confirmeIdxs, vm.mnemonicWordsList),
@@ -135,7 +135,7 @@ class _SeedPhraseConfirmationPageState extends State<SeedPhraseConfirmationPage>
               style: RibnToolkitTextStyles.h3.copyWith(color: Colors.white),
             ),
             const SizedBox(height: 5),
-            CustomTextField2(
+            CustomTextField(
               controller: idxControllerMap[idx]!,
               hintText: Strings.typeSomething,
               hasError: controllerErrorMap[idxControllerMap[idx]!]!,

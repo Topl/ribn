@@ -36,11 +36,11 @@ class GettingStartedPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 35.0, bottom: 45),
                 child: Image.asset(RibnAssets.gettingStartedPng, width: 70),
               ),
-              SizedBox(
+              const SizedBox(
                 width: kIsWeb ? 730 : 350,
                 child: Text(
                   Strings.gettingStartedDescription,
-                  style: onboardingH3,
+                  style: RibnToolkitTextStyles.onboardingH3,
                 ),
               ),
               kIsWeb ? const SizedBox(height: 150) : const Spacer(),

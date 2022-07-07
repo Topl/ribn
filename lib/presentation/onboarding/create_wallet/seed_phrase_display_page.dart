@@ -34,16 +34,16 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                 SizedBox(
                   child: Text(
                     Strings.writeDownSeedPhrase,
-                    style: onboardingH1.copyWith(letterSpacing: 0.5),
+                    style: RibnToolkitTextStyles.onboardingH1.copyWith(letterSpacing: 0.5),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Image.asset(RibnAssets.penPaperPng, width: 70),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: kIsWeb ? 40 : adaptHeight(0.03)),
-                  child: Text(
+                  child: const Text(
                     Strings.writeDownSeedPhraseInExactOrder,
-                    style: onboardingH3,
+                    style: RibnToolkitTextStyles.onboardingH3,
                   ),
                 ),
                 Container(

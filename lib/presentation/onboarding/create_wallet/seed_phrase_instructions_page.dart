@@ -24,9 +24,9 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               renderIfWeb(const WebOnboardingAppBar()),
-              Text(
+              const Text(
                 Strings.beforeYouStart,
-                style: onboardingH1,
+                style: RibnToolkitTextStyles.onboardingH1,
               ),
               const SizedBox(height: 60),
               SizedBox(

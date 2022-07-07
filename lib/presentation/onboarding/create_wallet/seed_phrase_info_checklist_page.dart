@@ -4,12 +4,13 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
-import 'package:ribn/presentation/onboarding/widgets/check_box.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
 
 /// Builds checks to ensure that the user understands the importance of the seed phrase.
 class SeedPhraseInfoChecklistPage extends StatefulWidget {
@@ -35,9 +36,9 @@ class _SeedPhraseInfoChecklistPageState extends State<SeedPhraseInfoChecklistPag
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               renderIfWeb(const WebOnboardingAppBar()),
-              Text(
+              const Text(
                 Strings.readCarefully,
-                style: onboardingH1,
+                style: RibnToolkitTextStyles.onboardingH1,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 30.0, bottom: 45),

@@ -4,7 +4,6 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
-import 'package:ribn/presentation/onboarding/widgets/accordion2.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/mobile_onboarding_progress_bar.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
@@ -12,6 +11,7 @@ import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/molecules/accordion.dart';
 
 /// This page is displayed when user successfully creates their wallet.
 class WalletCreatedPage extends StatefulWidget {
@@ -37,9 +37,9 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
           child: Column(
             children: [
               renderIfWeb(const WebOnboardingAppBar(currStep: 3)),
-              Text(
+              const Text(
                 Strings.walletCreated,
-                style: onboardingH1,
+                style: RibnToolkitTextStyles.onboardingH1,
                 textAlign: TextAlign.center,
               ),
               Padding(
@@ -53,11 +53,11 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                 width: 730,
                 child: Column(
                   children: [
-                    Align(
+                    const Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         Strings.walletCreatedDesc,
-                        style: onboardingH3,
+                        style: RibnToolkitTextStyles.onboardingH3,
                       ),
                     ),
                     SizedBox(height: adaptHeight(0.05)),
@@ -73,7 +73,7 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                     SizedBox(height: adaptHeight(0.01)),
                     ...faqs.keys
                         .map(
-                          (q) => AccordionMobile(
+                          (q) => Accordion(
                             header: Text(
                               q,
                               style: RibnToolkitTextStyles.h3.copyWith(color: Colors.white),

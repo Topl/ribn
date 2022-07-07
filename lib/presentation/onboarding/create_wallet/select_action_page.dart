@@ -9,6 +9,7 @@ import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/onboarding_action_button.dart';
 
 /// This page allows the user to select between creating a new wallet or importing an existing wallet.
@@ -45,12 +46,12 @@ class SelectActionPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               renderIfWeb(const WebOnboardingAppBar()),
-              SizedBox(
+              const SizedBox(
                 width: kIsWeb ? double.infinity : 245,
                 child: Text(
                   Strings.whatWouldYouLikeToDo,
                   textAlign: TextAlign.center,
-                  style: onboardingH1,
+                  style: RibnToolkitTextStyles.onboardingH1,
                 ),
               ),
               SizedBox(height: adaptHeight(0.1)),
