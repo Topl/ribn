@@ -47,7 +47,7 @@ dependencies:
       ref: dev
   ribn_toolkit:
     git:
-      url: https://github.com/Topl/ribn-toolkit
+      url: git@github.com:Topl/ribn-toolkit.git
       ref: RIBN-347
   bip_topl: ^0.0.2
   flutter_svg: ^1.0.3
