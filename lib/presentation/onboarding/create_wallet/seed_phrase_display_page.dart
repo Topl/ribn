@@ -27,76 +27,78 @@ class SeedPhraseDisplayPage extends StatelessWidget {
         final List<String> seedPhraseWordsList = seedPhrase.split(' ').toList();
         return Scaffold(
           body: OnboardingContainer(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                kIsWeb ? const WebOnboardingAppBar(currStep: 0) : const SizedBox(),
-                SizedBox(
-                  child: Text(
-                    Strings.writeDownSeedPhrase,
-                    style: RibnToolkitTextStyles.onboardingH1.copyWith(letterSpacing: 0.5),
-                    textAlign: TextAlign.center,
+            child: scrollableIfWeb(
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  kIsWeb ? const WebOnboardingAppBar(currStep: 0) : const SizedBox(),
+                  SizedBox(
+                    child: Text(
+                      Strings.writeDownSeedPhrase,
+                      style: RibnToolkitTextStyles.onboardingH1.copyWith(letterSpacing: 0.5),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                Image.asset(RibnAssets.penPaperPng, width: 70),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: kIsWeb ? 40 : adaptHeight(0.03)),
-                  child: const Text(
-                    Strings.writeDownSeedPhraseInExactOrder,
-                    style: RibnToolkitTextStyles.onboardingH3,
+                  Image.asset(RibnAssets.penPaperPng, width: 70),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: kIsWeb ? 40 : adaptHeight(0.03)),
+                    child: const Text(
+                      Strings.writeDownSeedPhraseInExactOrder,
+                      style: RibnToolkitTextStyles.onboardingH3,
+                    ),
                   ),
-                ),
-                Container(
-                  height: kIsWeb ? 280 : adaptHeight(0.30),
-                  width: kIsWeb ? 674 : adaptWidth(0.9),
-                  decoration: BoxDecoration(
-                    color: RibnColors.greyText.withOpacity(0.24),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15),
-                        child: _buildGrid(seedPhraseWordsList),
-                      ),
-                      const Spacer(),
-                      kIsWeb
-                          ? const SizedBox()
-                          : Padding(
-                              padding: const EdgeInsets.only(right: 20),
-                              child: Align(
-                                alignment: Alignment.bottomRight,
-                                child: _buildButton(
-                                  Strings.copy,
-                                  onPressed: () => Clipboard.setData(ClipboardData(text: seedPhrase)),
+                  Container(
+                    height: kIsWeb ? 280 : adaptHeight(0.30),
+                    width: kIsWeb ? 674 : adaptWidth(0.9),
+                    decoration: BoxDecoration(
+                      color: RibnColors.greyText.withOpacity(0.24),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: _buildGrid(seedPhraseWordsList),
+                        ),
+                        const Spacer(),
+                        kIsWeb
+                            ? const SizedBox()
+                            : Padding(
+                                padding: const EdgeInsets.only(right: 20),
+                                child: Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: _buildButton(
+                                    Strings.copy,
+                                    onPressed: () => Clipboard.setData(ClipboardData(text: seedPhrase)),
+                                  ),
                                 ),
                               ),
-                            ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: 674,
-                  child: kIsWeb
-                      ? Align(
-                          alignment: Alignment.bottomRight,
-                          child: _buildButton(
-                            Strings.download,
-                            onPressed: () => StoreProvider.of<AppState>(context).dispatch(
-                              DownloadAsFileAction(Strings.seedPhraseFileName, seedPhrase),
+                  SizedBox(
+                    width: 674,
+                    child: kIsWeb
+                        ? Align(
+                            alignment: Alignment.bottomRight,
+                            child: _buildButton(
+                              Strings.download,
+                              onPressed: () => StoreProvider.of<AppState>(context).dispatch(
+                                DownloadAsFileAction(Strings.seedPhraseFileName, seedPhrase),
+                              ),
                             ),
-                          ),
-                        )
-                      : const SizedBox(),
-                ),
-                adaptableSpacer(),
-                renderIfMobile(const MobileOnboardingProgressBar(currStep: 0)),
-                ConfirmationButton(
-                  text: Strings.done,
-                  onPressed: () => navigateToRoute(context, Routes.seedPhraseConfirm),
-                ),
-              ],
+                          )
+                        : const SizedBox(),
+                  ),
+                  adaptableSpacer(),
+                  renderIfMobile(const MobileOnboardingProgressBar(currStep: 0)),
+                  ConfirmationButton(
+                    text: Strings.done,
+                    onPressed: () => navigateToRoute(context, Routes.seedPhraseConfirm),
+                  ),
+                ],
+              ),
             ),
           ),
         );
