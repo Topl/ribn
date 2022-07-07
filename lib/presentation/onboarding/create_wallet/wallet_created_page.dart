@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
@@ -97,7 +98,11 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
               ConfirmationButton(
                 text: Strings.done,
                 onPressed: () {
-                  Navigator.of(context).pushNamedAndRemoveUntil(Routes.home, (_) => false);
+                  if (kIsWeb) {
+                    navigateToRoute(context, Routes.extensionInfo);
+                  } else {
+                    Navigator.of(context).pushNamedAndRemoveUntil(Routes.home, (_) => false);
+                  }
                 },
               ),
             ],
