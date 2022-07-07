@@ -234,6 +234,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.1"
+  device_frame:
+    dependency: transitive
+    description:
+      name: device_frame
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   dio:
     dependency: transitive
     description:
@@ -254,7 +261,14 @@ packages:
       name: dotted_border
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0+1"
+    version: "2.0.0+2"
+  dropdown_button2:
+    dependency: transitive
+    description:
+      name: dropdown_button2
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.6.2"
   fake_async:
     dependency: transitive
     description:
@@ -322,7 +336,7 @@ packages:
       name: flutter_redux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.2"
+    version: "0.10.0"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -371,7 +385,7 @@ packages:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.23.0+1"
+    version: "1.0.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -382,6 +396,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  freezed_annotation:
+    dependency: transitive
+    description:
+      name: freezed_annotation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -403,13 +424,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
-  google_fonts:
-    dependency: "direct main"
+  go_router:
+    dependency: transitive
     description:
-      name: google_fonts
+      name: go_router
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.1"
+    version: "3.1.1"
   graphs:
     dependency: transitive
     description:
@@ -550,6 +571,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.1.0"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   node_interop:
     dependency: transitive
     description:
@@ -584,14 +612,14 @@ packages:
       name: path_drawing
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.1+1"
+    version: "1.0.0"
   path_parsing:
     dependency: transitive
     description:
       name: path_parsing
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.1"
+    version: "1.0.0"
   path_provider:
     dependency: "direct main"
     description:
@@ -697,6 +725,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  provider:
+    dependency: transitive
+    description:
+      name: provider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.3"
   pub_semver:
     dependency: transitive
     description:
@@ -739,6 +774,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.15.1"
+  ribn_toolkit:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: RIBN-347
+      resolved-ref: b7eb2e27ac9d42678f440d507f45dbadfc8b6ce4
+      url: "https://github.com/Topl/ribn-toolkit"
+    source: git
+    version: "1.0.0+1"
   rxdart:
     dependency: "direct main"
     description:
@@ -1010,6 +1054,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  wave:
+    dependency: transitive
+    description:
+      name: wave
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.2"
   web_socket_channel:
     dependency: transitive
     description:
@@ -1024,6 +1075,34 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  widgetbook:
+    dependency: transitive
+    description:
+      name: widgetbook
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.2"
+  widgetbook_annotation:
+    dependency: transitive
+    description:
+      name: widgetbook_annotation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
+  widgetbook_generator:
+    dependency: transitive
+    description:
+      name: widgetbook_generator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
+  widgetbook_models:
+    dependency: transitive
+    description:
+      name: widgetbook_models
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.6"
   win32:
     dependency: transitive
     description:
@@ -1053,5 +1132,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.17.0-0 <3.0.0"
-  flutter: ">=2.10.0"
+  dart: ">=2.17.0 <3.0.0"
+  flutter: ">=3.0.0"
