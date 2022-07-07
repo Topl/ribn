@@ -12,6 +12,12 @@ jobs:
     name: "Analysis"
     runs-on: ubuntu-latest
     steps: 
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          name: id_rsa
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Setup Flutter
@@ -30,6 +36,12 @@ jobs:
     name: "Unit tests"
     runs-on: ubuntu-latest
     steps: 
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          name: id_rsa
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Setup Flutter
@@ -45,6 +57,12 @@ jobs:
     name: "Build android app"
     runs-on: ubuntu-latest
     steps: 
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          name: id_rsa
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Setup Java
@@ -74,6 +92,12 @@ jobs:
     name: "Build ios app"
     runs-on: macOS-latest
     steps:
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          name: id_rsa
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Setup Flutter
@@ -90,6 +114,12 @@ jobs:
     name: "Build chrome extension"
     runs-on: ubuntu-latest
     steps:
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          name: id_rsa
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Read .nvmrc
