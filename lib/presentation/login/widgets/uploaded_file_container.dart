@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 
 /// A container that displays the uploaded file name, when restoring wallet with Topl Main Key.
 ///
@@ -36,7 +36,7 @@ class UploadedFileContainer extends StatelessWidget {
                 Text(
                   uploadedFileName,
                   style: const TextStyle(
-                    fontFamily: 'Nunito',
+                    fontFamily: 'DM Sans',
                     fontSize: 15,
                     fontWeight: FontWeight.w400,
                     color: RibnColors.primary,

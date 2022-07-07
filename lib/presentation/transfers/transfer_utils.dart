@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/presentation/error_section.dart';
 
 class TransferUtils {

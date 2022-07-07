@@ -1,8 +1,8 @@
 import 'package:brambldart/model.dart';
 import 'package:flutter/material.dart';
 
-import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/models/asset_details.dart';
 
 /// A custom display for asset information.
@@ -28,7 +28,7 @@ class AssetInfo extends StatelessWidget {
       style: TextStyle(
         color: Color(0xff6d6d6d),
         fontWeight: FontWeight.w600,
-        fontFamily: 'Nunito',
+        fontFamily: 'DM Sans',
         fontStyle: FontStyle.normal,
         fontSize: 12.0,
       ),
@@ -59,7 +59,7 @@ class AssetInfo extends StatelessWidget {
                       child: Text(
                         assetDetails?.longName ?? '',
                         style: const TextStyle(
-                          fontFamily: 'Nunito',
+                          fontFamily: 'DM Sans',
                           fontSize: 12,
                           color: RibnColors.defaultText,
                         ),
@@ -82,7 +82,7 @@ class AssetInfo extends StatelessWidget {
                       child: Text(
                         assetCode!.shortName.show,
                         style: const TextStyle(
-                          fontFamily: 'Nunito',
+                          fontFamily: 'DM Sans',
                           fontSize: 12,
                           color: RibnColors.primary,
                         ),

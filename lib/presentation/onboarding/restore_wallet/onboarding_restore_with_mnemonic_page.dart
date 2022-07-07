@@ -1,16 +1,20 @@
 import 'package:bip_topl/bip_topl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn/constants/assets.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/presentation/login/widgets/advanced_option_button.dart';
-import 'package:ribn/presentation/login/widgets/password_text_field.dart';
-import 'package:ribn/widgets/custom_text_field.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/peekaboo_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 
 /// Restore wallet using mnemonic / seed phrase during onboarding.
 ///
@@ -42,6 +46,8 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
   /// True if both passwords match.
   bool passwordsMatch = false;
 
+  bool _obscurePassword = true;
+
   @override
   void initState() {
     controllers = [_seedPhraseTextController, _newPasswordController, _confirmPasswordController];
@@ -69,7 +75,7 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
   Widget build(BuildContext context) {
     /// Style used for descriptive text on the page.
     const TextStyle descriptionStyle = TextStyle(
-      fontFamily: 'Nunito',
+      fontFamily: 'DM Sans',
       fontSize: 15,
     );
 
@@ -92,7 +98,34 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: SizedBox(
                 width: maxWidth,
-                child: const AdvancedOptionButton(restoreWithToplKeyRoute: Routes.onboardingRestoreWalletWithToplKey),
+                child: PeekabooButton(
+                  buttonText: Text(
+                    Strings.advancedOption,
+                    style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15),
+                  ),
+                  buttonChild: SizedBox(
+                    width: 137,
+                    height: 22,
+                    child: LargeButton(
+                      buttonChild: Text(
+                        Strings.useToplMainKey,
+                        style: RibnToolkitTextStyles.dropdownButtonStyle
+                            .copyWith(fontSize: 11, color: RibnColors.ghostButtonText),
+                      ),
+                      backgroundColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      dropShadowColor: Colors.transparent,
+                      borderColor: RibnColors.ghostButtonText,
+                      onPressed: () {
+                        StoreProvider.of<AppState>(context).dispatch(
+                          NavigateToRoute(
+                            Routes.onboardingRestoreWalletWithToplKey,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
               ),
             ),
             Padding(
@@ -122,7 +155,7 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
       padding: EdgeInsets.only(top: 22, bottom: 76),
       child: Text(
         Strings.restoreWallet,
-        style: RibnTextStyles.h1,
+        style: RibnToolkitTextStyles.h1,
         textAlign: TextAlign.center,
       ),
     );
@@ -135,7 +168,7 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(Strings.enterSeedPhrase, style: RibnTextStyles.extH3),
+          const Text(Strings.enterSeedPhrase, style: RibnToolkitTextStyles.extH3),
           CustomTextField(
             width: maxWidth,
             height: 36,
@@ -167,13 +200,18 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(labelText, style: RibnTextStyles.extH3),
+          Text(labelText, style: RibnToolkitTextStyles.extH3),
           PasswordTextField(
             width: 352,
             height: 36,
             controller: controller,
             hintText: hintText,
             hasError: hasErrors[controller] ?? false,
+            icon: SvgPicture.asset(
+              _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
+              width: 12,
+            ),
+            obscurePassword: _obscurePassword,
           ),
           hasErrors[controller] ?? false
               ? Text(
@@ -190,26 +228,17 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
   ///
   /// Upon press, [validateSeedPhraseAndPassword] is called to validate the user's input.
   Widget _buildRestoreButton() {
-    return MaterialButton(
-      padding: EdgeInsets.zero,
-      minWidth: 0,
-      onPressed: validateSeedPhraseAndPassword,
-      color: RibnColors.primary,
-      child: const SizedBox(
-        width: 234,
-        height: 45,
-        child: Center(
-          child: Text(
-            'Restore',
-            style: TextStyle(
-              fontFamily: 'Nunito',
-              fontSize: 20,
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+    return LargeButton(
+      buttonChild: Text(
+        'Restore',
+        style: RibnToolkitTextStyles.btnLarge.copyWith(
+          color: Colors.white,
         ),
       ),
+      backgroundColor: RibnColors.primary,
+      hoverColor: RibnColors.primaryButtonHover,
+      dropShadowColor: RibnColors.primaryButtonShadow,
+      onPressed: validateSeedPhraseAndPassword,
     );
   }
 

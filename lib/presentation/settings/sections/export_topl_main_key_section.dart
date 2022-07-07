@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The section that allows for downloading the Topl Main Key.
 class ExportToplMainKeySection extends StatelessWidget {
@@ -20,36 +21,30 @@ class ExportToplMainKeySection extends StatelessWidget {
       children: [
         const Text(
           Strings.exportToplMainKey,
-          style: RibnTextStyles.extH3,
+          style: RibnToolkitTextStyles.extH3,
         ),
         const Padding(
           padding: EdgeInsets.only(top: 6, bottom: 8),
           child: Text(
             Strings.exportToplMainKeyDesc,
-            style: RibnTextStyles.settingsSmallText,
+            style: RibnToolkitTextStyles.settingsSmallText,
           ),
         ),
         SizedBox(
           width: 110,
           height: 22,
-          child: MaterialButton(
-            color: RibnColors.primary,
-            elevation: 0,
-            hoverElevation: 0,
-            highlightElevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4),
-            ),
-            onPressed: onExportPressed,
-            child: const Text(
+          child: LargeButton(
+            buttonChild: Text(
               Strings.exportWallet,
-              style: TextStyle(
-                fontSize: 10,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w500,
+              style: RibnToolkitTextStyles.btnLarge.copyWith(
                 color: Colors.white,
+                fontSize: 10,
               ),
             ),
+            backgroundColor: RibnColors.primary,
+            hoverColor: RibnColors.primaryButtonHover,
+            dropShadowColor: RibnColors.primaryButtonShadow,
+            onPressed: onExportPressed,
           ),
         ),
       ],

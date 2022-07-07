@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 
 class ExtensionInfoPage extends StatelessWidget {
   const ExtensionInfoPage({Key? key}) : super(key: key);
@@ -34,14 +34,14 @@ class ExtensionInfoPage extends StatelessWidget {
                 const SizedBox(width: 12),
                 const Text(
                   Strings.ribnWallet,
-                  style: RibnTextStyles.h3,
+                  style: RibnToolkitTextStyles.h3,
                 ),
               ],
             ),
             const SizedBox(height: 50),
             const Text(
               Strings.openTheWalletBy,
-              style: RibnTextStyles.h1,
+              style: RibnToolkitTextStyles.h1,
               textAlign: TextAlign.left,
             ),
             const SizedBox(height: 30),
@@ -50,21 +50,21 @@ class ExtensionInfoPage extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: Strings.clickingTheIconPartOne,
-                    style: RibnTextStyles.body1.copyWith(height: 1),
+                    style: RibnToolkitTextStyles.body1.copyWith(height: 1),
                   ),
                   WidgetSpan(
                     child: ribnLogo(inlineIconWidth),
                   ),
                   TextSpan(
                     text: Strings.clickingTheIconPartTwo,
-                    style: RibnTextStyles.body1.copyWith(height: 1),
+                    style: RibnToolkitTextStyles.body1.copyWith(height: 1),
                   ),
                   WidgetSpan(
                     child: SvgPicture.asset(RibnAssets.extensionIcon, height: inlineIconHeight, width: inlineIconWidth),
                   ),
                   TextSpan(
                     text: Strings.clickingTheIconPartThree,
-                    style: RibnTextStyles.body1.copyWith(height: 1),
+                    style: RibnToolkitTextStyles.body1.copyWith(height: 1),
                   ),
                 ],
               ),

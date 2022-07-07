@@ -1,17 +1,16 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn/widgets/custom_copy_button.dart';
-import 'package:ribn/widgets/large_button.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// The transaction confirmation page.
@@ -28,63 +27,76 @@ class TxConfirmationPage extends StatelessWidget {
   /// True if tx was for minting an asset.
   final bool mintedAsset;
 
-  /// Default text style used on this page.
-  final TextStyle defaultTextStyle = const TextStyle(
-    fontFamily: 'Nunito',
-    fontSize: 15,
-    color: RibnColors.greyedOut,
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: RibnColors.accent,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Center(),
-          _buildPageIcon(),
-          _buildsPageTitle(),
-          const SizedBox(height: 60),
-          SizedBox(
-            width: 270,
-            height: 81,
-            child: Column(
-              children: [
-                _buildTxInfo(),
-                const SizedBox(height: 15),
-                _buildTxId(),
-              ],
-            ),
+      backgroundColor: RibnColors.background,
+      body: WaveContainer(
+        containerHeight: double.infinity,
+        containerWidth: double.infinity,
+        waveAmplitude: 30,
+        containerChild: SizedBox(
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height - 84,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _buildPageIcon(),
+                    _buildsPageTitle(),
+                    _buildTxInfo(),
+                    Column(
+                      children: [
+                        _buildTxId(),
+                        const SizedBox(height: 10),
+                        _buildToplExplorerLink(),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: LargeButton(
+                      backgroundColor: RibnColors.primary,
+                      dropShadowColor: RibnColors.whiteButtonShadow,
+                      buttonChild: Text(
+                        Strings.done,
+                        style: RibnToolkitTextStyles.btnLarge.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      onPressed: () {
+                        Keys.navigatorKey.currentState!.popUntil((route) => route.settings.name == Routes.home);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          _buildToplExplorerLink(),
-          Padding(
-            padding: const EdgeInsets.only(top: 90),
-            child: LargeButton(
-              label: Strings.done,
-              onPressed: () {
-                Keys.navigatorKey.currentState!.popUntil((route) => route.settings.name == Routes.home);
-              },
-            ),
-          )
-        ],
+        ),
       ),
     );
   }
 
   /// Builds the icon to display on the page.
-  ///
-  /// Different for minting asset and asset/poly transfer.
   Widget _buildPageIcon() {
-    final String iconToDisplay = mintedAsset ? RibnAssets.mintLarge : RibnAssets.sentIcon;
     return Padding(
-      padding: const EdgeInsets.only(top: 90, bottom: 35),
-      child: SizedBox(
-        width: 55,
-        height: 67,
-        child: SvgPicture.asset(
-          iconToDisplay,
-        ),
+      padding: const EdgeInsets.only(top: 0, bottom: 0),
+      child: Image.asset(
+        RibnAssets.fingerPrintAssets,
+        width: 179,
       ),
     );
   }
@@ -94,12 +106,12 @@ class TxConfirmationPage extends StatelessWidget {
   /// Different for minting asset and asset/poly transfer.
   Widget _buildsPageTitle() {
     final String text = mintedAsset ? Strings.assetIsBeingMinted : Strings.txWasBroadcasted;
+
     return SizedBox(
-      width: 200,
-      height: 70,
+      width: 220,
       child: Text(
         text,
-        style: RibnTextStyles.extH2,
+        style: RibnToolkitTextStyles.h2.copyWith(color: RibnColors.lightGreyTitle),
         textAlign: TextAlign.center,
       ),
     );
@@ -110,21 +122,31 @@ class TxConfirmationPage extends StatelessWidget {
     final String txInfo = transferDetails.transferType == TransferType.polyTransfer
         ? '${transferDetails.amount} ${'POLY'}'
         : '${transferDetails.amount} of ${transferDetails.assetCode!.shortName.show}';
+
     return SizedBox(
-      width: 270,
-      height: 40,
+      width: 220,
       child: Column(
         children: [
           RichText(
+            textAlign: TextAlign.center,
             text: TextSpan(
-              style: defaultTextStyle,
+              style: RibnToolkitTextStyles.h3.copyWith(fontWeight: FontWeight.bold, color: RibnColors.lightGreyTitle),
               children: [
-                const TextSpan(text: 'Your '),
+                TextSpan(
+                  text: 'Your ',
+                  style:
+                      RibnToolkitTextStyles.h3.copyWith(fontWeight: FontWeight.bold, color: RibnColors.lightGreyTitle),
+                ),
                 TextSpan(
                   text: txInfo,
-                  style: defaultTextStyle.copyWith(fontWeight: FontWeight.w600),
+                  style:
+                      RibnToolkitTextStyles.h3.copyWith(fontWeight: FontWeight.bold, color: RibnColors.lightGreyTitle),
                 ),
-                const TextSpan(text: ' has been sent and is currently pending'),
+                TextSpan(
+                  text: ' was sent to the Topl blockchain.',
+                  style:
+                      RibnToolkitTextStyles.h3.copyWith(fontWeight: FontWeight.bold, color: RibnColors.lightGreyTitle),
+                ),
               ],
             ),
           ),
@@ -136,43 +158,58 @@ class TxConfirmationPage extends StatelessWidget {
   /// Displays the tx id that the user can copy.
   Widget _buildTxId() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           'Transaction ID: ${formatAddrString(transferDetails.transactionId!, charsToDisplay: 4)}',
-          style: defaultTextStyle,
+          style: RibnToolkitTextStyles.h4.copyWith(fontWeight: FontWeight.w400, color: RibnColors.lightGreyTitle),
+          textAlign: TextAlign.center,
         ),
         const SizedBox(width: 5),
         CustomCopyButton(
           textToBeCopied: transferDetails.transactionId!,
           bubbleText: 'Copied!',
+          icon: Image.asset(
+            RibnAssets.copyIconAlternate,
+            width: 18,
+          ),
         ),
       ],
     );
   }
 
   /// Redirects user to the Topl Explorer
-  Widget _buildToplExplorerLink() {
-    return SizedBox(
-      width: 270,
-      child: RichText(
-        textAlign: TextAlign.start,
-        text: TextSpan(
-          children: [
-            TextSpan(
-              style: const TextStyle(
-                fontSize: 15,
-                color: RibnColors.primary,
+  RichText _buildToplExplorerLink() {
+    final url = Uri.parse(
+      '${Rules.txDetailsRedirectUrls[transferDetails.networkId] ?? ''}${transferDetails.transactionId}',
+    );
+
+    return RichText(
+      text: TextSpan(
+        children: [
+          WidgetSpan(
+            child: GestureDetector(
+              onTap: () async => await launchUrl(url),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    Strings.viewInToplExplorer,
+                    style:
+                        RibnToolkitTextStyles.h4.copyWith(fontWeight: FontWeight.w400, color: RibnColors.secondaryDark),
+                  ),
+                  const SizedBox(width: 5),
+                  Image.asset(
+                    RibnAssets.openInNewWindow,
+                    width: 18,
+                  ),
+                ],
               ),
-              text: Strings.viewInToplExplorer,
-              recognizer: TapGestureRecognizer()
-                ..onTap = () async {
-                  await launch(
-                    '${Rules.txDetailsRedirectUrls[transferDetails.networkId] ?? ''}${transferDetails.transactionId}',
-                  );
-                },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

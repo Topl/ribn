@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/poly_transfer_input_container.dart';
+import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
-import 'package:ribn/presentation/transfers/widgets/asset_amount_field.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
-import 'package:ribn/presentation/transfers/widgets/note_field.dart';
-import 'package:ribn/presentation/transfers/widgets/recipient_field.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn/widgets/custom_page_title.dart';
+import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/fee_info.dart';
-import 'package:ribn/widgets/large_button.dart';
-import 'package:ribn/widgets/loading_spinner.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/loading_spinner.dart';
+import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/sliding_segment_control.dart';
 
 /// The input page that allows initiating poly transfer transaction.
 ///
@@ -40,6 +45,8 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
 
   /// True if amount is valid.
   bool _validAmount = false;
+
+  int currentTabIndex = 1;
 
   @override
   void initState() {
@@ -75,15 +82,47 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
     return PolyTransferInputContainer(
       builder: (BuildContext context, PolyTransferInputViewModel vm) {
         return Scaffold(
-          backgroundColor: RibnColors.accent,
+          backgroundColor: RibnColors.background,
           body: Stack(
             children: [
               SingleChildScrollView(
                 child: Column(
                   children: [
                     // page title
-                    _buildPageTitle(),
-                    const SizedBox(height: 30),
+                    const CustomPageTitle(
+                      title: Strings.send,
+                      hideBackArrow: true,
+                    ),
+                    const SizedBox(height: 40),
+                    SizedBox(
+                      width: 310,
+                      child: SlidingSegmentControl(
+                        currentTabIndex: currentTabIndex,
+                        updateTabIndex: (i) => {
+                          setState(() {
+                            currentTabIndex = i as int;
+                          })
+                        },
+                        tabItems: <int, Widget>{
+                          0: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              Strings.sendAssets,
+                              style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                            ),
+                          ),
+                          1: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              Strings.sendNativeCoins,
+                              style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                            ),
+                          ),
+                        },
+                        redirectOnClick: () => vm.navigateToSendAssets(),
+                      ),
+                    ),
+                    const SizedBox(height: 40),
                     SizedBox(
                       width: 310,
                       child: Form(
@@ -91,28 +130,10 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                // UI to indicate poly transfer
-                                _buildPolyDisplay(),
-                                const SizedBox(width: 20),
-                                // field for entering amount of polys needed for transfer
-                                AssetAmountField(
-                                  controller: _amountController,
-                                  allowEditingUnit: false,
-                                  showUnit: false,
-                                  maxTransferrableAmount: vm.maxTransferrableAmount,
-                                  onChanged: (String amount) {
-                                    setState(() {
-                                      _validAmount = TransferUtils.validateAmount(
-                                        amount,
-                                        vm.maxTransferrableAmount,
-                                      );
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
+                            // UI to indicate poly transfer
+                            _buildPolyDisplay(),
+                            // field for entering amount of polys needed for transfer
+                            _buildAmountField(vm),
                             // field for displaying the sender addresss
                             const FromAddressField(),
                             // field for entering the recipient address
@@ -145,15 +166,22 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
                                   _validRecipientAddress = '';
                                 });
                               },
+                              icon: SvgPicture.asset(RibnAssets.recipientFingerprint),
+                              alternativeDisplayChild: const AddressDisplayContainer(
+                                text: Strings.yourRibnWalletAddress,
+                                icon: RibnAssets.myFingerprint,
+                                width: 300,
+                              ),
                             ),
                             // field for adding a note to the tx
                             NoteField(
                               controller: _noteController,
                               noteLength: _noteController.text.length,
+                              tooltipIcon: Image.asset(
+                                RibnAssets.greyHelpBubble,
+                                width: 18,
+                              ),
                             ),
-                            // fee info for the tx
-                            FeeInfo(fee: vm.networkFee),
-                            _buildReviewButton(vm),
                           ],
                         ),
                       ),
@@ -164,16 +192,18 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
               _loadingRawTx ? const LoadingSpinner() : const SizedBox(),
             ],
           ),
+          bottomNavigationBar: BottomReviewAction(
+            children: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // fee info for the tx
+                FeeInfo(fee: vm.networkFee),
+                _buildReviewButton(vm),
+              ],
+            ),
+          ),
         );
       },
-    );
-  }
-
-  /// Builds the title of the page.
-  Widget _buildPageTitle() {
-    return const Padding(
-      padding: EdgeInsets.only(top: 45),
-      child: CustomPageTitle(title: Strings.sendAssets),
     );
   }
 
@@ -182,8 +212,8 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
     return CustomInputField(
       itemLabel: Strings.youSend,
       item: Container(
-        width: 207,
-        height: 31,
+        width: 310,
+        height: 36,
         decoration: const BoxDecoration(
           color: RibnColors.whiteBackground,
           borderRadius: BorderRadius.all(
@@ -204,34 +234,64 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
     );
   }
 
-  /// Builds the review button to initate tx.
+  /// Builds the TextField for entering amount needed for the transfer.
+  Widget _buildAmountField(vm) {
+    return CustomInputField(
+      itemLabel: Strings.amount,
+      item: CustomTextField(
+        width: 310,
+        height: 36,
+        controller: _amountController,
+        hintText: Strings.amountHint,
+        onChanged: (String amount) {
+          setState(() {
+            _validAmount = TransferUtils.validateAmount(
+              amount,
+              vm.maxTransferrableAmount,
+            );
+          });
+        },
+      ),
+    );
+  }
+
   Widget _buildReviewButton(PolyTransferInputViewModel vm) {
     final bool enteredValidInputs =
         _validRecipientAddress.isNotEmpty && _amountController.text.isNotEmpty && _validAmount;
+
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0, bottom: 10),
-      child: LargeButton(
-        label: Strings.review,
-        onPressed: enteredValidInputs
-            ? () {
-                setState(() {
-                  _loadingRawTx = true;
-                });
-                vm.initiateTx(
-                  amount: _amountController.text,
-                  recipient: _validRecipientAddress,
-                  note: _noteController.text,
-                  onRawTxCreated: (bool success) async {
-                    _loadingRawTx = false;
-                    setState(() {});
-                    // Display error dialog if failed to create raw tx
-                    if (!success) {
-                      await TransferUtils.showErrorDialog(context);
-                    }
-                  },
-                );
-              }
-            : null,
+      padding: const EdgeInsets.only(top: 15),
+      child: Center(
+        child: LargeButton(
+          buttonWidth: double.infinity,
+          buttonChild: Text(
+            Strings.review,
+            style: RibnToolkitTextStyles.btnLarge.copyWith(
+              color: Colors.white,
+            ),
+          ),
+          onPressed: enteredValidInputs
+              ? () {
+                  setState(() {
+                    _loadingRawTx = true;
+                  });
+                  vm.initiateTx(
+                    amount: _amountController.text,
+                    recipient: _validRecipientAddress,
+                    note: _noteController.text,
+                    onRawTxCreated: (bool success) async {
+                      _loadingRawTx = false;
+                      setState(() {});
+                      // Display error dialog if failed to create raw tx
+                      if (!success) {
+                        await TransferUtils.showErrorDialog(context);
+                      }
+                    },
+                  );
+                }
+              : () {},
+          disabled: !enteredValidInputs,
+        ),
       ),
     );
   }

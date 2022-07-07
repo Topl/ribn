@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:redux/redux.dart';
 
 import 'package:ribn/actions/keychain_actions.dart';
@@ -42,9 +41,9 @@ class RibnAppBarViewModel {
   final void Function(String) selectSettingsOption;
 
   /// Items in the settings drop down menu.
-  final Map<String, SvgPicture> settingsOptions = {
-    Strings.support: SvgPicture.asset(RibnAssets.supportIcon),
-    Strings.settings: SvgPicture.asset(RibnAssets.settingsIcon),
+  final Map<String, Image> settingsOptions = {
+    Strings.support: Image.asset(RibnAssets.supportIcon),
+    Strings.settings: Image.asset(RibnAssets.settingsIcon),
   };
 
   RibnAppBarViewModel({

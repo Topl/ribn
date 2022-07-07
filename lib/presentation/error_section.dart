@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
-import 'package:ribn/widgets/large_button.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// A generic error section that is displayed in case of unexpected errors.
@@ -25,7 +25,7 @@ class ErrorSection extends StatelessWidget {
           height: 64,
           child: Text(
             Strings.errorTitle,
-            style: RibnTextStyles.extH2.copyWith(
+            style: RibnToolkitTextStyles.extH2.copyWith(
               height: 1.1,
             ),
           ),
@@ -36,25 +36,35 @@ class ErrorSection extends StatelessWidget {
           height: 133,
           child: Text(
             Strings.errorDescription,
-            style: RibnTextStyles.smallBody.copyWith(
+            style: RibnToolkitTextStyles.smallBody.copyWith(
               fontSize: 15,
               height: 1,
             ),
           ),
         ),
         LargeButton(
-          label: Strings.contactSupport,
           backgroundColor: RibnColors.primary.withOpacity(0.19),
-          textColor: RibnColors.primary,
           onPressed: () async {
             await launch(Strings.supportEmailLink);
           },
+          buttonChild: Text(
+            Strings.contactSupport,
+            style: RibnToolkitTextStyles.btnMedium.copyWith(
+              color: RibnColors.primary,
+            ),
+          ),
         ),
         const SizedBox(height: 10),
         LargeButton(
-          label: Strings.tryAgain,
+          backgroundColor: RibnColors.primary,
           onPressed: onTryAgain,
-        )
+          buttonChild: Text(
+            Strings.tryAgain,
+            style: RibnToolkitTextStyles.btnMedium.copyWith(
+              color: Colors.white,
+            ),
+          ),
+        ),
       ],
     );
   }

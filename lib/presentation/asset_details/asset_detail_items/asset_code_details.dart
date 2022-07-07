@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn/widgets/custom_copy_button.dart';
-import 'package:ribn/widgets/custom_tooltip.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
 
 /// One of the asset details displayed on [AssetDetailsPage].
 ///
@@ -22,15 +23,20 @@ class AssetCodeDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          // ignore: prefer_const_literals_to_create_immutables
           children: [
-            const Text('Asset code', style: RibnTextStyles.extH4),
-            // ignore: prefer_const_constructors
-            CustomToolTip(
-              offsetPositionLeftValue: 50,
-              toolTipChild: const Text(
-                Strings.assetCodeLongInfo,
-                style: RibnTextStyles.toolTipTextStyle,
+            const Text('Asset code', style: RibnToolkitTextStyles.h4),
+            Padding(
+              padding: const EdgeInsets.only(left: 4.0),
+              child: CustomToolTip(
+                toolTipIcon: Image.asset(
+                  RibnAssets.greyHelpBubble,
+                  width: 18,
+                ),
+                offsetPositionLeftValue: 80,
+                toolTipChild: const Text(
+                  Strings.assetCodeLongInfo,
+                  style: RibnToolkitTextStyles.toolTipTextStyle,
+                ),
               ),
             ),
           ],
@@ -40,9 +46,16 @@ class AssetCodeDetails extends StatelessWidget {
           children: [
             Text(
               formatAddrString(assetCode),
-              style: RibnTextStyles.smallBody,
+              style: RibnToolkitTextStyles.smallBody,
             ),
-            CustomCopyButton(textToBeCopied: assetCode),
+            const SizedBox(width: 8),
+            CustomCopyButton(
+              textToBeCopied: assetCode,
+              icon: Image.asset(
+                RibnAssets.copyIcon,
+                width: 26,
+              ),
+            ),
           ],
         ),
       ],

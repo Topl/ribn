@@ -22,8 +22,8 @@ class Strings {
   static const String minting = 'Minting';
   static const String totalAmount = 'Total Amount';
   static const String assetName = 'Asset name';
-  static const String assetLongName = 'Asset long name';
-  static const String assetShortName = 'Asset short name';
+  static const String assetLongName = 'Asset';
+  static const String assetShortName = 'Asset code • short';
   static const String transferType = 'transferType';
   static const String recipient = 'recipient';
   static const String noAssets = 'You have no assets :(';
@@ -39,7 +39,7 @@ class Strings {
   static const String rawTx = 'rawTx';
   static const String messageToSign = 'messageToSign';
   static const String sign = 'Sign';
-  static const String back = 'BACK';
+  static const String back = 'Back';
   static const String welcomeToRibn = 'Welcome to Ribn';
   static const String intro = 'Topl’s blockchain wallet used to track, tokenize, and transact impact.';
   static const String getStarted = 'Get started';
@@ -81,7 +81,7 @@ Make sure they are in the exact order shown below. Don’t take screenshots!''';
   static const String seedPhraseConfirmedDesc = '''Good job! Each word in your Seed Phrase has been input correctly. 
 Rest assured, you have saved the correct words, in the correct order.''';
   static const String cont = 'Continue';
-  static const String finalReview = 'FINAL REVIEW';
+  static const String finalReview = 'Final Review';
   static const String createWalletPassword = 'Create Wallet Password';
   static const String createWalletPasswordDesc =
       '''Last step, you will create a Wallet Password. A Wallet Password is used to unlock your wallet.''';
@@ -150,11 +150,10 @@ Write down the each word in the exact order it is presented.''';
   static const String noIChangedMyMind = 'NO, I CHANGED MY MIND!';
   static const String yesIWantToDelete = 'YES, I WANT TO DELETE.';
   static const String enterWalletPassword = 'Enter Wallet Password';
-  static const String unlock = 'UNLOCK';
-  static const String next = 'NEXT';
+  static const String unlock = 'Unlock';
+  static const String next = 'Next';
   static const String useSeedPhrase = 'USE\nSEED\nPHRASE';
   static const String importToplKey = 'IMPORT\nTOPL\nKEY';
-  static const String restoreWallet = 'RESTORE WALLET';
   static const String restoreWalletNewline = 'RESTORE\nWALLET';
   static const String restoreWalletDesc =
       'You can either use your 15-word Seed Phrase or your Top Level Key to import or recover your wallet.';
@@ -168,7 +167,7 @@ Write down the each word in the exact order it is presented.''';
   static const String hintSeedPhrase =
       'dog jump foot stack hay country fun tree cloud ocean bear alaska fish red sushi';
   static const String restoreWalletSeedPhraseDesc =
-      '''Let’s restore your wallet! Enter your 15-word Seed Phrase that you wrote down when you first created your wallet. ''';
+      '''Let's restore your wallet! Enter your 15-word Seed Phrase that you wrote down when you first created your wallet. ''';
   static const String restoreWalletToplKeyDesc =
       '''First, upload your Topl Main Key to import or restore your wallet. Please upload your file in JSON format only.''';
 
@@ -178,18 +177,19 @@ Write down the each word in the exact order it is presented.''';
   static const String typeSomething = 'Type Something';
   static const String supportEmail = 'support@topl.me';
   static const String supportEmailLink = 'mailto:$supportEmail?subject=Ribn Support&body=';
-  static const String sendAssets = 'SEND ASSETS';
+  static const String sendAssets = 'Send assets';
+  static const String sendNativeCoins = 'Send native coins';
   static const String yourRibnWalletAddress = 'Your Ribn Wallet address';
   static const String yourIssuerAddress = 'Your issuer address';
-  static const String review = 'REVIEW';
+  static const String review = 'Review';
   static const String noteHint = 'Origin Brazil, max 127 characters';
   static const String assetTransferToHint = 'Paste Recipient’s address.';
   static const String assetLongNameHint = 'Jackfruit, max 16 characters.';
   static const String assetShortNameHint = 'YLW JACK2, max 8 characters.';
   static const String amountHint = '200000';
   static const String totalTxFee = 'Total Transaction Fee';
-  static const String cancel = 'CANCEL';
-  static const String confirm = 'CONFIRM';
+  static const String cancel = 'Cancel';
+  static const String confirm = 'Confirm';
   static const String sending = 'Sending';
   static const String from = 'From';
   static const String to = 'To';
@@ -199,10 +199,10 @@ Write down the each word in the exact order it is presented.''';
   static const String viewInToplExplorer = 'View in Topl explorer';
   static const String youSend = 'You Send';
   static const String letsMintANewAsset =
-      '''Let’s Mint a new Asset!\n\nYou can either mint a new Asset or remint an exisiting Asset.''';
+      '''Let's Mint a new Asset!\n\nYou can either mint a new Asset or remint an exisiting Asset.''';
   static const String whatWouldYouLikeToDo = 'What would you like to do?';
-  static const String mintNewAsset = 'MINT\nNEW\nASSET';
-  static const String remintSameAsset = 'REMINT\nSAME ASSET';
+  static const String mintNewAsset = 'Mint new asset';
+  static const String mintExistingAsset = 'Mint existing asset';
   static const String myRibnWallet = 'MY\nRIBN WALLET';
   static const String anotherRecipientsWallet = 'ANOTHER RECIPIENT\'S WALLET ';
   static const String mintAssetDesc = 'Where would you like your Asset to be minted?';
@@ -235,7 +235,7 @@ Write down the each word in the exact order it is presented.''';
   static const String advancedOption = 'Advanced option';
   static const String useToplMainKey = 'USE TOPL MAIN KEY';
   static const String uploadFile = 'Upload File';
-  static const String browse = 'BROWSE';
+  static const String browse = 'Browse';
   static const String enterWalletPasswordToRestoreWallet =
       'Now, enter your Wallet Password to restore your Ribn wallet!';
   static const String restoreWalletReadCarefully =
@@ -248,6 +248,7 @@ Write down the each word in the exact order it is presented.''';
       'Your Wallet Password can lock and unlock your\n wallet on a device where it is already stored.';
   static const String refillCurrentPolyBalance = 'You can refill your Poly balance anytime by\n signing into';
   static const String refillEmptyPolyBalance = 'Time to refill your Poly balance.\nSign into';
+  static const String forgotPassword = 'Forgot password?';
   static const String invalidAmountError =
       'The amount you entered exceeds\nyour wallet balance for this asset.\nPlease enter a valid amount!';
   static const String invalidRecipientAddressError =

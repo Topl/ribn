@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
-import 'package:ribn/widgets/custom_tooltip.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 
 /// One of the asset details displayed on [AssetDetailsPage].
 ///
@@ -20,20 +21,26 @@ class AssetCodeShortDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          // ignore: prefer_const_literals_to_create_immutables
           children: [
-            const Text('Asset code · short', style: RibnTextStyles.extH4),
-            // ignore: prefer_const_constructors
-            CustomToolTip(
-              toolTipChild: const Text(
-                Strings.assetCodeShortInfo,
-                style: RibnTextStyles.toolTipTextStyle,
+            const Text('Asset code · short', style: RibnToolkitTextStyles.h4),
+            Padding(
+              padding: const EdgeInsets.only(left: 4.0),
+              child: CustomToolTip(
+                offsetPositionLeftValue: 120,
+                toolTipIcon: Image.asset(
+                  RibnAssets.greyHelpBubble,
+                  width: 18,
+                ),
+                toolTipChild: const Text(
+                  Strings.assetCodeShortInfo,
+                  style: RibnToolkitTextStyles.toolTipTextStyle,
+                ),
               ),
             ),
           ],
         ),
         const SizedBox(height: 3),
-        Text(assetShortName, style: RibnTextStyles.smallBody),
+        Text(assetShortName, style: RibnToolkitTextStyles.smallBody),
       ],
     );
   }

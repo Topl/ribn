@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 
 /// A widget that displays the fee info during the transfer flows in Ribn.
 class FeeInfo extends StatelessWidget {
@@ -15,13 +15,16 @@ class FeeInfo extends StatelessWidget {
       children: [
         const Text(
           Strings.totalTxFee,
-          style: RibnTextStyles.extH4,
+          style: RibnToolkitTextStyles.h4,
+        ),
+        SizedBox(
+          height: 5,
         ),
         Text(
           '$fee POLY',
           style: const TextStyle(
-            fontFamily: 'Nunito',
-            fontSize: 16,
+            fontFamily: 'DM Sans',
+            fontSize: 11,
             color: RibnColors.primary,
             fontWeight: FontWeight.w600,
           ),

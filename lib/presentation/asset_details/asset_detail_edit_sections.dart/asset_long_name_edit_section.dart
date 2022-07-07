@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/presentation/asset_details/widgets/action_button.dart';
-import 'package:ribn/widgets/custom_text_field.dart';
+import 'package:ribn/models/app_state.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The section for editing asset long anme.
 class AssetLongNameEditSection extends StatefulWidget {
@@ -37,7 +41,7 @@ class _AssetLongNameEditSectionState extends State<AssetLongNameEditSection> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       height: 100,
-      width: 309,
+      width: 307,
       decoration: const BoxDecoration(
         color: RibnColors.whiteBackground,
         boxShadow: [BoxShadow(color: Color(0x0f000000), offset: Offset(0, 4), blurRadius: 4, spreadRadius: 0)],
@@ -49,18 +53,38 @@ class _AssetLongNameEditSectionState extends State<AssetLongNameEditSection> {
           const SizedBox(height: 20),
           Row(
             children: [
-              ActionButton(
-                saveChanges: true,
-                assetCode: widget.assetCode,
-                onPressed: widget.onActionTaken,
-                longName: _controller.text,
+              LargeButton(
+                buttonWidth: 123,
+                buttonHeight: 33,
+                buttonChild: Text(
+                  'Save',
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
+                ),
+                backgroundColor: RibnColors.primary,
+                onPressed: () {
+                  StoreProvider.of<AppState>(context).dispatch(
+                    UpdateAssetDetailsAction(
+                      assetCode: widget.assetCode,
+                      longName: _controller.text,
+                    ),
+                  );
+                  widget.onActionTaken();
+                },
               ),
               const SizedBox(width: 15),
-              ActionButton(
-                saveChanges: false,
-                assetCode: widget.assetCode,
-                onPressed: widget.onActionTaken,
-              ),
+              LargeButton(
+                buttonWidth: 123,
+                buttonHeight: 33,
+                buttonChild: Text(
+                  'Cancel',
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.ghostButtonText),
+                ),
+                backgroundColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                dropShadowColor: Colors.transparent,
+                borderColor: RibnColors.ghostButtonText,
+                onPressed: () => widget.onActionTaken(),
+              )
             ],
           ),
         ],

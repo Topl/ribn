@@ -1,4 +1,3 @@
-import 'package:brambldart/model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ribn/constants/routes.dart';
@@ -93,10 +92,9 @@ class RootRouter {
         {
           return pageRoute(const HomePage(), settings);
         }
-      case Routes.assetTransferInput:
+      case Routes.assetsTransferInput:
         {
-          final AssetAmount asset = settings.arguments as AssetAmount;
-          return pageRoute(AssetTransferInputPage(asset: asset), settings);
+          return pageRoute(const AssetTransferInputPage(), settings);
         }
       case Routes.loginRestoreWalletWithMnemonic:
         {
@@ -157,12 +155,8 @@ class RootRouter {
         }
       case Routes.mintInput:
         {
-          final Map<String, dynamic> mintInputPageArgs = settings.arguments as Map<String, dynamic>;
           return pageRoute(
-            MintInputPage(
-              mintingNewAsset: mintInputPageArgs['mintingNewAsset'] as bool,
-              mintingToMyWallet: mintInputPageArgs['mintingToMyWallet'] as bool,
-            ),
+            const MintInputPage(),
             settings,
           );
         }
