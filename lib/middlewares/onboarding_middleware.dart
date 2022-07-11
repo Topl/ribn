@@ -23,7 +23,6 @@ void Function(Store<AppState> store, GenerateMnemonicAction action, NextDispatch
     try {
       final String mnemonic = onboardingRespository.generateMnemonicForUser();
       next(MnemonicSuccessfullyGeneratedAction(mnemonic));
-      next(NavigateToRoute(Routes.onboardingSteps));
     } catch (e) {
       next(ApiErrorAction(e.toString()));
     }

@@ -1,5 +1,6 @@
 import 'package:brambldart/model.dart';
 import 'package:flutter/material.dart';
+
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/models/transfer_details.dart';
@@ -12,15 +13,21 @@ import 'package:ribn/presentation/login/restore_wallet/login_enter_wallet_passwo
 import 'package:ribn/presentation/login/restore_wallet/login_new_wallet_password_page.dart';
 import 'package:ribn/presentation/login/restore_wallet/login_restore_with_mnemonic_page.dart';
 import 'package:ribn/presentation/login/restore_wallet/login_restore_with_topl_key_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/create_password_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/getting_started_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_confirmation_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_display_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_generating_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_info_checklist_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_instructions_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/select_action_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/wallet_info_checklist_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
 import 'package:ribn/presentation/onboarding/extension_info_page.dart';
-import 'package:ribn/presentation/onboarding/getting_started_page.dart';
-import 'package:ribn/presentation/onboarding/onboarding_steps.dart';
-import 'package:ribn/presentation/onboarding/read_carefully_page_one.dart';
+
 import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_enter_wallet_password_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_restore_with_mnemonic_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_restore_with_topl_key_page.dart';
-import 'package:ribn/presentation/onboarding/select_action_page.dart';
-import 'package:ribn/presentation/onboarding/welcome_page.dart';
 import 'package:ribn/presentation/settings/settings_page.dart';
 import 'package:ribn/presentation/transfers/asset_transfer_input_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
@@ -43,13 +50,36 @@ class RootRouter {
         {
           return pageRoute(const GettingStartedPage(), settings);
         }
-      case Routes.readCarefully:
+      case Routes.seedPhraseInfoChecklist:
         {
-          return pageRoute(const ReadCarefullyPageOne(), settings);
+          return pageRoute(
+            const SeedPhraseInfoChecklistPage(),
+            settings,
+          );
         }
-      case Routes.onboardingSteps:
+      case Routes.seedPhraseInstructions:
         {
-          return pageRoute(const OnboardingStepsPage(), settings);
+          return pageRoute(const SeedPhraseInstructionsPage(), settings);
+        }
+      case Routes.generateSeedPhrase:
+        {
+          return pageRoute(const SeedPhraseGeneratingPage(), settings);
+        }
+      case Routes.displaySeedphrase:
+        {
+          return pageRoute(const SeedPhraseDisplayPage(), settings);
+        }
+      case Routes.seedPhraseConfirm:
+        {
+          return pageRoute(const SeedPhraseConfirmationPage(), settings);
+        }
+      case Routes.walletInfoChecklist:
+        {
+          return pageRoute(const WalletInfoChecklistPage(), settings);
+        }
+      case Routes.createPassword:
+        {
+          return pageRoute(const CreatePasswordPage(), settings);
         }
       case Routes.extensionInfo:
         {
@@ -186,11 +216,22 @@ class RootRouter {
 
   /// Builds a page route without any animation.
   Route<MaterialPageRoute> pageRoute(Widget page, RouteSettings settings) {
-    return PageRouteBuilder(
-      settings: settings,
-      pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionDuration: Duration.zero,
-      reverseTransitionDuration: Duration.zero,
-    );
+    return MaterialPageRoute(builder: (context) => page, settings: settings);
+    //  PageRouteBuilder(
+    //   settings: settings,
+    //   pageBuilder: (context, animation, secondaryAnimation) => page,
+    //   transitionsBuilder: (context, animation, secondaryAnimation, child) {
+    //     const begin = Offset(1.0, 0.0);
+    //     const end = Offset.zero;
+    //     final tween = Tween(begin: begin, end: end);
+    //     final offsetAnimation = animation.drive(tween);
+    //     return SlideTransition(
+    //       position: offsetAnimation,
+    //       child: child,
+    //     );
+    //   },
+    //   transitionDuration: kIsWeb ? Duration.zero : const Duration(milliseconds: 100),
+    //   reverseTransitionDuration: kIsWeb ? Duration.zero : const Duration(milliseconds: 100),
+    // );
   }
 }
