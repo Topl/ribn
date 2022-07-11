@@ -252,6 +252,7 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
             );
           });
         },
+        hintColor: RibnColors.hintTextColor,
       ),
     );
   }
@@ -268,7 +269,7 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
           buttonChild: Text(
             Strings.review,
             style: RibnToolkitTextStyles.btnLarge.copyWith(
-              color: Colors.white,
+              color: enteredValidInputs ? Colors.white : RibnColors.hintTextColor,
             ),
           ),
           onPressed: enteredValidInputs

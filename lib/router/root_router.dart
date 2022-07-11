@@ -94,7 +94,7 @@ class RootRouter {
         }
       case Routes.assetsTransferInput:
         {
-          return pageRoute(const AssetTransferInputPage(), settings);
+          return pageRouteNotAnimated(const AssetTransferInputPage(), settings);
         }
       case Routes.loginRestoreWalletWithMnemonic:
         {
@@ -141,7 +141,7 @@ class RootRouter {
 
       case Routes.polyTransferInput:
         {
-          return pageRoute(const PolyTransferInputPage(), settings);
+          return pageRouteNotAnimated(const PolyTransferInputPage(), settings);
         }
       case Routes.txReview:
         {
@@ -208,24 +208,28 @@ class RootRouter {
     );
   }
 
-  /// Builds a page route without any animation.
+  /// Builds a page route with an animation.
   Route<MaterialPageRoute> pageRoute(Widget page, RouteSettings settings) {
     return MaterialPageRoute(builder: (context) => page, settings: settings);
-    //  PageRouteBuilder(
-    //   settings: settings,
-    //   pageBuilder: (context, animation, secondaryAnimation) => page,
-    //   transitionsBuilder: (context, animation, secondaryAnimation, child) {
-    //     const begin = Offset(1.0, 0.0);
-    //     const end = Offset.zero;
-    //     final tween = Tween(begin: begin, end: end);
-    //     final offsetAnimation = animation.drive(tween);
-    //     return SlideTransition(
-    //       position: offsetAnimation,
-    //       child: child,
-    //     );
-    //   },
-    //   transitionDuration: kIsWeb ? Duration.zero : const Duration(milliseconds: 100),
-    //   reverseTransitionDuration: kIsWeb ? Duration.zero : const Duration(milliseconds: 100),
-    // );
+  }
+
+  /// Builds a page route without an animation.
+  Route<MaterialPageRoute> pageRouteNotAnimated(Widget page, RouteSettings settings) {
+    return PageRouteBuilder(
+      settings: settings,
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        final tween = Tween(begin: begin, end: end);
+        final offsetAnimation = animation.drive(tween);
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+      transitionDuration: Duration.zero,
+      reverseTransitionDuration: Duration.zero,
+    );
   }
 }

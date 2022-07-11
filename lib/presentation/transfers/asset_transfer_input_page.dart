@@ -268,7 +268,7 @@ class _AssetTransferInputPageState extends State<AssetTransferInputPage> {
           buttonChild: Text(
             Strings.review,
             style: RibnToolkitTextStyles.btnLarge.copyWith(
-              color: Colors.white,
+              color: enteredValidInputs ? Colors.white : RibnColors.hintTextColor,
             ),
           ),
           onPressed: enteredValidInputs

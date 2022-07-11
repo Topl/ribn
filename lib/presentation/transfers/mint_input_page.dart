@@ -333,7 +333,7 @@ class _MintInputPageState extends State<MintInputPage> {
         buttonChild: Text(
           Strings.review,
           style: RibnToolkitTextStyles.btnLarge.copyWith(
-            color: Colors.white,
+            color: enteredValidInputs ? Colors.white : RibnColors.hintTextColor,
           ),
         ),
         onPressed: enteredValidInputs
