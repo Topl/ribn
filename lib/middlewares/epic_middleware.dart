@@ -112,7 +112,7 @@ Stream<dynamic> Function(Stream<LoginSuccessAction>, EpicStore<AppState>) _onLog
                 ? NavigateToRoute(Routes.enable, arguments: store.state.internalMessage!)
                 : store.state.internalMessage?.method == InternalMethods.signTx
                     ? NavigateToRoute(Routes.externalSigning, arguments: store.state.internalMessage!)
-                    : NavigateToRoute(Routes.home),
+                    : Keys.navigatorKey.currentState!.pushReplacementNamed(Routes.home),
           ],
         );
       },
