@@ -130,7 +130,7 @@ Stream<dynamic> Function(Stream<SuccessfullyRestoredWalletAction>, EpicStore<App
 ) {
   return (actions, store) {
     return actions.switchMap((action) {
-      final String navigateToRoute = store.state.needsOnboarding() ? Routes.extensionInfo : Routes.home;
+      const String navigateToRoute = kIsWeb ? Routes.extensionInfo : Routes.home;
       return Stream.fromIterable([
         const ResetAppStateAction(),
         InitializeHDWalletAction(
