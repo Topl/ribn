@@ -5,10 +5,10 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/login/widgets/warning_section.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
@@ -31,6 +31,7 @@ class _LoginEnterWalletPasswordPageState extends State<LoginEnterWalletPasswordP
   final double maxWidth = 309;
   final TextEditingController _passwordController = TextEditingController();
   bool _failedToRestoreWallet = false;
+  // ignore: prefer_final_fields
   bool _obscurePassword = true;
   @override
   void initState() {

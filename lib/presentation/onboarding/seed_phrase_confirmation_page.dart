@@ -1,11 +1,11 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ribn/constants/strings.dart';
+import 'package:ribn/containers/seed_phrase_confirmation_container.dart';
 import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn/containers/seed_phrase_confirmation_container.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// Builds a grid containing the seed phrase words in a shuffled order.

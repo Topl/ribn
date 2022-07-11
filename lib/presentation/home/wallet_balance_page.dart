@@ -106,6 +106,8 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
   /// Builds the top-half container on the balance page.
   /// Displays the balance in Polys and send/receive buttons.
   Widget _buildPolyContainer(WalletBalanceViewModel vm) {
+    final Uri url = Uri.parse(tooltipUrl);
+
     CustomToolTip renderTooltip() {
       final bool hasPolys = vm.polyBalance > 0;
       return CustomToolTip(
@@ -123,7 +125,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
               ),
               WidgetSpan(
                 child: GestureDetector(
-                  onTap: () async => await launch(tooltipUrl),
+                  onTap: () async => await launchUrl(url),
                   child: Row(
                     children: [
                       Text(

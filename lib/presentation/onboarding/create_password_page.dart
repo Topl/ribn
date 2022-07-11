@@ -1,12 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ribn_toolkit/constants/assets.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/create_password_container.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_checkbox.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
@@ -30,6 +30,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   bool _readTermsOfAgreement = false;
   bool _hasAtLeast8Chars = false;
   bool _passwordsMatch = false;
+  // ignore: prefer_final_fields
   bool _obscurePassword = true;
 
   @override
@@ -208,7 +209,9 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                     .copyWith(color: _readTermsOfAgreement ? RibnColors.primary : RibnColors.inactive),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
-                    await launch(Strings.termsOfUseUrl);
+                    final Uri url = Uri.parse(Strings.termsOfUseUrl);
+
+                    await launchUrl(url);
                   },
               )
             ],

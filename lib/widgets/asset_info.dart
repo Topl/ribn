@@ -1,9 +1,8 @@
 import 'package:brambldart/model.dart';
 import 'package:flutter/material.dart';
-
+import 'package:ribn/models/asset_details.dart';
 import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn/models/asset_details.dart';
 
 /// A custom display for asset information.
 class AssetInfo extends StatelessWidget {

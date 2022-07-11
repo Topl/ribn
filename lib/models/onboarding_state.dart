@@ -8,11 +8,13 @@ class OnboardingState {
   final String? mnemonic; // never persisted
   final List<String>? shuffledMnemonic; // never persisted
   final List<int>? userSelectedIndices; // never persisted
+  final List<int> mobileConfirmIdxs;
 
   const OnboardingState({
     this.mnemonic,
     this.shuffledMnemonic,
     this.userSelectedIndices,
+    this.mobileConfirmIdxs = const [8, 10, 14, 13],
   });
 
   factory OnboardingState.initial() {

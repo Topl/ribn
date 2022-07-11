@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,6 +17,9 @@ class LinksSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Uri url1 = Uri.parse(Strings.privacyPolicyUrl);
+    final Uri url2 = Uri.parse(Strings.termsOfUseUrl);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -28,7 +31,7 @@ class LinksSection extends StatelessWidget {
         RichText(
           text: TextSpan(
             text: Strings.privacyPolicy,
-            recognizer: TapGestureRecognizer()..onTap = () async => await launch(Strings.privacyPolicyUrl),
+            recognizer: TapGestureRecognizer()..onTap = () async => await launchUrl(url1),
             style: linkStyle,
           ),
         ),
@@ -36,7 +39,7 @@ class LinksSection extends StatelessWidget {
         RichText(
           text: TextSpan(
             text: Strings.termsOfUse,
-            recognizer: TapGestureRecognizer()..onTap = () async => await launch(Strings.termsOfUseUrl),
+            recognizer: TapGestureRecognizer()..onTap = () async => await launchUrl(url2),
             style: linkStyle,
           ),
         ),
