@@ -27,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _textEditingController = TextEditingController();
 
   /// True if password being entered is obscured.
+  // ignore: prefer_final_fields
   bool _obscurePassword = true;
 
   /// True if login was attempted with an incorrect password.
@@ -226,7 +227,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
-                    await launch(Strings.supportEmailLink);
+                    final Uri url = Uri.parse(Strings.supportEmailLink);
+
+                    await launchUrl(url);
                   },
               )
             ],

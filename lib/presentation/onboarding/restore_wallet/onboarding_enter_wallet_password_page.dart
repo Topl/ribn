@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
-import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 
@@ -29,6 +29,7 @@ class _OnboardingEnterWalletPasswordPageState extends State<OnboardingEnterWalle
   final double maxWidth = 734;
   final TextEditingController _passwordController = TextEditingController();
   bool _failedToRestoreWallet = false;
+  // ignore: prefer_final_fields
   bool _obscurePassword = true;
 
   @override

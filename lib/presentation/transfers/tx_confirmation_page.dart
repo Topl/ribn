@@ -175,9 +175,10 @@ class TxConfirmationPage extends StatelessWidget {
               text: Strings.viewInToplExplorer,
               recognizer: TapGestureRecognizer()
                 ..onTap = () async {
-                  await launch(
-                    '${Rules.txDetailsRedirectUrls[transferDetails.networkId] ?? ''}${transferDetails.transactionId}',
-                  );
+                  final Uri url = Uri.parse(
+                      '${Rules.txDetailsRedirectUrls[transferDetails.networkId] ?? ''}${transferDetails.transactionId}');
+
+                  await launchUrl(url);
                 },
             ),
           ],

@@ -1,10 +1,10 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/widgets/asset_info.dart';
 import 'package:ribn/widgets/custom_drop_down.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 
 /// An input field used on the [MintInputPage] and [AssetTransferInputPage].
 ///
@@ -114,7 +114,7 @@ class _AssetSelectionFieldState extends State<AssetSelectionField> {
       constraints: const BoxConstraints(maxHeight: 86, minHeight: 0),
       child: Scrollbar(
         controller: scrollController,
-        isAlwaysShown: true,
+        thumbVisibility: true,
         child: ListView(
           shrinkWrap: true,
           scrollDirection: Axis.vertical,

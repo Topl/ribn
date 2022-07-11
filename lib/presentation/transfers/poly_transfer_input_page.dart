@@ -42,6 +42,7 @@ class _PolyTransferInputPageState extends State<PolyTransferInputPage> {
   bool _loadingRawTx = false;
 
   /// True if amount is valid.
+  // ignore: prefer_final_fields
   bool _validAmount = false;
 
   @override

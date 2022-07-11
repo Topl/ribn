@@ -1,13 +1,15 @@
+// ignore_for_file: prefer_final_fields
+
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/login/widgets/warning_section.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
@@ -121,13 +123,14 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
                 ),
                 // Confirmation button
                 LargeButton(
-                    buttonChild: Text(
-                      Strings.next,
-                      style: RibnToolkitTextStyles.btnMedium.copyWith(
-                        color: Colors.white,
-                      ),
+                  buttonChild: Text(
+                    Strings.next,
+                    style: RibnToolkitTextStyles.btnMedium.copyWith(
+                      color: Colors.white,
                     ),
-                    onPressed: onNextPressed),
+                  ),
+                  onPressed: onNextPressed,
+                ),
               ],
             ),
           ),

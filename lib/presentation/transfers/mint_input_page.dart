@@ -14,14 +14,14 @@ import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/asset_long_name_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_selection_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_short_name_field.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/loading_spinner.dart';
 import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
-import 'package:ribn_toolkit/widgets/molecules/asset_long_name_field.dart';
 
 /// The mint input page that allows the initiation of an mint asset transaction.
 class MintInputPage extends StatefulWidget {

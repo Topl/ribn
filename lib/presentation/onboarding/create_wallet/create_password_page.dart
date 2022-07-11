@@ -117,7 +117,9 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                                 ),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () async {
-                                    await launch(Strings.termsOfUseUrl);
+                                    final Uri url = Uri.parse(Strings.termsOfUseUrl);
+
+                                    await launchUrl(url);
                                   },
                               ),
                             ],

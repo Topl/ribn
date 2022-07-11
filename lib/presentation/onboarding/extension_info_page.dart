@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 
 class ExtensionInfoPage extends StatelessWidget {
   const ExtensionInfoPage({Key? key}) : super(key: key);

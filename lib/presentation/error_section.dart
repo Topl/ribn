@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -45,7 +45,9 @@ class ErrorSection extends StatelessWidget {
         LargeButton(
           backgroundColor: RibnColors.primary.withOpacity(0.19),
           onPressed: () async {
-            await launch(Strings.supportEmailLink);
+            final Uri url = Uri.parse(Strings.supportEmailLink);
+
+            await launchUrl(url);
           },
           buttonChild: Text(
             Strings.contactSupport,
