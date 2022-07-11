@@ -70,4 +70,20 @@ class RibnAssets {
   static const smsFailed = 'assets/icons/sms_failed.png';
   static const openInNewWindow = 'assets/icons/open_in_new.png';
   static const roundInfoCircle = 'assets/icons/round_info_circle.png';
+  static const ribnLogoPng = 'assets/icons/ribn_logo.png';
+  static const warningPng = 'assets/icons/warning_icon.png';
+  static const gettingStartedPng = 'assets/icons/getting_started.png';
+  static const passwordLockPng = 'assets/icons/password_lock.png';
+  static const penPaperPng = 'assets/icons/pen_paper.png';
+  static const programPng = 'assets/icons/program.png';
+  static const onboardingBackgroundSvg = 'assets/icons/onboarding_background.svg';
+  static const onboardingBackgroundPng = 'assets/icons/onboarding_background.png';
+  static const createWalletPng = 'assets/icons/create_wallet.png';
+  static const importWalletPng = 'assets/icons/import_wallet.png';
+  static const walletLockPng = 'assets/icons/wallet_lock.png';
+  static const passwordVisiblePng = 'assets/icons/password_visible.png';
+  static const passwordHiddenPng = 'assets/icons/password_hidden.png';
+  static const successPng = 'assets/icons/success.png';
+  static const contentCopyPng = 'assets/icons/content_copy.png';
+  static const downloadPng = 'assets/icons/download.png';
 }
