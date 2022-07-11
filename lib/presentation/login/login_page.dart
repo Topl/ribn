@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/login_container.dart';
@@ -25,9 +24,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final double _baseWidth = 310;
   final TextEditingController _textEditingController = TextEditingController();
-
-  /// True if password being entered is obscured.
-  bool _obscurePassword = true;
 
   /// True if login was attempted with an incorrect password.
   bool _incorrectPasswordEntered = false;
@@ -101,11 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                         onSubmitted: attemptLogin,
                         hintText: Strings.typeSomething,
                         controller: _textEditingController,
-                        icon: SvgPicture.asset(
-                          _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
-                          width: 12,
-                        ),
-                        obscurePassword: _obscurePassword,
+                        obscurePassword: true,
                       ),
                       const SizedBox(height: 25),
                       LargeButton(
