@@ -21,13 +21,13 @@ class Routes {
   static const seedPhraseConfirm = '/seed-phrase-confirm';
   static const extensionInfo = '/extension-info';
   static const login = '/login';
-  static const loginRestoreWalletWithMnemonic = '/login/restore-wallet/mnemonic';
+  static const restoreWallet = '/restore-wallet';
+  static const restoreWithToplKey = '/restore-wallet/topl-key';
+  static const restoreWalletNewPassword = '/restore-wallet/new-password';
+  static const enterWalletPassword = '/restore-wallet/topl-key/enter-password';
   static const loginRestoreWalletWithToplKey = '/login/restore-wallet/topl-key';
-  static const loginRestoreWalletnewPassword = '/login/restore-wallet/new-password';
   static const loginRestoreWalletEnterPassword = '/login/restore-wallet/enter-password';
   static const onboardingRestoreWalletWithMnemonic = '/onboarding/restore-wallet/mnemonic';
-  static const onboardingRestoreWalletWithToplKey = '/onboarding/restore-wallet/topl-key';
-  static const onboardingRestoreWalletEnterPassword = '/onboarding/restore-wallet/enter-password';
   static const assetsTransferInput = '/asset-transfer-input';
   static const polyTransferInput = '/poly-transfer-input';
   static const txReview = '/tx-review';
