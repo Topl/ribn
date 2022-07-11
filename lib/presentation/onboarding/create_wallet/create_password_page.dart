@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
@@ -16,7 +15,7 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
 import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class CreatePasswordPage extends StatefulWidget {
   const CreatePasswordPage({Key? key}) : super(key: key);
@@ -117,7 +116,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                                 ),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () async {
-                                    await launch(Strings.termsOfUseUrl);
+                                    await launchUrlString(Strings.termsOfUseUrl);
                                   },
                               ),
                             ],
@@ -167,7 +166,6 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
             fillColor: RibnColors.whiteButtonShadow,
             controller: _newPasswordController,
             hintText: '',
-            icon: SvgPicture.asset(RibnAssets.addIcon),
             obscurePassword: true,
           ),
         ),
@@ -218,7 +216,6 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
             fillColor: RibnColors.whiteButtonShadow,
             controller: _confirmPasswordController,
             hintText: '',
-            icon: SvgPicture.asset(RibnAssets.addIcon),
             obscurePassword: true,
           ),
         ),
