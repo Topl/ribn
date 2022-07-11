@@ -53,7 +53,7 @@ android {
         applicationId "co.topl.ribn"
         minSdkVersion 18
         targetSdkVersion 31
-        versionCode flutterVersionCode.toInteger()
+        versionCode 0 // If version code defined in pubspec.yaml, use flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
     signingConfigs {
