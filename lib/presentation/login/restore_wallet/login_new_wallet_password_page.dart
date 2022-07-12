@@ -3,9 +3,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
-import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/login/widgets/warning_section.dart';
@@ -118,10 +116,6 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
                     hintText: Strings.newWalletPasswordHint,
                     controller: _newWalletPasswordController,
                     hasError: hasErrors[_newWalletPasswordController] ?? false,
-                    icon: SvgPicture.asset(
-                      _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
-                      width: 12,
-                    ),
                     obscurePassword: _obscurePassword,
                   ),
                   const SizedBox(height: 20),
@@ -137,10 +131,6 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
                     hintText: Strings.confirmWalletPasswordHint,
                     controller: _confirmWalletPasswordController,
                     hasError: hasErrors[_confirmWalletPasswordController] ?? false,
-                    icon: SvgPicture.asset(
-                      _obscureConfirmPassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
-                      width: 12,
-                    ),
                     obscurePassword: _obscurePassword,
                   ),
                   const SizedBox(

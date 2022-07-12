@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
@@ -68,10 +66,6 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
                 PasswordTextField(
                   controller: _passwordController,
                   hintText: Strings.typeSomething,
-                  icon: SvgPicture.asset(
-                    _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
-                    width: 12,
-                  ),
                   obscurePassword: _obscurePassword,
                 ),
                 _incorrectPasswordError

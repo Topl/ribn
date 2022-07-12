@@ -99,6 +99,7 @@ class _AssetLongNameEditSectionState extends State<AssetLongNameEditSection> {
         hintText: Strings.assetLongNameHint,
         width: 268,
         maxLength: 16,
+        hintColor: RibnColors.hintTextColor,
       ),
     );
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
@@ -169,7 +168,6 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
             fillColor: RibnColors.whiteButtonShadow,
             controller: _newPasswordController,
             hintText: '',
-            icon: SvgPicture.asset(RibnAssets.addIcon),
             obscurePassword: true,
           ),
         ),
@@ -220,7 +218,6 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
             fillColor: RibnColors.whiteButtonShadow,
             controller: _confirmPasswordController,
             hintText: '',
-            icon: SvgPicture.asset(RibnAssets.addIcon),
             obscurePassword: true,
           ),
         ),
