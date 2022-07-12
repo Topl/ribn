@@ -17,7 +17,7 @@ class FeeInfo extends StatelessWidget {
           Strings.totalTxFee,
           style: RibnToolkitTextStyles.h4,
         ),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
         Text(

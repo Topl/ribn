@@ -134,7 +134,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
         context: context,
         removeTop: true,
         child: Scrollbar(
-          isAlwaysShown: true,
+          thumbVisibility: true,
           child: ListView(
             padding: const EdgeInsets.all(0),
             children: UIConstants.assetUnitsList

@@ -108,8 +108,10 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
                   // new wallet password
                   SizedBox(
                     width: 309,
-                    child: Text(Strings.newWalletPassword,
-                        style: RibnToolkitTextStyles.extH3.copyWith(color: Colors.white)),
+                    child: Text(
+                      Strings.newWalletPassword,
+                      style: RibnToolkitTextStyles.extH3.copyWith(color: Colors.white),
+                    ),
                   ),
                   // enter new wallet password text field
                   PasswordTextField(
@@ -125,8 +127,10 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
                   const SizedBox(height: 20),
                   SizedBox(
                     width: 309,
-                    child: Text(Strings.confirmWalletPassword,
-                        style: RibnToolkitTextStyles.extH3.copyWith(color: Colors.white)),
+                    child: Text(
+                      Strings.confirmWalletPassword,
+                      style: RibnToolkitTextStyles.extH3.copyWith(color: Colors.white),
+                    ),
                   ),
                   // confirm wallet password text field
                   PasswordTextField(
