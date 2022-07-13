@@ -45,7 +45,6 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
   Map<TextEditingController, bool> hasErrors = {};
 
   bool _obscurePassword = true;
-  bool _obscureConfirmPassword = true;
   bool _readTermsOfAgreement = false;
 
   @override

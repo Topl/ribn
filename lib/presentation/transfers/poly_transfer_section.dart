@@ -20,6 +20,7 @@ import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 /// The input page that allows initiating poly transfer transaction.
 ///
 /// Builds the necessary input fields needed for a poly transfer.
+// ignore: must_be_immutable
 class PolyTransferSection extends StatefulWidget {
   PolyTransferInputViewModel vm;
   final Function updateButton;

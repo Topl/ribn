@@ -20,6 +20,7 @@ import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 /// The asset transfer input page that allows the initiation of an asset transfer.
 ///
 /// Prompts the user to select an asset, the recipient address, amount, and an optional note as transaction metadata.
+// ignore: must_be_immutable
 class AssetTransferSection extends StatefulWidget {
   AssetTransferInputViewModel vm;
   final Function updateButton;
