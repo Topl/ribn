@@ -45,6 +45,9 @@ class AssetTransferInputViewModel {
   /// The current network.
   final RibnNetwork currentNetwork;
 
+  /// Gets total balance in wallet for a particular asset.
+  final num Function(String) getAssetBalance;
+
   /// Handler for initiating tx.
   final Future<void> Function({
     required String recipient,
@@ -61,6 +64,7 @@ class AssetTransferInputViewModel {
     required this.networkFee,
     required this.assetDetails,
     required this.currentNetwork,
+    required this.getAssetBalance,
   });
 
   static AssetTransferInputViewModel fromStore(Store<AppState> store) {
@@ -89,6 +93,12 @@ class AssetTransferInputViewModel {
       currentNetwork: store.state.keychainState.currentNetwork,
       networkFee: NetworkUtils.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
       assetDetails: store.state.userDetailsState.assetDetails,
+      getAssetBalance: (String assetCode) {
+        final List<AssetAmount> myAssets = store.state.keychainState.currentNetwork.getAllAssetsInWallet();
+        return myAssets
+            .where((element) => element.assetCode.toString() == assetCode)
+            .fold(0, (prev, value) => prev + value.quantity);
+      },
     );
   }
 

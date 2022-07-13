@@ -53,7 +53,8 @@ class Strings {
 This 15-word phrase will be used to restore your assets if this device is lost or damaged!''';
   static const String ok = 'Ok!';
   static const String readCarefully = 'Read Carefully';
-  static const String readCarefullyPointOne = '''I understand that I should never share my seed phrase with anyone. 
+  static const String readCarefullyPointOne =
+      '''I understand that I should never share my seed phrase with anyone. 
 Anyone with this information can steal the contents of my wallet.''';
   static const String readCarefullyPointTwo =
       '''I understand that if I need to reinstall Ribn on this or another device, 
@@ -71,22 +72,25 @@ my wallet contents can only be recovered by using my seed phrase.''';
   static const String letsTryThatAgain = 'Now, Let’s Try That Again';
   static const String heyIWasntKidding =
       '''Hey I wasn’t kidding, write these words down in the exact order they are shown. Remember don’t take any screenshots!''';
-  static const String writeDownSeedPhraseDesc = '''Now, you will write each word of your Seed Phrase down carefully.
+  static const String writeDownSeedPhraseDesc =
+      '''Now, you will write each word of your Seed Phrase down carefully.
 Make sure they are in the exact order shown below. Don’t take screenshots!''';
   static const String done = 'DONE';
   static const String confirmYourSeedPhrase = 'Confirm your Seed Phrase';
   static const String confirmYourSeedPhraseDesc = 'Click each word in the correct order.';
   static const String seedPhraseConfirmed = 'Seed Phrase Confirmed!';
-  static const String seedPhraseConfirmedDesc = '''Good job! Each word in your Seed Phrase has been input correctly. 
+  static const String seedPhraseConfirmedDesc =
+      '''Good job! Each word in your Seed Phrase has been input correctly. 
 Rest assured, you have saved the correct words, in the correct order.''';
   static const String cont = 'Continue';
   static const String finalReview = 'FINAL REVIEW';
   static const String createWalletPassword = 'Create Wallet Password';
-  static const String createWalletPasswordDesc = '''Last step, we will create a Wallet Password. 
+  static const String createWalletPasswordDesc =
+      '''Last step, we will create a Wallet Password. 
 A Wallet Password is used to unlock your wallet.''';
   static const String newPassword = 'New Password';
   static const String confirmPassword = 'Confirm Password';
-  static const String atLeast12Chars = 'At least 12 characters.';
+  static const String atLeast8Chars = 'At least 8 characters.';
   static const String passwordsMustMatch = 'Both passwords must match.';
   static const String createPassword = 'Create Password';
   static const String readAndAgreedToU = 'I have read and agreed to the ';
@@ -117,7 +121,8 @@ You'll need it to recover your wallet if your device is lost or broken.''';
   static const String seedPhraseGenerating = 'Seed Phrase Generating...';
   static const String goGrabAPenAndPaper = 'Go grab a pen and paper';
   static const String seriouslyGetAPenAndPaper = 'Seriously, get a pen and paper';
-  static const String aboutToShowSeedPhrase = '''We are about to show you 15 words.
+  static const String aboutToShowSeedPhrase =
+      '''We are about to show you 15 words.
 These words need to be written down carefully and in the exact order shown.''';
   static const String seedPhraseGenerated = 'Seed Phrase Generated!';
   static const String seedPhraseGeneratedDesc =
@@ -216,7 +221,7 @@ These words need to be written down carefully and in the exact order shown.''';
       'This is the address of the party who originally\ncreated a certain asset. You can copy the\nissuer address and paste it into the Topl explorer\nfor more information.';
   static const String assetDetails = 'Asset Details';
   static const String newWalletPassword = 'New Wallet Password';
-  static const String newWalletPasswordHint = 'Min 12 characters';
+  static const String newWalletPasswordHint = 'Min 8 characters';
   static const String confirmWalletPassword = 'Confirm Wallet Password';
   static const String confirmWalletPasswordHint = 'Re-type your Wallet Password';
   static const String warning = 'Warning';
@@ -246,4 +251,9 @@ These words need to be written down carefully and in the exact order shown.''';
       'Your Wallet Password can lock and unlock your\n wallet on a device where it is already stored.';
   static const String refillCurrentPolyBalance = 'You can refill your Poly balance anytime by\n signing into';
   static const String refillEmptyPolyBalance = 'Time to refill your Poly balance.\nSign into';
+  static const String invalidAmountError =
+      'The amount you entered exceeds\nyour wallet balance for this asset.\nPlease enter a valid amount!';
+  static const String invalidRecipientAddressError =
+      "Hmmm... That's not a valid Recipient address.\nTip: Instead of typing it out, try copy\nand pasting your Recipient's address.";
+  static const String invalidSeedPhrase = 'Invalid seed phrase';
 }

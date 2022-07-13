@@ -22,11 +22,13 @@ class AssetCodeDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          children: const [
-            Text('Asset code', style: RibnTextStyles.extH4),
+          // ignore: prefer_const_literals_to_create_immutables
+          children: [
+            const Text('Asset code', style: RibnTextStyles.extH4),
+            // ignore: prefer_const_constructors
             CustomToolTip(
               offsetPositionLeftValue: 50,
-              toolTipChild: Text(
+              toolTipChild: const Text(
                 Strings.assetCodeLongInfo,
                 style: RibnTextStyles.toolTipTextStyle,
               ),

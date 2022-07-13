@@ -3,7 +3,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/assets.dart';
-
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/styles.dart';
@@ -17,37 +16,40 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              Strings.welcomeToRibn,
-              style: RibnTextStyles.h1,
-              textAlign: TextAlign.center,
-            ),
-            padding,
-            SvgPicture.asset(RibnAssets.logoIcon),
-            padding,
-            const SizedBox(
-              width: 640,
-              height: 50,
-              child: Center(
-                child: Text(
-                  Strings.intro,
-                  style: RibnTextStyles.body1,
-                  textAlign: TextAlign.center,
-                  textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                Strings.welcomeToRibn,
+                style: RibnTextStyles.h1,
+                textAlign: TextAlign.center,
+              ),
+              padding,
+              SvgPicture.asset(RibnAssets.logoIcon),
+              padding,
+              const SizedBox(
+                width: 640,
+                height: 50,
+                child: Center(
+                  child: Text(
+                    Strings.intro,
+                    style: RibnTextStyles.body1,
+                    textAlign: TextAlign.center,
+                    textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
+                  ),
                 ),
               ),
-            ),
-            padding,
-            ContinueButton(
-              Strings.getStarted,
-              () => StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(Routes.selectAction)),
-            ),
-          ],
+              padding,
+              ContinueButton(
+                Strings.getStarted,
+                () => StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(Routes.selectAction)),
+              ),
+            ],
+          ),
         ),
       ),
     );

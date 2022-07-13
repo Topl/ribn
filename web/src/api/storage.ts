@@ -14,8 +14,9 @@ export const ExtensionStorage = {
 	},
 	getStorage: () => {
 		return new Promise<Record<string, any>>((resolve, reject) => {
-			chrome.storage.local.get(null, (items) => {
-				if (chrome.runtime.lastError) reject(API_ERRORS.internalError);
+			chrome.storage.local.get(undefined, (items) => {
+				// `chrome.runtime.lastError` not yet supported by official `chrome-types` package
+				if ((chrome.runtime as any).lastError) reject(API_ERRORS.internalError);
 				resolve(items);
 			});
 		});

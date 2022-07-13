@@ -52,7 +52,7 @@ export const Messenger = {
 class ContentMessenger {
 	public forwardToBackground = (request: InternalMessage) => {
 		return new Promise<InternalMessage>((resolve) =>
-			chrome.runtime.sendMessage(request, (response: InternalMessage) => {
+			chrome.runtime.sendMessage(request, {}, (response) => {
 				resolve(response);
 			})
 		);
@@ -76,6 +76,7 @@ class ContentMessenger {
 			)
 				return;
 			window.postMessage(message);
+			return true;
 		});
 		// listen to calls from webpage
 		window.addEventListener("message", async (msg) => {
@@ -157,8 +158,8 @@ class BackgroundMessenger {
 	 */
 	public handlePopupConnection = (request: InternalMessage, tab: chrome.tabs.Tab): Promise<InternalMessage> => {
 		return new Promise((resolve) => {
-			chrome.runtime.onConnect.addListener(function popupConnectionHandler(port) {
-				port.onMessage.addListener(function popupMessageHandler(msg) {
+			chrome.runtime.onConnect.addListener(function popupConnectionHandler(port: chrome.runtime.Port) {
+				port.onMessage.addListener(function popupMessageHandler(msg: string) {
 					const parsedMsg = JSON.parse(msg);
 					if (parsedMsg.method == INTERNAL_METHODS.checkPendingRequest) {
 						port.postMessage(JSON.stringify(request));
@@ -167,7 +168,7 @@ class BackgroundMessenger {
 						if (tab.id) chrome.tabs.remove(tab.id);
 					}
 					// If the user closed window, remove listeners
-					chrome.tabs.onRemoved.addListener(function popupTabsHandler(tabId) {
+					chrome.tabs.onRemoved.addListener(function popupTabsHandler(tabId: number) {
 						if (tab.id !== tabId) return;
 						resolve({
 							...request,
@@ -198,8 +199,13 @@ class BackgroundMessenger {
 	 * - This listener does not recognize `async/await` keywords.
 	 */
 	public initListener = () => {
-		chrome.runtime.onMessage.addListener((request: InternalMessage, _, sendResponse) => {
-			if (request.sender !== SENDERS.webpage) sendResponse(API_ERRORS.refused);
+		chrome.runtime.onMessage.addListener((request: InternalMessage, _, sendResponse: (response?: InternalMessage) => void) => {
+			if (request.sender !== SENDERS.webpage) sendResponse({
+				...request,
+				error: {
+					message: API_ERRORS.refused,
+				},
+			});
 			switch (request.method) {
 				case API_METHODS.signTx: {
 					this.responders.signTx(request, sendResponse);
@@ -214,7 +220,12 @@ class BackgroundMessenger {
 					break;
 				}
 				default: {
-					sendResponse(API_ERRORS.invalidRequest);
+					sendResponse({
+						...request,
+						error: {
+							message: API_ERRORS.invalidRequest,
+						}
+					});
 				}
 			}
 			return true;

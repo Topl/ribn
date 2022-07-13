@@ -24,9 +24,13 @@ class PasswordTextField extends StatefulWidget {
   /// The height of the [TextField].
   final double height;
 
+  /// FocusNode that can be attached to the [TextField].
+  final FocusNode? focusNode;
+
   const PasswordTextField({
     required this.controller,
     required this.hintText,
+    this.focusNode,
     this.hasError = false,
     this.width = 310,
     this.height = 35,
@@ -46,6 +50,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       width: widget.width,
       height: widget.height,
       child: TextField(
+        focusNode: widget.focusNode,
         obscureText: _obscurePassword,
         controller: widget.controller,
         decoration: InputDecoration(

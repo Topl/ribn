@@ -41,6 +41,8 @@ class _CustomToolTipState extends State<CustomToolTip> {
 
   @override
   Widget build(BuildContext context) {
+    // Remove existing overlay on rebuild
+    if (overlayEntry.mounted) overlayEntry.remove();
     return Container(
       margin: const EdgeInsets.only(left: 2),
       child: GestureDetector(

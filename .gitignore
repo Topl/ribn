@@ -2,6 +2,13 @@ node_modules/
 dist/
 mock/
 
+# Ignore secrets
+*.jks
+key.properties
+service_account_key.json
+android_keys.zip
+*.p8
+
 # Miscellaneous
 *.class
 *.log

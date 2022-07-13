@@ -1,16 +1,20 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+import 'package:local_auth/local_auth.dart';
+
 import 'package:redux/redux.dart';
-import 'package:ribn/data/data.dart' as local;
 import 'package:ribn/middlewares/app_middleware.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:ribn/platform/platform.dart';
 import 'package:ribn/reducers/app_reducer.dart';
 import 'package:ribn/repositories/keychain_repository.dart';
 import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/repositories/misc_repository.dart';
 import 'package:ribn/repositories/onboarding_repository.dart';
 import 'package:ribn/repositories/transaction_repository.dart';
+import 'package:ribn/utils.dart';
 
 class Redux {
   static Store<AppState>? _store;
@@ -54,7 +58,7 @@ class Redux {
 
   static Future<Map<String, dynamic>> getPersistedAppState() async {
     try {
-      final String persistedAppState = await local.getDataFromLocalStorage();
+      final String persistedAppState = await PlatformLocalStorage.instance.getState();
       final Map<String, dynamic> mappedAppState = jsonDecode(persistedAppState) as Map<String, dynamic>;
       return mappedAppState;
     } catch (e) {
@@ -67,16 +71,29 @@ class Redux {
   /// Otherwise, a new AppState is initialized depending on [initTestStore].
   static Future<AppState> getInitialAppState(bool initTestStore) async {
     try {
-      final Map<String, dynamic> persistedAppState = await getPersistedAppState();
-      // A valid persisted app state must contain 'keychainState' as a key.
-      final isPersistedStateValid = persistedAppState.containsKey('keychainState');
-      return isPersistedStateValid
-          ? AppState.fromMap(persistedAppState)
-          : initTestStore
-              ? AppState.test()
-              : AppState.initial();
+      final Map<String, dynamic> appState = await getPersistedAppState();
+      final String? toplKey = await PlatformLocalStorage.instance.getSessionKey();
+      final LocalAuthentication auth = LocalAuthentication();
+      if (toplKey != null) {
+        if (kIsWeb) {
+          appState['keychainState']['toplKey'] = toplKey;
+        } else if (await isBiometricsAuthenticationSupported(auth)) {
+          final bool authenticated = await auth.authenticate(
+            localizedReason: 'Login',
+            options: const AuthenticationOptions(
+              stickyAuth: true,
+              biometricOnly: true,
+              sensitiveTransaction: true,
+            ),
+          );
+          if (authenticated) {
+            appState['keychainState']['toplKey'] = toplKey;
+          }
+        }
+      }
+      return AppState.fromMap(appState);
     } catch (e) {
-      return AppState.initial();
+      return initTestStore ? AppState.test() : AppState.initial();
     }
   }
 }

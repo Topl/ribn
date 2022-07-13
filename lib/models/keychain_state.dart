@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:bip_topl/bip_topl.dart' as bip_topl;
 import 'package:brambldart/credentials.dart';
@@ -45,16 +44,9 @@ class KeychainState {
   }
 
   factory KeychainState.test() {
-    final Uint8List toplExtendedPrvKeyUint8List = TestData.toplExtendedPrvKeyUint8List;
     return KeychainState(
       keyStoreJson: TestData.keyStoreJson,
       currentNetworkName: NetworkUtils.valhalla,
-      hdWallet: HdWallet(
-        rootSigningKey: bip_topl.Bip32SigningKey.fromValidBytes(
-          toplExtendedPrvKeyUint8List,
-          depth: Rules.toplKeyDepth,
-        ),
-      ),
       networks: Map.unmodifiable(RibnNetwork.initializeToplNetworks()),
     );
   }
@@ -71,6 +63,14 @@ class KeychainState {
     return KeychainState(
       keyStoreJson: map['keyStoreJson'] as String?,
       currentNetworkName: map['currentNetworkName'] as String,
+      hdWallet: map['toplKey'] != null
+          ? HdWallet(
+              rootSigningKey: bip_topl.Bip32SigningKey.fromValidBytes(
+                bip_topl.Base58Encoder.instance.decode(map['toplKey']),
+                depth: Rules.toplKeyDepth,
+              ),
+            )
+          : null,
       networks: Map<String, RibnNetwork>.unmodifiable(
         (map['networks'] as Map<String, dynamic>).map(
           (key, value) => MapEntry(

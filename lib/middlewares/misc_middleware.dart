@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/actions/misc_actions.dart';
-import 'package:ribn/data/data.dart' as local;
+import 'package:ribn/constants/keys.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:ribn/platform/platform.dart';
 import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/repositories/misc_repository.dart';
 
@@ -20,10 +23,12 @@ void Function(Store<AppState> store, DeleteWalletAction action, NextDispatcher n
       // Check if correct password was entered
       loginRepo.decryptKeyStore(keyStoreJson: store.state.keychainState.keyStoreJson!, password: action.password);
       // Reset and persist app state
-      next(const ResetAppStateAction());
-      next(PersistAppState());
-      // Close the window
-      await Future.delayed(const Duration(seconds: 1), local.closeWindow);
+      await PlatformLocalStorage.instance.saveState(AppState.initial().toJson());
+      if (kIsWeb) {
+        PlatformUtils.instance.closeWindow();
+      } else {
+        await Keys.navigatorKey.currentState!.pushNamedAndRemoveUntil(Routes.welcome, (_) => false);
+      }
     } catch (e) {
       // Complete with false to indicate error, i.e. incorrect password was entered
       action.completer.complete(false);

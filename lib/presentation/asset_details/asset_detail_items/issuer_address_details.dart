@@ -21,11 +21,13 @@ class IssuerAddressDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          children: const [
-            Text(Strings.issuerAddress, style: RibnTextStyles.extH4),
+          // ignore: prefer_const_literals_to_create_immutables
+          children: [
+            const Text(Strings.issuerAddress, style: RibnTextStyles.extH4),
+            // ignore: prefer_const_constructors
             CustomToolTip(
               offsetPositionLeftValue: 100,
-              toolTipChild: Text(
+              toolTipChild: const Text(
                 Strings.issuerAddressInfo,
                 style: RibnTextStyles.toolTipTextStyle,
               ),

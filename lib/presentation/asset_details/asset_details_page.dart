@@ -104,63 +104,70 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
       // Get access to AssetDetails for this asset from the store
       converter: (store) => store.state.userDetailsState.assetDetails[widget.assetCode],
       builder: (context, assetDetails) {
-        return Scaffold(
-          backgroundColor: RibnColors.background,
-          appBar: const RibnAppBar(),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                _buildPageTitle(),
-                const SizedBox(height: 16),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  width: 309,
-                  height: 409,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(4.7)),
-                    color: RibnColors.whiteBackground,
+        return Listener(
+          onPointerDown: (_) {
+            if (mounted) setState(() {});
+          },
+          child: Scaffold(
+            backgroundColor: RibnColors.background,
+            appBar: const RibnAppBar(),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _buildPageTitle(),
+                  const SizedBox(height: 16),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    width: 309,
+                    height: 409,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(4.7)),
+                      color: RibnColors.whiteBackground,
+                    ),
+                    child: Column(
+                      children: [
+                        // asset short name display
+                        AssetCodeShortDetails(
+                          assetShortName: widget.assetShorName,
+                        ),
+                        _buildDivider(),
+                        // asset amount/quantity display
+                        AssetAmountDetails(assetQuantity: widget.assetQuantity),
+                        _buildDivider(),
+                        // asset unit display - can be edited
+                        AssetUnitDetails(
+                          key: assetUnitKey,
+                          currUnit: assetDetails?.unit,
+                          editingSectionOpened: editingAssetUnit,
+                          onEditPressed: () => _onEditPressed(key: assetUnitKey, assetDetails: assetDetails),
+                        ),
+                        _buildDivider(),
+                        // asset long name display - can be edited
+                        AssetLongNameDetails(
+                          key: assetLongNameKey,
+                          currLongName: assetDetails?.longName,
+                          editingSectionOpened: editingAssetLongName,
+                          onEditPressed: () => _onEditPressed(key: assetLongNameKey, assetDetails: assetDetails),
+                        ),
+                        _buildDivider(),
+                        // asset icon display - can be edited
+                        AssetIconDetails(
+                          key: assetIconKey,
+                          currIcon: assetDetails?.icon,
+                          editingSectionOpened: editingAssetIcon,
+                          onEditPressed: () => _onEditPressed(key: assetIconKey, assetDetails: assetDetails),
+                        ),
+                        _buildDivider(),
+                        // asset issuer address display
+                        IssuerAddressDetails(issuerAddress: widget.issuerAddress),
+                        _buildDivider(),
+                        // asset code display
+                        AssetCodeDetails(assetCode: widget.assetCode),
+                      ],
+                    ),
                   ),
-                  child: Column(
-                    children: [
-                      // asset short name display
-                      AssetCodeShortDetails(assetShortName: widget.assetShorName),
-                      _buildDivider(),
-                      // asset amount/quantity display
-                      AssetAmountDetails(assetQuantity: widget.assetQuantity),
-                      _buildDivider(),
-                      // asset unit display - can be edited
-                      AssetUnitDetails(
-                        key: assetUnitKey,
-                        currUnit: assetDetails?.unit,
-                        editingSectionOpened: editingAssetUnit,
-                        onEditPressed: () => _onEditPressed(key: assetUnitKey, assetDetails: assetDetails),
-                      ),
-                      _buildDivider(),
-                      // asset long name display - can be edited
-                      AssetLongNameDetails(
-                        key: assetLongNameKey,
-                        currLongName: assetDetails?.longName,
-                        editingSectionOpened: editingAssetLongName,
-                        onEditPressed: () => _onEditPressed(key: assetLongNameKey, assetDetails: assetDetails),
-                      ),
-                      _buildDivider(),
-                      // asset icon display - can be edited
-                      AssetIconDetails(
-                        key: assetIconKey,
-                        currIcon: assetDetails?.icon,
-                        editingSectionOpened: editingAssetIcon,
-                        onEditPressed: () => _onEditPressed(key: assetIconKey, assetDetails: assetDetails),
-                      ),
-                      _buildDivider(),
-                      // asset issuer address display
-                      IssuerAddressDetails(issuerAddress: widget.issuerAddress),
-                      _buildDivider(),
-                      // asset code display
-                      AssetCodeDetails(assetCode: widget.assetCode),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );

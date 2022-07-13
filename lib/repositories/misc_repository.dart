@@ -1,29 +1,25 @@
-import 'package:ribn/data/data.dart' as local;
 import 'package:ribn/models/internal_message.dart';
+import 'package:ribn/platform/platform.dart';
 
 class MiscRepository {
   const MiscRepository();
   Future<void> persistAppState(String appState) async {
-    await local.persistAppState(appState);
+    await PlatformLocalStorage.instance.saveState(appState);
   }
 
   void sendInternalMessage(InternalMessage msg) async {
-    local.sendPortMessage(msg.toJson());
+    Messenger.instance.sendMsg(msg.toJson());
   }
 
   void downloadAsFile(String fileName, String text) {
-    local.downloadAsFile(fileName, text);
-  }
-
-  void deleteWallet() {
-    local.deleteWallet();
+    PlatformUtils.instance.downloadFile(fileName, text);
   }
 
   Future<bool> isAppOpenedInExtensionView() async {
-    return await local.getCurrentAppView() == 'extension';
+    return await PlatformUtils.instance.getCurrentAppView() == 'extension';
   }
 
   Future<bool> isAppOpenedInDebugView() async {
-    return await local.getCurrentAppView() == 'debug';
+    return await PlatformUtils.instance.getCurrentAppView() == 'debug';
   }
 }

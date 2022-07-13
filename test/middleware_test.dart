@@ -34,6 +34,7 @@ void main() {
   late Store<AppState> testStore;
 
   Future<void> reset() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
     resetMockitoState();
     await Redux.initStore(
       onboardingRepo: onboardingRepo,

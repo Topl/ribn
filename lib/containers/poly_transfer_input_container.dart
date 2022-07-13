@@ -34,6 +34,9 @@ class PolyTransferInputViewModel {
   /// Current network id.
   final RibnNetwork currentNetwork;
 
+  /// Maximum amount available for transfer.
+  final num maxTransferrableAmount;
+
   /// Handler for initiating poly transfer tx.
   final Future<void> Function({
     required String amount,
@@ -47,9 +50,11 @@ class PolyTransferInputViewModel {
     required this.initiateTx,
     required this.networkFee,
     required this.currentNetwork,
+    required this.maxTransferrableAmount,
   });
 
   static PolyTransferInputViewModel fromStore(Store<AppState> store) {
+    final num networkFee = NetworkUtils.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly;
     return PolyTransferInputViewModel(
       initiateTx: ({
         required String amount,
@@ -70,7 +75,8 @@ class PolyTransferInputViewModel {
         await actionCompleter.future.then(onRawTxCreated);
       },
       currentNetwork: store.state.keychainState.currentNetwork,
-      networkFee: NetworkUtils.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
+      networkFee: networkFee,
+      maxTransferrableAmount: store.state.keychainState.currentNetwork.getPolysInWallet() - networkFee,
     );
   }
 

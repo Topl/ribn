@@ -40,6 +40,7 @@ class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicP
     controller.addListener(() {
       setState(() {
         seedPhrase = controller.text;
+        invalidSeedPhraseEntered = false;
       });
     });
     super.initState();
@@ -79,6 +80,15 @@ class _LoginRestoreWithMnemonicPageState extends State<LoginRestoreWithMnemonicP
               hintText: Strings.hintSeedPhrase,
               height: 57,
               hasError: invalidSeedPhraseEntered,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 3),
+              child: invalidSeedPhraseEntered
+                  ? const Text(
+                      Strings.invalidSeedPhrase,
+                      style: TextStyle(color: Colors.red),
+                    )
+                  : const SizedBox(),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 15.0),

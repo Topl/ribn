@@ -12,10 +12,11 @@ class IssuerAddressField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomInputField(
+    // ignore: prefer_const_constructors
+    return CustomInputField(
       informationText: Strings.issuerAddressInfo,
       itemLabel: Strings.issuerAddress,
-      item: AddressDisplayContainer(
+      item: const AddressDisplayContainer(
         text: Strings.yourIssuerAddress,
         icon: RibnAssets.issuerFingerprint,
       ),
