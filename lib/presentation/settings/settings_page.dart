@@ -5,7 +5,6 @@ import 'package:ribn/presentation/settings/sections/delete_wallet_section.dart';
 import 'package:ribn/presentation/settings/sections/export_topl_main_key_section.dart';
 import 'package:ribn/presentation/settings/sections/links_section.dart';
 import 'package:ribn/presentation/settings/sections/ribn_version_section.dart';
-import 'package:ribn/widgets/ribn_app_bar_wapper.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 
@@ -17,11 +16,13 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SettingsContainer(
       builder: (BuildContext context, SettingsViewModel vm) => Scaffold(
-        appBar: const RibnAppBarWrapper(),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const CustomPageTitle(title: Strings.settings),
+              const CustomPageTitle(
+                title: Strings.settings,
+                hideBackArrow: true,
+              ),
               _buildSettingsListItems(vm, context),
             ],
           ),

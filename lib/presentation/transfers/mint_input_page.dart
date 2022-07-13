@@ -6,6 +6,7 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/mint_input_container.dart';
 import 'package:ribn/models/asset_details.dart';
+import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/issuer_address_field.dart';
 import 'package:ribn/utils.dart';
@@ -22,19 +23,11 @@ import 'package:ribn_toolkit/widgets/molecules/asset_short_name_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/loading_spinner.dart';
 import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/sliding_segment_control.dart';
 
 /// The mint input page that allows the initiation of an mint asset transaction.
 class MintInputPage extends StatefulWidget {
-  /// Indicates whether minting a new asset or reminting existing asset
-  final bool mintingNewAsset;
-
-  /// Indicates whether minting to user's own wallet or to another wallet
-  final bool mintingToMyWallet;
-  const MintInputPage({
-    Key? key,
-    required this.mintingNewAsset,
-    required this.mintingToMyWallet,
-  }) : super(key: key);
+  const MintInputPage({Key? key}) : super(key: key);
 
   @override
   _MintInputPageState createState() => _MintInputPageState();
@@ -62,6 +55,12 @@ class _MintInputPageState extends State<MintInputPage> {
 
   /// True if currently loading raw tx creation.
   bool _loadingRawTx = false;
+
+  /// Indicates whether minting a new asset or reminting existing asset
+  bool mintingNewAsset = true;
+
+  /// The current active tab index for SlidingSegmentControl
+  int currentTabIndex = 0;
 
   final GlobalKey _formKey = GlobalKey<FormState>();
 
@@ -103,6 +102,7 @@ class _MintInputPageState extends State<MintInputPage> {
           if (mounted) setState(() {});
         },
         child: Scaffold(
+          extendBody: true,
           backgroundColor: RibnColors.background,
           body: Stack(
             children: [
@@ -110,8 +110,44 @@ class _MintInputPageState extends State<MintInputPage> {
                 child: Column(
                   children: [
                     /// Builds the title of the page.
-                    CustomPageTitle(title: widget.mintingNewAsset ? Strings.mint : Strings.remint),
-                    const SizedBox(height: 30),
+                    const CustomPageTitle(
+                      title: Strings.mint,
+                      hideBackArrow: true,
+                    ),
+                    const SizedBox(height: 40),
+                    SizedBox(
+                      width: 310,
+                      child: SlidingSegmentControl(
+                        currentTabIndex: currentTabIndex,
+                        updateTabIndex: (i) => {
+                          setState(() {
+                            currentTabIndex = i as int;
+                          })
+                        },
+                        tabItems: <int, Widget>{
+                          0: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              Strings.mintAsset,
+                              style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                            ),
+                          ),
+                          1: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              Strings.mintExistingAsset,
+                              style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                            ),
+                          ),
+                        },
+                        redirectOnClick: () => {
+                          setState(() {
+                            mintingNewAsset = !mintingNewAsset;
+                          })
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 40),
                     SizedBox(
                       width: 310,
                       child: Form(
@@ -133,7 +169,7 @@ class _MintInputPageState extends State<MintInputPage> {
                             AssetAmountField(
                               selectedUnit: _selectedUnit,
                               controller: _amountController,
-                              allowEditingUnit: widget.mintingNewAsset,
+                              allowEditingUnit: mintingNewAsset,
                               onUnitSelected: (String unit) {
                                 setState(() {
                                   _selectedUnit = unit;
@@ -149,21 +185,17 @@ class _MintInputPageState extends State<MintInputPage> {
                             RecipientField(
                               controller: _recipientController,
                               validRecipientAddress: _validRecipientAddress,
-                              mintingToMyWallet: widget.mintingToMyWallet,
-                              // validate the address entered on change
                               onChanged: (text) => validateRecipientAddress(
                                 networkName: vm.currentNetwork.networkName,
                                 address: _recipientController.text,
                                 handleResult: (bool result) {
                                   setState(() {
-                                    if (_validRecipientAddress.isNotEmpty) {
-                                      _recipientController.text = _validRecipientAddress;
-                                      _recipientController
-                                        ..text =
-                                            _recipientController.text.substring(0, _recipientController.text.length)
-                                        ..selection = TextSelection.collapsed(offset: _recipientController.text.length);
+                                    if (result) {
+                                      _validRecipientAddress = _recipientController.text;
+                                      _recipientController.text = '';
+                                    } else {
+                                      _validRecipientAddress = '';
                                     }
-                                    _validRecipientAddress = '';
                                   });
                                 },
                               ),
@@ -179,7 +211,7 @@ class _MintInputPageState extends State<MintInputPage> {
                                   _validRecipientAddress = '';
                                 });
                               },
-                              icon: SvgPicture.asset(RibnAssets.recipientFingerprint),
+                              icon: SvgPicture.asset(RibnAssets.myFingerprint),
                               alternativeDisplayChild: const AddressDisplayContainer(
                                 text: Strings.yourRibnWalletAddress,
                                 icon: RibnAssets.myFingerprint,
@@ -195,9 +227,6 @@ class _MintInputPageState extends State<MintInputPage> {
                                 width: 18,
                               ),
                             ),
-                            // fee info for the tx
-                            FeeInfo(fee: vm.networkFee),
-                            _buildReviewButton(vm),
                           ],
                         ),
                       ),
@@ -207,6 +236,16 @@ class _MintInputPageState extends State<MintInputPage> {
               ),
               _loadingRawTx ? const LoadingSpinner() : const SizedBox(),
             ],
+          ),
+          bottomNavigationBar: BottomReviewAction(
+            children: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // fee info for the tx
+                FeeInfo(fee: vm.networkFee),
+                _buildReviewButton(vm),
+              ],
+            ),
           ),
         ),
       ),
@@ -220,7 +259,7 @@ class _MintInputPageState extends State<MintInputPage> {
   ///
   /// The [AssetLongNameField] also allows selecting an icon for the new asset to be minted.
   Widget _buildAssetField(MintInputViewmodel vm) {
-    return widget.mintingNewAsset
+    return mintingNewAsset
         ? AssetLongNameField(
             controller: _assetLongNameController,
             selectedIcon: _selectedIcon,
@@ -279,9 +318,9 @@ class _MintInputPageState extends State<MintInputPage> {
   Widget _buildReviewButton(MintInputViewmodel vm) {
     final bool enteredValidInputs = _amountController.text.isNotEmpty &&
         _assetShortNameController.text.isNotEmpty &&
-        (widget.mintingToMyWallet || _validRecipientAddress.isNotEmpty);
+        _validRecipientAddress.isNotEmpty;
     // Update assetDetails if minting a new asset
-    final AssetDetails? assetDetails = widget.mintingNewAsset
+    final AssetDetails? assetDetails = mintingNewAsset
         ? AssetDetails(
             icon: _selectedIcon,
             longName: _assetLongNameController.text,
@@ -291,9 +330,10 @@ class _MintInputPageState extends State<MintInputPage> {
     return Padding(
       padding: const EdgeInsets.only(top: 20.0, bottom: 10),
       child: LargeButton(
+        buttonWidth: double.infinity,
         buttonChild: Text(
           Strings.review,
-          style: RibnToolkitTextStyles.btnMedium.copyWith(
+          style: RibnToolkitTextStyles.btnLarge.copyWith(
             color: Colors.white,
           ),
         ),
@@ -307,8 +347,7 @@ class _MintInputPageState extends State<MintInputPage> {
                   amount: _amountController.text,
                   recipient: _validRecipientAddress,
                   note: _noteController.text,
-                  mintingToMyWallet: widget.mintingToMyWallet,
-                  mintingNewAsset: widget.mintingNewAsset,
+                  mintingNewAsset: mintingNewAsset,
                   assetDetails: assetDetails,
                   onRawTxCreated: (bool success) async {
                     _loadingRawTx = false;
@@ -321,6 +360,7 @@ class _MintInputPageState extends State<MintInputPage> {
                 );
               }
             : () {},
+        disabled: !enteredValidInputs,
       ),
     );
   }

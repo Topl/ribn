@@ -47,8 +47,8 @@ class WalletBalanceViewModel {
   /// Locally stored custom asset details.
   final Map<String, AssetDetails> assetDetails;
 
-  /// Callback to initiate send asset flow, i.e. navigate to [Routes.assetTransferInput].
-  final Function(AssetAmount) navigateToSendAsset;
+  /// Callback to initiate send assets flow, i.e. navigate to [Routes.assetsTransferInput].
+  final Function() navigateToSendAssets;
 
   /// Callback to initiate send polys flow, i.e. navigate to [Routes.polyTransferInput].
   final Function() navigateToSendPolys;
@@ -65,7 +65,7 @@ class WalletBalanceViewModel {
   WalletBalanceViewModel({
     required this.polyBalance,
     required this.assets,
-    required this.navigateToSendAsset,
+    required this.navigateToSendAssets,
     required this.navigateToSendPolys,
     required this.viewAssetDetails,
     required this.assetDetails,
@@ -77,9 +77,7 @@ class WalletBalanceViewModel {
       polyBalance: store.state.keychainState.currentNetwork.getPolysInWallet(),
       assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
       assetDetails: store.state.userDetailsState.assetDetails,
-      navigateToSendAsset: (AssetAmount asset) => store.dispatch(
-        NavigateToRoute(Routes.assetTransferInput, arguments: asset),
-      ),
+      navigateToSendAssets: () => store.dispatch(NavigateToRoute(Routes.assetsTransferInput)),
       navigateToSendPolys: () => store.dispatch(NavigateToRoute(Routes.polyTransferInput)),
       viewAssetDetails: (AssetAmount assetAmount) => store.dispatch(
         NavigateToRoute(
@@ -106,7 +104,7 @@ class WalletBalanceViewModel {
         other.polyBalance == polyBalance &&
         listEquals(other.assets, assets) &&
         mapEquals(other.assetDetails, assetDetails) &&
-        other.navigateToSendAsset == navigateToSendAsset &&
+        other.navigateToSendAssets == navigateToSendAssets &&
         other.navigateToSendPolys == navigateToSendPolys &&
         other.viewAssetDetails == viewAssetDetails &&
         other.currentNetwork == currentNetwork;
@@ -117,7 +115,6 @@ class WalletBalanceViewModel {
     return polyBalance.hashCode ^
         assets.hashCode ^
         assetDetails.hashCode ^
-        navigateToSendAsset.hashCode ^
         navigateToSendPolys.hashCode ^
         viewAssetDetails.hashCode ^
         currentNetwork.hashCode;

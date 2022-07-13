@@ -5,9 +5,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+import 'package:ribn/actions/misc_actions.dart';
 
 import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/constants/network_utils.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
@@ -46,7 +48,10 @@ class AssetTransferInputViewModel {
   final RibnNetwork currentNetwork;
 
   /// Gets total balance in wallet for a particular asset.
-  final num Function(String) getAssetBalance;
+  final num Function(String?) getAssetBalance;
+
+  /// Allows redirect to poly transfer input through redux action
+  final Function routeToSendPolys;
 
   /// Handler for initiating tx.
   final Future<void> Function({
@@ -65,6 +70,7 @@ class AssetTransferInputViewModel {
     required this.assetDetails,
     required this.currentNetwork,
     required this.getAssetBalance,
+    required this.routeToSendPolys,
   });
 
   static AssetTransferInputViewModel fromStore(Store<AppState> store) {
@@ -93,12 +99,13 @@ class AssetTransferInputViewModel {
       currentNetwork: store.state.keychainState.currentNetwork,
       networkFee: NetworkUtils.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
       assetDetails: store.state.userDetailsState.assetDetails,
-      getAssetBalance: (String assetCode) {
+      getAssetBalance: (String? assetCode) {
         final List<AssetAmount> myAssets = store.state.keychainState.currentNetwork.getAllAssetsInWallet();
         return myAssets
             .where((element) => element.assetCode.toString() == assetCode)
             .fold(0, (prev, value) => prev + value.quantity);
       },
+      routeToSendPolys: () => store.dispatch(NavigateToRoute(Routes.polyTransferInput)),
     );
   }
 

@@ -1,10 +1,8 @@
 import 'package:bip_topl/bip_topl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
-import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
@@ -208,10 +206,6 @@ class _OnboardingRestoreWithMnemonicPageState extends State<OnboardingRestoreWit
             controller: controller,
             hintText: hintText,
             hasError: hasErrors[controller] ?? false,
-            icon: SvgPicture.asset(
-              _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
-              width: 12,
-            ),
             obscurePassword: _obscurePassword,
           ),
           hasErrors[controller] ?? false

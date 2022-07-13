@@ -129,10 +129,6 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
             hintText: Strings.newWalletPasswordHint,
             width: UIConstants.loginTextFieldWidth,
             height: UIConstants.loginTextFieldHeight,
-            icon: SvgPicture.asset(
-              _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
-              width: 12,
-            ),
             obscurePassword: _obscurePassword,
           ),
         ],

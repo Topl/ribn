@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/login_container.dart';
@@ -102,10 +101,6 @@ class _LoginPageState extends State<LoginPage> {
                         onSubmitted: attemptLogin,
                         hintText: Strings.typeSomething,
                         controller: _textEditingController,
-                        icon: SvgPicture.asset(
-                          _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
-                          width: 12,
-                        ),
                         obscurePassword: _obscurePassword,
                       ),
                       const SizedBox(height: 25),
@@ -172,6 +167,7 @@ class _LoginPageState extends State<LoginPage> {
               toolTipIcon: Image.asset(
                 RibnAssets.greyHelpBubble,
                 width: 18,
+                color: Colors.white,
               ),
               toolTipChild: const Text(
                 Strings.loginPasswordInfo,

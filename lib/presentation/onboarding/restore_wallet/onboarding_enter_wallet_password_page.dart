@@ -113,10 +113,6 @@ class _OnboardingEnterWalletPasswordPageState extends State<OnboardingEnterWalle
             controller: _passwordController,
             hintText: Strings.newWalletPasswordHint,
             width: 352,
-            icon: SvgPicture.asset(
-              _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
-              width: 12,
-            ),
             obscurePassword: _obscurePassword,
           ),
         ],

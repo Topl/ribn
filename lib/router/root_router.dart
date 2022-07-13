@@ -1,4 +1,3 @@
-import 'package:brambldart/model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ribn/constants/routes.dart';
@@ -29,9 +28,8 @@ import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_enter_wal
 import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_restore_with_mnemonic_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_restore_with_topl_key_page.dart';
 import 'package:ribn/presentation/settings/settings_page.dart';
-import 'package:ribn/presentation/transfers/asset_transfer_input_page.dart';
+import 'package:ribn/presentation/transfers/asset_transfer_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
-import 'package:ribn/presentation/transfers/poly_transfer_input_page.dart';
 import 'package:ribn/presentation/transfers/tx_confirmation_page.dart';
 import 'package:ribn/presentation/transfers/tx_review_page.dart';
 
@@ -93,10 +91,9 @@ class RootRouter {
         {
           return pageRoute(const HomePage(), settings);
         }
-      case Routes.assetTransferInput:
+      case Routes.assetsTransferInput:
         {
-          final AssetAmount asset = settings.arguments as AssetAmount;
-          return pageRoute(AssetTransferInputPage(asset: asset), settings);
+          return pageRouteNotAnimated(const AssetTransferPage(), settings);
         }
       case Routes.loginRestoreWalletWithMnemonic:
         {
@@ -140,11 +137,6 @@ class RootRouter {
         {
           return pageRoute(const LoginRestoreWithToplKeyPage(), settings);
         }
-
-      case Routes.polyTransferInput:
-        {
-          return pageRoute(const PolyTransferInputPage(), settings);
-        }
       case Routes.txReview:
         {
           final TransferDetails transferDetails = settings.arguments as TransferDetails;
@@ -157,12 +149,8 @@ class RootRouter {
         }
       case Routes.mintInput:
         {
-          final Map<String, dynamic> mintInputPageArgs = settings.arguments as Map<String, dynamic>;
           return pageRoute(
-            MintInputPage(
-              mintingNewAsset: mintInputPageArgs['mintingNewAsset'] as bool,
-              mintingToMyWallet: mintInputPageArgs['mintingToMyWallet'] as bool,
-            ),
+            const MintInputPage(),
             settings,
           );
         }
@@ -214,24 +202,28 @@ class RootRouter {
     );
   }
 
-  /// Builds a page route without any animation.
+  /// Builds a page route with an animation.
   Route<MaterialPageRoute> pageRoute(Widget page, RouteSettings settings) {
     return MaterialPageRoute(builder: (context) => page, settings: settings);
-    //  PageRouteBuilder(
-    //   settings: settings,
-    //   pageBuilder: (context, animation, secondaryAnimation) => page,
-    //   transitionsBuilder: (context, animation, secondaryAnimation, child) {
-    //     const begin = Offset(1.0, 0.0);
-    //     const end = Offset.zero;
-    //     final tween = Tween(begin: begin, end: end);
-    //     final offsetAnimation = animation.drive(tween);
-    //     return SlideTransition(
-    //       position: offsetAnimation,
-    //       child: child,
-    //     );
-    //   },
-    //   transitionDuration: kIsWeb ? Duration.zero : const Duration(milliseconds: 100),
-    //   reverseTransitionDuration: kIsWeb ? Duration.zero : const Duration(milliseconds: 100),
-    // );
+  }
+
+  /// Builds a page route without an animation.
+  Route<MaterialPageRoute> pageRouteNotAnimated(Widget page, RouteSettings settings) {
+    return PageRouteBuilder(
+      settings: settings,
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        final tween = Tween(begin: begin, end: end);
+        final offsetAnimation = animation.drive(tween);
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+      transitionDuration: Duration.zero,
+      reverseTransitionDuration: Duration.zero,
+    );
   }
 }

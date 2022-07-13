@@ -42,10 +42,12 @@ class IssuerAddressDetails extends StatelessWidget {
         Row(
           children: [
             SvgPicture.asset(RibnAssets.issuerFingerprint),
+            const SizedBox(width: 8),
             Text(
               formatAddrString(issuerAddress),
               style: RibnToolkitTextStyles.smallBody,
             ),
+            const SizedBox(width: 8),
             CustomCopyButton(
               textToBeCopied: issuerAddress,
               icon: Image.asset(
