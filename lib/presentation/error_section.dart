@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ribn_toolkit/constants/assets.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 /// A generic error section that is displayed in case of unexpected errors.
 class ErrorSection extends StatelessWidget {
@@ -19,49 +19,49 @@ class ErrorSection extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(RibnAssets.errorFace),
-        SizedBox(
+        Image.asset(RibnAssets.sadFace, width: 70),
+        const SizedBox(
           width: 275,
           height: 64,
           child: Text(
             Strings.errorTitle,
-            style: RibnToolkitTextStyles.extH2.copyWith(
-              height: 1.1,
+            style: TextStyle(
+              fontFamily: 'DM Sans',
+              color: Colors.black,
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
         const SizedBox(height: 14),
-        SizedBox(
-          width: 262,
+        const SizedBox(
+          width: 275,
           height: 133,
           child: Text(
             Strings.errorDescription,
-            style: RibnToolkitTextStyles.smallBody.copyWith(
-              fontSize: 15,
-              height: 1,
-            ),
+            style: RibnToolkitTextStyles.h4,
           ),
         ),
         LargeButton(
-          backgroundColor: RibnColors.primary.withOpacity(0.19),
-          onPressed: () async {
-            await launch(Strings.supportEmailLink);
-          },
+          backgroundColor: RibnColors.primary,
+          onPressed: onTryAgain,
           buttonChild: Text(
-            Strings.contactSupport,
+            Strings.refreshPage,
             style: RibnToolkitTextStyles.btnMedium.copyWith(
-              color: RibnColors.primary,
+              color: Colors.white,
             ),
           ),
         ),
         const SizedBox(height: 10),
         LargeButton(
-          backgroundColor: RibnColors.primary,
-          onPressed: onTryAgain,
+          backgroundColor: RibnColors.primary.withOpacity(0.19),
+          onPressed: () async {
+            await launchUrlString(Strings.supportEmailLink);
+          },
           buttonChild: Text(
-            Strings.tryAgain,
+            Strings.contactSupport,
             style: RibnToolkitTextStyles.btnMedium.copyWith(
-              color: Colors.white,
+              color: RibnColors.primary,
             ),
           ),
         ),
