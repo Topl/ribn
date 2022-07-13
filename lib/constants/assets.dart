@@ -97,4 +97,5 @@ class RibnAssets {
   static const copyIconAlternate = 'assets/icons/copy_icon_alternate.png';
   static const fingerPrintAssets = 'assets/icons/finger_print_assets.png';
   static const redDangerTriangle = 'assets/icons/red_danger_triangle.png';
+  static const sadFace = 'assets/icons/sad_face.png';
 }
