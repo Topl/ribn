@@ -64,6 +64,7 @@ dependencies:
   flutter_secure_storage: ^5.0.2
   local_auth: ^2.0.0
   url_strategy: ^0.2.0
+  flutter_native_splash: #^2.2.3+1
 
 dev_dependencies:
   flutter_test:
@@ -103,3 +104,17 @@ flutter:
       fonts:
         - asset: packages/ribn_toolkit/fonts/DMSans-Medium.ttf
         - asset: packages/ribn_toolkit/fonts/DMSans-Regular.ttf
+
+flutter_native_splash:
+  image: assets/launch/ribn_logo_2.png
+  color: "#185E6B"
+  android_12:
+    color: "#185E6B"
+    image: assets/launch/android12.png
+    icon_background_color: "#185E6B"
+  web: false
+  android: true
+  android12: true
+  ios: true
+  ios_content_mode: center
+  android_gravity: center
