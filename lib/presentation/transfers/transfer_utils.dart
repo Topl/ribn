@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/presentation/error_section.dart';
 
 class TransferUtils {
@@ -10,8 +9,9 @@ class TransferUtils {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 48),
-        backgroundColor: RibnColors.accent,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+        backgroundColor: const Color(0xffD0DFE1),
         title: ErrorSection(onTryAgain: () => Navigator.of(context).pop()),
       ),
     );
