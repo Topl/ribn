@@ -19,7 +19,7 @@ class ExtensionInfoPage extends StatelessWidget {
             color: RibnColors.lightGreyTitle,
           ),
           child: Image.asset(
-            RibnAssets.ribnLogoPng,
+            RibnAssets.newRibnLogo,
             width: width,
           ),
         );

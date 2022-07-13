@@ -28,7 +28,9 @@ class Routes {
   static const loginRestoreWalletWithToplKey = '/login/restore-wallet/topl-key';
   static const loginRestoreWalletEnterPassword = '/login/restore-wallet/enter-password';
   static const onboardingRestoreWalletWithMnemonic = '/onboarding/restore-wallet/mnemonic';
-  static const assetsTransferInput = '/asset-transfer-input';
+  static const onboardingRestoreWalletWithToplKey = '/onboarding/restore-wallet/topl-key';
+  static const onboardingRestoreWalletEnterPassword = '/onboarding/restore-wallet/enter-password';
+  static const assetsTransferInput = '/asset-transfer';
   static const polyTransferInput = '/poly-transfer-input';
   static const txReview = '/tx-review';
   static const txConfirmation = '/tx-confirmation';

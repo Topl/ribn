@@ -23,9 +23,8 @@ import 'package:ribn/presentation/onboarding/restore_wallet/enter_wallet_passwor
 import 'package:ribn/presentation/onboarding/restore_wallet/restore_wallet_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/restore_with_topl_key_page.dart';
 import 'package:ribn/presentation/settings/settings_page.dart';
-import 'package:ribn/presentation/transfers/asset_transfer_input_page.dart';
+import 'package:ribn/presentation/transfers/asset_transfer_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
-import 'package:ribn/presentation/transfers/poly_transfer_input_page.dart';
 import 'package:ribn/presentation/transfers/tx_confirmation_page.dart';
 import 'package:ribn/presentation/transfers/tx_review_page.dart';
 
@@ -89,7 +88,7 @@ class RootRouter {
         }
       case Routes.assetsTransferInput:
         {
-          return pageRoute(const AssetTransferInputPage(), settings);
+          return pageRouteNotAnimated(const AssetTransferPage(), settings);
         }
       case Routes.restoreWallet:
         {
@@ -116,11 +115,6 @@ class RootRouter {
             EnterWalletPasswordPage(toplKeyStoreJson: keyStoreJson),
             settings,
           );
-        }
-
-      case Routes.polyTransferInput:
-        {
-          return pageRoute(const PolyTransferInputPage(), settings);
         }
       case Routes.txReview:
         {
@@ -187,24 +181,28 @@ class RootRouter {
     );
   }
 
-  /// Builds a page route without any animation.
+  /// Builds a page route with an animation.
   Route<MaterialPageRoute> pageRoute(Widget page, RouteSettings settings) {
     return MaterialPageRoute(builder: (context) => page, settings: settings);
-    //  PageRouteBuilder(
-    //   settings: settings,
-    //   pageBuilder: (context, animation, secondaryAnimation) => page,
-    //   transitionsBuilder: (context, animation, secondaryAnimation, child) {
-    //     const begin = Offset(1.0, 0.0);
-    //     const end = Offset.zero;
-    //     final tween = Tween(begin: begin, end: end);
-    //     final offsetAnimation = animation.drive(tween);
-    //     return SlideTransition(
-    //       position: offsetAnimation,
-    //       child: child,
-    //     );
-    //   },
-    //   transitionDuration: kIsWeb ? Duration.zero : const Duration(milliseconds: 100),
-    //   reverseTransitionDuration: kIsWeb ? Duration.zero : const Duration(milliseconds: 100),
-    // );
+  }
+
+  /// Builds a page route without an animation.
+  Route<MaterialPageRoute> pageRouteNotAnimated(Widget page, RouteSettings settings) {
+    return PageRouteBuilder(
+      settings: settings,
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        final tween = Tween(begin: begin, end: end);
+        final offsetAnimation = animation.drive(tween);
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+      transitionDuration: Duration.zero,
+      reverseTransitionDuration: Duration.zero,
+    );
   }
 }

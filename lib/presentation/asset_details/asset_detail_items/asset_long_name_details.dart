@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn/models/app_state.dart';
+import 'package:ribn/models/asset_details.dart';
 import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn/models/app_state.dart';
-import 'package:ribn/models/asset_details.dart';
 import 'package:ribn_toolkit/widgets/atoms/hover_icon_button.dart';
 
 /// One of the asset details displayed on [AssetDetailsPage].
