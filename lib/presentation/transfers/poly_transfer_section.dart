@@ -14,7 +14,6 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-// import 'package:ribn_toolkit/widgets/molecules/loading_spinner.dart';
 import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 
@@ -24,10 +23,14 @@ import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 class PolyTransferSection extends StatefulWidget {
   PolyTransferInputViewModel vm;
   final Function updateButton;
+  late final bool loadingRawTx;
+  final Function setLoadingRawTx;
 
   PolyTransferSection({
     required this.vm,
     required this.updateButton,
+    required this.loadingRawTx,
+    required this.setLoadingRawTx,
     Key? key,
   }) : super(key: key);
 
@@ -44,9 +47,6 @@ class _PolyTransferSectionState extends State<PolyTransferSection> {
 
   /// Assigned the valid recipient address
   String _validRecipientAddress = '';
-
-  /// True if currently loading raw tx creation.
-  bool _loadingRawTx = false;
 
   /// True if amount is valid.
   // ignore: prefer_final_fields
@@ -239,15 +239,13 @@ class _PolyTransferSectionState extends State<PolyTransferSection> {
           ),
           onPressed: enteredValidInputs
               ? () {
-                  setState(() {
-                    _loadingRawTx = true;
-                  });
+                  widget.setLoadingRawTx(true);
                   vm.initiateTx(
                     amount: _amountController.text,
                     recipient: _validRecipientAddress,
                     note: _noteController.text,
                     onRawTxCreated: (bool success) async {
-                      _loadingRawTx = false;
+                      widget.setLoadingRawTx(false);
                       setState(() {});
                       // Display error dialog if failed to create raw tx
                       if (!success) {

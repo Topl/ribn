@@ -16,7 +16,6 @@ import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_selection_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
-// import 'package:ribn_toolkit/widgets/molecules/loading_spinner.dart';
 
 /// The asset transfer input page that allows the initiation of an asset transfer.
 ///
@@ -24,10 +23,14 @@ import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 class AssetTransferSection extends StatefulWidget {
   AssetTransferInputViewModel vm;
   final Function updateButton;
+  late bool loadingRawTx;
+  final Function setLoadingRawTx;
 
   AssetTransferSection({
     required this.vm,
     required this.updateButton,
+    required this.loadingRawTx,
+    required this.setLoadingRawTx,
     Key? key,
   }) : super(key: key);
 
@@ -47,9 +50,6 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
 
   /// Assigned the valid recipient address.
   String _validRecipientAddress = '';
-
-  /// True if currently loading raw tx creation.
-  bool _loadingRawTx = false;
 
   bool _validAmount = false;
 
@@ -102,119 +102,123 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+    return Stack(
       children: [
-        SizedBox(
-          width: 310,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AssetSelectionField(
-                formattedSelectedAsset: {
-                  'assetCode': _selectedAsset?.assetCode.toString(),
-                  'longName': widget.vm.assetDetails[_selectedAsset?.assetCode.toString()]?.longName,
-                  'shortName': _selectedAsset?.assetCode.shortName.show,
-                  'assetIcon': widget.vm.assetDetails[_selectedAsset?.assetCode.toString()]?.icon,
-                },
-                formattedAsset: (asset) {
-                  return {
-                    'longName': widget.vm.assetDetails[asset!.assetCode.toString()]?.longName,
-                    'shortName': asset.assetCode.shortName.show,
-                    'assetIcon': widget.vm.assetDetails[asset!.assetCode.toString()]?.icon,
-                  };
-                },
-                assets: widget.vm.assets,
-                label: Strings.youSend,
-                onSelected: (AssetAmount? asset) {
-                  setState(() {
-                    _selectedAsset = asset!;
-                    _validAmount = TransferUtils.validateAmount(
-                      _amountController.text,
-                      widget.vm.getAssetBalance(asset.assetCode.toString()),
-                    );
-                  });
-                },
-                tooltipIcon: Image.asset(
-                  RibnAssets.greyHelpBubble,
-                  width: 18,
-                ),
-                chevronIcon: Image.asset(
-                  RibnAssets.chevronDownDark,
-                  width: 24,
-                ),
-              ),
-              AssetAmountField(
-                selectedUnit: widget.vm.assetDetails[_selectedAsset?.assetCode.toString()]?.unit,
-                controller: _amountController,
-                allowEditingUnit: false,
-                onUnitSelected: (String amount) {
-                  setState(() {
-                    _validAmount = TransferUtils.validateAmount(
-                      amount,
-                      widget.vm.getAssetBalance(_selectedAsset?.assetCode.toString()),
-                    );
-                  });
-                },
-                chevronIcon: Image.asset(
-                  RibnAssets.chevronDownDark,
-                  width: 24,
-                ),
-                maxTransferrableAmount: widget.vm.getAssetBalance(_selectedAsset?.assetCode.toString()),
-              ),
-              // Displays the sender address.
-              const FromAddressField(),
-              // Field for entering the recipient address.
-              RecipientField(
-                controller: _recipientController,
-                validRecipientAddress: _validRecipientAddress,
-                // validate the address on change
-                onChanged: (text) => validateRecipientAddress(
-                  networkName: widget.vm.currentNetwork.networkName,
-                  address: _recipientController.text,
-                  handleResult: (bool result) {
-                    if (mounted) {
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 310,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AssetSelectionField(
+                    formattedSelectedAsset: {
+                      'assetCode': _selectedAsset?.assetCode.toString(),
+                      'longName': widget.vm.assetDetails[_selectedAsset?.assetCode.toString()]?.longName,
+                      'shortName': _selectedAsset?.assetCode.shortName.show,
+                      'assetIcon': widget.vm.assetDetails[_selectedAsset?.assetCode.toString()]?.icon,
+                    },
+                    formattedAsset: (asset) {
+                      return {
+                        'longName': widget.vm.assetDetails[asset!.assetCode.toString()]?.longName,
+                        'shortName': asset.assetCode.shortName.show,
+                        'assetIcon': widget.vm.assetDetails[asset!.assetCode.toString()]?.icon,
+                      };
+                    },
+                    assets: widget.vm.assets,
+                    label: Strings.youSend,
+                    onSelected: (AssetAmount? asset) {
                       setState(() {
-                        if (result) {
-                          _validRecipientAddress = _recipientController.text;
-                          _recipientController.text = '';
-                        } else {
-                          _validRecipientAddress = '';
-                        }
+                        _selectedAsset = asset!;
+                        _validAmount = TransferUtils.validateAmount(
+                          _amountController.text,
+                          widget.vm.getAssetBalance(asset.assetCode.toString()),
+                        );
                       });
-                    }
-                  },
-                ),
-                icon: SvgPicture.asset(RibnAssets.recipientFingerprint),
-                alternativeDisplayChild: const AddressDisplayContainer(
-                  text: Strings.yourRibnWalletAddress,
-                  icon: RibnAssets.myFingerprint,
-                  width: 240,
-                ),
-                // clear the textfield on backspace
-                onBackspacePressed: () {
-                  setState(() {
-                    if (_validRecipientAddress.isNotEmpty) {
-                      _recipientController.text = _validRecipientAddress;
-                      _recipientController
-                        ..text = _recipientController.text.substring(0, _recipientController.text.length)
-                        ..selection = TextSelection.collapsed(offset: _recipientController.text.length);
-                    }
-                    _validRecipientAddress = '';
-                  });
-                },
+                    },
+                    tooltipIcon: Image.asset(
+                      RibnAssets.greyHelpBubble,
+                      width: 18,
+                    ),
+                    chevronIcon: Image.asset(
+                      RibnAssets.chevronDownDark,
+                      width: 24,
+                    ),
+                  ),
+                  AssetAmountField(
+                    selectedUnit: widget.vm.assetDetails[_selectedAsset?.assetCode.toString()]?.unit,
+                    controller: _amountController,
+                    allowEditingUnit: false,
+                    onUnitSelected: (String amount) {
+                      setState(() {
+                        _validAmount = TransferUtils.validateAmount(
+                          amount,
+                          widget.vm.getAssetBalance(_selectedAsset?.assetCode.toString()),
+                        );
+                      });
+                    },
+                    chevronIcon: Image.asset(
+                      RibnAssets.chevronDownDark,
+                      width: 24,
+                    ),
+                    maxTransferrableAmount: widget.vm.getAssetBalance(_selectedAsset?.assetCode.toString()),
+                  ),
+                  // Displays the sender address.
+                  const FromAddressField(),
+                  // Field for entering the recipient address.
+                  RecipientField(
+                    controller: _recipientController,
+                    validRecipientAddress: _validRecipientAddress,
+                    // validate the address on change
+                    onChanged: (text) => validateRecipientAddress(
+                      networkName: widget.vm.currentNetwork.networkName,
+                      address: _recipientController.text,
+                      handleResult: (bool result) {
+                        if (mounted) {
+                          setState(() {
+                            if (result) {
+                              _validRecipientAddress = _recipientController.text;
+                              _recipientController.text = '';
+                            } else {
+                              _validRecipientAddress = '';
+                            }
+                          });
+                        }
+                      },
+                    ),
+                    icon: SvgPicture.asset(RibnAssets.recipientFingerprint),
+                    alternativeDisplayChild: const AddressDisplayContainer(
+                      text: Strings.yourRibnWalletAddress,
+                      icon: RibnAssets.myFingerprint,
+                      width: 240,
+                    ),
+                    // clear the textfield on backspace
+                    onBackspacePressed: () {
+                      setState(() {
+                        if (_validRecipientAddress.isNotEmpty) {
+                          _recipientController.text = _validRecipientAddress;
+                          _recipientController
+                            ..text = _recipientController.text.substring(0, _recipientController.text.length)
+                            ..selection = TextSelection.collapsed(offset: _recipientController.text.length);
+                        }
+                        _validRecipientAddress = '';
+                      });
+                    },
+                  ),
+                  // Field for attaching a note to the tx.
+                  NoteField(
+                    controller: _noteController,
+                    noteLength: _noteController.text.length,
+                    tooltipIcon: Image.asset(
+                      RibnAssets.greyHelpBubble,
+                      width: 18,
+                    ),
+                  ),
+                ],
               ),
-              // Field for attaching a note to the tx.
-              NoteField(
-                controller: _noteController,
-                noteLength: _noteController.text.length,
-                tooltipIcon: Image.asset(
-                  RibnAssets.greyHelpBubble,
-                  width: 18,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ],
     );
@@ -237,9 +241,7 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
           ),
           onPressed: enteredValidInputs
               ? () {
-                  setState(() {
-                    _loadingRawTx = true;
-                  });
+                  widget.setLoadingRawTx(true);
                   vm.initiateTx(
                     recipient: _validRecipientAddress,
                     amount: _amountController.text,
@@ -247,7 +249,7 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
                     assetCode: _selectedAsset!.assetCode,
                     assetDetails: vm.assetDetails[_selectedAsset!.assetCode.toString()],
                     onRawTxCreated: (bool success) async {
-                      _loadingRawTx = false;
+                      widget.setLoadingRawTx(false);
                       setState(() {});
                       // Display error dialog if failed to create raw tx
                       if (!success) {

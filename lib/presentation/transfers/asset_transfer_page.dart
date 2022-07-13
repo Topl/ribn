@@ -7,6 +7,7 @@ import 'package:ribn/presentation/transfers/poly_transfer_section.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
+import 'package:ribn_toolkit/widgets/molecules/loading_spinner.dart';
 import 'package:ribn_toolkit/widgets/molecules/sliding_segment_control.dart';
 
 /// The asset transfer input page that allows the initiation of an asset transfer.
@@ -24,12 +25,21 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
 
   dynamic bottomButton;
 
+  bool loadingRawTx = false;
+
+  void setLoadingRawTx(value) {
+    setState(() {
+      loadingRawTx = value;
+    });
+  }
+
   set setBottomButton(Widget value) => setState(() => bottomButton = value);
 
   @override
   Widget build(BuildContext context) {
     Scaffold renderPageContent(vm) {
       return Scaffold(
+        extendBody: true,
         backgroundColor: RibnColors.background,
         body: Stack(
           children: [
@@ -75,15 +85,20 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
                       ? AssetTransferSection(
                           vm: vm,
                           updateButton: (val) => setState(() => bottomButton = val),
+                          loadingRawTx: loadingRawTx,
+                          setLoadingRawTx: setLoadingRawTx,
                         )
                       : PolyTransferSection(
                           vm: vm,
                           updateButton: (val) => setState(() => bottomButton = val),
+                          loadingRawTx: loadingRawTx,
+                          setLoadingRawTx: setLoadingRawTx,
                         ),
                   const SizedBox(height: 18),
                 ],
               ),
             ),
+            loadingRawTx ? const LoadingSpinner() : const SizedBox(),
           ],
         ),
         bottomNavigationBar: bottomButton,
