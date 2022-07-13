@@ -28,9 +28,8 @@ import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_enter_wal
 import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_restore_with_mnemonic_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_restore_with_topl_key_page.dart';
 import 'package:ribn/presentation/settings/settings_page.dart';
-import 'package:ribn/presentation/transfers/asset_transfer_input_page.dart';
+import 'package:ribn/presentation/transfers/asset_transfer_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
-import 'package:ribn/presentation/transfers/poly_transfer_input_page.dart';
 import 'package:ribn/presentation/transfers/tx_confirmation_page.dart';
 import 'package:ribn/presentation/transfers/tx_review_page.dart';
 
@@ -94,7 +93,7 @@ class RootRouter {
         }
       case Routes.assetsTransferInput:
         {
-          return pageRouteNotAnimated(const AssetTransferInputPage(), settings);
+          return pageRouteNotAnimated(const AssetTransferPage(), settings);
         }
       case Routes.loginRestoreWalletWithMnemonic:
         {
@@ -137,11 +136,6 @@ class RootRouter {
       case Routes.loginRestoreWalletWithToplKey:
         {
           return pageRoute(const LoginRestoreWithToplKeyPage(), settings);
-        }
-
-      case Routes.polyTransferInput:
-        {
-          return pageRouteNotAnimated(const PolyTransferInputPage(), settings);
         }
       case Routes.txReview:
         {
