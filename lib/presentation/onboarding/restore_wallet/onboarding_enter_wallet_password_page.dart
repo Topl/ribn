@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
-import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/presentation/login/widgets/next_button.dart';
-import 'package:ribn/presentation/login/widgets/password_text_field.dart';
 import 'package:ribn/widgets/onboarding_app_bar.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 
 /// Allows the user to enter their wallet password to decrypt the Topl Key in [toplKeyStoreJson].
 class OnboardingEnterWalletPasswordPage extends StatefulWidget {
@@ -29,6 +29,8 @@ class _OnboardingEnterWalletPasswordPageState extends State<OnboardingEnterWalle
   final double maxWidth = 734;
   final TextEditingController _passwordController = TextEditingController();
   bool _failedToRestoreWallet = false;
+  // ignore: prefer_final_fields
+  bool _obscurePassword = true;
 
   @override
   void initState() {
@@ -64,7 +66,13 @@ class _OnboardingEnterWalletPasswordPageState extends State<OnboardingEnterWalle
                     style: TextStyle(color: Colors.red),
                   )
                 : const SizedBox(),
-            NextButton(
+            LargeButton(
+              buttonChild: Text(
+                Strings.next,
+                style: RibnToolkitTextStyles.btnMedium.copyWith(
+                  color: Colors.white,
+                ),
+              ),
               onPressed: () async {
                 final Completer<bool> actionCompleter = Completer();
                 StoreProvider.of<AppState>(context).dispatch(
@@ -96,7 +104,7 @@ class _OnboardingEnterWalletPasswordPageState extends State<OnboardingEnterWalle
           const Text(
             Strings.enterWalletPassword,
             style: TextStyle(
-              fontFamily: 'Spectral',
+              fontFamily: 'DM Sans',
               fontSize: 15,
               fontWeight: FontWeight.w700,
             ),
@@ -105,6 +113,7 @@ class _OnboardingEnterWalletPasswordPageState extends State<OnboardingEnterWalle
             controller: _passwordController,
             hintText: Strings.newWalletPasswordHint,
             width: 352,
+            obscurePassword: _obscurePassword,
           ),
         ],
       ),
@@ -117,7 +126,7 @@ class _OnboardingEnterWalletPasswordPageState extends State<OnboardingEnterWalle
       padding: EdgeInsets.only(top: 22, bottom: 76),
       child: Text(
         Strings.restoreWallet,
-        style: RibnTextStyles.h1,
+        style: RibnToolkitTextStyles.h1,
         textAlign: TextAlign.center,
       ),
     );
@@ -138,7 +147,7 @@ class _OnboardingEnterWalletPasswordPageState extends State<OnboardingEnterWalle
                 SizedBox(width: 40, height: 35, child: SvgPicture.asset(RibnAssets.warningIcon)),
                 Text(
                   Strings.readCarefully.toUpperCase(),
-                  style: const TextStyle(fontFamily: 'Nunito', fontSize: 28, fontWeight: FontWeight.w600),
+                  style: const TextStyle(fontFamily: 'DM Sans', fontSize: 28, fontWeight: FontWeight.w600),
                 ),
               ],
             ),

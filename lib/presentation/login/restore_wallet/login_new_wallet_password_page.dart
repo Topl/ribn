@@ -1,14 +1,20 @@
+// ignore_for_file: prefer_final_fields
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
-import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/presentation/login/widgets/next_button.dart';
-import 'package:ribn/presentation/login/widgets/password_text_field.dart';
-import 'package:ribn/presentation/login/widgets/restore_page_title.dart';
 import 'package:ribn/presentation/login/widgets/warning_section.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_checkbox.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/onboarding_progress_bar.dart';
+import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// Page for creating a new wallet password, when restoring wallet with a [seedPhrase].
 class NewWalletPasswordPage extends StatefulWidget {
@@ -38,6 +44,9 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
   /// Map to keep track of any textfield errors.
   Map<TextEditingController, bool> hasErrors = {};
 
+  bool _obscurePassword = true;
+  bool _readTermsOfAgreement = false;
+
   @override
   void initState() {
     // Initialize listeners for each controller.
@@ -65,68 +74,102 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: RibnColors.accent,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      backgroundColor: RibnColors.background,
+      extendBody: true,
+      body: Container(
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: <Color>[RibnColors.tertiary, RibnColors.primaryOffColor],
+          ),
+        ),
         child: Column(
           children: [
             // page title
-            const RestoreWalletPageTitle(),
-            // warning section
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 24.0),
-              child: WarningSection(),
-            ),
-            // new wallet password
-            SizedBox(
-              width: 309,
-              child: Text(Strings.newWalletPassword, style: RibnTextStyles.extH3.copyWith()),
-            ),
-            // enter new wallet password text field
-            PasswordTextField(
-              hintText: Strings.newWalletPasswordHint,
-              controller: _newWalletPasswordController,
-              hasError: hasErrors[_newWalletPasswordController] ?? false,
+            const CustomPageTitle(
+              title: Strings.restoreWallet,
+              hideCloseCross: true,
+              hideWaveAnimation: true,
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 3),
-              child: hasErrors[_newWalletPasswordController] ?? false
-                  ? const Text(
-                      Strings.atLeast8Chars,
-                      style: TextStyle(color: Colors.red),
-                    )
-                  : const SizedBox(),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                children: [
+                  // warning section
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 24.0),
+                    child: WarningSection(),
+                  ),
+                  // new wallet password
+                  SizedBox(
+                    width: 309,
+                    child: Text(
+                      Strings.newWalletPassword,
+                      style: RibnToolkitTextStyles.extH3.copyWith(color: Colors.white),
+                    ),
+                  ),
+                  // enter new wallet password text field
+                  PasswordTextField(
+                    hintText: Strings.newWalletPasswordHint,
+                    controller: _newWalletPasswordController,
+                    hasError: hasErrors[_newWalletPasswordController] ?? false,
+                    obscurePassword: _obscurePassword,
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: 309,
+                    child: Text(
+                      Strings.confirmWalletPassword,
+                      style: RibnToolkitTextStyles.extH3.copyWith(color: Colors.white),
+                    ),
+                  ),
+                  // confirm wallet password text field
+                  PasswordTextField(
+                    hintText: Strings.confirmWalletPasswordHint,
+                    controller: _confirmWalletPasswordController,
+                    hasError: hasErrors[_confirmWalletPasswordController] ?? false,
+                    obscurePassword: _obscurePassword,
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 17),
-            SizedBox(
-              width: 309,
-              child: Text(Strings.confirmWalletPassword, style: RibnTextStyles.extH3.copyWith()),
-            ),
-            // confirm wallet password text field
-            PasswordTextField(
-              hintText: Strings.confirmWalletPasswordHint,
-              controller: _confirmWalletPasswordController,
-              hasError: hasErrors[_confirmWalletPasswordController] ?? false,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 3),
-              child: hasErrors[_confirmWalletPasswordController] ?? false
-                  ? const Text(
-                      Strings.passwordsMustMatch,
-                      style: TextStyle(color: Colors.red),
-                    )
-                  : const SizedBox(),
-            ),
-            const Spacer(),
-            // Confirmation button
-            NextButton(onPressed: onNextPressed),
+            _buildTermsOfAgreementCheck(),
           ],
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+        child: SizedBox(
+          height: 80,
+          child: Column(
+            children: [
+              const OnboardingProgressBar(numSteps: 2, currStep: 1),
+              const SizedBox(
+                height: 20,
+              ),
+              LargeButton(
+                dropShadowColor: RibnColors.whiteButtonShadow,
+                buttonChild: Text(
+                  Strings.next,
+                  style: RibnToolkitTextStyles.btnLarge.copyWith(
+                    color: Colors.white,
+                  ),
+                ),
+                onPressed: onNextPressed,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  /// Handler for when [NextButton] is pressed.
+  /// Handler for when [LargeButton] is pressed.
   ///
   /// Validates that the password entered is at least 8 characters and both passwords match
   /// before attempting to restore wallet.
@@ -135,7 +178,7 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
       hasErrors[_newWalletPasswordController] = !passwordAtLeast8Chars;
       hasErrors[_confirmWalletPasswordController] = !passwordsMatch;
     });
-    if (passwordAtLeast8Chars && passwordsMatch) {
+    if (passwordAtLeast8Chars && passwordsMatch && _readTermsOfAgreement) {
       StoreProvider.of<AppState>(context).dispatch(
         RestoreWalletWithMnemonicAction(
           mnemonic: widget.seedPhrase,
@@ -143,5 +186,39 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
         ),
       );
     }
+  }
+
+  Widget _buildTermsOfAgreementCheck() {
+    final url = Uri.parse(
+      Strings.termsOfUseUrl,
+    );
+
+    return CustomCheckbox(
+      fillColor: MaterialStateProperty.all(Colors.transparent),
+      checkColor: RibnColors.active,
+      borderColor: Colors.white,
+      value: _readTermsOfAgreement,
+      onChanged: (val) => setState(() {
+        _readTermsOfAgreement = val ?? false;
+      }),
+      label: RichText(
+        text: TextSpan(
+          style: RibnToolkitTextStyles.body1.copyWith(color: Colors.white, height: 0),
+          children: [
+            const TextSpan(
+              text: Strings.readAndAgreedToU,
+            ),
+            TextSpan(
+              text: 'Terms of Use',
+              style: RibnToolkitTextStyles.body1.copyWith(color: RibnColors.secondaryDark, height: 0),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () async {
+                  await launchUrl(url);
+                },
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

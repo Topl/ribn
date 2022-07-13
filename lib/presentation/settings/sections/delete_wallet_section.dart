@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The section on the settings page that allows user to delete their wallet.
 class DeleteWalletSection extends StatelessWidget {
@@ -20,7 +22,7 @@ class DeleteWalletSection extends StatelessWidget {
         const Text(
           Strings.dangerZone,
           style: TextStyle(
-            fontFamily: 'Spectral',
+            fontFamily: 'DM Sans',
             fontWeight: FontWeight.w700,
             fontSize: 16,
             color: Color(0xFFE80E00),
@@ -41,32 +43,25 @@ class DeleteWalletSection extends StatelessWidget {
               children: [
                 const Text(
                   Strings.actionNotReversible,
-                  style: RibnTextStyles.settingsSmallText,
+                  style: RibnToolkitTextStyles.settingsSmallText,
                 ),
                 const SizedBox(height: 10),
                 SizedBox(
                   width: 107,
                   height: 22,
-                  child: OutlinedButton(
-                    onPressed: () => onDeletePressed(context),
-                    style: OutlinedButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      side: const BorderSide(
-                        color: Color(0xFF585858),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4.0),
-                      ),
-                    ),
-                    child: const Text(
+                  child: LargeButton(
+                    buttonChild: Text(
                       Strings.deleteWallet,
-                      style: TextStyle(
-                        fontSize: 10.45,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Nunito',
-                        color: Color(0xFf585858),
+                      style: RibnToolkitTextStyles.btnLarge.copyWith(
+                        color: RibnColors.primary,
+                        fontSize: 10,
                       ),
                     ),
+                    backgroundColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    dropShadowColor: Colors.transparent,
+                    borderColor: RibnColors.primary,
+                    onPressed: () => onDeletePressed(context),
                   ),
                 ),
               ],

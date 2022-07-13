@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
-import 'package:ribn/constants/colors.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/ui_constants.dart';
-import 'package:ribn/presentation/asset_details/widgets/action_button.dart';
+import 'package:ribn/models/app_state.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The section for editing asset icon.
 ///
@@ -25,12 +29,13 @@ class AssetIconEditSection extends StatefulWidget {
 
 class _AssetIconEditSectionState extends State<AssetIconEditSection> {
   String? _selectedIcon;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       height: 140,
-      width: 309,
+      width: 307,
       decoration: const BoxDecoration(
         color: RibnColors.whiteBackground,
         boxShadow: [BoxShadow(color: Color(0x0f000000), offset: Offset(0, 4), blurRadius: 4, spreadRadius: 0)],
@@ -42,18 +47,38 @@ class _AssetIconEditSectionState extends State<AssetIconEditSection> {
           const SizedBox(height: 20),
           Row(
             children: [
-              ActionButton(
-                saveChanges: true,
-                assetCode: widget.assetCode,
-                onPressed: widget.onActionTaken,
-                icon: _selectedIcon,
+              LargeButton(
+                buttonWidth: 123,
+                buttonHeight: 33,
+                buttonChild: Text(
+                  'Save',
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
+                ),
+                backgroundColor: RibnColors.primary,
+                onPressed: () {
+                  StoreProvider.of<AppState>(context).dispatch(
+                    UpdateAssetDetailsAction(
+                      assetCode: widget.assetCode,
+                      icon: _selectedIcon,
+                    ),
+                  );
+                  widget.onActionTaken();
+                },
               ),
               const SizedBox(width: 15),
-              ActionButton(
-                saveChanges: false,
-                assetCode: widget.assetCode,
-                onPressed: widget.onActionTaken,
-              ),
+              LargeButton(
+                buttonWidth: 123,
+                buttonHeight: 33,
+                buttonChild: Text(
+                  'Cancel',
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.ghostButtonText),
+                ),
+                backgroundColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                dropShadowColor: Colors.transparent,
+                borderColor: RibnColors.ghostButtonText,
+                onPressed: () => widget.onActionTaken(),
+              )
             ],
           ),
         ],
@@ -90,7 +115,10 @@ class _AssetIconEditSectionState extends State<AssetIconEditSection> {
                   },
                   child: Image.asset(icon),
                 ),
-                portal: Image.asset(icon),
+                portal: Image.asset(
+                  icon,
+                  width: 31,
+                ),
                 portalAnchor: Alignment.bottomCenter,
                 childAnchor: Alignment.topCenter,
                 visible: _selectedIcon == icon,

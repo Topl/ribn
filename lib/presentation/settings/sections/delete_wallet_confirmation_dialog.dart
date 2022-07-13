@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
-import 'package:ribn/presentation/login/widgets/password_text_field.dart';
-import 'package:ribn/widgets/custom_close_button.dart';
-import 'package:ribn/widgets/large_button.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
+import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 
 /// The confimation dialog that is displayed before deleting the wallet.
 ///
@@ -28,101 +28,97 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
   /// True if incorrect password was entered.
   bool _incorrectPasswordError = false;
 
+  final bool _obscurePassword = true;
+
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      insetPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 65),
-      backgroundColor: RibnColors.accent,
-      titlePadding: EdgeInsets.zero,
-      scrollable: true,
-      title: Stack(
+    return CustomModal.renderCustomModal(
+      title: const Text(
+        Strings.deleteRibnWallet,
+        style: RibnToolkitTextStyles.extH2,
+      ),
+      context: context,
+      body: Column(
         children: [
-          // top-right close button
-          const Positioned(
-            top: 18,
-            right: 14,
-            child: CustomCloseButton(),
+          SizedBox(
+            width: 228,
+            height: 125,
+            child: Text(
+              Strings.deleteRibnWalletDesc,
+              style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14),
+          const SizedBox(height: 30),
+          // enter password
+          SizedBox(
+            width: 285,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 30),
-                // dialog title
-                const SizedBox(
-                  width: 228,
-                  height: 26,
-                  child: Text(
-                    Strings.deleteRibnWallet,
-                    style: RibnTextStyles.extH2,
+                const Text(
+                  Strings.enterWalletPassword,
+                  style: TextStyle(
+                    fontFamily: 'DM Sans',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-                const SizedBox(height: 25),
-                // description
-                SizedBox(
-                  width: 228,
-                  height: 125,
-                  child: Text(
-                    Strings.deleteRibnWalletDesc,
-                    style: RibnTextStyles.smallBody.copyWith(fontSize: 15),
-                  ),
+                PasswordTextField(
+                  controller: _passwordController,
+                  hintText: Strings.typeSomething,
+                  obscurePassword: _obscurePassword,
                 ),
-                const SizedBox(height: 15),
-                // enter password
-                SizedBox(
-                  width: 285,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        Strings.enterWalletPassword,
-                        style: TextStyle(
-                          fontFamily: 'Spectral',
-                          fontSize: 15,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      PasswordTextField(
-                        controller: _passwordController,
-                        hintText: Strings.typeSomething,
-                      ),
-                      _incorrectPasswordError
-                          ? const Text('Incorrect Password', style: TextStyle(color: Colors.red))
-                          : const SizedBox()
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                // cancel delete
-                LargeButton(
-                  label: Strings.noIChangedMyMind,
-                  backgroundColor: RibnColors.primary.withOpacity(0.19),
-                  textColor: RibnColors.primary,
-                  onPressed: () => Navigator.of(context).pop(),
-                  buttonWidth: 285,
-                ),
-                const SizedBox(height: 10),
-                // confirm delete
-                LargeButton(
-                  label: Strings.yesIWantToDelete,
-                  onPressed: () {
-                    widget.onConfirmDeletePressed(
-                      _passwordController.text,
-                      () {
-                        setState(() {
-                          _incorrectPasswordError = true;
-                        });
-                      },
-                    );
-                  },
-                  buttonWidth: 285,
-                ),
-                const SizedBox(height: 20),
+                _incorrectPasswordError
+                    ? const Text('Incorrect Password', style: TextStyle(color: Colors.red))
+                    : const SizedBox()
               ],
             ),
           ),
         ],
       ),
+      actionsAlignment: MainAxisAlignment.center,
+      actions: [
+        Column(
+          children: [
+            // confirm delete
+            LargeButton(
+              buttonChild: Text(
+                Strings.yesIWantToDelete,
+                style: RibnToolkitTextStyles.btnMedium.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () {
+                widget.onConfirmDeletePressed(
+                  _passwordController.text,
+                  () {
+                    setState(() {
+                      _incorrectPasswordError = true;
+                    });
+                  },
+                );
+              },
+              buttonWidth: 285,
+            ),
+            const SizedBox(height: 20),
+            // cancel delete
+            LargeButton(
+              buttonChild: Text(
+                Strings.noIChangedMyMind,
+                style: RibnToolkitTextStyles.btnMedium.copyWith(
+                  color: RibnColors.ghostButtonText,
+                ),
+              ),
+              backgroundColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              dropShadowColor: Colors.transparent,
+              borderColor: RibnColors.ghostButtonText,
+              onPressed: () => Navigator.of(context).pop(),
+              buttonWidth: 285,
+            ),
+          ],
+        )
+      ],
     );
   }
 }
