@@ -12,7 +12,18 @@ class TransferUtils {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
         backgroundColor: const Color(0xffD0DFE1),
-        title: ErrorSection(onTryAgain: () => Navigator.of(context).pop()),
+        title: Column(
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: GestureDetector(
+                child: const Icon(Icons.close),
+                onTap: () => Navigator.of(context).pop(),
+              ),
+            ),
+            ErrorSection(onTryAgain: () => Navigator.of(context).pop()),
+          ],
+        ),
       ),
     );
   }
