@@ -4,6 +4,7 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 /// A generic error section that is displayed in case of unexpected errors.
@@ -19,7 +20,7 @@ class ErrorSection extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(RibnAssets.sadFace, width: 70),
+        Image.asset(RibnAssets.sadFacePng, width: 70),
         const SizedBox(
           width: 275,
           height: 64,
@@ -43,8 +44,12 @@ class ErrorSection extends StatelessWidget {
           ),
         ),
         LargeButton(
-          backgroundColor: RibnColors.primary,
-          onPressed: onTryAgain,
+          backgroundColor: RibnColors.primary.withOpacity(0.19),
+          onPressed: () async {
+            final Uri url = Uri.parse(Strings.supportEmailLink);
+
+            await launchUrl(url);
+          },
           buttonChild: Text(
             Strings.refreshPage,
             style: RibnToolkitTextStyles.btnMedium.copyWith(

@@ -25,6 +25,10 @@ class _LoginPageState extends State<LoginPage> {
   final double _baseWidth = 310;
   final TextEditingController _textEditingController = TextEditingController();
 
+  /// True if password being entered is obscured.
+  // ignore: prefer_final_fields
+  bool _obscurePassword = true;
+
   /// True if login was attempted with an incorrect password.
   bool _incorrectPasswordEntered = false;
 
@@ -97,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                         onSubmitted: attemptLogin,
                         hintText: Strings.typeSomething,
                         controller: _textEditingController,
-                        obscurePassword: true,
+                        obscurePassword: _obscurePassword,
                       ),
                       const SizedBox(height: 25),
                       LargeButton(
@@ -219,7 +223,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
-                    await launch(Strings.supportEmailLink);
+                    final Uri url = Uri.parse(Strings.supportEmailLink);
+
+                    await launchUrl(url);
                   },
               )
             ],

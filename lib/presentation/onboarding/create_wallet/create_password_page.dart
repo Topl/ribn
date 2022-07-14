@@ -15,7 +15,7 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
 import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CreatePasswordPage extends StatefulWidget {
   const CreatePasswordPage({Key? key}) : super(key: key);
@@ -116,7 +116,9 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                                 ),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () async {
-                                    await launchUrlString(Strings.termsOfUseUrl);
+                                    final Uri url = Uri.parse(Strings.termsOfUseUrl);
+
+                                    await launchUrl(url);
                                   },
                               ),
                             ],

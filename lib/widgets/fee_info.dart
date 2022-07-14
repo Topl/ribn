@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 
 /// A widget that displays the fee info during the transfer flows in Ribn.
@@ -17,7 +17,7 @@ class FeeInfo extends StatelessWidget {
           Strings.totalTxFee,
           style: RibnToolkitTextStyles.h4,
         ),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
         Text(

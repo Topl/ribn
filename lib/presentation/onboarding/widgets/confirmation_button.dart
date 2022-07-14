@@ -30,7 +30,7 @@ class ConfirmationButton extends StatelessWidget {
         buttonChild: Text(
           text,
           style: RibnToolkitTextStyles.btnLarge.copyWith(
-            color: disabled ? RibnColors.inactive : Colors.white,
+            color: Colors.white,
             fontWeight: FontWeight.w400,
           ),
         ),
