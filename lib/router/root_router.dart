@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/models/transfer_details.dart';
@@ -8,10 +7,6 @@ import 'package:ribn/presentation/enable_page.dart';
 import 'package:ribn/presentation/external_signing_page.dart';
 import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
-import 'package:ribn/presentation/login/restore_wallet/login_enter_wallet_password_page.dart';
-import 'package:ribn/presentation/login/restore_wallet/login_new_wallet_password_page.dart';
-import 'package:ribn/presentation/login/restore_wallet/login_restore_with_mnemonic_page.dart';
-import 'package:ribn/presentation/login/restore_wallet/login_restore_with_topl_key_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/create_password_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/getting_started_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_confirmation_page.dart';
@@ -23,10 +18,10 @@ import 'package:ribn/presentation/onboarding/create_wallet/select_action_page.da
 import 'package:ribn/presentation/onboarding/create_wallet/wallet_info_checklist_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
 import 'package:ribn/presentation/onboarding/extension_info_page.dart';
-
-import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_enter_wallet_password_page.dart';
-import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_restore_with_mnemonic_page.dart';
-import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_restore_with_topl_key_page.dart';
+import 'package:ribn/presentation/onboarding/restore_wallet/create_new_wallet_password_page.dart';
+import 'package:ribn/presentation/onboarding/restore_wallet/enter_wallet_password_page.dart';
+import 'package:ribn/presentation/onboarding/restore_wallet/restore_wallet_page.dart';
+import 'package:ribn/presentation/onboarding/restore_wallet/restore_with_topl_key_page.dart';
 import 'package:ribn/presentation/settings/settings_page.dart';
 import 'package:ribn/presentation/transfers/asset_transfer_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
@@ -95,19 +90,15 @@ class RootRouter {
         {
           return pageRouteNotAnimated(const AssetTransferPage(), settings);
         }
-      case Routes.loginRestoreWalletWithMnemonic:
+      case Routes.restoreWallet:
         {
-          return pageRoute(const LoginRestoreWithMnemonicPage(), settings);
+          return pageRoute(const RestoreWalletPage(), settings);
         }
-      case Routes.onboardingRestoreWalletWithMnemonic:
+      case Routes.restoreWithToplKey:
         {
-          return pageRoute(const OnboardingRestoreWithMnemonicPage(), settings);
+          return pageRoute(const RestoreWithToplKeyPage(), settings);
         }
-      case Routes.onboardingRestoreWalletWithToplKey:
-        {
-          return pageRoute(const OnboardingRestoreWithToplKeyPage(), settings);
-        }
-      case Routes.loginRestoreWalletnewPassword:
+      case Routes.restoreWalletNewPassword:
         {
           final String seedPhrase = settings.arguments as String;
           return pageRoute(
@@ -117,25 +108,13 @@ class RootRouter {
             settings,
           );
         }
-      case Routes.loginRestoreWalletEnterPassword:
+      case Routes.enterWalletPassword:
         {
           final String keyStoreJson = settings.arguments as String;
           return pageRoute(
-            LoginEnterWalletPasswordPage(toplKeyStoreJson: keyStoreJson),
+            EnterWalletPasswordPage(toplKeyStoreJson: keyStoreJson),
             settings,
           );
-        }
-      case Routes.onboardingRestoreWalletEnterPassword:
-        {
-          final String keyStoreJson = settings.arguments as String;
-          return pageRoute(
-            OnboardingEnterWalletPasswordPage(toplKeyStoreJson: keyStoreJson),
-            settings,
-          );
-        }
-      case Routes.loginRestoreWalletWithToplKey:
-        {
-          return pageRoute(const LoginRestoreWithToplKeyPage(), settings);
         }
       case Routes.txReview:
         {

@@ -44,7 +44,7 @@ class LoginViewModel {
           if (!value) onIncorrectPasswordEntered();
         });
       },
-      restoreWallet: () => store.dispatch(NavigateToRoute(Routes.loginRestoreWalletWithMnemonic)),
+      restoreWallet: () => store.dispatch(NavigateToRoute(Routes.restoreWallet)),
     );
   }
 
