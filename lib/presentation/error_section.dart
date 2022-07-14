@@ -4,7 +4,6 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 /// A generic error section that is displayed in case of unexpected errors.
@@ -15,10 +14,14 @@ class ErrorSection extends StatelessWidget {
     required this.onTryAgain,
   }) : super(key: key);
 
+  final double buttonWidth = 180;
+  final double buttonHeight = 35;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Image.asset(RibnAssets.sadFacePng, width: 70),
         const SizedBox(
@@ -43,13 +46,12 @@ class ErrorSection extends StatelessWidget {
             style: RibnToolkitTextStyles.h4,
           ),
         ),
+        const SizedBox(height: 25),
         LargeButton(
-          backgroundColor: RibnColors.primary.withOpacity(0.19),
-          onPressed: () async {
-            final Uri url = Uri.parse(Strings.supportEmailLink);
-
-            await launchUrl(url);
-          },
+          buttonWidth: buttonWidth,
+          buttonHeight: buttonHeight,
+          backgroundColor: RibnColors.primary,
+          onPressed: onTryAgain,
           buttonChild: Text(
             Strings.refreshPage,
             style: RibnToolkitTextStyles.btnMedium.copyWith(
@@ -57,9 +59,12 @@ class ErrorSection extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 15),
         LargeButton(
-          backgroundColor: RibnColors.primary.withOpacity(0.19),
+          buttonWidth: buttonWidth,
+          buttonHeight: buttonHeight,
+          borderColor: const Color(0xff165867),
+          backgroundColor: RibnColors.background,
           onPressed: () async {
             await launchUrlString(Strings.supportEmailLink);
           },
