@@ -15,7 +15,7 @@ import 'package:ribn/presentation/enable_page.dart';
 import 'package:ribn/presentation/external_signing_page.dart';
 import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
-import 'package:ribn/presentation/onboarding/welcome_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
 import 'package:ribn/redux.dart';
 import 'package:ribn/router/root_router.dart';
 
@@ -45,6 +45,7 @@ class RibnApp extends StatelessWidget {
       store: store,
       child: Portal(
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Ribn',
           navigatorObservers: [Routes.routeObserver],
           onGenerateRoute: rootRouter.generateRoutes,

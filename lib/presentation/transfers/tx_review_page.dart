@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/actions/transaction_actions.dart';
-import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/transfer_details.dart';
+import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/asset_info.dart';
-import 'package:ribn/widgets/custom_copy_button.dart';
 import 'package:ribn/widgets/custom_divider.dart';
-import 'package:ribn/widgets/custom_page_title.dart';
 import 'package:ribn/widgets/fee_info.dart';
-import 'package:ribn/widgets/large_button.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The transaction review page.
 ///
@@ -31,7 +32,7 @@ class TxReviewPage extends StatelessWidget {
 
   /// Default text style being used on this page.
   final TextStyle defaultTextStyle = const TextStyle(
-    fontFamily: 'Nunito',
+    fontFamily: 'DM Sans',
     fontSize: 12,
     color: RibnColors.defaultText,
   );
@@ -39,66 +40,95 @@ class TxReviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: RibnColors.accent,
+      backgroundColor: RibnColors.background,
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // page title
-            const Padding(
-              padding: EdgeInsets.only(top: 45),
-              child: CustomPageTitle(title: Strings.review),
-            ),
-            const SizedBox(height: 20),
-            // review box
-            Container(
-              width: 310,
-              height: 300,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 19.5,
-                vertical: 15,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4.7),
-                color: RibnColors.whiteBackground,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        child: SizedBox(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
                 children: [
-                  _buildSendingDetails(),
-                  _buildFromDetails(),
-                  _buildToDetails(),
-                  _buildNoteDetails(),
+                  // page title
+                  const CustomPageTitle(title: Strings.review),
+                  const SizedBox(height: 40),
+                  // review box
+                  Container(
+                    width: 310,
+                    height: 300,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 19.5,
+                      vertical: 15,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.7),
+                      color: RibnColors.whiteBackground,
+                      border: Border.all(color: RibnColors.lightGrey, width: 1),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildSendingDetails(),
+                        _buildFromDetails(),
+                        _buildToDetails(),
+                        _buildNoteDetails(),
+                      ],
+                    ),
+                  ),
                 ],
               ),
-            ),
-            // fee info
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12.0),
-              child: SizedBox(
-                width: 310,
-                child: FeeInfo(fee: transferDetails.transactionReceipt!.fee!.getInNanopoly),
+              Column(
+                children: [
+                  // fee info
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 38),
+                    child: SizedBox(
+                      width: 310,
+                      child: FeeInfo(fee: transferDetails.transactionReceipt!.fee!.getInNanopoly),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            // cancel button
-            LargeButton(
-              label: Strings.cancel,
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              backgroundColor: RibnColors.primary.withOpacity(0.19),
-              textColor: RibnColors.primary,
-            ),
-            const SizedBox(height: 13),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomReviewAction(
+        children: Column(
+          children: [
             // confirm button
             LargeButton(
-              label: Strings.confirm,
+              buttonChild: Text(
+                Strings.confirm,
+                style: RibnToolkitTextStyles.btnLarge.copyWith(
+                  color: Colors.white,
+                ),
+              ),
               onPressed: () {
                 StoreProvider.of<AppState>(context).dispatch(SignAndBroadcastTxAction(transferDetails));
               },
               backgroundColor: RibnColors.primary,
-              textColor: Colors.white,
             ),
+            const SizedBox(
+              height: 15,
+            ),
+            // cancel button
+            LargeButton(
+              buttonChild: Text(
+                Strings.cancel,
+                style: RibnToolkitTextStyles.btnLarge.copyWith(
+                  color: RibnColors.ghostButtonText,
+                ),
+              ),
+              backgroundColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              dropShadowColor: Colors.transparent,
+              borderColor: RibnColors.ghostButtonText,
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            const SizedBox(height: 13),
           ],
         ),
       ),
@@ -112,7 +142,7 @@ class TxReviewPage extends StatelessWidget {
       children: [
         Text(
           itemLabel,
-          style: RibnTextStyles.extH4,
+          style: RibnToolkitTextStyles.h4,
         ),
         const SizedBox(height: 6),
         item,
@@ -141,7 +171,7 @@ class TxReviewPage extends StatelessWidget {
               '${transferDetails.amount} of ',
               style: const TextStyle(
                 fontSize: 12,
-                fontFamily: 'Nunito',
+                fontFamily: 'DM Sans',
               ),
               overflow: TextOverflow.ellipsis,
             ),
@@ -171,18 +201,24 @@ class TxReviewPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-            width: 19,
-            height: 19,
+            width: 26,
+            height: 26,
             child: SvgPicture.asset(RibnAssets.myFingerprint),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               Strings.yourRibnWalletAddress,
               style: defaultTextStyle,
             ),
           ),
-          CustomCopyButton(textToBeCopied: transferDetails.senders.first.toplAddress.toBase58()),
+          CustomCopyButton(
+            textToBeCopied: transferDetails.senders.first.toplAddress.toBase58(),
+            icon: Image.asset(
+              RibnAssets.copyIcon,
+              width: 26,
+            ),
+          ),
         ],
       ),
     );
@@ -198,18 +234,24 @@ class TxReviewPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-            width: 19,
-            height: 19,
+            width: 26,
+            height: 26,
             child: SvgPicture.asset(RibnAssets.recipientFingerprint),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               formatAddrString(transferDetails.recipient),
               style: defaultTextStyle,
             ),
           ),
-          CustomCopyButton(textToBeCopied: transferDetails.senders.first.toplAddress.toBase58()),
+          CustomCopyButton(
+            textToBeCopied: transferDetails.senders.first.toplAddress.toBase58(),
+            icon: Image.asset(
+              RibnAssets.copyIcon,
+              width: 26,
+            ),
+          ),
         ],
       ),
     );
@@ -227,7 +269,7 @@ class TxReviewPage extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           maxLines: 3,
           style: const TextStyle(
-            fontFamily: 'Nunito',
+            fontFamily: 'DM Sans',
             fontSize: 12,
             color: Color(0xFF585858),
           ),

@@ -1,15 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
-import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/login_container.dart';
-import 'package:ribn/widgets/custom_icon_button.dart';
-import 'package:ribn/widgets/custom_tooltip.dart';
-import 'package:ribn/widgets/large_button.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
+import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Builds the login page.
@@ -27,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _textEditingController = TextEditingController();
 
   /// True if password being entered is obscured.
+  // ignore: prefer_final_fields
   bool _obscurePassword = true;
 
   /// True if login was attempted with an incorrect password.
@@ -58,71 +58,87 @@ class _LoginPageState extends State<LoginPage> {
             if (mounted) setState(() {});
           },
           child: Scaffold(
-            backgroundColor: RibnColors.accent,
-            body: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+            body: WaveContainer(
+              containerHeight: double.infinity,
+              containerWidth: double.infinity,
+              waveAmplitude: 30,
+              containerChild: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 65),
-                  const Text(
-                    Strings.ribnWallet,
-                    style: TextStyle(
-                      fontFamily: 'Spectral',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 32,
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  SvgPicture.asset(RibnAssets.menuIcon, width: 77),
-                  const SizedBox(height: 20),
-                  const Center(
-                    child: SizedBox(
-                      width: 245,
-                      height: 50,
-                      child: Center(
-                        child: Text(
-                          Strings.intro,
-                          style: TextStyle(
-                            fontFamily: 'Nunito',
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            height: 1.6,
-                          ),
-                          textAlign: TextAlign.center,
+                  Column(
+                    children: [
+                      Image.asset(RibnAssets.newRibnLogo, width: 138),
+                      Text(
+                        Strings.ribnWallet,
+                        style: RibnToolkitTextStyles.h1.copyWith(
+                          color: Colors.white,
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 25),
-                  _buildTextFieldLabel(),
-                  const SizedBox(height: 8),
-                  _buildTextField(attemptLogin),
-                  const SizedBox(height: 35),
-                  LargeButton(
-                    label: Strings.unlock,
-                    onPressed: attemptLogin,
-                    backgroundColor: RibnColors.primary,
-                    textColor: Colors.white,
-                  ),
-                  const SizedBox(height: 12),
-                  LargeButton(
-                    label: Strings.restoreWallet,
-                    onPressed: vm.restoreWallet,
-                    backgroundColor: RibnColors.primary.withOpacity(0.19),
-                    textColor: RibnColors.primary,
-                  ),
-                  const SizedBox(height: 18),
-                  _buildSupportLink(),
-                  UIConstants.sizedBox,
-                  _incorrectPasswordEntered
-                      ? const Text(
-                          'Incorrect Password',
-                          style: TextStyle(
-                            color: Colors.red,
+                      const SizedBox(height: 5),
+                      Center(
+                        child: SizedBox(
+                          width: _baseWidth,
+                          child: Center(
+                            child: Text(
+                              Strings.intro,
+                              style: RibnToolkitTextStyles.h3.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                        )
-                      : const SizedBox()
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      _buildTextFieldLabel(),
+                      const SizedBox(height: 8),
+                      PasswordTextField(
+                        onSubmitted: attemptLogin,
+                        hintText: Strings.typeSomething,
+                        controller: _textEditingController,
+                        obscurePassword: _obscurePassword,
+                      ),
+                      const SizedBox(height: 25),
+                      LargeButton(
+                        backgroundColor: RibnColors.primary,
+                        dropShadowColor: RibnColors.whiteButtonShadow,
+                        buttonChild: Text(
+                          Strings.unlock,
+                          style: RibnToolkitTextStyles.btnLarge.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        onPressed: attemptLogin,
+                      ),
+                      const SizedBox(height: 25),
+                      _buildForgetPasswordLink(vm.restoreWallet),
+                      const SizedBox(height: 40),
+                      SizedBox(
+                        height: 50,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            _buildSupportLink(),
+                            const SizedBox(height: 10),
+                            _incorrectPasswordEntered
+                                ? Text(
+                                    'Incorrect Password',
+                                    style: const TextStyle(
+                                      color: Colors.red,
+                                    ).copyWith(fontWeight: FontWeight.bold),
+                                  )
+                                : const SizedBox()
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -136,21 +152,26 @@ class _LoginPageState extends State<LoginPage> {
     return SizedBox(
       width: _baseWidth,
       child: Row(
-        // ignore: prefer_const_literals_to_create_immutables
         children: [
-          const Text(
+          Text(
             Strings.enterWalletPassword,
-            style: RibnTextStyles.extH3,
+            style: RibnToolkitTextStyles.h3.copyWith(
+              color: Colors.white,
+            ),
           ),
           // ignore: prefer_const_constructors
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2.0),
-            // ignore: prefer_const_constructors
+            padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: CustomToolTip(
-              // key: GlobalKey(),
+              offsetPositionLeftValue: 160,
+              toolTipIcon: Image.asset(
+                RibnAssets.greyHelpBubble,
+                width: 18,
+                color: Colors.white,
+              ),
               toolTipChild: const Text(
                 Strings.loginPasswordInfo,
-                style: RibnTextStyles.toolTipTextStyle,
+                style: RibnToolkitTextStyles.toolTipTextStyle,
               ),
             ),
           ),
@@ -159,41 +180,23 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  /// Builds the text field for the wallet password.
-  /// Allows showing/hiding the text input.
-  Widget _buildTextField(VoidCallback attemptLogin) {
-    final OutlineInputBorder textFieldBorder = OutlineInputBorder(
-      borderSide: const BorderSide(color: RibnColors.primary),
-      borderRadius: BorderRadius.circular(4.7),
-    );
+  /// Builds a link to redirect user to the restore wallet flow.
+  Widget _buildForgetPasswordLink(onButtonPress) {
     return SizedBox(
       width: _baseWidth,
-      height: 35,
-      child: TextField(
-        onSubmitted: (_) => attemptLogin(),
-        obscureText: _obscurePassword,
-        controller: _textEditingController,
-        decoration: InputDecoration(
-          suffixIcon: CustomIconButton(
-            icon: SvgPicture.asset(
-              _obscurePassword ? RibnAssets.passwordVisibleIon : RibnAssets.passwordHiddenIcon,
-              width: 12,
+      child: Center(
+        child: RichText(
+          text: TextSpan(
+            style: RibnToolkitTextStyles.h3.copyWith(
+              color: RibnColors.secondary,
             ),
-            onPressed: () {
-              setState(() {
-                _obscurePassword = !_obscurePassword;
-              });
-            },
+            children: [
+              TextSpan(
+                text: Strings.forgotPassword,
+                recognizer: TapGestureRecognizer()..onTap = () => onButtonPress(),
+              )
+            ],
           ),
-          labelText: Strings.typeSomething,
-          labelStyle: RibnTextStyles.hintStyle,
-          isDense: true,
-          fillColor: Colors.white,
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          filled: true,
-          contentPadding: const EdgeInsets.all(10),
-          enabledBorder: textFieldBorder,
-          focusedBorder: textFieldBorder,
         ),
       ),
     );
@@ -206,10 +209,8 @@ class _LoginPageState extends State<LoginPage> {
       child: Center(
         child: RichText(
           text: TextSpan(
-            style: const TextStyle(
-              color: RibnColors.defaultText,
-              fontFamily: 'Nunito',
-              fontSize: 15,
+            style: RibnToolkitTextStyles.h3.copyWith(
+              color: Colors.white,
             ),
             children: [
               const TextSpan(
@@ -217,13 +218,14 @@ class _LoginPageState extends State<LoginPage> {
               ),
               TextSpan(
                 text: Strings.ribnSupport,
-                style: const TextStyle(
-                  color: RibnColors.primary,
-                  fontWeight: FontWeight.w600,
+                style: RibnToolkitTextStyles.h3.copyWith(
+                  color: RibnColors.secondary,
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
-                    await launch(Strings.supportEmailLink);
+                    final Uri url = Uri.parse(Strings.supportEmailLink);
+
+                    await launchUrl(url);
                   },
               )
             ],

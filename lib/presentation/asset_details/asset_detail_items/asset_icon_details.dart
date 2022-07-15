@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/styles.dart';
-import 'package:ribn/presentation/asset_details/widgets/edit_button.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/hover_icon_button.dart';
 
 /// One of the asset details displayed on [AssetDetailsPage].
 ///
@@ -30,16 +31,30 @@ class AssetIconDetails extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Text('Icon', style: RibnTextStyles.extH4),
+            const Text('Icon', style: RibnToolkitTextStyles.h4),
             const Spacer(),
-            editingSectionOpened ? const SizedBox() : EditButton(onEditPressed: onEditPressed),
+            editingSectionOpened
+                ? const SizedBox()
+                : HoverIconButton(
+                    buttonText: Text(
+                      'Edit',
+                      style: RibnToolkitTextStyles.dropdownButtonStyle.copyWith(color: RibnColors.primary),
+                    ),
+                    buttonIcon: Image.asset(RibnAssets.editIcon),
+                    onPressed: onEditPressed,
+                  ),
           ],
         ),
         const SizedBox(height: 3),
         SizedBox(
           width: 20,
           height: 20,
-          child: currIcon == null ? Image.asset(RibnAssets.undefinedIcon) : Image.asset(currIcon!),
+          child: currIcon == null
+              ? Image.asset(RibnAssets.undefinedIcon)
+              : Image.asset(
+                  currIcon!,
+                  width: 31,
+                ),
         ),
       ],
     );
