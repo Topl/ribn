@@ -2,7 +2,6 @@ import 'package:brambldart/brambldart.dart';
 import 'package:brambldart/credentials.dart' as hd;
 import 'package:brambldart/utils.dart' as constants;
 import 'package:dio/dio.dart';
-import 'package:logging/logging.dart';
 import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/strings.dart';
 
@@ -35,7 +34,6 @@ class Rules {
   static String txDetailsUrl(String txId, int networkId) => '${txDetailsRedirectUrls[networkId]!}$txId';
   static const transferTypes = [Strings.polyTransfer, Strings.assetTransfer, Strings.minting];
   static BramblClient getBramblCient(int networkId) {
-    final Logger logger = Logger('BramblClient');
     final Dio httpClient = Dio(
       BaseOptions(
         baseUrl: NetworkUtils.networkUrls[networkId]!,
@@ -48,11 +46,6 @@ class Rules {
       httpClient: httpClient,
       interceptors: [
         ApiKeyAuthInterceptor(NetworkUtils.networkApiKeys[networkId]!),
-        RetryInterceptor(
-          dio: httpClient,
-          logger: logger,
-          options: const RetryOptions(retries: 2),
-        )
       ],
     );
   }

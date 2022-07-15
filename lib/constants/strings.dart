@@ -232,6 +232,7 @@ Write down the each word in the exact order it is presented.''';
       '''Ribn failed to reach the internet. This could be related to wifi connectivity or network issues.\n\nCheck your internet connection and try again, or contact the Ribn support team.''';
   static const String contactSupport = 'Contact Support';
   static const String tryAgain = 'Try Again';
+  static const String refreshPage = 'Refresh page';
   static const String returnHome = 'Return Home';
   static const String advancedOption = 'Advanced option';
   static const String useToplMainKey = 'USE TOPL MAIN KEY';
