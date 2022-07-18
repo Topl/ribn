@@ -30,8 +30,9 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   @override
   Future<String> getState() => promiseToFuture(getFromLocalStorage());
 
+  /// Web-only: Saves [key] in `chrome.storage.session`
   @override
-  Future<void> saveSessionKey(String key) async {
+  Future<void> saveKeyInSessionStorage(String key) async {
     try {
       final String data = jsonEncode({'toplKey': key});
       await saveToSessionStorage(data);
@@ -42,8 +43,9 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
     }
   }
 
+  /// Web-only: Gets toplKey from `chrome.storage.session` if it exists
   @override
-  Future<String?> getSessionKey() async {
+  Future<String?> getKeyFromSessionStorage() async {
     try {
       final Map<String, dynamic> sessionStorage = jsonDecode(await promiseToFuture(getFromSessionStorage()));
       return sessionStorage['toplKey'];
@@ -54,4 +56,12 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
     }
     return null;
   }
+
+  /// Mobile-only
+  @override
+  Future<String?> getKeyFromSecureStorage() => throw UnimplementedError();
+
+  /// Mobile-only
+  @override
+  Future<void> saveKeyInSecureStorage(String key) => throw UnimplementedError();
 }

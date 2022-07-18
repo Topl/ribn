@@ -1,3 +1,5 @@
+import 'package:ribn/constants/rules.dart';
+
 abstract class IPlatformUtils {
   /// Returns the current application version.
   String getCurrentAppVersion();
@@ -12,7 +14,7 @@ abstract class IPlatformUtils {
   Future<void> openInNewTab();
 
   /// Returns the current app view.
-  Future<String> getCurrentAppView();
+  Future<AppViews> getCurrentAppView();
 
   /// Closes the current window.
   void closeWindow();
@@ -38,15 +40,37 @@ abstract class IPlatformLocalStorage {
   /// Get locally stored data.
   Future<String> getState();
 
-  /// Save [key] for the app's session.
+  /// Web-only
+  ///
+  ///  Save [key] in chrome's session storage.
   ///
   /// [key] should be the Base58Encoded Topl Main Key.
-  Future<void> saveSessionKey(String key);
+  Future<void> saveKeyInSessionStorage(String key);
 
+  /// Mobile-only
+  ///
+  /// Save [key] in seucre storage for future retrievals.
+  ///
+  /// [key] should be the Base58Encoded Topl Main Key.
+  Future<void> saveKeyInSecureStorage(String key);
+
+  /// Web-only
+  ///
   /// Get key, if it exists, from the session storage.
   ///
   /// For chrome, this means accessing session storage using the `chrome.storage.session` API.
+  Future<String?> getKeyFromSessionStorage();
+
+  /// Mobile-only
   ///
-  /// For mobile, the key is retrieved from `FlutterSecureStorage`.
-  Future<String?> getSessionKey();
+  ///  Get key, if it exists, from FlutterSecureStorage.
+  Future<String?> getKeyFromSecureStorage();
+}
+
+abstract class IPlatformWorkerRunner<T> {
+  Future<T> runWorker({
+    Function(Map<String, dynamic>)? function,
+    final String? workerScript,
+    Map<String, dynamic> params,
+  });
 }

@@ -72,7 +72,7 @@ class Redux {
   static Future<AppState> getInitialAppState(bool initTestStore) async {
     try {
       final Map<String, dynamic> appState = await getPersistedAppState();
-      final String? toplKey = await PlatformLocalStorage.instance.getSessionKey();
+      final String? toplKey = await PlatformLocalStorage.instance.getKeyFromSessionStorage();
       final LocalAuthentication auth = LocalAuthentication();
       if (toplKey != null) {
         if (kIsWeb) {

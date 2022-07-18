@@ -31,13 +31,15 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
     await file.writeAsString(data, flush: true);
   }
 
+  /// Mobile-only: Gets toplKey from encrypted device storage.
   @override
-  Future<String?> getSessionKey() {
+  Future<String?> getKeyFromSecureStorage() {
     return secureStorage.read(key: 'toplKey');
   }
 
+  /// Mobile-only: Saves [key] in encrypted device storage.
   @override
-  Future<void> saveSessionKey(String key) async {
+  Future<void> saveKeyInSecureStorage(String key) async {
     try {
       await secureStorage.write(key: 'toplKey', value: key);
     } catch (e) {
@@ -46,4 +48,12 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
       }
     }
   }
+
+  /// Web-only
+  @override
+  Future<String?> getKeyFromSessionStorage() => throw UnimplementedError();
+
+  /// Web-only
+  @override
+  Future<void> saveKeyInSessionStorage(String key) => throw UnimplementedError();
 }
