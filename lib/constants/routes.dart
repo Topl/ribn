@@ -21,6 +21,7 @@ class Routes {
   static const seedPhraseConfirm = '/seed-phrase-confirm';
   static const extensionInfo = '/extension-info';
   static const login = '/login';
+  static const restoreWallet = '/restore-wallet';
   static const loginRestoreWalletWithMnemonic = '/login/restore-wallet/mnemonic';
   static const loginRestoreWalletWithToplKey = '/login/restore-wallet/topl-key';
   static const loginRestoreWalletnewPassword = '/login/restore-wallet/new-password';
@@ -28,6 +29,7 @@ class Routes {
   static const onboardingRestoreWalletWithMnemonic = '/onboarding/restore-wallet/mnemonic';
   static const onboardingRestoreWalletWithToplKey = '/onboarding/restore-wallet/topl-key';
   static const onboardingRestoreWalletEnterPassword = '/onboarding/restore-wallet/enter-password';
+  static const onboardingEnableBiometrics = '/onboarding/enable-biometrics';
   static const assetsTransferInput = '/asset-transfer';
   static const polyTransferInput = '/poly-transfer-input';
   static const txReview = '/tx-review';

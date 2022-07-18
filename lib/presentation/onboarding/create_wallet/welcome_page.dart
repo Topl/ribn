@@ -51,6 +51,7 @@ class WelcomePage extends StatelessWidget {
               ConfirmationButton(
                 text: Strings.getStarted,
                 onPressed: () => navigateToRoute(context, Routes.selectAction),
+                // onPressed: () => navigateToRoute(context, Routes.onboardingEnableBiometrics),
               ),
             ],
           ),

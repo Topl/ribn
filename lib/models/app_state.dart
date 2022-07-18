@@ -49,6 +49,7 @@ class AppState {
 
   bool needsOnboarding() {
     return (keychainState.keyStoreJson ?? '').isEmpty;
+    // return true;
   }
 
   bool needsLogin() => keychainState.hdWallet == null;
@@ -103,6 +104,8 @@ class AppState {
   }
 
   Map<String, dynamic> toMap() {
+    print(userDetailsState.toMap());
+
     return {
       'loginState': loginState.toMap(),
       'keychainState': keychainState.toMap(),

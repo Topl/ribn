@@ -35,7 +35,7 @@ class SelectActionPage extends StatelessWidget {
         icon: Image.asset(RibnAssets.importWalletPng),
         description: Strings.importWalletUsingSeedPhrase,
         title: Strings.importWallet,
-        onPressed: () {},
+        onPressed: () => navigateToRoute(context, Routes.restoreWallet),
       )
     ];
 

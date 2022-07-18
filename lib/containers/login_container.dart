@@ -31,9 +31,12 @@ class LoginViewModel {
   /// Handler for when there is attempt to restore wallet from the login page.
   final VoidCallback restoreWallet;
 
+  final bool isBiometricsEnabled;
+
   const LoginViewModel({
     required this.attemptLogin,
     required this.restoreWallet,
+    required this.isBiometricsEnabled,
   });
   static LoginViewModel fromStore(Store<AppState> store) {
     return LoginViewModel(
@@ -45,6 +48,7 @@ class LoginViewModel {
         });
       },
       restoreWallet: () => store.dispatch(NavigateToRoute(Routes.loginRestoreWalletWithMnemonic)),
+      isBiometricsEnabled: store.state.userDetailsState.isBiometricsEnabled,
     );
   }
 

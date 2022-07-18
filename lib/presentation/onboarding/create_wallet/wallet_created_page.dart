@@ -85,7 +85,6 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                             width: double.infinity,
                             backgroundColor: RibnColors.primary,
                             collapsedBackgroundColor: RibnColors.primary,
-                            // textColor: Colors.white,
                             iconColor: Colors.white,
                           ),
                         )
@@ -101,7 +100,7 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                   if (kIsWeb) {
                     navigateToRoute(context, Routes.extensionInfo);
                   } else {
-                    Navigator.of(context).pushNamedAndRemoveUntil(Routes.home, (_) => false);
+                    Navigator.of(context).pushNamedAndRemoveUntil(Routes.login, (_) => false);
                   }
                 },
               ),

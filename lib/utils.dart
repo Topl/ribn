@@ -45,7 +45,20 @@ Future<bool> isBiometricsAuthenticationSupported(LocalAuthentication auth) async
   final bool canCheckBiometrics = await auth.canCheckBiometrics;
   final bool isDeviceSupported = await auth.isDeviceSupported();
   final List enrolledBiometrics = await auth.getAvailableBiometrics();
+
   return canCheckBiometrics && isDeviceSupported && enrolledBiometrics.isNotEmpty;
+}
+
+Future<bool> authenticateWithBiometrics(LocalAuthentication auth) async {
+  return await auth.authenticate(
+    localizedReason: 'Scan Face to Authenticate',
+    options: const AuthenticationOptions(
+      stickyAuth: true,
+      biometricOnly: true,
+      sensitiveTransaction: true,
+      useErrorDialogs: true,
+    ),
+  );
 }
 
 void navigateToRoute(BuildContext context, String route) {

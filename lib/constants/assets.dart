@@ -97,4 +97,6 @@ class RibnAssets {
   static const successPng = 'assets/icons/success.png';
   static const contentCopyPng = 'assets/icons/content_copy.png';
   static const downloadPng = 'assets/icons/download.png';
+  static const iosFaceID = 'assets/icons/ios_face_id.png';
+  static const andriodFaceID = 'assets/icons/android_face_id.png';
 }

@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-import 'package:local_auth/local_auth.dart';
+// import 'package:flutter/foundation.dart';
+// import 'package:local_auth/local_auth.dart';
 
+import 'package:flutter/foundation.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/middlewares/app_middleware.dart';
 import 'package:ribn/models/app_state.dart';
@@ -14,7 +15,7 @@ import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/repositories/misc_repository.dart';
 import 'package:ribn/repositories/onboarding_repository.dart';
 import 'package:ribn/repositories/transaction_repository.dart';
-import 'package:ribn/utils.dart';
+// import 'package:ribn/utils.dart';
 
 class Redux {
   static Store<AppState>? _store;
@@ -60,6 +61,8 @@ class Redux {
     try {
       final String persistedAppState = await PlatformLocalStorage.instance.getState();
       final Map<String, dynamic> mappedAppState = jsonDecode(persistedAppState) as Map<String, dynamic>;
+      // print('how about this?');
+      // print(mappedAppState);
       return mappedAppState;
     } catch (e) {
       return {};
@@ -73,22 +76,9 @@ class Redux {
     try {
       final Map<String, dynamic> appState = await getPersistedAppState();
       final String? toplKey = await PlatformLocalStorage.instance.getSessionKey();
-      final LocalAuthentication auth = LocalAuthentication();
       if (toplKey != null) {
         if (kIsWeb) {
           appState['keychainState']['toplKey'] = toplKey;
-        } else if (await isBiometricsAuthenticationSupported(auth)) {
-          final bool authenticated = await auth.authenticate(
-            localizedReason: 'Login',
-            options: const AuthenticationOptions(
-              stickyAuth: true,
-              biometricOnly: true,
-              sensitiveTransaction: true,
-            ),
-          );
-          if (authenticated) {
-            appState['keychainState']['toplKey'] = toplKey;
-          }
         }
       }
       return AppState.fromMap(appState);

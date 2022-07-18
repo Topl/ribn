@@ -262,4 +262,9 @@ Write down the each word in the exact order it is presented.''';
       'Now, you will write your Seed Phrase in the exact order shown below.';
   static const String ensureYourWordsAreCorrect =
       'Ensure your seed phrase is written down correctly by filling out the specific words.';
+  static const String enableFaceId = 'Enable Face ID';
+  static const String skipForNow = 'Skip for now';
+  static const String enableFaceIdDescription =
+      '''Would you like to turn on Face ID for faster access to Ribn Wallet?\n 
+Ribn Wallet does not control the functionality of Face ID and does not have access to your facial recognition information.''';
 }

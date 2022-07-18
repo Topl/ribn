@@ -1,8 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/keys.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/login_container.dart';
+import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
@@ -24,6 +28,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final double _baseWidth = 310;
   final TextEditingController _textEditingController = TextEditingController();
+  final LocalAuthentication _localAuthentication = LocalAuthentication();
 
   /// True if password being entered is obscured.
   // ignore: prefer_final_fields
@@ -31,6 +36,40 @@ class _LoginPageState extends State<LoginPage> {
 
   /// True if login was attempted with an incorrect password.
   bool _incorrectPasswordEntered = false;
+
+  /// True if authentication through biometrics produces an error
+  bool _biometricsError = false;
+
+  /// True if biometrics authentication is completed successfully
+  bool _authorized = false;
+
+  Future<void> _biometricsLogin() async {
+    bool authenticated = false;
+    try {
+      authenticated = await authenticateWithBiometrics(_localAuthentication);
+    } catch (e) {
+      setState(() {
+        _biometricsError = true;
+      });
+      return;
+    }
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      _authorized = authenticated ? true : false;
+    });
+  }
+
+  @override
+  void initState() {
+    _biometricsLogin().then(
+      (value) => {if (_authorized) Keys.navigatorKey.currentState?.pushNamed(Routes.home)},
+    );
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -42,6 +81,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return LoginContainer(
       builder: (context, vm) {
+        print('isBiometricsEnabled on login page');
+        print(vm.isBiometricsEnabled);
+
         void attemptLogin() {
           vm.attemptLogin(
             password: _textEditingController.text,
@@ -129,6 +171,14 @@ class _LoginPageState extends State<LoginPage> {
                             _incorrectPasswordEntered
                                 ? Text(
                                     'Incorrect Password',
+                                    style: const TextStyle(
+                                      color: Colors.red,
+                                    ).copyWith(fontWeight: FontWeight.bold),
+                                  )
+                                : const SizedBox(),
+                            _biometricsError
+                                ? Text(
+                                    'There was an issue with Face ID, please try again',
                                     style: const TextStyle(
                                       color: Colors.red,
                                     ).copyWith(fontWeight: FontWeight.bold),
