@@ -28,9 +28,6 @@ UserDetailsState _updateAssetDetails(UserDetailsState userDetails, UpdateAssetDe
 
 /// Handles [UpdateBiometricsAction] and updates [isBiometricsEnabled] that is stored locally
 UserDetailsState _updateBiometricsAction(UserDetailsState userDetails, UpdateBiometricsAction action) {
-  print('is this reducer being hit');
-  print(action.isBiometricsEnabled);
-
   return userDetails.copyWith(
     isBiometricsEnabled: action.isBiometricsEnabled,
   );

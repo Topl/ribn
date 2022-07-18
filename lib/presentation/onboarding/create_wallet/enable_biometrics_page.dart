@@ -6,6 +6,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
+// import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 // import 'package:ribn/models/user_details_state.dart';
@@ -30,20 +31,43 @@ class EnableBiometrics extends StatefulWidget {
 }
 
 class _EnableBiometricsState extends State<EnableBiometrics> {
-  @override
-  Widget build(BuildContext context) {
-    runBiometrics(auth) async {
-      final bool isBioSupported = await isBiometricsAuthenticationSupported(auth);
+  /// True if biometrics authentication is completed successfully
+  bool _authorized = false;
 
-      if (!isBioSupported) return;
+  /// True if authentication through biometrics produces an error
+  bool _biometricsError = false;
 
-      StoreProvider.of<AppState>(context).dispatch(
-        UpdateBiometricsAction(
-          isBiometricsEnabled: true,
-        ),
-      );
+  Future<void> runBiometrics(auth) async {
+    bool authenticated = false;
+    final bool isBioSupported = await isBiometricsAuthenticationSupported(auth);
+
+    if (!isBioSupported) return;
+
+    try {
+      authenticated = await authenticateWithBiometrics(auth);
+    } catch (e) {
+      setState(() {
+        _biometricsError = true;
+      });
+      return;
+    }
+    if (!mounted) {
+      return;
     }
 
+    setState(() {
+      _authorized = authenticated ? true : false;
+    });
+
+    StoreProvider.of<AppState>(context).dispatch(
+      UpdateBiometricsAction(
+        isBiometricsEnabled: true,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
       body: OnboardingContainer(
@@ -101,12 +125,22 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
               onPressed: () {
                 final LocalAuthentication _localAuthentication = LocalAuthentication();
 
+                // runBiometrics(_localAuthentication).then(
+                //   (value) => Keys.navigatorKey.currentState?.push(
+                //     MaterialPageRoute(
+                //       builder: (context) => const WalletCreatedPage(),
+                //     ),
+                //   ),
+                // );
                 runBiometrics(_localAuthentication).then(
-                  (value) => Keys.navigatorKey.currentState?.push(
-                    MaterialPageRoute(
-                      builder: (context) => const WalletCreatedPage(),
-                    ),
-                  ),
+                  (value) => {
+                    if (_authorized)
+                      Keys.navigatorKey.currentState?.push(
+                        MaterialPageRoute(
+                          builder: (context) => const WalletCreatedPage(),
+                        ),
+                      ),
+                  },
                 );
               },
               backgroundColor: RibnColors.primary,

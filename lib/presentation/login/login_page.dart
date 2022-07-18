@@ -43,33 +43,33 @@ class _LoginPageState extends State<LoginPage> {
   /// True if biometrics authentication is completed successfully
   bool _authorized = false;
 
-  Future<void> _biometricsLogin() async {
-    bool authenticated = false;
-    try {
-      authenticated = await authenticateWithBiometrics(_localAuthentication);
-    } catch (e) {
-      setState(() {
-        _biometricsError = true;
-      });
-      return;
-    }
-    if (!mounted) {
-      return;
-    }
+  // Future<void> _biometricsLogin() async {
+  //   bool authenticated = false;
+  //   try {
+  //     authenticated = await authenticateWithBiometrics(_localAuthentication);
+  //   } catch (e) {
+  //     setState(() {
+  //       _biometricsError = true;
+  //     });
+  //     return;
+  //   }
+  //   if (!mounted) {
+  //     return;
+  //   }
 
-    setState(() {
-      _authorized = authenticated ? true : false;
-    });
-  }
+  //   setState(() {
+  //     _authorized = authenticated ? true : false;
+  //   });
+  // }
 
-  @override
-  void initState() {
-    _biometricsLogin().then(
-      (value) => {if (_authorized) Keys.navigatorKey.currentState?.pushNamed(Routes.home)},
-    );
+  // @override
+  // void initState() {
+  //   _biometricsLogin().then(
+  //     (value) => {if (_authorized) Keys.navigatorKey.currentState?.pushNamed(Routes.home)},
+  //   );
 
-    super.initState();
-  }
+  //   super.initState();
+  // }
 
   @override
   void dispose() {
