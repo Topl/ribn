@@ -7,8 +7,10 @@ import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/presentation/login/widgets/uploaded_file_container.dart';
-import 'package:ribn/widgets/onboarding_app_bar.dart';
+import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
+import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
+import 'package:ribn/presentation/onboarding/widgets/uploaded_file_container.dart';
+import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
@@ -17,14 +19,14 @@ import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 ///
 /// This page is used in the 'restore wallet' flow when initiated during Onboarding,
 /// hence the widget name is prefixed with 'Onboarding'.
-class OnboardingRestoreWithToplKeyPage extends StatefulWidget {
-  const OnboardingRestoreWithToplKeyPage({Key? key}) : super(key: key);
+class RestoreWithToplKeyPage extends StatefulWidget {
+  const RestoreWithToplKeyPage({Key? key}) : super(key: key);
 
   @override
-  _OnboardingRestoreWithToplKeyPageState createState() => _OnboardingRestoreWithToplKeyPageState();
+  _RestoreWithToplKeyPageState createState() => _RestoreWithToplKeyPageState();
 }
 
-class _OnboardingRestoreWithToplKeyPageState extends State<OnboardingRestoreWithToplKeyPage> {
+class _RestoreWithToplKeyPageState extends State<RestoreWithToplKeyPage> {
   final double maxWidth = 754;
 
   /// The name of the file that is uploaded.
@@ -39,38 +41,52 @@ class _OnboardingRestoreWithToplKeyPageState extends State<OnboardingRestoreWith
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            OnboardingAppBar(onBackPressed: () => Navigator.of(context).pop()),
-            _buildTitle(),
-            SizedBox(
-              width: maxWidth,
-              child: const Text(
-                Strings.restoreWalletToplKeyDesc,
-                style: TextStyle(
-                  fontFamily: 'DM Sans',
-                  fontSize: 15,
+      body: OnboardingContainer(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const WebOnboardingAppBar(),
+              const Text(
+                Strings.restoreWallet,
+                style: RibnToolkitTextStyles.onboardingH1,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 50),
+              SizedBox(
+                width: maxWidth,
+                child: const Text(Strings.restoreWalletToplKeyDesc, style: RibnToolkitTextStyles.onboardingH3),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 30, bottom: 10),
+                child: SizedBox(
+                  width: maxWidth,
+                  child: const Text(Strings.uploadFile, style: RibnToolkitTextStyles.onboardingH3),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: SizedBox(
-                width: maxWidth,
-                child: const Text(Strings.uploadFile, style: RibnToolkitTextStyles.extH3),
+              _buildUploadFileButton(),
+              _buildUploadedFileContainer(),
+              errorUploadingFile
+                  ? const Text(
+                      'Error Uploading File',
+                      style: TextStyle(color: Colors.red),
+                    )
+                  : const SizedBox(),
+              const SizedBox(height: 30),
+              ConfirmationButton(
+                text: Strings.next,
+                onPressed: () {
+                  if (toplKey.isNotEmpty && !errorUploadingFile) {
+                    StoreProvider.of<AppState>(context).dispatch(
+                      NavigateToRoute(
+                        Routes.enterWalletPassword,
+                        arguments: toplKey,
+                      ),
+                    );
+                  }
+                },
               ),
-            ),
-            _buildUploadFileButton(),
-            _buildUploadedFileContainer(),
-            errorUploadingFile
-                ? const Text(
-                    'Error Uploading File',
-                    style: TextStyle(color: Colors.red),
-                  )
-                : const SizedBox(),
-            _buildContinueButton(),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -88,14 +104,8 @@ class _OnboardingRestoreWithToplKeyPageState extends State<OnboardingRestoreWith
           LargeButton(
             buttonChild: Text(
               Strings.browse,
-              style: RibnToolkitTextStyles.btnLarge.copyWith(
-                color: RibnColors.ghostButtonText,
-              ),
+              style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.lightGreyTitle),
             ),
-            backgroundColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            dropShadowColor: Colors.transparent,
-            borderColor: RibnColors.ghostButtonText,
             buttonWidth: 234,
             onPressed: () async {
               try {
@@ -136,43 +146,6 @@ class _OnboardingRestoreWithToplKeyPageState extends State<OnboardingRestoreWith
             const Spacer(),
           ],
         ),
-      ),
-    );
-  }
-
-  /// Button to continue to the next step.
-  Widget _buildContinueButton() {
-    return LargeButton(
-      buttonChild: Text(
-        'Next',
-        style: RibnToolkitTextStyles.btnLarge.copyWith(
-          color: Colors.white,
-        ),
-      ),
-      backgroundColor: RibnColors.primary,
-      hoverColor: RibnColors.primaryButtonHover,
-      dropShadowColor: RibnColors.primaryButtonShadow,
-      onPressed: () {
-        if (toplKey.isNotEmpty && !errorUploadingFile) {
-          StoreProvider.of<AppState>(context).dispatch(
-            NavigateToRoute(
-              Routes.onboardingRestoreWalletEnterPassword,
-              arguments: toplKey,
-            ),
-          );
-        }
-      },
-    );
-  }
-
-  /// Builds the page title.
-  Widget _buildTitle() {
-    return const Padding(
-      padding: EdgeInsets.only(top: 22, bottom: 76),
-      child: Text(
-        Strings.restoreWallet,
-        style: RibnToolkitTextStyles.h1,
-        textAlign: TextAlign.center,
       ),
     );
   }

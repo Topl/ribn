@@ -45,8 +45,8 @@ class Strings {
   static const String getStarted = 'Get started';
   static const String createWallet = 'Create wallet';
   static const String createWalletDescription = 'First time? Create your new wallet\nand 15 word seed phrase.';
-  static const String importWallet = 'Import Wallet';
-  static const String restoreWallet = 'Restore Wallet';
+  static const String importWallet = 'Import wallet';
+  static const String restoreWallet = 'Restore wallet';
   static const String restoreWalletDescription = 'Restore your existing Ribn wallet\nusing a seed phrase or Topl key.';
   static const String gettingStarted = 'Getting Started';
   static const String download = 'Download';
@@ -168,7 +168,7 @@ Write down the each word in the exact order it is presented.''';
   static const String hintSeedPhrase =
       'dog jump foot stack hay country fun tree cloud ocean bear alaska fish red sushi';
   static const String restoreWalletSeedPhraseDesc =
-      '''Let's restore your wallet! Enter your 15-word Seed Phrase that you wrote down when you first created your wallet. ''';
+      '''Let's restore your wallet!\n\nEnter your 15-word Seed Phrase that you wrote down when you first created your wallet. ''';
   static const String restoreWalletToplKeyDesc =
       '''First, upload your Topl Main Key to import or restore your wallet. Please upload your file in JSON format only.''';
 
@@ -232,6 +232,7 @@ Write down the each word in the exact order it is presented.''';
       '''Ribn failed to reach the internet. This could be related to wifi connectivity or network issues.\n\nCheck your internet connection and try again, or contact the Ribn support team.''';
   static const String contactSupport = 'Contact Support';
   static const String tryAgain = 'Try Again';
+  static const String refreshPage = 'Refresh page';
   static const String returnHome = 'Return Home';
   static const String advancedOption = 'Advanced option';
   static const String useToplMainKey = 'USE TOPL MAIN KEY';

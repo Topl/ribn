@@ -218,7 +218,6 @@ class _PolyTransferSectionState extends State<PolyTransferSection> {
             );
           });
         },
-        hintColor: RibnColors.hintTextColor,
       ),
     );
   }

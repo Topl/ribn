@@ -112,7 +112,7 @@ Stream<dynamic> Function(Stream<LoginSuccessAction>, EpicStore<AppState>) _onLog
                 ? NavigateToRoute(Routes.enable, arguments: store.state.internalMessage!)
                 : store.state.internalMessage?.method == InternalMethods.signTx
                     ? NavigateToRoute(Routes.externalSigning, arguments: store.state.internalMessage!)
-                    : NavigateToRoute(Routes.home),
+                    : Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home),
           ],
         );
       },
@@ -130,7 +130,7 @@ Stream<dynamic> Function(Stream<SuccessfullyRestoredWalletAction>, EpicStore<App
 ) {
   return (actions, store) {
     return actions.switchMap((action) {
-      final String navigateToRoute = store.state.needsOnboarding() ? Routes.extensionInfo : Routes.home;
+      const String navigateToRoute = kIsWeb ? Routes.extensionInfo : Routes.home;
       return Stream.fromIterable([
         const ResetAppStateAction(),
         InitializeHDWalletAction(
@@ -138,7 +138,7 @@ Stream<dynamic> Function(Stream<SuccessfullyRestoredWalletAction>, EpicStore<App
           toplExtendedPrivateKey: action.toplExtendedPrivateKey,
         ),
         PersistAppState(),
-        NavigateToRoute(navigateToRoute),
+        Keys.navigatorKey.currentState!.pushNamedAndRemoveUntil(navigateToRoute, (route) => false),
       ]);
     });
   };

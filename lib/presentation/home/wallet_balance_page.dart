@@ -76,21 +76,18 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
           if (currVm.currentNetwork.addresses.isNotEmpty) refreshBalances(currVm);
         }
       },
-      builder: (BuildContext context, WalletBalanceViewModel vm) => SingleChildScrollView(
-        child: Listener(
-          onPointerDown: (_) {
-            if (mounted) setState(() {});
-          },
-          child: _failedToFetchBalances
-              ? Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: ErrorSection(
-                      onTryAgain: () => refreshBalances(vm),
-                    ),
-                  ),
-                )
-              : Column(
+      builder: (BuildContext context, WalletBalanceViewModel vm) => _failedToFetchBalances
+          ? Center(
+              child: ErrorSection(
+                onTryAgain: () => refreshBalances(vm),
+              ),
+            )
+          : SingleChildScrollView(
+              child: Listener(
+                onPointerDown: (_) {
+                  if (mounted) setState(() {});
+                },
+                child: Column(
                   children: _fetchingBalances
                       ? [const WalletBalanceShimmer()]
                       : [
@@ -98,8 +95,8 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
                           _buildAssetsListView(vm),
                         ],
                 ),
-        ),
-      ),
+              ),
+            ),
     );
   }
 

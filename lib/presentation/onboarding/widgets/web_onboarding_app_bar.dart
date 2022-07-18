@@ -4,11 +4,13 @@ import 'package:ribn_toolkit/widgets/molecules/onboarding_progress_bar.dart';
 
 class WebOnboardingAppBar extends StatelessWidget {
   final int? currStep;
+  final int? numSteps;
   final VoidCallback? onTap;
 
   const WebOnboardingAppBar({
     Key? key,
     this.currStep,
+    this.numSteps,
     this.onTap,
   }) : super(key: key);
 
@@ -38,7 +40,7 @@ class WebOnboardingAppBar extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 20.0),
                     child: currStep != null
                         ? OnboardingProgressBar(
-                            numSteps: 4,
+                            numSteps: numSteps ?? 4,
                             currStep: currStep!,
                           )
                         : const SizedBox(),
