@@ -81,9 +81,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return LoginContainer(
       builder: (context, vm) {
-        print('isBiometricsEnabled on login page');
-        print(vm.isBiometricsEnabled);
-
         void attemptLogin() {
           vm.attemptLogin(
             password: _textEditingController.text,

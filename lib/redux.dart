@@ -61,8 +61,6 @@ class Redux {
     try {
       final String persistedAppState = await PlatformLocalStorage.instance.getState();
       final Map<String, dynamic> mappedAppState = jsonDecode(persistedAppState) as Map<String, dynamic>;
-      // print('how about this?');
-      // print(mappedAppState);
       return mappedAppState;
     } catch (e) {
       return {};

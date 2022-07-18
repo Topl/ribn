@@ -50,8 +50,8 @@ class WelcomePage extends StatelessWidget {
               adaptableSpacer(),
               ConfirmationButton(
                 text: Strings.getStarted,
-                onPressed: () => navigateToRoute(context, Routes.selectAction),
-                // onPressed: () => navigateToRoute(context, Routes.onboardingEnableBiometrics),
+                // onPressed: () => navigateToRoute(context, Routes.selectAction),
+                onPressed: () => navigateToRoute(context, Routes.onboardingEnableBiometrics),
               ),
             ],
           ),

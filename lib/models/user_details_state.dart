@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
@@ -42,9 +43,6 @@ class UserDetailsState {
   }
 
   factory UserDetailsState.fromMap(Map<String, dynamic> map) {
-    // print('isBiometricsEnabled');
-    // print(map['isBiometricsEnabled']);
-
     return UserDetailsState(
       assetDetails: Map<String, AssetDetails>.from(
         (map['assetDetails'] as Map<String, dynamic>).map(
@@ -66,12 +64,12 @@ class UserDetailsState {
   String toString() => 'UserDetailsState(assetDetails: $assetDetails, isBiometricsEnabled: $isBiometricsEnabled)';
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(covariant UserDetailsState other) {
     if (identical(this, other)) return true;
 
-    return other is UserDetailsState && mapEquals(other.assetDetails, assetDetails);
+    return mapEquals(other.assetDetails, assetDetails) && other.isBiometricsEnabled == isBiometricsEnabled;
   }
 
   @override
-  int get hashCode => assetDetails.hashCode;
+  int get hashCode => assetDetails.hashCode ^ isBiometricsEnabled.hashCode;
 }

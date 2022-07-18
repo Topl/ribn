@@ -100,7 +100,7 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                   if (kIsWeb) {
                     navigateToRoute(context, Routes.extensionInfo);
                   } else {
-                    Navigator.of(context).pushNamedAndRemoveUntil(Routes.login, (_) => false);
+                    Navigator.of(context).pushNamedAndRemoveUntil(Routes.home, (_) => false);
                   }
                 },
               ),

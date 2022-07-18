@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -53,12 +54,12 @@ class LoginViewModel {
   }
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(covariant LoginViewModel other) {
     if (identical(this, other)) return true;
 
-    return other is LoginViewModel && other.restoreWallet == restoreWallet;
+    return other.restoreWallet == restoreWallet && other.isBiometricsEnabled == isBiometricsEnabled;
   }
 
   @override
-  int get hashCode => restoreWallet.hashCode;
+  int get hashCode => restoreWallet.hashCode ^ isBiometricsEnabled.hashCode;
 }
