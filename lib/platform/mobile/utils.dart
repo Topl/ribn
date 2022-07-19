@@ -1,3 +1,4 @@
+import 'package:ribn/constants/rules.dart';
 import 'package:ribn/platform/interfaces.dart';
 
 class PlatformUtils implements IPlatformUtils {
@@ -30,8 +31,8 @@ class PlatformUtils implements IPlatformUtils {
   }
 
   @override
-  Future<String> getCurrentAppView() {
-    return Future.value('mobile');
+  Future<AppViews> getCurrentAppView() {
+    return Future.value(AppViews.mobile);
   }
 
   @override
