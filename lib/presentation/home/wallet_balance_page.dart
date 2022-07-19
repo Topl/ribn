@@ -73,7 +73,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
         if (prevVm?.currentNetwork.networkName != currVm.currentNetwork.networkName ||
             prevVm?.currentNetwork.lastCheckedTimestamp != currVm.currentNetwork.lastCheckedTimestamp ||
             prevVm?.currentNetwork.addresses.length != currVm.currentNetwork.addresses.length) {
-          if (currVm.currentNetwork.addresses.isNotEmpty) refreshBalances(currVm);
+          refreshBalances(currVm);
         }
       },
       builder: (BuildContext context, WalletBalanceViewModel vm) => _failedToFetchBalances
