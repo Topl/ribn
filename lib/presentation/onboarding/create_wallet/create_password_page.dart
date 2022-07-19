@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
@@ -48,97 +49,103 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   @override
   Widget build(BuildContext context) {
     return CreatePasswordContainer(
-      onDidChange: (_, vm) {
-        if (vm.passwordSuccessfullyCreated) navigateToRoute(context, Routes.walletInfoChecklist);
+      onDidChange: (prevVm, newVm) {
+        if (prevVm?.keyStoreJson != newVm.keyStoreJson && newVm.passwordSuccessfullyCreated) {
+          context.loaderOverlay.hide();
+          navigateToRoute(context, Routes.walletInfoChecklist);
+        }
       },
-      builder: (context, vm) => Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: OnboardingContainer(
-          child: SingleChildScrollView(
-            clipBehavior: Clip.none,
-            child: Column(
-              children: [
-                renderIfWeb(const WebOnboardingAppBar(currStep: 2)),
-                const Text(
-                  Strings.createWalletPassword,
-                  style: RibnToolkitTextStyles.onboardingH1,
-                  textAlign: TextAlign.center,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: adaptHeight(0.01)),
-                  child: Image.asset(
-                    RibnAssets.createWalletPng,
-                    width: 100,
+      builder: (context, vm) => LoaderOverlay(
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          body: OnboardingContainer(
+            child: SingleChildScrollView(
+              clipBehavior: Clip.none,
+              child: Column(
+                children: [
+                  renderIfWeb(const WebOnboardingAppBar(currStep: 2)),
+                  const Text(
+                    Strings.createWalletPassword,
+                    style: RibnToolkitTextStyles.onboardingH1,
+                    textAlign: TextAlign.center,
                   ),
-                ),
-                SizedBox(
-                  width: 730,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: adaptWidth(0.9),
-                        child: const Text(
-                          Strings.createWalletPasswordDesc,
-                          style: RibnToolkitTextStyles.onboardingH3,
-                        ),
-                      ),
-                      SizedBox(height: adaptHeight(0.02)),
-                      _buildNewPasswordSection(),
-                      SizedBox(height: adaptHeight(0.02)),
-                      _buildConfirmPasswordSection(),
-                      SizedBox(height: adaptHeight(0.02)),
-                      CheckboxWrappableText(
-                        wrapText: false,
-                        borderColor: _termsOfUseChecked ? const Color(0xff80FF00) : RibnColors.lightGreyTitle,
-                        value: _termsOfUseChecked,
-                        onChanged: (bool? checked) {
-                          setState(() {
-                            _termsOfUseChecked = checked ?? false;
-                          });
-                        },
-                        label: RichText(
-                          maxLines: 2,
-                          key: GlobalKey(),
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: Strings.readAndAgreedToU,
-                                style: RibnToolkitTextStyles.h3.copyWith(
-                                  color: RibnColors.lightGreyTitle,
-                                  fontSize: 15,
-                                ),
-                              ),
-                              TextSpan(
-                                text: Strings.termsOfUse,
-                                style: RibnToolkitTextStyles.h3.copyWith(
-                                  color: const Color(0xff00FFC5),
-                                  fontSize: 15,
-                                ),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () async {
-                                    final Uri url = Uri.parse(Strings.termsOfUseUrl);
-
-                                    await launchUrl(url);
-                                  },
-                              ),
-                            ],
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: adaptHeight(0.01)),
+                    child: Image.asset(
+                      RibnAssets.createWalletPng,
+                      width: 100,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 730,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          width: adaptWidth(0.9),
+                          child: const Text(
+                            Strings.createWalletPasswordDesc,
+                            style: RibnToolkitTextStyles.onboardingH3,
                           ),
                         ),
-                        activeText: true,
-                      ),
-                    ],
+                        SizedBox(height: adaptHeight(0.02)),
+                        _buildNewPasswordSection(),
+                        SizedBox(height: adaptHeight(0.02)),
+                        _buildConfirmPasswordSection(),
+                        SizedBox(height: adaptHeight(0.02)),
+                        CheckboxWrappableText(
+                          wrapText: false,
+                          borderColor: _termsOfUseChecked ? const Color(0xff80FF00) : RibnColors.lightGreyTitle,
+                          value: _termsOfUseChecked,
+                          onChanged: (bool? checked) {
+                            setState(() {
+                              _termsOfUseChecked = checked ?? false;
+                            });
+                          },
+                          label: RichText(
+                            maxLines: 2,
+                            key: GlobalKey(),
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: Strings.readAndAgreedToU,
+                                  style: RibnToolkitTextStyles.h3.copyWith(
+                                    color: RibnColors.lightGreyTitle,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: Strings.termsOfUse,
+                                  style: RibnToolkitTextStyles.h3.copyWith(
+                                    color: const Color(0xff00FFC5),
+                                    fontSize: 15,
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () async {
+                                      final Uri url = Uri.parse(Strings.termsOfUseUrl);
+
+                                      await launchUrl(url);
+                                    },
+                                ),
+                              ],
+                            ),
+                          ),
+                          activeText: true,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 40),
-                renderIfMobile(const MobileOnboardingProgressBar(currStep: 2)),
-                ConfirmationButton(
-                  text: Strings.done,
-                  disabled: !_atLeast8Chars || !_passwordsMatch || !_termsOfUseChecked,
-                  onPressed: () {
-                    vm.attemptCreatePassword(_confirmPasswordController.text);
-                  },
-                ),
-              ],
+                  const SizedBox(height: 40),
+                  renderIfMobile(const MobileOnboardingProgressBar(currStep: 2)),
+                  ConfirmationButton(
+                    text: Strings.done,
+                    disabled: !_atLeast8Chars || !_passwordsMatch || !_termsOfUseChecked,
+                    onPressed: () {
+                      context.loaderOverlay.show();
+                      vm.attemptCreatePassword(_confirmPasswordController.text);
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
