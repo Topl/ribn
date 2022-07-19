@@ -33,8 +33,15 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
 
   /// Mobile-only: Gets toplKey from encrypted device storage.
   @override
-  Future<String?> getKeyFromSecureStorage() {
-    return secureStorage.read(key: 'toplKey');
+  Future<String?>? getKeyFromSecureStorage() {
+    try {
+      return secureStorage.read(key: 'toplKey');
+    } catch (e) {
+      if (!Keys.isTestingEnvironment) {
+        rethrow;
+      }
+    }
+    return null;
   }
 
   /// Mobile-only: Saves [key] in encrypted device storage.
