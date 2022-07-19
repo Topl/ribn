@@ -99,7 +99,7 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
             ? const Color(0xff80FF00)
             : activeText
                 ? RibnColors.lightGreyTitle
-                : RibnColors.inactive,
+                : RibnColors.transparentAlternateGreyText,
         value: checked,
         onChanged: onChanged,
         wrappableText: text,
