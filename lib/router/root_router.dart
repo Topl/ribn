@@ -8,6 +8,7 @@ import 'package:ribn/presentation/external_signing_page.dart';
 import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/create_password_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/enable_biometrics_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/getting_started_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_confirmation_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_display_page.dart';
@@ -17,7 +18,6 @@ import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_instructi
 import 'package:ribn/presentation/onboarding/create_wallet/select_action_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/wallet_info_checklist_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
-import 'package:ribn/presentation/onboarding/create_wallet/enable_biometrics_page.dart';
 import 'package:ribn/presentation/onboarding/extension_info_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/create_new_wallet_password_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/enter_wallet_password_page.dart';
@@ -80,8 +80,9 @@ class RootRouter {
           return pageRoute(const ExtensionInfoPage(), settings);
         }
       case Routes.login:
+        final bool isBiometricsEnabled = settings.arguments as bool;
         {
-          return pageRoute(const LoginPage(), settings);
+          return pageRoute(LoginPage(isBiometricsEnabled: isBiometricsEnabled), settings);
         }
       case Routes.home:
         {

@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-// import 'package:flutter/foundation.dart';
-// import 'package:local_auth/local_auth.dart';
-
 import 'package:flutter/foundation.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/middlewares/app_middleware.dart';
@@ -15,7 +12,6 @@ import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/repositories/misc_repository.dart';
 import 'package:ribn/repositories/onboarding_repository.dart';
 import 'package:ribn/repositories/transaction_repository.dart';
-// import 'package:ribn/utils.dart';
 
 class Redux {
   static Store<AppState>? _store;

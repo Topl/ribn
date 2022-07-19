@@ -75,9 +75,6 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
             renderIfMobile(const MobileOnboardingProgressBar(currStep: 2)),
             ConfirmationButton(
               text: Strings.iUnderstand,
-              // onPressed: () {
-              //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => const WalletCreatedPage()));
-              // },
               onPressed: () => navigateToRoute(context, Routes.onboardingEnableBiometrics),
               disabled: checkboxesState.containsValue(false),
             )

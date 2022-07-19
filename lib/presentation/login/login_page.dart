@@ -19,7 +19,13 @@ import 'package:url_launcher/url_launcher.dart';
 ///
 /// Prompts the user to unlock their wallet by entering their wallet-locking password.
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  /// True if biometrics authentication is enabled for login
+  final bool isBiometricsEnabled;
+
+  const LoginPage({
+    required this.isBiometricsEnabled,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -43,33 +49,34 @@ class _LoginPageState extends State<LoginPage> {
   /// True if biometrics authentication is completed successfully
   bool _authorized = false;
 
-  // Future<void> _biometricsLogin() async {
-  //   bool authenticated = false;
-  //   try {
-  //     authenticated = await authenticateWithBiometrics(_localAuthentication);
-  //   } catch (e) {
-  //     setState(() {
-  //       _biometricsError = true;
-  //     });
-  //     return;
-  //   }
-  //   if (!mounted) {
-  //     return;
-  //   }
+  Future<void> _biometricsLogin() async {
+    bool authenticated = false;
+    try {
+      authenticated = await authenticateWithBiometrics(_localAuthentication);
+    } catch (e) {
+      setState(() {
+        _biometricsError = true;
+      });
+      return;
+    }
+    if (!mounted) {
+      return;
+    }
 
-  //   setState(() {
-  //     _authorized = authenticated ? true : false;
-  //   });
-  // }
+    setState(() {
+      _authorized = authenticated ? true : false;
+    });
+  }
 
-  // @override
-  // void initState() {
-  //   _biometricsLogin().then(
-  //     (value) => {if (_authorized) Keys.navigatorKey.currentState?.pushNamed(Routes.home)},
-  //   );
-
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    if (widget.isBiometricsEnabled) {
+      _biometricsLogin().then(
+        (value) => {if (_authorized) Keys.navigatorKey.currentState?.pushNamed(Routes.home)},
+      );
+    }
+    super.initState();
+  }
 
   @override
   void dispose() {

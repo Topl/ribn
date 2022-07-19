@@ -6,12 +6,9 @@ import 'package:local_auth/local_auth.dart';
 import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
-// import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
-// import 'package:ribn/models/user_details_state.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/wallet_created_page.dart';
-// import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/utils.dart';
@@ -19,9 +16,6 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-// import 'package:ribn_toolkit/constants/colors.dart';
-// import 'package:ribn_toolkit/constants/styles.dart';
-// import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 
 class EnableBiometrics extends StatefulWidget {
   const EnableBiometrics({Key? key}) : super(key: key);
@@ -34,9 +28,6 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
   /// True if biometrics authentication is completed successfully
   bool _authorized = false;
 
-  /// True if authentication through biometrics produces an error
-  bool _biometricsError = false;
-
   Future<void> runBiometrics(auth) async {
     bool authenticated = false;
     final bool isBioSupported = await isBiometricsAuthenticationSupported(auth);
@@ -46,9 +37,6 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
     try {
       authenticated = await authenticateWithBiometrics(auth);
     } catch (e) {
-      setState(() {
-        _biometricsError = true;
-      });
       return;
     }
     if (!mounted) {
@@ -125,13 +113,6 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
               onPressed: () {
                 final LocalAuthentication _localAuthentication = LocalAuthentication();
 
-                // runBiometrics(_localAuthentication).then(
-                //   (value) => Keys.navigatorKey.currentState?.push(
-                //     MaterialPageRoute(
-                //       builder: (context) => const WalletCreatedPage(),
-                //     ),
-                //   ),
-                // );
                 runBiometrics(_localAuthentication).then(
                   (value) => {
                     if (_authorized)

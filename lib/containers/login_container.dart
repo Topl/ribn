@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -32,12 +31,9 @@ class LoginViewModel {
   /// Handler for when there is attempt to restore wallet from the login page.
   final VoidCallback restoreWallet;
 
-  final bool isBiometricsEnabled;
-
   const LoginViewModel({
     required this.attemptLogin,
     required this.restoreWallet,
-    required this.isBiometricsEnabled,
   });
   static LoginViewModel fromStore(Store<AppState> store) {
     return LoginViewModel(
@@ -49,7 +45,6 @@ class LoginViewModel {
         });
       },
       restoreWallet: () => store.dispatch(NavigateToRoute(Routes.restoreWallet)),
-      isBiometricsEnabled: store.state.userDetailsState.isBiometricsEnabled,
     );
   }
 
@@ -57,9 +52,9 @@ class LoginViewModel {
   bool operator ==(covariant LoginViewModel other) {
     if (identical(this, other)) return true;
 
-    return other.restoreWallet == restoreWallet && other.isBiometricsEnabled == isBiometricsEnabled;
+    return other.restoreWallet == restoreWallet;
   }
 
   @override
-  int get hashCode => restoreWallet.hashCode ^ isBiometricsEnabled.hashCode;
+  int get hashCode => restoreWallet.hashCode;
 }

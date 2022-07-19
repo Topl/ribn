@@ -52,7 +52,13 @@ class RibnApp extends StatelessWidget {
           onGenerateInitialRoutes: (String route) {
             switch (route) {
               case Routes.login:
-                return [MaterialPageRoute(builder: (context) => const LoginPage())];
+                return [
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage(
+                      isBiometricsEnabled: store.state.userDetailsState.isBiometricsEnabled,
+                    ),
+                  )
+                ];
               case Routes.home:
                 return [MaterialPageRoute(builder: (context) => const HomePage())];
               case Routes.enable:
