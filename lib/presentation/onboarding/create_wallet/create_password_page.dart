@@ -48,8 +48,11 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   @override
   Widget build(BuildContext context) {
     return CreatePasswordContainer(
-      onDidChange: (_, vm) {
-        if (vm.passwordSuccessfullyCreated) navigateToRoute(context, Routes.walletInfoChecklist);
+      onDidChange: (prevVm, newVm) {
+        if (prevVm?.keyStoreJson != newVm.keyStoreJson && newVm.passwordSuccessfullyCreated) {
+          // context.loaderOverlay.hide();
+          navigateToRoute(context, Routes.walletInfoChecklist);
+        }
       },
       builder: (context, vm) => Scaffold(
         resizeToAvoidBottomInset: true,

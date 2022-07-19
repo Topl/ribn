@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
@@ -100,7 +101,7 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                   if (kIsWeb) {
                     navigateToRoute(context, Routes.extensionInfo);
                   } else {
-                    Navigator.of(context).pushNamedAndRemoveUntil(Routes.home, (_) => false);
+                    Keys.navigatorKey.currentState?.pushNamed(Routes.home);
                   }
                 },
               ),

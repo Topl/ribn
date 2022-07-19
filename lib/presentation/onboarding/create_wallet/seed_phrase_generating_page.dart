@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
@@ -10,7 +11,6 @@ import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
-import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/animated_circle_step_loader.dart';
 
@@ -100,10 +100,9 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
       adaptableSpacer(),
       ConfirmationButton(
         text: Strings.cont,
-        onPressed: () => navigateToRoute(
-          context,
-          Routes.displaySeedphrase,
-        ),
+        onPressed: () {
+          Keys.navigatorKey.currentState?.pushNamed(Routes.displaySeedphrase);
+        },
       ),
     ];
   }

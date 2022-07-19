@@ -16,6 +16,7 @@ import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_generatin
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_info_checklist_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_instructions_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/select_action_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/wallet_created_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/wallet_info_checklist_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
 import 'package:ribn/presentation/onboarding/extension_info_page.dart';
@@ -83,6 +84,10 @@ class RootRouter {
         final bool isBiometricsEnabled = settings.arguments as bool;
         {
           return pageRoute(LoginPage(isBiometricsEnabled: isBiometricsEnabled), settings);
+        }
+      case Routes.walletCreated:
+        {
+          return pageRoute(const WalletCreatedPage(), settings);
         }
       case Routes.home:
         {

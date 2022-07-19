@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
@@ -26,7 +27,9 @@ class SelectActionPage extends StatelessWidget {
         title: Strings.createWallet,
         description: Strings.firstTimeWallet,
         lineHeight: 4,
-        onPressed: () => navigateToRoute(context, Routes.gettingStarted),
+        onPressed: () {
+          Keys.navigatorKey.currentState?.pushNamed(Routes.gettingStarted);
+        },
       ),
       kIsWeb ? const SizedBox(width: 100, height: 50) : const SizedBox(height: 50),
       OnboardingActionButton(
@@ -35,7 +38,9 @@ class SelectActionPage extends StatelessWidget {
         icon: Image.asset(RibnAssets.importWalletPng),
         description: Strings.importWalletUsingSeedPhrase,
         title: Strings.importWallet,
-        onPressed: () => navigateToRoute(context, Routes.restoreWallet),
+        onPressed: () {
+          Keys.navigatorKey.currentState?.pushNamed(Routes.restoreWallet);
+        },
       )
     ];
 

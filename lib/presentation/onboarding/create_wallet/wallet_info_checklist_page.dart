@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
-// import 'package:ribn/presentation/onboarding/create_wallet/wallet_created_page.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/mobile_onboarding_progress_bar.dart';
@@ -75,7 +75,9 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
             renderIfMobile(const MobileOnboardingProgressBar(currStep: 2)),
             ConfirmationButton(
               text: Strings.iUnderstand,
-              onPressed: () => navigateToRoute(context, Routes.onboardingEnableBiometrics),
+              onPressed: () {
+                Keys.navigatorKey.currentState?.pushNamed(Routes.onboardingEnableBiometrics);
+              },
               disabled: checkboxesState.containsValue(false),
             )
           ],
