@@ -45,7 +45,8 @@ class UpdateCurrentNetworkAction {
 
 class RefreshBalancesAction {
   final Completer<bool> completer;
-  const RefreshBalancesAction(this.completer);
+  final RibnNetwork network;
+  const RefreshBalancesAction(this.completer, this.network);
 }
 
 class UpdateBalancesAction {

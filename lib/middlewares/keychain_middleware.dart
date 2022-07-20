@@ -38,19 +38,19 @@ void Function(Store<AppState> store, GenerateInitialAddressesAction action, Next
 void Function(Store<AppState> store, GenerateAddressAction action, NextDispatcher next) _onGenerateAddress(
   KeychainRepository keychainRepo,
 ) {
-  return (store, action, next) {
+  return (store, action, next) async {
     try {
       final RibnAddress newAddress = keychainRepo.generateAddress(
         store.state.keychainState.hdWallet!,
         account: action.accountIndex,
         change: action.changeIndex,
         addr: action.addressIndex,
-        networkId: store.state.keychainState.currentNetwork.networkId,
+        networkId: action.network.networkId,
       );
       next(
         AddAddressAction(
           address: newAddress,
-          networkName: store.state.keychainState.currentNetworkName,
+          networkName: action.network.networkName,
         ),
       );
     } catch (e) {
@@ -68,12 +68,10 @@ void Function(Store<AppState> store, RefreshBalancesAction action, NextDispatche
   return (store, action, next) async {
     try {
       // get addresses in the wallet
-      final List<ToplAddress> currentAddresses =
-          store.state.keychainState.currentNetwork.addresses.map((addr) => addr.toplAddress).toList();
+      final List<ToplAddress> currentAddresses = action.network.addresses.map((addr) => addr.toplAddress).toList();
       // if no address in the wallet, generate a new address
       if (currentAddresses.isEmpty) {
-        store.dispatch(GenerateAddressAction(0));
-        action.completer.complete(false);
+        store.dispatch(GenerateAddressAction(0, network: action.network));
       } else {
         // get balances for all addresses under the current network
         final List<Balance> balances = await keychainRepo.getBalances(
@@ -83,7 +81,7 @@ void Function(Store<AppState> store, RefreshBalancesAction action, NextDispatche
         // map addresses and balances
         final Map<String, Balance> addrBalanceMap = {for (Balance bal in balances) bal.address: bal};
         // addresses with updated balances
-        final List<RibnAddress> addressesWithUpdatedBalances = store.state.keychainState.currentNetwork.addresses.map(
+        final List<RibnAddress> addressesWithUpdatedBalances = action.network.addresses.map(
           (addr) {
             return addr.copyWith(
               balance: addrBalanceMap[addr.toplAddress.toBase58()],
