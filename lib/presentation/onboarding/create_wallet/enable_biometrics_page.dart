@@ -25,19 +25,44 @@ class EnableBiometrics extends StatefulWidget {
 }
 
 class _EnableBiometricsState extends State<EnableBiometrics> {
+  final LocalAuthentication _localAuthentication = LocalAuthentication();
+  bool _authorized = false;
+  bool isFingerprintBio = false;
+
+  Future<dynamic> isFaceBiometrics() async {
+    final bool isFingerprint = await isBiometricsTypeFingerprint(_localAuthentication);
+
+    setState(() {
+      isFingerprintBio = isFingerprint;
+    });
+  }
+
+  @override
+  void initState() {
+    isFaceBiometrics();
+
+    super.initState();
+  }
+
   Future<void> runBiometrics(auth) async {
+    bool authenticated = false;
     final bool isBioSupported = await isBiometricsAuthenticationSupported(auth);
 
     if (!isBioSupported) return;
 
     try {
-      await authenticateWithBiometrics(auth);
+      authenticated = await authenticateWithBiometrics(auth);
     } catch (e) {
       return;
     }
-    if (!mounted) {
+
+    if (!mounted || !authenticated) {
       return;
     }
+
+    setState(() {
+      _authorized = authenticated ? true : false;
+    });
 
     StoreProvider.of<AppState>(context).dispatch(
       UpdateBiometricsAction(
@@ -68,7 +93,7 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
               ],
             ),
             Text(
-              Strings.enableFaceId,
+              isFingerprintBio ? Strings.enableTouchId : Strings.enableFaceId,
               style: RibnToolkitTextStyles.h1.copyWith(
                 color: RibnColors.lightGreyTitle,
                 fontSize: 28,
@@ -76,12 +101,21 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 30.0, bottom: 45),
-              child: Image.asset(Platform.isIOS ? RibnAssets.iosFaceID : RibnAssets.andriodFaceID, width: 76),
+              child: Image.asset(
+                Platform.isIOS
+                    ? isFingerprintBio
+                        ? RibnAssets.touchID
+                        : RibnAssets.iosFaceID
+                    : isFingerprintBio
+                        ? RibnAssets.touchID
+                        : RibnAssets.andriodFaceID,
+                width: 76,
+              ),
             ),
-            const SizedBox(
+            SizedBox(
               width: kIsWeb ? 730 : 340,
               child: Text(
-                Strings.enableFaceIdDescription,
+                isFingerprintBio ? Strings.enableTouchIdDescription : Strings.enableFaceIdDescription,
                 style: RibnToolkitTextStyles.onboardingH3,
               ),
             ),
@@ -96,16 +130,14 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
               buttonHeight: 50,
               buttonWidth: double.infinity,
               buttonChild: Text(
-                Strings.enableFaceId,
+                isFingerprintBio ? Strings.enableTouchId : Strings.enableFaceId,
                 style: RibnToolkitTextStyles.btnLarge.copyWith(
                   color: RibnColors.lightGreyTitle,
                 ),
               ),
               onPressed: () {
-                final LocalAuthentication _localAuthentication = LocalAuthentication();
-
                 runBiometrics(_localAuthentication).then(
-                  (value) => Keys.navigatorKey.currentState?.pushNamed(Routes.walletCreated),
+                  (value) => {if (_authorized) Keys.navigatorKey.currentState?.pushNamed(Routes.walletCreated)},
                 );
               },
               backgroundColor: RibnColors.primary,
