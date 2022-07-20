@@ -44,9 +44,9 @@ void Function(Store<AppState> store, CreatePasswordAction action, NextDispatcher
       // create isolate/worker to avoid hanging the UI
       final Map<String, dynamic> results = jsonDecode(
         await PlatformWorkerRunner.instance.runWorker(
-          workerScript: currAppView == AppViews.extension
-              ? '/workers/generate_keystore_worker.js'
-              : '/web/workers/generate_keystore_worker.js',
+          workerScript: currAppView == AppViews.webDebug
+              ? '/web/workers/generate_keystore_worker.js'
+              : '/workers/generate_keystore_worker.js',
           function: onboardingRespository.generateKeyStore,
           params: {
             'mnemonic': store.state.onboardingState.mnemonic!,
@@ -57,7 +57,7 @@ void Function(Store<AppState> store, CreatePasswordAction action, NextDispatcher
       final Uint8List toplExtendedPrvKeyUint8List = uint8ListFromDynamic(results['toplExtendedPrvKeyUint8List']);
       // if extension: key is temporarily stored in `chrome.storage.session` & session alarm created
       // if mobile: key is persisted securely in secure storage
-      if (currAppView == AppViews.extension) {
+      if (currAppView == AppViews.extension || currAppView == AppViews.extensionTab) {
         await PlatformLocalStorage.instance.saveKeyInSessionStorage(
           Base58Encoder.instance.encode(toplExtendedPrvKeyUint8List),
         );
@@ -73,6 +73,7 @@ void Function(Store<AppState> store, CreatePasswordAction action, NextDispatcher
           keyStoreJson: results['keyStoreJson'],
         ),
       );
+      next(PersistAppState());
     } catch (e) {
       next(ApiErrorAction(e.toString()));
     }

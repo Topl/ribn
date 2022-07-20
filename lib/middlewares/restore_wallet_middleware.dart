@@ -33,9 +33,9 @@ void Function(Store<AppState> store, RestoreWalletWithMnemonicAction action, Nex
       final AppViews currAppView = await PlatformUtils.instance.getCurrentAppView();
       final Map<String, dynamic> results = jsonDecode(
         await PlatformWorkerRunner.instance.runWorker(
-          workerScript: currAppView == AppViews.extension
-              ? '/workers/generate_keystore_worker.js'
-              : '/web/workers/generate_keystore_worker.js',
+          workerScript: currAppView == AppViews.webDebug
+              ? '/web/workers/generate_keystore_worker.js'
+              : '/workers/generate_keystore_worker.js',
           function: onboardingRepo.generateKeyStore,
           params: {
             'mnemonic': action.mnemonic,
