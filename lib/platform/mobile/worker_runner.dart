@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:ribn/constants/keys.dart';
 import 'package:ribn/platform/interfaces.dart';
 
 class PlatformWorkerRunner implements IPlatformWorkerRunner {
@@ -19,6 +20,7 @@ class PlatformWorkerRunner implements IPlatformWorkerRunner {
     Map<String, dynamic> params = const {},
   }) async {
     if (function == null) throw Exception('Dart isolate requires `function` to not be null');
+    if (Keys.isTestingEnvironment) return jsonEncode(function(params));
     try {
       return jsonEncode(await compute(function, params));
     } catch (e) {
