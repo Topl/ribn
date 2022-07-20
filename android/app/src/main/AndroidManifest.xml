@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="co.topl.ribn">
       <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+      <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="Ribn"
         android:icon="@mipmap/ic_launcher">
