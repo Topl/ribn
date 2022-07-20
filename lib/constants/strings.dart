@@ -263,13 +263,9 @@ Write down the each word in the exact order it is presented.''';
       'Now, you will write your Seed Phrase in the exact order shown below.';
   static const String ensureYourWordsAreCorrect =
       'Ensure your seed phrase is written down correctly by filling out the specific words.';
-  static const String enableFaceId = 'Enable Face ID';
-  static const String enableTouchId = 'Enable Touch ID';
+  static const String enableBiometrics = 'Enable Biometrics';
   static const String skipForNow = 'Skip for now';
-  static const String enableFaceIdDescription =
-      '''Would you like to turn on Face ID for faster access to Ribn Wallet?\n 
-Ribn Wallet does not control the functionality of Face ID and does not have access to your facial recognition information.''';
-  static const String enableTouchIdDescription =
-      '''Would you like to turn on Touch ID for faster access to Ribn Wallet?\n 
-Ribn Wallet does not control the functionality of Touch ID and does not have access to your fingerprint information.''';
+  static const String enableBiometricsDescription =
+      '''Would you like to turn on biometrics for faster access to Ribn Wallet?\n 
+Ribn Wallet does not control the functionality of biometrics and does not have access to your biometrics information.''';
 }

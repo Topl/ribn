@@ -104,4 +104,8 @@ class RibnAssets {
   static const sadFacePng = 'assets/icons/sad_face.png';
   static const touchID = 'assets/icons/touch_id.png';
   static const touchIDCutout = 'assets/icons/touch_id_cutout.png';
+  static const iosBiometrics = 'assets/icons/iphone_biometrics.png';
+  static const iosBiometricsOutline = 'assets/icons/iphone_biometrics_outline.png';
+  static const andriodBiometrics = 'assets/icons/android_biometrics.png';
+  static const andriodBiometricsOutline = 'assets/icons/android_biometrics_outline.png';
 }

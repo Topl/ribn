@@ -29,22 +29,6 @@ class BiometricsSection extends StatefulWidget {
 
 class _BiometricsSectionState extends State<BiometricsSection> {
   final LocalAuthentication _localAuthentication = LocalAuthentication();
-  bool isFingerprintBio = false;
-
-  Future<dynamic> isFaceBiometrics() async {
-    final bool isFingerprint = await isBiometricsTypeFingerprint(_localAuthentication);
-
-    setState(() {
-      isFingerprintBio = isFingerprint;
-    });
-  }
-
-  @override
-  void initState() {
-    isFaceBiometrics();
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,29 +67,23 @@ class _BiometricsSectionState extends State<BiometricsSection> {
       children: [
         Row(
           children: [
-            Text(
-              isFingerprintBio ? Strings.enableTouchId : Strings.enableFaceId,
+            const Text(
+              Strings.enableBiometrics,
               style: RibnToolkitTextStyles.extH3,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Image.asset(
-                Platform.isIOS
-                    ? isFingerprintBio
-                        ? RibnAssets.touchIDCutout
-                        : RibnAssets.iosFaceIDCutout
-                    : isFingerprintBio
-                        ? RibnAssets.touchIDCutout
-                        : RibnAssets.andriodFaceIDCutout,
-                width: 20,
+                Platform.isIOS ? RibnAssets.iosBiometricsOutline : RibnAssets.andriodBiometricsOutline,
+                width: 40,
               ),
             ),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 6, bottom: 8),
+        const Padding(
+          padding: EdgeInsets.only(top: 6, bottom: 8),
           child: Text(
-            isFingerprintBio ? Strings.enableTouchIdDescription : Strings.enableFaceIdDescription,
+            Strings.enableBiometricsDescription,
             style: RibnToolkitTextStyles.settingsSmallText,
           ),
         ),

@@ -27,22 +27,6 @@ class EnableBiometrics extends StatefulWidget {
 class _EnableBiometricsState extends State<EnableBiometrics> {
   final LocalAuthentication _localAuthentication = LocalAuthentication();
   bool _authorized = false;
-  bool isFingerprintBio = false;
-
-  Future<dynamic> isFaceBiometrics() async {
-    final bool isFingerprint = await isBiometricsTypeFingerprint(_localAuthentication);
-
-    setState(() {
-      isFingerprintBio = isFingerprint;
-    });
-  }
-
-  @override
-  void initState() {
-    isFaceBiometrics();
-
-    super.initState();
-  }
 
   Future<void> runBiometrics(auth) async {
     bool authenticated = false;
@@ -93,7 +77,7 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
               ],
             ),
             Text(
-              isFingerprintBio ? Strings.enableTouchId : Strings.enableFaceId,
+              Strings.enableBiometrics,
               style: RibnToolkitTextStyles.h1.copyWith(
                 color: RibnColors.lightGreyTitle,
                 fontSize: 28,
@@ -102,20 +86,14 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
             Padding(
               padding: const EdgeInsets.only(top: 30.0, bottom: 45),
               child: Image.asset(
-                Platform.isIOS
-                    ? isFingerprintBio
-                        ? RibnAssets.touchID
-                        : RibnAssets.iosFaceID
-                    : isFingerprintBio
-                        ? RibnAssets.touchID
-                        : RibnAssets.andriodFaceID,
-                width: 76,
+                Platform.isIOS ? RibnAssets.iosBiometrics : RibnAssets.andriodBiometrics,
+                width: 111,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: kIsWeb ? 730 : 340,
               child: Text(
-                isFingerprintBio ? Strings.enableTouchIdDescription : Strings.enableFaceIdDescription,
+                Strings.enableBiometricsDescription,
                 style: RibnToolkitTextStyles.onboardingH3,
               ),
             ),
@@ -130,7 +108,7 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
               buttonHeight: 50,
               buttonWidth: double.infinity,
               buttonChild: Text(
-                isFingerprintBio ? Strings.enableTouchId : Strings.enableFaceId,
+                Strings.enableBiometrics,
                 style: RibnToolkitTextStyles.btnLarge.copyWith(
                   color: RibnColors.lightGreyTitle,
                 ),
