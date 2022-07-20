@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/settings_container.dart';
+import 'package:ribn/presentation/settings/sections/biometrics_section.dart';
 import 'package:ribn/presentation/settings/sections/delete_wallet_section.dart';
 import 'package:ribn/presentation/settings/sections/export_topl_main_key_section.dart';
 import 'package:ribn/presentation/settings/sections/links_section.dart';
@@ -54,6 +55,8 @@ class SettingsPage extends StatelessWidget {
             const LinksSection(),
             _buildDivider(),
             ExportToplMainKeySection(onExportPressed: vm.exportToplMainKey),
+            _buildDivider(),
+            BiometricsSection(isBiometricsEnabled: vm.isBiometricsEnabled),
             _buildDivider(),
             DeleteWalletSection(onDeletePressed: vm.onDeletePressed),
             const SizedBox(height: 20),
