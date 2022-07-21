@@ -21,7 +21,12 @@ void Function(Store<AppState> store, DeleteWalletAction action, NextDispatcher n
   return (store, action, next) async {
     try {
       // Check if correct password was entered
-      loginRepo.decryptKeyStore(keyStoreJson: store.state.keychainState.keyStoreJson!, password: action.password);
+      loginRepo.decryptKeyStore(
+        {
+          'keyStoreJson': store.state.keychainState.keyStoreJson!,
+          'password': action.password,
+        },
+      );
       // Reset and persist app state
       await PlatformLocalStorage.instance.saveState(AppState.initial().toJson());
       if (kIsWeb) {

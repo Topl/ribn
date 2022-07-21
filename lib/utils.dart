@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:brambldart/utils.dart';
@@ -5,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:ribn/actions/misc_actions.dart';
+import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:ribn/platform/platform.dart';
 
 /// Formats an address string to only dispaly its first and last 10 characters.
 String formatAddrString(String addr, {int charsToDisplay = 10}) {
@@ -57,3 +60,15 @@ double adaptHeight(double scaleFactor) => MediaQueryData.fromWindow(window).size
 
 /// Adapt to screen width based on [scaleFactor].
 double adaptWidth(double scaleFactor) => MediaQueryData.fromWindow(window).size.width * scaleFactor;
+
+Future<bool> isAppOpenedInExtensionView() async {
+  return await PlatformUtils.instance.getCurrentAppView() == AppViews.extension;
+}
+
+Future<bool> isAppOpenedInDebugView() async {
+  return await PlatformUtils.instance.getCurrentAppView() == AppViews.webDebug;
+}
+
+Uint8List uint8ListFromDynamic(dynamic list) {
+  return Uint8List.fromList((list as List).cast<int>());
+}

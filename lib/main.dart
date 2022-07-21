@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -8,6 +7,7 @@ import 'package:redux/redux.dart';
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
+import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/platform/platform.dart';
@@ -22,13 +22,13 @@ import 'package:ribn/router/root_router.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Redux.initStore(initTestStore: false);
-  final String currentAppView = await PlatformUtils.instance.getCurrentAppView();
+  final AppViews currentAppView = await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
   // Open app in new tab if user needs onboarding
-  if (currentAppView == 'extension' && needsOnboarding) {
+  if (currentAppView == AppViews.extension && needsOnboarding) {
     await PlatformUtils.instance.openInNewTab();
     // Initiate background connection if new window/tab opens up for dApp interaction.
-  } else if (currentAppView == 'tab' && !needsOnboarding) {
+  } else if (currentAppView == AppViews.extensionTab && !needsOnboarding) {
     await initBgConnection(Redux.store!);
   }
   runApp(RibnApp(Redux.store!));
@@ -49,8 +49,8 @@ class RibnApp extends StatelessWidget {
           title: 'Ribn',
           navigatorObservers: [Routes.routeObserver],
           onGenerateRoute: rootRouter.generateRoutes,
-          onGenerateInitialRoutes: (String route) {
-            switch (route) {
+          onGenerateInitialRoutes: (String _) {
+            switch (getInitialRoute(store)) {
               case Routes.login:
                 return [MaterialPageRoute(builder: (context) => const LoginPage())];
               case Routes.home:

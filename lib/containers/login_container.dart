@@ -6,6 +6,7 @@ import 'package:redux/redux.dart';
 
 import 'package:ribn/actions/login_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
+import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
 
@@ -38,10 +39,14 @@ class LoginViewModel {
   static LoginViewModel fromStore(Store<AppState> store) {
     return LoginViewModel(
       attemptLogin: ({required String password, required VoidCallback onIncorrectPasswordEntered}) async {
-        final Completer<bool> actionCompleter = Completer();
-        store.dispatch(AttemptLoginAction(password, actionCompleter));
-        await actionCompleter.future.then((value) {
-          if (!value) onIncorrectPasswordEntered();
+        final Completer<bool> loginCompleter = Completer();
+        store.dispatch(AttemptLoginAction(password, loginCompleter));
+        await loginCompleter.future.then((bool loginSuccess) {
+          if (loginSuccess) {
+            Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home);
+          } else {
+            onIncorrectPasswordEntered();
+          }
         });
       },
       restoreWallet: () => store.dispatch(NavigateToRoute(Routes.restoreWallet)),
