@@ -42,6 +42,8 @@ class _BiometricsSectionState extends State<BiometricsSection> {
       try {
         authenticated = await authenticateWithBiometrics(_localAuthentication);
       } catch (e) {
+        print('this will product an exception on android when not enrolled');
+        print(e);
         return;
       }
 
