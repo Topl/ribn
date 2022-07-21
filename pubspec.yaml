@@ -72,6 +72,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.1.1
   built_value_generator: ^8.1.2
+  flutter_launcher_icons: "^0.9.3"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -106,6 +107,7 @@ flutter:
         - asset: packages/ribn_toolkit/fonts/DMSans-Medium.ttf
         - asset: packages/ribn_toolkit/fonts/DMSans-Regular.ttf
 
+# Splash screen config
 flutter_native_splash:
   image: assets/launch/ribn_logo_2.png
   color: "#185E6B"
@@ -119,3 +121,10 @@ flutter_native_splash:
   ios: true
   ios_content_mode: center
   android_gravity: center
+
+# Launch icons config
+# Generates launcher icons for ios 
+# See for android: https://stackoverflow.com/questions/65391820/change-background-color-of-flutter-app-icon
+flutter_icons:
+  ios: true
+  image_path: "assets/launch/launcher_icon.png"
