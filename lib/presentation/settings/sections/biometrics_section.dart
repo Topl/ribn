@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'dart:io' show Platform;
 
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:local_auth/local_auth.dart';
@@ -30,38 +32,68 @@ class BiometricsSection extends StatefulWidget {
 class _BiometricsSectionState extends State<BiometricsSection> {
   final LocalAuthentication _localAuthentication = LocalAuthentication();
 
-  @override
-  Widget build(BuildContext context) {
-    /// True if biometrics authentication is completed successfully
-    bool _authorized = false;
+  /// True if biometrics authentication is completed successfully
+  bool _authorized = false;
 
-    Future<void> runBiometrics(value) async {
-      bool authenticated = false;
-      await isBiometricsAuthenticationSupportedAndEnrolled(_localAuthentication);
+  Future<void> runBiometrics(value) async {
+    bool authenticated = false;
+    await isBiometricsAuthenticationEnrolled(_localAuthentication);
 
-      try {
-        authenticated = await authenticateWithBiometrics(_localAuthentication);
-      } catch (e) {
-        print('this will product an exception on android when not enrolled');
-        print(e);
-        return;
-      }
-
-      if (!mounted || !authenticated) {
-        return;
-      }
-
-      setState(() {
-        _authorized = authenticated ? true : false;
-      });
-
-      StoreProvider.of<AppState>(context).dispatch(
-        UpdateBiometricsAction(
-          isBiometricsEnabled: value,
-        ),
-      );
+    try {
+      authenticated = await authenticateWithBiometrics(_localAuthentication);
+    } catch (e) {
+      if (Platform.isAndroid) await _showMyDialog();
+      return;
     }
 
+    if (!mounted || !authenticated) {
+      return;
+    }
+
+    setState(() {
+      _authorized = authenticated ? true : false;
+    });
+
+    StoreProvider.of<AppState>(context).dispatch(
+      UpdateBiometricsAction(
+        isBiometricsEnabled: value,
+      ),
+    );
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text(
+                    'Biometrics authentication is not set up on your device. Please enable biometrics in your device settings.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            const TextButton(
+              child: Text('Go to settings'),
+              onPressed: AppSettings.openSecuritySettings,
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

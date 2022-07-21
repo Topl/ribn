@@ -1,4 +1,6 @@
 import 'dart:io' show Platform;
+
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -30,11 +32,12 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
 
   Future<void> runBiometrics(auth) async {
     bool authenticated = false;
-    await isBiometricsAuthenticationSupportedAndEnrolled(auth);
+    await isBiometricsAuthenticationEnrolled(auth);
 
     try {
       authenticated = await authenticateWithBiometrics(auth);
     } catch (e) {
+      if (Platform.isAndroid) await _showMyDialog();
       return;
     }
 
@@ -50,6 +53,37 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
       UpdateBiometricsAction(
         isBiometricsEnabled: true,
       ),
+    );
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text(
+                    'Biometrics authentication is not set up on your device. Please enable biometrics in your device settings.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            const TextButton(
+              child: Text('Go to settings'),
+              onPressed: AppSettings.openSecuritySettings,
+            ),
+          ],
+        );
+      },
     );
   }
 

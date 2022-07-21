@@ -42,8 +42,7 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
   Future<void> runBiometrics() async {
     final LocalAuthentication _localAuthentication = LocalAuthentication();
 
-    final bool isBioAuthenticationSupported =
-        await isBiometricsAuthenticationSupportedNotEnrolled(_localAuthentication);
+    final bool isBioAuthenticationSupported = await isBiometricsAuthenticationSupported(_localAuthentication);
 
     setState(() {
       isBioSupported = isBioAuthenticationSupported ? true : false;

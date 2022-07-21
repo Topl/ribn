@@ -48,15 +48,7 @@ Future<bool> isBiometricsAuthenticationSupported(LocalAuthentication auth) async
   return canCheckBiometrics && isDeviceSupported;
 }
 
-Future<bool> isBiometricsAuthenticationSupportedNotEnrolled(LocalAuthentication auth) async {
-  final bool canCheckBiometrics = await auth.canCheckBiometrics;
-  final bool isDeviceSupported = await auth.isDeviceSupported();
-  final List enrolledBiometrics = await auth.getAvailableBiometrics();
-
-  return canCheckBiometrics && isDeviceSupported && enrolledBiometrics.isEmpty;
-}
-
-Future<bool> isBiometricsAuthenticationSupportedAndEnrolled(LocalAuthentication auth) async {
+Future<bool> isBiometricsAuthenticationEnrolled(LocalAuthentication auth) async {
   final bool canCheckBiometrics = await auth.canCheckBiometrics;
   final bool isDeviceSupported = await auth.isDeviceSupported();
   final List enrolledBiometrics = await auth.getAvailableBiometrics();
