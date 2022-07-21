@@ -80,7 +80,7 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
     case Routes.login:
       return [
         MaterialPageRoute(
-          builder: (context) => const LoginPage(),
+          builder: (context) => LoginPage(isBiometricsEnabled: store.state.userDetailsState.isBiometricsEnabled),
           settings: const RouteSettings(name: Routes.login),
         )
       ];

@@ -23,6 +23,7 @@ class ConfirmationButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
       child: LargeButton(
+        customDisabledColor: RibnColors.transparentPrimary,
         buttonWidth: width,
         buttonHeight: height,
         backgroundColor: RibnColors.primary,
@@ -30,7 +31,7 @@ class ConfirmationButton extends StatelessWidget {
         buttonChild: Text(
           text,
           style: RibnToolkitTextStyles.btnLarge.copyWith(
-            color: Colors.white,
+            color: disabled ? RibnColors.transparentGreyText : Colors.white,
             fontWeight: FontWeight.w400,
           ),
         ),

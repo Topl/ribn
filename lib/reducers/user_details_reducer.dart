@@ -6,6 +6,7 @@ import 'package:ribn/models/user_details_state.dart';
 final userDetailsReducer = combineReducers<UserDetailsState>(
   [
     TypedReducer<UserDetailsState, UpdateAssetDetailsAction>(_updateAssetDetails),
+    TypedReducer<UserDetailsState, UpdateBiometricsAction>(_updateBiometricsAction),
   ],
 );
 
@@ -22,5 +23,12 @@ UserDetailsState _updateAssetDetails(UserDetailsState userDetails, UpdateAssetDe
         unit: action.unit ?? currAssetDetails?.unit,
       ),
     },
+  );
+}
+
+/// Handles [UpdateBiometricsAction] and updates [isBiometricsEnabled] that is stored locally
+UserDetailsState _updateBiometricsAction(UserDetailsState userDetails, UpdateBiometricsAction action) {
+  return userDetails.copyWith(
+    isBiometricsEnabled: action.isBiometricsEnabled,
   );
 }

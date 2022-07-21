@@ -47,8 +47,34 @@ void validateRecipientAddress({
 Future<bool> isBiometricsAuthenticationSupported(LocalAuthentication auth) async {
   final bool canCheckBiometrics = await auth.canCheckBiometrics;
   final bool isDeviceSupported = await auth.isDeviceSupported();
+
+  return canCheckBiometrics && isDeviceSupported;
+}
+
+Future<bool> isBiometricsAuthenticationEnrolled(LocalAuthentication auth) async {
+  final bool canCheckBiometrics = await auth.canCheckBiometrics;
+  final bool isDeviceSupported = await auth.isDeviceSupported();
   final List enrolledBiometrics = await auth.getAvailableBiometrics();
+
   return canCheckBiometrics && isDeviceSupported && enrolledBiometrics.isNotEmpty;
+}
+
+Future<bool> authenticateWithBiometrics(LocalAuthentication auth) async {
+  return await auth.authenticate(
+    localizedReason: 'To authenticate with biometrics',
+    options: const AuthenticationOptions(
+      stickyAuth: true,
+      biometricOnly: true,
+      sensitiveTransaction: true,
+      useErrorDialogs: true,
+    ),
+  );
+}
+
+Future<bool> isBiometricsTypeFingerprint(LocalAuthentication auth) async {
+  final List enrolledBiometrics = await auth.getAvailableBiometrics();
+
+  return enrolledBiometrics.contains(BiometricType.fingerprint) && enrolledBiometrics.isNotEmpty;
 }
 
 void navigateToRoute(BuildContext context, String route) {

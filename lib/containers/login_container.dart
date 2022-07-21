@@ -54,10 +54,10 @@ class LoginViewModel {
   }
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(covariant LoginViewModel other) {
     if (identical(this, other)) return true;
 
-    return other is LoginViewModel && other.restoreWallet == restoreWallet;
+    return other.restoreWallet == restoreWallet;
   }
 
   @override
