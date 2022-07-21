@@ -49,28 +49,7 @@ class RibnApp extends StatelessWidget {
           title: 'Ribn',
           navigatorObservers: [Routes.routeObserver],
           onGenerateRoute: rootRouter.generateRoutes,
-          onGenerateInitialRoutes: (String _) {
-            switch (getInitialRoute(store)) {
-              case Routes.login:
-                return [MaterialPageRoute(builder: (context) => const LoginPage())];
-              case Routes.home:
-                return [MaterialPageRoute(builder: (context) => const HomePage())];
-              case Routes.enable:
-                return [MaterialPageRoute(builder: (context) => EnablePage(store.state.internalMessage!))];
-              case Routes.externalSigning:
-                return [MaterialPageRoute(builder: (context) => ExternalSigningPage(store.state.internalMessage!))];
-              case Routes.welcome:
-              default:
-                return [
-                  MaterialPageRoute(
-                    builder: (context) => const WelcomePage(),
-                    settings: const RouteSettings(
-                      name: Routes.welcome,
-                    ),
-                  )
-                ];
-            }
-          },
+          onGenerateInitialRoutes: (initialRoute) => onGenerateInitialRoute(initialRoute, store),
           initialRoute: getInitialRoute(store),
           navigatorKey: Keys.navigatorKey,
         ),
@@ -90,6 +69,51 @@ String getInitialRoute(Store<AppState> store) {
     return Routes.externalSigning;
   }
   return Routes.home;
+}
+
+/// Handles routing based on [initialRoute].
+///
+/// Note: For all cases, [RouteSettings] must be passed with the correct route name
+/// to ensure consistent navigation in the app.
+List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
+  switch (initialRoute) {
+    case Routes.login:
+      return [
+        MaterialPageRoute(
+          builder: (context) => const LoginPage(),
+          settings: const RouteSettings(name: Routes.login),
+        )
+      ];
+    case Routes.home:
+      return [
+        MaterialPageRoute(
+          builder: (context) => const HomePage(),
+          settings: const RouteSettings(name: Routes.home),
+        )
+      ];
+    case Routes.enable:
+      return [
+        MaterialPageRoute(
+          builder: (context) => EnablePage(store.state.internalMessage!),
+          settings: const RouteSettings(name: Routes.enable),
+        )
+      ];
+    case Routes.externalSigning:
+      return [
+        MaterialPageRoute(
+          builder: (context) => ExternalSigningPage(store.state.internalMessage!),
+          settings: const RouteSettings(name: Routes.externalSigning),
+        )
+      ];
+    case Routes.welcome:
+    default:
+      return [
+        MaterialPageRoute(
+          builder: (context) => const WelcomePage(),
+          settings: const RouteSettings(name: Routes.welcome),
+        )
+      ];
+  }
 }
 
 /// Initiates a long-lived connection with the background script.
