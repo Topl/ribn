@@ -58,15 +58,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
       if (_currPage == 1) {
         _currPage = 0;
-
-        StoreProvider.of<AppState>(Keys.navigatorKey.currentContext!).dispatch(
-          NavigateToRoute(
-            Routes.mintInput,
-            arguments: {
-              'mintingNewAsset': true,
-              'mintingToMyWallet': false,
-            },
-          ),
+        Keys.navigatorKey.currentState?.pushNamed(
+          Routes.mintInput,
+          arguments: {
+            'mintingNewAsset': true,
+            'mintingToMyWallet': false,
+          },
         );
       }
     });
