@@ -35,14 +35,12 @@ class _BiometricsSectionState extends State<BiometricsSection> {
     /// True if biometrics authentication is completed successfully
     bool _authorized = false;
 
-    Future<void> runBiometrics(auth, value) async {
+    Future<void> runBiometrics(value) async {
       bool authenticated = false;
-      final bool isBioSupported = await isBiometricsAuthenticationSupported(auth);
-
-      if (!isBioSupported) return;
+      await isBiometricsAuthenticationSupportedAndEnrolled(_localAuthentication);
 
       try {
-        authenticated = await authenticateWithBiometrics(auth);
+        authenticated = await authenticateWithBiometrics(_localAuthentication);
       } catch (e) {
         return;
       }
@@ -92,7 +90,7 @@ class _BiometricsSectionState extends State<BiometricsSection> {
           scale: 0.7,
           child: CustomToggle(
             onChanged: (value) {
-              runBiometrics(_localAuthentication, value).then(
+              runBiometrics(value).then(
                 (value) => {if (_authorized) Keys.navigatorKey.currentState?.pushNamed(Routes.home)},
               );
             },

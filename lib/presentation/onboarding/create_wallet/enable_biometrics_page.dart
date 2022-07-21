@@ -30,9 +30,7 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
 
   Future<void> runBiometrics(auth) async {
     bool authenticated = false;
-    final bool isBioSupported = await isBiometricsAuthenticationSupported(auth);
-
-    if (!isBioSupported) return;
+    await isBiometricsAuthenticationSupportedAndEnrolled(auth);
 
     try {
       authenticated = await authenticateWithBiometrics(auth);
