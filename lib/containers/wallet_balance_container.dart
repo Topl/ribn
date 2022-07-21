@@ -89,7 +89,7 @@ class WalletBalanceViewModel {
       ),
       refreshBalances: ({required Function(bool success) onBalancesRefreshed}) {
         final Completer<bool> actionCompleter = Completer();
-        store.dispatch(RefreshBalancesAction(actionCompleter));
+        store.dispatch(RefreshBalancesAction(actionCompleter, store.state.keychainState.currentNetwork));
         actionCompleter.future.then((bool value) => onBalancesRefreshed(value));
       },
       currentNetwork: store.state.keychainState.currentNetwork,

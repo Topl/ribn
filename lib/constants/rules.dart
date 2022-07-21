@@ -84,3 +84,10 @@ enum TransferType {
   mintingAsset,
   remintingAsset,
 }
+
+enum AppViews {
+  extension, // app opened in the usual extension window
+  extensionTab, // extension has a dedicated tab/window open, e.g. during onboarding or dApp interaction
+  mobile, // app opened on mobile
+  webDebug, // app opened in debug mode on web
+}

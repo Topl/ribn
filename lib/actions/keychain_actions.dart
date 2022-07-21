@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/ribn_address.dart';
+import 'package:ribn/models/ribn_network.dart';
 
 class InitializeHDWalletAction {
   final String? keyStoreJson;
@@ -17,10 +18,12 @@ class GenerateAddressAction {
   final int accountIndex;
   final int changeIndex;
   final int addressIndex;
+  final RibnNetwork network;
   GenerateAddressAction(
     this.addressIndex, {
     this.accountIndex = Rules.defaultAccountIndex,
     this.changeIndex = Rules.defaultChangeIndex,
+    required this.network,
   });
 }
 
@@ -42,7 +45,8 @@ class UpdateCurrentNetworkAction {
 
 class RefreshBalancesAction {
   final Completer<bool> completer;
-  const RefreshBalancesAction(this.completer);
+  final RibnNetwork network;
+  const RefreshBalancesAction(this.completer, this.network);
 }
 
 class UpdateBalancesAction {

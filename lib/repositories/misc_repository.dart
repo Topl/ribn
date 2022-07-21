@@ -14,12 +14,4 @@ class MiscRepository {
   void downloadAsFile(String fileName, String text) {
     PlatformUtils.instance.downloadFile(fileName, text);
   }
-
-  Future<bool> isAppOpenedInExtensionView() async {
-    return await PlatformUtils.instance.getCurrentAppView() == 'extension';
-  }
-
-  Future<bool> isAppOpenedInDebugView() async {
-    return await PlatformUtils.instance.getCurrentAppView() == 'debug';
-  }
 }

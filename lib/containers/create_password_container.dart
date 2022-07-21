@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+
 import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/models/app_state.dart';
 

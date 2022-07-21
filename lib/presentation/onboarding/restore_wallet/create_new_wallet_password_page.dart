@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
@@ -74,51 +75,54 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      body: OnboardingContainer(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            renderIfWeb(const WebOnboardingAppBar(currStep: 1, numSteps: 2)),
-            const Text(
-              Strings.restoreWallet,
-              style: RibnToolkitTextStyles.onboardingH1,
-              textAlign: TextAlign.center,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 24.0),
-              child: WarningSection(),
-            ),
-            SizedBox(
-              width: kIsWeb ? 370 : double.infinity,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _buildNewPasswordSection(),
-                  SizedBox(height: adaptHeight(0.02)),
-                  _buildConfirmPasswordSection(),
-                  SizedBox(height: adaptHeight(0.02)),
-                  _buildTermsOfAgreementCheck(),
-                ],
+    return LoaderOverlay(
+      child: Scaffold(
+        extendBody: true,
+        body: OnboardingContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              renderIfWeb(const WebOnboardingAppBar(currStep: 1, numSteps: 2)),
+              const Text(
+                Strings.restoreWallet,
+                style: RibnToolkitTextStyles.onboardingH1,
+                textAlign: TextAlign.center,
               ),
-            ),
-            const SizedBox(height: 40),
-            renderIfMobile(const OnboardingProgressBar(numSteps: 2, currStep: 0)),
-            const SizedBox(height: 20),
-            ConfirmationButton(
-              text: Strings.done,
-              disabled: !_atLeast8Chars || !_passwordsMatch || !_termsOfUseChecked,
-              onPressed: () {
-                StoreProvider.of<AppState>(context).dispatch(
-                  RestoreWalletWithMnemonicAction(
-                    mnemonic: widget.seedPhrase,
-                    password: _confirmPasswordController.text,
-                  ),
-                );
-              },
-            ),
-          ],
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 24.0),
+                child: WarningSection(),
+              ),
+              SizedBox(
+                width: kIsWeb ? 370 : double.infinity,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _buildNewPasswordSection(),
+                    SizedBox(height: adaptHeight(0.02)),
+                    _buildConfirmPasswordSection(),
+                    SizedBox(height: adaptHeight(0.02)),
+                    _buildTermsOfAgreementCheck(),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 40),
+              renderIfMobile(const OnboardingProgressBar(numSteps: 2, currStep: 0)),
+              const SizedBox(height: 20),
+              ConfirmationButton(
+                text: Strings.done,
+                disabled: !_atLeast8Chars || !_passwordsMatch || !_termsOfUseChecked,
+                onPressed: () {
+                  context.loaderOverlay.show();
+                  StoreProvider.of<AppState>(context).dispatch(
+                    RestoreWalletWithMnemonicAction(
+                      mnemonic: widget.seedPhrase,
+                      password: _confirmPasswordController.text,
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -7,6 +7,7 @@ import 'dart:html';
 
 import 'package:js/js.dart';
 import 'package:js/js_util.dart';
+import 'package:ribn/constants/rules.dart';
 import 'package:ribn/platform/interfaces.dart';
 
 @JS()
@@ -39,7 +40,17 @@ class PlatformUtils implements IPlatformUtils {
   Future<void> openInNewTab() => promiseToFuture(openAppInNewTab());
 
   @override
-  Future<String> getCurrentAppView() => promiseToFuture(getCurrentView());
+  Future<AppViews> getCurrentAppView() async {
+    final String currAppView = await promiseToFuture(getCurrentView());
+    switch (currAppView) {
+      case 'extension':
+        return AppViews.extension;
+      case 'tab':
+        return AppViews.extensionTab;
+      default:
+        return AppViews.webDebug;
+    }
+  }
 
   @override
   void closeWindow() => window.close();

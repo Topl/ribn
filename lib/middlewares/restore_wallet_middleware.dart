@@ -1,11 +1,15 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:redux/redux.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
+import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:ribn/platform/platform.dart';
 import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/repositories/onboarding_repository.dart';
+import 'package:ribn/utils.dart';
 
 /// Creates a list of middlewares to handle logic around the 'Restore Wallet' flow.
 List<Middleware<AppState>> createRestorewalletMiddleware(
@@ -26,14 +30,23 @@ void Function(Store<AppState> store, RestoreWalletWithMnemonicAction action, Nex
     _restoreWalletWithMnemonic(OnboardingRespository onboardingRepo) {
   return (store, action, next) async {
     try {
-      final Map<String, dynamic> results = onboardingRepo.generateKeyStore(
-        mnemonic: action.mnemonic,
-        password: action.password,
+      final AppViews currAppView = await PlatformUtils.instance.getCurrentAppView();
+      final Map<String, dynamic> results = jsonDecode(
+        await PlatformWorkerRunner.instance.runWorker(
+          workerScript: currAppView == AppViews.webDebug
+              ? '/web/workers/generate_keystore_worker.js'
+              : '/workers/generate_keystore_worker.js',
+          function: onboardingRepo.generateKeyStore,
+          params: {
+            'mnemonic': action.mnemonic,
+            'password': action.password,
+          },
+        ),
       );
       next(
         SuccessfullyRestoredWalletAction(
           keyStoreJson: results['keyStoreJson'],
-          toplExtendedPrivateKey: results['toplExtendedPrvKeyUint8List'],
+          toplExtendedPrivateKey: uint8ListFromDynamic(results['toplExtendedPrvKeyUint8List']),
         ),
       );
     } catch (e) {
@@ -50,10 +63,10 @@ void Function(Store<AppState> store, RestoreWalletWithToplKeyAction action, Next
     _restoreWalletWithToplKey(LoginRepository loginRepo) {
   return (store, action, next) async {
     try {
-      final Uint8List toplExtendedPrvKeyUint8List = loginRepo.decryptKeyStore(
-        keyStoreJson: action.toplKeyStoreJson,
-        password: action.password,
-      );
+      final Uint8List toplExtendedPrvKeyUint8List = loginRepo.decryptKeyStore({
+        'keyStoreJson': action.toplKeyStoreJson,
+        'password': action.password,
+      });
       action.completer.complete(true);
       next(
         SuccessfullyRestoredWalletAction(
