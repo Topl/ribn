@@ -71,7 +71,8 @@ class _BiometricsSectionState extends State<BiometricsSection> {
             child: ListBody(
               children: const <Widget>[
                 Text(
-                    'Biometrics authentication is not set up on your device. Please enable biometrics in your device settings.'),
+                  'Biometrics authentication is not set up on your device. Please enable biometrics in your device settings.',
+                ),
               ],
             ),
           ),
