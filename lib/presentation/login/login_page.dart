@@ -25,11 +25,7 @@ import 'package:url_launcher/url_launcher.dart';
 ///
 /// Prompts the user to unlock their wallet by entering their wallet-locking password.
 class LoginPage extends StatefulWidget {
-  /// True if biometrics authentication is enabled for login
-  final bool isBiometricsEnabled;
-
   const LoginPage({
-    required this.isBiometricsEnabled,
     Key? key,
   }) : super(key: key);
 
@@ -78,18 +74,16 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     setState(() {
-      _authorized = authenticated ? true : false;
+      _authorized = authenticated;
     });
   }
 
-  @override
-  void initState() {
-    if (widget.isBiometricsEnabled) {
+  void _checkBiometrics(LoginViewModel vm) {
+    if (vm.isBiometricsEnabled) {
       _biometricsLogin().then(
         (value) => {if (_authorized) Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)},
       );
     }
-    super.initState();
   }
 
   @override
@@ -101,6 +95,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return LoginContainer(
+      onInitialBuild: _checkBiometrics,
       builder: (context, vm) {
         void attemptLogin() {
           context.loaderOverlay.show();

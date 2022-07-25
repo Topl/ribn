@@ -81,9 +81,8 @@ class RootRouter {
           return pageRoute(const ExtensionInfoPage(), settings);
         }
       case Routes.login:
-        final bool isBiometricsEnabled = settings.arguments as bool;
         {
-          return pageRoute(LoginPage(isBiometricsEnabled: isBiometricsEnabled), settings);
+          return pageRoute(const LoginPage(), settings);
         }
       case Routes.walletCreated:
         {

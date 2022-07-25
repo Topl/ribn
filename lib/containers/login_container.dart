@@ -12,8 +12,13 @@ import 'package:ribn/models/app_state.dart';
 
 /// Intended to wrap the [LoginPage] and provide it with the the [LoginViewModel].
 class LoginContainer extends StatelessWidget {
-  const LoginContainer({Key? key, required this.builder}) : super(key: key);
+  const LoginContainer({
+    Key? key,
+    required this.builder,
+    required this.onInitialBuild,
+  }) : super(key: key);
   final ViewModelBuilder<LoginViewModel> builder;
+  final void Function(LoginViewModel vm) onInitialBuild;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +26,7 @@ class LoginContainer extends StatelessWidget {
       distinct: true,
       converter: LoginViewModel.fromStore,
       builder: builder,
+      onInitialBuild: onInitialBuild,
     );
   }
 }
@@ -32,9 +38,13 @@ class LoginViewModel {
   /// Handler for when there is attempt to restore wallet from the login page.
   final VoidCallback restoreWallet;
 
+  /// True if biometrics authentication is enabled for login
+  final bool isBiometricsEnabled;
+
   const LoginViewModel({
     required this.attemptLogin,
     required this.restoreWallet,
+    required this.isBiometricsEnabled,
   });
   static LoginViewModel fromStore(Store<AppState> store) {
     return LoginViewModel(
@@ -50,6 +60,7 @@ class LoginViewModel {
         });
       },
       restoreWallet: () => store.dispatch(NavigateToRoute(Routes.restoreWallet)),
+      isBiometricsEnabled: store.state.userDetailsState.isBiometricsEnabled,
     );
   }
 

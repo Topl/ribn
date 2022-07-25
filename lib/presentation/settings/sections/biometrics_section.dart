@@ -15,7 +15,7 @@ import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_toggle.dart';
 
-/// The section that allows for downloading the Topl Main Key.
+/// The section allows for users to toggle biometrics authentication on/off.
 class BiometricsSection extends StatefulWidget {
   /// True if biometrics authentication is enabled
   final bool isBiometricsEnabled;
