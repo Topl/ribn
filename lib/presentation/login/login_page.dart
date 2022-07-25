@@ -1,12 +1,17 @@
+import 'package:bip_topl/bip_topl.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/login_container.dart';
+import 'package:ribn/models/app_state.dart';
+import 'package:ribn/platform/platform.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
@@ -54,6 +59,14 @@ class _LoginPageState extends State<LoginPage> {
     bool authenticated = false;
     try {
       authenticated = await authenticateWithBiometrics(_localAuthentication);
+      final String toplKey = (await PlatformLocalStorage.instance.getKeyFromSecureStorage())!;
+      if (authenticated) {
+        StoreProvider.of<AppState>(context).dispatch(
+          InitializeHDWalletAction(
+            toplExtendedPrivateKey: Base58Encoder.instance.decode(toplKey),
+          ),
+        );
+      }
     } catch (e) {
       setState(() {
         _biometricsError = true;
@@ -73,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     if (widget.isBiometricsEnabled) {
       _biometricsLogin().then(
-        (value) => {if (_authorized) Keys.navigatorKey.currentState?.pushNamed(Routes.home)},
+        (value) => {if (_authorized) Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)},
       );
     }
     super.initState();
