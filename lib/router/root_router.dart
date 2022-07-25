@@ -8,6 +8,7 @@ import 'package:ribn/presentation/external_signing_page.dart';
 import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/create_password_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/enable_biometrics_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/getting_started_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_confirmation_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_display_page.dart';
@@ -15,6 +16,7 @@ import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_generatin
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_info_checklist_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_instructions_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/select_action_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/wallet_created_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/wallet_info_checklist_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
 import 'package:ribn/presentation/onboarding/extension_info_page.dart';
@@ -82,6 +84,10 @@ class RootRouter {
         {
           return pageRoute(const LoginPage(), settings);
         }
+      case Routes.walletCreated:
+        {
+          return pageRoute(const WalletCreatedPage(), settings);
+        }
       case Routes.home:
         {
           return pageRoute(const HomePage(), settings);
@@ -107,6 +113,10 @@ class RootRouter {
             ),
             settings,
           );
+        }
+      case Routes.onboardingEnableBiometrics:
+        {
+          return pageRoute(const EnableBiometrics(), settings);
         }
       case Routes.enterWalletPassword:
         {

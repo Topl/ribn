@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
@@ -95,7 +96,9 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                   renderIfMobile(const MobileOnboardingProgressBar(currStep: 0)),
                   ConfirmationButton(
                     text: Strings.done,
-                    onPressed: () => navigateToRoute(context, Routes.seedPhraseConfirm),
+                    onPressed: () {
+                      Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseConfirm);
+                    },
                   ),
                 ],
               ),

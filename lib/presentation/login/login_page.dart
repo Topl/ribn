@@ -1,9 +1,18 @@
+import 'package:bip_topl/bip_topl.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/keys.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/login_container.dart';
+import 'package:ribn/models/app_state.dart';
+import 'package:ribn/platform/platform.dart';
+import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
@@ -16,7 +25,9 @@ import 'package:url_launcher/url_launcher.dart';
 ///
 /// Prompts the user to unlock their wallet by entering their wallet-locking password.
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -25,6 +36,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final double _baseWidth = 310;
   final TextEditingController _textEditingController = TextEditingController();
+  final LocalAuthentication _localAuthentication = LocalAuthentication();
 
   /// True if password being entered is obscured.
   // ignore: prefer_final_fields
@@ -32,6 +44,47 @@ class _LoginPageState extends State<LoginPage> {
 
   /// True if login was attempted with an incorrect password.
   bool _incorrectPasswordEntered = false;
+
+  /// True if authentication through biometrics produces an error
+  bool _biometricsError = false;
+
+  /// True if biometrics authentication is completed successfully
+  bool _authorized = false;
+
+  Future<void> _biometricsLogin() async {
+    bool authenticated = false;
+    try {
+      authenticated = await authenticateWithBiometrics(_localAuthentication);
+      final String toplKey = (await PlatformLocalStorage.instance.getKeyFromSecureStorage())!;
+      if (authenticated) {
+        StoreProvider.of<AppState>(context).dispatch(
+          InitializeHDWalletAction(
+            toplExtendedPrivateKey: Base58Encoder.instance.decode(toplKey),
+          ),
+        );
+      }
+    } catch (e) {
+      setState(() {
+        _biometricsError = true;
+      });
+      return;
+    }
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      _authorized = authenticated;
+    });
+  }
+
+  void _checkBiometrics(LoginViewModel vm) {
+    if (vm.isBiometricsEnabled) {
+      _biometricsLogin().then(
+        (value) => {if (_authorized) Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)},
+      );
+    }
+  }
 
   @override
   void dispose() {
@@ -42,6 +95,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return LoginContainer(
+      onInitialBuild: _checkBiometrics,
       builder: (context, vm) {
         void attemptLogin() {
           context.loaderOverlay.show();
@@ -107,41 +161,48 @@ class _LoginPageState extends State<LoginPage> {
                           controller: _textEditingController,
                           obscurePassword: _obscurePassword,
                         ),
-                        const SizedBox(height: 25),
-                        LargeButton(
-                          backgroundColor: RibnColors.primary,
-                          dropShadowColor: RibnColors.whiteButtonShadow,
-                          buttonChild: Text(
-                            Strings.unlock,
-                            style: RibnToolkitTextStyles.btnLarge.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          onPressed: attemptLogin,
-                        ),
-                        const SizedBox(height: 25),
-                        _buildForgetPasswordLink(vm.restoreWallet),
-                        const SizedBox(height: 40),
-                        SizedBox(
-                          height: 50,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              _buildSupportLink(),
-                              const SizedBox(height: 10),
-                              _incorrectPasswordEntered
-                                  ? Text(
-                                      'Incorrect Password',
-                                      style: const TextStyle(
-                                        color: Colors.red,
-                                      ).copyWith(fontWeight: FontWeight.bold),
-                                    )
-                                  : const SizedBox()
-                            ],
-                          ),
-                        )
                       ],
+                    ),
+                    const SizedBox(height: 25),
+                    LargeButton(
+                      backgroundColor: RibnColors.primary,
+                      dropShadowColor: RibnColors.whiteButtonShadow,
+                      buttonChild: Text(
+                        Strings.unlock,
+                        style: RibnToolkitTextStyles.btnLarge.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      onPressed: attemptLogin,
+                    ),
+                    _buildForgetPasswordLink(vm.restoreWallet),
+                    const SizedBox(height: 40),
+                    SizedBox(
+                      height: 50,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          _buildSupportLink(),
+                          const SizedBox(height: 10),
+                          _incorrectPasswordEntered
+                              ? Text(
+                                  'Incorrect Password',
+                                  style: const TextStyle(
+                                    color: Colors.red,
+                                  ).copyWith(fontWeight: FontWeight.bold),
+                                )
+                              : const SizedBox(),
+                          _biometricsError
+                              ? Text(
+                                  'There was an issue with Face ID, please try again',
+                                  style: const TextStyle(
+                                    color: Colors.red,
+                                  ).copyWith(fontWeight: FontWeight.bold),
+                                )
+                              : const SizedBox()
+                        ],
+                      ),
                     ),
                   ],
                 ),

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/seed_phrase_confirmation_container.dart';
@@ -76,7 +77,7 @@ class _SeedPhraseConfirmationPageState extends State<SeedPhraseConfirmationPage>
                       });
                       setState(() {});
                       if (!controllerErrorMap.values.contains(true)) {
-                        navigateToRoute(context, Routes.createPassword);
+                        Keys.navigatorKey.currentState?.pushNamed(Routes.createPassword);
                       }
                     },
                   ),

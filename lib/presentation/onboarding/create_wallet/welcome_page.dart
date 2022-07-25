@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
-import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
@@ -50,7 +50,9 @@ class WelcomePage extends StatelessWidget {
               adaptableSpacer(),
               ConfirmationButton(
                 text: Strings.getStarted,
-                onPressed: () => navigateToRoute(context, Routes.selectAction),
+                onPressed: () {
+                  Keys.navigatorKey.currentState?.pushNamed(Routes.selectAction);
+                },
               ),
             ],
           ),

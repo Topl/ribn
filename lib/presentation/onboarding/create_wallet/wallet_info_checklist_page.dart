@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/keys.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/presentation/onboarding/create_wallet/wallet_created_page.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/mobile_onboarding_progress_bar.dart';
@@ -27,6 +29,25 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
     Strings.toplCannotRecoverForMe: false,
     Strings.spAndPasswordUnrecoverable: false,
   };
+
+  bool isBioSupported = false;
+
+  @override
+  void initState() {
+    runBiometrics();
+
+    super.initState();
+  }
+
+  Future<void> runBiometrics() async {
+    final LocalAuthentication _localAuthentication = LocalAuthentication();
+
+    final bool isBioAuthenticationSupported = await isBiometricsAuthenticationSupported(_localAuthentication);
+
+    setState(() {
+      isBioSupported = isBioAuthenticationSupported ? true : false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +96,8 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
             ConfirmationButton(
               text: Strings.iUnderstand,
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const WalletCreatedPage()));
+                Keys.navigatorKey.currentState
+                    ?.pushNamed(isBioSupported ? Routes.onboardingEnableBiometrics : Routes.walletCreated);
               },
               disabled: checkboxesState.containsValue(false),
             )
@@ -98,7 +120,7 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
             ? const Color(0xff80FF00)
             : activeText
                 ? RibnColors.lightGreyTitle
-                : RibnColors.inactive,
+                : RibnColors.transparentAlternateGreyText,
         value: checked,
         onChanged: onChanged,
         wrappableText: text,
