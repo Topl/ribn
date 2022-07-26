@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:ribn/constants/strings.dart';
@@ -24,7 +25,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   void initState() {
-    runBiometrics();
+    if (!kIsWeb) runBiometrics();
 
     super.initState();
   }
@@ -79,8 +80,8 @@ class _SettingsPageState extends State<SettingsPage> {
             RibnVersionSection(appVersion: vm.appVersion),
             _buildDivider(),
             const LinksSection(),
-            _buildDivider(),
-            ExportToplMainKeySection(onExportPressed: vm.exportToplMainKey),
+            kIsWeb ? _buildDivider() : const SizedBox(),
+            kIsWeb ? ExportToplMainKeySection(onExportPressed: vm.exportToplMainKey) : const SizedBox(),
             isBioSupported ? _buildDivider() : const SizedBox(),
             isBioSupported ? BiometricsSection(isBiometricsEnabled: vm.isBiometricsEnabled) : const SizedBox(),
             _buildDivider(),
