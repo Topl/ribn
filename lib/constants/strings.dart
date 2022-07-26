@@ -237,6 +237,7 @@ Write down the each word in the exact order it is presented.''';
   static const String advancedOption = 'Advanced option';
   static const String useToplMainKey = 'USE TOPL MAIN KEY';
   static const String uploadFile = 'Upload File';
+  static const String fileUploadLimit = '1 file upload limit. File type: JSON';
   static const String browse = 'Browse';
   static const String enterWalletPasswordToRestoreWallet =
       'Now, enter your Wallet Password to restore your Ribn wallet!';
