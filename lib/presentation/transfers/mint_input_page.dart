@@ -93,92 +93,102 @@ class _MintInputPageState extends State<MintInputPage> {
   @override
   Widget build(BuildContext context) {
     return MintInputContainer(
-      builder: (BuildContext context, MintInputViewmodel vm) => Scaffold(
-        backgroundColor: RibnColors.accent,
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  _buildPageTitle(),
-                  const SizedBox(height: 30),
-                  SizedBox(
-                    width: 310,
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // builds the apt asset defining field, depending on [widget.mintingNewAsset]
-                          _buildAssetField(vm),
-                          Row(
-                            children: [
-                              // field for defining a short name for the asset if minting a new asset
-                              widget.mintingNewAsset
-                                  ? AssetShortNameField(
-                                      controller: _assetShortNameController,
-                                    )
-                                  : const SizedBox(),
-                              widget.mintingNewAsset ? const Spacer() : const SizedBox(),
-                              // field for defining asset amount & custom unit
-                              AssetAmountField(
-                                selectedUnit: _selectedUnit,
-                                controller: _amountController,
-                                allowEditingUnit: widget.mintingNewAsset,
-                                onUnitSelected: (String unit) {
+      builder: (BuildContext context, MintInputViewmodel vm) => Listener(
+        onPointerDown: (_) {
+          if (mounted) setState(() {});
+        },
+        child: Scaffold(
+          backgroundColor: RibnColors.accent,
+          body: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _buildPageTitle(),
+                    const SizedBox(height: 30),
+                    SizedBox(
+                      width: 310,
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // builds the apt asset defining field, depending on [widget.mintingNewAsset]
+                            _buildAssetField(vm),
+                            Row(
+                              children: [
+                                // field for defining a short name for the asset if minting a new asset
+                                widget.mintingNewAsset
+                                    ? AssetShortNameField(
+                                        controller: _assetShortNameController,
+                                      )
+                                    : const SizedBox(),
+                                widget.mintingNewAsset ? const Spacer() : const SizedBox(),
+                                // field for defining asset amount & custom unit
+                                AssetAmountField(
+                                  selectedUnit: _selectedUnit,
+                                  controller: _amountController,
+                                  allowEditingUnit: widget.mintingNewAsset,
+                                  onUnitSelected: (String unit) {
+                                    setState(() {
+                                      _selectedUnit = unit;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                            // ignore: prefer_const_constructors
+                            IssuerAddressField(),
+                            // field for entering the recipient address
+                            RecipientField(
+                              controller: _recipientController,
+                              validRecipientAddress: _validRecipientAddress,
+                              mintingToMyWallet: widget.mintingToMyWallet,
+                              // validate the address entered on change
+                              onChanged: (text) => validateRecipientAddress(
+                                networkName: vm.currentNetwork.networkName,
+                                address: _recipientController.text,
+                                handleResult: (bool result) {
                                   setState(() {
-                                    _selectedUnit = unit;
+                                    if (result) {
+                                      _validRecipientAddress = _recipientController.text;
+                                      _recipientController.text = '';
+                                    } else {
+                                      _validRecipientAddress = '';
+                                    }
                                   });
                                 },
                               ),
-                            ],
-                          ),
-                          const IssuerAddressField(),
-                          // field for entering the recipient address
-                          RecipientField(
-                            controller: _recipientController,
-                            validRecipientAddress: _validRecipientAddress,
-                            mintingToMyWallet: widget.mintingToMyWallet,
-                            // validate the address entered on change
-                            onChanged: (text) => validateRecipientAddress(
-                              networkName: vm.currentNetwork.networkName,
-                              address: _recipientController.text,
-                              handleResult: (bool result) {
+                              onBackspacePressed: () {
                                 setState(() {
-                                  if (result) {
-                                    _validRecipientAddress = _recipientController.text;
-                                    _recipientController.text = '';
-                                  } else {
-                                    _validRecipientAddress = '';
+                                  if (_validRecipientAddress.isNotEmpty) {
+                                    _recipientController.text = _validRecipientAddress;
+                                    _recipientController
+                                      ..text = _recipientController.text.substring(0, _recipientController.text.length)
+                                      ..selection = TextSelection.collapsed(offset: _recipientController.text.length);
                                   }
+                                  _validRecipientAddress = '';
                                 });
                               },
                             ),
-                            // clear the textfield on backspace
-                            onBackspacePressed: () {
-                              setState(() {
-                                _recipientController.clear();
-                                _validRecipientAddress = '';
-                              });
-                            },
-                          ),
-                          // field for adding a note to the tx
-                          NoteField(
-                            controller: _noteController,
-                            noteLength: _noteController.text.length,
-                          ),
-                          // fee info for the tx
-                          FeeInfo(fee: vm.networkFee),
-                          _buildReviewButton(vm),
-                        ],
+                            // field for adding a note to the tx
+                            NoteField(
+                              controller: _noteController,
+                              noteLength: _noteController.text.length,
+                            ),
+                            // fee info for the tx
+                            FeeInfo(fee: vm.networkFee),
+                            _buildReviewButton(vm),
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            _loadingRawTx ? const LoadingSpinner() : const SizedBox(),
-          ],
+              _loadingRawTx ? const LoadingSpinner() : const SizedBox(),
+            ],
+          ),
         ),
       ),
     );
@@ -228,6 +238,9 @@ class _MintInputPageState extends State<MintInputPage> {
   /// Upon pressing the review button, the tx flow is initiated via [vm.initiateTx].
   /// Note: [assetDetails] only updated if a new asset is being minted.
   Widget _buildReviewButton(MintInputViewmodel vm) {
+    final bool enteredValidInputs = _amountController.text.isNotEmpty &&
+        _assetShortNameController.text.isNotEmpty &&
+        (widget.mintingToMyWallet || _validRecipientAddress.isNotEmpty);
     // Update assetDetails if minting a new asset
     final AssetDetails? assetDetails = widget.mintingNewAsset
         ? AssetDetails(
@@ -240,28 +253,30 @@ class _MintInputPageState extends State<MintInputPage> {
       padding: const EdgeInsets.only(top: 20.0, bottom: 10),
       child: LargeButton(
         label: Strings.review,
-        onPressed: () {
-          setState(() {
-            _loadingRawTx = true;
-          });
-          vm.initiateTx(
-            assetShortName: _assetShortNameController.text,
-            amount: _amountController.text,
-            recipient: _validRecipientAddress,
-            note: _noteController.text,
-            mintingToMyWallet: widget.mintingToMyWallet,
-            mintingNewAsset: widget.mintingNewAsset,
-            assetDetails: assetDetails,
-            onRawTxCreated: (bool success) async {
-              _loadingRawTx = false;
-              setState(() {});
-              // Display error dialog if failed to create raw tx
-              if (!success) {
-                await TransferUtils.showErrorDialog(context);
+        onPressed: enteredValidInputs
+            ? () {
+                setState(() {
+                  _loadingRawTx = true;
+                });
+                vm.initiateTx(
+                  assetShortName: _assetShortNameController.text,
+                  amount: _amountController.text,
+                  recipient: _validRecipientAddress,
+                  note: _noteController.text,
+                  mintingToMyWallet: widget.mintingToMyWallet,
+                  mintingNewAsset: widget.mintingNewAsset,
+                  assetDetails: assetDetails,
+                  onRawTxCreated: (bool success) async {
+                    _loadingRawTx = false;
+                    setState(() {});
+                    // Display error dialog if failed to create raw tx
+                    if (!success) {
+                      await TransferUtils.showErrorDialog(context);
+                    }
+                  },
+                );
               }
-            },
-          );
-        },
+            : null,
       ),
     );
   }

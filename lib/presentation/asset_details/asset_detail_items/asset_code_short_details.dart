@@ -20,10 +20,12 @@ class AssetCodeShortDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          children: const [
-            Text('Asset code · short', style: RibnTextStyles.extH4),
+          // ignore: prefer_const_literals_to_create_immutables
+          children: [
+            const Text('Asset code · short', style: RibnTextStyles.extH4),
+            // ignore: prefer_const_constructors
             CustomToolTip(
-              toolTipChild: Text(
+              toolTipChild: const Text(
                 Strings.assetCodeShortInfo,
                 style: RibnTextStyles.toolTipTextStyle,
               ),

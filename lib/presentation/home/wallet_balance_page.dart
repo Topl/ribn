@@ -84,23 +84,28 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
         }
       },
       builder: (BuildContext context, WalletBalanceViewModel vm) => SingleChildScrollView(
-        child: _failedToFetchBalances
-            ? Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: ErrorSection(
-                    onTryAgain: () => refreshBalances(vm),
+        child: Listener(
+          onPointerDown: (_) {
+            if (mounted) setState(() {});
+          },
+          child: _failedToFetchBalances
+              ? Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: ErrorSection(
+                      onTryAgain: () => refreshBalances(vm),
+                    ),
                   ),
+                )
+              : Column(
+                  children: _fetchingBalances
+                      ? [const ShimmerLoader()]
+                      : [
+                          _buildPolyContainer(vm),
+                          _buildAssetsListView(vm),
+                        ],
                 ),
-              )
-            : Column(
-                children: _fetchingBalances
-                    ? [ShimmerLoader()]
-                    : [
-                        _buildPolyContainer(vm),
-                        _buildAssetsListView(vm),
-                      ],
-              ),
+        ),
       ),
     );
   }
