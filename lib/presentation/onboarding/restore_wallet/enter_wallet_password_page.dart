@@ -5,6 +5,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/warning_section.dart';
@@ -46,7 +47,7 @@ class _EnterWalletPasswordPageState extends State<EnterWalletPasswordPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const WebOnboardingAppBar(),
+              renderIfWeb(const WebOnboardingAppBar(currStep: 1, numSteps: 2)),
               const Text(
                 Strings.restoreWallet,
                 style: RibnToolkitTextStyles.onboardingH1,
@@ -57,15 +58,7 @@ class _EnterWalletPasswordPageState extends State<EnterWalletPasswordPage> {
                 padding: EdgeInsets.symmetric(vertical: 24.0),
                 child: WarningSection(),
               ),
-              SizedBox(
-                width: 370,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _buildEnterWalletPassword(),
-                  ],
-                ),
-              ),
+              _buildEnterWalletPassword(),
 
               const SizedBox(height: 50),
               ConfirmationButton(
@@ -101,27 +94,24 @@ class _EnterWalletPasswordPageState extends State<EnterWalletPasswordPage> {
   }
 
   Widget _buildEnterWalletPassword() {
-    return SizedBox(
-      width: maxWidth,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            Strings.enterWalletPassword,
-            style: RibnToolkitTextStyles.h3.copyWith(
-              fontWeight: FontWeight.bold,
-              color: RibnColors.lightGreyTitle,
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          Strings.enterWalletPassword,
+          style: RibnToolkitTextStyles.h3.copyWith(
+            fontWeight: FontWeight.bold,
+            color: RibnColors.lightGreyTitle,
           ),
-          PasswordTextField(
-            controller: _passwordController,
-            hintText: Strings.newWalletPasswordHint,
-            fillColor: RibnColors.whiteButtonShadow,
-            width: 352,
-            obscurePassword: true,
-          ),
-        ],
-      ),
+        ),
+        PasswordTextField(
+          controller: _passwordController,
+          hintText: Strings.newWalletPasswordHint,
+          fillColor: RibnColors.whiteButtonShadow,
+          width: 509,
+          obscurePassword: true,
+        ),
+      ],
     );
   }
 }
