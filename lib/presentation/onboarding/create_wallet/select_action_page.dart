@@ -45,7 +45,6 @@ class SelectActionPage extends StatelessWidget {
       body: OnboardingContainer(
         child: SingleChildScrollView(
           clipBehavior: Clip.none,
-          padding: EdgeInsets.zero,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,

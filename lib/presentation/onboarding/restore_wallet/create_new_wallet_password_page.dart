@@ -15,8 +15,8 @@ import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
-import 'package:ribn_toolkit/widgets/molecules/onboarding_progress_bar.dart';
 import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
+import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Page for creating a new wallet password, when restoring wallet with a [seedPhrase].

@@ -17,7 +17,7 @@ import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/peekaboo_button.dart';
-import 'package:ribn_toolkit/widgets/molecules/onboarding_progress_bar.dart';
+import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
 
 /// This page allows the user to enter a known mnemonic / seed phrase in order to restore a wallet.
 ///

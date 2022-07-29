@@ -12,7 +12,7 @@ import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
-import 'package:ribn_toolkit/widgets/molecules/onboarding_progress_bar.dart';
+import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
 
 class SeedPhraseConfirmationPage extends StatefulWidget {
   const SeedPhraseConfirmationPage({Key? key}) : super(key: key);

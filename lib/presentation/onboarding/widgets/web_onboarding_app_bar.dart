@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/widgets/molecules/onboarding_progress_bar.dart';
+import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
 
 class WebOnboardingAppBar extends StatelessWidget {
   final int? currStep;
