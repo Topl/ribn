@@ -123,6 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Column(
                         children: [
+                          SizedBox(height: deviceTopPadding()),
                           Image.asset(RibnAssets.newRibnLogo, width: 138),
                           Text(
                             Strings.ribnWallet,
