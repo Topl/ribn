@@ -176,6 +176,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
             controller: _newPasswordController,
             hintText: '',
             obscurePassword: true,
+            textInputAction: TextInputAction.next,
           ),
         ),
         const SizedBox(height: 8),
