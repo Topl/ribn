@@ -30,6 +30,10 @@ class TransferUtils {
 
   /// Returns true if [amount] is valid.
   static bool validateAmount(String amount, maxAmount) {
-    return (int.tryParse(amount) ?? 0) <= maxAmount;
+    try {
+      return int.parse(amount) <= maxAmount;
+    } catch (e) {
+      return false;
+    }
   }
 }

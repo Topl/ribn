@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
@@ -210,6 +211,8 @@ class _PolyTransferSectionState extends State<PolyTransferSection> {
         height: 36,
         controller: _amountController,
         hintText: Strings.amountHint,
+        keyboardType: TextInputType.number,
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         onChanged: (String amount) {
           setState(() {
             _validAmount = TransferUtils.validateAmount(
