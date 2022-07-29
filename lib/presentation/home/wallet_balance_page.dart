@@ -261,7 +261,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       onCardPress: () => viewAssetDetails(asset),
       iconImage: Image.asset(assetIcon, width: 31),
       shortName: Text(
-        asset.assetCode.shortName.show,
+        asset.assetCode.shortName.show.replaceAll('\x00', ''),
         style: RibnToolkitTextStyles.assetShortNameStyle,
         overflow: TextOverflow.ellipsis,
       ),
