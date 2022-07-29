@@ -180,7 +180,8 @@ class _MintInputPageState extends State<MintInputPage> {
                                 width: 24,
                               ),
                             ),
-                            const IssuerAddressField(width: 213),
+                            // ignore: prefer_const_constructors
+                            IssuerAddressField(width: 213), // const ignored here so that tooltip can be dismissed
                             // field for entering the recipient address
                             RecipientField(
                               controller: _recipientController,
