@@ -9,19 +9,13 @@ import 'package:ribn_toolkit/constants/styles.dart';
 class ExtensionInfoPage extends StatelessWidget {
   const ExtensionInfoPage({Key? key}) : super(key: key);
   final double inlineIconHeight = 18;
-  final double inlineIconWidth = 15;
+  final double inlineIconWidth = 22;
 
   @override
   Widget build(BuildContext context) {
-    Widget ribnLogo(double width) => Container(
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(30)),
-            color: RibnColors.lightGreyTitle,
-          ),
-          child: Image.asset(
-            RibnAssets.newRibnLogo,
-            width: width,
-          ),
+    Widget ribnLogo(double width) => Image.asset(
+          RibnAssets.newRibnLogo,
+          width: width,
         );
     return Scaffold(
       body: OnboardingContainer(
@@ -32,16 +26,20 @@ class ExtensionInfoPage extends StatelessWidget {
               children: [
                 ribnLogo(50),
                 const SizedBox(width: 12),
-                const Text(
+                Text(
                   Strings.ribnWallet,
-                  style: RibnToolkitTextStyles.h3,
+                  style: RibnToolkitTextStyles.h3.copyWith(
+                    color: RibnColors.lightGreyTitle,
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: 50),
-            const Text(
+            Text(
               Strings.openTheWalletBy,
-              style: RibnToolkitTextStyles.h1,
+              style: RibnToolkitTextStyles.h1.copyWith(
+                color: RibnColors.lightGreyTitle,
+              ),
               textAlign: TextAlign.left,
             ),
             const SizedBox(height: 30),
@@ -50,21 +48,30 @@ class ExtensionInfoPage extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: Strings.clickingTheIconPartOne,
-                    style: RibnToolkitTextStyles.body1.copyWith(height: 1),
+                    style: RibnToolkitTextStyles.body1.copyWith(
+                      height: 1,
+                      color: RibnColors.lightGreyTitle,
+                    ),
                   ),
                   WidgetSpan(
                     child: ribnLogo(inlineIconWidth),
                   ),
                   TextSpan(
                     text: Strings.clickingTheIconPartTwo,
-                    style: RibnToolkitTextStyles.body1.copyWith(height: 1),
+                    style: RibnToolkitTextStyles.body1.copyWith(
+                      height: 1,
+                      color: RibnColors.lightGreyTitle,
+                    ),
                   ),
                   WidgetSpan(
                     child: SvgPicture.asset(RibnAssets.extensionIcon, height: inlineIconHeight, width: inlineIconWidth),
                   ),
                   TextSpan(
                     text: Strings.clickingTheIconPartThree,
-                    style: RibnToolkitTextStyles.body1.copyWith(height: 1),
+                    style: RibnToolkitTextStyles.body1.copyWith(
+                      height: 1,
+                      color: RibnColors.lightGreyTitle,
+                    ),
                   ),
                 ],
               ),
