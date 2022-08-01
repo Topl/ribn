@@ -1,6 +1,7 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/ui_constants.dart';
@@ -20,7 +21,6 @@ import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_long_name_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_selection_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_short_name_field.dart';
-import 'package:ribn_toolkit/widgets/molecules/loading_spinner.dart';
 import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/sliding_segment_control.dart';
@@ -52,9 +52,6 @@ class _MintInputPageState extends State<MintInputPage> {
 
   /// The selected icon for the asset to be minted
   String? _selectedIcon;
-
-  /// True if currently loading raw tx creation.
-  bool _loadingRawTx = false;
 
   /// Indicates whether minting a new asset or reminting existing asset
   bool mintingNewAsset = true;
@@ -101,151 +98,148 @@ class _MintInputPageState extends State<MintInputPage> {
         onPointerDown: (_) {
           if (mounted) setState(() {});
         },
-        child: Scaffold(
-          extendBody: true,
-          backgroundColor: RibnColors.background,
-          body: Stack(
-            children: [
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    /// Builds the title of the page.
-                    const CustomPageTitle(
-                      title: Strings.mint,
-                      hideBackArrow: true,
-                    ),
-                    const SizedBox(height: 40),
-                    SizedBox(
-                      width: 310,
-                      child: SlidingSegmentControl(
-                        currentTabIndex: currentTabIndex,
-                        updateTabIndex: (i) => {
-                          setState(() {
-                            currentTabIndex = i as int;
-                          })
-                        },
-                        tabItems: <int, Widget>{
-                          0: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              Strings.mintAsset,
-                              style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
-                            ),
+        child: LoaderOverlay(
+          child: Scaffold(
+            extendBody: true,
+            backgroundColor: RibnColors.background,
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  /// Builds the title of the page.
+                  const CustomPageTitle(
+                    title: Strings.mint,
+                    hideBackArrow: true,
+                  ),
+                  const SizedBox(height: 40),
+                  SizedBox(
+                    width: 310,
+                    child: SlidingSegmentControl(
+                      currentTabIndex: currentTabIndex,
+                      updateTabIndex: (i) => {
+                        setState(() {
+                          currentTabIndex = i as int;
+                        })
+                      },
+                      tabItems: <int, Widget>{
+                        0: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(
+                            Strings.mintAsset,
+                            style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
                           ),
-                          1: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              Strings.mintExistingAsset,
-                              style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
-                            ),
-                          ),
-                        },
-                        redirectOnClick: () => {
-                          setState(() {
-                            mintingNewAsset = !mintingNewAsset;
-                          })
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 40),
-                    SizedBox(
-                      width: 310,
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // builds the apt asset defining field, depending on [widget.mintingNewAsset]
-                            _buildAssetField(vm),
-                            // field for defining a short name
-                            AssetShortNameField(
-                              controller: _assetShortNameController,
-                              tooltipIcon: Image.asset(
-                                RibnAssets.greyHelpBubble,
-                                width: 18,
-                              ),
-                            ),
-                            // field for defining asset amount & custom unit
-                            AssetAmountField(
-                              selectedUnit: _selectedUnit,
-                              controller: _amountController,
-                              allowEditingUnit: mintingNewAsset,
-                              onUnitSelected: (String unit) {
-                                setState(() {
-                                  _selectedUnit = unit;
-                                });
-                              },
-                              chevronIcon: Image.asset(
-                                RibnAssets.chevronDownDark,
-                                width: 24,
-                              ),
-                            ),
-                            // ignore: prefer_const_constructors
-                            IssuerAddressField(width: 213), // const ignored here so that tooltip can be dismissed
-                            // field for entering the recipient address
-                            RecipientField(
-                              controller: _recipientController,
-                              validRecipientAddress: _validRecipientAddress,
-                              onChanged: (text) => validateRecipientAddress(
-                                networkName: vm.currentNetwork.networkName,
-                                address: _recipientController.text,
-                                handleResult: (bool result) {
-                                  setState(() {
-                                    if (result) {
-                                      _validRecipientAddress = _recipientController.text;
-                                      _recipientController.text = '';
-                                    } else {
-                                      _validRecipientAddress = '';
-                                    }
-                                  });
-                                },
-                              ),
-                              // clear the textfield on backspace
-                              onBackspacePressed: () {
-                                setState(() {
-                                  if (_validRecipientAddress.isNotEmpty) {
-                                    _recipientController.text = _validRecipientAddress;
-                                    _recipientController
-                                      ..text = _recipientController.text.substring(0, _recipientController.text.length)
-                                      ..selection = TextSelection.collapsed(offset: _recipientController.text.length);
-                                  }
-                                  _validRecipientAddress = '';
-                                });
-                              },
-                              icon: SvgPicture.asset(RibnAssets.myFingerprint),
-                              alternativeDisplayChild: const AddressDisplayContainer(
-                                text: Strings.yourRibnWalletAddress,
-                                icon: RibnAssets.myFingerprint,
-                                width: 256,
-                              ),
-                            ),
-                            // field for adding a note to the tx
-                            NoteField(
-                              controller: _noteController,
-                              noteLength: _noteController.text.length,
-                              tooltipIcon: Image.asset(
-                                RibnAssets.greyHelpBubble,
-                                width: 18,
-                              ),
-                            ),
-                          ],
                         ),
+                        1: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(
+                            Strings.mintExistingAsset,
+                            style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                          ),
+                        ),
+                      },
+                      redirectOnClick: () => {
+                        setState(() {
+                          mintingNewAsset = !mintingNewAsset;
+                        })
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                  SizedBox(
+                    width: 310,
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // builds the apt asset defining field, depending on [widget.mintingNewAsset]
+                          _buildAssetField(vm),
+                          // field for defining a short name
+                          AssetShortNameField(
+                            controller: _assetShortNameController,
+                            tooltipIcon: Image.asset(
+                              RibnAssets.greyHelpBubble,
+                              width: 18,
+                            ),
+                          ),
+                          // field for defining asset amount & custom unit
+                          AssetAmountField(
+                            selectedUnit: _selectedUnit,
+                            controller: _amountController,
+                            allowEditingUnit: mintingNewAsset,
+                            onUnitSelected: (String unit) {
+                              setState(() {
+                                _selectedUnit = unit;
+                              });
+                            },
+                            chevronIcon: Image.asset(
+                              RibnAssets.chevronDownDark,
+                              width: 24,
+                            ),
+                          ),
+                          // ignore: prefer_const_constructors
+                          IssuerAddressField(width: 213), // const ignored here so that tooltip can be dismissed
+                          // field for entering the recipient address
+                          RecipientField(
+                            controller: _recipientController,
+                            validRecipientAddress: _validRecipientAddress,
+                            onChanged: (text) => validateRecipientAddress(
+                              networkName: vm.currentNetwork.networkName,
+                              address: _recipientController.text,
+                              handleResult: (bool result) {
+                                setState(() {
+                                  if (result) {
+                                    _validRecipientAddress = _recipientController.text;
+                                    _recipientController.text = '';
+                                  } else {
+                                    _validRecipientAddress = '';
+                                  }
+                                });
+                              },
+                            ),
+                            // clear the textfield on backspace
+                            onBackspacePressed: () {
+                              setState(() {
+                                if (_validRecipientAddress.isNotEmpty) {
+                                  _recipientController.text = _validRecipientAddress;
+                                  _recipientController
+                                    ..text = _recipientController.text.substring(0, _recipientController.text.length)
+                                    ..selection = TextSelection.collapsed(offset: _recipientController.text.length);
+                                }
+                                _validRecipientAddress = '';
+                              });
+                            },
+                            icon: SvgPicture.asset(RibnAssets.myFingerprint),
+                            alternativeDisplayChild: const AddressDisplayContainer(
+                              text: Strings.yourRibnWalletAddress,
+                              icon: RibnAssets.myFingerprint,
+                              width: 256,
+                            ),
+                          ),
+                          // field for adding a note to the tx
+                          NoteField(
+                            controller: _noteController,
+                            noteLength: _noteController.text.length,
+                            tooltipIcon: Image.asset(
+                              RibnAssets.greyHelpBubble,
+                              width: 18,
+                            ),
+                          ),
+                        ],
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
-              _loadingRawTx ? const LoadingSpinner() : const SizedBox(),
-            ],
-          ),
-          bottomNavigationBar: BottomReviewAction(
-            children: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // fee info for the tx
-                FeeInfo(fee: vm.networkFee),
-                _buildReviewButton(vm),
-              ],
+            ),
+            bottomNavigationBar: BottomReviewAction(
+              children: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // fee info for the tx
+                  FeeInfo(fee: vm.networkFee),
+                  _buildReviewButton(vm),
+                ],
+              ),
             ),
           ),
         ),
@@ -340,9 +334,7 @@ class _MintInputPageState extends State<MintInputPage> {
         ),
         onPressed: enteredValidInputs
             ? () {
-                setState(() {
-                  _loadingRawTx = true;
-                });
+                context.loaderOverlay.show();
                 vm.initiateTx(
                   assetShortName: _assetShortNameController.text,
                   amount: _amountController.text,
@@ -351,7 +343,7 @@ class _MintInputPageState extends State<MintInputPage> {
                   mintingNewAsset: mintingNewAsset,
                   assetDetails: assetDetails,
                   onRawTxCreated: (bool success) async {
-                    _loadingRawTx = false;
+                    context.loaderOverlay.hide();
                     setState(() {});
                     // Display error dialog if failed to create raw tx
                     if (!success) {
