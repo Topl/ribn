@@ -33,64 +33,60 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
       child: Scaffold(
         extendBody: true,
         backgroundColor: RibnColors.background,
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // page title
-                  const CustomPageTitle(
-                    title: Strings.send,
-                    hideBackArrow: true,
-                  ),
-                  const SizedBox(height: 40),
-                  SizedBox(
-                    width: 310,
-                    child: SlidingSegmentControl(
-                      currentTabIndex: currentTabIndex,
-                      updateTabIndex: (i) => {
-                        setState(() {
-                          currentTabIndex = i as int;
-                        })
-                      },
-                      tabItems: <int, Widget>{
-                        0: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            Strings.sendAssets,
-                            style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
-                          ),
-                        ),
-                        1: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            Strings.sendNativeCoins,
-                            style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
-                          ),
-                        ),
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 40),
-                  currentTabIndex == 0
-                      ? AssetTransferInputContainer(
-                          builder: (context, vm) => AssetTransferSection(
-                            vm: vm,
-                            updateButton: (val) => setState(() => bottomButton = val),
-                          ),
-                        )
-                      : PolyTransferInputContainer(
-                          builder: (context, vm) => PolyTransferSection(
-                            vm: vm,
-                            updateButton: (val) => setState(() => bottomButton = val),
-                          ),
-                        ),
-                  const SizedBox(height: 18),
-                ],
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // page title
+              const CustomPageTitle(
+                title: Strings.send,
+                hideBackArrow: true,
               ),
-            ),
-          ],
+              const SizedBox(height: 40),
+              SizedBox(
+                width: 310,
+                child: SlidingSegmentControl(
+                  currentTabIndex: currentTabIndex,
+                  updateTabIndex: (i) => {
+                    setState(() {
+                      currentTabIndex = i as int;
+                    })
+                  },
+                  tabItems: <int, Widget>{
+                    0: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Text(
+                        Strings.sendAssets,
+                        style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                      ),
+                    ),
+                    1: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Text(
+                        Strings.sendNativeCoins,
+                        style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                      ),
+                    ),
+                  },
+                ),
+              ),
+              const SizedBox(height: 40),
+              currentTabIndex == 0
+                  ? AssetTransferInputContainer(
+                      builder: (context, vm) => AssetTransferSection(
+                        vm: vm,
+                        updateButton: (val) => setState(() => bottomButton = val),
+                      ),
+                    )
+                  : PolyTransferInputContainer(
+                      builder: (context, vm) => PolyTransferSection(
+                        vm: vm,
+                        updateButton: (val) => setState(() => bottomButton = val),
+                      ),
+                    ),
+              const SizedBox(height: 18),
+            ],
+          ),
         ),
         bottomNavigationBar: bottomButton,
       ),
