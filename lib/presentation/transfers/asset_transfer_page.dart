@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/asset_transfer_input_container.dart';
 import 'package:ribn/containers/poly_transfer_input_container.dart';
@@ -7,7 +8,6 @@ import 'package:ribn/presentation/transfers/poly_transfer_section.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
-import 'package:ribn_toolkit/widgets/molecules/loading_spinner.dart';
 import 'package:ribn_toolkit/widgets/molecules/sliding_segment_control.dart';
 
 /// The asset transfer input page that allows the initiation of an asset transfer.
@@ -25,20 +25,12 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
 
   dynamic bottomButton;
 
-  bool loadingRawTx = false;
-
-  void setLoadingRawTx(value) {
-    setState(() {
-      loadingRawTx = value;
-    });
-  }
-
   set setBottomButton(Widget value) => setState(() => bottomButton = value);
 
   @override
   Widget build(BuildContext context) {
-    Scaffold renderPageContent(vm) {
-      return Scaffold(
+    return LoaderOverlay(
+      child: Scaffold(
         extendBody: true,
         backgroundColor: RibnColors.background,
         body: Stack(
@@ -82,41 +74,26 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
                   ),
                   const SizedBox(height: 40),
                   currentTabIndex == 0
-                      ? AssetTransferSection(
-                          vm: vm,
-                          updateButton: (val) => setState(() => bottomButton = val),
-                          loadingRawTx: loadingRawTx,
-                          setLoadingRawTx: setLoadingRawTx,
+                      ? AssetTransferInputContainer(
+                          builder: (context, vm) => AssetTransferSection(
+                            vm: vm,
+                            updateButton: (val) => setState(() => bottomButton = val),
+                          ),
                         )
-                      : PolyTransferSection(
-                          vm: vm,
-                          updateButton: (val) => setState(() => bottomButton = val),
-                          loadingRawTx: loadingRawTx,
-                          setLoadingRawTx: setLoadingRawTx,
+                      : PolyTransferInputContainer(
+                          builder: (context, vm) => PolyTransferSection(
+                            vm: vm,
+                            updateButton: (val) => setState(() => bottomButton = val),
+                          ),
                         ),
                   const SizedBox(height: 18),
                 ],
               ),
             ),
-            loadingRawTx ? const LoadingSpinner() : const SizedBox(),
           ],
         ),
         bottomNavigationBar: bottomButton,
-      );
-    }
-
-    if (currentTabIndex == 0) {
-      return AssetTransferInputContainer(
-        builder: (BuildContext context, AssetTransferInputViewModel vm) {
-          return renderPageContent(vm);
-        },
-      );
-    } else {
-      return PolyTransferInputContainer(
-        builder: (BuildContext context, PolyTransferInputViewModel vm) {
-          return renderPageContent(vm);
-        },
-      );
-    }
+      ),
+    );
   }
 }
