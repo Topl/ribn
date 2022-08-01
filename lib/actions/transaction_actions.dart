@@ -25,7 +25,8 @@ class SignTxAction {
 
 class SignAndBroadcastTxAction {
   TransferDetails transferDetails;
-  SignAndBroadcastTxAction(this.transferDetails);
+  final Completer<TransferDetails?> completer;
+  SignAndBroadcastTxAction(this.transferDetails, this.completer);
 }
 
 class BroadcastTxAction {
