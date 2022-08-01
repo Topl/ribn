@@ -154,13 +154,15 @@ class _MintInputPageState extends State<MintInputPage> {
                           // builds the apt asset defining field, depending on [widget.mintingNewAsset]
                           _buildAssetField(vm),
                           // field for defining a short name
-                          AssetShortNameField(
-                            controller: _assetShortNameController,
-                            tooltipIcon: Image.asset(
-                              RibnAssets.greyHelpBubble,
-                              width: 18,
-                            ),
-                          ),
+                          mintingNewAsset
+                              ? AssetShortNameField(
+                                  controller: _assetShortNameController,
+                                  tooltipIcon: Image.asset(
+                                    RibnAssets.greyHelpBubble,
+                                    width: 18,
+                                  ),
+                                )
+                              : const SizedBox(),
                           // field for defining asset amount & custom unit
                           AssetAmountField(
                             selectedUnit: _selectedUnit,
