@@ -246,7 +246,6 @@ class _PolyTransferSectionState extends State<PolyTransferSection> {
                     note: _noteController.text,
                     onRawTxCreated: (bool success) async {
                       context.loaderOverlay.hide();
-                      setState(() {});
                       // Display error dialog if failed to create raw tx
                       if (!success) {
                         await TransferUtils.showErrorDialog(context);

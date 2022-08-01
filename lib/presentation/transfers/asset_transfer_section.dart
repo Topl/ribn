@@ -248,7 +248,6 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
                     assetDetails: vm.assetDetails[_selectedAsset!.assetCode.toString()],
                     onRawTxCreated: (bool success) async {
                       context.loaderOverlay.hide();
-                      setState(() {});
                       // Display error dialog if failed to create raw tx
                       if (!success) {
                         await TransferUtils.showErrorDialog(context);
