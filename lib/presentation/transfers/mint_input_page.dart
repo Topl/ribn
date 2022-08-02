@@ -93,6 +93,7 @@ class _MintInputPageState extends State<MintInputPage> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isKeyboardVisible = WidgetsBinding.instance.window.viewInsets.bottom != 0;
     return MintInputContainer(
       builder: (BuildContext context, MintInputViewmodel vm) => Listener(
         onPointerDown: (_) {
@@ -226,6 +227,7 @@ class _MintInputPageState extends State<MintInputPage> {
                               width: 18,
                             ),
                           ),
+                          SizedBox(height: isKeyboardVisible ? 0 : adaptHeight(0.25)),
                         ],
                       ),
                     ),

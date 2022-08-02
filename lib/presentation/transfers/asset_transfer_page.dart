@@ -5,6 +5,7 @@ import 'package:ribn/containers/asset_transfer_input_container.dart';
 import 'package:ribn/containers/poly_transfer_input_container.dart';
 import 'package:ribn/presentation/transfers/asset_transfer_section.dart';
 import 'package:ribn/presentation/transfers/poly_transfer_section.dart';
+import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
@@ -29,6 +30,7 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isKeyboardVisible = WidgetsBinding.instance.window.viewInsets.bottom != 0;
     return LoaderOverlay(
       child: Scaffold(
         extendBody: true,
@@ -85,6 +87,8 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
                       ),
                     ),
               const SizedBox(height: 18),
+              // add bottom padding when keyboard is closed
+              SizedBox(height: isKeyboardVisible ? 0 : adaptHeight(0.25)),
             ],
           ),
         ),
