@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/asset_transfer_input_container.dart';
@@ -28,9 +29,20 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
 
   set setBottomButton(Widget value) => setState(() => bottomButton = value);
 
+  bool isKeyboardVisible = false;
+
+  @override
+  void initState() {
+    KeyboardVisibilityController().onChange.listen((bool visible) {
+      setState(() {
+        isKeyboardVisible = visible;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final bool isKeyboardVisible = WidgetsBinding.instance.window.viewInsets.bottom != 0;
     return LoaderOverlay(
       child: Scaffold(
         extendBody: true,

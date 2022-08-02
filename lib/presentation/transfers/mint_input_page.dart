@@ -1,5 +1,6 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ribn/constants/assets.dart';
@@ -60,9 +61,16 @@ class _MintInputPageState extends State<MintInputPage> {
   int currentTabIndex = 0;
 
   final GlobalKey _formKey = GlobalKey<FormState>();
+  bool isKeyboardVisible = false;
 
   @override
   void initState() {
+    KeyboardVisibilityController().onChange.listen((bool visible) {
+      setState(() {
+        isKeyboardVisible = visible;
+      });
+    });
+
     _controllers = [
       _noteController,
       _assetLongNameController,
@@ -93,7 +101,6 @@ class _MintInputPageState extends State<MintInputPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isKeyboardVisible = WidgetsBinding.instance.window.viewInsets.bottom != 0;
     return MintInputContainer(
       builder: (BuildContext context, MintInputViewmodel vm) => Listener(
         onPointerDown: (_) {
