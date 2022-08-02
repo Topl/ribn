@@ -82,18 +82,25 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
                 onTryAgain: () => refreshBalances(vm),
               ),
             )
-          : SingleChildScrollView(
-              child: Listener(
-                onPointerDown: (_) {
-                  if (mounted) setState(() {});
-                },
-                child: Column(
-                  children: _fetchingBalances
-                      ? [const WalletBalanceShimmer()]
-                      : [
-                          _buildPolyContainer(vm),
-                          _buildAssetsListView(vm),
-                        ],
+          : RefreshIndicator(
+              backgroundColor: RibnColors.primary,
+              color: RibnColors.secondaryDark,
+              onRefresh: () async {
+                return refreshBalances(vm);
+              },
+              child: SingleChildScrollView(
+                child: Listener(
+                  onPointerDown: (_) {
+                    if (mounted) setState(() {});
+                  },
+                  child: Column(
+                    children: _fetchingBalances
+                        ? [const WalletBalanceShimmer()]
+                        : [
+                            _buildPolyContainer(vm),
+                            _buildAssetsListView(vm),
+                          ],
+                  ),
                 ),
               ),
             ),
