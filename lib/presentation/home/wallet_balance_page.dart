@@ -315,9 +315,11 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
           builder: (context, ribnAddress) {
             return CustomModal.renderCustomModal(
               context: Keys.navigatorKey.currentContext!,
-              title: const Text(
+              title: Text(
                 Strings.myRibnWalletAddress,
-                style: RibnToolkitTextStyles.extH2,
+                style: RibnToolkitTextStyles.extH2.copyWith(
+                  fontSize: 23,
+                ),
               ),
               body: Column(
                 children: [
