@@ -7,8 +7,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/keys.dart';
-import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/utils.dart';
@@ -126,7 +124,7 @@ class _BiometricsSectionState extends State<BiometricsSection> {
           child: CustomToggle(
             onChanged: (value) {
               runBiometrics(value).then(
-                (value) => {if (_authorized) Keys.navigatorKey.currentState?.pushNamed(Routes.home)},
+                (value) => {if (_authorized) setState(() {})},
               );
             },
             value: widget.isBiometricsEnabled,
