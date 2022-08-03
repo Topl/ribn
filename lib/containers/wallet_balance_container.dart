@@ -62,6 +62,9 @@ class WalletBalanceViewModel {
   /// The current network being viewed.
   final RibnNetwork currentNetwork;
 
+  /// True if the user is fully onboarded and the wallet hasn't been deleted.
+  final bool walletExists;
+
   WalletBalanceViewModel({
     required this.polyBalance,
     required this.assets,
@@ -71,9 +74,11 @@ class WalletBalanceViewModel {
     required this.assetDetails,
     required this.refreshBalances,
     required this.currentNetwork,
+    required this.walletExists,
   });
   static WalletBalanceViewModel fromStore(Store<AppState> store) {
     return WalletBalanceViewModel(
+      walletExists: !store.state.needsOnboarding(),
       polyBalance: store.state.keychainState.currentNetwork.getPolysInWallet(),
       assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
       assetDetails: store.state.userDetailsState.assetDetails,

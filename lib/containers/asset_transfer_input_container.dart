@@ -5,9 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-import 'package:ribn/actions/misc_actions.dart';
 
 import 'package:ribn/actions/transaction_actions.dart';
+import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/rules.dart';
@@ -50,9 +50,6 @@ class AssetTransferInputViewModel {
   /// Gets total balance in wallet for a particular asset.
   final num Function(String?) getAssetBalance;
 
-  /// Allows redirect to poly transfer input through redux action
-  final Function routeToSendPolys;
-
   /// Handler for initiating tx.
   final Future<void> Function({
     required String recipient,
@@ -60,7 +57,7 @@ class AssetTransferInputViewModel {
     required String note,
     required AssetCode assetCode,
     AssetDetails? assetDetails,
-    required Function(bool success) onRawTxCreated,
+    required void Function(bool success) onRawTxCreated,
   }) initiateTx;
 
   AssetTransferInputViewModel({
@@ -70,7 +67,6 @@ class AssetTransferInputViewModel {
     required this.assetDetails,
     required this.currentNetwork,
     required this.getAssetBalance,
-    required this.routeToSendPolys,
   });
 
   static AssetTransferInputViewModel fromStore(Store<AppState> store) {
@@ -81,7 +77,7 @@ class AssetTransferInputViewModel {
         required String note,
         required AssetCode assetCode,
         AssetDetails? assetDetails,
-        required Function(bool success) onRawTxCreated,
+        required void Function(bool success) onRawTxCreated,
       }) async {
         final TransferDetails transferDetails = TransferDetails(
           transferType: TransferType.assetTransfer,
@@ -91,9 +87,15 @@ class AssetTransferInputViewModel {
           assetCode: assetCode,
           assetDetails: assetDetails,
         );
-        final Completer<bool> actionCompleter = Completer();
-        store.dispatch((InitiateTxAction(transferDetails, actionCompleter)));
-        await actionCompleter.future.then(onRawTxCreated);
+        final Completer<TransferDetails?> rawTxCompleter = Completer();
+        store.dispatch((InitiateTxAction(transferDetails, rawTxCompleter)));
+        await rawTxCompleter.future.then(
+          (TransferDetails? transferDetails) {
+            final success = transferDetails != null;
+            onRawTxCreated(success);
+            Keys.navigatorKey.currentState?.pushNamed(Routes.txReview, arguments: transferDetails);
+          },
+        );
       },
       assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
       currentNetwork: store.state.keychainState.currentNetwork,
@@ -105,7 +107,6 @@ class AssetTransferInputViewModel {
             .where((element) => element.assetCode.toString() == assetCode)
             .fold(0, (prev, value) => prev + value.quantity);
       },
-      routeToSendPolys: () => store.dispatch(NavigateToRoute(Routes.polyTransferInput)),
     );
   }
 

@@ -38,7 +38,7 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
 
-  /// True if the password entered is at least 12 characters.
+  /// True if the password entered is at least 8 characters.
   bool _atLeast8Chars = false;
 
   /// True if both passwords match.
@@ -79,49 +79,52 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
       child: Scaffold(
         extendBody: true,
         body: OnboardingContainer(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              renderIfWeb(const WebOnboardingAppBar(currStep: 1, numSteps: 2)),
-              const Text(
-                Strings.restoreWallet,
-                style: RibnToolkitTextStyles.onboardingH1,
-                textAlign: TextAlign.center,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 24.0),
-                child: WarningSection(),
-              ),
-              SizedBox(
-                width: kIsWeb ? 370 : double.infinity,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _buildNewPasswordSection(),
-                    SizedBox(height: adaptHeight(0.02)),
-                    _buildConfirmPasswordSection(),
-                    SizedBox(height: adaptHeight(0.02)),
-                    _buildTermsOfAgreementCheck(),
-                  ],
+          child: SingleChildScrollView(
+            clipBehavior: Clip.none,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                renderIfWeb(const WebOnboardingAppBar(currStep: 1, numSteps: 2)),
+                const Text(
+                  Strings.restoreWallet,
+                  style: RibnToolkitTextStyles.onboardingH1,
+                  textAlign: TextAlign.center,
                 ),
-              ),
-              const SizedBox(height: 40),
-              renderIfMobile(const OnboardingProgressBar(numSteps: 2, currStep: 0)),
-              const SizedBox(height: 20),
-              ConfirmationButton(
-                text: Strings.done,
-                disabled: !_atLeast8Chars || !_passwordsMatch || !_termsOfUseChecked,
-                onPressed: () {
-                  context.loaderOverlay.show();
-                  StoreProvider.of<AppState>(context).dispatch(
-                    RestoreWalletWithMnemonicAction(
-                      mnemonic: widget.seedPhrase,
-                      password: _confirmPasswordController.text,
-                    ),
-                  );
-                },
-              ),
-            ],
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 24.0),
+                  child: WarningSection(),
+                ),
+                SizedBox(
+                  width: kIsWeb ? 370 : double.infinity,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      _buildNewPasswordSection(),
+                      SizedBox(height: adaptHeight(0.02)),
+                      _buildConfirmPasswordSection(),
+                      SizedBox(height: adaptHeight(0.02)),
+                      _buildTermsOfAgreementCheck(),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 40),
+                renderIfMobile(const OnboardingProgressBar(numSteps: 2, currStep: 0)),
+                const SizedBox(height: 20),
+                ConfirmationButton(
+                  text: Strings.done,
+                  disabled: !_atLeast8Chars || !_passwordsMatch || !_termsOfUseChecked,
+                  onPressed: () {
+                    context.loaderOverlay.show();
+                    StoreProvider.of<AppState>(context).dispatch(
+                      RestoreWalletWithMnemonicAction(
+                        mnemonic: widget.seedPhrase,
+                        password: _confirmPasswordController.text,
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

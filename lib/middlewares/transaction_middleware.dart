@@ -49,7 +49,7 @@ void Function(Store<AppState> store, InitiateTxAction action, NextDispatcher nex
       );
       next(CreateRawTxAction(transferDetails, action.completer));
     } catch (e) {
-      action.completer.complete(false);
+      action.completer.complete(null);
     }
   };
 }
@@ -72,11 +72,9 @@ void Function(Store<AppState> store, CreateRawTxAction action, NextDispatcher ne
         transactionReceipt: transactionReceipt,
         messageToSign: messageToSign,
       );
-      action.completer.complete(true);
-      // Navigate to the review page
-      next(NavigateToRoute(Routes.txReview, arguments: transferDetails));
+      action.completer.complete(transferDetails);
     } catch (e) {
-      action.completer.complete(false);
+      action.completer.complete(null);
     }
   };
 }
@@ -114,9 +112,9 @@ void Function(Store<AppState> store, SignAndBroadcastTxAction action, NextDispat
           ),
         );
       }
-      // Navigate to the confirmation page
-      next(NavigateToRoute(Routes.txConfirmation, arguments: transferDetails));
+      action.completer.complete(transferDetails);
     } catch (e) {
+      action.completer.complete(null);
       next(ApiErrorAction(e.toString()));
     }
   };

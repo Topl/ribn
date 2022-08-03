@@ -1,6 +1,7 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/asset_transfer_input_container.dart';
@@ -24,14 +25,10 @@ import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 class AssetTransferSection extends StatefulWidget {
   AssetTransferInputViewModel vm;
   final Function updateButton;
-  late bool loadingRawTx;
-  final Function setLoadingRawTx;
 
   AssetTransferSection({
     required this.vm,
     required this.updateButton,
-    required this.loadingRawTx,
-    required this.setLoadingRawTx,
     Key? key,
   }) : super(key: key);
 
@@ -242,7 +239,7 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
           ),
           onPressed: enteredValidInputs
               ? () {
-                  widget.setLoadingRawTx(true);
+                  context.loaderOverlay.show();
                   vm.initiateTx(
                     recipient: _validRecipientAddress,
                     amount: _amountController.text,
@@ -250,8 +247,7 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
                     assetCode: _selectedAsset!.assetCode,
                     assetDetails: vm.assetDetails[_selectedAsset!.assetCode.toString()],
                     onRawTxCreated: (bool success) async {
-                      widget.setLoadingRawTx(false);
-                      setState(() {});
+                      context.loaderOverlay.hide();
                       // Display error dialog if failed to create raw tx
                       if (!success) {
                         await TransferUtils.showErrorDialog(context);

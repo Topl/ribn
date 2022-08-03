@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/asset_transfer_input_container.dart';
 import 'package:ribn/containers/poly_transfer_input_container.dart';
 import 'package:ribn/presentation/transfers/asset_transfer_section.dart';
 import 'package:ribn/presentation/transfers/poly_transfer_section.dart';
+import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
-import 'package:ribn_toolkit/widgets/molecules/loading_spinner.dart';
 import 'package:ribn_toolkit/widgets/molecules/sliding_segment_control.dart';
 
 /// The asset transfer input page that allows the initiation of an asset transfer.
@@ -25,97 +27,84 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
 
   dynamic bottomButton;
 
-  bool loadingRawTx = false;
-
-  void setLoadingRawTx(value) {
-    setState(() {
-      loadingRawTx = value;
-    });
-  }
-
   set setBottomButton(Widget value) => setState(() => bottomButton = value);
+
+  bool isKeyboardVisible = false;
+
+  @override
+  void initState() {
+    KeyboardVisibilityController().onChange.listen((bool visible) {
+      setState(() {
+        isKeyboardVisible = visible;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Scaffold renderPageContent(vm) {
-      return Scaffold(
+    return LoaderOverlay(
+      child: Scaffold(
         backgroundColor: RibnColors.background,
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // page title
-                  const CustomPageTitle(
-                    title: Strings.send,
-                    hideBackArrow: true,
-                  ),
-                  const SizedBox(height: 40),
-                  SizedBox(
-                    width: 310,
-                    child: SlidingSegmentControl(
-                      currentTabIndex: currentTabIndex,
-                      updateTabIndex: (i) => {
-                        setState(() {
-                          currentTabIndex = i as int;
-                        })
-                      },
-                      tabItems: <int, Widget>{
-                        0: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            Strings.sendAssets,
-                            style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
-                          ),
-                        ),
-                        1: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            Strings.sendNativeCoins,
-                            style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
-                          ),
-                        ),
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 40),
-                  currentTabIndex == 0
-                      ? AssetTransferSection(
-                          vm: vm,
-                          updateButton: (val) => setState(() => bottomButton = val),
-                          loadingRawTx: loadingRawTx,
-                          setLoadingRawTx: setLoadingRawTx,
-                        )
-                      : PolyTransferSection(
-                          vm: vm,
-                          updateButton: (val) => setState(() => bottomButton = val),
-                          loadingRawTx: loadingRawTx,
-                          setLoadingRawTx: setLoadingRawTx,
-                        ),
-                  const SizedBox(height: 18),
-                ],
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // page title
+              const CustomPageTitle(
+                title: Strings.send,
+                hideBackArrow: true,
               ),
-            ),
-            loadingRawTx ? const LoadingSpinner() : const SizedBox(),
-          ],
+              const SizedBox(height: 40),
+              SizedBox(
+                width: 310,
+                child: SlidingSegmentControl(
+                  currentTabIndex: currentTabIndex,
+                  updateTabIndex: (i) => {
+                    setState(() {
+                      currentTabIndex = i as int;
+                    })
+                  },
+                  tabItems: <int, Widget>{
+                    0: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Text(
+                        Strings.sendAssets,
+                        style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                      ),
+                    ),
+                    1: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Text(
+                        Strings.sendNativeCoins,
+                        style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                      ),
+                    ),
+                  },
+                ),
+              ),
+              const SizedBox(height: 40),
+              currentTabIndex == 0
+                  ? AssetTransferInputContainer(
+                      builder: (context, vm) => AssetTransferSection(
+                        vm: vm,
+                        updateButton: (val) => setState(() => bottomButton = val),
+                      ),
+                    )
+                  : PolyTransferInputContainer(
+                      builder: (context, vm) => PolyTransferSection(
+                        vm: vm,
+                        updateButton: (val) => setState(() => bottomButton = val),
+                      ),
+                    ),
+              const SizedBox(height: 18),
+              // add bottom padding when keyboard is closed
+              SizedBox(height: isKeyboardVisible ? 0 : adaptHeight(0.25)),
+            ],
+          ),
         ),
         bottomNavigationBar: bottomButton,
-      );
-    }
-
-    if (currentTabIndex == 0) {
-      return AssetTransferInputContainer(
-        builder: (BuildContext context, AssetTransferInputViewModel vm) {
-          return renderPageContent(vm);
-        },
-      );
-    } else {
-      return PolyTransferInputContainer(
-        builder: (BuildContext context, PolyTransferInputViewModel vm) {
-          return renderPageContent(vm);
-        },
-      );
-    }
+      ),
+    );
   }
 }

@@ -8,6 +8,7 @@ import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
+import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 
@@ -19,43 +20,46 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: OnboardingContainer(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              renderIfWeb(const WebOnboardingAppBar()),
-              const Text(
-                Strings.beforeYouStart,
-                style: RibnToolkitTextStyles.onboardingH1,
-              ),
-              const SizedBox(height: 60),
-              SizedBox(
-                width: kIsWeb ? 550 : 350,
-                child: Text(
-                  Strings.weRecommendSub,
-                  style: RibnToolkitTextStyles.h3.copyWith(
-                    color: RibnColors.lightGreyTitle,
-                    fontSize: 18,
+        child: SingleChildScrollView(
+          clipBehavior: Clip.none,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                renderIfWeb(const WebOnboardingAppBar()),
+                const Text(
+                  Strings.beforeYouStart,
+                  style: RibnToolkitTextStyles.onboardingH1,
+                ),
+                const SizedBox(height: 60),
+                SizedBox(
+                  width: kIsWeb ? 550 : 350,
+                  child: Text(
+                    Strings.weRecommendSub,
+                    style: RibnToolkitTextStyles.h3.copyWith(
+                      color: RibnColors.lightGreyTitle,
+                      fontSize: 18,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 40),
-              _buildListItem(RibnAssets.penPaperPng, Strings.paperAndPen, textTopPadding: 5),
-              _buildListItem(
-                RibnAssets.passwordLockPng,
-                Strings.securePasswordManager,
-                iconRightPadding: 4,
-                textTopPadding: 5,
-              ),
-              _buildListItem(RibnAssets.programPng, Strings.encryptTextFile, iconRightPadding: 2),
-              adaptableSpacer(),
-              ConfirmationButton(
-                text: Strings.iUnderstand,
-                onPressed: () {
-                  Keys.navigatorKey.currentState?.pushNamed(Routes.generateSeedPhrase);
-                },
-              )
-            ],
+                const SizedBox(height: 40),
+                _buildListItem(RibnAssets.penPaperPng, Strings.paperAndPen, textTopPadding: 5),
+                _buildListItem(
+                  RibnAssets.passwordLockPng,
+                  Strings.securePasswordManager,
+                  iconRightPadding: 4,
+                  textTopPadding: 5,
+                ),
+                _buildListItem(RibnAssets.programPng, Strings.encryptTextFile, iconRightPadding: 2),
+                SizedBox(height: adaptHeight(0.1)),
+                ConfirmationButton(
+                  text: Strings.iUnderstand,
+                  onPressed: () {
+                    Keys.navigatorKey.currentState?.pushNamed(Routes.generateSeedPhrase);
+                  },
+                )
+              ],
+            ),
           ),
         ),
       ),

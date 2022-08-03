@@ -87,6 +87,8 @@ double adaptHeight(double scaleFactor) => MediaQueryData.fromWindow(window).size
 /// Adapt to screen width based on [scaleFactor].
 double adaptWidth(double scaleFactor) => MediaQueryData.fromWindow(window).size.width * scaleFactor;
 
+double deviceTopPadding() => MediaQueryData.fromWindow(window).padding.top;
+
 Future<bool> isAppOpenedInExtensionView() async {
   return await PlatformUtils.instance.getCurrentAppView() == AppViews.extension;
 }

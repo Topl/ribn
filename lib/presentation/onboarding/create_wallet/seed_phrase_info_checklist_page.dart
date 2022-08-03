@@ -8,6 +8,7 @@ import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
+import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
@@ -31,43 +32,46 @@ class _SeedPhraseInfoChecklistPageState extends State<SeedPhraseInfoChecklistPag
   Widget build(BuildContext context) {
     return Scaffold(
       body: OnboardingContainer(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              renderIfWeb(const WebOnboardingAppBar()),
-              const Text(
-                Strings.readCarefully,
-                style: RibnToolkitTextStyles.onboardingH1,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 30.0, bottom: 45),
-                child: Image.asset(RibnAssets.warningPng, width: 76),
-              ),
-              _buildCheckboxListTile(
-                checked: checkboxesState[Strings.neverShareMySeedPhrase]!,
-                activeText: true,
-                text: Strings.neverShareMySeedPhrase,
-                onChanged: (bool? val) => onChecked(val ?? false, Strings.neverShareMySeedPhrase),
-              ),
-              const SizedBox(height: 40),
-              _buildCheckboxListTile(
-                checked: checkboxesState[Strings.walletRecoveryUsingSeedPhrase]!,
-                activeText: checkboxesState[Strings.neverShareMySeedPhrase]!,
-                text: Strings.walletRecoveryUsingSeedPhrase,
-                onChanged: checkboxesState[Strings.neverShareMySeedPhrase]!
-                    ? (bool? val) => onChecked(val ?? false, Strings.walletRecoveryUsingSeedPhrase)
-                    : null,
-              ),
-              adaptableSpacer(),
-              ConfirmationButton(
-                text: Strings.iUnderstand,
-                onPressed: () {
-                  Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseInstructions);
-                },
-                disabled: checkboxesState.containsValue(false),
-              )
-            ],
+        child: SingleChildScrollView(
+          clipBehavior: Clip.none,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                renderIfWeb(const WebOnboardingAppBar()),
+                const Text(
+                  Strings.readCarefully,
+                  style: RibnToolkitTextStyles.onboardingH1,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30.0, bottom: 45),
+                  child: Image.asset(RibnAssets.warningPng, width: 76),
+                ),
+                _buildCheckboxListTile(
+                  checked: checkboxesState[Strings.neverShareMySeedPhrase]!,
+                  activeText: true,
+                  text: Strings.neverShareMySeedPhrase,
+                  onChanged: (bool? val) => onChecked(val ?? false, Strings.neverShareMySeedPhrase),
+                ),
+                const SizedBox(height: 40),
+                _buildCheckboxListTile(
+                  checked: checkboxesState[Strings.walletRecoveryUsingSeedPhrase]!,
+                  activeText: checkboxesState[Strings.neverShareMySeedPhrase]!,
+                  text: Strings.walletRecoveryUsingSeedPhrase,
+                  onChanged: checkboxesState[Strings.neverShareMySeedPhrase]!
+                      ? (bool? val) => onChecked(val ?? false, Strings.walletRecoveryUsingSeedPhrase)
+                      : null,
+                ),
+                SizedBox(height: adaptHeight(0.1)),
+                ConfirmationButton(
+                  text: Strings.iUnderstand,
+                  onPressed: () {
+                    Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseInstructions);
+                  },
+                  disabled: checkboxesState.containsValue(false),
+                )
+              ],
+            ),
           ),
         ),
       ),

@@ -69,12 +69,12 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       // refresh balances on initial build
       onInitialBuild: refreshBalances,
       onWillChange: (prevVm, currVm) {
-        // refresh balances on network toggle
-        if (prevVm?.currentNetwork.networkName != currVm.currentNetwork.networkName ||
-            prevVm?.currentNetwork.lastCheckedTimestamp != currVm.currentNetwork.lastCheckedTimestamp ||
-            prevVm?.currentNetwork.addresses.length != currVm.currentNetwork.addresses.length) {
-          refreshBalances(currVm);
-        }
+        // refresh balances on network toggle or when new addresses are generated
+        final bool shouldRefresh = currVm.walletExists &&
+            (prevVm?.currentNetwork.networkName != currVm.currentNetwork.networkName ||
+                prevVm?.currentNetwork.lastCheckedTimestamp != currVm.currentNetwork.lastCheckedTimestamp ||
+                prevVm?.currentNetwork.addresses.length != currVm.currentNetwork.addresses.length);
+        if (shouldRefresh) refreshBalances(currVm);
       },
       builder: (BuildContext context, WalletBalanceViewModel vm) => _failedToFetchBalances
           ? Center(
@@ -268,7 +268,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       onCardPress: () => viewAssetDetails(asset),
       iconImage: Image.asset(assetIcon, width: 31),
       shortName: Text(
-        asset.assetCode.shortName.show,
+        asset.assetCode.shortName.show.replaceAll('\x00', ''),
         style: RibnToolkitTextStyles.assetShortNameStyle,
         overflow: TextOverflow.ellipsis,
       ),

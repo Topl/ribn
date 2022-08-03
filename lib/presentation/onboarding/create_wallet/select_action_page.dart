@@ -25,7 +25,6 @@ class SelectActionPage extends StatelessWidget {
         icon: Image.asset(RibnAssets.createWalletPng),
         title: Strings.createWallet,
         description: Strings.firstTimeWallet,
-        lineHeight: 4,
         onPressed: () {
           Keys.navigatorKey.currentState?.pushNamed(Routes.gettingStarted);
         },
@@ -44,25 +43,29 @@ class SelectActionPage extends StatelessWidget {
 
     return Scaffold(
       body: OnboardingContainer(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              renderIfWeb(const WebOnboardingAppBar()),
-              const SizedBox(
-                width: kIsWeb ? double.infinity : 245,
-                child: Text(
-                  Strings.whatWouldYouLikeToDo,
-                  textAlign: TextAlign.center,
-                  style: RibnToolkitTextStyles.onboardingH1,
+        child: SingleChildScrollView(
+          clipBehavior: Clip.none,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                renderIfWeb(const WebOnboardingAppBar()),
+                const SizedBox(
+                  width: kIsWeb ? double.infinity : 245,
+                  child: Text(
+                    Strings.whatWouldYouLikeToDo,
+                    textAlign: TextAlign.center,
+                    style: RibnToolkitTextStyles.onboardingH1,
+                  ),
                 ),
-              ),
-              SizedBox(height: adaptHeight(0.1)),
-              // display actionbuttons in row or column depending on platform
-              kIsWeb
-                  ? Row(mainAxisAlignment: MainAxisAlignment.center, children: actionButtons)
-                  : Column(children: actionButtons)
-            ],
+                SizedBox(height: adaptHeight(0.1)),
+                // display actionbuttons in row or column depending on platform
+                kIsWeb
+                    ? Row(mainAxisAlignment: MainAxisAlignment.center, children: actionButtons)
+                    : Column(children: actionButtons),
+                SizedBox(height: adaptHeight(0.1)),
+              ],
+            ),
           ),
         ),
       ),
