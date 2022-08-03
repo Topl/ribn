@@ -323,6 +323,27 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_keyboard_visibility:
+    dependency: "direct main"
+    description:
+      name: flutter_keyboard_visibility
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.3.0"
+  flutter_keyboard_visibility_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_keyboard_visibility_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  flutter_keyboard_visibility_web:
+    dependency: transitive
+    description:
+      name: flutter_keyboard_visibility_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -842,7 +863,7 @@ packages:
     description:
       path: "."
       ref: dev
-      resolved-ref: "878083482aede32ce3809fb60ba34fc1e8a44f68"
+      resolved-ref: "5da5953126754d49baf72368a0089367f5960400"
       url: "https://github.com/Topl/ribn-toolkit"
     source: git
     version: "1.0.0+1"
