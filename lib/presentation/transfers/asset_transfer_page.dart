@@ -39,7 +39,6 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
   Widget build(BuildContext context) {
     Scaffold renderPageContent(vm) {
       return Scaffold(
-        extendBody: true,
         backgroundColor: RibnColors.background,
         body: Stack(
           children: [

@@ -102,7 +102,6 @@ class _MintInputPageState extends State<MintInputPage> {
           if (mounted) setState(() {});
         },
         child: Scaffold(
-          extendBody: true,
           backgroundColor: RibnColors.background,
           body: Stack(
             children: [
