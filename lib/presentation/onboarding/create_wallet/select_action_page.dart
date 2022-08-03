@@ -21,7 +21,6 @@ class SelectActionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Widget> actionButtons = [
       OnboardingActionButton(
-        containerHeight: adaptHeight(0.25),
         backgroundColor: RibnColors.primary,
         icon: Image.asset(RibnAssets.createWalletPng),
         title: Strings.createWallet,
@@ -33,7 +32,6 @@ class SelectActionPage extends StatelessWidget {
       ),
       kIsWeb ? const SizedBox(width: 100, height: 50) : const SizedBox(height: 50),
       OnboardingActionButton(
-        containerHeight: adaptHeight(0.25),
         backgroundColor: RibnColors.primary,
         icon: Image.asset(RibnAssets.importWalletPng),
         description: Strings.importWalletUsingSeedPhrase,
