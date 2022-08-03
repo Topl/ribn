@@ -38,6 +38,9 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
 
+  /// True if the password entered is at least 8 characters.
+  bool _atLeast8Chars = false;
+
   /// True if both passwords match.
   bool _passwordsMatch = false;
 
@@ -53,6 +56,7 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
       controller.addListener(() {
         setState(() {
           hasErrors[controller] = false;
+          _atLeast8Chars = _newPasswordController.text.length >= 8;
           _passwordsMatch = _newPasswordController.text == _confirmPasswordController.text;
         });
       });
@@ -108,7 +112,7 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
                 const SizedBox(height: 20),
                 ConfirmationButton(
                   text: Strings.done,
-                  disabled: !_passwordsMatch || !_termsOfUseChecked,
+                  disabled: !_atLeast8Chars || !_passwordsMatch || !_termsOfUseChecked,
                   onPressed: () {
                     context.loaderOverlay.show();
                     StoreProvider.of<AppState>(context).dispatch(
@@ -154,6 +158,16 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
           ),
         ),
         const SizedBox(height: 8),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            Strings.atLeast8Chars,
+            textAlign: TextAlign.left,
+            style: RibnToolkitTextStyles.h3.copyWith(
+              color: !_atLeast8Chars && _newPasswordController.text.isNotEmpty ? Colors.red : Colors.white,
+            ),
+          ),
+        ),
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
