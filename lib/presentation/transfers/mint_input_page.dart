@@ -108,7 +108,6 @@ class _MintInputPageState extends State<MintInputPage> {
         },
         child: LoaderOverlay(
           child: Scaffold(
-            extendBody: true,
             backgroundColor: RibnColors.background,
             body: SingleChildScrollView(
               child: Column(

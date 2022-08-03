@@ -82,18 +82,25 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
                 onTryAgain: () => refreshBalances(vm),
               ),
             )
-          : SingleChildScrollView(
-              child: Listener(
-                onPointerDown: (_) {
-                  if (mounted) setState(() {});
-                },
-                child: Column(
-                  children: _fetchingBalances
-                      ? [const WalletBalanceShimmer()]
-                      : [
-                          _buildPolyContainer(vm),
-                          _buildAssetsListView(vm),
-                        ],
+          : RefreshIndicator(
+              backgroundColor: RibnColors.primary,
+              color: RibnColors.secondaryDark,
+              onRefresh: () async {
+                return refreshBalances(vm);
+              },
+              child: SingleChildScrollView(
+                child: Listener(
+                  onPointerDown: (_) {
+                    if (mounted) setState(() {});
+                  },
+                  child: Column(
+                    children: _fetchingBalances
+                        ? [const WalletBalanceShimmer()]
+                        : [
+                            _buildPolyContainer(vm),
+                            _buildAssetsListView(vm),
+                          ],
+                  ),
                 ),
               ),
             ),
@@ -315,9 +322,11 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
           builder: (context, ribnAddress) {
             return CustomModal.renderCustomModal(
               context: Keys.navigatorKey.currentContext!,
-              title: const Text(
+              title: Text(
                 Strings.myRibnWalletAddress,
-                style: RibnToolkitTextStyles.extH2,
+                style: RibnToolkitTextStyles.extH2.copyWith(
+                  fontSize: 23,
+                ),
               ),
               body: Column(
                 children: [

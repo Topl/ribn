@@ -45,7 +45,6 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
   Widget build(BuildContext context) {
     return LoaderOverlay(
       child: Scaffold(
-        extendBody: true,
         backgroundColor: RibnColors.background,
         body: SingleChildScrollView(
           child: Column(
