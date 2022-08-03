@@ -28,11 +28,14 @@ void Function(Store<AppState> store, DeleteWalletAction action, NextDispatcher n
         },
       );
       // Reset and persist app state
-      await PlatformLocalStorage.instance.saveState(AppState.initial().toJson());
+      next(const ResetAppStateAction());
+      await PlatformLocalStorage.instance.saveState(store.state.toJson());
       if (kIsWeb) {
+        await PlatformLocalStorage.instance.clearSessionStorage();
         PlatformUtils.instance.closeWindow();
       } else {
-        await Keys.navigatorKey.currentState!.pushNamedAndRemoveUntil(Routes.welcome, (_) => false);
+        await PlatformLocalStorage.instance.clearSecureStorage();
+        await Keys.navigatorKey.currentState?.pushNamedAndRemoveUntil(Routes.welcome, (_) => false);
       }
     } catch (e) {
       // Complete with false to indicate error, i.e. incorrect password was entered

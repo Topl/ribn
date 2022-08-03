@@ -56,6 +56,19 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
     }
   }
 
+  @override
+  Future<void> clearSecureStorage() async {
+    try {
+      return secureStorage.deleteAll();
+    } catch (e) {
+      if (!Keys.isTestingEnvironment) rethrow;
+    }
+  }
+
+  /// Web-only
+  @override
+  Future<void> clearSessionStorage() => throw UnimplementedError();
+
   /// Web-only
   @override
   Future<String?> getKeyFromSessionStorage() => throw UnimplementedError();
