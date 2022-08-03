@@ -4,9 +4,12 @@ import 'package:ribn_toolkit/constants/colors.dart';
 
 class OnboardingContainer extends StatelessWidget {
   final Widget child;
+  final bool isXsScreenSize;
+
   const OnboardingContainer({
     Key? key,
     required this.child,
+    this.isXsScreenSize = false,
   }) : super(key: key);
 
   @override
@@ -23,7 +26,7 @@ class OnboardingContainer extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.only(top: topPadding, left: 20, right: 20),
+        padding: EdgeInsets.only(top: topPadding, left: isXsScreenSize ? 10 : 20, right: isXsScreenSize ? 10 : 20),
         child: child,
       ),
     );
