@@ -145,6 +145,14 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
                     ),
                   ),
                   AssetAmountField(
+                    onChanged: (String amount) {
+                      setState(() {
+                        _validAmount = TransferUtils.validateAmount(
+                          amount,
+                          widget.vm.getAssetBalance(_selectedAsset?.assetCode.toString()),
+                        );
+                      });
+                    },
                     selectedUnit: widget.vm.assetDetails[_selectedAsset?.assetCode.toString()]?.unit,
                     controller: _amountController,
                     allowEditingUnit: false,
