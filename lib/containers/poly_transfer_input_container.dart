@@ -6,6 +6,7 @@ import 'package:redux/redux.dart';
 import 'package:ribn/actions/misc_actions.dart';
 
 import 'package:ribn/actions/transaction_actions.dart';
+import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/rules.dart';
@@ -48,7 +49,7 @@ class PolyTransferInputViewModel {
     required String recipient,
     required String note,
     bool mintingToMyWallet,
-    required Function(bool success) onRawTxCreated,
+    required void Function(bool success) onRawTxCreated,
   }) initiateTx;
 
   PolyTransferInputViewModel({
@@ -67,9 +68,8 @@ class PolyTransferInputViewModel {
         required String recipient,
         required String note,
         bool mintingToMyWallet = false,
-        required Function(bool success) onRawTxCreated,
+        required void Function(bool success) onRawTxCreated,
       }) async {
-        final Completer<bool> actionCompleter = Completer();
         final TransferDetails transferDetails = TransferDetails(
           transferType: TransferType.polyTransfer,
           senders: [store.state.keychainState.currentNetwork.myWalletAddress!],
@@ -77,8 +77,15 @@ class PolyTransferInputViewModel {
           amount: amount,
           data: note,
         );
-        store.dispatch(InitiateTxAction(transferDetails, actionCompleter));
-        await actionCompleter.future.then(onRawTxCreated);
+        final Completer<TransferDetails?> rawTxCompleter = Completer();
+        store.dispatch(InitiateTxAction(transferDetails, rawTxCompleter));
+        await rawTxCompleter.future.then(
+          (TransferDetails? transferDetails) {
+            final success = transferDetails != null;
+            onRawTxCreated(success);
+            Keys.navigatorKey.currentState?.pushNamed(Routes.txReview, arguments: transferDetails);
+          },
+        );
       },
       currentNetwork: store.state.keychainState.currentNetwork,
       networkFee: networkFee,

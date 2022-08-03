@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/poly_transfer_input_container.dart';
@@ -24,14 +26,10 @@ import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 class PolyTransferSection extends StatefulWidget {
   PolyTransferInputViewModel vm;
   final Function updateButton;
-  late final bool loadingRawTx;
-  final Function setLoadingRawTx;
 
   PolyTransferSection({
     required this.vm,
     required this.updateButton,
-    required this.loadingRawTx,
-    required this.setLoadingRawTx,
     Key? key,
   }) : super(key: key);
 
@@ -210,6 +208,8 @@ class _PolyTransferSectionState extends State<PolyTransferSection> {
         height: 36,
         controller: _amountController,
         hintText: Strings.amountHint,
+        keyboardType: TextInputType.number,
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         onChanged: (String amount) {
           setState(() {
             _validAmount = TransferUtils.validateAmount(
@@ -239,14 +239,13 @@ class _PolyTransferSectionState extends State<PolyTransferSection> {
           ),
           onPressed: enteredValidInputs
               ? () {
-                  widget.setLoadingRawTx(true);
+                  context.loaderOverlay.show();
                   vm.initiateTx(
                     amount: _amountController.text,
                     recipient: _validRecipientAddress,
                     note: _noteController.text,
                     onRawTxCreated: (bool success) async {
-                      widget.setLoadingRawTx(false);
-                      setState(() {});
+                      context.loaderOverlay.hide();
                       // Display error dialog if failed to create raw tx
                       if (!success) {
                         await TransferUtils.showErrorDialog(context);

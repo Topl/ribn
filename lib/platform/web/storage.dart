@@ -14,6 +14,7 @@ external Future<String> getFromLocalStorage();
 external Future<void> persistToLocalStorage(String data);
 external Future<String> getFromSessionStorage();
 external Future<void> saveToSessionStorage(String data);
+external Future<void> extClearSessionStorage();
 
 class PlatformLocalStorage implements IPlatformLocalStorage {
   PlatformLocalStorage._internal();
@@ -56,6 +57,19 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
     }
     return null;
   }
+
+  @override
+  Future<void> clearSessionStorage() async {
+    try {
+      return promiseToFuture(extClearSessionStorage());
+    } catch (e) {
+      if (!Keys.isTestingEnvironment) rethrow;
+    }
+  }
+
+  /// Mobile-only
+  @override
+  Future<void> clearSecureStorage() => throw UnimplementedError();
 
   /// Mobile-only
   @override
