@@ -8,13 +8,13 @@ import 'package:ribn/models/transfer_details.dart';
 
 class InitiateTxAction {
   final TransferDetails transferDetails;
-  final Completer<bool> completer;
+  final Completer<TransferDetails?> completer;
   const InitiateTxAction(this.transferDetails, this.completer);
 }
 
 class CreateRawTxAction {
   TransferDetails transferDetails;
-  final Completer<bool> completer;
+  final Completer<TransferDetails?> completer;
   CreateRawTxAction(this.transferDetails, this.completer);
 }
 
@@ -25,7 +25,8 @@ class SignTxAction {
 
 class SignAndBroadcastTxAction {
   TransferDetails transferDetails;
-  SignAndBroadcastTxAction(this.transferDetails);
+  final Completer<TransferDetails?> completer;
+  SignAndBroadcastTxAction(this.transferDetails, this.completer);
 }
 
 class BroadcastTxAction {

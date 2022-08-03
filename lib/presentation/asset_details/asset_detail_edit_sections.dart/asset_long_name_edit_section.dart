@@ -97,6 +97,7 @@ class _AssetLongNameEditSectionState extends State<AssetLongNameEditSection> {
       child: CustomTextField(
         controller: _controller,
         hintText: Strings.assetLongNameHint,
+        hintColor: RibnColors.hintTextColor,
         width: 268,
         maxLength: 16,
       ),

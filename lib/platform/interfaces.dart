@@ -65,6 +65,12 @@ abstract class IPlatformLocalStorage {
   ///
   ///  Get key, if it exists, from FlutterSecureStorage.
   Future<String?>? getKeyFromSecureStorage();
+
+  /// Web-only
+  Future<void> clearSessionStorage();
+
+  /// Mobile-only
+  Future<void> clearSecureStorage();
 }
 
 abstract class IPlatformWorkerRunner<T> {

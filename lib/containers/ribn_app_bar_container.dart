@@ -9,6 +9,7 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class RibnAppBarContainer extends StatelessWidget {
   const RibnAppBarContainer({
@@ -64,6 +65,11 @@ class RibnAppBarViewModel {
           case Strings.settings:
             {
               store.dispatch(NavigateToRoute(Routes.settings));
+              break;
+            }
+          case Strings.support:
+            {
+              launchUrlString(Strings.supportEmailLink);
               break;
             }
           default:
