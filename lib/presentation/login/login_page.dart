@@ -38,10 +38,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _textEditingController = TextEditingController();
   final LocalAuthentication _localAuthentication = LocalAuthentication();
 
-  /// True if password being entered is obscured.
-  // ignore: prefer_final_fields
-  bool _obscurePassword = true;
-
   /// True if login was attempted with an incorrect password.
   bool _incorrectPasswordEntered = false;
 
@@ -116,95 +112,97 @@ class _LoginPageState extends State<LoginPage> {
           },
           child: LoaderOverlay(
             child: Scaffold(
-              body: WaveContainer(
-                containerHeight: double.infinity,
-                containerWidth: double.infinity,
-                waveAmplitude: 30,
-                containerChild: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Column(
-                      children: [
-                        Image.asset(RibnAssets.newRibnLogo, width: 138),
-                        Text(
-                          Strings.ribnWallet,
-                          style: RibnToolkitTextStyles.h1.copyWith(
-                            color: Colors.white,
+              body: SingleChildScrollView(
+                child: WaveContainer(
+                  containerHeight: adaptHeight(1),
+                  containerWidth: adaptWidth(1),
+                  waveAmplitude: 30,
+                  containerChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          SizedBox(height: deviceTopPadding()),
+                          Image.asset(RibnAssets.newRibnLogo, width: 138),
+                          Text(
+                            Strings.ribnWallet,
+                            style: RibnToolkitTextStyles.h1.copyWith(
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 5),
-                        Center(
-                          child: SizedBox(
-                            width: _baseWidth,
-                            child: Center(
-                              child: Text(
-                                Strings.intro,
-                                style: RibnToolkitTextStyles.h3.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w300,
+                          const SizedBox(height: 5),
+                          Center(
+                            child: SizedBox(
+                              width: _baseWidth,
+                              child: Center(
+                                child: Text(
+                                  Strings.intro,
+                                  style: RibnToolkitTextStyles.h3.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
-                                textAlign: TextAlign.center,
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        _buildTextFieldLabel(),
-                        const SizedBox(height: 8),
-                        PasswordTextField(
-                          onSubmitted: attemptLogin,
-                          hintText: Strings.typeSomething,
-                          controller: _textEditingController,
-                          obscurePassword: _obscurePassword,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 25),
-                    LargeButton(
-                      backgroundColor: RibnColors.primary,
-                      dropShadowColor: RibnColors.whiteButtonShadow,
-                      buttonChild: Text(
-                        Strings.unlock,
-                        style: RibnToolkitTextStyles.btnLarge.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      onPressed: attemptLogin,
-                    ),
-                    _buildForgetPasswordLink(vm.restoreWallet),
-                    const SizedBox(height: 40),
-                    SizedBox(
-                      height: 50,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          _buildSupportLink(),
-                          const SizedBox(height: 10),
-                          _incorrectPasswordEntered
-                              ? Text(
-                                  'Incorrect Password',
-                                  style: const TextStyle(
-                                    color: Colors.red,
-                                  ).copyWith(fontWeight: FontWeight.bold),
-                                )
-                              : const SizedBox(),
-                          _biometricsError
-                              ? Text(
-                                  'There was an issue with Face ID, please try again',
-                                  style: const TextStyle(
-                                    color: Colors.red,
-                                  ).copyWith(fontWeight: FontWeight.bold),
-                                )
-                              : const SizedBox()
                         ],
                       ),
-                    ),
-                  ],
+                      Column(
+                        children: [
+                          _buildTextFieldLabel(),
+                          const SizedBox(height: 8),
+                          PasswordTextField(
+                            onSubmitted: attemptLogin,
+                            hintText: Strings.typeSomething,
+                            controller: _textEditingController,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 25),
+                      LargeButton(
+                        backgroundColor: RibnColors.primary,
+                        dropShadowColor: RibnColors.whiteButtonShadow,
+                        buttonChild: Text(
+                          Strings.unlock,
+                          style: RibnToolkitTextStyles.btnLarge.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        onPressed: attemptLogin,
+                      ),
+                      _buildForgetPasswordLink(vm.restoreWallet),
+                      const SizedBox(height: 40),
+                      SizedBox(
+                        height: 50,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            _buildSupportLink(),
+                            const SizedBox(height: 10),
+                            _incorrectPasswordEntered
+                                ? Text(
+                                    'Incorrect Password',
+                                    style: const TextStyle(
+                                      color: Colors.red,
+                                    ).copyWith(fontWeight: FontWeight.bold),
+                                  )
+                                : const SizedBox(),
+                            _biometricsError
+                                ? Text(
+                                    'There was an issue with Face ID, please try again',
+                                    style: const TextStyle(
+                                      color: Colors.red,
+                                    ).copyWith(fontWeight: FontWeight.bold),
+                                  )
+                                : const SizedBox()
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -106,7 +106,7 @@ class _EnterWalletPasswordPageState extends State<EnterWalletPasswordPage> {
         ),
         PasswordTextField(
           controller: _passwordController,
-          hintText: Strings.newWalletPasswordHint,
+          hintText: Strings.newWalletPassword,
           fillColor: RibnColors.whiteButtonShadow,
           width: 509,
           obscurePassword: true,

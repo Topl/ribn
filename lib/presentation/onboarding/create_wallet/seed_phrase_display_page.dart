@@ -25,11 +25,19 @@ class SeedPhraseDisplayPage extends StatelessWidget {
     return StoreConnector<AppState, String>(
       converter: (store) => store.state.onboardingState.mnemonic!,
       builder: (context, seedPhrase) {
+        final double width = MediaQuery.of(context).size.width;
+        final double height = MediaQuery.of(context).size.height;
+        final bool isXsWidth = width < 375.0 ? true : false;
+        final bool isXsHeight = height < 667.0 ? true : false;
+        final bool isXsScreenSize = isXsWidth && isXsHeight ? true : false;
+
         final List<String> seedPhraseWordsList = seedPhrase.split(' ').toList();
         return Scaffold(
           body: OnboardingContainer(
-            child: scrollableIfWeb(
-              Column(
+            isXsScreenSize: isXsScreenSize,
+            child: SingleChildScrollView(
+              clipBehavior: Clip.none,
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   kIsWeb ? const WebOnboardingAppBar(currStep: 0) : const SizedBox(),
@@ -49,8 +57,8 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    height: kIsWeb ? 280 : adaptHeight(0.30),
-                    width: kIsWeb ? 674 : adaptWidth(0.9),
+                    height: kIsWeb ? 280 : adaptHeight(isXsScreenSize ? 0.38 : 0.33),
+                    width: kIsWeb ? 674 : adaptWidth(isXsScreenSize ? 1 : 0.9),
                     decoration: BoxDecoration(
                       color: RibnColors.greyText.withOpacity(0.24),
                       borderRadius: BorderRadius.circular(5),
@@ -92,7 +100,7 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                           )
                         : const SizedBox(),
                   ),
-                  adaptableSpacer(),
+                  SizedBox(height: adaptHeight(0.1)),
                   renderIfMobile(const MobileOnboardingProgressBar(currStep: 0)),
                   ConfirmationButton(
                     text: Strings.done,
@@ -142,7 +150,6 @@ class SeedPhraseDisplayPage extends StatelessWidget {
   Widget _buildGridItem(int idx, String word) {
     return SizedBox(
       width: kIsWeb ? 150 : 100,
-      // color: Colors.green,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,

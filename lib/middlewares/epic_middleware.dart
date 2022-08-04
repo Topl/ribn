@@ -25,6 +25,7 @@ const List<dynamic> persistenceTriggers = [
   UpdateCurrentNetworkAction,
   UpdateBalancesAction,
   UpdateAssetDetailsAction,
+  UpdateBiometricsAction,
 ];
 
 /// If an action that exists in the list [persistenceTriggers] is received, this epic emits the [PersistAppState] action.

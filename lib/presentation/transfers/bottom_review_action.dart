@@ -1,5 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:ribn/utils.dart';
 
 class BottomReviewAction extends StatelessWidget {
   const BottomReviewAction({Key? key, required this.children, this.transparentBackground = false}) : super(key: key);
@@ -15,7 +15,7 @@ class BottomReviewAction extends StatelessWidget {
         topRight: Radius.circular(25),
       ),
       child: Container(
-        constraints: const BoxConstraints(maxHeight: kIsWeb ? 135 : 182),
+        constraints: BoxConstraints(maxHeight: adaptHeight(0.25)),
         decoration: transparentBackground
             ? null
             : const BoxDecoration(

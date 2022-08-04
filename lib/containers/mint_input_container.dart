@@ -7,7 +7,9 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 import 'package:ribn/actions/transaction_actions.dart';
+import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/network_utils.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
@@ -89,9 +91,14 @@ class MintInputViewmodel {
           data: note,
           assetDetails: assetDetails,
         );
-        final Completer<bool> actionCompleter = Completer();
+        final Completer<TransferDetails?> actionCompleter = Completer();
         store.dispatch(InitiateTxAction(transferDetails, actionCompleter));
-        await actionCompleter.future.then(onRawTxCreated);
+        await actionCompleter.future.then(
+          (TransferDetails? transferDetails) {
+            onRawTxCreated(transferDetails != null);
+            Keys.navigatorKey.currentState?.pushNamed(Routes.txReview, arguments: transferDetails);
+          },
+        );
       },
       assets: store.state.keychainState.currentNetwork.getAssetsIssuedByWallet(),
       currentNetwork: store.state.keychainState.currentNetwork,

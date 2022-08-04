@@ -53,55 +53,58 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: OnboardingContainer(
-        child: Column(
-          children: [
-            renderIfWeb(const WebOnboardingAppBar(currStep: 2)),
-            Text(
-              Strings.readCarefully,
-              style: RibnToolkitTextStyles.h1.copyWith(
-                color: RibnColors.lightGreyTitle,
-                fontSize: 28,
+        child: SingleChildScrollView(
+          clipBehavior: Clip.none,
+          child: Column(
+            children: [
+              renderIfWeb(const WebOnboardingAppBar(currStep: 2)),
+              Text(
+                Strings.readCarefully,
+                style: RibnToolkitTextStyles.h1.copyWith(
+                  color: RibnColors.lightGreyTitle,
+                  fontSize: 28,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 30.0, bottom: 45),
-              child: Image.asset(RibnAssets.warningPng, width: 76),
-            ),
-            _buildCheckboxListTile(
-              checked: checkboxesState[Strings.savedMyWalletPasswordSafely]!,
-              activeText: true,
-              text: Strings.savedMyWalletPasswordSafely,
-              onChanged: (bool? val) => onChecked(val ?? false, Strings.savedMyWalletPasswordSafely),
-            ),
-            SizedBox(height: adaptHeight(0.03)),
-            _buildCheckboxListTile(
-              checked: checkboxesState[Strings.toplCannotRecoverForMe]!,
-              activeText: checkboxesState[Strings.savedMyWalletPasswordSafely]!,
-              text: Strings.toplCannotRecoverForMe,
-              onChanged: checkboxesState[Strings.savedMyWalletPasswordSafely]!
-                  ? (bool? val) => onChecked(val ?? false, Strings.toplCannotRecoverForMe)
-                  : null,
-            ),
-            SizedBox(height: adaptHeight(0.03)),
-            _buildCheckboxListTile(
-              checked: checkboxesState[Strings.spAndPasswordUnrecoverable]!,
-              activeText: checkboxesState[Strings.toplCannotRecoverForMe]!,
-              text: Strings.spAndPasswordUnrecoverable,
-              onChanged: checkboxesState[Strings.toplCannotRecoverForMe]!
-                  ? (bool? val) => onChecked(val ?? false, Strings.spAndPasswordUnrecoverable)
-                  : null,
-            ),
-            adaptableSpacer(),
-            renderIfMobile(const MobileOnboardingProgressBar(currStep: 2)),
-            ConfirmationButton(
-              text: Strings.iUnderstand,
-              onPressed: () {
-                Keys.navigatorKey.currentState
-                    ?.pushNamed(isBioSupported ? Routes.onboardingEnableBiometrics : Routes.walletCreated);
-              },
-              disabled: checkboxesState.containsValue(false),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.only(top: 30.0, bottom: 45),
+                child: Image.asset(RibnAssets.warningPng, width: 76),
+              ),
+              _buildCheckboxListTile(
+                checked: checkboxesState[Strings.savedMyWalletPasswordSafely]!,
+                activeText: true,
+                text: Strings.savedMyWalletPasswordSafely,
+                onChanged: (bool? val) => onChecked(val ?? false, Strings.savedMyWalletPasswordSafely),
+              ),
+              SizedBox(height: adaptHeight(0.03)),
+              _buildCheckboxListTile(
+                checked: checkboxesState[Strings.toplCannotRecoverForMe]!,
+                activeText: checkboxesState[Strings.savedMyWalletPasswordSafely]!,
+                text: Strings.toplCannotRecoverForMe,
+                onChanged: checkboxesState[Strings.savedMyWalletPasswordSafely]!
+                    ? (bool? val) => onChecked(val ?? false, Strings.toplCannotRecoverForMe)
+                    : null,
+              ),
+              SizedBox(height: adaptHeight(0.03)),
+              _buildCheckboxListTile(
+                checked: checkboxesState[Strings.spAndPasswordUnrecoverable]!,
+                activeText: checkboxesState[Strings.toplCannotRecoverForMe]!,
+                text: Strings.spAndPasswordUnrecoverable,
+                onChanged: checkboxesState[Strings.toplCannotRecoverForMe]!
+                    ? (bool? val) => onChecked(val ?? false, Strings.spAndPasswordUnrecoverable)
+                    : null,
+              ),
+              SizedBox(height: adaptHeight(0.1)),
+              renderIfMobile(const MobileOnboardingProgressBar(currStep: 2)),
+              ConfirmationButton(
+                text: Strings.iUnderstand,
+                onPressed: () {
+                  Keys.navigatorKey.currentState
+                      ?.pushNamed(isBioSupported ? Routes.onboardingEnableBiometrics : Routes.walletCreated);
+                },
+                disabled: checkboxesState.containsValue(false),
+              )
+            ],
+          ),
         ),
       ),
     );

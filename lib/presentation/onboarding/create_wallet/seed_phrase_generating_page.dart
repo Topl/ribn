@@ -11,6 +11,7 @@ import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
+import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/animated_circle_step_loader.dart';
 
@@ -36,9 +37,12 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
       builder: (context, vm) {
         return Scaffold(
           body: OnboardingContainer(
-            child: Center(
-              child: Column(
-                children: seedPhraseGenerating ? seedPhraseGeneratingSection() : seedPhraseGeneratedSection(),
+            child: SingleChildScrollView(
+              clipBehavior: Clip.none,
+              child: Center(
+                child: Column(
+                  children: seedPhraseGenerating ? seedPhraseGeneratingSection() : seedPhraseGeneratedSection(),
+                ),
               ),
             ),
           ),
@@ -97,7 +101,7 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
           style: RibnToolkitTextStyles.onboardingH3,
         ),
       ),
-      adaptableSpacer(),
+      SizedBox(height: adaptHeight(0.1)),
       ConfirmationButton(
         text: Strings.cont,
         onPressed: () {
