@@ -129,4 +129,5 @@ flutter_native_splash:
 # See for android: https://stackoverflow.com/questions/65391820/change-background-color-of-flutter-app-icon
 flutter_icons:
   ios: true
+  remove_alpha_ios: true
   image_path: "assets/launch/launcher_icon.png"
