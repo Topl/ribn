@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/colors.dart';
 import 'package:ribn/presentation/error_section.dart';
 
 class TransferUtils {
@@ -10,15 +9,31 @@ class TransferUtils {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 48),
-        backgroundColor: RibnColors.accent,
-        title: ErrorSection(onTryAgain: () => Navigator.of(context).pop()),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+        backgroundColor: const Color(0xffD0DFE1),
+        title: Column(
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: GestureDetector(
+                child: const Icon(Icons.close),
+                onTap: () => Navigator.of(context).pop(),
+              ),
+            ),
+            ErrorSection(onTryAgain: () => Navigator.of(context).pop()),
+          ],
+        ),
       ),
     );
   }
 
   /// Returns true if [amount] is valid.
   static bool validateAmount(String amount, maxAmount) {
-    return (int.tryParse(amount) ?? 0) <= maxAmount;
+    try {
+      return int.parse(amount) <= maxAmount;
+    } catch (e) {
+      return false;
+    }
   }
 }

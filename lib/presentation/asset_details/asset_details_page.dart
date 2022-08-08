@@ -1,8 +1,6 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-
-import 'package:ribn/constants/colors.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
@@ -18,8 +16,8 @@ import 'package:ribn/presentation/asset_details/asset_detail_items/asset_long_na
 import 'package:ribn/presentation/asset_details/asset_detail_items/asset_unit_details.dart';
 import 'package:ribn/presentation/asset_details/asset_detail_items/issuer_address_details.dart';
 import 'package:ribn/widgets/custom_divider.dart';
-import 'package:ribn/widgets/custom_page_title.dart';
-import 'package:ribn/widgets/ribn_app_bar.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 
 /// This page presents all details associated with an asset.
 ///
@@ -110,19 +108,21 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
           },
           child: Scaffold(
             backgroundColor: RibnColors.background,
-            appBar: const RibnAppBar(),
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  _buildPageTitle(),
-                  const SizedBox(height: 16),
+                  const CustomPageTitle(
+                    title: Strings.assetDetails,
+                    hideBackArrow: true,
+                  ),
+                  const SizedBox(height: 40),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     width: 309,
-                    height: 409,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(4.7)),
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(4.7)),
                       color: RibnColors.whiteBackground,
+                      border: Border.all(color: RibnColors.lightGrey, width: 1),
                     ),
                     child: Column(
                       children: [
@@ -175,17 +175,6 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
     );
   }
 
-  /// Builds the title for this page.
-  Widget _buildPageTitle() {
-    return Container(
-      height: 90,
-      color: RibnColors.accent,
-      child: const CustomPageTitle(
-        title: Strings.assetDetails,
-      ),
-    );
-  }
-
   /// Builds the edit section overlay.
   ///
   /// Uses the [key] provided to get the correct widget position and
@@ -201,7 +190,7 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
       builder: (context) {
         return Positioned(
           left: offset.dx - 20,
-          top: offset.dy + 25,
+          top: offset.dy + 22,
           child: editSection,
         );
       },

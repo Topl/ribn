@@ -83,5 +83,6 @@
   ],
   "exclude": [
     "./web/dist/*",
+    "./web/workers/"
   ]
 }

@@ -7,15 +7,20 @@ import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/models/app_state.dart';
 
 class SeedPhraseConfirmationContainer extends StatelessWidget {
-  const SeedPhraseConfirmationContainer({Key? key, required this.builder}) : super(key: key);
+  const SeedPhraseConfirmationContainer({
+    Key? key,
+    required this.builder,
+    this.onInit,
+  }) : super(key: key);
   final ViewModelBuilder<SeedPhraseConfirmationViewModel> builder;
-
+  final Function(Store<AppState>)? onInit;
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, SeedPhraseConfirmationViewModel>(
       distinct: true,
       converter: SeedPhraseConfirmationViewModel.fromStore,
       builder: builder,
+      onInit: onInit,
     );
   }
 }
@@ -25,6 +30,7 @@ class SeedPhraseConfirmationViewModel {
   final List<String> shuffledMnemonic;
   final List<String> mnemonicWordsList;
   final List<int> userSelectedIndices;
+  final List<int> confirmeIdxs;
   final bool finishedInputting;
   final Function(int) selectWord;
 
@@ -34,6 +40,7 @@ class SeedPhraseConfirmationViewModel {
     required this.userSelectedIndices,
     required this.selectWord,
     required this.finishedInputting,
+    required this.confirmeIdxs,
   });
 
   static SeedPhraseConfirmationViewModel fromStore(Store<AppState> store) {
@@ -44,6 +51,7 @@ class SeedPhraseConfirmationViewModel {
       finishedInputting: store.state.onboardingState.userSelectedIndices?.length ==
           store.state.onboardingState.shuffledMnemonic?.length,
       selectWord: (idx) => store.dispatch(UserSelectedWordAction(idx)),
+      confirmeIdxs: store.state.onboardingState.mobileConfirmIdxs,
     );
   }
 

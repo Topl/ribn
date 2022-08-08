@@ -7,7 +7,9 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 import 'package:ribn/actions/transaction_actions.dart';
+import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/network_utils.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
@@ -46,7 +48,7 @@ class AssetTransferInputViewModel {
   final RibnNetwork currentNetwork;
 
   /// Gets total balance in wallet for a particular asset.
-  final num Function(String) getAssetBalance;
+  final num Function(String?) getAssetBalance;
 
   /// Handler for initiating tx.
   final Future<void> Function({
@@ -55,7 +57,7 @@ class AssetTransferInputViewModel {
     required String note,
     required AssetCode assetCode,
     AssetDetails? assetDetails,
-    required Function(bool success) onRawTxCreated,
+    required void Function(bool success) onRawTxCreated,
   }) initiateTx;
 
   AssetTransferInputViewModel({
@@ -75,7 +77,7 @@ class AssetTransferInputViewModel {
         required String note,
         required AssetCode assetCode,
         AssetDetails? assetDetails,
-        required Function(bool success) onRawTxCreated,
+        required void Function(bool success) onRawTxCreated,
       }) async {
         final TransferDetails transferDetails = TransferDetails(
           transferType: TransferType.assetTransfer,
@@ -85,15 +87,21 @@ class AssetTransferInputViewModel {
           assetCode: assetCode,
           assetDetails: assetDetails,
         );
-        final Completer<bool> actionCompleter = Completer();
-        store.dispatch((InitiateTxAction(transferDetails, actionCompleter)));
-        await actionCompleter.future.then(onRawTxCreated);
+        final Completer<TransferDetails?> rawTxCompleter = Completer();
+        store.dispatch((InitiateTxAction(transferDetails, rawTxCompleter)));
+        await rawTxCompleter.future.then(
+          (TransferDetails? transferDetails) {
+            final success = transferDetails != null;
+            onRawTxCreated(success);
+            Keys.navigatorKey.currentState?.pushNamed(Routes.txReview, arguments: transferDetails);
+          },
+        );
       },
       assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
       currentNetwork: store.state.keychainState.currentNetwork,
       networkFee: NetworkUtils.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
       assetDetails: store.state.userDetailsState.assetDetails,
-      getAssetBalance: (String assetCode) {
+      getAssetBalance: (String? assetCode) {
         final List<AssetAmount> myAssets = store.state.keychainState.currentNetwork.getAllAssetsInWallet();
         return myAssets
             .where((element) => element.assetCode.toString() == assetCode)

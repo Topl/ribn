@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -33,10 +34,14 @@ class SettingsViewModel {
   /// The current app version.
   final String appVersion;
 
+  /// True if biometrics authentication is enabled
+  final bool isBiometricsEnabled;
+
   SettingsViewModel({
     required this.exportToplMainKey,
     required this.onDeletePressed,
     required this.appVersion,
+    required this.isBiometricsEnabled,
   });
   static SettingsViewModel fromStore(Store<AppState> store) {
     return SettingsViewModel(
@@ -67,19 +72,22 @@ class SettingsViewModel {
         );
       },
       appVersion: store.state.appVersion,
+      isBiometricsEnabled: store.state.userDetailsState.isBiometricsEnabled,
     );
   }
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(covariant SettingsViewModel other) {
     if (identical(this, other)) return true;
 
-    return other is SettingsViewModel &&
-        other.exportToplMainKey == exportToplMainKey &&
+    return other.exportToplMainKey == exportToplMainKey &&
         other.onDeletePressed == onDeletePressed &&
-        other.appVersion == appVersion;
+        other.appVersion == appVersion &&
+        other.isBiometricsEnabled == isBiometricsEnabled;
   }
 
   @override
-  int get hashCode => exportToplMainKey.hashCode ^ onDeletePressed.hashCode ^ appVersion.hashCode;
+  int get hashCode {
+    return exportToplMainKey.hashCode ^ onDeletePressed.hashCode ^ appVersion.hashCode ^ isBiometricsEnabled.hashCode;
+  }
 }

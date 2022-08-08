@@ -10,3 +10,10 @@ class UpdateAssetDetailsAction {
     this.icon,
   });
 }
+
+class UpdateBiometricsAction {
+  final bool isBiometricsEnabled;
+  UpdateBiometricsAction({
+    required this.isBiometricsEnabled,
+  });
+}

@@ -2,41 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 
-/// The final page during onboarding.
-/// Directs user to open the Ribn extension.
 class ExtensionInfoPage extends StatelessWidget {
   const ExtensionInfoPage({Key? key}) : super(key: key);
   final double inlineIconHeight = 18;
-  final double inlineIconWidth = 15;
+  final double inlineIconWidth = 22;
 
   @override
   Widget build(BuildContext context) {
+    Widget ribnLogo(double width) => Image.asset(
+          RibnAssets.newRibnLogo,
+          width: width,
+        );
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 85.0, horizontal: 100),
+      body: OnboardingContainer(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                SvgPicture.asset(
-                  RibnAssets.logoIcon,
-                  width: 56,
-                  height: 56,
-                ),
+                ribnLogo(50),
                 const SizedBox(width: 12),
-                const Text(
+                Text(
                   Strings.ribnWallet,
-                  style: RibnTextStyles.h3,
+                  style: RibnToolkitTextStyles.h3.copyWith(
+                    color: RibnColors.lightGreyTitle,
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: 50),
-            const Text(
+            Text(
               Strings.openTheWalletBy,
-              style: RibnTextStyles.h1,
+              style: RibnToolkitTextStyles.h1.copyWith(
+                color: RibnColors.lightGreyTitle,
+              ),
               textAlign: TextAlign.left,
             ),
             const SizedBox(height: 30),
@@ -45,21 +48,30 @@ class ExtensionInfoPage extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: Strings.clickingTheIconPartOne,
-                    style: RibnTextStyles.body1.copyWith(height: 1),
+                    style: RibnToolkitTextStyles.body1.copyWith(
+                      height: 1,
+                      color: RibnColors.lightGreyTitle,
+                    ),
                   ),
                   WidgetSpan(
-                    child: SvgPicture.asset(RibnAssets.logoIcon, height: inlineIconHeight, width: inlineIconWidth),
+                    child: ribnLogo(inlineIconWidth),
                   ),
                   TextSpan(
                     text: Strings.clickingTheIconPartTwo,
-                    style: RibnTextStyles.body1.copyWith(height: 1),
+                    style: RibnToolkitTextStyles.body1.copyWith(
+                      height: 1,
+                      color: RibnColors.lightGreyTitle,
+                    ),
                   ),
                   WidgetSpan(
                     child: SvgPicture.asset(RibnAssets.extensionIcon, height: inlineIconHeight, width: inlineIconWidth),
                   ),
                   TextSpan(
                     text: Strings.clickingTheIconPartThree,
-                    style: RibnTextStyles.body1.copyWith(height: 1),
+                    style: RibnToolkitTextStyles.body1.copyWith(
+                      height: 1,
+                      color: RibnColors.lightGreyTitle,
+                    ),
                   ),
                 ],
               ),

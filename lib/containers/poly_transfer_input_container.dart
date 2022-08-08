@@ -3,9 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+import 'package:ribn/actions/misc_actions.dart';
 
 import 'package:ribn/actions/transaction_actions.dart';
+import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/network_utils.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_network.dart';
@@ -37,13 +40,16 @@ class PolyTransferInputViewModel {
   /// Maximum amount available for transfer.
   final num maxTransferrableAmount;
 
+  /// Allows redirect to asset transfer input through redux action
+  final Function navigateToSendAssets;
+
   /// Handler for initiating poly transfer tx.
   final Future<void> Function({
     required String amount,
     required String recipient,
     required String note,
     bool mintingToMyWallet,
-    required Function(bool success) onRawTxCreated,
+    required void Function(bool success) onRawTxCreated,
   }) initiateTx;
 
   PolyTransferInputViewModel({
@@ -51,6 +57,7 @@ class PolyTransferInputViewModel {
     required this.networkFee,
     required this.currentNetwork,
     required this.maxTransferrableAmount,
+    required this.navigateToSendAssets,
   });
 
   static PolyTransferInputViewModel fromStore(Store<AppState> store) {
@@ -61,9 +68,8 @@ class PolyTransferInputViewModel {
         required String recipient,
         required String note,
         bool mintingToMyWallet = false,
-        required Function(bool success) onRawTxCreated,
+        required void Function(bool success) onRawTxCreated,
       }) async {
-        final Completer<bool> actionCompleter = Completer();
         final TransferDetails transferDetails = TransferDetails(
           transferType: TransferType.polyTransfer,
           senders: [store.state.keychainState.currentNetwork.myWalletAddress!],
@@ -71,12 +77,20 @@ class PolyTransferInputViewModel {
           amount: amount,
           data: note,
         );
-        store.dispatch(InitiateTxAction(transferDetails, actionCompleter));
-        await actionCompleter.future.then(onRawTxCreated);
+        final Completer<TransferDetails?> rawTxCompleter = Completer();
+        store.dispatch(InitiateTxAction(transferDetails, rawTxCompleter));
+        await rawTxCompleter.future.then(
+          (TransferDetails? transferDetails) {
+            final success = transferDetails != null;
+            onRawTxCreated(success);
+            Keys.navigatorKey.currentState?.pushNamed(Routes.txReview, arguments: transferDetails);
+          },
+        );
       },
       currentNetwork: store.state.keychainState.currentNetwork,
       networkFee: networkFee,
       maxTransferrableAmount: store.state.keychainState.currentNetwork.getPolysInWallet() - networkFee,
+      navigateToSendAssets: () => store.dispatch(NavigateToRoute(Routes.assetsTransferInput)),
     );
   }
 

@@ -1,5 +1,14 @@
+import 'dart:typed_data';
+import 'dart:ui';
+
 import 'package:brambldart/utils.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:ribn/actions/misc_actions.dart';
+import 'package:ribn/constants/rules.dart';
+import 'package:ribn/models/app_state.dart';
+import 'package:ribn/platform/platform.dart';
 
 /// Formats an address string to only dispaly its first and last 10 characters.
 String formatAddrString(String addr, {int charsToDisplay = 10}) {
@@ -14,7 +23,7 @@ String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
 /// Formats [unit] to only display the first part of the string.
 String formatAssetUnit(String? unit) {
-  return unit?.split(' ').first ?? 'Units';
+  return unit?.split(' ').first ?? 'Select Unit';
 }
 
 /// Validates the [address] passed in by the user.
@@ -38,6 +47,56 @@ void validateRecipientAddress({
 Future<bool> isBiometricsAuthenticationSupported(LocalAuthentication auth) async {
   final bool canCheckBiometrics = await auth.canCheckBiometrics;
   final bool isDeviceSupported = await auth.isDeviceSupported();
+
+  return canCheckBiometrics && isDeviceSupported;
+}
+
+Future<bool> isBiometricsAuthenticationEnrolled(LocalAuthentication auth) async {
+  final bool canCheckBiometrics = await auth.canCheckBiometrics;
+  final bool isDeviceSupported = await auth.isDeviceSupported();
   final List enrolledBiometrics = await auth.getAvailableBiometrics();
+
   return canCheckBiometrics && isDeviceSupported && enrolledBiometrics.isNotEmpty;
+}
+
+Future<bool> authenticateWithBiometrics(LocalAuthentication auth) async {
+  return await auth.authenticate(
+    localizedReason: 'To authenticate with biometrics',
+    options: const AuthenticationOptions(
+      stickyAuth: true,
+      biometricOnly: true,
+      sensitiveTransaction: true,
+      useErrorDialogs: true,
+    ),
+  );
+}
+
+Future<bool> isBiometricsTypeFingerprint(LocalAuthentication auth) async {
+  final List enrolledBiometrics = await auth.getAvailableBiometrics();
+
+  return enrolledBiometrics.contains(BiometricType.fingerprint) && enrolledBiometrics.isNotEmpty;
+}
+
+void navigateToRoute(BuildContext context, String route) {
+  StoreProvider.of<AppState>(context).dispatch(NavigateToRoute(route));
+}
+
+/// Adapt to screen height based on [scaleFactor].
+double adaptHeight(double scaleFactor) => MediaQueryData.fromWindow(window).size.height * scaleFactor;
+
+/// Adapt to screen width based on [scaleFactor].
+double adaptWidth(double scaleFactor) => MediaQueryData.fromWindow(window).size.width * scaleFactor;
+
+double deviceTopPadding() => MediaQueryData.fromWindow(window).padding.top;
+
+Future<bool> isAppOpenedInExtensionView() async {
+  return await PlatformUtils.instance.getCurrentAppView() == AppViews.extension;
+}
+
+Future<bool> isAppOpenedInDebugView() async {
+  return await PlatformUtils.instance.getCurrentAppView() == AppViews.webDebug;
+}
+
+Uint8List uint8ListFromDynamic(dynamic list) {
+  return Uint8List.fromList((list as List).cast<int>());
 }

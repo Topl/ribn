@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:redux/redux.dart';
 
 import 'package:ribn/actions/keychain_actions.dart';
@@ -10,6 +9,7 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class RibnAppBarContainer extends StatelessWidget {
   const RibnAppBarContainer({
@@ -42,9 +42,9 @@ class RibnAppBarViewModel {
   final void Function(String) selectSettingsOption;
 
   /// Items in the settings drop down menu.
-  final Map<String, SvgPicture> settingsOptions = {
-    Strings.support: SvgPicture.asset(RibnAssets.supportIcon),
-    Strings.settings: SvgPicture.asset(RibnAssets.settingsIcon),
+  final Map<String, Image> settingsOptions = {
+    Strings.support: Image.asset(RibnAssets.supportIcon),
+    Strings.settings: Image.asset(RibnAssets.settingsIcon),
   };
 
   RibnAppBarViewModel({
@@ -65,6 +65,11 @@ class RibnAppBarViewModel {
           case Strings.settings:
             {
               store.dispatch(NavigateToRoute(Routes.settings));
+              break;
+            }
+          case Strings.support:
+            {
+              launchUrlString(Strings.supportEmailLink);
               break;
             }
           default:

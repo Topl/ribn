@@ -47,8 +47,8 @@ class WalletBalanceViewModel {
   /// Locally stored custom asset details.
   final Map<String, AssetDetails> assetDetails;
 
-  /// Callback to initiate send asset flow, i.e. navigate to [Routes.assetTransferInput].
-  final Function(AssetAmount) navigateToSendAsset;
+  /// Callback to initiate send assets flow, i.e. navigate to [Routes.assetsTransferInput].
+  final Function() navigateToSendAssets;
 
   /// Callback to initiate send polys flow, i.e. navigate to [Routes.polyTransferInput].
   final Function() navigateToSendPolys;
@@ -62,24 +62,27 @@ class WalletBalanceViewModel {
   /// The current network being viewed.
   final RibnNetwork currentNetwork;
 
+  /// True if the user is fully onboarded and the wallet hasn't been deleted.
+  final bool walletExists;
+
   WalletBalanceViewModel({
     required this.polyBalance,
     required this.assets,
-    required this.navigateToSendAsset,
+    required this.navigateToSendAssets,
     required this.navigateToSendPolys,
     required this.viewAssetDetails,
     required this.assetDetails,
     required this.refreshBalances,
     required this.currentNetwork,
+    required this.walletExists,
   });
   static WalletBalanceViewModel fromStore(Store<AppState> store) {
     return WalletBalanceViewModel(
+      walletExists: !store.state.needsOnboarding(),
       polyBalance: store.state.keychainState.currentNetwork.getPolysInWallet(),
       assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
       assetDetails: store.state.userDetailsState.assetDetails,
-      navigateToSendAsset: (AssetAmount asset) => store.dispatch(
-        NavigateToRoute(Routes.assetTransferInput, arguments: asset),
-      ),
+      navigateToSendAssets: () => store.dispatch(NavigateToRoute(Routes.assetsTransferInput)),
       navigateToSendPolys: () => store.dispatch(NavigateToRoute(Routes.polyTransferInput)),
       viewAssetDetails: (AssetAmount assetAmount) => store.dispatch(
         NavigateToRoute(
@@ -91,7 +94,7 @@ class WalletBalanceViewModel {
       ),
       refreshBalances: ({required Function(bool success) onBalancesRefreshed}) {
         final Completer<bool> actionCompleter = Completer();
-        store.dispatch(RefreshBalancesAction(actionCompleter));
+        store.dispatch(RefreshBalancesAction(actionCompleter, store.state.keychainState.currentNetwork));
         actionCompleter.future.then((bool value) => onBalancesRefreshed(value));
       },
       currentNetwork: store.state.keychainState.currentNetwork,
@@ -106,7 +109,7 @@ class WalletBalanceViewModel {
         other.polyBalance == polyBalance &&
         listEquals(other.assets, assets) &&
         mapEquals(other.assetDetails, assetDetails) &&
-        other.navigateToSendAsset == navigateToSendAsset &&
+        other.navigateToSendAssets == navigateToSendAssets &&
         other.navigateToSendPolys == navigateToSendPolys &&
         other.viewAssetDetails == viewAssetDetails &&
         other.currentNetwork == currentNetwork;
@@ -117,7 +120,6 @@ class WalletBalanceViewModel {
     return polyBalance.hashCode ^
         assets.hashCode ^
         assetDetails.hashCode ^
-        navigateToSendAsset.hashCode ^
         navigateToSendPolys.hashCode ^
         viewAssetDetails.hashCode ^
         currentNetwork.hashCode;

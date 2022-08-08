@@ -1,4 +1,3 @@
-import 'package:brambldart/model.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/internal_message.dart';
@@ -8,23 +7,26 @@ import 'package:ribn/presentation/enable_page.dart';
 import 'package:ribn/presentation/external_signing_page.dart';
 import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
-import 'package:ribn/presentation/login/restore_wallet/login_enter_wallet_password_page.dart';
-import 'package:ribn/presentation/login/restore_wallet/login_new_wallet_password_page.dart';
-import 'package:ribn/presentation/login/restore_wallet/login_restore_with_mnemonic_page.dart';
-import 'package:ribn/presentation/login/restore_wallet/login_restore_with_topl_key_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/create_password_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/enable_biometrics_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/getting_started_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_confirmation_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_display_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_generating_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_info_checklist_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_instructions_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/select_action_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/wallet_created_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/wallet_info_checklist_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
 import 'package:ribn/presentation/onboarding/extension_info_page.dart';
-import 'package:ribn/presentation/onboarding/getting_started_page.dart';
-import 'package:ribn/presentation/onboarding/onboarding_steps.dart';
-import 'package:ribn/presentation/onboarding/read_carefully_page_one.dart';
-import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_enter_wallet_password_page.dart';
-import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_restore_with_mnemonic_page.dart';
-import 'package:ribn/presentation/onboarding/restore_wallet/onboarding_restore_with_topl_key_page.dart';
-import 'package:ribn/presentation/onboarding/select_action_page.dart';
-import 'package:ribn/presentation/onboarding/welcome_page.dart';
+import 'package:ribn/presentation/onboarding/restore_wallet/create_new_wallet_password_page.dart';
+import 'package:ribn/presentation/onboarding/restore_wallet/enter_wallet_password_page.dart';
+import 'package:ribn/presentation/onboarding/restore_wallet/restore_wallet_page.dart';
+import 'package:ribn/presentation/onboarding/restore_wallet/restore_with_topl_key_page.dart';
 import 'package:ribn/presentation/settings/settings_page.dart';
-import 'package:ribn/presentation/transfers/asset_transfer_input_page.dart';
+import 'package:ribn/presentation/transfers/asset_transfer_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
-import 'package:ribn/presentation/transfers/poly_transfer_input_page.dart';
 import 'package:ribn/presentation/transfers/tx_confirmation_page.dart';
 import 'package:ribn/presentation/transfers/tx_review_page.dart';
 
@@ -43,13 +45,36 @@ class RootRouter {
         {
           return pageRoute(const GettingStartedPage(), settings);
         }
-      case Routes.readCarefully:
+      case Routes.seedPhraseInfoChecklist:
         {
-          return pageRoute(const ReadCarefullyPageOne(), settings);
+          return pageRoute(
+            const SeedPhraseInfoChecklistPage(),
+            settings,
+          );
         }
-      case Routes.onboardingSteps:
+      case Routes.seedPhraseInstructions:
         {
-          return pageRoute(const OnboardingStepsPage(), settings);
+          return pageRoute(const SeedPhraseInstructionsPage(), settings);
+        }
+      case Routes.generateSeedPhrase:
+        {
+          return pageRoute(const SeedPhraseGeneratingPage(), settings);
+        }
+      case Routes.displaySeedphrase:
+        {
+          return pageRoute(const SeedPhraseDisplayPage(), settings);
+        }
+      case Routes.seedPhraseConfirm:
+        {
+          return pageRoute(const SeedPhraseConfirmationPage(), settings);
+        }
+      case Routes.walletInfoChecklist:
+        {
+          return pageRoute(const WalletInfoChecklistPage(), settings);
+        }
+      case Routes.createPassword:
+        {
+          return pageRoute(const CreatePasswordPage(), settings);
         }
       case Routes.extensionInfo:
         {
@@ -59,28 +84,27 @@ class RootRouter {
         {
           return pageRoute(const LoginPage(), settings);
         }
+      case Routes.walletCreated:
+        {
+          return pageRoute(const WalletCreatedPage(), settings);
+        }
       case Routes.home:
         {
           return pageRoute(const HomePage(), settings);
         }
-      case Routes.assetTransferInput:
+      case Routes.assetsTransferInput:
         {
-          final AssetAmount asset = settings.arguments as AssetAmount;
-          return pageRoute(AssetTransferInputPage(asset: asset), settings);
+          return pageRouteNotAnimated(const AssetTransferPage(), settings);
         }
-      case Routes.loginRestoreWalletWithMnemonic:
+      case Routes.restoreWallet:
         {
-          return pageRoute(const LoginRestoreWithMnemonicPage(), settings);
+          return pageRoute(const RestoreWalletPage(), settings);
         }
-      case Routes.onboardingRestoreWalletWithMnemonic:
+      case Routes.restoreWithToplKey:
         {
-          return pageRoute(const OnboardingRestoreWithMnemonicPage(), settings);
+          return pageRoute(const RestoreWithToplKeyPage(), settings);
         }
-      case Routes.onboardingRestoreWalletWithToplKey:
-        {
-          return pageRoute(const OnboardingRestoreWithToplKeyPage(), settings);
-        }
-      case Routes.loginRestoreWalletnewPassword:
+      case Routes.restoreWalletNewPassword:
         {
           final String seedPhrase = settings.arguments as String;
           return pageRoute(
@@ -90,30 +114,17 @@ class RootRouter {
             settings,
           );
         }
-      case Routes.loginRestoreWalletEnterPassword:
+      case Routes.onboardingEnableBiometrics:
+        {
+          return pageRoute(const EnableBiometrics(), settings);
+        }
+      case Routes.enterWalletPassword:
         {
           final String keyStoreJson = settings.arguments as String;
           return pageRoute(
-            LoginEnterWalletPasswordPage(toplKeyStoreJson: keyStoreJson),
+            EnterWalletPasswordPage(toplKeyStoreJson: keyStoreJson),
             settings,
           );
-        }
-      case Routes.onboardingRestoreWalletEnterPassword:
-        {
-          final String keyStoreJson = settings.arguments as String;
-          return pageRoute(
-            OnboardingEnterWalletPasswordPage(toplKeyStoreJson: keyStoreJson),
-            settings,
-          );
-        }
-      case Routes.loginRestoreWalletWithToplKey:
-        {
-          return pageRoute(const LoginRestoreWithToplKeyPage(), settings);
-        }
-
-      case Routes.polyTransferInput:
-        {
-          return pageRoute(const PolyTransferInputPage(), settings);
         }
       case Routes.txReview:
         {
@@ -127,12 +138,8 @@ class RootRouter {
         }
       case Routes.mintInput:
         {
-          final Map<String, dynamic> mintInputPageArgs = settings.arguments as Map<String, dynamic>;
           return pageRoute(
-            MintInputPage(
-              mintingNewAsset: mintInputPageArgs['mintingNewAsset'] as bool,
-              mintingToMyWallet: mintInputPageArgs['mintingToMyWallet'] as bool,
-            ),
+            const MintInputPage(),
             settings,
           );
         }
@@ -184,11 +191,26 @@ class RootRouter {
     );
   }
 
-  /// Builds a page route without any animation.
+  /// Builds a page route with an animation.
   Route<MaterialPageRoute> pageRoute(Widget page, RouteSettings settings) {
+    return MaterialPageRoute(builder: (context) => page, settings: settings);
+  }
+
+  /// Builds a page route without an animation.
+  Route<MaterialPageRoute> pageRouteNotAnimated(Widget page, RouteSettings settings) {
     return PageRouteBuilder(
       settings: settings,
       pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        final tween = Tween(begin: begin, end: end);
+        final offsetAnimation = animation.drive(tween);
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
       transitionDuration: Duration.zero,
       reverseTransitionDuration: Duration.zero,
     );

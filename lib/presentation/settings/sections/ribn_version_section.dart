@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/styles.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 
 /// The section for displaying the current Ribn version.
 class RibnVersionSection extends StatelessWidget {
@@ -19,10 +19,10 @@ class RibnVersionSection extends StatelessWidget {
       children: [
         const Text(
           Strings.ribnVersion,
-          style: RibnTextStyles.extH3,
+          style: RibnToolkitTextStyles.extH3,
         ),
         const SizedBox(height: 10),
-        Text(appVersion, style: RibnTextStyles.settingsSmallText),
+        Text(appVersion, style: RibnToolkitTextStyles.settingsSmallText),
       ],
     );
   }

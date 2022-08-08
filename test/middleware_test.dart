@@ -8,6 +8,7 @@ import 'package:redux/redux.dart';
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/login_actions.dart';
 import 'package:ribn/actions/onboarding_actions.dart';
+import 'package:ribn/constants/test_data.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/redux.dart';
@@ -56,14 +57,13 @@ void main() {
         expect(testStore.state.onboardingState.mnemonic, testMnemonic);
         expect(testStore.state.onboardingState.shuffledMnemonic, unorderedEquals(testMnemonic.split(' ')));
       });
-      test('should generate keystore and initialize hd wallet', () {
+      test('should generate keystore and initialize hd wallet', () async {
         when(onboardingRepo.generateMnemonicForUser()).thenAnswer((_) => testMnemonic);
         testStore.dispatch(GenerateMnemonicAction());
+        // mnemonic: captureAnyNamed('mnemonic'),
+        // password: captureAnyNamed('password'),
         when(
-          onboardingRepo.generateKeyStore(
-            mnemonic: captureAnyNamed('mnemonic'),
-            password: captureAnyNamed('password'),
-          ),
+          onboardingRepo.generateKeyStore(argThat(isNotNull)),
         ).thenReturn(
           {
             'keyStoreJson': testKeyStore,
@@ -71,14 +71,19 @@ void main() {
           },
         );
         testStore.dispatch(CreatePasswordAction(validPassword));
-        verify(
-          onboardingRepo.generateKeyStore(
-            mnemonic: captureAnyNamed('mnemonic'),
-            password: captureAnyNamed('password'),
-          ),
-        ).called(1);
-        expect(testStore.state.keychainState.keyStoreJson, testKeyStore);
-        expect(testStore.state.keychainState.hdWallet, isNotNull);
+        // verifyas(
+        //   onboardingRepo.generateKeyStore(argThat(isNotNull)
+        //       // mnemonic: captureAnyNamed('mnemonic'),
+        //       // password: captureAnyNamed('password'),
+        //       ),
+        // ).called(1);
+        await Future.delayed(
+          const Duration(seconds: 1),
+          (() {
+            expect(testStore.state.keychainState.keyStoreJson, testKeyStore);
+            expect(testStore.state.keychainState.hdWallet, isNotNull);
+          }),
+        );
       });
     });
     group('Login middleware', () {
@@ -88,59 +93,38 @@ void main() {
         testStore.dispatch(GenerateMnemonicAction());
         // generate keystore
         when(
-          onboardingRepo.generateKeyStore(
-            mnemonic: captureAnyNamed('mnemonic'),
-            password: captureAnyNamed('password'),
-          ),
+          onboardingRepo.generateKeyStore(argThat(isNotNull)),
         ).thenAnswer((_) {
-          return const OnboardingRespository().generateKeyStore(
-            mnemonic: _.namedArguments[const Symbol('mnemonic')],
-            password: _.namedArguments[const Symbol('password')],
-          );
+          return const OnboardingRespository().generateKeyStore({
+            'mnemonic': _.positionalArguments[0]['mnemonic'],
+            'password': _.positionalArguments[0]['password'],
+          });
         });
         testStore.dispatch(CreatePasswordAction(validPassword));
       });
-      test('should decrypt keysotre', () {
+      test('should decrypt keystore', () async {
         when(
-          loginRepo.decryptKeyStore(
-            keyStoreJson: captureAnyNamed('keyStoreJson'),
-            password: captureAnyNamed('password'),
-          ),
-        ).thenAnswer(
-          (_) => const LoginRepository().decryptKeyStore(
-            keyStoreJson: _.namedArguments[const Symbol('keyStoreJson')],
-            password: _.namedArguments[const Symbol('password')],
-          ),
-        );
+          loginRepo.decryptKeyStore(argThat(isNotNull)),
+        ).thenAnswer((_) {
+          return const LoginRepository().decryptKeyStore({
+            'keyStoreJson': testKeyStore,
+            'password': validPassword,
+          });
+        });
         final Completer<bool> completer = Completer();
         testStore.dispatch(AttemptLoginAction(validPassword, completer));
-        verify(
-          loginRepo.decryptKeyStore(
-            keyStoreJson: captureAnyNamed('keyStoreJson'),
-            password: captureAnyNamed('password'),
-          ),
-        ).called(1);
-        expect(completer.future, completion(true));
+        await expectLater(completer.future, completion(true));
       });
       test('should not decrypt keysotre', () {
         when(
-          loginRepo.decryptKeyStore(
-            keyStoreJson: captureAnyNamed('keyStoreJson'),
-            password: captureAnyNamed('password'),
-          ),
+          loginRepo.decryptKeyStore(argThat(isNotNull)),
         ).thenAnswer(
-          (_) => const LoginRepository().decryptKeyStore(
-            keyStoreJson: _.namedArguments[const Symbol('keyStoreJson')],
-            password: _.namedArguments[const Symbol('password')],
-          ),
+          (_) => const LoginRepository().decryptKeyStore({'keyStoreJson': testKeyStore, 'password': invalidPassword}),
         );
         final Completer<bool> completer = Completer();
         testStore.dispatch(AttemptLoginAction(invalidPassword, completer));
         verify(
-          loginRepo.decryptKeyStore(
-            keyStoreJson: captureAnyNamed('keyStoreJson'),
-            password: captureAnyNamed('password'),
-          ),
+          loginRepo.decryptKeyStore(argThat(isNotNull)),
         ).called(1);
         expect(completer.future, completion(false));
       });
@@ -152,35 +136,23 @@ void main() {
         when(onboardingRepo.generateMnemonicForUser()).thenAnswer((_) => testMnemonic);
         testStore.dispatch(GenerateMnemonicAction());
         // generate keystore
-        when(
-          onboardingRepo.generateKeyStore(
-            mnemonic: captureAnyNamed('mnemonic'),
-            password: captureAnyNamed('password'),
-          ),
-        ).thenReturn({'keyStoreJson': testKeyStore, 'toplExtendedPrvKeyUint8List': testToplExtendedPrivKey});
+        when(onboardingRepo.generateKeyStore(argThat(isNotNull)))
+            .thenReturn({'keyStoreJson': testKeyStore, 'toplExtendedPrvKeyUint8List': testToplExtendedPrivKey});
         testStore.dispatch(CreatePasswordAction(validPassword));
         // login
-        when(
-          loginRepo.decryptKeyStore(
-            keyStoreJson: captureAnyNamed('keyStoreJson'),
-            password: captureAnyNamed('password'),
-          ),
-        ).thenReturn(testToplExtendedPrivKey);
+        when(loginRepo.decryptKeyStore(captureAny)).thenReturn(testToplExtendedPrivKey);
       });
-      test('Generate initial addresses', () {
-        when(keychainRepo.generateAddress(captureAny, networkId: captureAnyNamed('networkId')))
-            .thenAnswer((_) => MockRibnAddress());
-        testStore.dispatch(GenerateInitialAddressesAction());
-        testStore.state.keychainState.allNetworks.toList().forEach((network) {
-          expect(network.addresses, hasLength(1));
-        });
-      });
-
       test('Should refresh balances', () async {
         const testPolys = 10000;
-        when(keychainRepo.generateAddress(captureAny, networkId: captureAnyNamed('networkId')))
+        await Future.delayed(
+          Duration.zero,
+          () => testStore.dispatch(
+            InitializeHDWalletAction(toplExtendedPrivateKey: TestData.toplExtendedPrvKeyUint8List),
+          ),
+        );
+        when(keychainRepo.generateAddress(argThat(isNotNull), networkId: captureAnyNamed('networkId')))
             .thenAnswer((_) => testAddress);
-        testStore.dispatch(GenerateInitialAddressesAction());
+        testStore.dispatch(GenerateAddressAction(0, network: testStore.state.keychainState.currentNetwork));
         when(keychainRepo.getBalances(captureAny, captureAny)).thenAnswer((_) {
           return Future.value(
             (_.positionalArguments[1] as List<ToplAddress>)
@@ -195,7 +167,7 @@ void main() {
           );
         });
         final Completer<bool> completer = Completer();
-        testStore.dispatch(RefreshBalancesAction(completer));
+        testStore.dispatch(RefreshBalancesAction(completer, testStore.state.keychainState.currentNetwork));
         await expectLater(completer.future, completion(true));
         expect(
           testStore.state.keychainState.currentNetwork.addresses.first.balance.polys,
