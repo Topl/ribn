@@ -55,12 +55,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
       if (_currPage == 1) {
         _currPage = 0;
+        // Keys.navigatorKey.currentState?.pushNamed(
+        //   Routes.mintInput,
+        //   arguments: {
+        //     'mintingNewAsset': true,
+        //     'mintingToMyWallet': false,
+        //   },
+        // );
         Keys.navigatorKey.currentState?.pushNamed(
-          Routes.mintInput,
-          arguments: {
-            'mintingNewAsset': true,
-            'mintingToMyWallet': false,
-          },
+          Routes.txHistory,
         );
       }
     });

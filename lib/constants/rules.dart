@@ -23,8 +23,8 @@ class Rules {
   static const int assetCodeVersion = constants.supportedAssetCodeVersion;
   static const int internalIdx = 1;
   static Map<int, String> txHistoryUrls = {
-    NetworkUtils.valhallaId: 'https://annulus-api.topl.services/staging/valhalla/',
-    NetworkUtils.toplNetId: 'https://annulus-api.topl.services/staging/toplnet/',
+    NetworkUtils.valhallaId: 'https://annulus-api.topl.services/staging/valhalla',
+    NetworkUtils.toplNetId: 'https://annulus-api.topl.services/staging/toplnet',
   };
   static Map<int, String> txDetailsRedirectUrls = {
     NetworkUtils.valhallaId: 'https://staging.valhalla.annulus.topl.services/#/transaction/',

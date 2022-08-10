@@ -25,6 +25,7 @@ import 'package:ribn/presentation/onboarding/restore_wallet/enter_wallet_passwor
 import 'package:ribn/presentation/onboarding/restore_wallet/restore_wallet_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/restore_with_topl_key_page.dart';
 import 'package:ribn/presentation/settings/settings_page.dart';
+import 'package:ribn/presentation/transaction_history/transaction_history_page.dart';
 import 'package:ribn/presentation/transfers/asset_transfer_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
 import 'package:ribn/presentation/transfers/tx_confirmation_page.dart';
@@ -150,6 +151,10 @@ class RootRouter {
             AssetDetailsPage(asset: assetDetailsPageArgs['assetAmount']!),
             settings,
           );
+        }
+      case Routes.txHistory:
+        {
+          return pageRoute(const TxHistoryPage(), settings);
         }
       case Routes.settings:
         {

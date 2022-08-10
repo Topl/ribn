@@ -36,6 +36,7 @@ class Routes {
   static const polyTransferInput = '/poly-transfer-input';
   static const txReview = '/tx-review';
   static const txConfirmation = '/tx-confirmation';
+  static const txHistory = '/tx-history';
   static const mintInput = '/mint-input';
   static const settings = '/settings';
   static const assetDetails = '/asset-details';
