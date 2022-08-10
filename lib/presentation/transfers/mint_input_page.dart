@@ -16,7 +16,7 @@ import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_long_name_field.dart';
@@ -113,7 +113,7 @@ class _MintInputPageState extends State<MintInputPage> {
               child: Column(
                 children: [
                   /// Builds the title of the page.
-                  const CustomPageTitle(
+                  const CustomPageTextTitle(
                     title: Strings.mint,
                     hideBackArrow: true,
                   ),

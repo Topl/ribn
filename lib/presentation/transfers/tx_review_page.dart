@@ -21,7 +21,7 @@ import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The transaction review page.
@@ -57,7 +57,7 @@ class TxReviewPage extends StatelessWidget {
                 Column(
                   children: [
                     // page title
-                    const CustomPageTitle(title: Strings.review),
+                    const CustomPageTextTitle(title: Strings.review),
                     const SizedBox(height: 40),
                     // review box
                     Container(

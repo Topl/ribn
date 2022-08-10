@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ribn/constants/rules.dart';
+import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/transaction_history_container.dart';
 import 'package:ribn/models/transaction_history_entry.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
 class TxHistoryPage extends StatefulWidget {
   const TxHistoryPage({Key? key}) : super(key: key);
@@ -32,16 +33,14 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
   Widget build(BuildContext context) {
     return TransactionHistoryContainer(
       builder: (BuildContext context, TransactionHistoryViewmodel vm) => LoaderOverlay(
-        overlayWholeScreen: true,
-        overlayHeight: double.infinity,
-        overlayWidth: double.infinity,
+        overlayColor: Colors.transparent,
         child: Scaffold(
           backgroundColor: RibnColors.background,
           body: SingleChildScrollView(
             child: Column(
               children: [
-                const CustomPageTitle(
-                  title: 'Test',
+                const CustomPageTextTitle(
+                  title: Strings.recentActivity,
                   hideBackArrow: true,
                   hideCloseCross: true,
                 ),

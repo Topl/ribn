@@ -10,7 +10,7 @@ import 'package:ribn/presentation/settings/sections/links_section.dart';
 import 'package:ribn/presentation/settings/sections/ribn_version_section.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
 /// The settings page of the application.
 class SettingsPage extends StatefulWidget {
@@ -47,7 +47,7 @@ class _SettingsPageState extends State<SettingsPage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const CustomPageTitle(
+              const CustomPageTextTitle(
                 title: Strings.settings,
                 hideBackArrow: true,
               ),
