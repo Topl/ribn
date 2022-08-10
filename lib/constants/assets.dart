@@ -77,7 +77,10 @@ class RibnAssets {
   static const plusGrey = 'packages/ribn_toolkit/assets/icons/plus_grey.png';
   static const walletBlue = 'packages/ribn_toolkit/assets/icons/wallet_blue.png';
   static const walletGrey = 'packages/ribn_toolkit/assets/icons/wallet_grey.png';
+  static const clockBlue = 'packages/ribn_toolkit/assets/icons/clock_blue.png';
+  static const clockGrey = 'packages/ribn_toolkit/assets/icons/clock_grey.png';
   static const copyIcon = 'packages/ribn_toolkit/assets/icons/copy_icon.png';
+  static const circlePlus = 'packages/ribn_toolkit/assets/icons/circle_plus.png';
   static const copyIconAlternate = 'assets/icons/copy_icon_alternate.png';
   static const fingerPrintAssets = 'assets/icons/finger_print_assets.png';
   static const redDangerTriangle = 'assets/icons/red_danger_triangle.png';
