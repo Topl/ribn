@@ -4,12 +4,13 @@ import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/transaction_history_container.dart';
 import 'package:ribn/models/transaction_history_entry.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_dropdown_title.dart';
 
 class TxHistoryPage extends StatefulWidget {
   const TxHistoryPage({Key? key}) : super(key: key);
@@ -29,20 +30,28 @@ fetchTxHistory(BuildContext context, ToplAddress toplAddress, int networkId) asy
 }
 
 class _TxHistoryPageState extends State<TxHistoryPage> {
+  static List<String> itemsToSelectFrom = ['Sent', 'Received', 'Minted'];
+
+  static String currentSelectedItem = 'Transaction types';
+
   @override
   Widget build(BuildContext context) {
+    final _scrollController = ScrollController();
+
     return TransactionHistoryContainer(
       builder: (BuildContext context, TransactionHistoryViewmodel vm) => LoaderOverlay(
         overlayColor: Colors.transparent,
         child: Scaffold(
           backgroundColor: RibnColors.background,
           body: SingleChildScrollView(
+            controller: _scrollController,
             child: Column(
               children: [
-                const CustomPageTextTitle(
+                CustomPageDropdownTitle(
                   title: Strings.recentActivity,
-                  hideBackArrow: true,
-                  hideCloseCross: true,
+                  chevronIconLink: RibnAssets.chevronDown,
+                  currentSelectedItem: currentSelectedItem,
+                  itemsToSelectFrom: itemsToSelectFrom,
                 ),
                 FutureBuilder(
                   future: fetchTxHistory(context, vm.toplAddress, vm.networkId),

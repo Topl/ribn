@@ -21,8 +21,8 @@ import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
-import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
 /// The transaction review page.
 ///
