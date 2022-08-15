@@ -39,15 +39,20 @@ class TransactionHistoryViewmodel {
   /// The networkId for returning correct transaction data per each Topl network
   final int networkId;
 
+  /// All the assets owned by this wallet.
+  final List<AssetAmount> assets;
+
   TransactionHistoryViewmodel({
     required this.toplAddress,
     required this.networkId,
+    required this.assets,
   });
 
   static TransactionHistoryViewmodel fromStore(Store<AppState> store) {
     return TransactionHistoryViewmodel(
       toplAddress: store.state.keychainState.currentNetwork.myWalletAddress!.toplAddress,
       networkId: store.state.keychainState.currentNetwork.networkId,
+      assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
     );
   }
 }

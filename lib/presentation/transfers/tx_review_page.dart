@@ -68,9 +68,17 @@ class TxReviewPage extends StatelessWidget {
                         vertical: 15,
                       ),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4.7),
+                        borderRadius: BorderRadius.circular(11.6),
                         color: RibnColors.whiteBackground,
                         border: Border.all(color: RibnColors.lightGrey, width: 1),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: RibnColors.greyShadow,
+                            spreadRadius: 0,
+                            blurRadius: 37.5,
+                            offset: Offset(0, -6),
+                          ),
+                        ],
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

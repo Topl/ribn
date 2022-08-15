@@ -10,6 +10,7 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/transaction_history_container.dart';
 import 'package:ribn/models/transaction_history_entry.dart';
 import 'package:ribn/presentation/transaction_history/dashed_list_separator.dart';
+import 'package:ribn/presentation/transaction_history/transaction_data_row.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_dropdown_title.dart';
 
@@ -100,6 +101,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                 ),
                                 child: SingleChildScrollView(
                                   child: ListView.separated(
+                                    reverse: true,
                                     physics: const NeverScrollableScrollPhysics(),
                                     scrollDirection: Axis.vertical,
                                     itemCount: snapshot.data?.length,
@@ -108,22 +110,9 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                       final TransactionHistoryEntry transactionReceipt =
                                           TransactionHistoryEntry.fromJson(snapshot.data[index]);
 
-                                      return Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                          vertical: 15,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(transactionReceipt.timestamp),
-                                                Text('Try htis ish s'),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
+                                      return TransactionDataRow(
+                                        transactionReceipt: transactionReceipt,
+                                        assets: vm.assets,
                                       );
                                     },
                                     separatorBuilder: (context, index) {

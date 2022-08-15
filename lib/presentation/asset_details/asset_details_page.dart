@@ -120,9 +120,17 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     width: 309,
                     decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(4.7)),
+                      borderRadius: const BorderRadius.all(Radius.circular(11.6)),
                       color: RibnColors.whiteBackground,
                       border: Border.all(color: RibnColors.lightGrey, width: 1),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: RibnColors.greyShadow,
+                          spreadRadius: 0,
+                          blurRadius: 37.5,
+                          offset: Offset(0, -6),
+                        ),
+                      ],
                     ),
                     child: Column(
                       children: [

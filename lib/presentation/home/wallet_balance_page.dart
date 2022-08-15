@@ -231,6 +231,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: vm.assets.length,
               itemBuilder: (context, idx) {
+                // Here's how we get each individual asset
                 final AssetAmount asset = vm.assets[idx];
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
