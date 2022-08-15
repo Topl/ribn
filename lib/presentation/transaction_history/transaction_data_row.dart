@@ -23,27 +23,77 @@ class TransactionDataRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isAssetTransaction = transactionReceipt.txType == 'PolyTransfer';
+    final bool isPolyTransaction = transactionReceipt.txType == 'PolyTransfer';
+    final timestampInt = int.parse(transactionReceipt.timestamp);
+    final date = DateTime.fromMillisecondsSinceEpoch(timestampInt);
+    final dateFormat = DateFormat('MMM d');
+    final String formattedDate = dateFormat.format(date);
+    // Remove this when Genus API is integrated
+    final mockStatusList = ['confirmed', 'pending', 'unconfirmed'];
+    final randomItem = (mockStatusList..shuffle()).first;
 
     // Render poly specific section if poly transfer
-    if (isAssetTransaction) {
+    if (isPolyTransaction) {
+      final transactionAmountValue = transactionReceipt.to.length == 2
+          ? transactionReceipt.to[1][1]['quantity']
+          : transactionReceipt.to[0][1]['quantity'];
+
+      // ^ Will need to check this logic to ensure I'm access the correct value as there are sometimes
+      // x1 and x2 transaction entries in the to: array (which is the correct value?)
+      // https://annulus-api.topl.services/staging/valhalla/v1/address/history/3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe
+
       return Container(
         padding: const EdgeInsets.symmetric(
           horizontal: 8,
           vertical: 15,
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  width: 25,
-                  height: 25,
-                  child: renderPolyIcon(),
+                  height: 55,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: 25,
+                        height: 25,
+                        child: renderPolyIcon(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              '$transactionAmountValue POLYs',
+                              style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-                Text(transactionReceipt.timestamp),
-                Text('Try htis ish s'),
+                SizedBox(
+                  height: 55,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      // Will need to pass in actual status from API when Genus plugged in
+                      StatusChip(status: randomItem),
+                      Text(
+                        'Sent on $formattedDate',
+                        style: RibnToolkitTextStyles.assetLongNameStyle,
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ],
@@ -55,13 +105,6 @@ class TransactionDataRow extends StatelessWidget {
       // Get access to AssetDetails for this asset from the store only if not poly transaction
       converter: (store) => store.state.userDetailsState.assetDetails[transactionReceipt.to[1][1]['assetCode']],
       builder: (context, assetDetails) {
-        final timestampInt = int.parse(transactionReceipt.timestamp);
-        final date = DateTime.fromMillisecondsSinceEpoch(timestampInt);
-        final dateFormat = DateFormat('MMM d');
-        final String formattedDate = dateFormat.format(date);
-        final mockStatusList = ['confirmed', 'pending', 'unconfirmed'];
-        final randomItem = (mockStatusList..shuffle()).first;
-
         final List filteredAsset = assets
             .where(
               (item) => item.assetCode.toString() == transactionReceipt.to[1][1]['assetCode'].toString(),
