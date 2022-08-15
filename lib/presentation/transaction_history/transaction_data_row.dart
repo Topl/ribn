@@ -54,7 +54,7 @@ class TransactionDataRow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  height: 55,
+                  height: 40,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -80,7 +80,7 @@ class TransactionDataRow extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 55,
+                  height: 40,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -89,7 +89,7 @@ class TransactionDataRow extends StatelessWidget {
                       StatusChip(status: randomItem),
                       Text(
                         'Sent on $formattedDate',
-                        style: RibnToolkitTextStyles.assetLongNameStyle,
+                        style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
                       ),
                     ],
                   ),
@@ -123,7 +123,7 @@ class TransactionDataRow extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    height: 55,
+                    height: 40,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -144,7 +144,7 @@ class TransactionDataRow extends StatelessWidget {
                               ),
                               Text(
                                 filteredAsset[0].assetCode.shortName.show,
-                                style: RibnToolkitTextStyles.assetLongNameStyle,
+                                style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
                               ),
                             ],
                           ),
@@ -153,7 +153,7 @@ class TransactionDataRow extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 55,
+                    height: 40,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -162,7 +162,7 @@ class TransactionDataRow extends StatelessWidget {
                         StatusChip(status: randomItem),
                         Text(
                           'Sent on $formattedDate',
-                          style: RibnToolkitTextStyles.assetLongNameStyle,
+                          style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
                         ),
                       ],
                     ),
