@@ -12,12 +12,13 @@ import 'package:ribn_toolkit/widgets/atoms/status_chip.dart';
 
 class TransactionDataRow extends StatelessWidget {
   final List<AssetAmount> assets;
-
   final TransactionHistoryEntry transactionReceipt;
+  final String myRibnWalletAddress;
 
   const TransactionDataRow({
     required this.transactionReceipt,
     required this.assets,
+    required this.myRibnWalletAddress,
     Key? key,
   }) : super(key: key);
 
@@ -28,9 +29,46 @@ class TransactionDataRow extends StatelessWidget {
     final date = DateTime.fromMillisecondsSinceEpoch(timestampInt);
     final dateFormat = DateFormat('MMM d');
     final String formattedDate = dateFormat.format(date);
-    // Remove this when Genus API is integrated
+    // <-- Remove this mock status logic when Genus API is integrated
     final mockStatusList = ['confirmed', 'pending', 'unconfirmed'];
     final randomItem = (mockStatusList..shuffle()).first;
+    // -->
+    final transactionReceiverAddress =
+        transactionReceipt.to.length == 2 ? transactionReceipt.to[1][0] : transactionReceipt.to[0][0];
+    final transactionSenderAddress = transactionReceipt.from[0][0];
+    final bool sentByMe = transactionSenderAddress == myRibnWalletAddress ? true : false;
+    final bool sentToMe = transactionReceiverAddress == myRibnWalletAddress ? true : false;
+
+    String? renderSentReceivedMintedText() {
+      if (transactionReceipt.minting == true) {
+        return 'Minted';
+      } else if (sentByMe && sentToMe) {
+        return 'Received';
+      } else if (sentByMe && !sentToMe) {
+        return 'Sent';
+      } else if (!sentByMe && sentToMe) {
+        return 'Received';
+      } else if (!sentByMe && !sentToMe) {
+        return 'How?!';
+      }
+
+      return '';
+    }
+
+    String? renderPlusOrMinus() {
+      if (transactionReceipt.minting == true) {
+        return '+';
+      } else if (sentByMe && sentToMe) {
+        return '+';
+      } else if (sentByMe && !sentToMe) {
+        return '-';
+      } else if (!sentByMe && sentToMe) {
+        return '+';
+      } else if (!sentByMe && !sentToMe) {
+        return 'How?!';
+      }
+      return '';
+    }
 
     // Render poly specific section if poly transfer
     if (isPolyTransaction) {
@@ -70,7 +108,7 @@ class TransactionDataRow extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              '$transactionAmountValue POLYs',
+                              '${renderPlusOrMinus()}$transactionAmountValue POLYs',
                               style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
                             ),
                           ],
@@ -88,7 +126,7 @@ class TransactionDataRow extends StatelessWidget {
                       // Will need to pass in actual status from API when Genus plugged in
                       StatusChip(status: randomItem),
                       Text(
-                        'Sent on $formattedDate',
+                        '${renderSentReceivedMintedText()} on $formattedDate',
                         style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
                       ),
                     ],
@@ -139,7 +177,7 @@ class TransactionDataRow extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                '${transactionReceipt.to[1][1]['quantity']} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
+                                '${renderPlusOrMinus()}${transactionReceipt.to[1][1]['quantity']} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
                                 style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
                               ),
                               Text(
@@ -161,7 +199,7 @@ class TransactionDataRow extends StatelessWidget {
                         // Will need to pass in actual status from API when Genus plugged in
                         StatusChip(status: randomItem),
                         Text(
-                          'Sent on $formattedDate',
+                          '${renderSentReceivedMintedText()} on $formattedDate',
                           style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
                         ),
                       ],

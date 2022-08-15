@@ -113,6 +113,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                       return TransactionDataRow(
                                         transactionReceipt: transactionReceipt,
                                         assets: vm.assets,
+                                        myRibnWalletAddress: vm.toplAddress.toBase58(),
                                       );
                                     },
                                     separatorBuilder: (context, index) {
