@@ -15,30 +15,71 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_dropdown_title.dart';
 
 class TxHistoryPage extends StatefulWidget {
-  const TxHistoryPage({Key? key}) : super(key: key);
+  final Future<String>? blockHeight;
+
+  const TxHistoryPage({this.blockHeight, Key? key}) : super(key: key);
 
   @override
   State<TxHistoryPage> createState() => _TxHistoryPageState();
 }
 
-fetchTxHistory(BuildContext context, ToplAddress toplAddress, int networkId) async {
-  final response = await http.get(
-    Uri.parse(
-      Rules.txHistoryUrl(toplAddress.toBase58(), networkId),
-    ),
-  );
-
-  return jsonDecode(response.body);
-}
-
 class _TxHistoryPageState extends State<TxHistoryPage> {
-  static List<String> itemsToSelectFrom = ['Sent', 'Received', 'Minted'];
+  List<String> itemsToSelectFrom = ['Sent', 'Received', 'Minted'];
 
-  static String currentSelectedItem = 'Transaction types';
+  String filterSelectedItem = 'Transaction types';
+
+  // static List filteredTransactions = AllMovies.where((i) => i.isAnimated).toList();
+
+  void updateSelectedItem(string) {
+    setState(() {
+      filterSelectedItem = string;
+    });
+  }
+
+  fetchTxHistory(BuildContext context, ToplAddress toplAddress, int networkId) async {
+    final response = await http.get(
+      Uri.parse(
+        Rules.txHistoryUrl(toplAddress.toBase58(), networkId),
+      ),
+    );
+
+    // if (filteredTransactions.isEmpty) {
+    //   setState(() {
+    //     filteredTransactions.add(response.body);
+    //   });
+    // }
+
+    if (filterSelectedItem != 'Transaction types') {
+      print('we have filtered');
+      final List filteredTransactions = [];
+      filteredTransactions.add(response.body);
+
+      // final filteredTransactions2 = filteredTransactions.where((transaction) => transaction.minting == true).toList();
+      // final filteredTransactions2 = filteredTransactions.where((map) => map['minting'] == true).toList();
+      // return filteredTransactions.removeWhere((value) => value['minting'] == false);
+      // filteredTransactions2 = filteredTransactions.where((map)=>map["tags"].contains(tag)).toList();
+
+      // return filteredTransactions.where((transaction) => transaction['minting'] == false).toList();
+      final List data = response.body as List;
+      // print(data);
+      return data.where((transaction) => transaction['minting'] == false).toList();
+
+      // print(filteredTransactions);
+      // final filteredData =
+      //     response.body.where((element) => (element['brands'] != null ? element['brands'].contains('Amazon') : false));
+    }
+
+    return jsonDecode(response.body);
+  }
 
   @override
   Widget build(BuildContext context) {
     final _scrollController = ScrollController();
+
+    // if (filterSelectedItem != 'Transaction types') {
+    //   print('true this');
+    // }
+    // print(filteredTransactions);
 
     return TransactionHistoryContainer(
       builder: (BuildContext context, TransactionHistoryViewmodel vm) => LoaderOverlay(
@@ -61,8 +102,9 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                     CustomPageDropdownTitle(
                       title: Strings.recentActivity,
                       chevronIconLink: RibnAssets.chevronDown,
-                      currentSelectedItem: currentSelectedItem,
+                      currentSelectedItem: filterSelectedItem,
                       itemsToSelectFrom: itemsToSelectFrom,
+                      updateSelectedItem: updateSelectedItem,
                     ),
                     FutureBuilder(
                       future: fetchTxHistory(context, vm.toplAddress, vm.networkId),
@@ -104,16 +146,23 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                     reverse: true,
                                     physics: const NeverScrollableScrollPhysics(),
                                     scrollDirection: Axis.vertical,
+                                    // Here we need to get the length of the filtered array
+                                    // itemCount: filterSelectedItem == 'Transaction types'
+                                    //     ? snapshot.data?.length
+                                    //     : filteredTransactions.length,
                                     itemCount: snapshot.data?.length,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
                                       final TransactionHistoryEntry transactionReceipt =
                                           TransactionHistoryEntry.fromJson(snapshot.data[index]);
 
+                                      // Here we need to index the filtered array value
+
                                       return TransactionDataRow(
                                         transactionReceipt: transactionReceipt,
                                         assets: vm.assets,
                                         myRibnWalletAddress: vm.toplAddress.toBase58(),
+                                        blockHeight: vm.blockHeight,
                                       );
                                     },
                                     separatorBuilder: (context, index) {

@@ -10,37 +10,63 @@ import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/status_chip.dart';
 
-class TransactionDataRow extends StatelessWidget {
+class TransactionDataRow extends StatefulWidget {
   final List<AssetAmount> assets;
   final TransactionHistoryEntry transactionReceipt;
   final String myRibnWalletAddress;
+  final Future<String>? blockHeight;
 
   const TransactionDataRow({
     required this.transactionReceipt,
     required this.assets,
     required this.myRibnWalletAddress,
+    required this.blockHeight,
     Key? key,
   }) : super(key: key);
 
   @override
+  State<TransactionDataRow> createState() => _TransactionDataRowState();
+}
+
+class _TransactionDataRowState extends State<TransactionDataRow> {
+  String transactionStatus = 'unconfirmed';
+
+  @override
+  initState() {
+    getBlockHeight();
+
+    super.initState();
+  }
+
+  getBlockHeight() async {
+    final blockHeightString = await widget.blockHeight;
+    final blockHeightNum = int.parse(blockHeightString!);
+    final transactionBlockHeightNum = widget.transactionReceipt.block['height'];
+    final heightDifference = blockHeightNum - transactionBlockHeightNum;
+
+    if (heightDifference > 30) {
+      setState(() {
+        transactionStatus = 'confirmed';
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final bool isPolyTransaction = transactionReceipt.txType == 'PolyTransfer';
-    final timestampInt = int.parse(transactionReceipt.timestamp);
+    final bool isPolyTransaction = widget.transactionReceipt.txType == 'PolyTransfer';
+    final timestampInt = int.parse(widget.transactionReceipt.timestamp);
     final date = DateTime.fromMillisecondsSinceEpoch(timestampInt);
     final dateFormat = DateFormat('MMM d');
     final String formattedDate = dateFormat.format(date);
-    // <-- Remove this mock status logic when Genus API is integrated
-    final mockStatusList = ['confirmed', 'pending', 'unconfirmed'];
-    final randomItem = (mockStatusList..shuffle()).first;
-    // -->
-    final transactionReceiverAddress =
-        transactionReceipt.to.length == 2 ? transactionReceipt.to[1][0] : transactionReceipt.to[0][0];
-    final transactionSenderAddress = transactionReceipt.from[0][0];
-    final bool sentByMe = transactionSenderAddress == myRibnWalletAddress ? true : false;
-    final bool sentToMe = transactionReceiverAddress == myRibnWalletAddress ? true : false;
+    final transactionReceiverAddress = widget.transactionReceipt.to.length == 2
+        ? widget.transactionReceipt.to[1][0]
+        : widget.transactionReceipt.to[0][0];
+    final transactionSenderAddress = widget.transactionReceipt.from[0][0];
+    final bool sentByMe = transactionSenderAddress == widget.myRibnWalletAddress ? true : false;
+    final bool sentToMe = transactionReceiverAddress == widget.myRibnWalletAddress ? true : false;
 
     String? renderSentReceivedMintedText() {
-      if (transactionReceipt.minting == true) {
+      if (widget.transactionReceipt.minting == true) {
         return 'Minted';
       } else if (sentByMe && sentToMe) {
         return 'Received';
@@ -56,7 +82,7 @@ class TransactionDataRow extends StatelessWidget {
     }
 
     String? renderPlusOrMinus() {
-      if (transactionReceipt.minting == true) {
+      if (widget.transactionReceipt.minting == true) {
         return '+';
       } else if (sentByMe && sentToMe) {
         return '+';
@@ -72,9 +98,9 @@ class TransactionDataRow extends StatelessWidget {
 
     // Render poly specific section if poly transfer
     if (isPolyTransaction) {
-      final transactionAmountValue = transactionReceipt.to.length == 2
-          ? transactionReceipt.to[1][1]['quantity']
-          : transactionReceipt.to[0][1]['quantity'];
+      final transactionAmountValue = widget.transactionReceipt.to.length == 2
+          ? widget.transactionReceipt.to[1][1]['quantity']
+          : widget.transactionReceipt.to[0][1]['quantity'];
 
       // ^ Will need to check this logic to ensure I'm access the correct value as there are sometimes
       // x1 and x2 transaction entries in the to: array (which is the correct value?)
@@ -124,7 +150,7 @@ class TransactionDataRow extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       // Will need to pass in actual status from API when Genus plugged in
-                      StatusChip(status: randomItem),
+                      StatusChip(status: transactionStatus),
                       Text(
                         '${renderSentReceivedMintedText()} on $formattedDate',
                         style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
@@ -141,11 +167,11 @@ class TransactionDataRow extends StatelessWidget {
 
     return StoreConnector<AppState, AssetDetails?>(
       // Get access to AssetDetails for this asset from the store only if not poly transaction
-      converter: (store) => store.state.userDetailsState.assetDetails[transactionReceipt.to[1][1]['assetCode']],
+      converter: (store) => store.state.userDetailsState.assetDetails[widget.transactionReceipt.to[1][1]['assetCode']],
       builder: (context, assetDetails) {
-        final List filteredAsset = assets
+        final List filteredAsset = widget.assets
             .where(
-              (item) => item.assetCode.toString() == transactionReceipt.to[1][1]['assetCode'].toString(),
+              (item) => item.assetCode.toString() == widget.transactionReceipt.to[1][1]['assetCode'].toString(),
             )
             .toList();
 
@@ -177,7 +203,7 @@ class TransactionDataRow extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                '${renderPlusOrMinus()}${transactionReceipt.to[1][1]['quantity']} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
+                                '${renderPlusOrMinus()}${widget.transactionReceipt.to[1][1]['quantity']} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
                                 style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
                               ),
                               Text(
@@ -197,7 +223,7 @@ class TransactionDataRow extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         // Will need to pass in actual status from API when Genus plugged in
-                        StatusChip(status: randomItem),
+                        StatusChip(status: transactionStatus),
                         Text(
                           '${renderSentReceivedMintedText()} on $formattedDate',
                           style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
