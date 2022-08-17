@@ -23,12 +23,16 @@ class PlatformWorkerRunner implements IPlatformWorkerRunner {
     Map<String, dynamic> params = const {},
   }) {
     if (workerScript == null) throw Exception('JS worker requires `workerScript` to not be null');
+    final Completer<String> completer = Completer();
     try {
-      final Completer<String> completer = Completer();
       final Worker worker = Worker(workerScript);
       worker.onMessage.listen((e) {
         worker.terminate();
         completer.complete(e.data);
+      });
+      worker.onError.listen((e) {
+        worker.terminate();
+        completer.completeError(e);
       });
       final jsonEncodedParams = jsonEncode(params);
       worker.postMessage(jsonEncodedParams);
