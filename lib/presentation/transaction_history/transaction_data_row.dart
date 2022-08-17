@@ -62,8 +62,12 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
         ? widget.transactionReceipt.to[1][0]
         : widget.transactionReceipt.to[0][0];
     final transactionSenderAddress = widget.transactionReceipt.from[0][0];
+    // final toAddresses = widget.transactionReceipt.to.where((transaction) => transaction.minting == true).toList();
     final bool sentByMe = transactionSenderAddress == widget.myRibnWalletAddress ? true : false;
     final bool sentToMe = transactionReceiverAddress == widget.myRibnWalletAddress ? true : false;
+    // final AssetCode assetCode = widget.transactionReceipt.to[1][1]['assetCode'];
+    // final receiverAddress =
+    //     widget.transactionReceipt.to.where((transaction) => transaction[0] == widget.myRibnWalletAddress).toList();
 
     String? renderSentReceivedMintedText() {
       if (widget.transactionReceipt.minting == true) {

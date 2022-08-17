@@ -28,7 +28,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
 
   String filterSelectedItem = 'Transaction types';
 
-  // static List filteredTransactions = AllMovies.where((i) => i.isAnimated).toList();
+  List filteredTransactions = [];
 
   void updateSelectedItem(string) {
     setState(() {
@@ -43,30 +43,12 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
       ),
     );
 
-    // if (filteredTransactions.isEmpty) {
-    //   setState(() {
-    //     filteredTransactions.add(response.body);
-    //   });
-    // }
-
     if (filterSelectedItem != 'Transaction types') {
-      print('we have filtered');
-      final List filteredTransactions = [];
-      filteredTransactions.add(response.body);
+      final List transactions = jsonDecode(response.body);
 
-      // final filteredTransactions2 = filteredTransactions.where((transaction) => transaction.minting == true).toList();
-      // final filteredTransactions2 = filteredTransactions.where((map) => map['minting'] == true).toList();
-      // return filteredTransactions.removeWhere((value) => value['minting'] == false);
-      // filteredTransactions2 = filteredTransactions.where((map)=>map["tags"].contains(tag)).toList();
-
-      // return filteredTransactions.where((transaction) => transaction['minting'] == false).toList();
-      final List data = response.body as List;
-      // print(data);
-      return data.where((transaction) => transaction['minting'] == false).toList();
-
-      // print(filteredTransactions);
-      // final filteredData =
-      //     response.body.where((element) => (element['brands'] != null ? element['brands'].contains('Amazon') : false));
+      for (var transaction in transactions) {
+        if (transaction['minting'] == true) filteredTransactions.add(transaction);
+      }
     }
 
     return jsonDecode(response.body);
@@ -76,10 +58,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
   Widget build(BuildContext context) {
     final _scrollController = ScrollController();
 
-    // if (filterSelectedItem != 'Transaction types') {
-    //   print('true this');
-    // }
-    // print(filteredTransactions);
+    const startingFilterValue = 'Transaction types';
 
     return TransactionHistoryContainer(
       builder: (BuildContext context, TransactionHistoryViewmodel vm) => LoaderOverlay(
@@ -146,17 +125,17 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                     reverse: true,
                                     physics: const NeverScrollableScrollPhysics(),
                                     scrollDirection: Axis.vertical,
-                                    // Here we need to get the length of the filtered array
-                                    // itemCount: filterSelectedItem == 'Transaction types'
-                                    //     ? snapshot.data?.length
-                                    //     : filteredTransactions.length,
-                                    itemCount: snapshot.data?.length,
+                                    itemCount: filterSelectedItem == startingFilterValue
+                                        ? snapshot.data?.length
+                                        : filteredTransactions.length,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
                                       final TransactionHistoryEntry transactionReceipt =
-                                          TransactionHistoryEntry.fromJson(snapshot.data[index]);
-
-                                      // Here we need to index the filtered array value
+                                          TransactionHistoryEntry.fromJson(
+                                        filterSelectedItem == startingFilterValue
+                                            ? snapshot.data[index]
+                                            : filteredTransactions[index],
+                                      );
 
                                       return TransactionDataRow(
                                         transactionReceipt: transactionReceipt,
