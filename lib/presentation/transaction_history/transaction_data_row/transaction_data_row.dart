@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/keys.dart';
+import 'package:ribn/constants/routes.dart';
+// import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/models/transaction_history_entry.dart';
@@ -15,12 +18,14 @@ class TransactionDataRow extends StatefulWidget {
   final TransactionHistoryEntry transactionReceipt;
   final String myRibnWalletAddress;
   final Future<String>? blockHeight;
+  final int networkId;
 
   const TransactionDataRow({
     required this.transactionReceipt,
     required this.assets,
     required this.myRibnWalletAddress,
     required this.blockHeight,
+    required this.networkId,
     Key? key,
   }) : super(key: key);
 
@@ -57,11 +62,18 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
     final timestampInt = int.parse(widget.transactionReceipt.timestamp);
     final date = DateTime.fromMillisecondsSinceEpoch(timestampInt);
     final dateFormat = DateFormat('MMM d');
+    final dateFormatAlternate = DateFormat('MM-dd-yyyy');
     final String formattedDate = dateFormat.format(date);
-    final transactionReceiverAddress = widget.transactionReceipt.to.length == 2
-        ? widget.transactionReceipt.to[1][0]
-        : widget.transactionReceipt.to[0][0];
+    final String formattedDateAlternate = dateFormatAlternate.format(date);
+    final transactionReceiverAddress = widget.transactionReceipt.to.length == 1
+        ? widget.transactionReceipt.to[0][0]
+        : widget.transactionReceipt.to[1][0];
     final transactionSenderAddress = widget.transactionReceipt.from[0][0];
+    final fee = widget.transactionReceipt.fee;
+    final note = widget.transactionReceipt.data;
+    final securityRoot = widget.transactionReceipt.to[1][1]['securityRoot'];
+    final block = widget.transactionReceipt.block;
+    final transactionId = widget.transactionReceipt.txId;
     // final toAddresses = widget.transactionReceipt.to.where((transaction) => transaction.minting == true).toList();
     final bool sentByMe = transactionSenderAddress == widget.myRibnWalletAddress ? true : false;
     final bool sentToMe = transactionReceiverAddress == widget.myRibnWalletAddress ? true : false;
@@ -79,7 +91,9 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
       } else if (!sentByMe && sentToMe) {
         return 'Received';
       } else if (!sentByMe && !sentToMe) {
-        return 'How?!';
+        // There's one transaction that hits this condition - not sure how we handle this given the criteria
+        // Specifically - tXId ircQkToA8LbdfqWFoYJt5bcWTephQVNDYGEkKitBYLnM
+        return '';
       }
 
       return '';
@@ -95,7 +109,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
       } else if (!sentByMe && sentToMe) {
         return '+';
       } else if (!sentByMe && !sentToMe) {
-        return 'How?!';
+        return '';
       }
       return '';
     }
@@ -179,65 +193,92 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
             )
             .toList();
 
-        return Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8,
-            vertical: 15,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    height: 40,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(
-                          width: 25,
-                          height: 25,
-                          child: renderAssetIcon(assetDetails?.icon),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 12),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                '${renderPlusOrMinus()}${widget.transactionReceipt.to[1][1]['quantity']} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
-                                style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
-                              ),
-                              Text(
-                                filteredAsset[0].assetCode.shortName.show,
-                                style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                              ),
-                            ],
+        return GestureDetector(
+          onTap: () {
+            Keys.navigatorKey.currentState?.pushNamed(
+              Routes.txHistoryDetails,
+              arguments: {
+                'transactionType': renderSentReceivedMintedText(),
+                'timestamp': formattedDateAlternate,
+                'assetDetails': assetDetails,
+                'icon': renderAssetIcon(assetDetails?.icon),
+                'shortName': filteredAsset[0].assetCode.shortName.show,
+                'transactionStatus': transactionStatus,
+                'transactionAmount':
+                    '${renderPlusOrMinus()}${widget.transactionReceipt.to[1][1]['quantity']} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
+                'fee': fee,
+                'myRibnWalletAddress': widget.myRibnWalletAddress,
+                'transactionSenderAddress': transactionSenderAddress,
+                'note': note,
+                'securityRoot': securityRoot,
+                'blockId': block['id'],
+                'blockHeight': block['height'],
+                'transactionId': transactionId,
+                'networkId': widget.networkId,
+              },
+            );
+          },
+          child: Container(
+            color: Colors.white,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 15,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      height: 40,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(
+                            width: 25,
+                            height: 25,
+                            child: renderAssetIcon(assetDetails?.icon),
                           ),
-                        )
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                  '${renderPlusOrMinus()}${widget.transactionReceipt.to[1][1]['quantity']} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
+                                  style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
+                                ),
+                                Text(
+                                  filteredAsset[0].assetCode.shortName.show,
+                                  style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 40,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        // Will need to pass in actual status from API when Genus plugged in
-                        StatusChip(status: transactionStatus),
-                        Text(
-                          '${renderSentReceivedMintedText()} on $formattedDate',
-                          style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                        ),
-                      ],
+                    SizedBox(
+                      height: 40,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          // Will need to pass in actual status from API when Genus plugged in
+                          StatusChip(status: transactionStatus),
+                          Text(
+                            '${renderSentReceivedMintedText()} on $formattedDate',
+                            style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         );
       },

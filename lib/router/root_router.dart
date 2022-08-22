@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/internal_message.dart';
+// import 'package:ribn/models/transaction_history_entry.dart';
 import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/presentation/asset_details/asset_details_page.dart';
 import 'package:ribn/presentation/enable_page.dart';
@@ -25,6 +26,7 @@ import 'package:ribn/presentation/onboarding/restore_wallet/enter_wallet_passwor
 import 'package:ribn/presentation/onboarding/restore_wallet/restore_wallet_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/restore_with_topl_key_page.dart';
 import 'package:ribn/presentation/settings/settings_page.dart';
+import 'package:ribn/presentation/transaction_history/transaction_history_details_page/transaction_history_details_page.dart';
 import 'package:ribn/presentation/transaction_history/transaction_history_page.dart';
 import 'package:ribn/presentation/transfers/asset_transfer_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
@@ -155,6 +157,15 @@ class RootRouter {
       case Routes.txHistory:
         {
           return pageRoute(const TxHistoryPage(), settings);
+        }
+      case Routes.txHistoryDetails:
+        final Map? transactionDetails = settings.arguments as Map;
+        {
+          return pageRoute(
+              TxHistoryDetailsPage(
+                transactionDetails: transactionDetails,
+              ),
+              settings);
         }
       case Routes.settings:
         {

@@ -9,8 +9,8 @@ import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/transaction_history_container.dart';
 import 'package:ribn/models/transaction_history_entry.dart';
-import 'package:ribn/presentation/transaction_history/dashed_list_separator.dart';
-import 'package:ribn/presentation/transaction_history/transaction_data_row.dart';
+import 'package:ribn/presentation/transaction_history/dashed_list_separator/dashed_list_separator.dart';
+import 'package:ribn/presentation/transaction_history/transaction_data_row/transaction_data_row.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_dropdown_title.dart';
 
@@ -69,7 +69,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
             backgroundColor: RibnColors.primary,
             color: RibnColors.secondaryDark,
             onRefresh: () async {
-              await fetchTxHistory(context, vm.toplAddress, vm.networkId);
+              setState(() {});
             },
             child: Scrollbar(
               thumbVisibility: true,
@@ -142,6 +142,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                         assets: vm.assets,
                                         myRibnWalletAddress: vm.toplAddress.toBase58(),
                                         blockHeight: vm.blockHeight,
+                                        networkId: vm.networkId,
                                       );
                                     },
                                     separatorBuilder: (context, index) {
