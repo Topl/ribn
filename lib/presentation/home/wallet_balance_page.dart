@@ -57,9 +57,11 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
 
   /// Updates [_fetchingBalances] and [_failedToFetchBalances] to indicate that balances have been fetched.
   void onBalancesRefreshed(bool success) {
-    setState(() {
-      _fetchingBalances = false;
-      _failedToFetchBalances = !success;
+    Future.delayed((const Duration(seconds: 1))).then((_) {
+      setState(() {
+        _fetchingBalances = false;
+        _failedToFetchBalances = !success;
+      });
     });
   }
 
