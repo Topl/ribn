@@ -55,10 +55,12 @@ dependencies:
   barcode_widget: ^2.0.1
   flutter_portal: ^0.4.0
   file_picker: ^4.3.3
+  # ribn_toolkit:
+  #   git:
+  #     url: https://github.com/Topl/ribn-toolkit
+  #     ref: dev
   ribn_toolkit:
-    git:
-      url: https://github.com/Topl/ribn-toolkit
-      ref: dev
+    path: ../ribn_toolkit
   shimmer_animation: ^2.1.0+1
   path_provider: ^2.0.9
   flutter_secure_storage: ^5.0.2
@@ -106,8 +108,12 @@ flutter:
   fonts:
     - family: DM Sans
       fonts:
-        - asset: packages/ribn_toolkit/fonts/DMSans-Medium.ttf
         - asset: packages/ribn_toolkit/fonts/DMSans-Regular.ttf
+          weight: 400
+        - asset: packages/ribn_toolkit/fonts/DMSans-Medium.ttf
+          weight: 500
+        - asset: packages/ribn_toolkit/fonts/DMSans-Bold.ttf
+          weight: 700
 
 # Splash screen config
 flutter_native_splash:
