@@ -2,7 +2,6 @@ import 'dart:typed_data';
 import 'package:brambldart/brambldart.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/actions/internal_message_actions.dart';
-import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/routes.dart';
@@ -115,7 +114,6 @@ void Function(Store<AppState> store, SignAndBroadcastTxAction action, NextDispat
       action.completer.complete(transferDetails);
     } catch (e) {
       action.completer.complete(null);
-      next(ApiErrorAction(e.toString()));
     }
   };
 }
