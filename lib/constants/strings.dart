@@ -44,31 +44,31 @@ class Strings {
   static const String intro = 'Topl’s blockchain wallet used to track, tokenize, and transact impact.';
   static const String getStarted = 'Get started';
   static const String createWallet = 'Create wallet';
-  static const String createWalletDescription = 'First time? Create your new wallet\nand 15 word seed phrase.';
+  static const String createWalletDescription = 'First time? Create your new wallet\nand 15 word Seed Phrase.';
   static const String importWallet = 'Import wallet';
   static const String restoreWallet = 'Restore wallet';
-  static const String restoreWalletDescription = 'Restore your existing Ribn wallet\nusing a seed phrase or Topl key.';
-  static const String gettingStarted = 'Getting Started';
+  static const String restoreWalletDescription = 'Restore your existing Ribn wallet\nusing a Seed Phrase or Topl key.';
+  static const String gettingStarted = 'Getting started';
   static const String download = 'Download';
   static const String gettingStartedDescription =
       '''First, we are going to take you through the process of generating your Seed Phrase.\n 
 This 15-word phrase will be used to restore your assets if this device is lost or damaged!''';
   static const String ok = 'Ok!';
-  static const String readCarefully = 'Read Carefully';
+  static const String readCarefully = 'Read carefully';
   static const String neverShareMySeedPhrase =
-      '''I understand that I should never share my seed phrase with anyone. Anyone with this information can steal the contents of my wallet.''';
+      '''I understand that I should never share my Seed Phrase with anyone. Anyone with this information can steal the contents of my wallet.''';
   static const String walletRecoveryUsingSeedPhrase =
-      '''I understand that if I need to reinstall Ribn on this or another device, my wallet contents can only be recovered by using my seed phrase.''';
+      '''I understand that if I need to reinstall Ribn on this or another device, my wallet contents can only be recovered by using my Seed Phrase.''';
   static const String iUnderstand = 'I understand';
   static const String letsGo = "Let's Go!";
   static const String beforeYouStart = 'Before you start';
   static const String okLetsGo = "Ok, let's go!";
   static const String weRecommend = 'We Recommend:';
-  static const String weRecommendSub = 'At least one of the following to record your seed phrase safely:';
+  static const String weRecommendSub = 'At least one of the following to record your Seed Phrase safely:';
   static const String paperAndPen = 'A paper and pen.';
   static const String securePasswordManager = 'A secure password manager.';
   static const String encryptTextFile = 'A program such as PGP to encrypt your text file.';
-  static const String writeDownSeedPhrase = 'Write Down Seed Phrase';
+  static const String writeDownSeedPhrase = 'Write down Seed Phrase';
   static const String seedPhraseFileName = 'seed_phrase';
   static const String letsTryThatAgain = 'Now, Let’s Try That Again';
   static const String heyIWasntKidding =
@@ -120,7 +120,7 @@ You'll need it to recover your wallet if your device is lost or broken.''';
   static const String seriouslyGetAPenAndPaper = 'Seriously, get a pen and paper';
   static const String aboutToShowSeedPhrase = '''We are about to show you 15 words.\n
 These words need to be written down carefully and in the exact order shown.''';
-  static const String seedPhraseGenerated = 'Seed Phrase Generated!';
+  static const String seedPhraseGenerated = 'Seed Phrase generated!';
   static const String seedPhraseGeneratedDesc =
       '''Now that your Seed Phrase has been generated you will be writing the 15 words on a piece of paper.\n
 Write down the each word in the exact order it is presented.''';
@@ -175,7 +175,7 @@ Write down the each word in the exact order it is presented.''';
   static const String needHelp = 'Need help? Contact ';
   static const String ribnSupport = 'Ribn Support';
   static const String importWalletUsingSeedPhrase = 'Import an existing Ribn wallet using your Seed Phrase';
-  static const String typeSomething = 'Type Something';
+  static const String typeSomething = 'Type something';
   static const String supportEmail = 'support@topl.me';
   static const String supportEmailLink = 'mailto:$supportEmail?subject=Ribn Support&body=';
   static const String sendAssets = 'Send assets';
@@ -256,14 +256,14 @@ Write down the each word in the exact order it is presented.''';
       'The amount you entered exceeds\nyour wallet balance for this asset.\nPlease enter a valid amount!';
   static const String invalidRecipientAddressError =
       "Hmmm... That's not a valid Recipient address.\nTip: Instead of typing it out, try copy\nand pasting your Recipient's address.";
-  static const String invalidSeedPhrase = 'Invalid seed phrase';
+  static const String invalidSeedPhrase = 'Invalid Seed Phrase';
   static const String importExistingWallet = 'Import an existing Ribn wallet using your Seed Phrase.';
   static const String firstTimeWallet = 'First time? Create a new wallet and 15 word Seed Phrase.';
   static const String passwordExample = 'Example: tree-mice-house';
   static const String writeDownSeedPhraseInExactOrder =
       'Now, you will write your Seed Phrase in the exact order shown below.';
   static const String ensureYourWordsAreCorrect =
-      'Ensure your seed phrase is written down correctly by filling out the specific words.';
+      'Ensure your Seed Phrase is written down correctly by filling out the specific words.';
   static const String enableBiometrics = 'Enable Biometrics';
   static const String skipForNow = 'Skip for now';
   static const String enableBiometricsDescription =
