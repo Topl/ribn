@@ -65,9 +65,10 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
     final dateFormatAlternate = DateFormat('MM-dd-yyyy');
     final String formattedDate = dateFormat.format(date);
     final String formattedDateAlternate = dateFormatAlternate.format(date);
-    final transactionReceiverAddress = widget.transactionReceipt.to.length == 1
-        ? widget.transactionReceipt.to[0][0]
-        : widget.transactionReceipt.to[1][0];
+    // final transactionReceiverAddress = widget.transactionReceipt.to.length == 1
+    //     ? widget.transactionReceipt.to[0][0]
+    //     : widget.transactionReceipt.to[1][0];
+    final transactionReceiverAddress = widget.transactionReceipt.to[1][0];
     final transactionSenderAddress = widget.transactionReceipt.from[0][0];
     final fee = widget.transactionReceipt.fee;
     final note = widget.transactionReceipt.data;
@@ -93,7 +94,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
       } else if (!sentByMe && !sentToMe) {
         // There's one transaction that hits this condition - not sure how we handle this given the criteria
         // Specifically - tXId ircQkToA8LbdfqWFoYJt5bcWTephQVNDYGEkKitBYLnM
-        return '';
+        return 'What';
       }
 
       return '';
@@ -109,7 +110,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
       } else if (!sentByMe && sentToMe) {
         return '+';
       } else if (!sentByMe && !sentToMe) {
-        return '';
+        return 'What';
       }
       return '';
     }
