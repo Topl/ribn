@@ -92,6 +92,7 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
                 onChanged: checkboxesState[Strings.toplCannotRecoverForMe]!
                     ? (bool? val) => onChecked(val ?? false, Strings.spAndPasswordUnrecoverable)
                     : null,
+                renderTooltipIcon: true,
               ),
               SizedBox(height: adaptHeight(0.1)),
               renderIfMobile(const MobileOnboardingProgressBar(currStep: 2)),
@@ -115,9 +116,10 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
     required bool activeText,
     required String text,
     required Function(bool?)? onChanged,
+    renderTooltipIcon = false,
   }) {
     return SizedBox(
-      width: kIsWeb ? 600 : 350,
+      width: kIsWeb ? 600 : 330,
       child: CheckboxWrappableText(
         borderColor: checked
             ? const Color(0xff80FF00)
@@ -129,6 +131,7 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
         wrappableText: text,
         activeText: activeText,
         wrapText: true,
+        renderTooltipIcon: renderTooltipIcon,
       ),
     );
   }
