@@ -174,7 +174,7 @@ Write down the each word in the exact order it is presented.''';
 
   static const String needHelp = 'Need help? Contact ';
   static const String ribnSupport = 'Ribn Support';
-  static const String importWalletUsingSeedPhrase = 'Import an existing Ribn wallet using your Seed Phrase';
+  static const String importWalletUsingSeedPhrase = 'Import an existing Ribn wallet using your Seed Phrase.';
   static const String typeSomething = 'Type something';
   static const String supportEmail = 'support@topl.me';
   static const String supportEmailLink = 'mailto:$supportEmail?subject=Ribn Support&body=';

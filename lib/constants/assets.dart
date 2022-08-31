@@ -89,8 +89,9 @@ class RibnAssets {
   static const programPng = 'assets/icons/program.png';
   static const onboardingBackgroundSvg = 'assets/icons/onboarding_background.svg';
   static const onboardingBackgroundPng = 'assets/icons/onboarding_background.png';
-  static const createWalletPng = 'assets/icons/create_wallet.png';
-  static const importWalletPng = 'assets/icons/import_wallet.png';
+  static const createWalletPng = 'packages/ribn_toolkit/assets/icons/create_wallet.png';
+  static const createWalletPngWithShadow = 'packages/ribn_toolkit/assets/icons/create_wallet_shadow.png';
+  static const importWalletPng = 'packages/ribn_toolkit/assets/icons/import_wallet.png';
   static const walletLockPng = 'assets/icons/wallet_lock.png';
   static const passwordVisiblePng = 'assets/icons/password_visible.png';
   static const passwordHiddenPng = 'assets/icons/password_hidden.png';
