@@ -236,6 +236,7 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
         key: assetLongNameKey,
         editSection: AssetLongNameEditSection(
           assetCode: widget.assetCode,
+          currentAssetLongName: assetDetails?.longName,
           onActionTaken: () => resetOverlays(resetAll: true),
         ),
       );
