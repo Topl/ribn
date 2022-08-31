@@ -185,7 +185,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Text(
-              '\$${vm.polyBalance}',
+              'Available balance',
               style: RibnToolkitTextStyles.h3.copyWith(
                 color: RibnColors.secondaryDark,
               ),
@@ -325,7 +325,8 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
               title: Text(
                 Strings.myRibnWalletAddress,
                 style: RibnToolkitTextStyles.extH2.copyWith(
-                  fontSize: 23,
+                  fontSize: 19,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               body: Column(
@@ -342,7 +343,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
                     formatAddrString(ribnAddress.toplAddress.toBase58()),
                     style: const TextStyle(
                       fontFamily: 'DM Sans',
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w400,
                       fontSize: 15,
                       color: RibnColors.defaultText,
                     ),
