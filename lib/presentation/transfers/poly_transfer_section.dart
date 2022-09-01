@@ -88,6 +88,7 @@ class _PolyTransferSectionState extends State<PolyTransferSection> {
     return WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.updateButton(
         BottomReviewAction(
+          maxHeight: 145,
           children: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

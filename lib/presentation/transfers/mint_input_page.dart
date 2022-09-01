@@ -117,7 +117,7 @@ class _MintInputPageState extends State<MintInputPage> {
                     title: Strings.mint,
                     hideBackArrow: true,
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 20),
                   SizedBox(
                     width: 310,
                     child: SlidingSegmentControl(
@@ -150,7 +150,7 @@ class _MintInputPageState extends State<MintInputPage> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 20),
                   SizedBox(
                     width: 310,
                     child: Form(
@@ -233,7 +233,6 @@ class _MintInputPageState extends State<MintInputPage> {
                               width: 18,
                             ),
                           ),
-                          SizedBox(height: isKeyboardVisible ? 0 : adaptHeight(0.25)),
                         ],
                       ),
                     ),
@@ -242,8 +241,10 @@ class _MintInputPageState extends State<MintInputPage> {
               ),
             ),
             bottomNavigationBar: BottomReviewAction(
+              maxHeight: 145,
               children: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // fee info for the tx
                   FeeInfo(fee: vm.networkFee),
@@ -333,7 +334,7 @@ class _MintInputPageState extends State<MintInputPage> {
           )
         : vm.assetDetails[_selectedAsset?.assetCode.toString()];
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0, bottom: 10),
+      padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: LargeButton(
         buttonWidth: double.infinity,
         buttonChild: Text(

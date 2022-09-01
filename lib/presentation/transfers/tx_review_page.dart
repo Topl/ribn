@@ -101,8 +101,12 @@ class TxReviewPage extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: BottomReviewAction(
+          maxHeight: 173,
           children: Column(
             children: [
+              const SizedBox(
+                height: 15,
+              ),
               // confirm button
               LargeButton(
                 buttonChild: Text(

@@ -134,9 +134,13 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
         ),
       ),
       bottomNavigationBar: BottomReviewAction(
+        maxHeight: 173,
         transparentBackground: true,
         children: Column(
           children: [
+            const SizedBox(
+              height: 15,
+            ),
             LargeButton(
               buttonHeight: 50,
               buttonWidth: double.infinity,
