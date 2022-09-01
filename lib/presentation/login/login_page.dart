@@ -1,4 +1,5 @@
 import 'package:bip_topl/bip_topl.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -12,6 +13,7 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/login_container.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/platform/platform.dart';
+import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
@@ -118,13 +120,14 @@ class _LoginPageState extends State<LoginPage> {
                   containerWidth: adaptWidth(1),
                   waveAmplitude: 30,
                   containerChild: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: kIsWeb ? MainAxisAlignment.start : MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
                         children: [
                           SizedBox(height: deviceTopPadding()),
-                          Image.asset(RibnAssets.newRibnLogo, width: 138),
+                          renderIfWeb(const SizedBox(height: 40)),
+                          Image.asset(RibnAssets.newRibnLogo, width: kIsWeb ? 102 : 138),
                           Text(
                             Strings.ribnWallet,
                             style: RibnToolkitTextStyles.h1.copyWith(
@@ -134,13 +137,15 @@ class _LoginPageState extends State<LoginPage> {
                           const SizedBox(height: 5),
                           Center(
                             child: SizedBox(
-                              width: _baseWidth,
+                              width: kIsWeb ? _baseWidth - 110 : _baseWidth,
                               child: Center(
                                 child: Text(
                                   Strings.intro,
                                   style: RibnToolkitTextStyles.h3.copyWith(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w300,
+                                    height: 2,
+                                    fontSize: kIsWeb ? 12 : 16,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -149,6 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ],
                       ),
+                      renderIfWeb(const SizedBox(height: 40)),
                       Column(
                         children: [
                           _buildTextFieldLabel(),
@@ -160,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 25),
+                      kIsWeb ? const SizedBox(height: 40) : const SizedBox(height: 25),
                       LargeButton(
                         backgroundColor: RibnColors.primary,
                         dropShadowColor: RibnColors.whiteButtonShadow,
@@ -169,10 +175,12 @@ class _LoginPageState extends State<LoginPage> {
                           style: RibnToolkitTextStyles.btnLarge.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.w400,
+                            fontSize: kIsWeb ? 15 : 19.6,
                           ),
                         ),
                         onPressed: attemptLogin,
                       ),
+                      renderIfWeb(const SizedBox(height: 20)),
                       _buildForgetPasswordLink(vm.restoreWallet),
                       const SizedBox(height: 40),
                       SizedBox(
@@ -187,7 +195,10 @@ class _LoginPageState extends State<LoginPage> {
                                     'Incorrect Password',
                                     style: const TextStyle(
                                       color: Colors.red,
-                                    ).copyWith(fontWeight: FontWeight.bold),
+                                    ).copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: kIsWeb ? 12 : 16,
+                                    ),
                                   )
                                 : const SizedBox(),
                             _biometricsError
@@ -195,7 +206,10 @@ class _LoginPageState extends State<LoginPage> {
                                     'There was an issue with Face ID, please try again',
                                     style: const TextStyle(
                                       color: Colors.red,
-                                    ).copyWith(fontWeight: FontWeight.bold),
+                                    ).copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: kIsWeb ? 12 : 16,
+                                    ),
                                   )
                                 : const SizedBox()
                           ],
@@ -221,6 +235,7 @@ class _LoginPageState extends State<LoginPage> {
             Strings.enterWalletPassword,
             style: RibnToolkitTextStyles.h3.copyWith(
               color: Colors.white,
+              fontSize: kIsWeb ? 12 : 16,
             ),
           ),
           // ignore: prefer_const_constructors
@@ -253,6 +268,7 @@ class _LoginPageState extends State<LoginPage> {
           text: TextSpan(
             style: RibnToolkitTextStyles.h3.copyWith(
               color: RibnColors.secondary,
+              fontSize: kIsWeb ? 12 : 16,
             ),
             children: [
               TextSpan(
@@ -275,6 +291,7 @@ class _LoginPageState extends State<LoginPage> {
           text: TextSpan(
             style: RibnToolkitTextStyles.h3.copyWith(
               color: Colors.white,
+              fontSize: kIsWeb ? 12 : 16,
             ),
             children: [
               const TextSpan(
@@ -284,6 +301,7 @@ class _LoginPageState extends State<LoginPage> {
                 text: Strings.ribnSupport,
                 style: RibnToolkitTextStyles.h3.copyWith(
                   color: RibnColors.secondary,
+                  fontSize: kIsWeb ? 12 : 16,
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {

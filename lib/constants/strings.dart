@@ -129,10 +129,10 @@ Write down the each word in the exact order it is presented.''';
   static const String writeDown = 'WRITE DOWN SEED PHRASE';
   static const String confirmSeedPhrase = 'CONFIRM SEED PHRASE';
   static const String ribnWallet = 'Ribn Wallet';
-  static const String openTheWalletBy = 'Open the RibnWallet extension by:';
+  static const String openTheWalletBy = 'Open the Ribn Wallet extension by:';
   static const String clickingTheIconPartOne = 'Clicking the ';
   static const String clickingTheIconPartTwo = ''' icon on the top right of your browser.\n\nOr, clicking the ''';
-  static const String clickingTheIconPartThree = ' to find the RibnWallet extension in the Chrome extension list.';
+  static const String clickingTheIconPartThree = ' to find the Ribn Wallet extension in the Chrome extension list.';
   static const String ribnVersion = 'Ribn Version';
   static const String links = 'Links';
   static const String termsOfUse = 'Terms of Use';
@@ -212,7 +212,7 @@ Write down the each word in the exact order it is presented.''';
       'Your Wallet Password can lock and unlock your\nwallet on a device where it is already stored.';
   static const String assetLongNameInfo =
       'The descriptive name used to identify your\nassets locally in your Ribn Wallet.';
-  static const String assetCodeLongInfo = 'AssetCode serves as a unique identifier\nfor user issued assets.';
+  static const String assetCodeLongInfo = 'Asset code serves as a unique identifier\nfor user issued assets.';
   static const String assetCodeShortInfo =
       'This is used to view the short name for your \nasset as this will be the information used to\nidentify a particular asset on the blockchain.';
   static const String issuerAddressInfo =

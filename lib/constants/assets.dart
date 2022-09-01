@@ -67,6 +67,7 @@ class RibnAssets {
   static const openInNewWindow = 'assets/icons/open_in_new.png';
   static const roundInfoCircle = 'assets/icons/round_info_circle.png';
   static const newRibnLogo = 'packages/ribn_toolkit/assets/icons/new_ribn_logo.png';
+  static const newCircleRibnLogo = 'packages/ribn_toolkit/assets/icons/ribn_circle_logo.png';
   static const chevronDown = 'packages/ribn_toolkit/assets/icons/chevron_down.png';
   static const chevronDownDark = 'packages/ribn_toolkit/assets/icons/chevron_down_dark.png';
   static const hamburgerMenu = 'packages/ribn_toolkit/assets/icons/hamburger_menu.png';
