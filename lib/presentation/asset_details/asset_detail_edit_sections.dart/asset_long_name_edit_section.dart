@@ -16,10 +16,14 @@ class AssetLongNameEditSection extends StatefulWidget {
   /// A callback function for handling save/cancel actions.
   final VoidCallback onActionTaken;
 
+  // The current asset long name
+  final String? currentAssetLongName;
+
   const AssetLongNameEditSection({
     Key? key,
     required this.assetCode,
     required this.onActionTaken,
+    this.currentAssetLongName,
   }) : super(key: key);
 
   @override
@@ -33,6 +37,11 @@ class _AssetLongNameEditSectionState extends State<AssetLongNameEditSection> {
     _controller.addListener(() {
       setState(() {});
     });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => setState(() {
+        _controller.text = widget.currentAssetLongName ?? '';
+      }),
+    );
     super.initState();
   }
 
