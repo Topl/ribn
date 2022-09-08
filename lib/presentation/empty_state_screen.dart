@@ -64,11 +64,6 @@ class EmptyStateScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // SizedBox(
-            //   width: 275,
-            //   height: 133,
-            //   child: body,
-            // ),
             SizedBox(
               width: 275,
               height: 73,
