@@ -153,7 +153,7 @@ class _PolyTransferSectionState extends State<PolyTransferSection> {
                   alternativeDisplayChild: const AddressDisplayContainer(
                     text: Strings.yourRibnWalletAddress,
                     icon: RibnAssets.myFingerprint,
-                    width: 300,
+                    width: 250,
                   ),
                 ),
                 // field for adding a note to the tx
@@ -180,9 +180,12 @@ class _PolyTransferSectionState extends State<PolyTransferSection> {
       item: Container(
         width: 310,
         height: 36,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: RibnColors.whiteBackground,
-          borderRadius: BorderRadius.all(
+          border: Border.all(
+            color: const Color(0xffE9E9E9),
+          ),
+          borderRadius: const BorderRadius.all(
             Radius.circular(4.7),
           ),
         ),

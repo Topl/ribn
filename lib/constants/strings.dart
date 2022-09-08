@@ -85,7 +85,7 @@ Rest assured, you have saved the correct words, in the correct order.''';
   static const String finalReview = 'Final Review';
   static const String createWalletPassword = 'Create Wallet Password';
   static const String createWalletPasswordDesc =
-      '''Last step, you will create a Wallet Password. A Wallet Password is used to unlock your wallet.''';
+      '''Last step, you will create a Wallet Password to unlock your wallet.''';
   static const String newPassword = 'New Password';
   static const String confirmPassword = 'Confirm Password';
   static const String atLeast8Chars = 'At least 8 characters.';
