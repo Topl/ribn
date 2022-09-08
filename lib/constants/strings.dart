@@ -203,6 +203,7 @@ Write down the each word in the exact order it is presented.''';
       '''Let's Mint a new Asset!\n\nYou can either mint a new Asset or remint an exisiting Asset.''';
   static const String whatWouldYouLikeToDo = 'What would you like to do?';
   static const String mintNewAsset = 'Mint new asset';
+  static const String shareAddress = 'Share address';
   static const String mintExistingAsset = 'Mint existing asset';
   static const String myRibnWallet = 'MY\nRIBN WALLET';
   static const String anotherRecipientsWallet = 'ANOTHER RECIPIENT\'S WALLET ';
@@ -269,4 +270,7 @@ Write down the each word in the exact order it is presented.''';
   static const String enableBiometricsDescription =
       '''Would you like to turn on biometrics for faster access to Ribn Wallet?\n 
 Ribn Wallet does not control the functionality of biometrics and does not have access to your biometrics information.''';
+  static const String noAssetsInWallet = 'You currently have no assets in your wallet';
+  static const String emptyStateBody =
+      'Here’s how you can get started:\n • Mint a new asset to a wallet address\n • Share your address to receive assets';
 }

@@ -112,4 +112,5 @@ class RibnAssets {
   static const andriodBiometricsOutline = 'assets/icons/android_biometrics_outline.png';
   static const addPlusPng = 'assets/icons/add_plus.png';
   static const documentPng = 'assets/icons/document.png';
+  static const walletWithBorder = 'assets/icons/wallet_with_border.png';
 }

@@ -57,7 +57,7 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    height: kIsWeb ? 280 : adaptHeight(isXsScreenSize ? 0.58 : 0.4),
+                    height: kIsWeb ? 280 : adaptHeight(isXsScreenSize ? 0.58 : 0.41),
                     width: kIsWeb ? 674 : adaptWidth(isXsScreenSize ? 1 : 0.9),
                     decoration: BoxDecoration(
                       color: RibnColors.greyText.withOpacity(0.24),
