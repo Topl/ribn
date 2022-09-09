@@ -36,22 +36,28 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     });
   }
 
-  fetchTxHistory(BuildContext context, ToplAddress toplAddress, int networkId) async {
-    final response = await http.get(
-      Uri.parse(
-        Rules.txHistoryUrl(toplAddress.toBase58(), networkId),
-      ),
-    );
+  Future<List<TransactionReceipt>> fetchTxHistory(
+    BuildContext context,
+    ToplAddress toplAddress,
+    int networkId,
+    TransactionHistoryViewmodel vm,
+  ) async {
+    return await vm.getTransactions(pageNum: 0);
+    // final response = await http.get(
+    //   Uri.parse(
+    //     Rules.txHistoryUrl(toplAddress.toBase58(), networkId),
+    //   ),
+    // );
 
-    if (filterSelectedItem != 'Transaction types') {
-      final List transactions = jsonDecode(response.body);
+    // if (filterSelectedItem != 'Transaction types') {
+    //   final List transactions = jsonDecode(response.body);
 
-      for (var transaction in transactions) {
-        if (transaction['minting'] == true) filteredTransactions.add(transaction);
-      }
-    }
+    //   for (var transaction in transactions) {
+    //     if (transaction['minting'] == true) filteredTransactions.add(transaction);
+    //   }
+    // }
 
-    return jsonDecode(response.body);
+    // return jsonDecode(response.body);
   }
 
   @override
@@ -86,7 +92,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                       updateSelectedItem: updateSelectedItem,
                     ),
                     FutureBuilder(
-                      future: fetchTxHistory(context, vm.toplAddress, vm.networkId),
+                      future: fetchTxHistory(context, vm.toplAddress, vm.networkId, vm),
                       builder: (context, AsyncSnapshot snapshot) {
                         switch (snapshot.connectionState) {
                           case ConnectionState.done:
