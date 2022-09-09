@@ -106,8 +106,12 @@ flutter:
   fonts:
     - family: DM Sans
       fonts:
-        - asset: packages/ribn_toolkit/fonts/DMSans-Medium.ttf
         - asset: packages/ribn_toolkit/fonts/DMSans-Regular.ttf
+          weight: 400
+        - asset: packages/ribn_toolkit/fonts/DMSans-Medium.ttf
+          weight: 500
+        - asset: packages/ribn_toolkit/fonts/DMSans-Bold.ttf
+          weight: 700
 
 # Splash screen config
 flutter_native_splash:

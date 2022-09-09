@@ -8,6 +8,7 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/containers/mint_input_container.dart';
 import 'package:ribn/models/asset_details.dart';
+import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/issuer_address_field.dart';
@@ -101,6 +102,112 @@ class _MintInputPageState extends State<MintInputPage> {
 
   @override
   Widget build(BuildContext context) {
+    dynamic returnFormFieldsOrEmptyState(vm) {
+      if (vm.assets.isEmpty && mintingNewAsset == false) {
+        return EmptyStateScreen(
+          icon: RibnAssets.walletWithBorder,
+          title: Strings.noAssetsInWallet,
+          body: emptyStateBody,
+          buttonOneText: 'Mint',
+          buttonOneAction: () => {
+            setState(() {
+              mintingNewAsset = true;
+              currentTabIndex = 0;
+            })
+          },
+          buttonTwoText: 'Share',
+          buttonTwoAction: () async => await showReceivingAddress(),
+        );
+      }
+
+      return SizedBox(
+        width: 310,
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // builds the apt asset defining field, depending on [widget.mintingNewAsset]
+              _buildAssetField(vm),
+              // field for defining a short name
+              mintingNewAsset
+                  ? AssetShortNameField(
+                      controller: _assetShortNameController,
+                      tooltipIcon: Image.asset(
+                        RibnAssets.greyHelpBubble,
+                        width: 18,
+                      ),
+                    )
+                  : const SizedBox(),
+              // field for defining asset amount & custom unit
+              AssetAmountField(
+                selectedUnit: _selectedUnit,
+                controller: _amountController,
+                allowEditingUnit: mintingNewAsset,
+                onUnitSelected: (String unit) {
+                  setState(() {
+                    _selectedUnit = unit;
+                  });
+                },
+                chevronIcon: Image.asset(
+                  RibnAssets.chevronDownDark,
+                  width: 24,
+                ),
+              ),
+              // ignore: prefer_const_constructors
+              IssuerAddressField(width: 213), // const ignored here so that tooltip can be dismissed
+              // field for entering the recipient address
+              RecipientField(
+                controller: _recipientController,
+                validRecipientAddress: _validRecipientAddress,
+                onChanged: (text) => validateRecipientAddress(
+                  networkName: vm.currentNetwork.networkName,
+                  address: _recipientController.text,
+                  handleResult: (bool result) {
+                    setState(() {
+                      if (result) {
+                        _validRecipientAddress = _recipientController.text;
+                        _recipientController.text = '';
+                      } else {
+                        _validRecipientAddress = '';
+                      }
+                    });
+                  },
+                ),
+                // clear the textfield on backspace
+                onBackspacePressed: () {
+                  setState(() {
+                    if (_validRecipientAddress.isNotEmpty) {
+                      _recipientController.text = _validRecipientAddress;
+                      _recipientController
+                        ..text = _recipientController.text.substring(0, _recipientController.text.length)
+                        ..selection = TextSelection.collapsed(offset: _recipientController.text.length);
+                    }
+                    _validRecipientAddress = '';
+                  });
+                },
+                icon: SvgPicture.asset(RibnAssets.myFingerprint),
+                alternativeDisplayChild: const AddressDisplayContainer(
+                  text: Strings.yourRibnWalletAddress,
+                  icon: RibnAssets.myFingerprint,
+                  width: 256,
+                ),
+              ),
+              // field for adding a note to the tx
+              NoteField(
+                controller: _noteController,
+                noteLength: _noteController.text.length,
+                tooltipIcon: Image.asset(
+                  RibnAssets.greyHelpBubble,
+                  width: 18,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return MintInputContainer(
       builder: (BuildContext context, MintInputViewmodel vm) => Listener(
         onPointerDown: (_) {
@@ -117,7 +224,7 @@ class _MintInputPageState extends State<MintInputPage> {
                     title: Strings.mint,
                     hideBackArrow: true,
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 20),
                   SizedBox(
                     width: 310,
                     child: SlidingSegmentControl(
@@ -150,100 +257,16 @@ class _MintInputPageState extends State<MintInputPage> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 40),
-                  SizedBox(
-                    width: 310,
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // builds the apt asset defining field, depending on [widget.mintingNewAsset]
-                          _buildAssetField(vm),
-                          // field for defining a short name
-                          mintingNewAsset
-                              ? AssetShortNameField(
-                                  controller: _assetShortNameController,
-                                  tooltipIcon: Image.asset(
-                                    RibnAssets.greyHelpBubble,
-                                    width: 18,
-                                  ),
-                                )
-                              : const SizedBox(),
-                          // field for defining asset amount & custom unit
-                          AssetAmountField(
-                            selectedUnit: _selectedUnit,
-                            controller: _amountController,
-                            allowEditingUnit: mintingNewAsset,
-                            onUnitSelected: (String unit) {
-                              setState(() {
-                                _selectedUnit = unit;
-                              });
-                            },
-                            chevronIcon: Image.asset(
-                              RibnAssets.chevronDownDark,
-                              width: 24,
-                            ),
-                          ),
-                          // ignore: prefer_const_constructors
-                          IssuerAddressField(width: 213), // const ignored here so that tooltip can be dismissed
-                          // field for entering the recipient address
-                          RecipientField(
-                            controller: _recipientController,
-                            validRecipientAddress: _validRecipientAddress,
-                            onChanged: (text) => validateRecipientAddress(
-                              networkName: vm.currentNetwork.networkName,
-                              address: _recipientController.text,
-                              handleResult: (bool result) {
-                                setState(() {
-                                  if (result) {
-                                    _validRecipientAddress = _recipientController.text;
-                                    _recipientController.text = '';
-                                  } else {
-                                    _validRecipientAddress = '';
-                                  }
-                                });
-                              },
-                            ),
-                            // clear the textfield on backspace
-                            onBackspacePressed: () {
-                              setState(() {
-                                if (_validRecipientAddress.isNotEmpty) {
-                                  _recipientController.text = _validRecipientAddress;
-                                  _recipientController
-                                    ..text = _recipientController.text.substring(0, _recipientController.text.length)
-                                    ..selection = TextSelection.collapsed(offset: _recipientController.text.length);
-                                }
-                                _validRecipientAddress = '';
-                              });
-                            },
-                            icon: SvgPicture.asset(RibnAssets.myFingerprint),
-                            alternativeDisplayChild: const AddressDisplayContainer(
-                              text: Strings.yourRibnWalletAddress,
-                              icon: RibnAssets.myFingerprint,
-                              width: 256,
-                            ),
-                          ),
-                          // field for adding a note to the tx
-                          NoteField(
-                            controller: _noteController,
-                            noteLength: _noteController.text.length,
-                            tooltipIcon: Image.asset(
-                              RibnAssets.greyHelpBubble,
-                              width: 18,
-                            ),
-                          ),
-                          SizedBox(height: isKeyboardVisible ? 0 : adaptHeight(0.25)),
-                        ],
-                      ),
-                    ),
-                  )
+                  const SizedBox(height: 20),
+                  returnFormFieldsOrEmptyState(vm),
                 ],
               ),
             ),
             bottomNavigationBar: BottomReviewAction(
+              maxHeight: 145,
               children: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // fee info for the tx
                   FeeInfo(fee: vm.networkFee),
@@ -333,7 +356,7 @@ class _MintInputPageState extends State<MintInputPage> {
           )
         : vm.assetDetails[_selectedAsset?.assetCode.toString()];
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0, bottom: 10),
+      padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: LargeButton(
         buttonWidth: double.infinity,
         buttonChild: Text(

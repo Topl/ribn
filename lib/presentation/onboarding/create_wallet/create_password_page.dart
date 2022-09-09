@@ -82,7 +82,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: adaptHeight(0.01)),
                     child: Image.asset(
-                      RibnAssets.createWalletPng,
+                      RibnAssets.createWalletPngWithShadow,
                       width: 100,
                     ),
                   ),

@@ -1,24 +1,19 @@
-import 'package:barcode_widget/barcode_widget.dart';
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/wallet_balance_container.dart';
-import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
-import 'package:ribn/models/ribn_address.dart';
+import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/error_section.dart';
 import 'package:ribn/presentation/home/wallet_balance_shimmer.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn/widgets/custom_divider.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_card.dart';
-import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -187,7 +182,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Text(
-              '\$${vm.polyBalance}',
+              'Available balance',
               style: RibnToolkitTextStyles.h3.copyWith(
                 color: RibnColors.secondaryDark,
               ),
@@ -214,6 +209,24 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
   ///
   /// The ViewModel [vm] allows access to the list of assets, asset details, and callbacks.
   Widget _buildAssetsListView(WalletBalanceViewModel vm) {
+    if (vm.assets.isEmpty) {
+      return EmptyStateScreen(
+        icon: RibnAssets.walletWithBorder,
+        title: Strings.noAssetsInWallet,
+        body: emptyStateBody,
+        buttonOneText: 'Mint',
+        buttonOneAction: () => Keys.navigatorKey.currentState?.pushNamed(
+          Routes.mintInput,
+          arguments: {
+            'mintingNewAsset': true,
+            'mintingToMyWallet': true,
+          },
+        ),
+        buttonTwoText: 'Share',
+        buttonTwoAction: () async => await showReceivingAddress(),
+      );
+    }
+
     return Container(
       color: RibnColors.background,
       child: Padding(
@@ -312,76 +325,6 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
           ],
         ),
       ),
-    );
-  }
-
-  Future<void> showReceivingAddress() async {
-    await showDialog(
-      context: Keys.navigatorKey.currentContext!,
-      builder: (context) {
-        return StoreConnector<AppState, RibnAddress>(
-          converter: (store) => store.state.keychainState.currentNetwork.addresses.first,
-          builder: (context, ribnAddress) {
-            return CustomModal.renderCustomModal(
-              context: Keys.navigatorKey.currentContext!,
-              title: Text(
-                Strings.myRibnWalletAddress,
-                style: RibnToolkitTextStyles.extH2.copyWith(
-                  fontSize: 23,
-                ),
-              ),
-              body: Column(
-                children: [
-                  const SizedBox(height: 20),
-                  BarcodeWidget(
-                    barcode: Barcode.qrCode(),
-                    data: ribnAddress.toplAddress.toBase58(),
-                    width: 130,
-                    height: 130,
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    formatAddrString(ribnAddress.toplAddress.toBase58()),
-                    style: const TextStyle(
-                      fontFamily: 'DM Sans',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15,
-                      color: RibnColors.defaultText,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  const CustomDivider(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          Strings.copyAddress,
-                          style: TextStyle(
-                            fontFamily: 'DM Sans',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: RibnColors.defaultText,
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        CustomCopyButton(
-                          textToBeCopied: ribnAddress.toplAddress.toBase58(),
-                          icon: Image.asset(
-                            RibnAssets.copyIcon,
-                            width: 26,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      },
     );
   }
 }
