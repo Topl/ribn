@@ -16,6 +16,7 @@ import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/models/transaction_history_entry.dart';
 import 'package:ribn/presentation/transaction_history/dashed_list_separator/dashed_list_separator.dart';
 import 'package:ribn/presentation/transaction_history/transaction_data_row/transaction_data_row.dart';
+import 'package:ribn/presentation/transaction_history/transaction_history_details_page/transaction_history_data_tile.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
@@ -43,513 +44,400 @@ class TxHistoryDetailsPage extends StatefulWidget {
 class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
   @override
   Widget build(BuildContext context) {
-    // print(widget.transactionReceipt!['transactionType']);
     final _scrollController = ScrollController();
+
+    final dataTileTextStyle = RibnToolkitTextStyles.hintStyle.copyWith(
+      fontWeight: FontWeight.w400,
+      color: const Color(0xff727372),
+    );
 
     return TransactionHistoryContainer(
       builder: (BuildContext context, TransactionHistoryViewmodel vm) => LoaderOverlay(
         overlayColor: Colors.transparent,
         child: Scaffold(
           backgroundColor: RibnColors.background,
-          body: RefreshIndicator(
-            backgroundColor: RibnColors.primary,
-            color: RibnColors.secondaryDark,
-            onRefresh: () async {
-              setState(() {});
-            },
-            child: Scrollbar(
-              thumbVisibility: true,
+          body: Scrollbar(
+            thumbVisibility: true,
+            controller: _scrollController,
+            child: SingleChildScrollView(
               controller: _scrollController,
-              child: SingleChildScrollView(
-                controller: _scrollController,
-                child: Column(
-                  children: [
-                    const CustomPageTextTitle(
-                      title: Strings.transactionDetails,
-                      hideCloseCross: true,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20, bottom: 20),
+              child: Column(
+                children: [
+                  const CustomPageTextTitle(
+                    title: Strings.transactionDetails,
+                    hideCloseCross: true,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, bottom: 20),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width - 40,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(11.6),
+                        color: RibnColors.whiteBackground,
+                        border: Border.all(color: RibnColors.lightGrey, width: 1),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: RibnColors.greyShadow,
+                            spreadRadius: 0,
+                            blurRadius: 37.5,
+                            offset: Offset(0, -6),
+                          ),
+                        ],
+                      ),
                       child: Container(
-                        width: MediaQuery.of(context).size.width - 40,
+                        color: Colors.white,
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 8,
+                          horizontal: 20,
+                          vertical: 15,
                         ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(11.6),
-                          color: RibnColors.whiteBackground,
-                          border: Border.all(color: RibnColors.lightGrey, width: 1),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: RibnColors.greyShadow,
-                              spreadRadius: 0,
-                              blurRadius: 37.5,
-                              offset: Offset(0, -6),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                TransactionHistoryDataTile(
+                                  startOrEnd: CrossAxisAlignment.start,
+                                  tileTitle: 'Transaction Type',
+                                  tileValue: Text(
+                                    widget.transactionDetails!['transactionType'],
+                                    style: dataTileTextStyle,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 68,
+                                ),
+                                TransactionHistoryDataTile(
+                                  startOrEnd: CrossAxisAlignment.start,
+                                  tileTitle: 'Timestamp',
+                                  tileValue: Text(
+                                    widget.transactionDetails!['timestamp'],
+                                    style: dataTileTextStyle,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                TransactionHistoryDataTile(
+                                  startOrEnd: CrossAxisAlignment.start,
+                                  tileTitle: 'Asset Code',
+                                  tileValue: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 24,
+                                        height: 24,
+                                        child: widget.transactionDetails?['icon'],
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 12),
+                                        child: Text(
+                                          widget.transactionDetails?['shortName'],
+                                          style: dataTileTextStyle,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 70,
+                                ),
+                                TransactionHistoryDataTile(
+                                  startOrEnd: CrossAxisAlignment.start,
+                                  tileTitle: 'Amount',
+                                  tileValue: Text(
+                                    widget.transactionDetails!['transactionAmount'],
+                                    style: dataTileTextStyle,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                TransactionHistoryDataTile(
+                                  startOrEnd: CrossAxisAlignment.start,
+                                  tileTitle: 'Status',
+                                  tileValue: StatusChip(
+                                    status: widget.transactionDetails!['transactionStatus'],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 96,
+                                ),
+                                TransactionHistoryDataTile(
+                                  startOrEnd: CrossAxisAlignment.start,
+                                  tileTitle: 'Fee',
+                                  tileValue: Text(
+                                    '-${widget.transactionDetails!['fee']} POLY',
+                                    style: dataTileTextStyle,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            TransactionHistoryDataTile(
+                              startOrEnd: CrossAxisAlignment.start,
+                              tileTitle: 'To',
+                              tileValue: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: 26,
+                                    height: 26,
+                                    child: SvgPicture.asset(RibnAssets.myFingerprint),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                    child: Text(
+                                      Strings.yourRibnWalletAddress,
+                                      style: dataTileTextStyle,
+                                    ),
+                                  ),
+                                  CustomCopyButton(
+                                    textToBeCopied: widget.transactionDetails!['myRibnWalletAddress'],
+                                    icon: Image.asset(
+                                      RibnAssets.copyIcon,
+                                      width: 20,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            TransactionHistoryDataTile(
+                              startOrEnd: CrossAxisAlignment.start,
+                              tileTitle: 'From',
+                              tileValue: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: 26,
+                                    height: 26,
+                                    child: SvgPicture.asset(RibnAssets.recipientFingerprint),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                    child: Text(
+                                      formatAddrString(widget.transactionDetails!['transactionSenderAddress']),
+                                      style: dataTileTextStyle,
+                                    ),
+                                  ),
+                                  CustomCopyButton(
+                                    textToBeCopied: widget.transactionDetails!['transactionSenderAddress'],
+                                    icon: Image.asset(
+                                      RibnAssets.copyIcon,
+                                      width: 20,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                TransactionHistoryDataTile(
+                                  startOrEnd: CrossAxisAlignment.start,
+                                  tileTitle: 'Note',
+                                  tileValue: Text(
+                                    widget.transactionDetails!['note'],
+                                    style: dataTileTextStyle,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                TransactionHistoryDataTile(
+                                  startOrEnd: CrossAxisAlignment.start,
+                                  tileTitle: 'Security Root',
+                                  tileValue: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 10),
+                                        child: Text(
+                                          formatAddrString(
+                                            widget.transactionDetails!['securityRoot'],
+                                            charsToDisplay: 4,
+                                          ),
+                                          style: dataTileTextStyle,
+                                        ),
+                                      ),
+                                      CustomCopyButton(
+                                        textToBeCopied: widget.transactionDetails!['securityRoot'],
+                                        icon: Image.asset(
+                                          RibnAssets.copyIcon,
+                                          width: 20,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                TransactionHistoryDataTile(
+                                  startOrEnd: CrossAxisAlignment.start,
+                                  tileTitle: 'Block ID',
+                                  tileValue: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 10),
+                                        child: Text(
+                                          formatAddrString(
+                                            widget.transactionDetails!['blockId'],
+                                            charsToDisplay: 4,
+                                          ),
+                                          style: dataTileTextStyle,
+                                        ),
+                                      ),
+                                      CustomCopyButton(
+                                        textToBeCopied: widget.transactionDetails!['blockId'],
+                                        icon: Image.asset(
+                                          RibnAssets.copyIcon,
+                                          width: 20,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 76,
+                                ),
+                                TransactionHistoryDataTile(
+                                  startOrEnd: CrossAxisAlignment.start,
+                                  tileTitle: 'Block height',
+                                  tileValue: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 10),
+                                        child: Text(
+                                          widget.transactionDetails!['blockHeight'].toString(),
+                                          style: dataTileTextStyle,
+                                        ),
+                                      ),
+                                      CustomCopyButton(
+                                        textToBeCopied: widget.transactionDetails!['blockHeight'].toString(),
+                                        icon: Image.asset(
+                                          RibnAssets.copyIcon,
+                                          width: 20,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                TransactionHistoryDataTile(
+                                  startOrEnd: CrossAxisAlignment.start,
+                                  tileTitle: 'Transaction ID',
+                                  tileValue: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 10),
+                                        child: Text(
+                                          formatAddrString(
+                                            widget.transactionDetails!['transactionId'],
+                                            charsToDisplay: 4,
+                                          ),
+                                          style: dataTileTextStyle,
+                                        ),
+                                      ),
+                                      CustomCopyButton(
+                                        textToBeCopied: widget.transactionDetails!['transactionId'],
+                                        icon: Image.asset(
+                                          RibnAssets.copyIcon,
+                                          width: 20,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 74,
+                                ),
+                                TransactionHistoryDataTile(
+                                  startOrEnd: CrossAxisAlignment.start,
+                                  tileTitle: 'View Topl Explorer',
+                                  tileValue: _buildToplExplorerLink(),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                        child: Container(
-                          color: Colors.white,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 15,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(
-                                    height: 40,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          'Transaction Type',
-                                        ),
-                                        SizedBox(
-                                          height: 4,
-                                        ),
-                                        Text(
-                                          widget.transactionDetails!['transactionType'],
-                                          style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 40,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Text(
-                                              'Timestamp',
-                                            ),
-                                            SizedBox(
-                                              height: 4,
-                                            ),
-                                            Text(
-                                              '${widget.transactionDetails!['timestamp']}',
-                                              style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              DashedListSeparator(color: RibnColors.lightGreyDivider),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(
-                                    height: 40,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          'Asset Code',
-                                        ),
-                                        SizedBox(
-                                          height: 4,
-                                        ),
-                                        Row(
-                                          children: [
-                                            SizedBox(
-                                              width: 15,
-                                              height: 15,
-                                              child: widget.transactionDetails?['icon'],
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(left: 12),
-                                              child: Text(
-                                                widget.transactionDetails?['shortName'],
-                                                style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 40,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Text(
-                                              'Amount',
-                                            ),
-                                            SizedBox(
-                                              height: 4,
-                                            ),
-                                            Text(
-                                              widget.transactionDetails!['transactionAmount'],
-                                              style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              DashedListSeparator(color: RibnColors.lightGreyDivider),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(
-                                    height: 40,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          'Status',
-                                        ),
-                                        SizedBox(
-                                          height: 4,
-                                        ),
-                                        StatusChip(
-                                          status: widget.transactionDetails!['transactionStatus'],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 40,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Text(
-                                              'Fee',
-                                            ),
-                                            SizedBox(
-                                              height: 4,
-                                            ),
-                                            Text(
-                                              '-${widget.transactionDetails!['fee']} POLY',
-                                              style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              DashedListSeparator(color: RibnColors.lightGreyDivider),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    'From',
-                                  ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        width: 26,
-                                        height: 26,
-                                        child: SvgPicture.asset(RibnAssets.myFingerprint),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                                        child: Text(
-                                          Strings.yourRibnWalletAddress,
-                                          style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                                        ),
-                                      ),
-                                      CustomCopyButton(
-                                        textToBeCopied: widget.transactionDetails!['myRibnWalletAddress'],
-                                        icon: Image.asset(
-                                          RibnAssets.copyIcon,
-                                          width: 26,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              DashedListSeparator(color: RibnColors.lightGreyDivider),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    'To',
-                                  ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        width: 26,
-                                        height: 26,
-                                        child: SvgPicture.asset(RibnAssets.recipientFingerprint),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                                        child: Text(
-                                          formatAddrString(widget.transactionDetails!['transactionSenderAddress']),
-                                          style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                                        ),
-                                      ),
-                                      CustomCopyButton(
-                                        textToBeCopied: widget.transactionDetails!['transactionSenderAddress'],
-                                        icon: Image.asset(
-                                          RibnAssets.copyIcon,
-                                          width: 26,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              DashedListSeparator(color: RibnColors.lightGreyDivider),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(
-                                    height: 40,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          'Note',
-                                        ),
-                                        SizedBox(
-                                          height: 4,
-                                        ),
-                                        Text(
-                                          widget.transactionDetails!['note'],
-                                          style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              DashedListSeparator(color: RibnColors.lightGreyDivider),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(
-                                    height: 49,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          'Security root',
-                                        ),
-                                        SizedBox(
-                                          height: 4,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              formatAddrString(
-                                                widget.transactionDetails!['securityRoot'],
-                                                charsToDisplay: 4,
-                                              ),
-                                              style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                                            ),
-                                            CustomCopyButton(
-                                              textToBeCopied: widget.transactionDetails!['securityRoot'],
-                                              icon: Image.asset(
-                                                RibnAssets.copyIcon,
-                                                width: 26,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              DashedListSeparator(color: RibnColors.lightGreyDivider),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(
-                                    height: 40,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          'Block ID',
-                                        ),
-                                        SizedBox(
-                                          height: 4,
-                                        ),
-                                        Text(
-                                          '${formatAddrString(
-                                            widget.transactionDetails!['blockId'],
-                                            charsToDisplay: 4,
-                                          )}',
-                                          style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 40,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Text(
-                                              'Block height',
-                                            ),
-                                            SizedBox(
-                                              height: 4,
-                                            ),
-                                            Text(
-                                              '${widget.transactionDetails!['blockHeight']}',
-                                              style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              DashedListSeparator(color: RibnColors.lightGreyDivider),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SizedBox(
-                                    height: 40,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          'Transaction ID',
-                                        ),
-                                        SizedBox(
-                                          height: 4,
-                                        ),
-                                        Text(
-                                          '${formatAddrString(
-                                            widget.transactionDetails!['transactionId'],
-                                            charsToDisplay: 4,
-                                          )}',
-                                          style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 40,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Text(
-                                              'View Topl Explorer',
-                                            ),
-                                            SizedBox(
-                                              height: 4,
-                                            ),
-                                            _buildToplExplorerLink()
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
             ),
           ),
@@ -591,14 +479,25 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    Strings.viewInToplExplorer,
-                    style:
-                        RibnToolkitTextStyles.h4.copyWith(fontWeight: FontWeight.w400, color: RibnColors.secondaryDark),
+                    'www.topl.explorer',
+                    style: RibnToolkitTextStyles.h4.copyWith(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: RibnColors.secondaryDark,
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
                   const SizedBox(width: 5),
-                  Image.asset(
-                    RibnAssets.openInNewWindow,
-                    width: 18,
+                  Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: const Color(0xFFF9F9F9),
+                    ),
+                    child: Image.asset(
+                      RibnAssets.openInNewWindow,
+                      width: 12,
+                    ),
                   ),
                 ],
               ),

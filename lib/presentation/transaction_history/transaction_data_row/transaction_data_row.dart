@@ -6,6 +6,7 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 // import 'package:ribn/constants/strings.dart';
+// import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/models/transaction_history_entry.dart';
@@ -65,9 +66,6 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
     final dateFormatAlternate = DateFormat('MM-dd-yyyy');
     final String formattedDate = dateFormat.format(date);
     final String formattedDateAlternate = dateFormatAlternate.format(date);
-    // final transactionReceiverAddress = widget.transactionReceipt.to.length == 1
-    //     ? widget.transactionReceipt.to[0][0]
-    //     : widget.transactionReceipt.to[1][0];
     final transactionReceiverAddress = widget.transactionReceipt.to[1][0];
     final transactionSenderAddress = widget.transactionReceipt.from[0][0];
     final fee = widget.transactionReceipt.fee;
@@ -75,45 +73,22 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
     final securityRoot = widget.transactionReceipt.to[1][1]['securityRoot'];
     final block = widget.transactionReceipt.block;
     final transactionId = widget.transactionReceipt.txId;
-    // final toAddresses = widget.transactionReceipt.to.where((transaction) => transaction.minting == true).toList();
-    final bool sentByMe = transactionSenderAddress == widget.myRibnWalletAddress ? true : false;
-    final bool sentToMe = transactionReceiverAddress == widget.myRibnWalletAddress ? true : false;
+    // final bool sentByMe = transactionSenderAddress == widget.myRibnWalletAddress ? true : false;
+    // final bool sentToMe = transactionReceiverAddress == widget.myRibnWalletAddress ? true : false;
     // final AssetCode assetCode = widget.transactionReceipt.to[1][1]['assetCode'];
     // final receiverAddress =
     //     widget.transactionReceipt.to.where((transaction) => transaction[0] == widget.myRibnWalletAddress).toList();
 
     String? renderSentReceivedMintedText() {
-      if (widget.transactionReceipt.minting == true) {
+      if (widget.transactionReceipt.minting == true && transactionReceiverAddress == widget.myRibnWalletAddress) {
         return 'Minted';
-      } else if (sentByMe && sentToMe) {
+      } else if (transactionReceiverAddress == widget.myRibnWalletAddress) {
         return 'Received';
-      } else if (sentByMe && !sentToMe) {
-        return 'Sent';
-      } else if (!sentByMe && sentToMe) {
-        return 'Received';
-      } else if (!sentByMe && !sentToMe) {
-        // There's one transaction that hits this condition - not sure how we handle this given the criteria
-        // Specifically - tXId ircQkToA8LbdfqWFoYJt5bcWTephQVNDYGEkKitBYLnM
-        return 'What';
       }
-
-      return '';
+      return 'Sent';
     }
 
-    String? renderPlusOrMinus() {
-      if (widget.transactionReceipt.minting == true) {
-        return '+';
-      } else if (sentByMe && sentToMe) {
-        return '+';
-      } else if (sentByMe && !sentToMe) {
-        return '-';
-      } else if (!sentByMe && sentToMe) {
-        return '+';
-      } else if (!sentByMe && !sentToMe) {
-        return 'What';
-      }
-      return '';
-    }
+    final String renderPlusOrMinus = transactionReceiverAddress == widget.myRibnWalletAddress ? '+' : '-';
 
     // Render poly specific section if poly transfer
     if (isPolyTransaction) {
@@ -153,7 +128,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              '${renderPlusOrMinus()}$transactionAmountValue POLYs',
+                              '$renderPlusOrMinus$transactionAmountValue POLYs',
                               style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
                             ),
                           ],
@@ -206,7 +181,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                 'shortName': filteredAsset[0].assetCode.shortName.show,
                 'transactionStatus': transactionStatus,
                 'transactionAmount':
-                    '${renderPlusOrMinus()}${widget.transactionReceipt.to[1][1]['quantity']} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
+                    '$renderPlusOrMinus${widget.transactionReceipt.to[1][1]['quantity']} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
                 'fee': fee,
                 'myRibnWalletAddress': widget.myRibnWalletAddress,
                 'transactionSenderAddress': transactionSenderAddress,
@@ -248,7 +223,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
-                                  '${renderPlusOrMinus()}${widget.transactionReceipt.to[1][1]['quantity']} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
+                                  '$renderPlusOrMinus${widget.transactionReceipt.to[1][1]['quantity']} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
                                   style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
                                 ),
                                 Text(

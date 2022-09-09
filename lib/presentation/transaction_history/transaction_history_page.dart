@@ -24,7 +24,7 @@ class TxHistoryPage extends StatefulWidget {
 }
 
 class _TxHistoryPageState extends State<TxHistoryPage> {
-  List<String> itemsToSelectFrom = ['Sent', 'Received', 'Minted'];
+  List<String> itemsToSelectFrom = ['Sent', 'Received'];
 
   String filterSelectedItem = 'Transaction types';
 
@@ -43,13 +43,14 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
       ),
     );
 
-    if (filterSelectedItem != 'Transaction types') {
-      final List transactions = jsonDecode(response.body);
+    // Here we will add the filtering for sent or received
+    // if (filterSelectedItem != 'Transaction types') {
+    //   final List transactions = jsonDecode(response.body);
 
-      for (var transaction in transactions) {
-        if (transaction['minting'] == true) filteredTransactions.add(transaction);
-      }
-    }
+    //   for (var transaction in transactions) {
+    //     if (transaction['minting'] == true) filteredTransactions.add(transaction);
+    //   }
+    // }
 
     return jsonDecode(response.body);
   }
