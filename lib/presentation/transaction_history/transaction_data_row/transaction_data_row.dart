@@ -5,8 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
-// import 'package:ribn/constants/strings.dart';
-// import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/models/transaction_history_entry.dart';
@@ -100,61 +98,87 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
       // x1 and x2 transaction entries in the to: array (which is the correct value?)
       // https://annulus-api.topl.services/staging/valhalla/v1/address/history/3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe
 
-      return Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 8,
-          vertical: 15,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  height: 40,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(
-                        width: 25,
-                        height: 25,
-                        child: renderPolyIcon(),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '$renderPlusOrMinus$transactionAmountValue POLYs',
-                              style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
-                            ),
-                          ],
+      return GestureDetector(
+        onTap: () {
+          Keys.navigatorKey.currentState?.pushNamed(
+            Routes.txHistoryDetails,
+            arguments: {
+              'isPolyTransaction': true,
+              'transactionType': renderSentReceivedMintedText(),
+              'timestamp': formattedDateAlternate,
+              'assetDetails': {},
+              'icon': renderPolyIcon(),
+              'shortName': 'POLY',
+              'transactionStatus': transactionStatus,
+              'transactionAmount': '$renderPlusOrMinus$transactionAmountValue POLYs',
+              'fee': fee,
+              'myRibnWalletAddress': widget.myRibnWalletAddress,
+              'transactionSenderAddress': transactionSenderAddress,
+              'note': note,
+              'securityRoot': securityRoot,
+              'blockId': block['id'],
+              'blockHeight': block['height'],
+              'transactionId': transactionId,
+              'networkId': widget.networkId,
+            },
+          );
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8,
+            vertical: 15,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          width: 25,
+                          height: 25,
+                          child: renderPolyIcon(),
                         ),
-                      )
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.only(left: 12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '$renderPlusOrMinus$transactionAmountValue POLYs',
+                                style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 40,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      // Will need to pass in actual status from API when Genus plugged in
-                      StatusChip(status: transactionStatus),
-                      Text(
-                        '${renderSentReceivedMintedText()} on $formattedDate',
-                        style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                      ),
-                    ],
+                  SizedBox(
+                    height: 40,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        // Will need to pass in actual status from API when Genus plugged in
+                        StatusChip(status: transactionStatus),
+                        Text(
+                          '${renderSentReceivedMintedText()} on $formattedDate',
+                          style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       );
     }
@@ -174,6 +198,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
             Keys.navigatorKey.currentState?.pushNamed(
               Routes.txHistoryDetails,
               arguments: {
+                'isPolyTransaction': false,
                 'transactionType': renderSentReceivedMintedText(),
                 'timestamp': formattedDateAlternate,
                 'assetDetails': assetDetails,

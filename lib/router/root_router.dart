@@ -160,12 +160,14 @@ class RootRouter {
         }
       case Routes.txHistoryDetails:
         final Map? transactionDetails = settings.arguments as Map;
+
         {
           return pageRoute(
-              TxHistoryDetailsPage(
-                transactionDetails: transactionDetails,
-              ),
-              settings);
+            TxHistoryDetailsPage(
+              transactionDetails: transactionDetails,
+            ),
+            settings,
+          );
         }
       case Routes.settings:
         {

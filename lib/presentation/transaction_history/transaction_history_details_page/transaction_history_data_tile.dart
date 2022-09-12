@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 
 class TransactionHistoryDataTile extends StatelessWidget {
-  final CrossAxisAlignment startOrEnd;
+  final bool reducedWidth;
   final String tileTitle;
   final Widget tileValue;
 
   const TransactionHistoryDataTile({
-    required this.startOrEnd,
+    this.reducedWidth = false,
     required this.tileTitle,
     required this.tileValue,
     Key? key,
@@ -15,9 +15,10 @@ class TransactionHistoryDataTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return ConstrainedBox(
+      constraints: reducedWidth == true ? const BoxConstraints(minWidth: 70) : const BoxConstraints(minWidth: 163),
       child: Column(
-        crossAxisAlignment: startOrEnd,
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Text(
