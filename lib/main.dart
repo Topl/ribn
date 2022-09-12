@@ -1,13 +1,22 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+// import 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_web.dart';
+// import 'package:genus_dart/src/generated/blocks_subscription.pbgrpc.dart';
+// ignore: implementation_imports
+// ignore: implementation_imports
 import 'package:redux/redux.dart';
+
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/rules.dart';
+import 'package:ribn/genus/generated/services_types.pb.dart';
+import 'package:ribn/genus/generated/transactions_query.pbgrpc.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/platform/platform.dart';
@@ -15,15 +24,39 @@ import 'package:ribn/presentation/enable_page.dart';
 import 'package:ribn/presentation/external_signing_page.dart';
 import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
+// import 'package:ribn/presentation/onboarding/create_wallet/create_password_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
 import 'package:ribn/redux.dart';
 import 'package:ribn/router/root_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Redux.initStore(initTestStore: false);
+  await Redux.initStore(initTestStore: true);
   final AppViews currentAppView = await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
+  // create a channel to communicate with the Genus service
+  // Insert the IP address of the envoy container here
+  // $ docker ps | grep envoy
+  // $ docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' envoy_container_id_here
+  final channel = GrpcWebClientChannel.xhr(Uri.parse("http://172.20.0.3:9089"));
+  final txQueryService = TransactionsQueryClient(channel);
+  print("Grpc req");
+  // make a request using the client
+  final txQueryResult = await txQueryService.query(
+    QueryTxsReq(
+      // filter: TransactionFilter(
+      //   outputAddressSelection: StringSelection(
+      //     values: [
+      //       'AUAWPHb6iRfWs6a2QEkXYBLQefAYAczbcEcmeGJKgpmqYnooWis1'
+      //     ], //['AUAWPHb6iRfWs6a2QEkXYBLQefAYAczbcEcmeGJKgpmqYnooWis1'],
+      //   ),
+      // ),
+      pagingOptions: Paging(pageNumber: 0, pageSize: 10),
+      confirmationDepth: 1,
+    ),
+  );
+  print("The example transaction query returned: ${txQueryResult.success.transactions.length} results");
+
   // Open app in new tab if user needs onboarding
   if (currentAppView == AppViews.extension && needsOnboarding) {
     await PlatformUtils.instance.openInNewTab();
