@@ -294,9 +294,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                   const SizedBox(
                                     height: 16,
                                   ),
+                                  const DashedListSeparator(color: RibnColors.lightGreyDivider),
                                 ],
                               ),
-                        const DashedListSeparator(color: RibnColors.lightGreyDivider),
                         const SizedBox(
                           height: 16,
                         ),
