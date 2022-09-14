@@ -58,24 +58,21 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
   @override
   Widget build(BuildContext context) {
     final bool isPolyTransaction = widget.transactionReceipt.txType == 'PolyTransfer';
-    final timestampInt = int.parse(widget.transactionReceipt.timestamp);
-    final date = DateTime.fromMillisecondsSinceEpoch(timestampInt);
-    final dateFormat = DateFormat('MMM d');
-    final dateFormatAlternate = DateFormat('MM-dd-yyyy');
+    final int timestampInt = int.parse(widget.transactionReceipt.timestamp);
+    final DateTime date = DateTime.fromMillisecondsSinceEpoch(timestampInt);
+    final DateFormat dateFormat = DateFormat('MMM d');
+    final DateFormat dateFormatAlternate = DateFormat('MM-dd-yyyy');
     final String formattedDate = dateFormat.format(date);
     final String formattedDateAlternate = dateFormatAlternate.format(date);
-    final transactionReceiverAddress = widget.transactionReceipt.to[1][0];
-    final transactionSenderAddress = widget.transactionReceipt.from[0][0];
-    final fee = widget.transactionReceipt.fee;
-    final note = widget.transactionReceipt.data;
-    final securityRoot = widget.transactionReceipt.to[1][1]['securityRoot'];
-    final block = widget.transactionReceipt.block;
-    final transactionId = widget.transactionReceipt.txId;
-    // final bool sentByMe = transactionSenderAddress == widget.myRibnWalletAddress ? true : false;
-    // final bool sentToMe = transactionReceiverAddress == widget.myRibnWalletAddress ? true : false;
-    // final AssetCode assetCode = widget.transactionReceipt.to[1][1]['assetCode'];
-    // final receiverAddress =
-    //     widget.transactionReceipt.to.where((transaction) => transaction[0] == widget.myRibnWalletAddress).toList();
+    final String transactionReceiverAddress = widget.transactionReceipt.to[0][0].toString();
+    final String transactionSenderAddress = widget.transactionReceipt.from[0][0].toString();
+    final String fee = widget.transactionReceipt.fee;
+    final String note = widget.transactionReceipt.data;
+    final String? securityRoot = widget.transactionReceipt.to[0][1]['securityRoot'];
+    final Map<dynamic, dynamic> block = widget.transactionReceipt.block;
+    final String transactionId = widget.transactionReceipt.txId;
+    final String renderPlusOrMinus = transactionReceiverAddress == widget.myRibnWalletAddress ? '+' : '-';
+    final String transactionPolyAmount = '$renderPlusOrMinus${widget.transactionReceipt.to[0][1]['quantity']} POLYs';
 
     String? renderSentReceivedMintedText() {
       if (widget.transactionReceipt.minting == true && transactionReceiverAddress == widget.myRibnWalletAddress) {
@@ -86,18 +83,8 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
       return 'Sent';
     }
 
-    final String renderPlusOrMinus = transactionReceiverAddress == widget.myRibnWalletAddress ? '+' : '-';
-
     // Render poly specific section if poly transfer
     if (isPolyTransaction) {
-      final transactionAmountValue = widget.transactionReceipt.to.length == 2
-          ? widget.transactionReceipt.to[1][1]['quantity']
-          : widget.transactionReceipt.to[0][1]['quantity'];
-
-      // ^ Will need to check this logic to ensure I'm access the correct value as there are sometimes
-      // x1 and x2 transaction entries in the to: array (which is the correct value?)
-      // https://annulus-api.topl.services/staging/valhalla/v1/address/history/3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe
-
       return GestureDetector(
         onTap: () {
           Keys.navigatorKey.currentState?.pushNamed(
@@ -110,7 +97,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
               'icon': renderPolyIcon(),
               'shortName': 'POLY',
               'transactionStatus': transactionStatus,
-              'transactionAmount': '$renderPlusOrMinus$transactionAmountValue POLYs',
+              'transactionAmount': transactionPolyAmount,
               'fee': fee,
               'myRibnWalletAddress': widget.myRibnWalletAddress,
               'transactionSenderAddress': transactionSenderAddress,
@@ -124,6 +111,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
           );
         },
         child: Container(
+          color: Colors.transparent,
           padding: const EdgeInsets.symmetric(
             horizontal: 8,
             vertical: 15,
@@ -151,7 +139,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                '$renderPlusOrMinus$transactionAmountValue POLYs',
+                                transactionPolyAmount,
                                 style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
                               ),
                             ],
@@ -166,7 +154,6 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        // Will need to pass in actual status from API when Genus plugged in
                         StatusChip(status: transactionStatus),
                         Text(
                           '${renderSentReceivedMintedText()} on $formattedDate',
@@ -182,6 +169,18 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
         ),
       );
     }
+
+    // Here need to ensure also with assets we select the first element [0] in the to array
+    // Unsure about what to do with these asset transactions with no assetCode e.g.
+    /* 
+      [
+        "3NP1fFfoLxyk8Ac2ByXZnmYTKQ2aH3N9ttgEHZr2otkxC14qA5R9",
+        {
+        "type": "Simple",
+        "quantity": "9099"
+        }
+      ],
+    */
 
     return StoreConnector<AppState, AssetDetails?>(
       // Get access to AssetDetails for this asset from the store only if not poly transaction

@@ -254,7 +254,7 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                           height: 16,
                         ),
                         const DashedListSeparator(color: RibnColors.lightGreyDivider),
-                        widget.transactionDetails!['isPolyTransaction'] == true
+                        widget.transactionDetails!['securityRoot'] == null
                             ? const SizedBox()
                             : Column(
                                 children: [

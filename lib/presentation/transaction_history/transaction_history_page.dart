@@ -32,6 +32,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
 
   void updateSelectedItem(string) {
     setState(() {
+      filteredTransactions = [];
       filterSelectedItem = string;
     });
   }
@@ -44,13 +45,26 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     );
 
     // Here we will add the filtering for sent or received
-    // if (filterSelectedItem != 'Transaction types') {
-    //   final List transactions = jsonDecode(response.body);
+    if (filterSelectedItem != 'Transaction types') {
+      final List transactions = jsonDecode(response.body);
 
-    //   for (var transaction in transactions) {
-    //     if (transaction['minting'] == true) filteredTransactions.add(transaction);
-    //   }
-    // }
+      for (var transaction in transactions) {
+        final transactionReceiverAddress = transaction['to'][0][0].toString();
+        final transactionSenderAddress = transaction['from'][0][0].toString();
+        final myRibnAddress = toplAddress.toBase58();
+        final wasMinted = transaction['minting'] == true;
+
+        if (filterSelectedItem == 'Received' && transactionReceiverAddress == myRibnAddress) {
+          filteredTransactions.add(transaction);
+        }
+
+        if (filterSelectedItem == 'Sent' && transactionSenderAddress == myRibnAddress && !wasMinted) {
+          filteredTransactions.add(transaction);
+        }
+      }
+
+      return filteredTransactions;
+    }
 
     return jsonDecode(response.body);
   }
@@ -93,6 +107,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                           case ConnectionState.done:
                             context.loaderOverlay.hide();
 
+                            // Here we will need to add EmptyStateScreen widget from 0.2.1 when merged
                             if (!snapshot.hasData || snapshot.data.isEmpty) {
                               return const Padding(
                                 padding: EdgeInsets.all(16),
