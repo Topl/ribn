@@ -137,15 +137,15 @@ class _LoginPageState extends State<LoginPage> {
                           const SizedBox(height: 5),
                           Center(
                             child: SizedBox(
-                              width: kIsWeb ? _baseWidth - 110 : _baseWidth,
+                              width: kIsWeb ? _baseWidth - 70 : _baseWidth,
                               child: Center(
                                 child: Text(
                                   Strings.intro,
                                   style: RibnToolkitTextStyles.h3.copyWith(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w300,
-                                    height: 2,
-                                    fontSize: kIsWeb ? 12 : 16,
+                                    height: 1.7,
+                                    fontSize: kIsWeb ? 13 : 14,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -174,8 +174,6 @@ class _LoginPageState extends State<LoginPage> {
                           Strings.unlock,
                           style: RibnToolkitTextStyles.btnLarge.copyWith(
                             color: Colors.white,
-                            fontWeight: FontWeight.w400,
-                            fontSize: kIsWeb ? 15 : 19.6,
                           ),
                         ),
                         onPressed: attemptLogin,
@@ -197,7 +195,7 @@ class _LoginPageState extends State<LoginPage> {
                                       color: Colors.red,
                                     ).copyWith(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: kIsWeb ? 12 : 16,
+                                      fontSize: kIsWeb ? 13 : 14,
                                     ),
                                   )
                                 : const SizedBox(),
@@ -208,7 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                                       color: Colors.red,
                                     ).copyWith(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: kIsWeb ? 12 : 16,
+                                      fontSize: kIsWeb ? 13 : 14,
                                     ),
                                   )
                                 : const SizedBox()
@@ -235,7 +233,7 @@ class _LoginPageState extends State<LoginPage> {
             Strings.enterWalletPassword,
             style: RibnToolkitTextStyles.h3.copyWith(
               color: Colors.white,
-              fontSize: kIsWeb ? 12 : 16,
+              fontSize: kIsWeb ? 13 : 14,
             ),
           ),
           // ignore: prefer_const_constructors
@@ -268,7 +266,7 @@ class _LoginPageState extends State<LoginPage> {
           text: TextSpan(
             style: RibnToolkitTextStyles.h3.copyWith(
               color: RibnColors.secondary,
-              fontSize: kIsWeb ? 12 : 16,
+              fontSize: kIsWeb ? 13 : 14,
             ),
             children: [
               TextSpan(
@@ -291,7 +289,7 @@ class _LoginPageState extends State<LoginPage> {
           text: TextSpan(
             style: RibnToolkitTextStyles.h3.copyWith(
               color: Colors.white,
-              fontSize: kIsWeb ? 12 : 16,
+              fontSize: kIsWeb ? 13 : 14,
             ),
             children: [
               const TextSpan(
@@ -301,7 +299,7 @@ class _LoginPageState extends State<LoginPage> {
                 text: Strings.ribnSupport,
                 style: RibnToolkitTextStyles.h3.copyWith(
                   color: RibnColors.secondary,
-                  fontSize: kIsWeb ? 12 : 16,
+                  fontSize: kIsWeb ? 13 : 14,
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {

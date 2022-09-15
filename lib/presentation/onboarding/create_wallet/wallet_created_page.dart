@@ -53,6 +53,8 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
               SizedBox(
                 width: 730,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Align(
                       alignment: Alignment.centerLeft,
@@ -90,7 +92,7 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                                 fontSize: 18,
                               ),
                             ),
-                            width: double.infinity,
+                            width: 648,
                             backgroundColor: RibnColors.primary,
                             collapsedBackgroundColor: RibnColors.primary,
                             iconColor: Colors.white,

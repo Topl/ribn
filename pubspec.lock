@@ -861,11 +861,9 @@ packages:
   ribn_toolkit:
     dependency: "direct main"
     description:
-      path: "."
-      ref: dev
-      resolved-ref: "991c51e3e01a61d9ca092be291f9dcf0cb757f43"
-      url: "https://github.com/Topl/ribn-toolkit"
-    source: git
+      path: "../ribn_toolkit"
+      relative: true
+    source: path
     version: "1.0.0+1"
   rxdart:
     dependency: "direct main"
