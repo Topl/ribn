@@ -1,4 +1,5 @@
 import 'package:brambldart/brambldart.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -263,7 +264,7 @@ class _MintInputPageState extends State<MintInputPage> {
               ),
             ),
             bottomNavigationBar: BottomReviewAction(
-              maxHeight: 145,
+              maxHeight: kIsWeb ? 120 : 143,
               children: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,

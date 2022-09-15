@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -88,9 +89,10 @@ class _PolyTransferSectionState extends State<PolyTransferSection> {
     return WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.updateButton(
         BottomReviewAction(
-          maxHeight: 145,
+          maxHeight: kIsWeb ? 120 : 143,
           children: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // fee info for the tx
               FeeInfo(fee: widget.vm.networkFee),
@@ -231,7 +233,7 @@ class _PolyTransferSectionState extends State<PolyTransferSection> {
         _validRecipientAddress.isNotEmpty && _amountController.text.isNotEmpty && _validAmount;
 
     return Padding(
-      padding: const EdgeInsets.only(top: 15),
+      padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: Center(
         child: LargeButton(
           buttonWidth: double.infinity,
