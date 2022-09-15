@@ -112,6 +112,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     CustomToolTip renderTooltip() {
       final bool hasPolys = vm.polyBalance > 0;
       return CustomToolTip(
+        borderColor: Border.all(color: const Color(0xffE9E9E9)),
         offsetPositionLeftValue: 180,
         toolTipIcon: Image.asset(
           RibnAssets.circleInfo,

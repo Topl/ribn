@@ -240,6 +240,7 @@ class _LoginPageState extends State<LoginPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: CustomToolTip(
+              borderColor: Border.all(color: const Color(0xffE9E9E9)),
               offsetPositionLeftValue: 160,
               toolTipIcon: Image.asset(
                 RibnAssets.greyHelpBubble,

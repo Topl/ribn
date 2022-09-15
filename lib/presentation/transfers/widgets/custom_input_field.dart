@@ -46,6 +46,7 @@ class CustomInputField extends StatelessWidget {
                   ? Padding(
                       padding: const EdgeInsets.only(left: 4.0),
                       child: CustomToolTip(
+                        borderColor: Border.all(color: const Color(0xffE9E9E9)),
                         toolTipChild: Text(
                           informationText!,
                           style: RibnToolkitTextStyles.toolTipTextStyle,
