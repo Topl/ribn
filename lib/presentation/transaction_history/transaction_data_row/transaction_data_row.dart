@@ -1,4 +1,5 @@
 import 'package:brambldart/model.dart';
+import 'package:brambldart/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
@@ -7,14 +8,13 @@ import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
-import 'package:ribn/models/transaction_history_entry.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/status_chip.dart';
 
 class TransactionDataRow extends StatefulWidget {
   final List<AssetAmount> assets;
-  final TransactionHistoryEntry transactionReceipt;
+  final TransactionReceipt transactionReceipt;
   final String myRibnWalletAddress;
   final Future<String>? blockHeight;
   final int networkId;
@@ -45,7 +45,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
   getBlockHeight() async {
     final blockHeightString = await widget.blockHeight;
     final blockHeightNum = int.parse(blockHeightString!);
-    final transactionBlockHeightNum = widget.transactionReceipt.block['height'];
+    final transactionBlockHeightNum = widget.transactionReceipt.blockNumber as num;
     final heightDifference = blockHeightNum - transactionBlockHeightNum;
 
     if (heightDifference > 30) {
@@ -58,19 +58,20 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
   @override
   Widget build(BuildContext context) {
     final bool isPolyTransaction = widget.transactionReceipt.txType == 'PolyTransfer';
-    final int timestampInt = int.parse(widget.transactionReceipt.timestamp);
+    final int timestampInt = widget.transactionReceipt.timestamp;
     final DateTime date = DateTime.fromMillisecondsSinceEpoch(timestampInt);
     final DateFormat dateFormat = DateFormat('MMM d');
     final DateFormat dateFormatAlternate = DateFormat('MM-dd-yyyy');
     final String formattedDate = dateFormat.format(date);
     final String formattedDateAlternate = dateFormatAlternate.format(date);
-    final String transactionReceiverAddress = widget.transactionReceipt.to[0][0].toString();
-    final String transactionSenderAddress = widget.transactionReceipt.from[0][0].toString();
-    final String fee = widget.transactionReceipt.fee;
-    final String note = widget.transactionReceipt.data;
-    final String? securityRoot = widget.transactionReceipt.to[0][1]['securityRoot'];
-    final Map<dynamic, dynamic> block = widget.transactionReceipt.block;
-    final String transactionId = widget.transactionReceipt.txId;
+    final String transactionReceiverAddress = widget.transactionReceipt.to[0].toString();
+    final String transactionSenderAddress = widget.transactionReceipt.from![0].toString();
+    final PolyAmount? fee = widget.transactionReceipt.fee;
+    final Latin1Data? note = widget.transactionReceipt.data;
+    final String? securityRoot = widget.transactionReceipt.to[0]['securityRoot'];
+    final ModifierId? blockId = widget.transactionReceipt.blockId;
+    final BlockNum? blockNumber = widget.transactionReceipt.blockNumber;
+    final ModifierId transactionId = widget.transactionReceipt.id;
     final String renderPlusOrMinus = transactionReceiverAddress == widget.myRibnWalletAddress ? '+' : '-';
     final String transactionPolyAmount = '$renderPlusOrMinus${widget.transactionReceipt.to[0][1]['quantity']} POLYs';
 
@@ -103,8 +104,8 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
               'transactionSenderAddress': transactionSenderAddress,
               'note': note,
               'securityRoot': securityRoot,
-              'blockId': block['id'],
-              'blockHeight': block['height'],
+              'blockId': blockId,
+              'blockHeight': blockNumber,
               'transactionId': transactionId,
               'networkId': widget.networkId,
             },
@@ -184,11 +185,11 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
 
     return StoreConnector<AppState, AssetDetails?>(
       // Get access to AssetDetails for this asset from the store only if not poly transaction
-      converter: (store) => store.state.userDetailsState.assetDetails[widget.transactionReceipt.to[1][1]['assetCode']],
+      converter: (store) => store.state.userDetailsState.assetDetails[widget.transactionReceipt.to[0][1]['assetCode']],
       builder: (context, assetDetails) {
         final List filteredAsset = widget.assets
             .where(
-              (item) => item.assetCode.toString() == widget.transactionReceipt.to[1][1]['assetCode'].toString(),
+              (item) => item.assetCode.toString() == widget.transactionReceipt.to[0][1]['assetCode'].toString(),
             )
             .toList();
 
@@ -205,14 +206,14 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                 'shortName': filteredAsset[0].assetCode.shortName.show,
                 'transactionStatus': transactionStatus,
                 'transactionAmount':
-                    '$renderPlusOrMinus${widget.transactionReceipt.to[1][1]['quantity']} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
+                    '$renderPlusOrMinus${widget.transactionReceipt.to[0][1]['quantity']} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
                 'fee': fee,
                 'myRibnWalletAddress': widget.myRibnWalletAddress,
                 'transactionSenderAddress': transactionSenderAddress,
                 'note': note,
                 'securityRoot': securityRoot,
-                'blockId': block['id'],
-                'blockHeight': block['height'],
+                'blockId': blockId,
+                'blockHeight': blockNumber,
                 'transactionId': transactionId,
                 'networkId': widget.networkId,
               },
@@ -247,7 +248,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
-                                  '$renderPlusOrMinus${widget.transactionReceipt.to[1][1]['quantity']} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
+                                  '$renderPlusOrMinus${widget.transactionReceipt.to[0][1]['quantity']} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
                                   style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
                                 ),
                                 Text(

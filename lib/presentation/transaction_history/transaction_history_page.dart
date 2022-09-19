@@ -8,7 +8,6 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/transaction_history_container.dart';
-import 'package:ribn/models/transaction_history_entry.dart';
 import 'package:ribn/presentation/transaction_history/dashed_list_separator/dashed_list_separator.dart';
 import 'package:ribn/presentation/transaction_history/transaction_data_row/transaction_data_row.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
@@ -146,12 +145,16 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                         : filteredTransactions.length,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
-                                      final TransactionHistoryEntry transactionReceipt =
-                                          TransactionHistoryEntry.fromJson(
-                                        filterSelectedItem == startingFilterValue
-                                            ? snapshot.data[index]
-                                            : filteredTransactions[index],
-                                      );
+                                      // Add the filtering back
+                                      // final TransactionHistoryEntry transactionReceipt =
+                                      //     TransactionHistoryEntry.fromJson(
+                                      //   filterSelectedItem == startingFilterValue
+                                      //       ? snapshot.data[index]
+                                      //       : filteredTransactions[index],
+                                      // );
+
+                                      final TransactionReceipt transactionReceipt =
+                                          TransactionReceipt.fromJson(snapshot.data[index]);
 
                                       return TransactionDataRow(
                                         transactionReceipt: transactionReceipt,
