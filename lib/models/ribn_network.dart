@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/foundation.dart';
-import 'package:grpc/grpc.dart';
 
 import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/ribn_address.dart';
+// import 'package:ribn/platform/platform.dart';
 
 @immutable
 class RibnNetwork {
@@ -63,14 +63,6 @@ class RibnNetwork {
         networkName: NetworkUtils.private,
       ),
     };
-  }
-
-  ClientChannel get genusChannel {
-    return ClientChannel(
-      'localhost',
-      port: 8089,
-      options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
-    );
   }
 
   /// Ribn only supports a single wallet address at this time.

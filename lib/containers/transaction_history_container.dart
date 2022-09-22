@@ -8,6 +8,7 @@ import 'package:ribn/genus/generated/services_types.pb.dart';
 import 'package:ribn/genus/generated/transactions_query.pbgrpc.dart';
 
 import 'package:ribn/models/app_state.dart';
+import 'package:ribn/platform/platform.dart';
 
 /// Intended to wrap the [TransactionHistoryPage] and provide it with the the [TransactionHistoryViewmodel].
 class TransactionHistoryContainer extends StatelessWidget {
@@ -37,6 +38,7 @@ class TransactionHistoryViewmodel {
   /// Get the current block height
   final Future<String>? blockHeight;
 
+  /// Gets transactions associated with my wallet address from the Mempool and Genus
   final Future<List<TransactionReceipt>> Function({int pageNum}) getTransactions;
 
   TransactionHistoryViewmodel({
@@ -55,65 +57,101 @@ class TransactionHistoryViewmodel {
       assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
       blockHeight: store.state.keychainState.currentNetwork.client!.getBlockNumber(),
       getTransactions: ({int pageNum = 0}) async {
-        final txQueryClient = TransactionsQueryClient(currNetwork.genusChannel);
-        final txQueryResult = await txQueryClient.query(
-          QueryTxsReq(
-            filter: TransactionFilter(
-              outputAddressSelection: StringSelection(
-                values: [
-                  currNetwork.myWalletAddress!.toplAddress.toBase58()
-                ], //['AUAWPHb6iRfWs6a2QEkXYBLQefAYAczbcEcmeGJKgpmqYnooWis1'],
-              ),
-            ),
-            pagingOptions: Paging(pageNumber: pageNum, pageSize: 10),
-            confirmationDepth: 1,
-          ),
-        );
-        final Map<String, dynamic> txResultJson = txQueryResult.toProto3Json() as Map<String, dynamic>;
-        final List<TransactionReceipt> txs = [];
-        // (txResultJson['success']['transactions'] as List);
-        for (var element in (txResultJson['success']['transactions'] as List)) {
-          if (element['inputs'] == null) continue;
-          try {
-            final outputs = formatRecipients(element['outputs'] as List);
-            final newBoxes = formatNewBoxes(element['newBoxes']);
-            final inputs = (element['inputs'] as List).map((input) => [input['address'], input['nonce']]).toList();
-            if (inputs.isEmpty) continue;
-            // get tx per recipient
-            print(element['txId']);
-            outputs.toList().forEach((output) {
-              final tx = TransactionReceipt.fromJson({
-                'txId': element['txId'],
-                'from': inputs,
-                'to': [output],
-                'txType': element['txType'],
-                'fee': element['fee'],
-                'timestamp': int.parse(element['timestamp']),
-                'boxesToRemove': element['boxesToRemove'] as List,
-                'newBoxes': newBoxes,
-                'propositionType': element['propositionType'],
-              });
-              print("SUCCESSFULLY ADDED TX");
-              txs.add(tx);
-            });
-          } catch (e) {
-            print("ERROR - ");
-            print(e);
-            debugPrint(element);
-            break;
-          }
-        }
-        return txs;
+        final myWalletAddress = currNetwork.myWalletAddress!.toplAddress.toBase58();
+        final mempoolTxs = await getMempoolTxs(client: currNetwork.client!, walletAddress: myWalletAddress);
+        final genusTxs = await getGenusTxs(walletAddress: myWalletAddress);
+        return [...mempoolTxs, ...genusTxs];
       },
     );
+  }
+
+  static Future<List<TransactionReceipt>> getMempoolTxs({
+    required BramblClient client,
+    required String walletAddress,
+  }) async {
+    final mempoolTxs = await client.getMempool();
+    final pendingTxsForWallet = mempoolTxs.where((tx) {
+      final walletAddrInSenders = tx.from?.any((sender) => sender.senderAddress.toBase58() == walletAddress) ?? false;
+      // simple recipient or asset recipient
+      final walletAddrInRecipients = tx.to.any((recipient) => recipient.toJson()[0] == walletAddress);
+      return walletAddrInSenders || walletAddrInRecipients;
+    }).toList();
+    final List<TransactionReceipt> formattedTxs = [];
+    pendingTxsForWallet.toList().forEach((rawTx) {
+      rawTx.to.toList().forEach((recipient) {
+        final tx = TransactionReceipt(
+          id: rawTx.id,
+          from: rawTx.from,
+          to: [recipient],
+          fee: rawTx.fee,
+          newBoxes: rawTx.newBoxes,
+          boxesToRemove: rawTx.boxesToRemove,
+          timestamp: rawTx.timestamp,
+          propositionType: rawTx.propositionType,
+          txType: rawTx.txType,
+        );
+        formattedTxs.add(tx);
+      });
+    });
+    return formattedTxs;
+  }
+
+  static Future<List<TransactionReceipt>> getGenusTxs({
+    required String walletAddress,
+    int pageNumber = 0,
+  }) async {
+    final txQueryClient = TransactionsQueryClient(PlatformGenusConfig.channel);
+    final txQueryResult = await txQueryClient.query(
+      QueryTxsReq(
+        filter: TransactionFilter(
+          outputAddressSelection: StringSelection(
+            values: [
+              walletAddress,
+              // 'AUAWPHb6iRfWs6a2QEkXYBLQefAYAczbcEcmeGJKgpmqYnooWis1',
+            ],
+          ),
+        ),
+        pagingOptions: Paging(pageNumber: pageNumber, pageSize: 10),
+        confirmationDepth: 1,
+      ),
+    );
+    final Map<String, dynamic> txResultJson = txQueryResult.toProto3Json() as Map<String, dynamic>;
+    final List<TransactionReceipt> txs = [];
+    for (var element in (txResultJson['success']['transactions'] as List)) {
+      if (element['inputs'] == null) continue;
+      try {
+        final outputs = formatRecipients(element['outputs'] as List);
+        final newBoxes = formatNewBoxes(element['newBoxes']);
+        final inputs = (element['inputs'] as List).map((input) => [input['address'], input['nonce']]).toList();
+        if (inputs.isEmpty) continue;
+        // get tx per recipient
+        outputs.toList().forEach((output) {
+          final tx = TransactionReceipt.fromJson({
+            'txId': element['txId'],
+            'from': inputs,
+            'to': [output],
+            'txType': element['txType'],
+            'fee': element['fee'],
+            'timestamp': int.parse(element['timestamp']),
+            'boxesToRemove': element['boxesToRemove'] as List,
+            'newBoxes': newBoxes,
+            'propositionType': element['propositionType'],
+          });
+          txs.add(tx);
+        });
+      } catch (e) {
+        debugPrint(e.toString());
+        debugPrint(element);
+        break;
+      }
+    }
+    return txs;
   }
 
   static List<dynamic> formatRecipients(List<dynamic> outputs) {
     final formattedOutputs = [];
     outputs.toList().forEach((e) {
       final String address = e['address'];
-      // print("ADDRESS:");
-      // print(address);
       final String type = (e['value'] as Map<String, dynamic>).keys.first;
       final quantity = (e['value'] as Map<String, dynamic>)[type]['quantity'];
       final assetCode = (e['value'] as Map<String, dynamic>)[type]['code'];
