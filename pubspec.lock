@@ -88,9 +88,11 @@ packages:
   brambldart:
     dependency: "direct main"
     description:
-      path: "../brambldart"
-      relative: true
-    source: path
+      path: "."
+      ref: genus
+      resolved-ref: "8e337a40940b2816c41249285e52685726aa76e4"
+      url: "https://github.com/Topl/BramblDart.git"
+    source: git
     version: "0.0.1"
   build:
     dependency: transitive
@@ -887,9 +889,11 @@ packages:
   ribn_toolkit:
     dependency: "direct main"
     description:
-      path: "../ribn-toolkit"
-      relative: true
-    source: path
+      path: "."
+      ref: RIBN-393
+      resolved-ref: c070eab7a27f072db20b3291cde6cd15d91b4d40
+      url: "https://github.com/Topl/ribn-toolkit"
+    source: git
     version: "1.0.0+1"
   rxdart:
     dependency: "direct main"

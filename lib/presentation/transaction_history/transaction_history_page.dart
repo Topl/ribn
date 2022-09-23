@@ -42,22 +42,21 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     int networkId,
     TransactionHistoryViewmodel vm,
   ) async {
-    return await vm.getTransactions(pageNum: 0);
-    // final response = await http.get(
-    //   Uri.parse(
-    //     Rules.txHistoryUrl(toplAddress.toBase58(), networkId),
-    //   ),
-    // );
+    final response = await http.get(
+      Uri.parse(
+        Rules.txHistoryUrl(toplAddress.toBase58(), networkId),
+      ),
+    );
 
-    // if (filterSelectedItem != 'Transaction types') {
-    //   final List transactions = jsonDecode(response.body);
+    if (filterSelectedItem != 'Transaction types') {
+      final List transactions = jsonDecode(response.body);
 
-    //   for (var transaction in transactions) {
-    //     if (transaction['minting'] == true) filteredTransactions.add(transaction);
-    //   }
-    // }
+      for (var transaction in transactions) {
+        if (transaction['minting'] == true) filteredTransactions.add(transaction);
+      }
+    }
 
-    // return jsonDecode(response.body);
+    return jsonDecode(response.body);
   }
 
   @override
