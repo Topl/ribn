@@ -43,6 +43,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
   }
 
   getBlockHeight() async {
+    // Mustafa will be adding the block["height"] value
     final blockHeightString = await widget.blockHeight;
     final blockHeightNum = int.parse(blockHeightString!);
     final transactionBlockHeightNum = widget.transactionReceipt.blockNumber as num;
@@ -83,6 +84,8 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
       }
       return 'Sent';
     }
+
+    //
 
     // Render poly specific section if poly transfer
     if (isPolyTransaction) {
