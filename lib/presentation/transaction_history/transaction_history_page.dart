@@ -36,7 +36,12 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     });
   }
 
-  fetchTxHistory(BuildContext context, ToplAddress toplAddress, int networkId) async {
+  Future<List<TransactionReceipt>> fetchTxHistory(
+    BuildContext context,
+    ToplAddress toplAddress,
+    int networkId,
+    TransactionHistoryViewmodel vm,
+  ) async {
     final response = await http.get(
       Uri.parse(
         Rules.txHistoryUrl(toplAddress.toBase58(), networkId),
@@ -100,7 +105,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                       updateSelectedItem: updateSelectedItem,
                     ),
                     FutureBuilder(
-                      future: fetchTxHistory(context, vm.toplAddress, vm.networkId),
+                      future: fetchTxHistory(context, vm.toplAddress, vm.networkId, vm),
                       builder: (context, AsyncSnapshot snapshot) {
                         switch (snapshot.connectionState) {
                           case ConnectionState.done:
