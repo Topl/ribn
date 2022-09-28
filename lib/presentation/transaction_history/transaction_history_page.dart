@@ -5,11 +5,15 @@ import 'package:flutter/material.dart';
 // import 'package:http/http.dart' as http;
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/keys.dart';
+import 'package:ribn/constants/routes.dart';
 // import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/transaction_history_container.dart';
+import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/transaction_history/dashed_list_separator/dashed_list_separator.dart';
 import 'package:ribn/presentation/transaction_history/transaction_data_row/transaction_data_row.dart';
+import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_dropdown_title.dart';
 
@@ -180,9 +184,20 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
 
                             // Here we will need to add EmptyStateScreen widget from 0.2.1 when merged
                             if (!snapshot.hasData || snapshot.data.isEmpty) {
-                              return const Padding(
-                                padding: EdgeInsets.all(16),
-                                child: Text('No transaction history to show'),
+                              return EmptyStateScreen(
+                                icon: RibnAssets.clockWithBorder,
+                                title: Strings.noActivityToReview,
+                                body: emptyStateBody,
+                                buttonOneText: 'Mint',
+                                buttonOneAction: () => Keys.navigatorKey.currentState?.pushNamed(
+                                  Routes.mintInput,
+                                  arguments: {
+                                    'mintingNewAsset': true,
+                                    'mintingToMyWallet': true,
+                                  },
+                                ),
+                                buttonTwoText: 'Share',
+                                buttonTwoAction: () async => await showReceivingAddress(),
                               );
                             }
 
@@ -198,7 +213,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                   borderRadius: BorderRadius.circular(11.6),
                                   color: RibnColors.whiteBackground,
                                   border: Border.all(color: RibnColors.lightGrey, width: 1),
-                                  boxShadow: const [
+                                  boxShadow: [
                                     BoxShadow(
                                       color: RibnColors.greyShadow,
                                       spreadRadius: 0,

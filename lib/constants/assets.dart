@@ -114,4 +114,5 @@ class RibnAssets {
   static const addPlusPng = 'assets/icons/add_plus.png';
   static const documentPng = 'assets/icons/document.png';
   static const polyIconCircle = 'assets/icons/poly_icon_circle.png';
+  static const clockWithBorder = 'assets/icons/clock_border.png';
 }
