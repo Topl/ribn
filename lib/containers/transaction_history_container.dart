@@ -136,6 +136,8 @@ class TransactionHistoryViewmodel {
             'boxesToRemove': element['boxesToRemove'] as List,
             'newBoxes': newBoxes,
             'propositionType': element['propositionType'],
+            'blockNumber': int.parse(element['blockHeight']),
+            'blockId': element['blockId'],
           });
           txs.add(tx);
         });
