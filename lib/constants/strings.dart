@@ -272,4 +272,6 @@ Ribn Wallet does not control the functionality of biometrics and does not have a
   static const String recentActivity = 'Recent Activity';
   static const String transactionDetails = 'Transaction Details';
   static const String noActivityToReview = 'You currently have no wallet activity to review.';
+  static const String emptyStateBody =
+      'Here’s how you can get started:\n • Mint a new asset to a wallet address\n • Share your address to receive assets';
 }

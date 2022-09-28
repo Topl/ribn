@@ -31,10 +31,10 @@ class EmptyStateScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
-    const int dynamicWidthValue = kIsWeb ? 300 : 380;
+    const int dynamicHeightValue = kIsWeb ? 300 : 320;
 
     return Padding(
-      padding: const EdgeInsets.only(top: 18, left: 24, right: 24),
+      padding: const EdgeInsets.only(top: 24, left: 24, right: 24),
       child: Container(
         padding: EdgeInsets.zero,
         decoration: BoxDecoration(
@@ -42,7 +42,7 @@ class EmptyStateScreen extends StatelessWidget {
           boxShadow: [BoxShadow(color: RibnColors.paleGreen.withOpacity(1), blurRadius: 8, spreadRadius: 8)],
         ),
         width: width - 20,
-        height: height - dynamicWidthValue,
+        height: height - dynamicHeightValue,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

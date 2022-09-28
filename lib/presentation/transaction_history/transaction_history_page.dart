@@ -1,5 +1,7 @@
 // import 'dart:convert';
 
+// ignore_for_file: unused_import
+
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
 // import 'package:http/http.dart' as http;
@@ -61,55 +63,38 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     //       });
     // print(response);
 
+    // print('sd');
+
     final List<TransactionReceipt> response = [
-      TransactionReceipt(
-        id: 'fbU4PH7jXApUPr75skzjGA1VYFSonuQK4A7KztWQCsKi',
-        txType: 'AssetTransfer',
-        newBoxes: [
-          // {
-          //   "nonce": "2840514638832178322",
-          //   "id": "2cWwMQmEUNgDnZhsaDGwJMCtgFanhE2yYYAi3G5TUrCJ",
-          //   "evidence": "uVjcfvsjvjxX2Ymh9oFzSU5EeauYRZg8AV1o1To3j8wm",
-          //   "type": "PolyBox",
-          //   "value": {"type": "Simple", "quantity": "9800"}
-          // },
-          // {
-          //   "nonce": "-1896727081482225860",
-          //   "id": "GmuP7YokajaJFENKGCbjAoZrS2ysS7q3aKFqrZKi37o",
-          //   "evidence": "uVjcfvsjvjxX2Ymh9oFzSU5EeauYRZg8AV1o1To3j8wm",
-          //   "type": "AssetBox",
-          //   "value": {
-          //     "quantity": "10",
-          //     "assetCode": "5YJgVFSxmYUVJAwYbT79y3Se9UNz6u6VwgeVWxaCcHJJFU8hnSXidsR1V9",
-          //     "metadata": "",
-          //     "type": "Asset",
-          //     "securityRoot": "11111111111111111111111111111111"
-          //   }
-          // }
+      TransactionReceipt.fromJson({
+        'txId': 'fbU4PH7jXApUPr75skzjGA1VYFSonuQK4A7KztWQCsKi',
+        'from': [
+          ['3NP1fFfoLxyk8Ac2ByXZnmYTKQ2aH3N9ttgEHZr2otkxC14qA5R9', '2394347554651688253'],
         ],
-        fee: PolyAmount(quantity: 100, unit: PolyUnit.nanopoly),
-        timestamp: 1658931096087,
-        boxesToRemove: [],
-        from: [
-          Sender(ToplAddress.fromBase58('3NP1fFfoLxyk8Ac2ByXZnmYTKQ2aH3N9ttgEHZr2otkxC14qA5R9'), '2394347554651688253')
-        ],
-        to: [
+        'to': [
           [
-            '3NP1fFfoLxyk8Ac2ByXZnmYTKQ2aH3N9ttgEHZr2otkxC14qA5R9',
+            '3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe',
             {
+              'type': 'Simple',
               'quantity': '10',
-              'assetCode': '5YJgVFSxmYUVJAwYbT79y3Se9UNz6u6VwgeVWxaCcHJJFU8hnSXidsR1V9',
-              'metadata': '',
-              'type': 'Asset',
-              'securityRoot': '11111111111111111111111111111111'
+              // 'assetCode': assetCode,
+              // 'securityRoot': securityRoot,
+              // 'metadata': metadata
             }
           ]
         ],
-        propositionType: 'PublicKeyEd25519',
-      )
+        'txType': 'PolyTransfer',
+        'fee': '100',
+        'timestamp': int.parse('1658931096087'),
+        'boxesToRemove': [],
+        'newBoxes': [],
+        'propositionType': 'PublicKeyCurve25519',
+        'blockNumber': int.parse('12345'),
+        'blockId': 'uSrVWvhZdMs7zVmzs2GENutp5YQybTyo9syEFhMu2b2H',
+      })
     ];
 
-    print(response);
+    // print(response);
 
     return response;
 
@@ -179,10 +164,8 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                       builder: (context, AsyncSnapshot snapshot) {
                         switch (snapshot.connectionState) {
                           case ConnectionState.done:
-                            // print(snapshot.data);
                             context.loaderOverlay.hide();
 
-                            // Here we will need to add EmptyStateScreen widget from 0.2.1 when merged
                             if (!snapshot.hasData || snapshot.data.isEmpty) {
                               return EmptyStateScreen(
                                 icon: RibnAssets.clockWithBorder,
@@ -244,9 +227,13 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                       // final TransactionReceipt transactionReceipt =
                                       //     TransactionReceipt.fromJson(snapshot.data[index]);
 
+                                      // print(snapshot.data[index]);
+
+                                      // return Text('transaction');
+
                                       return TransactionDataRow(
                                         // transactionReceipt: transactionReceipt,
-                                        transactionReceipt: snapshot.data['index'],
+                                        transactionReceipt: snapshot.data[index],
                                         assets: vm.assets,
                                         myRibnWalletAddress: vm.toplAddress.toBase58(),
                                         blockHeight: vm.blockHeight,
