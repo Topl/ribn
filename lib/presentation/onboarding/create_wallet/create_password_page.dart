@@ -26,6 +26,8 @@ class CreatePasswordPage extends StatefulWidget {
 }
 
 class _CreatePasswordPageState extends State<CreatePasswordPage> {
+  final FocusNode _newPasswordFocus = FocusNode();
+  final FocusNode _confirmPasswordFocus = FocusNode();
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
   bool _termsOfUseChecked = false;
@@ -34,16 +36,24 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
 
   @override
   void initState() {
-    [_newPasswordController, _confirmPasswordController].toList().forEach((controller) {
-      controller.addListener(() => validateInputs(controller));
+    [_newPasswordFocus, _newPasswordController].toList().forEach((elem) {
+      elem.addListener(() {
+        if (!_newPasswordFocus.hasPrimaryFocus || _newPasswordController.text.length >= 8) {
+          _atLeast8Chars = _newPasswordController.text.isNotEmpty && _newPasswordController.text.length >= 8;
+          setState(() {});
+        }
+      });
+    });
+    [_confirmPasswordFocus, _confirmPasswordController].toList().forEach((elem) {
+      elem.addListener(() {
+        if (!_confirmPasswordFocus.hasPrimaryFocus || _confirmPasswordController.text == _newPasswordController.text) {
+          _passwordsMatch = _confirmPasswordController.text.isNotEmpty &&
+              _confirmPasswordController.text == _newPasswordController.text;
+          setState(() {});
+        }
+      });
     });
     super.initState();
-  }
-
-  void validateInputs(TextEditingController controller) {
-    _atLeast8Chars = _newPasswordController.text.length >= 8;
-    _passwordsMatch = _confirmPasswordController.text == _newPasswordController.text;
-    setState(() {});
   }
 
   @override
@@ -72,7 +82,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: adaptHeight(0.01)),
                     child: Image.asset(
-                      RibnAssets.createWalletPng,
+                      RibnAssets.createWalletPngWithShadow,
                       width: 100,
                     ),
                   ),
@@ -171,6 +181,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
         Align(
           alignment: Alignment.centerLeft,
           child: PasswordTextField(
+            focusNode: _newPasswordFocus,
             width: kIsWeb ? 350 : adaptWidth(0.9),
             fillColor: RibnColors.whiteButtonShadow,
             controller: _newPasswordController,
@@ -222,6 +233,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
         Align(
           alignment: Alignment.centerLeft,
           child: PasswordTextField(
+            focusNode: _confirmPasswordFocus,
             width: kIsWeb ? 350 : adaptWidth(0.9),
             fillColor: RibnColors.whiteButtonShadow,
             controller: _confirmPasswordController,
