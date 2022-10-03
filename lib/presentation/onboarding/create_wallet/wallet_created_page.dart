@@ -67,6 +67,7 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                       child: Text(
                         Strings.frequentlyAskedQuestions,
                         style: RibnToolkitTextStyles.h3.copyWith(
+                          fontSize: 18,
                           color: Colors.white,
                         ),
                       ),
@@ -77,11 +78,17 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                           (q) => Accordion(
                             header: Text(
                               q,
-                              style: RibnToolkitTextStyles.h3.copyWith(color: Colors.white),
+                              style: RibnToolkitTextStyles.h3.copyWith(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
                             ),
                             description: Text(
                               faqs[q]!,
-                              style: RibnToolkitTextStyles.h4.copyWith(color: Colors.white),
+                              style: RibnToolkitTextStyles.h4.copyWith(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
                             ),
                             width: double.infinity,
                             backgroundColor: RibnColors.primary,

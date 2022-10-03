@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
@@ -72,7 +73,7 @@ class _SeedPhraseConfirmationPageState extends State<SeedPhraseConfirmationPage>
                     onPressed: () {
                       // Update errors if text entered does not match mnemonic word at specified idx
                       idxControllerMap.forEach((idx, controller) {
-                        final bool wordsMatch = controller.text == vm.mnemonicWordsList[idx];
+                        final bool wordsMatch = controller.text.trim() == vm.mnemonicWordsList[idx];
                         controllerErrorMap[controller] = !wordsMatch;
                       });
                       setState(() {});
@@ -140,6 +141,7 @@ class _SeedPhraseConfirmationPageState extends State<SeedPhraseConfirmationPage>
               controller: idxControllerMap[idx]!,
               hintText: Strings.typeSomething,
               hasError: controllerErrorMap[idxControllerMap[idx]!]!,
+              inputFormatters: [LowerCaseTextFormatter()],
               onChanged: (String text) {
                 if (text == word) {
                   setState(() {
@@ -151,6 +153,16 @@ class _SeedPhraseConfirmationPageState extends State<SeedPhraseConfirmationPage>
           ],
         ),
       ),
+    );
+  }
+}
+
+class LowerCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    return TextEditingValue(
+      text: newValue.text.toLowerCase(),
+      selection: newValue.selection,
     );
   }
 }
