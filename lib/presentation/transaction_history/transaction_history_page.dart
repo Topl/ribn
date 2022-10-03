@@ -69,21 +69,44 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
       TransactionReceipt.fromJson({
         'txId': 'fbU4PH7jXApUPr75skzjGA1VYFSonuQK4A7KztWQCsKi',
         'from': [
-          ['3NP1fFfoLxyk8Ac2ByXZnmYTKQ2aH3N9ttgEHZr2otkxC14qA5R9', '2394347554651688253'],
+          ['3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe', '2394347554651688253'],
+        ],
+        'to': [
+          [
+            '3NP1fFfoLxyk8Ac2ByXZnmYTKQ2aH3N9ttgEHZr2otkxC14qA5R9',
+            {
+              'type': 'Simple',
+              'quantity': '10',
+            }
+          ]
+        ],
+        'txType': 'PolyTransfer',
+        'fee': '100',
+        'timestamp': int.parse('1658931096087'),
+        'boxesToRemove': [],
+        'newBoxes': [],
+        'propositionType': 'PublicKeyCurve25519',
+        'blockNumber': int.parse('12345'),
+        'blockId': 'uSrVWvhZdMs7zVmzs2GENutp5YQybTyo9syEFhMu2b2H',
+      }),
+      TransactionReceipt.fromJson({
+        'txId': 'fbU4PH7jXApUPr75skzjGA1VYFSonuQK4A7KztWQCsKi',
+        'from': [
+          ['3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe', '2394347554651688253'],
         ],
         'to': [
           [
             '3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe',
             {
-              'type': 'Simple',
+              'type': 'Asset',
               'quantity': '10',
-              // 'assetCode': assetCode,
-              // 'securityRoot': securityRoot,
-              // 'metadata': metadata
+              'assetCode': '5YJgVZ47XEEFmGbkuRhYMdwyU92eZhrk84YczAhVBi3dS4jT9KEeQHMDrf',
+              'securityRoot': '11111111111111111111111111111111',
+              'metadata': ''
             }
           ]
         ],
-        'txType': 'PolyTransfer',
+        'txType': 'AssetTransfer',
         'fee': '100',
         'timestamp': int.parse('1658931096087'),
         'boxesToRemove': [],

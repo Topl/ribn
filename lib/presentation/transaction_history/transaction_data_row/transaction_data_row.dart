@@ -1,5 +1,3 @@
-// ignore_for_file: unused_import, unused_local_variable
-
 import 'package:brambldart/model.dart';
 import 'package:brambldart/utils.dart';
 import 'package:flutter/material.dart';
@@ -68,21 +66,20 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
     final String formattedDate = dateFormat.format(date);
     final String formattedDateAlternate = dateFormatAlternate.format(date);
     final String transactionReceiverAddress = widget.transactionReceipt.to.first.toJson()[0].toString();
-    final String transactionQuantity = widget.transactionReceipt.to.first.toJson()[1];
+    final String transactionQuantity = isPolyTransaction
+        ? widget.transactionReceipt.to.first.toJson()[1]
+        : widget.transactionReceipt.to.first.toJson()[1]['quantity'];
     final Sender transactionSenderAddress = widget.transactionReceipt.from![0];
-    final PolyAmount? fee = widget.transactionReceipt.fee;
+    final String? fee = '${widget.transactionReceipt.fee!.quantity} nanoPOLYs';
     final Latin1Data? note = widget.transactionReceipt.data;
-    final securityRoot = widget.transactionReceipt.to;
-    // final ModifierId? blockId = widget.transactionReceipt.blockId;
-    // final BlockNum? blockNumber = widget.transactionReceipt.blockNumber;
-    // final ModifierId transactionId = widget.transactionReceipt.id;
+    final String securityRoot = isPolyTransaction ? '' : widget.transactionReceipt.to.first.toJson()[1]['securityRoot'];
+    final String assetCode =
+        isPolyTransaction ? '' : widget.transactionReceipt.to.first.toJson()[1]['assetCode'].toString();
+    final ModifierId? blockId = widget.transactionReceipt.blockId;
+    final BlockNum? blockNumber = widget.transactionReceipt.blockNumber;
+    final ModifierId transactionId = widget.transactionReceipt.id;
     final String renderPlusOrMinus = transactionReceiverAddress == widget.myRibnWalletAddress ? '+' : '-';
     final String transactionPolyAmount = '$renderPlusOrMinus$transactionQuantity POLYs';
-
-    // print(widget.transactionReceipt.to.first.key);
-    // print(widget.transactionReceipt.to.first.value);
-    // print(widget.transactionReceipt.to.first.toJson()[0]);
-    // print(securityRoot);
 
     String? renderSentReceivedMintedText() {
       if (widget.transactionReceipt.minting == true) {
@@ -99,25 +96,24 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
         onTap: () {
           Keys.navigatorKey.currentState?.pushNamed(
             Routes.txHistoryDetails,
-            // arguments: {
-            //   'isPolyTransaction': true,
-            //   'transactionType': renderSentReceivedMintedText(),
-            //   'timestamp': formattedDateAlternate,
-            //   'assetDetails': {},
-            //   'icon': renderPolyIcon(),
-            //   'shortName': 'POLY',
-            //   'transactionStatus': transactionStatus,
-            //   'transactionAmount': transactionPolyAmount,
-            //   'fee': fee,
-            //   'myRibnWalletAddress': widget.myRibnWalletAddress,
-            //   'transactionSenderAddress': transactionSenderAddress,
-            //   'note': note,
-            //   'securityRoot': securityRoot,
-            //   'blockId': blockId,
-            //   'blockHeight': blockNumber,
-            //   'transactionId': transactionId,
-            //   'networkId': widget.networkId,
-            // },
+            arguments: {
+              'isPolyTransaction': true,
+              'transactionType': renderSentReceivedMintedText(),
+              'timestamp': formattedDateAlternate,
+              'assetDetails': {},
+              'icon': renderPolyIcon(),
+              'shortName': 'POLY',
+              'transactionStatus': transactionStatus,
+              'transactionAmount': transactionPolyAmount,
+              'fee': fee,
+              'myRibnWalletAddress': widget.myRibnWalletAddress,
+              'transactionSenderAddress': transactionSenderAddress,
+              'note': note,
+              'blockId': blockId,
+              'blockHeight': blockNumber,
+              'transactionId': transactionId,
+              'networkId': widget.networkId,
+            },
           );
         },
         child: Container(
@@ -180,109 +176,106 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
       );
     }
 
-    return Text('Asset transfer');
+    return StoreConnector<AppState, AssetDetails?>(
+      // Get access to AssetDetails for this asset from the store only if not poly transaction
+      converter: (store) => store.state.userDetailsState.assetDetails[assetCode],
+      builder: (context, assetDetails) {
+        final List filteredAsset = widget.assets
+            .where(
+              (item) => item.assetCode.toString() == assetCode,
+            )
+            .toList();
 
-    // return StoreConnector<AppState, AssetDetails?>(
-    //   // Get access to AssetDetails for this asset from the store only if not poly transaction
-    //   converter: (store) => store.state.userDetailsState.assetDetails[widget.transactionReceipt.to[0][1]['assetCode']],
-    //   builder: (context, assetDetails) {
-    //     final List filteredAsset = widget.assets
-    //         .where(
-    //           (item) => item.assetCode.toString() == widget.transactionReceipt.to[0][1]['assetCode'].toString(),
-    //         )
-    //         .toList();
-
-    //     return GestureDetector(
-    //       onTap: () {
-    //         Keys.navigatorKey.currentState?.pushNamed(
-    //           Routes.txHistoryDetails,
-    //           arguments: {
-    //             'isPolyTransaction': false,
-    //             'transactionType': renderSentReceivedMintedText(),
-    //             'timestamp': formattedDateAlternate,
-    //             'assetDetails': assetDetails,
-    //             'icon': renderAssetIcon(assetDetails?.icon),
-    //             'shortName': filteredAsset[0].assetCode.shortName.show,
-    //             'transactionStatus': transactionStatus,
-    //             'transactionAmount':
-    //                 '$renderPlusOrMinus${widget.transactionReceipt.to[0][1]['quantity']} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
-    //             'fee': fee,
-    //             'myRibnWalletAddress': widget.myRibnWalletAddress,
-    //             'transactionSenderAddress': transactionSenderAddress,
-    //             'note': note,
-    //             'securityRoot': securityRoot,
-    //             'blockId': blockId,
-    //             'blockHeight': blockNumber,
-    //             'transactionId': transactionId,
-    //             'networkId': widget.networkId,
-    //           },
-    //         );
-    //       },
-    //       child: Container(
-    //         color: Colors.white,
-    //         padding: const EdgeInsets.symmetric(
-    //           horizontal: 8,
-    //           vertical: 15,
-    //         ),
-    //         child: Column(
-    //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //           children: [
-    //             Row(
-    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //               children: [
-    //                 SizedBox(
-    //                   height: 40,
-    //                   child: Row(
-    //                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //                     children: [
-    //                       SizedBox(
-    //                         width: 25,
-    //                         height: 25,
-    //                         child: renderAssetIcon(assetDetails?.icon),
-    //                       ),
-    //                       Padding(
-    //                         padding: const EdgeInsets.only(left: 12),
-    //                         child: Column(
-    //                           crossAxisAlignment: CrossAxisAlignment.start,
-    //                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //                           children: [
-    //                             Text(
-    //                               '$renderPlusOrMinus${widget.transactionReceipt.to[0][1]['quantity']} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
-    //                               style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
-    //                             ),
-    //                             Text(
-    //                               filteredAsset[0].assetCode.shortName.show,
-    //                               style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-    //                             ),
-    //                           ],
-    //                         ),
-    //                       )
-    //                     ],
-    //                   ),
-    //                 ),
-    //                 SizedBox(
-    //                   height: 40,
-    //                   child: Column(
-    //                     crossAxisAlignment: CrossAxisAlignment.end,
-    //                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //                     children: [
-    //                       // Will need to pass in actual status from API when Genus plugged in
-    //                       StatusChip(status: transactionStatus),
-    //                       Text(
-    //                         '${renderSentReceivedMintedText()} on $formattedDate',
-    //                         style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-    //                       ),
-    //                     ],
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //     );
-    //   },
-    // );
+        return GestureDetector(
+          onTap: () {
+            Keys.navigatorKey.currentState?.pushNamed(
+              Routes.txHistoryDetails,
+              arguments: {
+                'isPolyTransaction': false,
+                'transactionType': renderSentReceivedMintedText(),
+                'timestamp': formattedDateAlternate,
+                'assetDetails': assetDetails,
+                'icon': renderAssetIcon(assetDetails?.icon),
+                'shortName': filteredAsset[0].assetCode.shortName.show,
+                'transactionStatus': transactionStatus,
+                'transactionAmount':
+                    '$renderPlusOrMinus$transactionQuantity ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
+                'fee': fee,
+                'myRibnWalletAddress': widget.myRibnWalletAddress,
+                'transactionSenderAddress': transactionSenderAddress,
+                'note': note,
+                'securityRoot': securityRoot,
+                'blockId': blockId,
+                'blockHeight': blockNumber,
+                'transactionId': transactionId,
+                'networkId': widget.networkId,
+              },
+            );
+          },
+          child: Container(
+            color: Colors.white,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 15,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      height: 40,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(
+                            width: 25,
+                            height: 25,
+                            child: renderAssetIcon(assetDetails?.icon),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                  '$renderPlusOrMinus$transactionQuantity ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
+                                  style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
+                                ),
+                                Text(
+                                  filteredAsset[0].assetCode.shortName.show,
+                                  style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 40,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          StatusChip(status: transactionStatus),
+                          Text(
+                            '${renderSentReceivedMintedText()} on $formattedDate',
+                            style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Image renderAssetIcon(assetDetailsIcon) {
