@@ -42,28 +42,13 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     });
   }
 
-  Future<List<TransactionReceipt>> fetchTxHistory(
+  Future<List> fetchTxHistory(
     BuildContext context,
     ToplAddress toplAddress,
     int networkId,
     TransactionHistoryViewmodel vm,
   ) async {
     // final List<TransactionReceipt> response = await vm.getTransactions(pageNum: 0);
-
-    //  final tx = TransactionReceipt.fromJson({
-    //         'txId': element['txId'],
-    //         'from': inputs,
-    //         'to': [output],
-    //         'txType': element['txType'],
-    //         'fee': element['fee'],
-    //         'timestamp': int.parse(element['timestamp']),
-    //         'boxesToRemove': element['boxesToRemove'] as List,
-    //         'newBoxes': newBoxes,
-    //         'propositionType': element['propositionType'],
-    //       });
-    // print(response);
-
-    // print('sd');
 
     final List<TransactionReceipt> response = [
       TransactionReceipt.fromJson({
@@ -77,6 +62,52 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
             {
               'type': 'Simple',
               'quantity': '10',
+            }
+          ]
+        ],
+        'txType': 'PolyTransfer',
+        'fee': '100',
+        'timestamp': int.parse('1658931096087'),
+        'boxesToRemove': [],
+        'newBoxes': [],
+        'propositionType': 'PublicKeyCurve25519',
+        'blockNumber': int.parse('12345'),
+        'blockId': 'uSrVWvhZdMs7zVmzs2GENutp5YQybTyo9syEFhMu2b2H',
+      }),
+      TransactionReceipt.fromJson({
+        'txId': 'fbU4PH7jXApUPr75skzjGA1VYFSonuQK4A7KztWQCsKi',
+        'from': [
+          ['3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe', '2394347554651688253'],
+        ],
+        'to': [
+          [
+            '3NP1fFfoLxyk8Ac2ByXZnmYTKQ2aH3N9ttgEHZr2otkxC14qA5R9',
+            {
+              'type': 'Simple',
+              'quantity': '24',
+            }
+          ]
+        ],
+        'txType': 'PolyTransfer',
+        'fee': '100',
+        'timestamp': int.parse('1658931096087'),
+        'boxesToRemove': [],
+        'newBoxes': [],
+        'propositionType': 'PublicKeyCurve25519',
+        'blockNumber': int.parse('12345'),
+        'blockId': 'uSrVWvhZdMs7zVmzs2GENutp5YQybTyo9syEFhMu2b2H',
+      }),
+      TransactionReceipt.fromJson({
+        'txId': 'fbU4PH7jXApUPr75skzjGA1VYFSonuQK4A7KztWQCsKi',
+        'from': [
+          ['3NP1fFfoLxyk8Ac2ByXZnmYTKQ2aH3N9ttgEHZr2otkxC14qA5R9', '2394347554651688253'],
+        ],
+        'to': [
+          [
+            '3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe',
+            {
+              'type': 'Simple',
+              'quantity': '66',
             }
           ]
         ],
@@ -114,48 +145,69 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
         'propositionType': 'PublicKeyCurve25519',
         'blockNumber': int.parse('12345'),
         'blockId': 'uSrVWvhZdMs7zVmzs2GENutp5YQybTyo9syEFhMu2b2H',
+      }),
+      TransactionReceipt.fromJson({
+        'txId': 'fbU4PH7jXApUPr75skzjGA1VYFSonuQK4A7KztWQCsKi',
+        'from': [
+          ['3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe', '2394347554651688253'],
+        ],
+        'to': [
+          [
+            '3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe',
+            {
+              'type': 'Asset',
+              'quantity': '96',
+              'assetCode': '5YJgVZ47XEEFmGbkuRhYMdwyU92eZhrk84YczAhVBi3dS4jRTxjgNx4PL3',
+              'securityRoot': '11111111111111111111111111111111',
+              'metadata': ''
+            }
+          ]
+        ],
+        'txType': 'AssetTransfer',
+        'fee': '100',
+        'timestamp': int.parse('1658931096087'),
+        'boxesToRemove': [],
+        'newBoxes': [],
+        'propositionType': 'PublicKeyCurve25519',
+        'blockNumber': int.parse('12345'),
+        'blockId': 'uSrVWvhZdMs7zVmzs2GENutp5YQybTyo9syEFhMu2b2H',
+        'minting': true,
       })
     ];
 
-    // print(response);
+    // Filters transactions by sent or received
+    if (filterSelectedItem != 'Transaction types') {
+      final List<TransactionReceipt> transactions = response;
+
+      for (var transaction in transactions) {
+        final String transactionReceiverAddress = transaction.to.first.toJson()[0].toString();
+        final Sender transactionSenderAddress = transaction.from![0];
+        final myRibnAddress = toplAddress.toBase58();
+        final wasMinted = transaction.minting == true;
+
+        if (filterSelectedItem == 'Received' && transactionReceiverAddress == myRibnAddress && !wasMinted) {
+          filteredTransactions.add(transaction);
+        }
+
+        if (filterSelectedItem == 'Sent' &&
+            transactionSenderAddress.toString() == myRibnAddress.toString() &&
+            !wasMinted &&
+            transactionReceiverAddress != myRibnAddress) {
+          filteredTransactions.add(transaction);
+        }
+      }
+
+      return filteredTransactions;
+    }
 
     return response;
-
-    // Add scroll controller to ListView
-    // Initstate to add some scolling logic to change page num
-    // List<TransactionReceipt>
-    // No from JSON needed
-
-    // Here we will add the filtering for sent or received
-    // if (filterSelectedItem != 'Transaction types') {
-    //   final List transactions = jsonDecode(response.body);
-
-    //   for (var transaction in transactions) {
-    //     final transactionReceiverAddress = transaction['to'][0][0].toString();
-    //     final transactionSenderAddress = transaction['from'][0][0].toString();
-    //     final myRibnAddress = toplAddress.toBase58();
-    //     final wasMinted = transaction['minting'] == true;
-
-    //     if (filterSelectedItem == 'Received' && transactionReceiverAddress == myRibnAddress) {
-    //       filteredTransactions.add(transaction);
-    //     }
-
-    //     if (filterSelectedItem == 'Sent' && transactionSenderAddress == myRibnAddress && !wasMinted) {
-    //       filteredTransactions.add(transaction);
-    //     }
-    //   }
-
-    //   return filteredTransactions;
-    // }
-
-    // return jsonDecode(response.body);
   }
 
   @override
   Widget build(BuildContext context) {
     final _scrollController = ScrollController();
 
-    // const startingFilterValue = 'Transaction types';
+    const startingFilterValue = 'Transaction types';
 
     return TransactionHistoryContainer(
       builder: (BuildContext context, TransactionHistoryViewmodel vm) => LoaderOverlay(
@@ -219,7 +271,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                   borderRadius: BorderRadius.circular(11.6),
                                   color: RibnColors.whiteBackground,
                                   border: Border.all(color: RibnColors.lightGrey, width: 1),
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       color: RibnColors.greyShadow,
                                       spreadRadius: 0,
@@ -233,30 +285,15 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                     reverse: true,
                                     physics: const NeverScrollableScrollPhysics(),
                                     scrollDirection: Axis.vertical,
-                                    // itemCount: filterSelectedItem == startingFilterValue
-                                    //     ? snapshot.data?.length
-                                    //     : filteredTransactions.length,
-                                    itemCount: snapshot.data?.length,
+                                    itemCount: filterSelectedItem == startingFilterValue
+                                        ? snapshot.data?.length
+                                        : filteredTransactions.length,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
-                                      // Add the filtering back
-                                      // final TransactionHistoryEntry transactionReceipt =
-                                      //     TransactionHistoryEntry.fromJson(
-                                      //   filterSelectedItem == startingFilterValue
-                                      //       ? snapshot.data[index]
-                                      //       : filteredTransactions[index],
-                                      // );
-
-                                      // final TransactionReceipt transactionReceipt =
-                                      //     TransactionReceipt.fromJson(snapshot.data[index]);
-
-                                      // print(snapshot.data[index]);
-
-                                      // return Text('transaction');
-
                                       return TransactionDataRow(
-                                        // transactionReceipt: transactionReceipt,
-                                        transactionReceipt: snapshot.data[index],
+                                        transactionReceipt: filterSelectedItem == startingFilterValue
+                                            ? snapshot.data[index]
+                                            : filteredTransactions[index],
                                         assets: vm.assets,
                                         myRibnWalletAddress: vm.toplAddress.toBase58(),
                                         blockHeight: vm.blockHeight,
