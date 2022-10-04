@@ -42,13 +42,35 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     });
   }
 
+  final _scrollController = ScrollController();
+
+  int pageNum = 0;
+
+  String startingFilterValue = 'Transaction types';
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.atEdge) {
+        final bool isTop = _scrollController.position.pixels == 0;
+        if (!isTop) {
+          setState(() {
+            pageNum += 1;
+          });
+        }
+      }
+    });
+  }
+
   Future<List> fetchTxHistory(
     BuildContext context,
     ToplAddress toplAddress,
     int networkId,
     TransactionHistoryViewmodel vm,
   ) async {
-    // final List<TransactionReceipt> response = await vm.getTransactions(pageNum: 0);
+    // final List<TransactionReceipt> response = await vm.getTransactions(pageNum: pageNum);
 
     final List<TransactionReceipt> response = [
       TransactionReceipt.fromJson({
@@ -172,6 +194,114 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
         'blockNumber': int.parse('12345'),
         'blockId': 'uSrVWvhZdMs7zVmzs2GENutp5YQybTyo9syEFhMu2b2H',
         'minting': true,
+      }),
+      TransactionReceipt.fromJson({
+        'txId': 'fbU4PH7jXApUPr75skzjGA1VYFSonuQK4A7KztWQCsKi',
+        'from': [
+          ['3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe', '2394347554651688253'],
+        ],
+        'to': [
+          [
+            '3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe',
+            {
+              'type': 'Asset',
+              'quantity': '96',
+              'assetCode': '5YJgVZ47XEEFmGbkuRhYMdwyU92eZhrk84YczAhVBi3dS4jRTxjgNx4PL3',
+              'securityRoot': '11111111111111111111111111111111',
+              'metadata': ''
+            }
+          ]
+        ],
+        'txType': 'AssetTransfer',
+        'fee': '100',
+        'timestamp': int.parse('1658931096087'),
+        'boxesToRemove': [],
+        'newBoxes': [],
+        'propositionType': 'PublicKeyCurve25519',
+        'blockNumber': int.parse('12345'),
+        'blockId': 'uSrVWvhZdMs7zVmzs2GENutp5YQybTyo9syEFhMu2b2H',
+        'minting': true,
+      }),
+      TransactionReceipt.fromJson({
+        'txId': 'fbU4PH7jXApUPr75skzjGA1VYFSonuQK4A7KztWQCsKi',
+        'from': [
+          ['3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe', '2394347554651688253'],
+        ],
+        'to': [
+          [
+            '3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe',
+            {
+              'type': 'Asset',
+              'quantity': '96',
+              'assetCode': '5YJgVZ47XEEFmGbkuRhYMdwyU92eZhrk84YczAhVBi3dS4jRTxjgNx4PL3',
+              'securityRoot': '11111111111111111111111111111111',
+              'metadata': ''
+            }
+          ]
+        ],
+        'txType': 'AssetTransfer',
+        'fee': '100',
+        'timestamp': int.parse('1658931096087'),
+        'boxesToRemove': [],
+        'newBoxes': [],
+        'propositionType': 'PublicKeyCurve25519',
+        'blockNumber': int.parse('12345'),
+        'blockId': 'uSrVWvhZdMs7zVmzs2GENutp5YQybTyo9syEFhMu2b2H',
+        'minting': true,
+      }),
+      TransactionReceipt.fromJson({
+        'txId': 'fbU4PH7jXApUPr75skzjGA1VYFSonuQK4A7KztWQCsKi',
+        'from': [
+          ['3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe', '2394347554651688253'],
+        ],
+        'to': [
+          [
+            '3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe',
+            {
+              'type': 'Asset',
+              'quantity': '96',
+              'assetCode': '5YJgVZ47XEEFmGbkuRhYMdwyU92eZhrk84YczAhVBi3dS4jRTxjgNx4PL3',
+              'securityRoot': '11111111111111111111111111111111',
+              'metadata': ''
+            }
+          ]
+        ],
+        'txType': 'AssetTransfer',
+        'fee': '100',
+        'timestamp': int.parse('1658931096087'),
+        'boxesToRemove': [],
+        'newBoxes': [],
+        'propositionType': 'PublicKeyCurve25519',
+        'blockNumber': int.parse('12345'),
+        'blockId': 'uSrVWvhZdMs7zVmzs2GENutp5YQybTyo9syEFhMu2b2H',
+        'minting': true,
+      }),
+      TransactionReceipt.fromJson({
+        'txId': 'fbU4PH7jXApUPr75skzjGA1VYFSonuQK4A7KztWQCsKi',
+        'from': [
+          ['3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe', '2394347554651688253'],
+        ],
+        'to': [
+          [
+            '3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe',
+            {
+              'type': 'Asset',
+              'quantity': '96',
+              'assetCode': '5YJgVZ47XEEFmGbkuRhYMdwyU92eZhrk84YczAhVBi3dS4jRTxjgNx4PL3',
+              'securityRoot': '11111111111111111111111111111111',
+              'metadata': ''
+            }
+          ]
+        ],
+        'txType': 'AssetTransfer',
+        'fee': '100',
+        'timestamp': int.parse('1658931096087'),
+        'boxesToRemove': [],
+        'newBoxes': [],
+        'propositionType': 'PublicKeyCurve25519',
+        'blockNumber': int.parse('12345'),
+        'blockId': 'uSrVWvhZdMs7zVmzs2GENutp5YQybTyo9syEFhMu2b2H',
+        'minting': true,
       })
     ];
 
@@ -205,10 +335,6 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _scrollController = ScrollController();
-
-    const startingFilterValue = 'Transaction types';
-
     return TransactionHistoryContainer(
       builder: (BuildContext context, TransactionHistoryViewmodel vm) => LoaderOverlay(
         overlayColor: Colors.transparent,
