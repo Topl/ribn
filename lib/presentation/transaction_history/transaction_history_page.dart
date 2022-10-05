@@ -29,7 +29,7 @@ class TxHistoryPage extends StatefulWidget {
 }
 
 class _TxHistoryPageState extends State<TxHistoryPage> {
-  List<String> itemsToSelectFrom = ['Sent', 'Received'];
+  List<String> itemsToSelectFrom = ['All', 'Sent', 'Received'];
 
   String filterSelectedItem = 'Transaction types';
 
@@ -81,6 +81,10 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
         final Sender transactionSenderAddress = transaction.from![0];
         final myRibnAddress = toplAddress.toBase58();
         final wasMinted = transaction.minting == true;
+
+        if (filterSelectedItem == 'All') {
+          filteredTransactions.add(transaction);
+        }
 
         if (filterSelectedItem == 'Received' && transactionReceiverAddress == myRibnAddress && !wasMinted) {
           filteredTransactions.add(transaction);
