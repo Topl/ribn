@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
@@ -109,7 +110,7 @@ class TxReviewPage extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: BottomReviewAction(
-          maxHeight: 173,
+          maxHeight: kIsWeb ? 148 : 174,
           children: Column(
             children: [
               const SizedBox(
