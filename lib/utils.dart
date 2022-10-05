@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:ribn/actions/misc_actions.dart';
+import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
@@ -18,7 +20,6 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
-
 import 'constants/assets.dart';
 import 'constants/keys.dart';
 

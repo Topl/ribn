@@ -29,32 +29,37 @@ class AssetIconDetails extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            const Text('Icon', style: RibnToolkitTextStyles.h4),
-            const Spacer(),
-            editingSectionOpened
-                ? const SizedBox()
-                : HoverIconButton(
-                    buttonText: Text(
-                      'Edit',
-                      style: RibnToolkitTextStyles.dropdownButtonStyle.copyWith(color: RibnColors.primary),
-                    ),
-                    buttonIcon: Image.asset(RibnAssets.editIcon),
-                    onPressed: onEditPressed,
-                  ),
-          ],
-        ),
-        const SizedBox(height: 3),
         SizedBox(
-          width: 20,
-          height: 20,
-          child: currIcon == null
-              ? Image.asset(RibnAssets.undefinedIcon)
-              : Image.asset(
-                  currIcon!,
-                  width: 31,
-                ),
+          height: 30,
+          child: Row(
+            children: [
+              const Text('Icon', style: RibnToolkitTextStyles.h4),
+              const Spacer(),
+              editingSectionOpened
+                  ? const SizedBox()
+                  : HoverIconButton(
+                      buttonText: Text(
+                        'Edit',
+                        style: RibnToolkitTextStyles.dropdownButtonStyle.copyWith(color: RibnColors.primary),
+                      ),
+                      buttonIcon: Image.asset(RibnAssets.editIcon),
+                      onPressed: onEditPressed,
+                    ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 3, bottom: 5),
+          child: SizedBox(
+            width: 20,
+            height: 20,
+            child: currIcon == null
+                ? Image.asset(RibnAssets.undefinedIcon)
+                : Image.asset(
+                    currIcon!,
+                    width: 31,
+                  ),
+          ),
         ),
       ],
     );

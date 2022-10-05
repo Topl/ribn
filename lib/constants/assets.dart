@@ -67,6 +67,7 @@ class RibnAssets {
   static const openInNewWindow = 'assets/icons/open_in_new.png';
   static const roundInfoCircle = 'assets/icons/round_info_circle.png';
   static const newRibnLogo = 'packages/ribn_toolkit/assets/icons/new_ribn_logo.png';
+  static const newCircleRibnLogo = 'packages/ribn_toolkit/assets/icons/ribn_circle_logo.png';
   static const chevronDown = 'packages/ribn_toolkit/assets/icons/chevron_down.png';
   static const chevronDownDark = 'packages/ribn_toolkit/assets/icons/chevron_down_dark.png';
   static const hamburgerMenu = 'packages/ribn_toolkit/assets/icons/hamburger_menu.png';
@@ -92,8 +93,9 @@ class RibnAssets {
   static const programPng = 'assets/icons/program.png';
   static const onboardingBackgroundSvg = 'assets/icons/onboarding_background.svg';
   static const onboardingBackgroundPng = 'assets/icons/onboarding_background.png';
-  static const createWalletPng = 'assets/icons/create_wallet.png';
-  static const importWalletPng = 'assets/icons/import_wallet.png';
+  static const createWalletPng = 'packages/ribn_toolkit/assets/icons/create_wallet.png';
+  static const createWalletPngWithShadow = 'packages/ribn_toolkit/assets/icons/create_wallet_shadow.png';
+  static const importWalletPng = 'packages/ribn_toolkit/assets/icons/import_wallet.png';
   static const walletLockPng = 'assets/icons/wallet_lock.png';
   static const passwordVisiblePng = 'assets/icons/password_visible.png';
   static const passwordHiddenPng = 'assets/icons/password_hidden.png';
@@ -115,4 +117,5 @@ class RibnAssets {
   static const documentPng = 'assets/icons/document.png';
   static const polyIconCircle = 'assets/icons/poly_icon_circle.png';
   static const clockWithBorder = 'assets/icons/clock_border.png';
+  static const walletWithBorder = 'assets/icons/wallet_with_border.png';
 }

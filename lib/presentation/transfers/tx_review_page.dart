@@ -109,8 +109,12 @@ class TxReviewPage extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: BottomReviewAction(
+          maxHeight: 173,
           children: Column(
             children: [
+              const SizedBox(
+                height: 15,
+              ),
               // confirm button
               LargeButton(
                 buttonChild: Text(
@@ -152,7 +156,7 @@ class TxReviewPage extends StatelessWidget {
                 dropShadowColor: Colors.transparent,
                 borderColor: RibnColors.ghostButtonText,
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Keys.navigatorKey.currentState!.popUntil((route) => route.settings.name == Routes.home);
                 },
               ),
               const SizedBox(height: 13),

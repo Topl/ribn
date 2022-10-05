@@ -1,11 +1,17 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:ribn/utils.dart';
 
 class BottomReviewAction extends StatelessWidget {
-  const BottomReviewAction({Key? key, required this.children, this.transparentBackground = false}) : super(key: key);
+  const BottomReviewAction({
+    Key? key,
+    required this.children,
+    this.transparentBackground = false,
+    required this.maxHeight,
+  }) : super(key: key);
 
   final Column children;
   final bool transparentBackground;
+  final double maxHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +21,7 @@ class BottomReviewAction extends StatelessWidget {
         topRight: Radius.circular(25),
       ),
       child: Container(
-        constraints: BoxConstraints(maxHeight: adaptHeight(0.25)),
+        constraints: BoxConstraints(maxHeight: kIsWeb ? 120 : maxHeight),
         decoration: transparentBackground
             ? null
             : const BoxDecoration(
@@ -31,7 +37,7 @@ class BottomReviewAction extends StatelessWidget {
         child: BottomAppBar(
           color: transparentBackground ? Colors.transparent : Colors.white,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
             child: children,
           ),
           elevation: 0,

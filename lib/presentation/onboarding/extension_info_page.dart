@@ -14,7 +14,7 @@ class ExtensionInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget ribnLogo(double width) => Image.asset(
-          RibnAssets.newRibnLogo,
+          RibnAssets.newCircleRibnLogo,
           width: width,
         );
     return Scaffold(

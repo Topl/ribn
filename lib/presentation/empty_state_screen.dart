@@ -34,7 +34,7 @@ class EmptyStateScreen extends StatelessWidget {
     const int dynamicHeightValue = kIsWeb ? 300 : 320;
 
     return Padding(
-      padding: const EdgeInsets.only(top: 24, left: 24, right: 24),
+      padding: const EdgeInsets.only(top: 18, left: 24, right: 24),
       child: Container(
         padding: EdgeInsets.zero,
         decoration: BoxDecoration(

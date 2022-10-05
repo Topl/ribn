@@ -57,19 +57,15 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    height: kIsWeb ? 280 : adaptHeight(isXsScreenSize ? 0.38 : 0.33),
+                    height: kIsWeb ? 280 : adaptHeight(isXsScreenSize ? 0.58 : 0.41),
                     width: kIsWeb ? 674 : adaptWidth(isXsScreenSize ? 1 : 0.9),
                     decoration: BoxDecoration(
                       color: RibnColors.greyText.withOpacity(0.24),
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    alignment: Alignment.center,
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15),
-                          child: _buildGrid(seedPhraseWordsList),
-                        ),
+                        _buildGrid(seedPhraseWordsList),
                         const Spacer(),
                         kIsWeb
                             ? const SizedBox()
@@ -80,6 +76,8 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                                   child: _buildButton(
                                     Strings.copy,
                                     onPressed: () => Clipboard.setData(ClipboardData(text: seedPhrase)),
+                                    width: 19,
+                                    height: 15,
                                   ),
                                 ),
                               ),
@@ -91,10 +89,15 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                     child: kIsWeb
                         ? Align(
                             alignment: Alignment.bottomRight,
-                            child: _buildButton(
-                              Strings.download,
-                              onPressed: () => StoreProvider.of<AppState>(context).dispatch(
-                                DownloadAsFileAction(Strings.seedPhraseFileName, seedPhrase),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: _buildButton(
+                                Strings.download,
+                                onPressed: () => StoreProvider.of<AppState>(context).dispatch(
+                                  DownloadAsFileAction(Strings.seedPhraseFileName, seedPhrase),
+                                ),
+                                width: 30,
+                                height: 23,
                               ),
                             ),
                           )
@@ -129,21 +132,21 @@ class SeedPhraseDisplayPage extends StatelessWidget {
         children.add(_buildGridItem(idx, word));
       }
     });
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        ...List.generate(
-          rows.length,
-          (index) => Padding(
-            padding: const EdgeInsets.only(top: kIsWeb ? 20 : 8.0),
-            child: Row(
+    return SizedBox(
+      height: 280,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ...List.generate(
+            rows.length,
+            (index) => Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: rows[index],
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 
@@ -173,6 +176,8 @@ class SeedPhraseDisplayPage extends StatelessWidget {
   Widget _buildButton(
     String buttonText, {
     VoidCallback? onPressed,
+    required double width,
+    required double height,
   }) {
     final String icon = buttonText == Strings.download ? RibnAssets.downloadPng : RibnAssets.contentCopyPng;
     return TextButton(
@@ -182,15 +187,17 @@ class SeedPhraseDisplayPage extends StatelessWidget {
           children: [
             TextSpan(
               text: '$buttonText ',
-              style: RibnToolkitTextStyles.h3.copyWith(
-                color: const Color(0xff00FFC5),
-                letterSpacing: 0.5,
-              ),
+              style: RibnToolkitTextStyles.h3
+                  .copyWith(color: const Color(0xff00FFC5), letterSpacing: 0.5, height: kIsWeb ? 1 : 0),
             ),
             WidgetSpan(
-              child: Image.asset(
-                icon,
-                width: 15,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 5),
+                child: Image.asset(
+                  icon,
+                  width: width,
+                  height: 23,
+                ),
               ),
             ),
           ],

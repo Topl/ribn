@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/keys.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/asset_transfer_input_container.dart';
+import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
@@ -85,6 +88,7 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
     return WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.updateButton(
         BottomReviewAction(
+          maxHeight: 145,
           children: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -100,6 +104,24 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.vm.assets.isEmpty) {
+      return EmptyStateScreen(
+        icon: RibnAssets.walletWithBorder,
+        title: Strings.noAssetsInWallet,
+        body: emptyStateBody,
+        buttonOneText: 'Mint',
+        buttonOneAction: () => Keys.navigatorKey.currentState?.pushNamed(
+          Routes.mintInput,
+          arguments: {
+            'mintingNewAsset': true,
+            'mintingToMyWallet': true,
+          },
+        ),
+        buttonTwoText: 'Share',
+        buttonTwoAction: () async => await showReceivingAddress(),
+      );
+    }
+
     return Stack(
       children: [
         Column(
