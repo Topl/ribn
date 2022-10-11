@@ -48,18 +48,16 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
   void initState() {
     super.initState();
 
-    if (hasTransactionData == true) {
-      _scrollController.addListener(() {
-        if (_scrollController.position.atEdge) {
-          final bool isTop = _scrollController.position.pixels == 0;
-          if (!isTop) {
-            setState(() {
-              pageNum += 1;
-            });
-          }
+    _scrollController.addListener(() {
+      if (_scrollController.position.atEdge) {
+        final bool isTop = _scrollController.position.pixels == 0;
+        if (!isTop) {
+          setState(() {
+            pageNum += 1;
+          });
         }
-      });
-    }
+      }
+    });
   }
 
   Future<List> fetchTxHistory(
@@ -69,12 +67,6 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     TransactionHistoryViewmodel vm,
   ) async {
     final List<TransactionReceipt> response = await vm.getTransactions(pageNum: pageNum);
-
-    if (response.isNotEmpty) {
-      setState(() {
-        hasTransactionData = true;
-      });
-    }
 
     // Filters transactions by sent or received
     if (filterSelectedItem != 'Transaction types') {

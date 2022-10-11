@@ -78,7 +78,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
     final ModifierId? blockId = widget.transactionReceipt.blockId;
     final BlockNum? blockNumber = widget.transactionReceipt.blockNumber;
     final ModifierId transactionId = widget.transactionReceipt.id;
-    final String renderPlusOrMinus = transactionReceiverAddress == widget.myRibnWalletAddress ? '+' : '-';
+    final String renderPlusOrMinus = transactionReceiverAddress == widget.myRibnWalletAddress ? '+' : '';
     final String transactionPolyAmount = '$renderPlusOrMinus$transactionQuantity POLYs';
 
     String? renderSentReceivedMintedText() {
