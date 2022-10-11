@@ -121,6 +121,8 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
         ),
         buttonTwoText: 'Share',
         buttonTwoAction: () async => await showReceivingAddress(),
+        mobileHeight: MediaQuery.of(context).size.height * 0.63,
+        desktopHeight: 258,
       );
     }
 

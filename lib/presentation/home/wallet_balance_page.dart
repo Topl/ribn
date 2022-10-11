@@ -225,6 +225,8 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
         ),
         buttonTwoText: 'Share',
         buttonTwoAction: () async => await showReceivingAddress(),
+        mobileHeight: MediaQuery.of(context).size.height * 0.5,
+        desktopHeight: 258,
       );
     }
 

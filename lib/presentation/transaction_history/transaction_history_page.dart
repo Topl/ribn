@@ -1,15 +1,9 @@
-// import 'dart:convert';
-
-// ignore_for_file: unused_import
-
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
-// import 'package:http/http.dart' as http;
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
-// import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/transaction_history_container.dart';
 import 'package:ribn/presentation/empty_state_screen.dart';
@@ -35,6 +29,8 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
 
   List filteredTransactions = [];
 
+  late bool hasTransactionData = false;
+
   void updateSelectedItem(string) {
     setState(() {
       filteredTransactions = [];
@@ -52,16 +48,18 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
   void initState() {
     super.initState();
 
-    _scrollController.addListener(() {
-      if (_scrollController.position.atEdge) {
-        final bool isTop = _scrollController.position.pixels == 0;
-        if (!isTop) {
-          setState(() {
-            pageNum += 1;
-          });
+    if (hasTransactionData == true) {
+      _scrollController.addListener(() {
+        if (_scrollController.position.atEdge) {
+          final bool isTop = _scrollController.position.pixels == 0;
+          if (!isTop) {
+            setState(() {
+              pageNum += 1;
+            });
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   Future<List> fetchTxHistory(
@@ -71,6 +69,12 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     TransactionHistoryViewmodel vm,
   ) async {
     final List<TransactionReceipt> response = await vm.getTransactions(pageNum: pageNum);
+
+    if (response.isNotEmpty) {
+      setState(() {
+        hasTransactionData = true;
+      });
+    }
 
     // Filters transactions by sent or received
     if (filterSelectedItem != 'Transaction types') {
@@ -153,6 +157,8 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                 ),
                                 buttonTwoText: 'Share',
                                 buttonTwoAction: () async => await showReceivingAddress(),
+                                mobileHeight: MediaQuery.of(context).size.height * 0.63,
+                                desktopHeight: 360,
                               );
                             }
 
