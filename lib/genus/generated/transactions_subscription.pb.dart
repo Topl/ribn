@@ -15,17 +15,28 @@ import 'types.pb.dart' as $6;
 
 class CreateTxsSubscriptionReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateTxsSubscriptionReq',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
-    ..aOM<$4.TransactionFilter>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter',
-        subBuilder: $4.TransactionFilter.create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateTxsSubscriptionReq',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
+    ..aOM<$4.TransactionFilter>(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter',
+      subBuilder: $4.TransactionFilter.create,
+    )
     ..a<$fixnum.Int64>(
-        2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'startHeight', $pb.PbFieldType.OU6,
-        defaultOrMaker: $fixnum.Int64.ZERO)
-    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'confirmationDepth',
-        $pb.PbFieldType.OU3)
+      2,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'startHeight',
+      $pb.PbFieldType.OU6,
+      defaultOrMaker: $fixnum.Int64.ZERO,
+    )
+    ..a<$core.int>(
+      3,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'confirmationDepth',
+      $pb.PbFieldType.OU3,
+    )
     ..hasRequiredFields = false;
 
   CreateTxsSubscriptionReq._() : super();
@@ -46,8 +57,10 @@ class CreateTxsSubscriptionReq extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory CreateTxsSubscriptionReq.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory CreateTxsSubscriptionReq.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
   factory CreateTxsSubscriptionReq.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
@@ -123,10 +136,12 @@ class TxsSubscriptionRes_Failure extends $pb.GeneratedMessage {
     0: TxsSubscriptionRes_Failure_Reason.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TxsSubscriptionRes.Failure',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TxsSubscriptionRes.Failure',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..oo(0, [1, 2])
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'invalidRequest')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dataConnectionError')
@@ -146,11 +161,15 @@ class TxsSubscriptionRes_Failure extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory TxsSubscriptionRes_Failure.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TxsSubscriptionRes_Failure.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
-  factory TxsSubscriptionRes_Failure.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TxsSubscriptionRes_Failure.fromJson(
+    $core.String i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -213,15 +232,23 @@ class TxsSubscriptionRes extends $pb.GeneratedMessage {
     0: TxsSubscriptionRes_Result.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TxsSubscriptionRes',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TxsSubscriptionRes',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..oo(0, [1, 2])
-    ..aOM<$6.Transaction>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success',
-        subBuilder: $6.Transaction.create)
-    ..aOM<TxsSubscriptionRes_Failure>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'failure',
-        subBuilder: TxsSubscriptionRes_Failure.create)
+    ..aOM<$6.Transaction>(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success',
+      subBuilder: $6.Transaction.create,
+    )
+    ..aOM<TxsSubscriptionRes_Failure>(
+      2,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'failure',
+      subBuilder: TxsSubscriptionRes_Failure.create,
+    )
     ..hasRequiredFields = false;
 
   TxsSubscriptionRes._() : super();
@@ -238,8 +265,10 @@ class TxsSubscriptionRes extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory TxsSubscriptionRes.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TxsSubscriptionRes.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
   factory TxsSubscriptionRes.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
