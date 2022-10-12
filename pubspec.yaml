@@ -56,8 +56,9 @@ dependencies:
       url: https://github.com/Topl/ribn-toolkit
   brambldart:
     git:
-      url: https://github.com/Topl/BramblDart.git
-      ref: genus
+      url: https://github.com/Topl/BramblDart
+      ref: TSDK-133
+      # Remove the ref once Selby's branch above has been merged into main
   shimmer_animation: ^2.1.0+1
   grpc: ^3.0.2
   path_provider: ^2.0.9

@@ -73,13 +73,14 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
     final String? fee = '${widget.transactionReceipt.fee!.quantity} nanoPOLYs';
     final Latin1Data? note = widget.transactionReceipt.data;
     final String securityRoot = isPolyTransaction ? '' : widget.transactionReceipt.to.first.toJson()[1]['securityRoot'];
-    final String assetCode =
-        isPolyTransaction ? '' : widget.transactionReceipt.to.first.toJson()[1]['assetCode'].toString();
+    final String assetCode = widget.transactionReceipt.to.first.toJson()[1].runtimeType == String
+        ? ''
+        : widget.transactionReceipt.to.first.toJson()[1]['assetCode'].toString();
     final ModifierId? blockId = widget.transactionReceipt.blockId;
     final BlockNum? blockNumber = widget.transactionReceipt.blockNumber;
     final ModifierId transactionId = widget.transactionReceipt.id;
-    final String renderPlusOrMinus = transactionReceiverAddress == widget.myRibnWalletAddress ? '+' : '';
-    final String transactionPolyAmount = '$renderPlusOrMinus$transactionQuantity POLYs';
+    final String renderPlusOrMinus = transactionReceiverAddress == widget.myRibnWalletAddress ? '+' : '-';
+    final String transactionPolyAmount = '$renderPlusOrMinus$transactionQuantity';
 
     String? renderSentReceivedMintedText() {
       if (widget.transactionReceipt.minting == true) {
@@ -142,11 +143,15 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                           padding: const EdgeInsets.only(left: 12),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
                                 transactionPolyAmount,
                                 style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
+                              ),
+                              Text(
+                                'POLY',
+                                style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
                               ),
                             ],
                           ),
