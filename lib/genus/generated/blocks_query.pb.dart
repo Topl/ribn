@@ -15,10 +15,12 @@ import 'types.pb.dart' as $6;
 
 class BlockSorting_Height extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlockSorting.Height',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlockSorting.Height',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'descending')
     ..hasRequiredFields = false;
 
@@ -32,8 +34,10 @@ class BlockSorting_Height extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory BlockSorting_Height.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BlockSorting_Height.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
   factory BlockSorting_Height.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
@@ -76,10 +80,12 @@ class BlockSorting_Height extends $pb.GeneratedMessage {
 
 class BlockSorting_Timestamp extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlockSorting.Timestamp',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlockSorting.Timestamp',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'descending')
     ..hasRequiredFields = false;
 
@@ -93,8 +99,10 @@ class BlockSorting_Timestamp extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory BlockSorting_Timestamp.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BlockSorting_Timestamp.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
   factory BlockSorting_Timestamp.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
@@ -137,10 +145,12 @@ class BlockSorting_Timestamp extends $pb.GeneratedMessage {
 
 class BlockSorting_Difficulty extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlockSorting.Difficulty',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlockSorting.Difficulty',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'descending')
     ..hasRequiredFields = false;
 
@@ -154,8 +164,10 @@ class BlockSorting_Difficulty extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory BlockSorting_Difficulty.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BlockSorting_Difficulty.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
   factory BlockSorting_Difficulty.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
@@ -198,10 +210,12 @@ class BlockSorting_Difficulty extends $pb.GeneratedMessage {
 
 class BlockSorting_NumberOfTransactions extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlockSorting.NumberOfTransactions',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlockSorting.NumberOfTransactions',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'descending')
     ..hasRequiredFields = false;
 
@@ -215,11 +229,15 @@ class BlockSorting_NumberOfTransactions extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory BlockSorting_NumberOfTransactions.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BlockSorting_NumberOfTransactions.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
-  factory BlockSorting_NumberOfTransactions.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BlockSorting_NumberOfTransactions.fromJson(
+    $core.String i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -270,20 +288,33 @@ class BlockSorting extends $pb.GeneratedMessage {
     0: BlockSorting_SortBy.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlockSorting',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlockSorting',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..oo(0, [1, 2, 3, 4])
-    ..aOM<BlockSorting_Height>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'height',
-        subBuilder: BlockSorting_Height.create)
-    ..aOM<BlockSorting_Timestamp>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp',
-        subBuilder: BlockSorting_Timestamp.create)
-    ..aOM<BlockSorting_Difficulty>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'difficulty',
-        subBuilder: BlockSorting_Difficulty.create)
+    ..aOM<BlockSorting_Height>(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'height',
+      subBuilder: BlockSorting_Height.create,
+    )
+    ..aOM<BlockSorting_Timestamp>(
+      2,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp',
+      subBuilder: BlockSorting_Timestamp.create,
+    )
+    ..aOM<BlockSorting_Difficulty>(
+      3,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'difficulty',
+      subBuilder: BlockSorting_Difficulty.create,
+    )
     ..aOM<BlockSorting_NumberOfTransactions>(
-        4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'numberOfTransactions',
-        subBuilder: BlockSorting_NumberOfTransactions.create)
+      4,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'numberOfTransactions',
+      subBuilder: BlockSorting_NumberOfTransactions.create,
+    )
     ..hasRequiredFields = false;
 
   BlockSorting._() : super();
@@ -396,18 +427,32 @@ class BlockSorting extends $pb.GeneratedMessage {
 
 class QueryBlocksReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryBlocksReq',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
-    ..aOM<$4.BlockFilter>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter',
-        subBuilder: $4.BlockFilter.create)
-    ..aOM<BlockSorting>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sorting',
-        subBuilder: BlockSorting.create)
-    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'confirmationDepth',
-        $pb.PbFieldType.OU3)
-    ..aOM<$5.Paging>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pagingOptions',
-        subBuilder: $5.Paging.create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryBlocksReq',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
+    ..aOM<$4.BlockFilter>(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter',
+      subBuilder: $4.BlockFilter.create,
+    )
+    ..aOM<BlockSorting>(
+      2,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sorting',
+      subBuilder: BlockSorting.create,
+    )
+    ..a<$core.int>(
+      3,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'confirmationDepth',
+      $pb.PbFieldType.OU3,
+    )
+    ..aOM<$5.Paging>(
+      4,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pagingOptions',
+      subBuilder: $5.Paging.create,
+    )
     ..hasRequiredFields = false;
 
   QueryBlocksReq._() : super();
@@ -516,12 +561,18 @@ class QueryBlocksReq extends $pb.GeneratedMessage {
 
 class QueryBlocksRes_Success extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryBlocksRes.Success',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
-    ..pc<$6.Block>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blocks', $pb.PbFieldType.PM,
-        subBuilder: $6.Block.create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryBlocksRes.Success',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
+    ..pc<$6.Block>(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blocks',
+      $pb.PbFieldType.PM,
+      subBuilder: $6.Block.create,
+    )
     ..hasRequiredFields = false;
 
   QueryBlocksRes_Success._() : super();
@@ -534,8 +585,10 @@ class QueryBlocksRes_Success extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory QueryBlocksRes_Success.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory QueryBlocksRes_Success.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
   factory QueryBlocksRes_Success.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
@@ -577,10 +630,12 @@ class QueryBlocksRes_Failure extends $pb.GeneratedMessage {
     0: QueryBlocksRes_Failure_Reason.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryBlocksRes.Failure',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryBlocksRes.Failure',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..oo(0, [1, 2, 3])
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dataStoreConnectionError')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'queryTimeout')
@@ -605,8 +660,10 @@ class QueryBlocksRes_Failure extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory QueryBlocksRes_Failure.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory QueryBlocksRes_Failure.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
   factory QueryBlocksRes_Failure.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
@@ -683,15 +740,23 @@ class QueryBlocksRes extends $pb.GeneratedMessage {
     0: QueryBlocksRes_Result.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryBlocksRes',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryBlocksRes',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..oo(0, [1, 2])
-    ..aOM<QueryBlocksRes_Success>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success',
-        subBuilder: QueryBlocksRes_Success.create)
-    ..aOM<QueryBlocksRes_Failure>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'failure',
-        subBuilder: QueryBlocksRes_Failure.create)
+    ..aOM<QueryBlocksRes_Success>(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success',
+      subBuilder: QueryBlocksRes_Success.create,
+    )
+    ..aOM<QueryBlocksRes_Failure>(
+      2,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'failure',
+      subBuilder: QueryBlocksRes_Failure.create,
+    )
     ..hasRequiredFields = false;
 
   QueryBlocksRes._() : super();
@@ -769,16 +834,27 @@ class QueryBlocksRes extends $pb.GeneratedMessage {
 
 class BlocksQueryStreamReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlocksQueryStreamReq',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
-    ..aOM<$4.BlockFilter>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter',
-        subBuilder: $4.BlockFilter.create)
-    ..aOM<BlockSorting>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sorting',
-        subBuilder: BlockSorting.create)
-    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'confirmationDepth',
-        $pb.PbFieldType.OU3)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlocksQueryStreamReq',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
+    ..aOM<$4.BlockFilter>(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter',
+      subBuilder: $4.BlockFilter.create,
+    )
+    ..aOM<BlockSorting>(
+      2,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sorting',
+      subBuilder: BlockSorting.create,
+    )
+    ..a<$core.int>(
+      3,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'confirmationDepth',
+      $pb.PbFieldType.OU3,
+    )
     ..hasRequiredFields = false;
 
   BlocksQueryStreamReq._() : super();
@@ -799,8 +875,10 @@ class BlocksQueryStreamReq extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory BlocksQueryStreamReq.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BlocksQueryStreamReq.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
   factory BlocksQueryStreamReq.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
@@ -878,10 +956,12 @@ class BlocksQueryStreamRes_Failure extends $pb.GeneratedMessage {
     0: BlocksQueryStreamRes_Failure_Reason.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlocksQueryStreamRes.Failure',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlocksQueryStreamRes.Failure',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..oo(0, [1, 2])
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dataStoreConnectionError')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'invalidQuery')
@@ -901,11 +981,15 @@ class BlocksQueryStreamRes_Failure extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory BlocksQueryStreamRes_Failure.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BlocksQueryStreamRes_Failure.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
-  factory BlocksQueryStreamRes_Failure.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BlocksQueryStreamRes_Failure.fromJson(
+    $core.String i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -968,16 +1052,23 @@ class BlocksQueryStreamRes extends $pb.GeneratedMessage {
     0: BlocksQueryStreamRes_Result.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlocksQueryStreamRes',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlocksQueryStreamRes',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..oo(0, [1, 2])
-    ..aOM<$6.Block>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'block',
-        subBuilder: $6.Block.create)
+    ..aOM<$6.Block>(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'block',
+      subBuilder: $6.Block.create,
+    )
     ..aOM<BlocksQueryStreamRes_Failure>(
-        2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'failure',
-        subBuilder: BlocksQueryStreamRes_Failure.create)
+      2,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'failure',
+      subBuilder: BlocksQueryStreamRes_Failure.create,
+    )
     ..hasRequiredFields = false;
 
   BlocksQueryStreamRes._() : super();
@@ -994,8 +1085,10 @@ class BlocksQueryStreamRes extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory BlocksQueryStreamRes.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BlocksQueryStreamRes.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
   factory BlocksQueryStreamRes.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);

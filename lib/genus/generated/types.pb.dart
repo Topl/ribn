@@ -12,10 +12,11 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 class Attestation extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Attestation',
-      package:
-          const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Attestation',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    createEmptyInstance: create,
+  )
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'publicKey')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'signature')
     ..hasRequiredFields = false;
@@ -87,10 +88,11 @@ class Attestation extends $pb.GeneratedMessage {
 
 class SimpleValue extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SimpleValue',
-      package:
-          const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SimpleValue',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    createEmptyInstance: create,
+  )
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'quantity')
     ..hasRequiredFields = false;
 
@@ -145,10 +147,11 @@ class SimpleValue extends $pb.GeneratedMessage {
 
 class AssetValue extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AssetValue',
-      package:
-          const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AssetValue',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    createEmptyInstance: create,
+  )
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'quantity')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'securityRoot')
@@ -261,15 +264,22 @@ class TokenValue extends $pb.GeneratedMessage {
     0: TokenValue_Value.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TokenValue',
-      package:
-          const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TokenValue',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    createEmptyInstance: create,
+  )
     ..oo(0, [1, 2])
-    ..aOM<SimpleValue>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'simple',
-        subBuilder: SimpleValue.create)
-    ..aOM<AssetValue>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'asset',
-        subBuilder: AssetValue.create)
+    ..aOM<SimpleValue>(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'simple',
+      subBuilder: SimpleValue.create,
+    )
+    ..aOM<AssetValue>(
+      2,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'asset',
+      subBuilder: AssetValue.create,
+    )
     ..hasRequiredFields = false;
 
   TokenValue._() : super();
@@ -346,16 +356,20 @@ class TokenValue extends $pb.GeneratedMessage {
 
 class TokenBox extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TokenBox',
-      package:
-          const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TokenBox',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    createEmptyInstance: create,
+  )
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'boxType')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nonce')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'evidence')
-    ..aOM<TokenValue>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'value',
-        subBuilder: TokenValue.create)
+    ..aOM<TokenValue>(
+      5,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'value',
+      subBuilder: TokenValue.create,
+    )
     ..hasRequiredFields = false;
 
   TokenBox._() : super();
@@ -475,10 +489,11 @@ class TokenBox extends $pb.GeneratedMessage {
 
 class InputBox extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'InputBox',
-      package:
-          const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'InputBox',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    createEmptyInstance: create,
+  )
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'address')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nonce')
     ..hasRequiredFields = false;
@@ -550,13 +565,17 @@ class InputBox extends $pb.GeneratedMessage {
 
 class OutputBox extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'OutputBox',
-      package:
-          const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'OutputBox',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    createEmptyInstance: create,
+  )
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'address')
-    ..aOM<TokenValue>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'value',
-        subBuilder: TokenValue.create)
+    ..aOM<TokenValue>(
+      2,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'value',
+      subBuilder: TokenValue.create,
+    )
     ..hasRequiredFields = false;
 
   OutputBox._() : super();
@@ -628,13 +647,17 @@ class OutputBox extends $pb.GeneratedMessage {
 
 class BlockHeight extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlockHeight',
-      package:
-          const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlockHeight',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    createEmptyInstance: create,
+  )
     ..a<$fixnum.Int64>(
-        1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'value', $pb.PbFieldType.OU6,
-        defaultOrMaker: $fixnum.Int64.ZERO)
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'value',
+      $pb.PbFieldType.OU6,
+      defaultOrMaker: $fixnum.Int64.ZERO,
+    )
     ..hasRequiredFields = false;
 
   BlockHeight._() : super();
@@ -688,33 +711,50 @@ class BlockHeight extends $pb.GeneratedMessage {
 
 class Transaction extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Transaction',
-      package:
-          const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Transaction',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    createEmptyInstance: create,
+  )
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'txType')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp')
     ..pc<Attestation>(
-        3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'signatures', $pb.PbFieldType.PM,
-        subBuilder: Attestation.create)
+      3,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'signatures',
+      $pb.PbFieldType.PM,
+      subBuilder: Attestation.create,
+    )
     ..pc<TokenBox>(
-        4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'newBoxes', $pb.PbFieldType.PM,
-        subBuilder: TokenBox.create)
+      4,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'newBoxes',
+      $pb.PbFieldType.PM,
+      subBuilder: TokenBox.create,
+    )
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'data')
-    ..pc<InputBox>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'inputs', $pb.PbFieldType.PM,
-        subBuilder: InputBox.create)
+    ..pc<InputBox>(
+      6,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'inputs',
+      $pb.PbFieldType.PM,
+      subBuilder: InputBox.create,
+    )
     ..aOB(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'minting')
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'txId')
     ..pPS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'boxesToRemove')
     ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fee')
     ..pc<OutputBox>(
-        11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'outputs', $pb.PbFieldType.PM,
-        subBuilder: OutputBox.create)
+      11,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'outputs',
+      $pb.PbFieldType.PM,
+      subBuilder: OutputBox.create,
+    )
     ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'propositionType')
     ..aOS(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blockId')
     ..a<$fixnum.Int64>(
-        14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blockHeight', $pb.PbFieldType.OU6,
-        defaultOrMaker: $fixnum.Int64.ZERO)
+      14,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blockHeight',
+      $pb.PbFieldType.OU6,
+      defaultOrMaker: $fixnum.Int64.ZERO,
+    )
     ..hasRequiredFields = false;
 
   Transaction._() : super();
@@ -931,27 +971,40 @@ class Transaction extends $pb.GeneratedMessage {
 
 class Block extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Block',
-      package:
-          const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Block',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    createEmptyInstance: create,
+  )
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'parentId')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp')
-    ..aOM<TokenBox>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'generator',
-        subBuilder: TokenBox.create)
+    ..aOM<TokenBox>(
+      4,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'generator',
+      subBuilder: TokenBox.create,
+    )
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'publicKey')
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'signature')
     ..a<$fixnum.Int64>(
-        7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'height', $pb.PbFieldType.OU6,
-        defaultOrMaker: $fixnum.Int64.ZERO)
+      7,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'height',
+      $pb.PbFieldType.OU6,
+      defaultOrMaker: $fixnum.Int64.ZERO,
+    )
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'difficulty')
     ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'txRoot')
     ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'bloomFilter')
     ..a<$core.int>(
-        11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'version', $pb.PbFieldType.OU3)
+      11,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'version',
+      $pb.PbFieldType.OU3,
+    )
     ..a<$core.int>(
-        12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'numTransactions', $pb.PbFieldType.OU3)
+      12,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'numTransactions',
+      $pb.PbFieldType.OU3,
+    )
     ..hasRequiredFields = false;
 
   Block._() : super();

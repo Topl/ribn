@@ -15,10 +15,12 @@ import 'types.pb.dart' as $6;
 
 class TransactionSorting_Height extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TransactionSorting.Height',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TransactionSorting.Height',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'descending')
     ..hasRequiredFields = false;
 
@@ -32,8 +34,10 @@ class TransactionSorting_Height extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory TransactionSorting_Height.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TransactionSorting_Height.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
   factory TransactionSorting_Height.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
@@ -76,10 +80,12 @@ class TransactionSorting_Height extends $pb.GeneratedMessage {
 
 class TransactionSorting_Fee extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TransactionSorting.Fee',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TransactionSorting.Fee',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'descending')
     ..hasRequiredFields = false;
 
@@ -93,8 +99,10 @@ class TransactionSorting_Fee extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory TransactionSorting_Fee.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TransactionSorting_Fee.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
   factory TransactionSorting_Fee.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
@@ -137,10 +145,12 @@ class TransactionSorting_Fee extends $pb.GeneratedMessage {
 
 class TransactionSorting_Timestamp extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TransactionSorting.Timestamp',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TransactionSorting.Timestamp',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'descending')
     ..hasRequiredFields = false;
 
@@ -154,11 +164,15 @@ class TransactionSorting_Timestamp extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory TransactionSorting_Timestamp.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TransactionSorting_Timestamp.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
-  factory TransactionSorting_Timestamp.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TransactionSorting_Timestamp.fromJson(
+    $core.String i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -207,18 +221,28 @@ class TransactionSorting extends $pb.GeneratedMessage {
     0: TransactionSorting_SortBy.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TransactionSorting',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TransactionSorting',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..oo(0, [1, 2, 3])
-    ..aOM<TransactionSorting_Height>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'height',
-        subBuilder: TransactionSorting_Height.create)
-    ..aOM<TransactionSorting_Fee>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fee',
-        subBuilder: TransactionSorting_Fee.create)
+    ..aOM<TransactionSorting_Height>(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'height',
+      subBuilder: TransactionSorting_Height.create,
+    )
+    ..aOM<TransactionSorting_Fee>(
+      2,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fee',
+      subBuilder: TransactionSorting_Fee.create,
+    )
     ..aOM<TransactionSorting_Timestamp>(
-        3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp',
-        subBuilder: TransactionSorting_Timestamp.create)
+      3,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp',
+      subBuilder: TransactionSorting_Timestamp.create,
+    )
     ..hasRequiredFields = false;
 
   TransactionSorting._() : super();
@@ -239,8 +263,10 @@ class TransactionSorting extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory TransactionSorting.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TransactionSorting.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
   factory TransactionSorting.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
@@ -316,18 +342,32 @@ class TransactionSorting extends $pb.GeneratedMessage {
 
 class QueryTxsReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryTxsReq',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
-    ..aOM<$4.TransactionFilter>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter',
-        subBuilder: $4.TransactionFilter.create)
-    ..aOM<TransactionSorting>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sorting',
-        subBuilder: TransactionSorting.create)
-    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'confirmationDepth',
-        $pb.PbFieldType.OU3)
-    ..aOM<$5.Paging>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pagingOptions',
-        subBuilder: $5.Paging.create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryTxsReq',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
+    ..aOM<$4.TransactionFilter>(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter',
+      subBuilder: $4.TransactionFilter.create,
+    )
+    ..aOM<TransactionSorting>(
+      2,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sorting',
+      subBuilder: TransactionSorting.create,
+    )
+    ..a<$core.int>(
+      3,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'confirmationDepth',
+      $pb.PbFieldType.OU3,
+    )
+    ..aOM<$5.Paging>(
+      4,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pagingOptions',
+      subBuilder: $5.Paging.create,
+    )
     ..hasRequiredFields = false;
 
   QueryTxsReq._() : super();
@@ -435,13 +475,18 @@ class QueryTxsReq extends $pb.GeneratedMessage {
 
 class QueryTxsRes_Success extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryTxsRes.Success',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryTxsRes.Success',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..pc<$6.Transaction>(
-        1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'transactions', $pb.PbFieldType.PM,
-        subBuilder: $6.Transaction.create)
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'transactions',
+      $pb.PbFieldType.PM,
+      subBuilder: $6.Transaction.create,
+    )
     ..hasRequiredFields = false;
 
   QueryTxsRes_Success._() : super();
@@ -454,8 +499,10 @@ class QueryTxsRes_Success extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory QueryTxsRes_Success.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory QueryTxsRes_Success.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
   factory QueryTxsRes_Success.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
@@ -497,10 +544,12 @@ class QueryTxsRes_Failure extends $pb.GeneratedMessage {
     0: QueryTxsRes_Failure_Reason.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryTxsRes.Failure',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryTxsRes.Failure',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..oo(0, [1, 2, 3])
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dataStoreConnectionError')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'queryTimeout')
@@ -525,8 +574,10 @@ class QueryTxsRes_Failure extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory QueryTxsRes_Failure.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory QueryTxsRes_Failure.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
   factory QueryTxsRes_Failure.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
@@ -603,15 +654,23 @@ class QueryTxsRes extends $pb.GeneratedMessage {
     0: QueryTxsRes_Result.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryTxsRes',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryTxsRes',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..oo(0, [1, 2])
-    ..aOM<QueryTxsRes_Success>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success',
-        subBuilder: QueryTxsRes_Success.create)
-    ..aOM<QueryTxsRes_Failure>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'failure',
-        subBuilder: QueryTxsRes_Failure.create)
+    ..aOM<QueryTxsRes_Success>(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success',
+      subBuilder: QueryTxsRes_Success.create,
+    )
+    ..aOM<QueryTxsRes_Failure>(
+      2,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'failure',
+      subBuilder: QueryTxsRes_Failure.create,
+    )
     ..hasRequiredFields = false;
 
   QueryTxsRes._() : super();
@@ -688,16 +747,27 @@ class QueryTxsRes extends $pb.GeneratedMessage {
 
 class TxsQueryStreamReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TxsQueryStreamReq',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
-    ..aOM<$4.TransactionFilter>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter',
-        subBuilder: $4.TransactionFilter.create)
-    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'confirmationDepth',
-        $pb.PbFieldType.OU3)
-    ..aOM<TransactionSorting>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sorting',
-        subBuilder: TransactionSorting.create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TxsQueryStreamReq',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
+    ..aOM<$4.TransactionFilter>(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter',
+      subBuilder: $4.TransactionFilter.create,
+    )
+    ..a<$core.int>(
+      2,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'confirmationDepth',
+      $pb.PbFieldType.OU3,
+    )
+    ..aOM<TransactionSorting>(
+      4,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sorting',
+      subBuilder: TransactionSorting.create,
+    )
     ..hasRequiredFields = false;
 
   TxsQueryStreamReq._() : super();
@@ -718,8 +788,10 @@ class TxsQueryStreamReq extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory TxsQueryStreamReq.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TxsQueryStreamReq.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
   factory TxsQueryStreamReq.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
@@ -797,10 +869,12 @@ class TxsQueryStreamRes_Failure extends $pb.GeneratedMessage {
     0: TxsQueryStreamRes_Failure_Reason.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TxsQueryStreamRes.Failure',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TxsQueryStreamRes.Failure',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..oo(0, [1, 2])
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dataStoreConnectionError')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'invalidQuery')
@@ -820,8 +894,10 @@ class TxsQueryStreamRes_Failure extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory TxsQueryStreamRes_Failure.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TxsQueryStreamRes_Failure.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
   factory TxsQueryStreamRes_Failure.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
@@ -886,15 +962,23 @@ class TxsQueryStreamRes extends $pb.GeneratedMessage {
     0: TxsQueryStreamRes_Result.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TxsQueryStreamRes',
-      package: const $pb.PackageName(
-          const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'),
-      createEmptyInstance: create)
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TxsQueryStreamRes',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
     ..oo(0, [1, 2])
-    ..aOM<$6.Transaction>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'tx',
-        subBuilder: $6.Transaction.create)
-    ..aOM<TxsQueryStreamRes_Failure>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'failure',
-        subBuilder: TxsQueryStreamRes_Failure.create)
+    ..aOM<$6.Transaction>(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'tx',
+      subBuilder: $6.Transaction.create,
+    )
+    ..aOM<TxsQueryStreamRes_Failure>(
+      2,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'failure',
+      subBuilder: TxsQueryStreamRes_Failure.create,
+    )
     ..hasRequiredFields = false;
 
   TxsQueryStreamRes._() : super();
@@ -911,8 +995,10 @@ class TxsQueryStreamRes extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory TxsQueryStreamRes.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TxsQueryStreamRes.fromBuffer(
+    $core.List<$core.int> i, [
+    $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
+  ]) =>
       create()..mergeFromBuffer(i, r);
   factory TxsQueryStreamRes.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
