@@ -14,34 +14,39 @@ import 'blocks_query.pb.dart' as $1;
 export 'blocks_query.pb.dart';
 
 class BlocksQueryClient extends $grpc.Client {
-  static final _$query =
-      $grpc.ClientMethod<$1.QueryBlocksReq, $1.QueryBlocksRes>(
-          '/co.topl.genus.services.BlocksQuery/Query',
-          ($1.QueryBlocksReq value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $1.QueryBlocksRes.fromBuffer(value));
-  static final _$queryStream =
-      $grpc.ClientMethod<$1.BlocksQueryStreamReq, $1.BlocksQueryStreamRes>(
-          '/co.topl.genus.services.BlocksQuery/QueryStream',
-          ($1.BlocksQueryStreamReq value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) =>
-              $1.BlocksQueryStreamRes.fromBuffer(value));
+  static final _$query = $grpc.ClientMethod<$1.QueryBlocksReq, $1.QueryBlocksRes>(
+    '/co.topl.genus.services.BlocksQuery/Query',
+    ($1.QueryBlocksReq value) => value.writeToBuffer(),
+    ($core.List<$core.int> value) => $1.QueryBlocksRes.fromBuffer(value),
+  );
+  static final _$queryStream = $grpc.ClientMethod<$1.BlocksQueryStreamReq, $1.BlocksQueryStreamRes>(
+    '/co.topl.genus.services.BlocksQuery/QueryStream',
+    ($1.BlocksQueryStreamReq value) => value.writeToBuffer(),
+    ($core.List<$core.int> value) => $1.BlocksQueryStreamRes.fromBuffer(value),
+  );
 
-  BlocksQueryClient($grpc.ClientChannel channel,
-      {$grpc.CallOptions? options,
-      $core.Iterable<$grpc.ClientInterceptor>? interceptors})
-      : super(channel, options: options, interceptors: interceptors);
+  BlocksQueryClient(
+    $grpc.ClientChannel channel, {
+    $grpc.CallOptions? options,
+    $core.Iterable<$grpc.ClientInterceptor>? interceptors,
+  }) : super(channel, options: options, interceptors: interceptors);
 
-  $grpc.ResponseFuture<$1.QueryBlocksRes> query($1.QueryBlocksReq request,
-      {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.QueryBlocksRes> query(
+    $1.QueryBlocksReq request, {
+    $grpc.CallOptions? options,
+  }) {
     return $createUnaryCall(_$query, request, options: options);
   }
 
   $grpc.ResponseStream<$1.BlocksQueryStreamRes> queryStream(
-      $1.BlocksQueryStreamReq request,
-      {$grpc.CallOptions? options}) {
+    $1.BlocksQueryStreamReq request, {
+    $grpc.CallOptions? options,
+  }) {
     return $createStreamingCall(
-        _$queryStream, $async.Stream.fromIterable([request]),
-        options: options);
+      _$queryStream,
+      $async.Stream.fromIterable([request]),
+      options: options,
+    );
   }
 }
 
@@ -49,36 +54,48 @@ abstract class BlocksQueryServiceBase extends $grpc.Service {
   $core.String get $name => 'co.topl.genus.services.BlocksQuery';
 
   BlocksQueryServiceBase() {
-    $addMethod($grpc.ServiceMethod<$1.QueryBlocksReq, $1.QueryBlocksRes>(
+    $addMethod(
+      $grpc.ServiceMethod<$1.QueryBlocksReq, $1.QueryBlocksRes>(
         'Query',
         query_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $1.QueryBlocksReq.fromBuffer(value),
-        ($1.QueryBlocksRes value) => value.writeToBuffer()));
+        ($1.QueryBlocksRes value) => value.writeToBuffer(),
+      ),
+    );
     $addMethod(
-        $grpc.ServiceMethod<$1.BlocksQueryStreamReq, $1.BlocksQueryStreamRes>(
-            'QueryStream',
-            queryStream_Pre,
-            false,
-            true,
-            ($core.List<$core.int> value) =>
-                $1.BlocksQueryStreamReq.fromBuffer(value),
-            ($1.BlocksQueryStreamRes value) => value.writeToBuffer()));
+      $grpc.ServiceMethod<$1.BlocksQueryStreamReq, $1.BlocksQueryStreamRes>(
+        'QueryStream',
+        queryStream_Pre,
+        false,
+        true,
+        ($core.List<$core.int> value) => $1.BlocksQueryStreamReq.fromBuffer(value),
+        ($1.BlocksQueryStreamRes value) => value.writeToBuffer(),
+      ),
+    );
   }
 
   $async.Future<$1.QueryBlocksRes> query_Pre(
-      $grpc.ServiceCall call, $async.Future<$1.QueryBlocksReq> request) async {
+    $grpc.ServiceCall call,
+    $async.Future<$1.QueryBlocksReq> request,
+  ) async {
     return query(call, await request);
   }
 
-  $async.Stream<$1.BlocksQueryStreamRes> queryStream_Pre($grpc.ServiceCall call,
-      $async.Future<$1.BlocksQueryStreamReq> request) async* {
+  $async.Stream<$1.BlocksQueryStreamRes> queryStream_Pre(
+    $grpc.ServiceCall call,
+    $async.Future<$1.BlocksQueryStreamReq> request,
+  ) async* {
     yield* queryStream(call, await request);
   }
 
   $async.Future<$1.QueryBlocksRes> query(
-      $grpc.ServiceCall call, $1.QueryBlocksReq request);
+    $grpc.ServiceCall call,
+    $1.QueryBlocksReq request,
+  );
   $async.Stream<$1.BlocksQueryStreamRes> queryStream(
-      $grpc.ServiceCall call, $1.BlocksQueryStreamReq request);
+    $grpc.ServiceCall call,
+    $1.BlocksQueryStreamReq request,
+  );
 }
