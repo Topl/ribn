@@ -73,9 +73,8 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
     final String? fee = '${widget.transactionReceipt.fee!.quantity} nanoPOLYs';
     final Latin1Data? note = widget.transactionReceipt.data;
     final String securityRoot = isPolyTransaction ? '' : widget.transactionReceipt.to.first.toJson()[1]['securityRoot'];
-    final String assetCode = widget.transactionReceipt.to.first.toJson()[1].runtimeType == String
-        ? ''
-        : widget.transactionReceipt.to.first.toJson()[1]['assetCode'].toString();
+    final String assetCode =
+        isPolyTransaction ? '' : widget.transactionReceipt.to.first.toJson()[1]['assetCode'].toString();
     final ModifierId? blockId = widget.transactionReceipt.blockId;
     final BlockNum? blockNumber = widget.transactionReceipt.blockNumber;
     final ModifierId transactionId = widget.transactionReceipt.id;

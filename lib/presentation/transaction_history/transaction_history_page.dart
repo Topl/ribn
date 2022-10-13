@@ -71,12 +71,12 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     // We remove duplicate transactions of type AssetTransfer which don't have an assetCode as this breaks the UI
     final List<TransactionReceipt> nonDuplicateTransactions = [];
 
-    for (var transaction in response) {
-      if (transaction.txType == 'PolyTransfer' ||
-          (transaction.txType == 'AssetTransfer' && transaction.to.first.toJson()[1].runtimeType != String)) {
-        nonDuplicateTransactions.add(transaction);
-      }
-    }
+    // for (var transaction in response) {
+    //   if (transaction.txType == 'PolyTransfer' ||
+    //       (transaction.txType == 'AssetTransfer' && transaction.to.first.toJson()[1].runtimeType != String)) {
+    //     nonDuplicateTransactions.add(transaction);
+    //   }
+    // }
 
     // Filters transactions by sent or received
     if (filterSelectedItem != 'Transaction types') {
@@ -107,7 +107,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
       return filteredTransactions;
     }
 
-    return nonDuplicateTransactions;
+    return response;
   }
 
   @override
