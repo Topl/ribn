@@ -89,6 +89,7 @@ class TransactionHistoryViewmodel {
           timestamp: rawTx.timestamp,
           propositionType: rawTx.propositionType,
           txType: rawTx.txType,
+          minting: rawTx.minting,
         );
         formattedTxs.add(tx);
       });
@@ -138,6 +139,7 @@ class TransactionHistoryViewmodel {
             'propositionType': element['propositionType'],
             'blockNumber': int.parse(element['blockHeight']),
             'blockId': element['blockId'],
+            'minting': element['minting'],
           });
           txs.add(tx);
         });
