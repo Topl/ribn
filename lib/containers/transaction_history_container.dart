@@ -127,14 +127,11 @@ class TransactionHistoryViewmodel {
         if (inputs.isEmpty) continue;
         // get tx per recipient
         outputs.toList().forEach((output) {
-          final assetTransferTxType = output[1]['type'] == 'Simple' ? 'PolyTransfer' : element['txType'];
-          final addCorrectTxType = element['txType'] == 'PolyTransfer' ? element['txType'] : assetTransferTxType;
-
           final tx = TransactionReceipt.fromJson({
             'txId': element['txId'],
             'from': inputs,
             'to': [output],
-            'txType': addCorrectTxType,
+            'txType': element['txType'],
             'fee': element['fee'],
             'timestamp': int.parse(element['timestamp']),
             'boxesToRemove': element['boxesToRemove'] as List,
