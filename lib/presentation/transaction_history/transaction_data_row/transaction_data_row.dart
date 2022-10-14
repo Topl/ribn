@@ -80,10 +80,20 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
     final ModifierId transactionId = widget.transactionReceipt.id;
     final String renderPlusOrMinusPolyTransfer =
         transactionReceiverAddress == widget.myRibnWalletAddress && isPolyTransaction ? '+' : '-';
-    final String renderPlusOrMinusAssetTransfer =
-        transactionReceiverAddress == widget.myRibnWalletAddress && !transactionQuantity.contains('-') ? '+' : '';
     final String transactionAmountForPolyTransfer = '$renderPlusOrMinusPolyTransfer$transactionQuantity';
-    final String transactionAmountForAssetTransfer = '$renderPlusOrMinusAssetTransfer$transactionQuantity';
+
+    String? transactionAmountForAssetTransfer() {
+      if (transactionReceiverAddress == widget.myRibnWalletAddress && !transactionQuantity.contains('-')) {
+        return '+$transactionQuantity';
+      } else if (transactionReceiverAddress == widget.myRibnWalletAddress && transactionQuantity.contains('-')) {
+        return transactionQuantity;
+      } else if (transactionReceiverAddress != widget.myRibnWalletAddress &&
+          widget.transactionReceipt.minting == true) {
+        return '+$transactionQuantity';
+      }
+
+      return '-$transactionQuantity';
+    }
 
     String? renderSentReceivedMintedText() {
       if (widget.transactionReceipt.minting == true) {
@@ -207,7 +217,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                 'shortName': filteredAsset[0].assetCode.shortName.show,
                 'transactionStatus': transactionStatus,
                 'transactionAmount':
-                    '$transactionAmountForAssetTransfer ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
+                    '${transactionAmountForAssetTransfer()} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
                 'fee': fee,
                 'myRibnWalletAddress': widget.myRibnWalletAddress,
                 'transactionSenderAddress': transactionSenderAddress,
@@ -249,7 +259,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
-                                  '$transactionAmountForAssetTransfer ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
+                                  '${transactionAmountForAssetTransfer()} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
                                   style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
                                 ),
                                 Text(

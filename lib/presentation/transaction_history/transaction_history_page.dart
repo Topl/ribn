@@ -68,7 +68,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
   ) async {
     final List<TransactionReceipt> response = await vm.getTransactions(pageNum: pageNum);
 
-    // We remove duplicate transactions of type AssetTransfer which don't have an assetCode as this breaks the UI
+    // We remove poly transactions of type AssetTransfer which don't have an assetCode as this breaks the UI
     final List<TransactionReceipt> nonDuplicateTransactions = [];
 
     for (var transaction in response) {
