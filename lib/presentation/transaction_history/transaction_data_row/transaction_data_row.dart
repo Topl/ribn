@@ -87,6 +87,8 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
         return '+$transactionQuantity';
       } else if (transactionReceiverAddress == widget.myRibnWalletAddress && transactionQuantity.contains('-')) {
         return transactionQuantity;
+      } else if (transactionReceiverAddress != widget.myRibnWalletAddress && transactionQuantity.contains('-')) {
+        return transactionQuantity;
       } else if (transactionReceiverAddress != widget.myRibnWalletAddress &&
           widget.transactionReceipt.minting == true) {
         return '+$transactionQuantity';
