@@ -422,7 +422,7 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
   /// Redirects user to the Topl Explorer
   RichText _buildToplExplorerLink() {
     final url = Uri.parse(
-      '${Rules.txDetailsRedirectUrls[widget.transactionDetails!['networkId']] ?? ''}${widget.transactionDetails!['transactionid']}',
+      '${Rules.txDetailsRedirectUrls[widget.transactionDetails!['networkId']] ?? ''}${widget.transactionDetails!['transactionId']}',
     );
 
     return RichText(
