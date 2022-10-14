@@ -98,9 +98,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
     }
 
     String? renderSentReceivedMintedText() {
-      if (widget.transactionReceipt.minting == true) {
-        return 'Minted';
-      } else if (transactionReceiverAddress == widget.myRibnWalletAddress && !transactionQuantity.contains('-')) {
+      if (transactionReceiverAddress == widget.myRibnWalletAddress && !transactionQuantity.contains('-')) {
         return 'Received';
       }
       return 'Sent';
