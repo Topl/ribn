@@ -58,7 +58,8 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isPolyTransaction = widget.transactionReceipt.txType == 'PolyTransfer';
+    final bool isPolyTransaction = widget.transactionReceipt.txType == 'PolyTransfer' ||
+        widget.transactionReceipt.to.first.toJson()[1].runtimeType == String;
     final int timestampInt = widget.transactionReceipt.timestamp;
     final DateTime date = DateTime.fromMillisecondsSinceEpoch(timestampInt);
     final DateFormat dateFormat = DateFormat('MMM d');
@@ -214,7 +215,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                 'timestamp': formattedDateAlternate,
                 'assetDetails': assetDetails,
                 'icon': renderAssetIcon(assetDetails?.icon),
-                'shortName': filteredAsset[0].assetCode.shortName.show,
+                'shortName': filteredAsset[0].assetCode.shortName.show.replaceAll('\x00', ''),
                 'transactionStatus': transactionStatus,
                 'transactionAmount':
                     '${transactionAmountForAssetTransfer()} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
@@ -263,7 +264,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                                   style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
                                 ),
                                 Text(
-                                  filteredAsset[0].assetCode.shortName.show,
+                                  filteredAsset[0].assetCode.shortName.show.replaceAll('\x00', ''),
                                   style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
                                 ),
                               ],

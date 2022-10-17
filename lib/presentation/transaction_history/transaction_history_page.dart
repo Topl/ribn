@@ -68,19 +68,9 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
   ) async {
     final List<TransactionReceipt> response = await vm.getTransactions(pageNum: pageNum);
 
-    // We remove poly transactions of type AssetTransfer which don't have an assetCode as this breaks the UI
-    final List<TransactionReceipt> nonDuplicateTransactions = [];
-
-    for (var transaction in response) {
-      if (transaction.txType == 'PolyTransfer' ||
-          (transaction.txType == 'AssetTransfer' && transaction.to.first.toJson()[1].runtimeType != String)) {
-        nonDuplicateTransactions.add(transaction);
-      }
-    }
-
     // Filters transactions by sent or received
     if (filterSelectedItem != 'Transaction types') {
-      final List<TransactionReceipt> transactions = nonDuplicateTransactions;
+      final List<TransactionReceipt> transactions = response;
 
       for (var transaction in transactions) {
         final String transactionReceiverAddress = transaction.to.first.toJson()[0].toString();
@@ -107,7 +97,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
       return filteredTransactions;
     }
 
-    return nonDuplicateTransactions;
+    return response;
   }
 
   @override
