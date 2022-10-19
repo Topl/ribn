@@ -58,7 +58,8 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isPolyTransaction = widget.transactionReceipt.txType == 'PolyTransfer';
+    final bool isPolyTransaction = widget.transactionReceipt.txType == 'PolyTransfer' ||
+        widget.transactionReceipt.to.first.toJson()[1].runtimeType == String;
     final int timestampInt = widget.transactionReceipt.timestamp;
     final DateTime date = DateTime.fromMillisecondsSinceEpoch(timestampInt);
     final DateFormat dateFormat = DateFormat('MMM d');
@@ -78,13 +79,27 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
     final ModifierId? blockId = widget.transactionReceipt.blockId;
     final BlockNum? blockNumber = widget.transactionReceipt.blockNumber;
     final ModifierId transactionId = widget.transactionReceipt.id;
-    final String renderPlusOrMinus = transactionReceiverAddress == widget.myRibnWalletAddress ? '+' : '-';
-    final String transactionPolyAmount = '$renderPlusOrMinus$transactionQuantity POLYs';
+    final String renderPlusOrMinusPolyTransfer =
+        transactionReceiverAddress == widget.myRibnWalletAddress && isPolyTransaction ? '+' : '-';
+    final String transactionAmountForPolyTransfer = '$renderPlusOrMinusPolyTransfer$transactionQuantity';
+
+    String? transactionAmountForAssetTransfer() {
+      if (transactionReceiverAddress == widget.myRibnWalletAddress && !transactionQuantity.contains('-')) {
+        return '+$transactionQuantity';
+      } else if (transactionReceiverAddress == widget.myRibnWalletAddress && transactionQuantity.contains('-')) {
+        return transactionQuantity;
+      } else if (transactionReceiverAddress != widget.myRibnWalletAddress && transactionQuantity.contains('-')) {
+        return transactionQuantity;
+      } else if (transactionReceiverAddress != widget.myRibnWalletAddress &&
+          widget.transactionReceipt.minting == true) {
+        return '+$transactionQuantity';
+      }
+
+      return '-$transactionQuantity';
+    }
 
     String? renderSentReceivedMintedText() {
-      if (widget.transactionReceipt.minting == true) {
-        return 'Minted';
-      } else if (transactionReceiverAddress == widget.myRibnWalletAddress) {
+      if (transactionReceiverAddress == widget.myRibnWalletAddress && !transactionQuantity.contains('-')) {
         return 'Received';
       }
       return 'Sent';
@@ -104,7 +119,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
               'icon': renderPolyIcon(),
               'shortName': 'POLY',
               'transactionStatus': transactionStatus,
-              'transactionAmount': transactionPolyAmount,
+              'transactionAmount': transactionAmountForPolyTransfer,
               'fee': fee,
               'myRibnWalletAddress': widget.myRibnWalletAddress,
               'transactionSenderAddress': transactionSenderAddress,
@@ -142,11 +157,15 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                           padding: const EdgeInsets.only(left: 12),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                transactionPolyAmount,
+                                transactionAmountForPolyTransfer,
                                 style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
+                              ),
+                              Text(
+                                'POLY',
+                                style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
                               ),
                             ],
                           ),
@@ -196,10 +215,10 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                 'timestamp': formattedDateAlternate,
                 'assetDetails': assetDetails,
                 'icon': renderAssetIcon(assetDetails?.icon),
-                'shortName': filteredAsset[0].assetCode.shortName.show,
+                'shortName': filteredAsset[0].assetCode.shortName.show.replaceAll('\x00', ''),
                 'transactionStatus': transactionStatus,
                 'transactionAmount':
-                    '$renderPlusOrMinus$transactionQuantity ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
+                    '${transactionAmountForAssetTransfer()} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
                 'fee': fee,
                 'myRibnWalletAddress': widget.myRibnWalletAddress,
                 'transactionSenderAddress': transactionSenderAddress,
@@ -241,11 +260,11 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
-                                  '$renderPlusOrMinus$transactionQuantity ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
+                                  '${transactionAmountForAssetTransfer()} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
                                   style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
                                 ),
                                 Text(
-                                  filteredAsset[0].assetCode.shortName.show,
+                                  filteredAsset[0].assetCode.shortName.show.replaceAll('\x00', ''),
                                   style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
                                 ),
                               ],

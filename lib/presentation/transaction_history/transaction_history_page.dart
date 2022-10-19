@@ -1,15 +1,9 @@
-// import 'dart:convert';
-
-// ignore_for_file: unused_import
-
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
-// import 'package:http/http.dart' as http;
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
-// import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/transaction_history_container.dart';
 import 'package:ribn/presentation/empty_state_screen.dart';
@@ -34,6 +28,8 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
   String filterSelectedItem = 'Transaction types';
 
   List filteredTransactions = [];
+
+  late bool hasTransactionData = false;
 
   void updateSelectedItem(string) {
     setState(() {
@@ -153,6 +149,8 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                 ),
                                 buttonTwoText: 'Share',
                                 buttonTwoAction: () async => await showReceivingAddress(),
+                                mobileHeight: MediaQuery.of(context).size.height * 0.63,
+                                desktopHeight: 360,
                               );
                             }
 
@@ -187,10 +185,12 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                         : filteredTransactions.length,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
+                                      final TransactionReceipt transaction = filterSelectedItem == startingFilterValue
+                                          ? snapshot.data[index]
+                                          : filteredTransactions[index];
+
                                       return TransactionDataRow(
-                                        transactionReceipt: filterSelectedItem == startingFilterValue
-                                            ? snapshot.data[index]
-                                            : filteredTransactions[index],
+                                        transactionReceipt: transaction,
                                         assets: vm.assets,
                                         myRibnWalletAddress: vm.toplAddress.toBase58(),
                                         blockHeight: vm.blockHeight,

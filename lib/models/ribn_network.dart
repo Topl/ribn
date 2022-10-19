@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/ribn_address.dart';
-// import 'package:ribn/platform/platform.dart';
 
 @immutable
 class RibnNetwork {

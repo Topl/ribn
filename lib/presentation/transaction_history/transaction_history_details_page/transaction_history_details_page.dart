@@ -1,5 +1,3 @@
-// ignore_for_file: unused_import, unused_element
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ribn/constants/assets.dart';
@@ -424,7 +422,7 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
   /// Redirects user to the Topl Explorer
   RichText _buildToplExplorerLink() {
     final url = Uri.parse(
-      '${Rules.txDetailsRedirectUrls[widget.transactionDetails!['networkId']] ?? ''}${widget.transactionDetails!['transactionid']}',
+      '${Rules.txDetailsRedirectUrls[widget.transactionDetails!['networkId']] ?? ''}${widget.transactionDetails!['transactionId']}',
     );
 
     return RichText(

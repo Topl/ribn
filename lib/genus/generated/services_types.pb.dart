@@ -10,11 +10,24 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class Paging extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Paging', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pageNumber', $pb.PbFieldType.OU3)
-    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pageSize', $pb.PbFieldType.OU3)
-    ..hasRequiredFields = false
-  ;
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Paging',
+    package: const $pb.PackageName(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+    ),
+    createEmptyInstance: create,
+  )
+    ..a<$core.int>(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pageNumber',
+      $pb.PbFieldType.OU3,
+    )
+    ..a<$core.int>(
+      2,
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pageSize',
+      $pb.PbFieldType.OU3,
+    )
+    ..hasRequiredFields = false;
 
   Paging._() : super();
   factory Paging({
@@ -30,18 +43,23 @@ class Paging extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory Paging.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Paging.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory Paging.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory Paging.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
+    'Using this can add significant overhead to your binary. '
+    'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+    'Will be removed in next major version',
+  )
   Paging clone() => Paging()..mergeFromMessage(this);
   @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  Paging copyWith(void Function(Paging) updates) => super.copyWith((message) => updates(message as Paging)) as Paging; // ignore: deprecated_member_use
+    'Using this can add significant overhead to your binary. '
+    'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+    'Will be removed in next major version',
+  )
+  Paging copyWith(void Function(Paging) updates) =>
+      super.copyWith((message) => updates(message as Paging)) as Paging; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Paging create() => Paging._();
@@ -54,7 +72,10 @@ class Paging extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $core.int get pageNumber => $_getIZ(0);
   @$pb.TagNumber(1)
-  set pageNumber($core.int v) { $_setUnsignedInt32(0, v); }
+  set pageNumber($core.int v) {
+    $_setUnsignedInt32(0, v);
+  }
+
   @$pb.TagNumber(1)
   $core.bool hasPageNumber() => $_has(0);
   @$pb.TagNumber(1)
@@ -63,10 +84,12 @@ class Paging extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $core.int get pageSize => $_getIZ(1);
   @$pb.TagNumber(2)
-  set pageSize($core.int v) { $_setUnsignedInt32(1, v); }
+  set pageSize($core.int v) {
+    $_setUnsignedInt32(1, v);
+  }
+
   @$pb.TagNumber(2)
   $core.bool hasPageSize() => $_has(1);
   @$pb.TagNumber(2)
   void clearPageSize() => clearField(2);
 }
-

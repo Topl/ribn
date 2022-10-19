@@ -25,10 +25,12 @@ class Rules {
   static Map<int, String> txHistoryUrls = {
     NetworkUtils.valhallaId: 'https://annulus-api.topl.services/staging/valhalla',
     NetworkUtils.toplNetId: 'https://annulus-api.topl.services/staging/toplnet',
+    NetworkUtils.privateId: 'https://annulus-api.topl.services/staging/valhalla',
   };
   static Map<int, String> txDetailsRedirectUrls = {
     NetworkUtils.valhallaId: 'https://staging.valhalla.annulus.topl.services/#/transaction/',
     NetworkUtils.toplNetId: 'https://staging.toplnet.annulus.topl.services/#/transaction/',
+    NetworkUtils.privateId: 'https://staging.valhalla.annulus.topl.services/#/transaction/',
   };
   static String txHistoryUrl(String addr, int networkId) => '${txHistoryUrls[networkId]!}/v1/address/history/$addr';
   static String txDetailsUrl(String txId, int networkId) => '${txDetailsRedirectUrls[networkId]!}$txId';

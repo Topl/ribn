@@ -89,9 +89,9 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: genus
-      resolved-ref: "8e337a40940b2816c41249285e52685726aa76e4"
-      url: "https://github.com/Topl/BramblDart.git"
+      ref: TSDK-133
+      resolved-ref: fa1dc12f568120b60d1b2875c299a0efd9458925
+      url: "https://github.com/Topl/BramblDart"
     source: git
     version: "0.0.1"
   build:
