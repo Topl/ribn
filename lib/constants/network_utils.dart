@@ -24,6 +24,6 @@ class NetworkUtils {
   static Map<int, String> networkUrls = {
     valhallaId: 'https://vertx.topl.services/valhalla/$projectId',
     toplNetId: 'https://vertx.topl.services/mainnet/$projectId',
-    privateId: 'http://localhost:9085'
+    privateId: 'http://35.226.176.100:9085'
   };
 }

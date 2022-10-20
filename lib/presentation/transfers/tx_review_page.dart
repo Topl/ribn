@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
@@ -21,8 +22,8 @@ import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
 /// The transaction review page.
 ///
@@ -57,7 +58,7 @@ class TxReviewPage extends StatelessWidget {
                 Column(
                   children: [
                     // page title
-                    const CustomPageTitle(title: Strings.review),
+                    const CustomPageTextTitle(title: Strings.review),
                     const SizedBox(height: 40),
                     // review box
                     Container(
@@ -68,9 +69,17 @@ class TxReviewPage extends StatelessWidget {
                         vertical: 15,
                       ),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4.7),
+                        borderRadius: BorderRadius.circular(11.6),
                         color: RibnColors.whiteBackground,
                         border: Border.all(color: RibnColors.lightGrey, width: 1),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: RibnColors.greyShadow,
+                            spreadRadius: 0,
+                            blurRadius: 37.5,
+                            offset: Offset(0, -6),
+                          ),
+                        ],
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,7 +110,7 @@ class TxReviewPage extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: BottomReviewAction(
-          maxHeight: 173,
+          maxHeight: kIsWeb ? 148 : 174,
           children: Column(
             children: [
               const SizedBox(

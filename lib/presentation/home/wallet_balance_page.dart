@@ -112,6 +112,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     CustomToolTip renderTooltip() {
       final bool hasPolys = vm.polyBalance > 0;
       return CustomToolTip(
+        borderColor: Border.all(color: const Color(0xffE9E9E9)),
         offsetPositionLeftValue: 180,
         toolTipIcon: Image.asset(
           RibnAssets.circleInfo,
@@ -224,6 +225,8 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
         ),
         buttonTwoText: 'Share',
         buttonTwoAction: () async => await showReceivingAddress(),
+        mobileHeight: MediaQuery.of(context).size.height * 0.5,
+        desktopHeight: 258,
       );
     }
 
@@ -246,6 +249,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: vm.assets.length,
               itemBuilder: (context, idx) {
+                // Here's how we get each individual asset
                 final AssetAmount asset = vm.assets[idx];
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),

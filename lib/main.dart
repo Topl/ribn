@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
@@ -21,7 +23,7 @@ import 'package:ribn/router/root_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Redux.initStore(initTestStore: false);
+  await Redux.initStore(initTestStore: true);
   final AppViews currentAppView = await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
   // Open app in new tab if user needs onboarding

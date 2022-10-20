@@ -20,6 +20,8 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
+import 'constants/assets.dart';
+import 'constants/keys.dart';
 
 /// Formats an address string to only dispaly its first and last 10 characters.
 String formatAddrString(String addr, {int charsToDisplay = 10}) {

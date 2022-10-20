@@ -8,8 +8,8 @@ import 'package:ribn/presentation/transfers/asset_transfer_section.dart';
 import 'package:ribn/presentation/transfers/poly_transfer_section.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 import 'package:ribn_toolkit/widgets/molecules/sliding_segment_control.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
 /// The asset transfer input page that allows the initiation of an asset transfer.
 ///
@@ -50,7 +50,7 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // page title
-              const CustomPageTitle(
+              const CustomPageTextTitle(
                 title: Strings.send,
                 hideBackArrow: true,
               ),

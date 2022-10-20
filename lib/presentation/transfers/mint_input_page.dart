@@ -1,4 +1,5 @@
 import 'package:brambldart/brambldart.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,7 +18,6 @@ import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_page_title.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_long_name_field.dart';
@@ -26,6 +26,7 @@ import 'package:ribn_toolkit/widgets/molecules/asset_short_name_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/sliding_segment_control.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
 /// The mint input page that allows the initiation of an mint asset transaction.
 class MintInputPage extends StatefulWidget {
@@ -117,6 +118,8 @@ class _MintInputPageState extends State<MintInputPage> {
           },
           buttonTwoText: 'Share',
           buttonTwoAction: () async => await showReceivingAddress(),
+          mobileHeight: MediaQuery.of(context).size.height * 0.63,
+          desktopHeight: 258,
         );
       }
 
@@ -220,7 +223,7 @@ class _MintInputPageState extends State<MintInputPage> {
               child: Column(
                 children: [
                   /// Builds the title of the page.
-                  const CustomPageTitle(
+                  const CustomPageTextTitle(
                     title: Strings.mint,
                     hideBackArrow: true,
                   ),
@@ -263,7 +266,7 @@ class _MintInputPageState extends State<MintInputPage> {
               ),
             ),
             bottomNavigationBar: BottomReviewAction(
-              maxHeight: 145,
+              maxHeight: kIsWeb ? 120 : 143,
               children: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
