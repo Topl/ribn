@@ -5,6 +5,7 @@ import 'package:ribn/models/internal_message.dart';
 // import 'package:ribn/models/transaction_history_entry.dart';
 import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/presentation/asset_details/asset_details_page.dart';
+import 'package:ribn/presentation/authorize_and_sign/connect_dapp.dart';
 import 'package:ribn/presentation/enable_page.dart';
 import 'package:ribn/presentation/external_signing_page.dart';
 import 'package:ribn/presentation/home/home_page.dart';
@@ -224,6 +225,10 @@ class RootRouter {
         {
           final String errorMessage = (settings.arguments ?? 'Unknown error occurred') as String;
           return errorRoute(errorMsg: errorMessage);
+        }
+      case Routes.connectDApp:
+        {
+          return pageRouteNotAnimated(const ConnectDApp(), settings);
         }
       default:
         return errorRoute();

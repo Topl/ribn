@@ -82,7 +82,8 @@ class WalletBalanceViewModel {
       polyBalance: store.state.keychainState.currentNetwork.getPolysInWallet(),
       assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
       assetDetails: store.state.userDetailsState.assetDetails,
-      navigateToSendAssets: () => store.dispatch(NavigateToRoute(Routes.assetsTransferInput)),
+      // Changing temporarily to direct to connect dapp root
+      navigateToSendAssets: () => store.dispatch(NavigateToRoute(Routes.connectDApp)),
       navigateToSendPolys: () => store.dispatch(NavigateToRoute(Routes.polyTransferInput)),
       viewAssetDetails: (AssetAmount assetAmount) => store.dispatch(
         NavigateToRoute(
