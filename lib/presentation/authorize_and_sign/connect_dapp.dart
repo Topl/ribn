@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/presentation/authorize_and_sign/input_dropdown_wrapper.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/presentation/authorize_and_sign/input_dropdown_wrapper.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 // import 'package:ribn/widgets/ribn_app_bar_wapper.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
@@ -118,22 +118,22 @@ class _ConnectDAppState extends State<ConnectDApp> {
                         ),
                         Text(
                           '${mockDAppDetails['name']} to access the following:',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'DM Sans',
                             fontSize: 11,
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 12,
                     ),
                     Container(
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(11.6)),
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(11.6)),
                         color: RibnColors.mediumGrey,
                       ),
-                      padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                      padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
                       child: CheckboxWrappableText(
                         fillColor: Colors.transparent,
                         checkColor: RibnColors.darkGreen,
