@@ -107,10 +107,16 @@ class _ConnectDAppState extends State<ConnectDApp> {
                           style: TextStyle(
                             fontFamily: 'DM Sans',
                             fontSize: 11,
+                            height: 3,
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          padding: const EdgeInsets.fromLTRB(
+                            8,
+                            8,
+                            8,
+                            0,
+                          ),
                           child: Image.asset(
                             RibnAssets.connectDApp,
                             width: 25,
@@ -118,10 +124,7 @@ class _ConnectDAppState extends State<ConnectDApp> {
                         ),
                         Text(
                           '${mockDAppDetails['name']} to access the following:',
-                          style: const TextStyle(
-                            fontFamily: 'DM Sans',
-                            fontSize: 11,
-                          ),
+                          style: const TextStyle(fontFamily: 'DM Sans', fontSize: 11, height: 3),
                         ),
                       ],
                     ),
@@ -153,6 +156,7 @@ class _ConnectDAppState extends State<ConnectDApp> {
                                 style: RibnToolkitTextStyles.h3.copyWith(
                                   color: RibnColors.defaultText,
                                   fontSize: 11,
+                                  height: 2,
                                 ),
                               ),
                               TextSpan(
@@ -161,6 +165,7 @@ class _ConnectDAppState extends State<ConnectDApp> {
                                   color: RibnColors.defaultText,
                                   fontSize: 11,
                                   fontWeight: FontWeight.w500,
+                                  height: 2,
                                 ),
                               ),
                               TextSpan(
@@ -168,6 +173,7 @@ class _ConnectDAppState extends State<ConnectDApp> {
                                 style: RibnToolkitTextStyles.h3.copyWith(
                                   color: RibnColors.defaultText,
                                   fontSize: 11,
+                                  height: 2,
                                 ),
                               ),
                               TextSpan(
@@ -175,12 +181,16 @@ class _ConnectDAppState extends State<ConnectDApp> {
                                 style: RibnToolkitTextStyles.h3.copyWith(
                                   color: RibnColors.defaultText,
                                   fontSize: 11,
+                                  height: 2,
                                 ),
                               ),
                             ],
                           ),
                         ),
                       ),
+                    ),
+                    const SizedBox(
+                      height: 12,
                     ),
                   ],
                 ),

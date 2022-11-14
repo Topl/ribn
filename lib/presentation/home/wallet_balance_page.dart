@@ -16,7 +16,7 @@ import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_card.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 /// One of the 3 main pages on the home screen.
 ///
@@ -107,7 +107,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
   /// Builds the top-half container on the balance page.
   /// Displays the balance in Polys and send/receive buttons.
   Widget _buildPolyContainer(WalletBalanceViewModel vm) {
-    final Uri url = Uri.parse(tooltipUrl);
+    // final Uri url = Uri.parse(tooltipUrl);
 
     CustomToolTip renderTooltip() {
       final bool hasPolys = vm.polyBalance > 0;
@@ -127,7 +127,11 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
               ),
               WidgetSpan(
                 child: GestureDetector(
-                  onTap: () async => await launchUrl(url),
+                  // onTap: () async => await launchUrl(url),
+                  // Temporary add redirect to DApp flow
+                  onTap: () => Keys.navigatorKey.currentState?.pushNamed(
+                    Routes.reviewAndSignDApp,
+                  ),
                   child: Row(
                     children: [
                       Text(
