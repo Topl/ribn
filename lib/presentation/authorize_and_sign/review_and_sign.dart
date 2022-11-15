@@ -17,7 +17,9 @@ import 'package:ribn/widgets/fee_info.dart';
 // import 'package:ribn/widgets/asset_info.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/animated_expand_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/peekaboo_button.dart';
 // import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title_with_leading_child.dart';
 
@@ -46,7 +48,7 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
         '3NPgzD6i71g3xKinh1bVLKQ2Ab4S1kL3Fg3JthUL5ms3YMmfqJm1',
         {
           'quantity': '100',
-          // 'assetCode': '5YJqb1adQfBmgeCs3pPSajAyazweXxy8hi5TTnCjqwF79kpA6yLa9vZawH',
+          'assetCode': '5YJqb1adQfBmgeCs3pPSajAyazweXxy8hi5TTnCjqwF79kpA6yLa9vZawH',
           'metadata': null,
           'type': 'Asset',
           'securityRoot': '11111111111111111111111111111111'
@@ -95,6 +97,13 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
     '__v': 0
   };
 
+  Map<String, dynamic> getItems() {
+    const String jsonData = '{ "item1": "value1","item2": "value2","item3": "value3"}';
+
+    final Map<String, dynamic> data = jsonDecode(jsonData);
+    return data;
+  }
+
   bool isExpanded = false;
 
   final TextStyle defaultTextStyle = const TextStyle(
@@ -132,7 +141,7 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
         buttonChild: Text(
           Strings.confirm,
           style: RibnToolkitTextStyles.btnLarge.copyWith(
-            color: RibnColors.lightGreyTitle,
+            color: Colors.white,
           ),
         ),
         onPressed: () {
@@ -140,7 +149,6 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
         },
         backgroundColor: RibnColors.primary,
         dropShadowColor: RibnColors.whiteButtonShadow,
-        // disabled: !authChecked,
       );
     }
 
@@ -150,15 +158,19 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
         child: Column(
           children: [
             const CustomPageTextTitleWithLeadingChild(
-              title: Strings.connect,
+              title: Strings.review,
               child: InputDropdownWrapper(),
             ),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 13),
-              child: Container(
+              child: AnimatedContainer(
+                curve: Curves.easeInOut,
+                duration: const Duration(seconds: 1),
+                clipBehavior: Clip.hardEdge,
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 width: 360,
+                height: isExpanded ? 412 : 240,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(11.6)),
                   color: RibnColors.whiteBackground,
@@ -172,8 +184,7 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                     ),
                   ],
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Wrap(
                   children: [
                     Wrap(
                       children: [
@@ -199,8 +210,6 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                         //     ? snapshot.data[index]
                         //     : filteredTransactions[index];
 
-                        print(mockDAppTransaction['to'][index][1]['type']);
-
                         return TransactionRowDetails(
                           quantity: mockDAppTransaction['to'][index][1]['quantity'],
                           wasReceivedToMyWallet:
@@ -208,16 +217,74 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                           isPolyTransfer: mockDAppTransaction['to'][index][1]['type'] == 'Simple' ? true : false,
                         );
                       },
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        AnimatedExpandButton(
+                          backgroundColor: Colors.transparent,
+                          title: 'View txn details',
+                          onPressed: () {
+                            setState(() {
+                              isExpanded = !isExpanded;
+                            });
+                          },
+                          height: 24,
+                          width: 139,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 26,
+                      width: 20,
+                    ),
+                    Container(
+                      height: 137,
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(11.6)),
+                        color: RibnColors.mediumGrey,
+                      ),
+                      child: MediaQuery.removePadding(
+                        context: context,
+                        removeTop: true,
+                        removeBottom: true,
+                        child: RawScrollbar(
+                          shape: const StadiumBorder(),
+                          mainAxisMargin: 10,
+                          crossAxisMargin: 8,
+                          thumbVisibility: true,
+                          child: ScrollConfiguration(
+                            behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              primary: false,
+                              padding: EdgeInsets.zero,
+                              itemCount: getItems().values.length,
+                              itemBuilder: (c, index) {
+                                return ListTile(
+                                  title: Text('"Value" ' + getItems().values.toList()[index]),
+                                  subtitle: Text('"Key" ' + getItems().values.toList()[index]),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
                     )
                   ],
                 ),
               ),
             ),
+            const SizedBox(
+              height: 20,
+            )
           ],
         ),
       ),
       bottomNavigationBar: BottomReviewAction(
-        maxHeight: kIsWeb ? 126 : 202,
+        maxHeight: kIsWeb ? 127 : 202,
         children: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
