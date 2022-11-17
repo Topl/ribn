@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
@@ -97,12 +98,61 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
     '__v': 0
   };
 
-  Map<String, dynamic> getItems() {
-    const String jsonData = '{ "item1": "value1","item2": "value2","item3": "value3"}';
-
-    final Map<String, dynamic> data = jsonDecode(jsonData);
-    return data;
+  final String mockDAppTransactionJson = '''{
+    'to': [
+      [
+        '3NPgzD6i71g3xKinh1bVLKQ2Ab4S1kL3Fg3JthUL5ms3YMmfqJm1',
+        {
+          'quantity': '100',
+          'assetCode': '5YJqb1adQfBmgeCs3pPSajAyazweXxy8hi5TTnCjqwF79kpA6yLa9vZawH',
+          'metadata': null,
+          'type': 'Asset',
+          'securityRoot': '11111111111111111111111111111111'
+        }
+      ],
+      [
+        '3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe',
+        {
+          'type': 'Simple',
+          'quantity': '121',
+        }
+      ]
+    ],
+    'from': [
+      ['3NPgzD6i71g3xKinh1bVLKQ2Ab4S1kL3Fg3JthUL5ms3YMmfqJm1', '-7628585798404871123']
+    ],
+    'newBoxes': [
+      {
+        'nonce': '-7086618909138803055',
+        'id': 'FWnRuTTqz9feiEzLWH8u2roiyHhA8sHHuzJ4iSkAvfv2',
+        'evidence': '27pbvCBWBgaNmMtKdUnJzgbzTUJnuoG5RqJRztA2ejjEv',
+        'type': 'AssetBox',
+        'value': {
+          'quantity': '199',
+          'assetCode': '5YJqb1adQfBmgeCs3pPSajAyazweXxy8hi5TTnCjqwF79kpA6yLa9vZawH',
+          'metadata': null,
+          'type': 'Asset',
+          'securityRoot': '11111111111111111111111111111111'
+        },
+      }
+    ],
+    'boxesToRemove': ['GHQYKMWKQwmj3ZyTUk4QgMg12d23NesFTTfRMBfA8qRR'],
+    '_id': '63051ae4083b2f0011fa1e69',
+    'txType': 'AssetTransfer',
+    'timestamp': '1661278926609',
+    'signatures': {
+      'y1fcEQyQxQEKs82xCSEjiEEzdPcGGQuySzG7VEjDXd6c':
+          'GjjWhgJ4J52mZEFDzvdTRnADtXAoe8kPCE1bQ3TKqC6o73U3hM1CsyHGevE1uJjYTaoehnQyu9LergjVg1zBsq47'
+    },
+    'data': '',
+    'minting': false,
+    'txId': 's255G4GVscEAC4VABaBKqtoBc2YHCEdo58tqK2K91nmB',
+    'fee': '100',
+    'propositionType': 'PublicKeyEd25519',
+    'block': {'id': '26RnAfCj16ocHGtgq4RpV3VsqQz6chCwLTVv2yJkDBei6', 'height': 4687784},
+    '__v': 0
   }
+  ''';
 
   bool isExpanded = false;
 
@@ -206,10 +256,6 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                       itemCount: mockDAppTransaction['to'].length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        // final TransactionReceipt transaction = filterSelectedItem == startingFilterValue
-                        //     ? snapshot.data[index]
-                        //     : filteredTransactions[index];
-
                         return TransactionRowDetails(
                           quantity: mockDAppTransaction['to'][index][1]['quantity'],
                           wasReceivedToMyWallet:
@@ -260,12 +306,20 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                             child: ListView.builder(
                               shrinkWrap: true,
                               primary: false,
-                              padding: EdgeInsets.zero,
-                              itemCount: getItems().values.length,
-                              itemBuilder: (c, index) {
-                                return ListTile(
-                                  title: Text('"Value" ' + getItems().values.toList()[index]),
-                                  subtitle: Text('"Key" ' + getItems().values.toList()[index]),
+                              padding: const EdgeInsets.all(10),
+                              itemCount: 1,
+                              itemBuilder: (buildContext, index) {
+                                /// For auto return onto multiple lines
+                                // return Text(
+                                //   mockDAppTransactionJson,
+                                // );
+
+                                /// For scrolling horizontall
+                                return SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: SelectableText(
+                                    mockDAppTransactionJson,
+                                  ),
                                 );
                               },
                             ),
