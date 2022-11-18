@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
@@ -19,6 +18,7 @@ import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/animated_expand_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/peekaboo_button.dart';
 // import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
@@ -292,41 +292,66 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                         borderRadius: BorderRadius.all(Radius.circular(11.6)),
                         color: RibnColors.mediumGrey,
                       ),
-                      child: MediaQuery.removePadding(
-                        context: context,
-                        removeTop: true,
-                        removeBottom: true,
-                        child: RawScrollbar(
-                          shape: const StadiumBorder(),
-                          mainAxisMargin: 10,
-                          crossAxisMargin: 8,
-                          thumbVisibility: true,
-                          child: ScrollConfiguration(
-                            behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              primary: false,
-                              padding: const EdgeInsets.all(10),
-                              itemCount: 1,
-                              itemBuilder: (buildContext, index) {
-                                /// For auto return onto multiple lines
-                                // return Text(
-                                //   mockDAppTransactionJson,
-                                // );
+                      child: Stack(
+                        children: <Widget>[
+                          MediaQuery.removePadding(
+                            context: context,
+                            removeTop: true,
+                            removeBottom: true,
+                            child: RawScrollbar(
+                              shape: const StadiumBorder(),
+                              mainAxisMargin: 10,
+                              crossAxisMargin: 8,
+                              thumbVisibility: true,
+                              child: ScrollConfiguration(
+                                behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  primary: false,
+                                  padding: const EdgeInsets.all(10),
+                                  itemCount: 1,
+                                  itemBuilder: (buildContext, index) {
+                                    /// For auto return onto multiple lines
+                                    // return Text(
+                                    //   mockDAppTransactionJson,
+                                    // );
 
-                                /// For scrolling horizontall
-                                return SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: SelectableText(
-                                    mockDAppTransactionJson,
-                                  ),
-                                );
-                              },
+                                    /// For scrolling horizontally
+                                    return SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: SelectableText(
+                                        mockDAppTransactionJson,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                          Positioned(
+                            right: 10,
+                            bottom: 10,
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 27.0,
+                              height: 27.0,
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20)),
+                              ),
+                              child: CustomCopyButton(
+                                textToBeCopied: mockDAppTransactionJson,
+                                bubbleText: 'Copied!',
+                                icon: Image.asset(
+                                  RibnAssets.copyIconAlternate,
+                                  width: 12,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
