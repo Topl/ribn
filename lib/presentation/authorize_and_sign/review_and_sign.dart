@@ -1,27 +1,17 @@
-// ignore_for_file: unused_import
-
-import 'dart:convert';
-
-import 'package:brambldart/brambldart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/rules.dart';
+
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/models/asset_details.dart';
-import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/presentation/authorize_and_sign/input_dropdown_wrapper.dart';
 import 'package:ribn/presentation/authorize_and_sign/transaction_row_details.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/widgets/fee_info.dart';
-// import 'package:ribn/widgets/asset_info.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/animated_expand_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/atoms/peekaboo_button.dart';
-// import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title_with_leading_child.dart';
 
 class ReviewAndSignDApp extends StatefulWidget {
