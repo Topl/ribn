@@ -210,7 +210,7 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                 clipBehavior: Clip.hardEdge,
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 width: 360,
-                height: isExpanded ? 412 : 240,
+                height: isExpanded ? 388 : 228,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(11.6)),
                   color: RibnColors.whiteBackground,
@@ -272,7 +272,7 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                       ],
                     ),
                     const SizedBox(
-                      height: 26,
+                      height: 10,
                       width: 20,
                     ),
                     Container(
@@ -293,6 +293,8 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                               mainAxisMargin: 10,
                               crossAxisMargin: 8,
                               thumbVisibility: true,
+                              thumbColor: RibnColors.primary,
+                              thickness: 10,
                               child: ScrollConfiguration(
                                 behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
                                 child: ListView.builder(
@@ -301,12 +303,6 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                                   padding: const EdgeInsets.all(10),
                                   itemCount: 1,
                                   itemBuilder: (buildContext, index) {
-                                    /// For auto return onto multiple lines
-                                    // return Text(
-                                    //   mockDAppTransactionJson,
-                                    // );
-
-                                    /// For scrolling horizontally
                                     return SingleChildScrollView(
                                       scrollDirection: Axis.horizontal,
                                       child: SelectableText(
