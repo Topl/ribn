@@ -130,7 +130,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
                   // onTap: () async => await launchUrl(url),
                   // Temporary add redirect to DApp flow
                   onTap: () => Keys.navigatorKey.currentState?.pushNamed(
-                    Routes.connectDApp,
+                    Routes.loadingDApp,
                   ),
                   child: Row(
                     children: [
