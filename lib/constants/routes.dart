@@ -48,4 +48,5 @@ class Routes {
   static const error = '/error';
   static const connectDApp = '/connect-dapp';
   static const reviewAndSignDApp = '/review-and-sign';
+  static const loadingDApp = '/loading-dapp';
 }

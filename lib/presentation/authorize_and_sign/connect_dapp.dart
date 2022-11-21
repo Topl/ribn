@@ -115,7 +115,7 @@ class _ConnectDAppState extends State<ConnectDApp> {
                             8,
                             8,
                             8,
-                            0,
+                            8,
                           ),
                           child: Image.asset(
                             RibnAssets.connectDApp,

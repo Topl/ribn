@@ -6,6 +6,7 @@ import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/presentation/asset_details/asset_details_page.dart';
 import 'package:ribn/presentation/authorize_and_sign/connect_dapp.dart';
+import 'package:ribn/presentation/authorize_and_sign/loading_dapp.dart';
 import 'package:ribn/presentation/authorize_and_sign/review_and_sign.dart';
 import 'package:ribn/presentation/enable_page.dart';
 import 'package:ribn/presentation/external_signing_page.dart';
@@ -236,6 +237,10 @@ class RootRouter {
       case Routes.reviewAndSignDApp:
         {
           return pageRouteNotAnimated(const ReviewAndSignDApp(), settings);
+        }
+      case Routes.loadingDApp:
+        {
+          return pageRouteNotAnimated(const LoadingDApp(), settings);
         }
       default:
         return errorRoute();
