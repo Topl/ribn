@@ -121,7 +121,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                 child: Column(
                   children: [
                     CustomPageDropdownTitle(
-                      title: Strings.recentActivity,
+                      title: Strings.activityDetails,
                       chevronIconLink: RibnAssets.chevronDown,
                       currentSelectedItem: filterSelectedItem,
                       itemsToSelectFrom: itemsToSelectFrom,
