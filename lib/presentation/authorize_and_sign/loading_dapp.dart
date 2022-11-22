@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
-
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/molecules/animated_circle_step_loader.dart';
 
@@ -68,6 +67,9 @@ class LoadingDApp extends StatelessWidget {
                     0: '',
                     1: '',
                     2: '',
+                    3: '',
+                    4: '',
+                    5: '',
                   },
                   showStepLoader: () {},
                   activeCircleColor: RibnColors.vibrantGreen,
@@ -76,40 +78,7 @@ class LoadingDApp extends StatelessWidget {
                   inactiveCircleRadius: 2,
                   dotPadding: 6,
                   hideTitle: true,
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    8,
-                    8,
-                    8,
-                    8,
-                  ),
-                  child: Container(
-                    height: 34,
-                    width: 34,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
-                      color: RibnColors.vibrantGreen,
-                    ),
-                    child: const Icon(
-                      Icons.check,
-                      color: RibnColors.primary,
-                    ),
-                  ),
-                ),
-                AnimatedCircleStepLoader(
-                  stepLabels: const {
-                    0: '',
-                    1: '',
-                    2: '',
-                  },
-                  showStepLoader: () {},
-                  activeCircleColor: RibnColors.vibrantGreen,
-                  inactiveCircleColor: RibnColors.transparentGrey,
-                  activeCircleRadius: 4,
-                  inactiveCircleRadius: 2,
-                  dotPadding: 6,
-                  hideTitle: true,
+                  renderCenterIcon: true,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(
