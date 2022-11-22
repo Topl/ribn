@@ -4,7 +4,6 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/authorize_and_sign/input_dropdown_wrapper.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
-// import 'package:ribn/widgets/ribn_app_bar_wapper.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
@@ -28,6 +27,8 @@ class _ConnectDAppState extends State<ConnectDApp> {
   };
 
   bool authChecked = false;
+
+  String mockFaviconUrl = '';
 
   @override
   Widget build(BuildContext context) {
@@ -117,10 +118,15 @@ class _ConnectDAppState extends State<ConnectDApp> {
                             8,
                             8,
                           ),
-                          child: Image.asset(
-                            RibnAssets.connectDApp,
-                            width: 25,
-                          ),
+                          child: mockFaviconUrl == ''
+                              ? Image.asset(
+                                  RibnAssets.undefinedIcon,
+                                  width: 25,
+                                )
+                              : Image.network(
+                                  mockFaviconUrl,
+                                  width: 25,
+                                ),
                         ),
                         Text(
                           '${mockDAppDetails['name']} to access the following:',
