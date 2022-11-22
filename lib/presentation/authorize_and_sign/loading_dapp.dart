@@ -1,37 +1,17 @@
-import 'package:favicon/favicon.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/strings.dart';
 
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/molecules/animated_circle_step_loader.dart';
 
-class LoadingDApp extends StatefulWidget {
+class LoadingDApp extends StatelessWidget {
   const LoadingDApp({Key? key}) : super(key: key);
 
   @override
-  State<LoadingDApp> createState() => _LoadingDAppState();
-}
-
-class _LoadingDAppState extends State<LoadingDApp> {
-  dynamic mockFaviconUrl;
-
-  void getFaviconImage() async {
-    final iconUrl = await FaviconFinder.getBest('https://topl.co');
-
-    setState(() {
-      mockFaviconUrl = iconUrl!.url;
-    });
-  }
-
-  @override
-  void initState() {
-    getFaviconImage();
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    const String mockFaviconUrl = '';
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -44,6 +24,16 @@ class _LoadingDAppState extends State<LoadingDApp> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Text(
+              Strings.connecting,
+              style: TextStyle(
+                height: 2,
+                fontFamily: 'DM Sans',
+                color: Colors.white,
+                fontSize: 19,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,12 +52,10 @@ class _LoadingDAppState extends State<LoadingDApp> {
                       borderRadius: BorderRadius.all(Radius.circular(50)),
                       color: RibnColors.transparentGrey,
                     ),
-                    child: mockFaviconUrl == null
-                        ? const Padding(
-                            padding: EdgeInsets.all(16),
-                            child: CircularProgressIndicator(
-                              color: RibnColors.vibrantGreen,
-                            ),
+                    child: mockFaviconUrl == ''
+                        ? Image.asset(
+                            RibnAssets.undefinedIcon,
+                            width: 25,
                           )
                         : Image.network(
                             mockFaviconUrl,
