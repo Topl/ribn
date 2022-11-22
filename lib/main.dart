@@ -16,6 +16,7 @@ import 'package:ribn/presentation/external_signing_page.dart';
 import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
+import 'package:ribn/presentation/transaction_history/service_locator/locator.dart';
 import 'package:ribn/redux.dart';
 import 'package:ribn/router/root_router.dart';
 
@@ -32,6 +33,7 @@ void main() async {
   } else if (currentAppView == AppViews.extensionTab && !needsOnboarding) {
     await initBgConnection(Redux.store!);
   }
+  setupLocator(Redux.store!);
   runApp(RibnApp(Redux.store!));
 }
 
