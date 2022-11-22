@@ -85,7 +85,7 @@ class _SettingsPageState extends State<SettingsPage> {
             isBioSupported ? _buildDivider() : const SizedBox(),
             isBioSupported ? BiometricsSection(isBiometricsEnabled: vm.isBiometricsEnabled) : const SizedBox(),
             _buildDivider(),
-            DeleteWalletSection(onDeletePressed: vm.onDeletePressed),
+            DeleteWalletSection(onDeletePressed: vm.onDeletePressed, onDisconnectPressed: vm.onDisconnectPressed),
             const SizedBox(height: 20),
           ],
         ),
