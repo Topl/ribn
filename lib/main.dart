@@ -22,7 +22,7 @@ import 'package:ribn/router/root_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Redux.initStore(initTestStore: true);
+  await Redux.initStore(initTestStore: false);
   final AppViews currentAppView =
       await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
@@ -33,7 +33,8 @@ void main() async {
   } else if (currentAppView == AppViews.extensionTab && !needsOnboarding) {
     await initBgConnection(Redux.store!);
   }
-  setupLocator(Redux.store!);//@dev call this function to setup any singletons required by app
+  setupLocator(Redux
+      .store!); //@dev call this function to setup any singletons required by app
   runApp(RibnApp(Redux.store!));
 }
 
