@@ -33,7 +33,7 @@ void main() async {
   } else if (currentAppView == AppViews.extensionTab && !needsOnboarding) {
     await initBgConnection(Redux.store!);
   }
-  setupLocator(Redux.store!);
+  setupLocator(Redux.store!);//@dev call this function to setup any singletons required by app
   runApp(RibnApp(Redux.store!));
 }
 
