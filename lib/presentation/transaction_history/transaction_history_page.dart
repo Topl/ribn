@@ -36,9 +36,24 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
   late bool loadedDataBefore = false, _isLoading = true;
   void updateSelectedItem(String selectedItem) {
     setState(() {
-      _filteredTransactions = [];
-      _allTransactions = [];
-      _filterSelectedItem = selectedItem;
+      setState(() {
+        _isLoading = true;
+        _filteredTransactions = [];
+        _filterSelectedItem = selectedItem;
+      });
+      fetchTxHistory(
+        context,
+        _transactionHistoryViewmodel.toplAddress,
+        _transactionHistoryViewmodel.networkId,
+        _transactionHistoryViewmodel,
+      ).then((List<TransactionReceipt> transactions) {
+        setState(() {
+          if (_filterSelectedItem == 'Transaction types') {
+            _allTransactions = transactions;
+          }
+          _isLoading = false;
+        });
+      });
     });
   }
 
@@ -46,7 +61,8 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
   void initState() {
     super.initState();
     setState(() {
-      final Store<AppState> store = locator.get<Store<AppState>>();
+      final Store<AppState> store = locator.get<
+          Store<AppState>>(); //@dev Fetch the AppState from the singleton store
       final RibnNetwork currentNetwork =
           store.state.keychainState.currentNetwork;
       _transactionHistoryViewmodel = TransactionHistoryViewmodel(
@@ -68,15 +84,19 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
         },
       );
       fetchTxHistory(
+        ///@dev fetch the transaction history for initial rendering
         context,
         _transactionHistoryViewmodel.toplAddress,
         _transactionHistoryViewmodel.networkId,
         _transactionHistoryViewmodel,
       ).then((List<TransactionReceipt> transactions) {
         setState(() {
-          _allTransactions = transactions;
+          if (_filterSelectedItem == 'Transaction types') {
+            _allTransactions = transactions;
+          }
           _isLoading = false;
-          loadedDataBefore = true;
+          loadedDataBefore =
+              true; //@dev ensure we not reloading the entire page again but just the next dataset
         });
       });
     });
@@ -84,7 +104,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
       if (_scrollController.position.maxScrollExtent ==
           _scrollController.offset) {
         setState(() {
-          _isLoading = true;
+          _isLoading = true; //@dev show overlay
           _pageNumber++;
           _filteredTransactions = [];
           fetchTxHistory(
@@ -94,7 +114,9 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
             _transactionHistoryViewmodel,
           ).then((List<TransactionReceipt> transactions) {
             setState(() {
-              _allTransactions = transactions;
+              if (_filterSelectedItem == 'Transaction types') {
+                _allTransactions = transactions;
+              }
               _isLoading = false;
             });
           });
@@ -127,18 +149,19 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
         final Sender transactionSenderAddress = transaction.from![0];
         final myRibnAddress = toplAddress.toBase58();
         final wasMinted = transaction.minting == true;
-        if (_filterSelectedItem == 'All') {
-          _filteredTransactions.add(transaction);
-        }
         if (_filterSelectedItem == 'Received' &&
             transactionReceiverAddress == myRibnAddress &&
             !wasMinted) {
+          debugPrint('Received');
           _filteredTransactions.add(transaction);
-        }
-        if (_filterSelectedItem == 'Sent' &&
+        } else if (_filterSelectedItem == 'Sent' &&
             transactionSenderAddress.toString() == myRibnAddress.toString() &&
             !wasMinted &&
             transactionReceiverAddress != myRibnAddress) {
+          debugPrint('Sent');
+          _filteredTransactions.add(transaction);
+        } else if (_filterSelectedItem == 'All'){
+          debugPrint('Other');
           _filteredTransactions.add(transaction);
         }
       }
@@ -170,7 +193,9 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                   _transactionHistoryViewmodel,
                 ).then((List<TransactionReceipt> transactions) {
                   setState(() {
-                    _allTransactions = transactions;
+                    if (_filterSelectedItem == 'Transaction types') {
+                      _allTransactions = transactions;
+                    }
                     _isLoading = false;
                   });
                 });
