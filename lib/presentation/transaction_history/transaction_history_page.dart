@@ -86,10 +86,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
         setState(() {
           _isLoading = true;
           _pageNumber++;
-          _filteredTransactions = [
-            ..._filteredTransactions,
-            ..._filteredTransactions
-          ];
+          _filteredTransactions = [];
           fetchTxHistory(
             context,
             _transactionHistoryViewmodel.toplAddress,
