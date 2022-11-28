@@ -232,11 +232,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                 'timestamp': formattedDateAlternate,
                 'assetDetails': assetDetails,
                 'icon': renderAssetIcon(assetDetails?.icon),
-                'shortName': filteredAsset[0]
-                    .assetCode
-                    .shortName
-                    .show
-                    .replaceAll('\x00', ''),
+                'shortName': filteredAsset.isNotEmpty ? filteredAsset[0].assetCode.shortName.show.replaceAll('\x00', '') : 'Unknown',
                 'transactionStatus': transactionStatus,
                 'transactionAmount':
                     '${transactionAmountForAssetTransfer()} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
@@ -286,14 +282,8 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                                       .copyWith(fontSize: 14),
                                 ),
                                 Text(
-                                  filteredAsset[0]
-                                      .assetCode
-                                      .shortName
-                                      .show
-                                      .replaceAll('\x00', ''),
-                                  style: RibnToolkitTextStyles
-                                      .assetLongNameStyle
-                                      .copyWith(fontSize: 11),
+                                  filteredAsset.isNotEmpty ? filteredAsset[0].assetCode.shortName.show.replaceAll('\x00', '') : 'Unknown',
+                                  style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
                                 ),
                               ],
                             ),
