@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/constants/assets.dart';
-
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/authorize_and_sign/input_dropdown_wrapper.dart';
 import 'package:ribn/presentation/authorize_and_sign/transaction_row_details.dart';
@@ -14,8 +16,16 @@ import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title_with_leading_child.dart';
 
+import '../../actions/internal_message_actions.dart';
+import '../../actions/transaction_actions.dart';
+import '../../models/app_state.dart';
+import '../../models/internal_message.dart';
+
 class ReviewAndSignDApp extends StatefulWidget {
-  const ReviewAndSignDApp({
+  final InternalMessage request;
+
+  const ReviewAndSignDApp(
+    this.request, {
     Key? key,
   }) : super(key: key);
 
@@ -24,8 +34,12 @@ class ReviewAndSignDApp extends StatefulWidget {
 }
 
 class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
-  String mockMyWalletAddress = '3NPgzD6i71g3xKinh1bVLKQ2Ab4S1kL3Fg3JthUL5ms3YMmfqJm1';
+  String mockMyWalletAddress =
+      '3NPgzD6i71g3xKinh1bVLKQ2Ab4S1kL3Fg3JthUL5ms3YMmfqJm1';
+
   // '3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe'
+
+
 
   final Map mockDAppDetails = {
     'logo': RibnAssets.connectDApp,
@@ -39,7 +53,8 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
         '3NPgzD6i71g3xKinh1bVLKQ2Ab4S1kL3Fg3JthUL5ms3YMmfqJm1',
         {
           'quantity': '100',
-          'assetCode': '5YJqb1adQfBmgeCs3pPSajAyazweXxy8hi5TTnCjqwF79kpA6yLa9vZawH',
+          'assetCode':
+              '5YJqb1adQfBmgeCs3pPSajAyazweXxy8hi5TTnCjqwF79kpA6yLa9vZawH',
           'metadata': null,
           'type': 'Asset',
           'securityRoot': '11111111111111111111111111111111'
@@ -54,7 +69,10 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
       ]
     ],
     'from': [
-      ['3NPgzD6i71g3xKinh1bVLKQ2Ab4S1kL3Fg3JthUL5ms3YMmfqJm1', '-7628585798404871123']
+      [
+        '3NPgzD6i71g3xKinh1bVLKQ2Ab4S1kL3Fg3JthUL5ms3YMmfqJm1',
+        '-7628585798404871123'
+      ]
     ],
     'newBoxes': [
       {
@@ -64,7 +82,8 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
         'type': 'AssetBox',
         'value': {
           'quantity': '199',
-          'assetCode': '5YJqb1adQfBmgeCs3pPSajAyazweXxy8hi5TTnCjqwF79kpA6yLa9vZawH',
+          'assetCode':
+              '5YJqb1adQfBmgeCs3pPSajAyazweXxy8hi5TTnCjqwF79kpA6yLa9vZawH',
           'metadata': null,
           'type': 'Asset',
           'securityRoot': '11111111111111111111111111111111'
@@ -84,7 +103,10 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
     'txId': 's255G4GVscEAC4VABaBKqtoBc2YHCEdo58tqK2K91nmB',
     'fee': '100',
     'propositionType': 'PublicKeyEd25519',
-    'block': {'id': '26RnAfCj16ocHGtgq4RpV3VsqQz6chCwLTVv2yJkDBei6', 'height': 4687784},
+    'block': {
+      'id': '26RnAfCj16ocHGtgq4RpV3VsqQz6chCwLTVv2yJkDBei6',
+      'height': 4687784
+    },
     '__v': 0
   };
 
@@ -154,6 +176,9 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
 
   @override
   Widget build(BuildContext context) {
+    final Map transactionDetails = widget.request.data!['rawTx'] ?? mockDAppTransaction;
+
+
     LargeButton renderCancelButton(buttonWidth) {
       return LargeButton(
         buttonWidth: buttonWidth,
@@ -170,6 +195,15 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
         borderColor: RibnColors.ghostButtonText,
         onPressed: () {
           // Redirect to TBC to go here
+          final InternalMessage response = widget.request.copyWith(
+              method: InternalMethods.returnResponse,
+              sender: InternalMessage.defaultSender,
+              data: {
+                'message': 'Request denied',
+              },
+            );
+
+          StoreProvider.of<AppState>(context).dispatch(SendInternalMsgAction(response));
         },
       );
     }
@@ -186,6 +220,7 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
         ),
         onPressed: () {
           // Confirm auth action will go here
+          StoreProvider.of<AppState>(context).dispatch(SignExternalTxAction(widget.request));
         },
         backgroundColor: RibnColors.primary,
         dropShadowColor: RibnColors.whiteButtonShadow,
@@ -208,7 +243,8 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                 curve: Curves.easeInOut,
                 duration: const Duration(seconds: 1),
                 clipBehavior: Clip.hardEdge,
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 width: 360,
                 height: isExpanded ? 388 : 228,
                 decoration: BoxDecoration(
@@ -233,8 +269,10 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                           style: defaultTextStyle.copyWith(height: 3),
                         ),
                         Text(
-                          '${mockDAppDetails['link']}',
-                          style: defaultTextStyle.copyWith(fontWeight: FontWeight.w500),
+                          // '${mockDAppDetails['link']}',
+                          widget.request.origin,
+                          style: defaultTextStyle.copyWith(
+                              fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -243,14 +281,22 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                       reverse: true,
                       physics: const NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
-                      itemCount: mockDAppTransaction['to'].length,
+                      itemCount: transactionDetails['to'].length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return TransactionRowDetails(
-                          quantity: mockDAppTransaction['to'][index][1]['quantity'],
-                          wasReceivedToMyWallet:
-                              mockDAppTransaction['to'][index][0] == mockMyWalletAddress ? true : false,
-                          isPolyTransfer: mockDAppTransaction['to'][index][1]['type'] == 'Simple' ? true : false,
+                          quantity: transactionDetails['to'][index][1]
+                              ['quantity'],
+                          wasReceivedToMyWallet: transactionDetails['to']
+                                      [index][0] ==
+                                  mockMyWalletAddress
+                              ? true
+                              : false,
+                          isPolyTransfer: transactionDetails['to'][index][1]
+                                      ['type'] ==
+                                  'Simple'
+                              ? true
+                              : false,
                         );
                       },
                     ),
@@ -296,7 +342,8 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                               thumbColor: RibnColors.primary,
                               thickness: 10,
                               child: ScrollConfiguration(
-                                behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                                behavior: ScrollConfiguration.of(context)
+                                    .copyWith(scrollbars: false),
                                 child: ListView.builder(
                                   shrinkWrap: true,
                                   primary: false,
@@ -306,7 +353,8 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                                     return SingleChildScrollView(
                                       scrollDirection: Axis.horizontal,
                                       child: SelectableText(
-                                        mockDAppTransactionJson,
+                                        // mockDAppTransactionJson,
+                                        getPrettyJson(widget.request.data),
                                       ),
                                     );
                                   },
@@ -323,10 +371,11 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                               height: 27.0,
                               decoration: const BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
                               ),
                               child: CustomCopyButton(
-                                textToBeCopied: mockDAppTransactionJson,
+                                textToBeCopied: getPrettyJson(widget.request.data),
                                 bubbleText: 'Copied!',
                                 icon: Image.asset(
                                   RibnAssets.copyIconAlternate,
@@ -354,7 +403,7 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FeeInfo(fee: int.parse(mockDAppTransaction['fee'])),
+            FeeInfo(fee: int.parse(transactionDetails['fee'])),
             const SizedBox(
               height: 15,
             ),
@@ -383,4 +432,10 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
       ),
     );
   }
+}
+
+String getPrettyJson(dynamic json) {
+  var spaces = ' ' * 4;
+  var encoder = JsonEncoder.withIndent(spaces);
+  return encoder.convert(json);
 }

@@ -232,11 +232,14 @@ class RootRouter {
 
       case Routes.connectDApp:
         {
-          return pageRouteNotAnimated(const ConnectDApp(), settings);
+          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
+          return pageRouteNotAnimated(ConnectDApp(pendingRequest), settings);
         }
       case Routes.reviewAndSignDApp:
         {
-          return pageRouteNotAnimated(const ReviewAndSignDApp(), settings);
+          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
+          if (kIsWeb) return pageRouteNotAnimated(ReviewAndSignDApp(pendingRequest), settings);
+          return pageRoute(ReviewAndSignDApp(pendingRequest), settings);
         }
       case Routes.loadingDApp:
         {

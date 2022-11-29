@@ -22,6 +22,15 @@ abstract class IPlatformUtils {
   void createLoginSessionAlarm();
 }
 
+abstract class IWallet {
+  /// Returns wallet balance
+  String getBalance();
+
+  /// Returns wallet address
+  String getAddress();
+}
+
+
 abstract class IMessenger {
   /// Send [msg] to the background script.
   void sendMsg(String msg);

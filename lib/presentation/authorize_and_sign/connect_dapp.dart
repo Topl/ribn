@@ -1,7 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/authorize_and_sign/input_dropdown_wrapper.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
@@ -10,8 +13,13 @@ import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title_with_leading_child.dart';
 
+import '../../models/internal_message.dart';
+
 class ConnectDApp extends StatefulWidget {
-  const ConnectDApp({
+  final InternalMessage request;
+
+  const ConnectDApp(
+    this.request, {
     Key? key,
   }) : super(key: key);
 
@@ -20,11 +28,11 @@ class ConnectDApp extends StatefulWidget {
 }
 
 class _ConnectDAppState extends State<ConnectDApp> {
-  final Map mockDAppDetails = {
-    'logo': RibnAssets.connectDApp,
-    'name': 'GreenSwap',
-    'link': 'https://greenswap.com',
-  };
+  // final Map mockDAppDetails = {
+  //   'logo': RibnAssets.connectDApp,
+  //   'name': 'GreenSwap',
+  //   'link': 'https://greenswap.com',
+  // };
 
   bool authChecked = false;
 
@@ -32,45 +40,6 @@ class _ConnectDAppState extends State<ConnectDApp> {
 
   @override
   Widget build(BuildContext context) {
-    LargeButton renderCancelButton(buttonWidth) {
-      return LargeButton(
-        buttonWidth: buttonWidth,
-        buttonHeight: 43,
-        buttonChild: Text(
-          Strings.cancel,
-          style: RibnToolkitTextStyles.btnLarge.copyWith(
-            color: RibnColors.ghostButtonText,
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-        hoverColor: Colors.transparent,
-        dropShadowColor: Colors.transparent,
-        borderColor: RibnColors.ghostButtonText,
-        onPressed: () {
-          // Redirect to TBC to go here
-        },
-      );
-    }
-
-    LargeButton renderConfirmButton(buttonWidth) {
-      return LargeButton(
-        buttonWidth: buttonWidth,
-        buttonHeight: 43,
-        buttonChild: Text(
-          Strings.confirm,
-          style: RibnToolkitTextStyles.btnLarge.copyWith(
-            color: RibnColors.lightGreyTitle,
-          ),
-        ),
-        onPressed: () {
-          // Confirm auth action will go here
-        },
-        backgroundColor: RibnColors.primary,
-        dropShadowColor: RibnColors.whiteButtonShadow,
-        disabled: !authChecked,
-      );
-    }
-
     return Scaffold(
       backgroundColor: RibnColors.background,
       body: SingleChildScrollView(
@@ -84,7 +53,8 @@ class _ConnectDAppState extends State<ConnectDApp> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 13),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 width: 360,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(11.6)),
@@ -129,8 +99,12 @@ class _ConnectDAppState extends State<ConnectDApp> {
                                 ),
                         ),
                         Text(
-                          '${mockDAppDetails['name']} to access the following:',
-                          style: const TextStyle(fontFamily: 'DM Sans', fontSize: 11, height: 3),
+                          '${widget.request.data!["name"] ?? widget.request.origin} to access the following:',
+                          style: const TextStyle(
+                            fontFamily: 'DM Sans',
+                            fontSize: 11,
+                            height: 3,
+                          ),
                         ),
                       ],
                     ),
@@ -166,7 +140,7 @@ class _ConnectDAppState extends State<ConnectDApp> {
                                 ),
                               ),
                               TextSpan(
-                                text: '${mockDAppDetails['link']}',
+                                text: widget.request.origin,
                                 style: RibnToolkitTextStyles.h3.copyWith(
                                   color: RibnColors.defaultText,
                                   fontSize: 11,
@@ -232,5 +206,78 @@ class _ConnectDAppState extends State<ConnectDApp> {
               ),
       ),
     );
+  }
+
+  LargeButton renderCancelButton(buttonWidth) {
+    return LargeButton(
+      buttonWidth: buttonWidth,
+      buttonHeight: 43,
+      buttonChild: Text(
+        Strings.cancel,
+        style: RibnToolkitTextStyles.btnLarge.copyWith(
+          color: RibnColors.ghostButtonText,
+        ),
+      ),
+      backgroundColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      dropShadowColor: Colors.transparent,
+      borderColor: RibnColors.ghostButtonText,
+      onPressed: () {
+        // Redirect to TBC to go here
+        sendResponse(context, false);
+      },
+    );
+  }
+
+  LargeButton renderConfirmButton(buttonWidth) {
+    return LargeButton(
+      buttonWidth: buttonWidth,
+      buttonHeight: 43,
+      buttonChild: Text(
+        Strings.confirm,
+        style: RibnToolkitTextStyles.btnLarge.copyWith(
+          color: RibnColors.lightGreyTitle,
+        ),
+      ),
+      onPressed: () {
+        // Confirm auth action will go here
+        sendResponse(context, true);
+      },
+      backgroundColor: RibnColors.primary,
+      dropShadowColor: RibnColors.whiteButtonShadow,
+      disabled: !authChecked,
+    );
+  }
+
+  void sendResponse(BuildContext context, bool accept) {
+    late final InternalMessage response;
+
+    if (!accept) {
+      response = widget.request.copyWith(
+        method: InternalMethods.returnResponse,
+        sender: InternalMessage.defaultSender,
+        data: {
+          'enabled': accept,
+        },
+      );
+    } else {
+      response = widget.request.copyWith(
+        method: InternalMethods.returnResponse,
+        sender: InternalMessage.defaultSender,
+        data: {
+          'enabled': accept,
+          'walletAddress': StoreProvider.of<AppState>(context)
+              .state
+              .keychainState
+              .currentNetwork
+              .addresses
+              .first
+              .toplAddress
+              .toBase58()
+        },
+      );
+    }
+    StoreProvider.of<AppState>(context)
+        .dispatch(SendInternalMsgAction(response));
   }
 }
