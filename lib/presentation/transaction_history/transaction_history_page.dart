@@ -132,7 +132,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
 
     final List<TransactionReceipt> response =
         await vm.getTransactions(pageNum: _pageNumber);
-    //response.unique((transaction) => transaction.id.toString());
+    response.unique((transaction) => transaction.id.toString());
     // Filters transactions by sent or received
     if (_filterSelectedItem != 'Transaction types') {
       final List<TransactionReceipt> filteredTransactions =
