@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
+import 'dart:js_util';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -12,7 +13,6 @@ import 'package:ribn/presentation/settings/sections/delete_wallet_confirmation_d
 import 'package:ribn/presentation/settings/sections/disconnect_wallet_confirmation_dialog.dart';
 
 import '../platform/web/utils.dart';
-
 
 /// Intended to wrap the [SettingsPage] and provide it with the the [SettingsViewModel].
 class SettingsContainer extends StatelessWidget {
@@ -64,7 +64,10 @@ class SettingsViewModel {
         await showDialog(
           context: context,
           builder: (context) => DeleteWalletConfirmationDialog(
-            onConfirmDeletePressed: (String password, VoidCallback onIncorrectPasswordEntered) async {
+            onConfirmDeletePressed: (
+              String password,
+              VoidCallback onIncorrectPasswordEntered,
+            ) async {
               final Completer<bool> actionCompleter = Completer();
               store.dispatch(
                 DeleteWalletAction(
@@ -81,12 +84,14 @@ class SettingsViewModel {
         );
       },
       onDisconnectPressed: (BuildContext context) async {
-         final x = await PlatformUtils.instance.getDAppList();
-         // final List<String> dAppList = [x.cast<String>()];
-           await showDialog(
-              context: context,
-              builder: (context) => DisconnectWalletConfirmationDialog(dApps: ["dAppList"]),
-          );
+        final List<String> dAppList =
+            await promiseToFuture(PlatformUtils.instance.getDAppList());
+        PlatformUtils.instance.consoleLog(dAppList);
+        await showDialog(
+          context: context,
+          builder: (context) =>
+              DisconnectWalletConfirmationDialog(dApps: dAppList),
+        );
       },
       appVersion: store.state.appVersion,
       isBiometricsEnabled: store.state.userDetailsState.isBiometricsEnabled,
@@ -105,6 +110,9 @@ class SettingsViewModel {
 
   @override
   int get hashCode {
-    return exportToplMainKey.hashCode ^ onDeletePressed.hashCode ^ appVersion.hashCode ^ isBiometricsEnabled.hashCode;
+    return exportToplMainKey.hashCode ^
+        onDeletePressed.hashCode ^
+        appVersion.hashCode ^
+        isBiometricsEnabled.hashCode;
   }
 }

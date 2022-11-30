@@ -13,6 +13,7 @@ help: ## This help dialog.
 	done
 
 build_web:
+	@flutter clean
 	@npm install
 	@npm run build
 	@flutter pub get
@@ -27,7 +28,10 @@ clean: ## Cleans the environment
 	@rm -rf pubspec.lock
 	@flutter clean
 	@flutter pub get
-
+fix_warnings: ## fix any warnings
+	@echo "╠ Attempting to fix warnings..."
+	@dart fix --dry-run
+	@dart fix --apply
 watch: ## Watches the files for changes
 	@echo "╠ Watching the project..."
 	@flutter pub run build_runner watch --delete-conflicting-outputs

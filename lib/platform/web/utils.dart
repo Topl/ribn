@@ -18,7 +18,9 @@ external Future<void> openAppInNewTab();
 external Future<String> getCurrentView();
 external void createSessionAlarm();
 external void clearDApps();
-external Future getDApps();
+external Future<List<String>> getTestAllowList();
+external Future<List<String>> getAllowList();
+external void logToConsole(dynamic item);
 
 class PlatformUtils implements IPlatformUtils {
   PlatformUtils._internal();
@@ -33,7 +35,8 @@ class PlatformUtils implements IPlatformUtils {
   String getCurrentAppVersion() => getAppVersion();
 
   @override
-  void downloadFile(String fileName, String text) => downloadAsFile(fileName, text);
+  void downloadFile(String fileName, String text) =>
+      downloadAsFile(fileName, text);
 
   @override
   void deleteActiveWallet() => deleteWallet();
@@ -64,7 +67,8 @@ class PlatformUtils implements IPlatformUtils {
   void clearDAppList() => clearDApps();
 
   @override
-  Future getDAppList() => getDApps();
+  Future<List<String>> getDAppList() => getTestAllowList();
 
-
+  @override
+  void consoleLog(dynamic item) => logToConsole(item);
 }

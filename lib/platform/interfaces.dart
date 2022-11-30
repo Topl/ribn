@@ -26,6 +26,9 @@ abstract class IPlatformUtils {
 
   /// Web only
   Future getDAppList();
+
+  /// Web only
+  void consoleLog(dynamic item);
 }
 
 abstract class IWallet {

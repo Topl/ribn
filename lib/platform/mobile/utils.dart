@@ -50,4 +50,8 @@ class PlatformUtils implements IPlatformUtils {
   Future getDAppList() {
     throw UnimplementedError();
   }
+  @override
+  Future consoleLog(dynamic item) {
+    throw UnimplementedError();
+  }
 }

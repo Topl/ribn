@@ -272,7 +272,7 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                           // '${mockDAppDetails['link']}',
                           widget.request.origin,
                           style: defaultTextStyle.copyWith(
-                              fontWeight: FontWeight.w500),
+                              fontWeight: FontWeight.w500,),
                         ),
                       ],
                     ),
@@ -435,7 +435,7 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
 }
 
 String getPrettyJson(dynamic json) {
-  var spaces = ' ' * 4;
-  var encoder = JsonEncoder.withIndent(spaces);
+  final spaces = ' ' * 4;
+  final encoder = JsonEncoder.withIndent(spaces);
   return encoder.convert(json);
 }
