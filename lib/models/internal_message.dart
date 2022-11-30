@@ -113,4 +113,7 @@ class InternalMethods {
 
   /// Used to obtain wallet balance through Ribn.
   static String get signTransaction => 'signTransaction';
+
+  /// Used to obtain wallet balance through Ribn.
+  static String get clearList => 'clearList';
 }

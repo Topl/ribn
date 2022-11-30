@@ -224,6 +224,16 @@ class BackgroundMessenger {
                 }
             });
         },
+        clearList: async (request: InternalMessage, sendResponse: (response?: InternalMessage) => void) => {
+            await ExtensionStorage.clearAllowList();
+            sendResponse({
+                ...request,
+                sender: SENDERS.ribn,
+                data: {
+                    message: "All permissions revoked",
+                }
+            });
+        },
     };
 
     /**
@@ -309,7 +319,10 @@ class BackgroundMessenger {
                     this.responders.revoke(request, sendResponse);
                     break;
                 }
-
+                case INTERNAL_METHODS.clearList: {
+                    this.responders.clearList(request, sendResponse);
+                    break;
+                }
                 default: {
                     sendResponse({
                         ...request,

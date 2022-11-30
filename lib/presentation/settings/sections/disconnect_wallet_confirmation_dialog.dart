@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/models/app_state.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
 
-/// The confimation dialog that is displayed before disconnecting the wallet.
+import '../../../models/internal_message.dart';
+
+/// The confirmation dialog that is displayed before disconnecting the wallet.
 class DisconnectWalletConfirmationDialog extends StatefulWidget {
-  const DisconnectWalletConfirmationDialog({Key? key}) : super(key: key);
+  const DisconnectWalletConfirmationDialog({Key? key, required this.dApps})
+      : super(key: key);
+
+  final List<String> dApps;
 
   @override
-  _DisconnectWalletConfirmationDialogState createState() => _DisconnectWalletConfirmationDialogState();
+  _DisconnectWalletConfirmationDialogState createState() =>
+      _DisconnectWalletConfirmationDialogState();
 }
 
-class _DisconnectWalletConfirmationDialogState extends State<DisconnectWalletConfirmationDialog> {
-  final List<String> mockConnectedDApps = [
+class _DisconnectWalletConfirmationDialogState
+    extends State<DisconnectWalletConfirmationDialog> {
+  final List<String> connectedDApps = [
     'https://greenswap.com',
     'https://happymint.com',
     'https://carbonnegativeNFTs.com',
@@ -58,14 +68,15 @@ class _DisconnectWalletConfirmationDialogState extends State<DisconnectWalletCon
               thumbColor: RibnColors.primary,
               thickness: 10,
               child: ScrollConfiguration(
-                behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                behavior:
+                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
                 child: ListView.builder(
                   shrinkWrap: true,
                   primary: false,
-                  itemCount: mockConnectedDApps.length,
+                  itemCount: widget.dApps.length,
                   itemBuilder: (buildContext, index) {
                     return Text(
-                      mockConnectedDApps[index],
+                      widget.dApps[index],
                       style: const TextStyle(
                         fontFamily: 'DM Sans',
                         fontSize: 11,
@@ -94,6 +105,17 @@ class _DisconnectWalletConfirmationDialogState extends State<DisconnectWalletCon
               ),
               onPressed: () {
                 // Disconnect action to go here
+                final response = InternalMessage(
+                  method: InternalMethods.clearList,
+                  sender: InternalMessage.defaultSender,
+                  data: {'message': 'All permissions revoked'},
+                  origin: InternalMessage.defaultSender,
+                  target: InternalMessage.defaultSender,
+                  id: '',
+                );
+
+                StoreProvider.of<AppState>(context)
+                    .dispatch(SendInternalMsgAction(response));
               },
               buttonWidth: 285,
             ),
@@ -112,6 +134,7 @@ class _DisconnectWalletConfirmationDialogState extends State<DisconnectWalletCon
               borderColor: RibnColors.ghostButtonText,
               onPressed: () {
                 // Cancel action to go here
+                Navigator.of(context, rootNavigator: true).pop();
               },
               buttonWidth: 285,
             ),

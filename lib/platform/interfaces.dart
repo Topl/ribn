@@ -20,6 +20,12 @@ abstract class IPlatformUtils {
   void closeWindow();
 
   void createLoginSessionAlarm();
+
+  /// Web only
+  void clearDAppList();
+
+  /// Web only
+  Future getDAppList();
 }
 
 abstract class IWallet {
@@ -55,6 +61,7 @@ abstract class IPlatformLocalStorage {
   ///
   /// [key] should be the Base58Encoded Topl Main Key.
   Future<void> saveKeyInSessionStorage(String key);
+
 
   /// Mobile-only
   ///

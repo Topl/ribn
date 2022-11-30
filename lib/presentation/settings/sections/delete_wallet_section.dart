@@ -72,8 +72,7 @@ class DeleteWalletSection extends StatelessWidget {
                     dropShadowColor: Colors.transparent,
                     borderColor: RibnColors.primary.withOpacity(userHasConnectedDApps == true ? 1.0 : 0.3),
                     onPressed: () {
-                      if (userHasConnectedDApps == false) return;
-
+                      // if (userHasConnectedDApps == false) return;
                       onDisconnectPressed(context);
                     },
                   ),

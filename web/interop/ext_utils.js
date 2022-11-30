@@ -12,7 +12,18 @@ var ext_utils = {
             window.close();
         });
     },
-
+    /**
+     * Clears  AllowList
+     */
+    deleteDApps:() => {
+        return ""
+    },
+    /**
+     * Gets full AllowList
+     */
+     getAllowList(){
+        return ""
+     },
     /**
      * 
      * Downloads a new file with name as `filename` and content as `text`.

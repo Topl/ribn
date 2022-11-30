@@ -40,4 +40,14 @@ class PlatformUtils implements IPlatformUtils {
 
   @override
   void createLoginSessionAlarm() => throw UnimplementedError();
+
+  @override
+  void clearDAppList() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future getDAppList() {
+    throw UnimplementedError();
+  }
 }

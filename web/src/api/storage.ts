@@ -20,6 +20,9 @@ export const ExtensionStorage = {
         const storage = await ExtensionStorage.getStorage();
         return storage["allowList"] ? storage["allowList"] : [];
     },
+    clearAllowList: async () => {
+        await ExtensionStorage.setStorage("allowList", []);
+    },
     getStorage: () => {
         return new Promise<Record<string, any>>((resolve, reject) => {
             chrome.storage.local.get(undefined, (items) => {

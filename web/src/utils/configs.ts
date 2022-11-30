@@ -16,6 +16,7 @@ export const API_METHODS = {
 export const INTERNAL_METHODS = {
     checkPendingRequest: "checkPendingRequest",
     returnResponse: "returnResponse",
+    clearList: "clearList"
 };
 
 export const TARGET = "topl-ribn-wallet";
