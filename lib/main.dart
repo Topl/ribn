@@ -34,7 +34,7 @@ void main() async {
     await initBgConnection(Redux.store!);
   }
   setupLocator(Redux
-      .store!); //@dev call this function to setup any singletons required by app
+      .store!,); //@dev call this function to setup any singletons required by app
   runApp(RibnApp(Redux.store!));
 }
 

@@ -63,7 +63,9 @@ class TransactionHistoryViewmodel {
         final myWalletAddress =
             currNetwork.myWalletAddress!.toplAddress.toBase58();
         final mempoolTxs = await getMempoolTxs(
-            client: currNetwork.client!, walletAddress: myWalletAddress,);
+          client: currNetwork.client!,
+          walletAddress: myWalletAddress,
+        );
         final genusTxs = await getGenusTxs(walletAddress: myWalletAddress);
         return [...mempoolTxs, ...genusTxs];
       },
@@ -77,7 +79,8 @@ class TransactionHistoryViewmodel {
     final mempoolTxs = await client.getMempool();
     final pendingTxsForWallet = mempoolTxs.where((tx) {
       final walletAddrInSenders = tx.from?.any(
-              (sender) => sender.senderAddress.toBase58() == walletAddress,) ??
+            (sender) => sender.senderAddress.toBase58() == walletAddress,
+          ) ??
           false;
       // simple recipient or asset recipient
       final walletAddrInRecipients =

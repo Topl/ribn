@@ -7,6 +7,7 @@ import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/transaction_history_container.dart';
+import 'package:ribn/helpers/helper_functions.dart';
 import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/transaction_history/service_locator/locator.dart';
 import 'package:ribn/utils.dart';
@@ -28,8 +29,7 @@ class TxHistoryPage extends StatefulWidget {
 class _TxHistoryPageState extends State<TxHistoryPage> {
   int _pageNumber = 0;
   String _filterSelectedItem = 'Transaction types';
-  List<TransactionReceipt> _filteredTransactions = <TransactionReceipt>[],
-      _allTransactions = <TransactionReceipt>[];
+  List<TransactionReceipt> _allTransactions = <TransactionReceipt>[];
   final _scrollController = ScrollController();
   final List<String> _itemsToSelectFrom = ['All', 'Sent', 'Received'];
   late TransactionHistoryViewmodel _transactionHistoryViewmodel;
@@ -38,7 +38,6 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     setState(() {
       setState(() {
         _isLoading = true;
-        _filteredTransactions = [];
         _filterSelectedItem = selectedItem;
       });
       fetchTxHistory(
@@ -48,9 +47,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
         _transactionHistoryViewmodel,
       ).then((List<TransactionReceipt> transactions) {
         setState(() {
-          if (_filterSelectedItem == 'Transaction types') {
-            _allTransactions = transactions;
-          }
+          _allTransactions = transactions;
           _isLoading = false;
         });
       });
@@ -91,9 +88,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
         _transactionHistoryViewmodel,
       ).then((List<TransactionReceipt> transactions) {
         setState(() {
-          if (_filterSelectedItem == 'Transaction types') {
-            _allTransactions = transactions;
-          }
+          _allTransactions = transactions;
           _isLoading = false;
           loadedDataBefore =
               true; //@dev ensure we not reloading the entire page again but just the next dataset
@@ -106,7 +101,6 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
         setState(() {
           _isLoading = true; //@dev show overlay
           _pageNumber++;
-          _filteredTransactions = [];
           fetchTxHistory(
             context,
             _transactionHistoryViewmodel.toplAddress,
@@ -114,9 +108,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
             _transactionHistoryViewmodel,
           ).then((List<TransactionReceipt> transactions) {
             setState(() {
-              if (_filterSelectedItem == 'Transaction types') {
-                _allTransactions = transactions;
-              }
+              _allTransactions = transactions;
               _isLoading = false;
             });
           });
@@ -137,39 +129,45 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     int networkId,
     TransactionHistoryViewmodel vm,
   ) async {
-    _transactionHistoryViewmodel = vm;
+
     final List<TransactionReceipt> response =
         await vm.getTransactions(pageNum: _pageNumber);
+    //response.unique((transaction) => transaction.id.toString());
     // Filters transactions by sent or received
     if (_filterSelectedItem != 'Transaction types') {
+      final List<TransactionReceipt> filteredTransactions =
+          <TransactionReceipt>[];
       final List<TransactionReceipt> transactions = response;
-      for (var transaction in transactions) {
+      for (TransactionReceipt transaction in transactions) {
         final String transactionReceiverAddress =
             transaction.to.first.toJson()[0].toString();
         final Sender transactionSenderAddress = transaction.from![0];
-        final myRibnAddress = toplAddress.toBase58();
-        final wasMinted = transaction.minting == true;
+        final String myRibnAddress = toplAddress.toBase58();
+        final bool wasMinted = transaction.minting == true;
+        debugPrint('tx: ${transaction.id.toString()}');
         if (_filterSelectedItem == 'Received' &&
             transactionReceiverAddress == myRibnAddress &&
             !wasMinted) {
           debugPrint('Received');
-          _filteredTransactions.add(transaction);
+          filteredTransactions.add(transaction);
         } else if (_filterSelectedItem == 'Sent' &&
             transactionSenderAddress.toString() == myRibnAddress.toString() &&
             !wasMinted &&
             transactionReceiverAddress != myRibnAddress) {
           debugPrint('Sent');
-          _filteredTransactions.add(transaction);
-        } else if (_filterSelectedItem == 'All'){
+          filteredTransactions.add(transaction);
+        } else if (_filterSelectedItem == 'All') {
           debugPrint('Other');
-          _filteredTransactions.add(transaction);
+          filteredTransactions.add(transaction);
         }
       }
-      return _filteredTransactions;
+      return filteredTransactions;
+    }
+    for (var tx in response) {
+      debugPrint('tx: ${tx.id.toString()}');
     }
     return response;
   }
-
   @override
   Widget build(BuildContext context) {
     return TransactionHistoryContainer(
@@ -193,9 +191,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                   _transactionHistoryViewmodel,
                 ).then((List<TransactionReceipt> transactions) {
                   setState(() {
-                    if (_filterSelectedItem == 'Transaction types') {
-                      _allTransactions = transactions;
-                    }
+                    _allTransactions = transactions;
                     _isLoading = false;
                   });
                 });
@@ -260,38 +256,32 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                       MediaQuery.of(context).size.height * 0.63,
                                   desktopHeight: 360,
                                 )
-                              : _filteredTransactions.isEmpty
-                                  ? _allTransactions.isEmpty
-                                      ? EmptyStateScreen(
-                                          icon: RibnAssets.clockWithBorder,
-                                          title: Strings.noActivityToReview,
-                                          body: emptyStateBody,
-                                          buttonOneText: 'Mint',
-                                          buttonOneAction: () => Keys
-                                              .navigatorKey.currentState
-                                              ?.pushNamed(
-                                            Routes.mintInput,
-                                            arguments: {
-                                              'mintingNewAsset': true,
-                                              'mintingToMyWallet': true,
-                                            },
-                                          ),
-                                          buttonTwoText: 'Share',
-                                          buttonTwoAction: () async =>
-                                              await showReceivingAddress(),
-                                          mobileHeight: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
+                              : _allTransactions.isEmpty
+                                  ? EmptyStateScreen(
+                                      icon: RibnAssets.clockWithBorder,
+                                      title: Strings.noActivityToReview,
+                                      body: emptyStateBody,
+                                      buttonOneText: 'Mint',
+                                      buttonOneAction: () => Keys
+                                          .navigatorKey.currentState
+                                          ?.pushNamed(
+                                        Routes.mintInput,
+                                        arguments: {
+                                          'mintingNewAsset': true,
+                                          'mintingToMyWallet': true,
+                                        },
+                                      ),
+                                      buttonTwoText: 'Share',
+                                      buttonTwoAction: () async =>
+                                          await showReceivingAddress(),
+                                      mobileHeight:
+                                          MediaQuery.of(context).size.height *
                                               0.63,
-                                          desktopHeight: 360,
-                                        )
-                                      : loadScrollView(
-                                          vm,
-                                          _allTransactions,
-                                        )
+                                      desktopHeight: 360,
+                                    )
                                   : loadScrollView(
                                       vm,
-                                      _filteredTransactions,
+                                      _allTransactions,
                                     ),
                         ),
                       )
