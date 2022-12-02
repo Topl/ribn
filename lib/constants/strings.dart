@@ -286,4 +286,8 @@ Ribn Wallet does not control the functionality of biometrics and does not have a
   static const String connect = 'Connect';
   static const String connectDApp = ' allowing this site to see my Ribn address, and suggest transactions to approve.';
   static const String connecting = 'Connecting...';
+  static const String executeTransaction = 'You are about to execute the following transaction on';
+
+
+
 }

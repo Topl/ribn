@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/models/raw_tx.dart';
 import 'package:ribn/presentation/authorize_and_sign/input_dropdown_wrapper.dart';
 import 'package:ribn/presentation/authorize_and_sign/transaction_row_details.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
@@ -17,7 +18,7 @@ import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title_with_leading_child.dart';
 
 import '../../actions/internal_message_actions.dart';
-import '../../actions/transaction_actions.dart';
+import '../../constants/routes.dart';
 import '../../models/app_state.dart';
 import '../../models/internal_message.dart';
 
@@ -34,138 +35,9 @@ class ReviewAndSignDApp extends StatefulWidget {
 }
 
 class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
-  String mockMyWalletAddress =
-      '3NPgzD6i71g3xKinh1bVLKQ2Ab4S1kL3Fg3JthUL5ms3YMmfqJm1';
-
-  // '3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe'
-
-
-
-  final Map mockDAppDetails = {
-    'logo': RibnAssets.connectDApp,
-    'name': 'GreenSwap',
-    'link': 'https://greenswap.com',
-  };
-
-  final Map mockDAppTransaction = {
-    'to': [
-      [
-        '3NPgzD6i71g3xKinh1bVLKQ2Ab4S1kL3Fg3JthUL5ms3YMmfqJm1',
-        {
-          'quantity': '100',
-          'assetCode':
-              '5YJqb1adQfBmgeCs3pPSajAyazweXxy8hi5TTnCjqwF79kpA6yLa9vZawH',
-          'metadata': null,
-          'type': 'Asset',
-          'securityRoot': '11111111111111111111111111111111'
-        }
-      ],
-      [
-        '3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe',
-        {
-          'type': 'Simple',
-          'quantity': '121',
-        }
-      ]
-    ],
-    'from': [
-      [
-        '3NPgzD6i71g3xKinh1bVLKQ2Ab4S1kL3Fg3JthUL5ms3YMmfqJm1',
-        '-7628585798404871123'
-      ]
-    ],
-    'newBoxes': [
-      {
-        'nonce': '-7086618909138803055',
-        'id': 'FWnRuTTqz9feiEzLWH8u2roiyHhA8sHHuzJ4iSkAvfv2',
-        'evidence': '27pbvCBWBgaNmMtKdUnJzgbzTUJnuoG5RqJRztA2ejjEv',
-        'type': 'AssetBox',
-        'value': {
-          'quantity': '199',
-          'assetCode':
-              '5YJqb1adQfBmgeCs3pPSajAyazweXxy8hi5TTnCjqwF79kpA6yLa9vZawH',
-          'metadata': null,
-          'type': 'Asset',
-          'securityRoot': '11111111111111111111111111111111'
-        },
-      }
-    ],
-    'boxesToRemove': ['GHQYKMWKQwmj3ZyTUk4QgMg12d23NesFTTfRMBfA8qRR'],
-    '_id': '63051ae4083b2f0011fa1e69',
-    'txType': 'AssetTransfer',
-    'timestamp': '1661278926609',
-    'signatures': {
-      'y1fcEQyQxQEKs82xCSEjiEEzdPcGGQuySzG7VEjDXd6c':
-          'GjjWhgJ4J52mZEFDzvdTRnADtXAoe8kPCE1bQ3TKqC6o73U3hM1CsyHGevE1uJjYTaoehnQyu9LergjVg1zBsq47'
-    },
-    'data': '',
-    'minting': false,
-    'txId': 's255G4GVscEAC4VABaBKqtoBc2YHCEdo58tqK2K91nmB',
-    'fee': '100',
-    'propositionType': 'PublicKeyEd25519',
-    'block': {
-      'id': '26RnAfCj16ocHGtgq4RpV3VsqQz6chCwLTVv2yJkDBei6',
-      'height': 4687784
-    },
-    '__v': 0
-  };
-
-  final String mockDAppTransactionJson = '''{
-    'to': [
-      [
-        '3NPgzD6i71g3xKinh1bVLKQ2Ab4S1kL3Fg3JthUL5ms3YMmfqJm1',
-        {
-          'quantity': '100',
-          'assetCode': '5YJqb1adQfBmgeCs3pPSajAyazweXxy8hi5TTnCjqwF79kpA6yLa9vZawH',
-          'metadata': null,
-          'type': 'Asset',
-          'securityRoot': '11111111111111111111111111111111'
-        }
-      ],
-      [
-        '3NQQK6Mgir21QbySoHztQ9hRQoTTnZeBBSw4vUXcVGjKxN5soSQe',
-        {
-          'type': 'Simple',
-          'quantity': '121',
-        }
-      ]
-    ],
-    'from': [
-      ['3NPgzD6i71g3xKinh1bVLKQ2Ab4S1kL3Fg3JthUL5ms3YMmfqJm1', '-7628585798404871123']
-    ],
-    'newBoxes': [
-      {
-        'nonce': '-7086618909138803055',
-        'id': 'FWnRuTTqz9feiEzLWH8u2roiyHhA8sHHuzJ4iSkAvfv2',
-        'evidence': '27pbvCBWBgaNmMtKdUnJzgbzTUJnuoG5RqJRztA2ejjEv',
-        'type': 'AssetBox',
-        'value': {
-          'quantity': '199',
-          'assetCode': '5YJqb1adQfBmgeCs3pPSajAyazweXxy8hi5TTnCjqwF79kpA6yLa9vZawH',
-          'metadata': null,
-          'type': 'Asset',
-          'securityRoot': '11111111111111111111111111111111'
-        },
-      }
-    ],
-    'boxesToRemove': ['GHQYKMWKQwmj3ZyTUk4QgMg12d23NesFTTfRMBfA8qRR'],
-    '_id': '63051ae4083b2f0011fa1e69',
-    'txType': 'AssetTransfer',
-    'timestamp': '1661278926609',
-    'signatures': {
-      'y1fcEQyQxQEKs82xCSEjiEEzdPcGGQuySzG7VEjDXd6c':
-          'GjjWhgJ4J52mZEFDzvdTRnADtXAoe8kPCE1bQ3TKqC6o73U3hM1CsyHGevE1uJjYTaoehnQyu9LergjVg1zBsq47'
-    },
-    'data': '',
-    'minting': false,
-    'txId': 's255G4GVscEAC4VABaBKqtoBc2YHCEdo58tqK2K91nmB',
-    'fee': '100',
-    'propositionType': 'PublicKeyEd25519',
-    'block': {'id': '26RnAfCj16ocHGtgq4RpV3VsqQz6chCwLTVv2yJkDBei6', 'height': 4687784},
-    '__v': 0
-  }
-  ''';
-
+  late final Map transactionDetails;
+  late final String walletAddress;
+  late final RawTx transaction;
   bool isExpanded = false;
 
   final TextStyle defaultTextStyle = const TextStyle(
@@ -175,58 +47,23 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
   );
 
   @override
+  void initState() {
+    transactionDetails = widget.request.data!['rawTx'];
+    transaction = RawTx.fromJson(widget.request.data!['rawTx']);
+
+    walletAddress = StoreProvider.of<AppState>(context)
+        .state
+        .keychainState
+        .currentNetwork
+        .addresses
+        .first
+        .toplAddress
+        .toBase58();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final Map transactionDetails = widget.request.data!['rawTx'] ?? mockDAppTransaction;
-
-
-    LargeButton renderCancelButton(buttonWidth) {
-      return LargeButton(
-        buttonWidth: buttonWidth,
-        buttonHeight: 43,
-        buttonChild: Text(
-          Strings.cancel,
-          style: RibnToolkitTextStyles.btnLarge.copyWith(
-            color: RibnColors.ghostButtonText,
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-        hoverColor: Colors.transparent,
-        dropShadowColor: Colors.transparent,
-        borderColor: RibnColors.ghostButtonText,
-        onPressed: () {
-          // Redirect to TBC to go here
-          final InternalMessage response = widget.request.copyWith(
-              method: InternalMethods.returnResponse,
-              sender: InternalMessage.defaultSender,
-              data: {
-                'message': 'Request denied',
-              },
-            );
-
-          StoreProvider.of<AppState>(context).dispatch(SendInternalMsgAction(response));
-        },
-      );
-    }
-
-    LargeButton renderConfirmButton(buttonWidth) {
-      return LargeButton(
-        buttonWidth: buttonWidth,
-        buttonHeight: 43,
-        buttonChild: Text(
-          Strings.confirm,
-          style: RibnToolkitTextStyles.btnLarge.copyWith(
-            color: Colors.white,
-          ),
-        ),
-        onPressed: () {
-          // Confirm auth action will go here
-          StoreProvider.of<AppState>(context).dispatch(SignExternalTxAction(widget.request));
-        },
-        backgroundColor: RibnColors.primary,
-        dropShadowColor: RibnColors.whiteButtonShadow,
-      );
-    }
-
     return Scaffold(
       backgroundColor: RibnColors.background,
       body: SingleChildScrollView(
@@ -265,14 +102,15 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                     Wrap(
                       children: [
                         Text(
-                          'You are about to execute the following transaction on',
+                          Strings.executeTransaction,
                           style: defaultTextStyle.copyWith(height: 3),
                         ),
                         Text(
                           // '${mockDAppDetails['link']}',
                           widget.request.origin,
                           style: defaultTextStyle.copyWith(
-                              fontWeight: FontWeight.w500,),
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ],
                     ),
@@ -287,16 +125,12 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                         return TransactionRowDetails(
                           quantity: transactionDetails['to'][index][1]
                               ['quantity'],
-                          wasReceivedToMyWallet: transactionDetails['to']
-                                      [index][0] ==
-                                  mockMyWalletAddress
-                              ? true
-                              : false,
+                          wasReceivedToMyWallet: transactionDetails['to'][index]
+                                  [0] ==
+                              walletAddress,
                           isPolyTransfer: transactionDetails['to'][index][1]
-                                      ['type'] ==
-                                  'Simple'
-                              ? true
-                              : false,
+                                  ['type'] ==
+                              'Simple',
                         );
                       },
                     ),
@@ -375,7 +209,8 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                                     BorderRadius.all(Radius.circular(20)),
                               ),
                               child: CustomCopyButton(
-                                textToBeCopied: getPrettyJson(widget.request.data),
+                                textToBeCopied:
+                                    getPrettyJson(widget.request.data),
                                 bubbleText: 'Copied!',
                                 icon: Image.asset(
                                   RibnAssets.copyIconAlternate,
@@ -391,9 +226,7 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 20,
-            )
+            const SizedBox(height: 20)
           ],
         ),
       ),
@@ -404,27 +237,20 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FeeInfo(fee: int.parse(transactionDetails['fee'])),
-            const SizedBox(
-              height: 15,
-            ),
+            const SizedBox(height: 15),
             kIsWeb
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       renderCancelButton(144),
-                      const SizedBox(
-                        width: 20,
-                      ),
+                      const SizedBox(width: 20),
                       renderConfirmButton(144),
                     ],
                   )
                 : Column(
                     children: [
                       renderConfirmButton(double.infinity),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      renderCancelButton(double.infinity),
+                      const SizedBox(height: 15),
                     ],
                   ),
           ],
@@ -432,10 +258,61 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
       ),
     );
   }
-}
 
-String getPrettyJson(dynamic json) {
-  final spaces = ' ' * 4;
-  final encoder = JsonEncoder.withIndent(spaces);
-  return encoder.convert(json);
+  LargeButton renderCancelButton(buttonWidth) {
+    return LargeButton(
+      buttonWidth: buttonWidth,
+      buttonHeight: 43,
+      buttonChild: Text(
+        Strings.cancel,
+        style: RibnToolkitTextStyles.btnLarge.copyWith(
+          color: RibnColors.ghostButtonText,
+        ),
+      ),
+      backgroundColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      dropShadowColor: Colors.transparent,
+      borderColor: RibnColors.ghostButtonText,
+      onPressed: () {
+        final InternalMessage response = widget.request.copyWith(
+          method: InternalMethods.returnResponse,
+          sender: InternalMessage.defaultSender,
+          data: {
+            'message': 'Request denied',
+          },
+        );
+
+        StoreProvider.of<AppState>(context)
+            .dispatch(SendInternalMsgAction(response));
+      },
+    );
+  }
+
+  LargeButton renderConfirmButton(buttonWidth) {
+    return LargeButton(
+      buttonWidth: buttonWidth,
+      buttonHeight: 43,
+      buttonChild: Text(
+        Strings.confirm,
+        style: RibnToolkitTextStyles.btnLarge.copyWith(
+          color: Colors.white,
+        ),
+      ),
+      onPressed: () {
+        Navigator.pushNamed(
+          context,
+          Routes.loadingDApp,
+          arguments: widget.request,
+        );
+      },
+      backgroundColor: RibnColors.primary,
+      dropShadowColor: RibnColors.whiteButtonShadow,
+    );
+  }
+
+  String getPrettyJson(dynamic json) {
+    final spaces = ' ' * 4;
+    final encoder = JsonEncoder.withIndent(spaces);
+    return encoder.convert(json);
+  }
 }

@@ -5,7 +5,6 @@ import 'dart:js_util';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/models/app_state.dart';
 // import 'package:ribn/platform/platform.dart';
@@ -45,6 +44,8 @@ class SettingsViewModel {
   /// True if biometrics authentication is enabled
   final bool isBiometricsEnabled;
 
+  bool canDisconnect = false;
+
   SettingsViewModel({
     required this.exportToplMainKey,
     required this.onDeletePressed,
@@ -52,6 +53,7 @@ class SettingsViewModel {
     required this.appVersion,
     required this.isBiometricsEnabled,
   });
+
   static SettingsViewModel fromStore(Store<AppState> store) {
     return SettingsViewModel(
       exportToplMainKey: () => store.dispatch(
@@ -84,13 +86,13 @@ class SettingsViewModel {
         );
       },
       onDisconnectPressed: (BuildContext context) async {
-        final List<String> dAppList =
+        final dApps =
             await promiseToFuture(PlatformUtils.instance.getDAppList());
-        PlatformUtils.instance.consoleLog(dAppList);
-        await showDialog(
+        PlatformUtils.instance.consoleLog(dApps);
+        final bool disconnectResult = await showDialog(
           context: context,
           builder: (context) =>
-              DisconnectWalletConfirmationDialog(dApps: dAppList),
+              DisconnectWalletConfirmationDialog(dApps: dApps),
         );
       },
       appVersion: store.state.appVersion,

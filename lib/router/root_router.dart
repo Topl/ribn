@@ -243,7 +243,8 @@ class RootRouter {
         }
       case Routes.loadingDApp:
         {
-          return pageRouteNotAnimated(const LoadingDApp(), settings);
+          final InternalMessage response = settings.arguments as InternalMessage;
+          return pageRouteNotAnimated(LoadingDApp(response: response), settings);
         }
       default:
         return errorRoute();

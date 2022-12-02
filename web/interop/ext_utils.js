@@ -19,23 +19,18 @@ var ext_utils = {
 		});
 	},
 	/**
-	 * Clears  AllowList
+	 * Clears AllowList
 	 */
-	deleteDApps: () => {
-		return "";
+	deleteAllowList: async () => {
+       await chrome.storage.local.set({'allowList': []});
 	},
 	/**
 	 * Gets full AllowList
 	 */
-	getAllowList() {
-		return "";
-	},
-	getTestAllowList() {
-		return new Promise(async (resolve) => {
-			let storage = await chrome.storage.local.get(undefined);
-			storage = storage ? storage.allowList : [];
-			resolve(storage);
-		});
+	retrieveAllowList: async () => {
+            let storage = await chrome.storage.local.get(undefined);
+            storage = storage ? storage.allowList : [];
+			return(storage);
 	},
 	/**
 	 *

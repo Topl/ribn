@@ -133,8 +133,6 @@ class BackgroundMessenger {
                 });
         },
         enable: (request: InternalMessage, sendResponse: (response?: InternalMessage) => void) => {
-            if (true) {
-            } else {
             ExtensionStorage.isOriginAllowed(request.origin as string).then((isAllowed) => {
                 if (!isAllowed) {
                     createPopup()
@@ -155,7 +153,6 @@ class BackgroundMessenger {
                     });
                 }
             });
-            }
         },
         isEnabled: (request: InternalMessage, sendResponse: (response?: InternalMessage) => void) => {
             ExtensionStorage.isOriginAllowed(request.origin as string).then((isAllowed) => {
@@ -199,13 +196,13 @@ class BackgroundMessenger {
                 .then((result) => {
                     sendResponse(result);
                 });
-//             sendResponse({
-//                 ...request,
-//                 sender: SENDERS.ribn,
-//                 data: {
-// //                     message: window.randomFunctionName(),
-//                     message: "",
-//                 }});
+            sendResponse({
+                ...request,
+                sender: SENDERS.ribn,
+                data: {
+//                     message: window.randomFunctionName(),
+                    message: "",
+                }});
         },
         signTransaction: async (request: InternalMessage, sendResponse: (response?: InternalMessage) => void) => {
             createPopup()
@@ -317,10 +314,6 @@ class BackgroundMessenger {
                 }
                 case API_METHODS.revoke: {
                     this.responders.revoke(request, sendResponse);
-                    break;
-                }
-                case INTERNAL_METHODS.clearList: {
-                    this.responders.clearList(request, sendResponse);
                     break;
                 }
                 default: {

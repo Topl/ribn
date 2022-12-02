@@ -11,16 +11,17 @@ class DeleteWalletSection extends StatelessWidget {
 
   final Function(BuildContext context) onDisconnectPressed;
 
+  final bool canDisconnect;
+
   const DeleteWalletSection({
     required this.onDeletePressed,
     required this.onDisconnectPressed,
+    required this.canDisconnect,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const bool userHasConnectedDApps = true;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -63,19 +64,16 @@ class DeleteWalletSection extends StatelessWidget {
                     buttonChild: Text(
                       Strings.disconnect,
                       style: RibnToolkitTextStyles.btnLarge.copyWith(
-                        color: RibnColors.primary.withOpacity(userHasConnectedDApps == true ? 1.0 : 0.3),
+                        color: RibnColors.primary.withOpacity(canDisconnect == true ? 1.0 : 0.3),
                         fontSize: 10,
                       ),
                     ),
                     backgroundColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     dropShadowColor: Colors.transparent,
-                    borderColor: RibnColors.primary.withOpacity(userHasConnectedDApps == true ? 1.0 : 0.3),
-                    onPressed: () {
-                      // if (userHasConnectedDApps == false) return;
-                      onDisconnectPressed(context);
-                    },
-                  ),
+                    borderColor: RibnColors.primary.withOpacity(canDisconnect == true ? 1.0 : 0.3),
+                    onPressed: () => canDisconnect ?
+                      onDisconnectPressed(context) : null,),
                 ),
               ],
             ),
@@ -116,7 +114,9 @@ class DeleteWalletSection extends StatelessWidget {
                     hoverColor: Colors.transparent,
                     dropShadowColor: Colors.transparent,
                     borderColor: RibnColors.primary,
-                    onPressed: () => onDeletePressed(context),
+                    onPressed: () {
+                      onDeletePressed(context);
+                    },
                   ),
                 ),
               ],

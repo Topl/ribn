@@ -1,14 +1,14 @@
+import 'dart:js_util';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/models/app_state.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
 
-import '../../../models/internal_message.dart';
+import '../../../platform/web/utils.dart';
+
 
 /// The confirmation dialog that is displayed before disconnecting the wallet.
 class DisconnectWalletConfirmationDialog extends StatefulWidget {
@@ -24,15 +24,6 @@ class DisconnectWalletConfirmationDialog extends StatefulWidget {
 
 class _DisconnectWalletConfirmationDialogState
     extends State<DisconnectWalletConfirmationDialog> {
-  final List<String> connectedDApps = [
-    'https://greenswap.com',
-    'https://happymint.com',
-    'https://carbonnegativeNFTs.com',
-    'https://REFIkingdoms.com',
-    'https://REFIkingdoms.com',
-    'https://REFIkingdoms.com',
-    'https://REFIkingdoms.com',
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -103,19 +94,10 @@ class _DisconnectWalletConfirmationDialogState
                   color: Colors.white,
                 ),
               ),
-              onPressed: () {
+              onPressed: () async {
                 // Disconnect action to go here
-                final response = InternalMessage(
-                  method: InternalMethods.clearList,
-                  sender: InternalMessage.defaultSender,
-                  data: {'message': 'All permissions revoked'},
-                  origin: InternalMessage.defaultSender,
-                  target: InternalMessage.defaultSender,
-                  id: '',
-                );
-
-                StoreProvider.of<AppState>(context)
-                    .dispatch(SendInternalMsgAction(response));
+                await promiseToFuture(PlatformUtils.instance.clearDAppList());
+                Navigator.of(context, rootNavigator: true).pop(true);
               },
               buttonWidth: 285,
             ),
@@ -134,7 +116,7 @@ class _DisconnectWalletConfirmationDialogState
               borderColor: RibnColors.ghostButtonText,
               onPressed: () {
                 // Cancel action to go here
-                Navigator.of(context, rootNavigator: true).pop();
+                Navigator.of(context, rootNavigator: true).pop(false);
               },
               buttonWidth: 285,
             ),

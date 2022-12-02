@@ -21,7 +21,7 @@ export const ExtensionStorage = {
 		console.log("allow list: ", storage.allowList);
 		return storage.allowList ?? [];
 	},
-    getALlowedString: async (): Promise<string> => {
+    getAllowedString: async (): Promise<string> => {
 		const storage = await ExtensionStorage.getStorage();
 		console.log("allow list: ", storage.allowList.toString());
 		return storage.allowList.toString() ?? "";

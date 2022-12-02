@@ -1,11 +1,39 @@
+
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/models/app_state.dart';
+import 'package:ribn/models/internal_message.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/molecules/animated_circle_step_loader.dart';
 
-class LoadingDApp extends StatelessWidget {
-  const LoadingDApp({Key? key}) : super(key: key);
+class LoadingDApp extends StatefulWidget {
+  const LoadingDApp({Key? key, required this.response}) : super(key: key);
+
+  final InternalMessage response;
+
+  @override
+  State<LoadingDApp> createState() => _LoadingDAppState();
+}
+
+class _LoadingDAppState extends State<LoadingDApp> {
+
+
+  @override
+  void initState() {
+    super.initState();
+    Timer(const Duration(seconds: 10), () {
+      StoreProvider.of<AppState>(context)
+          .dispatch(SignExternalTxAction(widget.response));
+      Navigator.of(context).pop();
+    });
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,4 +128,5 @@ class LoadingDApp extends StatelessWidget {
       ),
     );
   }
+
 }

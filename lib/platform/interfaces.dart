@@ -22,7 +22,7 @@ abstract class IPlatformUtils {
   void createLoginSessionAlarm();
 
   /// Web only
-  void clearDAppList();
+  Future<void> clearDAppList();
 
   /// Web only
   Future getDAppList();

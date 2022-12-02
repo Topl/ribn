@@ -17,9 +17,8 @@ external void downloadAsFile(String fileName, String text);
 external Future<void> openAppInNewTab();
 external Future<String> getCurrentView();
 external void createSessionAlarm();
-external void clearDApps();
-external Future<List<String>> getTestAllowList();
-external Future<List<String>> getAllowList();
+external Future<void> deleteAllowList();
+external Future<List<String>> retrieveAllowList();
 external void logToConsole(dynamic item);
 
 class PlatformUtils implements IPlatformUtils {
@@ -64,10 +63,10 @@ class PlatformUtils implements IPlatformUtils {
   void createLoginSessionAlarm() => createSessionAlarm();
 
   @override
-  void clearDAppList() => clearDApps();
+  Future<void> clearDAppList() => deleteAllowList();
 
   @override
-  Future<List<String>> getDAppList() => getTestAllowList();
+  Future<List<String>> getDAppList() => retrieveAllowList();
 
   @override
   void consoleLog(dynamic item) => logToConsole(item);
