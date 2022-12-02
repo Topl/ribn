@@ -29,6 +29,9 @@ abstract class IPlatformUtils {
 
   /// Web only
   void consoleLog(dynamic item);
+
+  /// Web only
+  Future<T> convertToFuture<T>(Object jsPromise);
 }
 
 abstract class IWallet {

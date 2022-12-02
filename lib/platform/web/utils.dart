@@ -4,9 +4,9 @@
 library ext_utils;
 
 import 'dart:html';
+import 'dart:js_util';
 
 import 'package:js/js.dart';
-import 'package:js/js_util.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/platform/interfaces.dart';
 
@@ -70,4 +70,9 @@ class PlatformUtils implements IPlatformUtils {
 
   @override
   void consoleLog(dynamic item) => logToConsole(item);
+
+  @override
+  Future<T> convertToFuture<T>(Object jsPromise) {
+    return promiseToFuture(jsPromise);
+  }
 }

@@ -1,14 +1,10 @@
-import 'dart:js_util';
-
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/platform/platform.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
-
-import '../../../platform/web/utils.dart';
-
 
 /// The confirmation dialog that is displayed before disconnecting the wallet.
 class DisconnectWalletConfirmationDialog extends StatefulWidget {
@@ -24,7 +20,6 @@ class DisconnectWalletConfirmationDialog extends StatefulWidget {
 
 class _DisconnectWalletConfirmationDialogState
     extends State<DisconnectWalletConfirmationDialog> {
-
   @override
   Widget build(BuildContext context) {
     return CustomModal.renderCustomModal(
@@ -96,7 +91,8 @@ class _DisconnectWalletConfirmationDialogState
               ),
               onPressed: () async {
                 // Disconnect action to go here
-                await promiseToFuture(PlatformUtils.instance.clearDAppList());
+                await PlatformUtils.instance
+                    .convertToFuture(PlatformUtils.instance.clearDAppList());
                 Navigator.of(context, rootNavigator: true).pop(true);
               },
               buttonWidth: 285,

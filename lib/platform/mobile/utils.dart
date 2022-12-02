@@ -54,4 +54,10 @@ class PlatformUtils implements IPlatformUtils {
   Future consoleLog(dynamic item) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<T> convertToFuture<T>(Object jsPromise) {
+    throw UnimplementedError();
+  }
+
 }
