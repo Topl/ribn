@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font14_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font19_text_widget.dart';
 
 class EmptyStateScreen extends StatelessWidget {
   final String icon;
@@ -41,7 +42,12 @@ class EmptyStateScreen extends StatelessWidget {
         padding: EdgeInsets.zero,
         decoration: BoxDecoration(
           color: RibnColors.paleGreen,
-          boxShadow: [BoxShadow(color: RibnColors.paleGreen.withOpacity(1), blurRadius: 8, spreadRadius: 8)],
+          boxShadow: [
+            BoxShadow(
+                color: RibnColors.paleGreen.withOpacity(1),
+                blurRadius: 8,
+                spreadRadius: 8,)
+          ],
         ),
         width: width - 20,
         height: kIsWeb ? desktopHeight : mobileHeight,
@@ -55,18 +61,15 @@ class EmptyStateScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             SizedBox(
-              width: 275,
-              height: 64,
-              child: Text(
-                title,
-                style: const TextStyle(
-                  fontFamily: 'DM Sans',
-                  color: Colors.black,
-                  fontSize: 19,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
+                width: 275,
+                height: 64,
+                child: RibnFont19TextWidget(
+                  text: title,
+                  textAlignment: TextAlign.start,
+                  textColor: Colors.black,
+                  fontWeight: FontWeight.w400,
+                  wordSpacing: 1,
+                ),),
             SizedBox(
               width: 275,
               height: 60,
@@ -79,12 +82,11 @@ class EmptyStateScreen extends StatelessWidget {
                   buttonHeight: buttonHeight,
                   backgroundColor: RibnColors.primary,
                   onPressed: buttonOneAction,
-                  buttonChild: Text(
-                    buttonOneText,
-                    style: RibnToolkitTextStyles.btnMedium.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  buttonChild: RibnFont14TextWidget(
+                    text: buttonOneText,
+                    textAlignment: TextAlign.start,
+                    textColor: Colors.white,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 const SizedBox(width: 20),
@@ -95,12 +97,11 @@ class EmptyStateScreen extends StatelessWidget {
                   backgroundColor: Colors.transparent,
                   dropShadowColor: Colors.transparent,
                   onPressed: buttonTwoAction,
-                  buttonChild: Text(
-                    buttonTwoText,
-                    style: RibnToolkitTextStyles.btnMedium.copyWith(
-                      color: RibnColors.primary,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  buttonChild: RibnFont14TextWidget(
+                    text: buttonTwoText,
+                    textAlignment: TextAlign.start,
+                    textColor: RibnColors.primary,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],

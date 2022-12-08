@@ -18,6 +18,11 @@ import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font13_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font14_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font20_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h1_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
@@ -53,7 +58,8 @@ class _LoginPageState extends State<LoginPage> {
     bool authenticated = false;
     try {
       authenticated = await authenticateWithBiometrics(_localAuthentication);
-      final String toplKey = (await PlatformLocalStorage.instance.getKeyFromSecureStorage())!;
+      final String toplKey =
+          (await PlatformLocalStorage.instance.getKeyFromSecureStorage())!;
       if (authenticated) {
         StoreProvider.of<AppState>(context).dispatch(
           InitializeHDWalletAction(
@@ -79,7 +85,10 @@ class _LoginPageState extends State<LoginPage> {
   void _checkBiometrics(LoginViewModel vm) {
     if (vm.isBiometricsEnabled) {
       _biometricsLogin().then(
-        (value) => {if (_authorized) Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)},
+        (value) => {
+          if (_authorized)
+            Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)
+        },
       );
     }
   }
@@ -120,35 +129,47 @@ class _LoginPageState extends State<LoginPage> {
                   containerWidth: adaptWidth(1),
                   waveAmplitude: 30,
                   containerChild: Column(
-                    mainAxisAlignment: kIsWeb ? MainAxisAlignment.start : MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: kIsWeb
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
                         children: [
                           SizedBox(height: deviceTopPadding()),
                           renderIfWeb(const SizedBox(height: 40)),
-                          Image.asset(RibnAssets.newRibnLogo, width: kIsWeb ? 102 : 138),
-                          Text(
-                            Strings.ribnWallet,
-                            style: RibnToolkitTextStyles.h1.copyWith(
-                              color: Colors.white,
-                            ),
+                          Image.asset(RibnAssets.newRibnLogo,
+                              width: kIsWeb ? 102 : 138,),
+                          const RibnH1TextWidget(
+                            text: Strings.ribnWallet,
+                            textAlignment: TextAlign.justify,
+                            textColor: RibnColors.defaultText,
+                            fontWeight: FontWeight.w700,
+                            textHeight: 1.57,
+                            letterSpacing: 1.68,
                           ),
                           const SizedBox(height: 5),
                           Center(
                             child: SizedBox(
                               width: kIsWeb ? _baseWidth - 70 : _baseWidth,
-                              child: Center(
-                                child: Text(
-                                  Strings.intro,
-                                  style: RibnToolkitTextStyles.h3.copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w300,
-                                    height: 1.7,
-                                    fontSize: kIsWeb ? 13 : 14,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
+                              child: const Center(
+                                child: kIsWeb
+                                    ? RibnFont13TextWidget(
+                                        text: Strings.intro,
+                                        textAlignment: TextAlign.justify,
+                                        textColor: RibnColors.white,
+                                        fontWeight: FontWeight.w300,
+                                        textHeight: 1.57,
+                                        letterSpacing: 1.68,
+                                      )
+                                    : RibnFont14TextWidget(
+                                        text: Strings.intro,
+                                        textAlignment: TextAlign.justify,
+                                        textColor: RibnColors.white,
+                                        fontWeight: FontWeight.w300,
+                                        textHeight: 1.57,
+                                        letterSpacing: 1.68,
+                                      ),
                               ),
                             ),
                           ),
@@ -166,16 +187,17 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ],
                       ),
-                      kIsWeb ? const SizedBox(height: 40) : const SizedBox(height: 25),
+                      kIsWeb
+                          ? const SizedBox(height: 40)
+                          : const SizedBox(height: 25),
                       LargeButton(
                         backgroundColor: RibnColors.primary,
                         dropShadowColor: RibnColors.whiteButtonShadow,
-                        buttonChild: Text(
-                          Strings.unlock,
-                          style: RibnToolkitTextStyles.btnLarge.copyWith(
-                            color: Colors.white,
-                          ),
-                        ),
+                        buttonChild: const RibnFont20TextWidget(
+                            text: Strings.unlock,
+                            textAlignment: TextAlign.justify,
+                            textColor: RibnColors.white,
+                            fontWeight: FontWeight.w300,),
                         onPressed: attemptLogin,
                       ),
                       renderIfWeb(const SizedBox(height: 20)),
@@ -189,26 +211,36 @@ class _LoginPageState extends State<LoginPage> {
                             _buildSupportLink(),
                             const SizedBox(height: 10),
                             _incorrectPasswordEntered
-                                ? Text(
-                                    'Incorrect Password',
-                                    style: const TextStyle(
-                                      color: Colors.red,
-                                    ).copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: kIsWeb ? 13 : 14,
-                                    ),
-                                  )
+                                ? kIsWeb
+                                    ? const RibnFont13TextWidget(
+                                        text: 'Incorrect Password',
+                                        textAlignment: TextAlign.justify,
+                                        textColor: RibnColors.redColor,
+                                        fontWeight: FontWeight.bold,
+                                      )
+                                    : const RibnFont14TextWidget(
+                                        text: 'Incorrect Password',
+                                        textAlignment: TextAlign.justify,
+                                        textColor: RibnColors.redColor,
+                                        fontWeight: FontWeight.bold,
+                                      )
                                 : const SizedBox(),
                             _biometricsError
-                                ? Text(
-                                    'There was an issue with Face ID, please try again',
-                                    style: const TextStyle(
-                                      color: Colors.red,
-                                    ).copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: kIsWeb ? 13 : 14,
-                                    ),
-                                  )
+                                ? kIsWeb
+                                    ? const RibnFont13TextWidget(
+                                        text:
+                                            'There was an issue with Face ID, please try again',
+                                        textAlignment: TextAlign.justify,
+                                        textColor: RibnColors.redColor,
+                                        fontWeight: FontWeight.bold,
+                                      )
+                                    : const RibnFont14TextWidget(
+                                        text:
+                                            'There was an issue with Face ID, please try again',
+                                        textAlignment: TextAlign.justify,
+                                        textColor: RibnColors.redColor,
+                                        fontWeight: FontWeight.bold,
+                                      )
                                 : const SizedBox()
                           ],
                         ),
@@ -229,29 +261,37 @@ class _LoginPageState extends State<LoginPage> {
       width: _baseWidth,
       child: Row(
         children: [
-          Text(
-            Strings.enterWalletPassword,
-            style: RibnToolkitTextStyles.h3.copyWith(
-              color: Colors.white,
-              fontSize: kIsWeb ? 13 : 14,
-            ),
-          ),
+          kIsWeb
+              ? const RibnFont13TextWidget(
+                  text: Strings.enterWalletPassword,
+                  textAlignment: TextAlign.justify,
+                  textColor: RibnColors.white,
+                  fontWeight: FontWeight.bold,
+                )
+              : const RibnFont14TextWidget(
+                  text: Strings.enterWalletPassword,
+                  textAlignment: TextAlign.justify,
+                  textColor: RibnColors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+
           // ignore: prefer_const_constructors
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: CustomToolTip(
-              borderColor: Border.all(color: const Color(0xffE9E9E9)),
-              offsetPositionLeftValue: 160,
-              toolTipIcon: Image.asset(
-                RibnAssets.greyHelpBubble,
-                width: 18,
-                color: Colors.white,
-              ),
-              toolTipChild: const Text(
-                Strings.loginPasswordInfo,
-                style: RibnToolkitTextStyles.toolTipTextStyle,
-              ),
-            ),
+                borderColor: Border.all(color: const Color(0xffE9E9E9)),
+                offsetPositionLeftValue: 160,
+                toolTipIcon: Image.asset(
+                  RibnAssets.greyHelpBubble,
+                  width: 18,
+                  color: Colors.white,
+                ),
+                toolTipChild: const RibnFont12TextWidget(
+                  text: Strings.loginPasswordInfo,
+                  textAlignment: TextAlign.justify,
+                  textColor: RibnColors.white,
+                  fontWeight: FontWeight.w300,
+                ),),
           ),
         ],
       ),
@@ -272,7 +312,8 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               TextSpan(
                 text: Strings.forgotPassword,
-                recognizer: TapGestureRecognizer()..onTap = () => onButtonPress(),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () => onButtonPress(),
               )
             ],
           ),

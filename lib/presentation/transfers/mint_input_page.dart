@@ -17,8 +17,9 @@ import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font20_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_long_name_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_selection_field.dart';
@@ -38,8 +39,10 @@ class MintInputPage extends StatefulWidget {
 
 class _MintInputPageState extends State<MintInputPage> {
   final TextEditingController _noteController = TextEditingController();
-  final TextEditingController _assetLongNameController = TextEditingController();
-  final TextEditingController _assetShortNameController = TextEditingController();
+  final TextEditingController _assetLongNameController =
+      TextEditingController();
+  final TextEditingController _assetShortNameController =
+      TextEditingController();
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _recipientController = TextEditingController();
   late List<TextEditingController> _controllers;
@@ -158,7 +161,9 @@ class _MintInputPageState extends State<MintInputPage> {
                 ),
               ),
               // ignore: prefer_const_constructors
-              IssuerAddressField(width: 213), // const ignored here so that tooltip can be dismissed
+              IssuerAddressField(
+                  width:
+                      213,), // const ignored here so that tooltip can be dismissed
               // field for entering the recipient address
               RecipientField(
                 controller: _recipientController,
@@ -183,8 +188,10 @@ class _MintInputPageState extends State<MintInputPage> {
                     if (_validRecipientAddress.isNotEmpty) {
                       _recipientController.text = _validRecipientAddress;
                       _recipientController
-                        ..text = _recipientController.text.substring(0, _recipientController.text.length)
-                        ..selection = TextSelection.collapsed(offset: _recipientController.text.length);
+                        ..text = _recipientController.text
+                            .substring(0, _recipientController.text.length)
+                        ..selection = TextSelection.collapsed(
+                            offset: _recipientController.text.length,);
                     }
                     _validRecipientAddress = '';
                   });
@@ -237,19 +244,23 @@ class _MintInputPageState extends State<MintInputPage> {
                           currentTabIndex = i as int;
                         })
                       },
-                      tabItems: <int, Widget>{
+                      tabItems: const <int, Widget>{
                         0: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            Strings.mintAsset,
-                            style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: RibnFont12TextWidget(
+                            text: Strings.mintAsset,
+                            textAlignment: TextAlign.justify,
+                            textColor: RibnColors.defaultText,
+                            fontWeight: FontWeight.w300,
                           ),
                         ),
                         1: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            Strings.mintExistingAsset,
-                            style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: RibnFont12TextWidget(
+                            text: Strings.mintExistingAsset,
+                            textAlignment: TextAlign.justify,
+                            textColor: RibnColors.defaultText,
+                            fontWeight: FontWeight.w300,
                           ),
                         ),
                       },
@@ -312,13 +323,16 @@ class _MintInputPageState extends State<MintInputPage> {
         : AssetSelectionField(
             formattedSelectedAsset: {
               'assetCode': _selectedAsset?.assetCode.toString(),
-              'longName': vm.assetDetails[_selectedAsset?.assetCode.toString()]?.longName,
+              'longName': vm
+                  .assetDetails[_selectedAsset?.assetCode.toString()]?.longName,
               'shortName': _selectedAsset?.assetCode.shortName.show,
-              'assetIcon': vm.assetDetails[_selectedAsset?.assetCode.toString()]?.icon,
+              'assetIcon':
+                  vm.assetDetails[_selectedAsset?.assetCode.toString()]?.icon,
             },
             formattedAsset: (asset) {
               return {
-                'longName': vm.assetDetails[asset!.assetCode.toString()]?.longName,
+                'longName':
+                    vm.assetDetails[asset!.assetCode.toString()]?.longName,
                 'shortName': asset.assetCode.shortName.show,
                 'assetIcon': vm.assetDetails[asset!.assetCode.toString()]?.icon,
               };
@@ -327,7 +341,8 @@ class _MintInputPageState extends State<MintInputPage> {
             onSelected: (AssetAmount? asset) {
               setState(() {
                 _selectedAsset = asset;
-                _selectedUnit = vm.assetDetails[asset!.assetCode.toString()]?.unit;
+                _selectedUnit =
+                    vm.assetDetails[asset!.assetCode.toString()]?.unit;
                 _assetShortNameController.text = asset.assetCode.shortName.show;
               });
             },
@@ -362,11 +377,11 @@ class _MintInputPageState extends State<MintInputPage> {
       padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: LargeButton(
         buttonWidth: double.infinity,
-        buttonChild: Text(
-          Strings.review,
-          style: RibnToolkitTextStyles.btnLarge.copyWith(
-            color: Colors.white,
-          ),
+        buttonChild: const RibnFont20TextWidget(
+          text: Strings.review,
+          textAlignment: TextAlign.justify,
+          textColor: RibnColors.white,
+          fontWeight: FontWeight.w300,
         ),
         onPressed: enteredValidInputs
             ? () {

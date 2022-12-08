@@ -17,6 +17,9 @@ import 'package:ribn/widgets/custom_divider.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font14_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font15_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font19_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
 
 /// Formats an address string to only dispaly its first and last 10 characters.
@@ -54,7 +57,7 @@ void validateRecipientAddress({
 }
 
 Future<bool> isBiometricsAuthenticationSupported(
-    LocalAuthentication auth) async {
+    LocalAuthentication auth,) async {
   final bool canCheckBiometrics = await auth.canCheckBiometrics;
   final bool isDeviceSupported = await auth.isDeviceSupported();
 
@@ -62,7 +65,7 @@ Future<bool> isBiometricsAuthenticationSupported(
 }
 
 Future<bool> isBiometricsAuthenticationEnrolled(
-    LocalAuthentication auth) async {
+    LocalAuthentication auth,) async {
   final bool canCheckBiometrics = await auth.canCheckBiometrics;
   final bool isDeviceSupported = await auth.isDeviceSupported();
   final List enrolledBiometrics = await auth.getAvailableBiometrics();
@@ -127,12 +130,11 @@ Future<void> showReceivingAddress() async {
         builder: (context, ribnAddress) {
           return CustomModal.renderCustomModal(
             context: Keys.navigatorKey.currentContext!,
-            title: Text(
-              Strings.myRibnWalletAddress,
-              style: RibnToolkitTextStyles.extH2.copyWith(
-                fontSize: 19,
-                fontWeight: FontWeight.w500,
-              ),
+            title: const RibnFont19TextWidget(
+              text: Strings.myRibnWalletAddress,
+              textAlignment: TextAlign.start,
+              textColor: RibnColors.defaultText,
+              fontWeight: FontWeight.w500,
             ),
             body: Column(
               children: [
@@ -144,14 +146,12 @@ Future<void> showReceivingAddress() async {
                   height: 130,
                 ),
                 const SizedBox(height: 16),
-                Text(
-                  formatAddrString(ribnAddress.toplAddress.toBase58()),
-                  style: const TextStyle(
-                    fontFamily: 'DM Sans',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 15,
-                    color: RibnColors.defaultText,
-                  ),
+                RibnFont15TextWidget(
+                  text: formatAddrString(ribnAddress.toplAddress.toBase58()),
+                  textAlignment: TextAlign.start,
+                  textColor: RibnColors.defaultText,
+                  fontWeight: FontWeight.w400,
+                  wordSpacing: 1,
                 ),
                 const SizedBox(height: 10),
                 const CustomDivider(),
@@ -160,14 +160,11 @@ Future<void> showReceivingAddress() async {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
-                        Strings.copyAddress,
-                        style: TextStyle(
-                          fontFamily: 'DM Sans',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: RibnColors.defaultText,
-                        ),
+                      const RibnFont14TextWidget(
+                        text: Strings.copyAddress,
+                        textAlignment: TextAlign.start,
+                        textColor: RibnColors.defaultText,
+                        fontWeight: FontWeight.w400,
                       ),
                       const SizedBox(width: 5),
                       CustomCopyButton(

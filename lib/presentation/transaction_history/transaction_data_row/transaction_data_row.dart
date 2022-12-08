@@ -9,8 +9,10 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/atoms/status_chip.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font11_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font14_text_widget.dart';
 
 class TransactionDataRow extends StatefulWidget {
   final List<AssetAmount> assets;
@@ -43,7 +45,8 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
   }
 
   getBlockHeight() async {
-    final transactionBlockHeightNum = int.parse('${widget.transactionReceipt.blockNumber}');
+    final transactionBlockHeightNum =
+        int.parse('${widget.transactionReceipt.blockNumber}');
     final blockHeightString = await widget.blockHeight;
     final blockHeightNum = int.parse(blockHeightString!);
 
@@ -58,7 +61,8 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isPolyTransaction = widget.transactionReceipt.txType == 'PolyTransfer' ||
+    final bool isPolyTransaction = widget.transactionReceipt.txType ==
+            'PolyTransfer' ||
         widget.transactionReceipt.to.first.toJson()[1].runtimeType == String;
     final int timestampInt = widget.transactionReceipt.timestamp;
     final DateTime date = DateTime.fromMillisecondsSinceEpoch(timestampInt);
@@ -66,29 +70,42 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
     final DateFormat dateFormatAlternate = DateFormat('MM-dd-yyyy');
     final String formattedDate = dateFormat.format(date);
     final String formattedDateAlternate = dateFormatAlternate.format(date);
-    final String transactionReceiverAddress = widget.transactionReceipt.to.first.toJson()[0].toString();
+    final String transactionReceiverAddress =
+        widget.transactionReceipt.to.first.toJson()[0].toString();
     final String transactionQuantity = isPolyTransaction
         ? widget.transactionReceipt.to.first.toJson()[1]
         : widget.transactionReceipt.to.first.toJson()[1]['quantity'];
     final Sender transactionSenderAddress = widget.transactionReceipt.from![0];
     final String? fee = '${widget.transactionReceipt.fee!.quantity} nanoPOLYs';
     final Latin1Data? note = widget.transactionReceipt.data;
-    final String securityRoot = isPolyTransaction ? '' : widget.transactionReceipt.to.first.toJson()[1]['securityRoot'];
-    final String assetCode =
-        isPolyTransaction ? '' : widget.transactionReceipt.to.first.toJson()[1]['assetCode'].toString();
+    final String securityRoot = isPolyTransaction
+        ? ''
+        : widget.transactionReceipt.to.first.toJson()[1]['securityRoot'];
+    final String assetCode = isPolyTransaction
+        ? ''
+        : widget.transactionReceipt.to.first
+            .toJson()[1]['assetCode']
+            .toString();
     final ModifierId? blockId = widget.transactionReceipt.blockId;
     final BlockNum? blockNumber = widget.transactionReceipt.blockNumber;
     final ModifierId transactionId = widget.transactionReceipt.id;
     final String renderPlusOrMinusPolyTransfer =
-        transactionReceiverAddress == widget.myRibnWalletAddress && isPolyTransaction ? '+' : '-';
-    final String transactionAmountForPolyTransfer = '$renderPlusOrMinusPolyTransfer$transactionQuantity';
+        transactionReceiverAddress == widget.myRibnWalletAddress &&
+                isPolyTransaction
+            ? '+'
+            : '-';
+    final String transactionAmountForPolyTransfer =
+        '$renderPlusOrMinusPolyTransfer$transactionQuantity';
 
     String? transactionAmountForAssetTransfer() {
-      if (transactionReceiverAddress == widget.myRibnWalletAddress && !transactionQuantity.contains('-')) {
+      if (transactionReceiverAddress == widget.myRibnWalletAddress &&
+          !transactionQuantity.contains('-')) {
         return '+$transactionQuantity';
-      } else if (transactionReceiverAddress == widget.myRibnWalletAddress && transactionQuantity.contains('-')) {
+      } else if (transactionReceiverAddress == widget.myRibnWalletAddress &&
+          transactionQuantity.contains('-')) {
         return transactionQuantity;
-      } else if (transactionReceiverAddress != widget.myRibnWalletAddress && transactionQuantity.contains('-')) {
+      } else if (transactionReceiverAddress != widget.myRibnWalletAddress &&
+          transactionQuantity.contains('-')) {
         return transactionQuantity;
       } else if (transactionReceiverAddress != widget.myRibnWalletAddress &&
           widget.transactionReceipt.minting == true) {
@@ -99,7 +116,8 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
     }
 
     String? renderSentReceivedMintedText() {
-      if (transactionReceiverAddress == widget.myRibnWalletAddress && !transactionQuantity.contains('-')) {
+      if (transactionReceiverAddress == widget.myRibnWalletAddress &&
+          !transactionQuantity.contains('-')) {
         return 'Received';
       }
       return 'Sent';
@@ -159,14 +177,16 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text(
-                                transactionAmountForPolyTransfer,
-                                style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
-                              ),
-                              Text(
-                                'POLY',
-                                style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                              ),
+                              RibnFont14TextWidget(
+                                  text: transactionAmountForPolyTransfer,
+                                  textAlignment: TextAlign.justify,
+                                  textColor: RibnColors.defaultText,
+                                  fontWeight: FontWeight.w500,),
+                              const RibnFont11TextWidget(
+                                  text: 'POLY',
+                                  textAlignment: TextAlign.justify,
+                                  textColor: RibnColors.greyedOut,
+                                  fontWeight: FontWeight.w500,),
                             ],
                           ),
                         )
@@ -180,10 +200,12 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         StatusChip(status: transactionStatus),
-                        Text(
-                          '${renderSentReceivedMintedText()} on $formattedDate',
-                          style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                        ),
+                        RibnFont11TextWidget(
+                            text:
+                                '${renderSentReceivedMintedText()} on $formattedDate',
+                            textAlignment: TextAlign.justify,
+                            textColor: RibnColors.greyedOut,
+                            fontWeight: FontWeight.w500,),
                       ],
                     ),
                   ),
@@ -197,7 +219,8 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
 
     return StoreConnector<AppState, AssetDetails?>(
       // Get access to AssetDetails for this asset from the store only if not poly transaction
-      converter: (store) => store.state.userDetailsState.assetDetails[assetCode],
+      converter: (store) =>
+          store.state.userDetailsState.assetDetails[assetCode],
       builder: (context, assetDetails) {
         final List filteredAsset = widget.assets
             .where(
@@ -215,7 +238,11 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                 'timestamp': formattedDateAlternate,
                 'assetDetails': assetDetails,
                 'icon': renderAssetIcon(assetDetails?.icon),
-                'shortName': filteredAsset[0].assetCode.shortName.show.replaceAll('\x00', ''),
+                'shortName': filteredAsset[0]
+                    .assetCode
+                    .shortName
+                    .show
+                    .replaceAll('\x00', ''),
                 'transactionStatus': transactionStatus,
                 'transactionAmount':
                     '${transactionAmountForAssetTransfer()} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
@@ -259,14 +286,23 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Text(
-                                  '${transactionAmountForAssetTransfer()} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
-                                  style: RibnToolkitTextStyles.extH3.copyWith(fontSize: 14),
-                                ),
-                                Text(
-                                  filteredAsset[0].assetCode.shortName.show.replaceAll('\x00', ''),
-                                  style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                                ),
+                                RibnFont14TextWidget(
+                                    text:
+                                        '${transactionAmountForAssetTransfer()} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
+                                    textAlignment: TextAlign.justify,
+                                    textColor: RibnColors.defaultText,
+                                    fontWeight: FontWeight.w500,
+                                    letterSpacing: 1,),
+                                RibnFont11TextWidget(
+                                    text: filteredAsset[0]
+                                        .assetCode
+                                        .shortName
+                                        .show
+                                        .replaceAll('\x00', ''),
+                                    textAlignment: TextAlign.justify,
+                                    textColor: RibnColors.defaultText,
+                                    fontWeight: FontWeight.w500,
+                                    letterSpacing: 1,),
                               ],
                             ),
                           )
@@ -280,10 +316,13 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           StatusChip(status: transactionStatus),
-                          Text(
-                            '${renderSentReceivedMintedText()} on $formattedDate',
-                            style: RibnToolkitTextStyles.assetLongNameStyle.copyWith(fontSize: 11),
-                          ),
+                          RibnFont11TextWidget(
+                              text:
+                                  '${renderSentReceivedMintedText()} on $formattedDate',
+                              textAlignment: TextAlign.justify,
+                              textColor: RibnColors.defaultText,
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 1,),
                         ],
                       ),
                     ),

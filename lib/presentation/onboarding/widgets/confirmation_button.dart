@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font20_text_widget.dart';
 
 class ConfirmationButton extends StatelessWidget {
   final String text;
@@ -28,12 +28,12 @@ class ConfirmationButton extends StatelessWidget {
         buttonHeight: height,
         backgroundColor: RibnColors.primary,
         dropShadowColor: RibnColors.whiteButtonShadow,
-        buttonChild: Text(
-          text,
-          style: RibnToolkitTextStyles.btnLarge.copyWith(
-            color: disabled ? RibnColors.transparentGreyText : Colors.white,
-            fontWeight: FontWeight.w400,
-          ),
+        buttonChild: RibnFont20TextWidget(
+          fontWeight: FontWeight.w400,
+          text: text,
+          textAlignment: TextAlign.justify,
+          textColor:
+              disabled ? RibnColors.transparentGreyText : RibnColors.white,
         ),
         onPressed: onPressed,
         disabled: disabled,

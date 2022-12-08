@@ -7,9 +7,9 @@ import 'package:ribn/presentation/transaction_history/dashed_list_separator/dash
 import 'package:ribn/presentation/transaction_history/transaction_history_details_page/transaction_history_data_tile.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/status_chip.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -29,11 +29,6 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
   @override
   Widget build(BuildContext context) {
     final _scrollController = ScrollController();
-
-    final dataTileTextStyle = RibnToolkitTextStyles.hintStyle.copyWith(
-      fontWeight: FontWeight.w400,
-      color: const Color(0xff727372),
-    );
 
     return Scaffold(
       backgroundColor: RibnColors.background,
@@ -83,17 +78,22 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                           children: [
                             TransactionHistoryDataTile(
                               tileTitle: 'Transaction Type',
-                              tileValue: Text(
-                                widget.transactionDetails!['transactionType'],
-                                style: dataTileTextStyle,
+                              tileValue: RibnFont12TextWidget(
+                                text: widget
+                                    .transactionDetails!['transactionType'],
+                                textAlignment: TextAlign.justify,
+                                textColor: RibnColors.blueishGray,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                             TransactionHistoryDataTile(
                               reducedWidth: true,
                               tileTitle: 'Timestamp',
-                              tileValue: Text(
-                                widget.transactionDetails!['timestamp'],
-                                style: dataTileTextStyle,
+                              tileValue: RibnFont12TextWidget(
+                                text: widget.transactionDetails!['timestamp'],
+                                textAlignment: TextAlign.justify,
+                                textColor: RibnColors.defaultText,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                           ],
@@ -101,7 +101,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                         const SizedBox(
                           height: 16,
                         ),
-                        const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                        const DashedListSeparator(
+                          color: RibnColors.lightGreyDivider,
+                        ),
                         const SizedBox(
                           height: 16,
                         ),
@@ -119,9 +121,12 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 12),
-                                    child: Text(
-                                      widget.transactionDetails?['shortName'],
-                                      style: dataTileTextStyle,
+                                    child: RibnFont12TextWidget(
+                                      text: widget
+                                          .transactionDetails?['shortName'],
+                                      textAlignment: TextAlign.justify,
+                                      textColor: RibnColors.defaultText,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ],
@@ -130,9 +135,12 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                             TransactionHistoryDataTile(
                               reducedWidth: true,
                               tileTitle: 'Amount',
-                              tileValue: Text(
-                                widget.transactionDetails!['transactionAmount'],
-                                style: dataTileTextStyle,
+                              tileValue: RibnFont12TextWidget(
+                                text: widget
+                                    .transactionDetails!['transactionAmount'],
+                                textAlignment: TextAlign.justify,
+                                textColor: RibnColors.defaultText,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                           ],
@@ -140,7 +148,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                         const SizedBox(
                           height: 16,
                         ),
-                        const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                        const DashedListSeparator(
+                          color: RibnColors.lightGreyDivider,
+                        ),
                         const SizedBox(
                           height: 16,
                         ),
@@ -150,15 +160,19 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                             TransactionHistoryDataTile(
                               tileTitle: 'Status',
                               tileValue: StatusChip(
-                                status: widget.transactionDetails!['transactionStatus'],
+                                status: widget
+                                    .transactionDetails!['transactionStatus'],
                               ),
                             ),
                             TransactionHistoryDataTile(
                               reducedWidth: true,
                               tileTitle: 'Fee',
-                              tileValue: Text(
-                                widget.transactionDetails!['fee'].toString(),
-                                style: dataTileTextStyle,
+                              tileValue: RibnFont12TextWidget(
+                                text: widget.transactionDetails!['fee']
+                                    .toString(),
+                                textAlignment: TextAlign.justify,
+                                textColor: RibnColors.defaultText,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                           ],
@@ -166,7 +180,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                         const SizedBox(
                           height: 16,
                         ),
-                        const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                        const DashedListSeparator(
+                          color: RibnColors.lightGreyDivider,
+                        ),
                         const SizedBox(
                           height: 16,
                         ),
@@ -178,17 +194,21 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                               SizedBox(
                                 width: 26,
                                 height: 26,
-                                child: SvgPicture.asset(RibnAssets.myFingerprint),
+                                child:
+                                    SvgPicture.asset(RibnAssets.myFingerprint),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
-                                child: Text(
-                                  Strings.yourRibnWalletAddress,
-                                  style: dataTileTextStyle,
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                child: RibnFont12TextWidget(
+                                  text: Strings.yourRibnWalletAddress,
+                                  textAlignment: TextAlign.justify,
+                                  textColor: RibnColors.defaultText,
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                               CustomCopyButton(
-                                textToBeCopied: widget.transactionDetails!['myRibnWalletAddress'],
+                                textToBeCopied: widget
+                                    .transactionDetails!['myRibnWalletAddress'],
                                 icon: Image.asset(
                                   RibnAssets.copyIcon,
                                   width: 20,
@@ -200,7 +220,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                         const SizedBox(
                           height: 16,
                         ),
-                        const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                        const DashedListSeparator(
+                          color: RibnColors.lightGreyDivider,
+                        ),
                         const SizedBox(
                           height: 16,
                         ),
@@ -212,17 +234,28 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                               SizedBox(
                                 width: 26,
                                 height: 26,
-                                child: SvgPicture.asset(RibnAssets.recipientFingerprint),
+                                child: SvgPicture.asset(
+                                  RibnAssets.recipientFingerprint,
+                                ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
-                                child: Text(
-                                  formatAddrString(widget.transactionDetails!['transactionSenderAddress'].toString()),
-                                  style: dataTileTextStyle,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: RibnFont12TextWidget(
+                                  text: formatAddrString(
+                                    widget.transactionDetails![
+                                            'transactionSenderAddress']
+                                        .toString(),
+                                  ),
+                                  textAlignment: TextAlign.justify,
+                                  textColor: RibnColors.defaultText,
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                               CustomCopyButton(
-                                textToBeCopied: widget.transactionDetails!['transactionSenderAddress'].toString(),
+                                textToBeCopied: widget.transactionDetails![
+                                        'transactionSenderAddress']
+                                    .toString(),
                                 icon: Image.asset(
                                   RibnAssets.copyIcon,
                                   width: 20,
@@ -234,7 +267,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                         const SizedBox(
                           height: 16,
                         ),
-                        const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                        const DashedListSeparator(
+                          color: RibnColors.lightGreyDivider,
+                        ),
                         const SizedBox(
                           height: 16,
                         ),
@@ -243,9 +278,11 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                           children: [
                             TransactionHistoryDataTile(
                               tileTitle: 'Note',
-                              tileValue: Text(
-                                widget.transactionDetails!['note'] ?? '',
-                                style: dataTileTextStyle,
+                              tileValue: RibnFont12TextWidget(
+                                text: widget.transactionDetails!['note'] ?? '',
+                                textAlignment: TextAlign.justify,
+                                textColor: RibnColors.defaultText,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                           ],
@@ -253,7 +290,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                         const SizedBox(
                           height: 16,
                         ),
-                        const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                        const DashedListSeparator(
+                          color: RibnColors.lightGreyDivider,
+                        ),
                         widget.transactionDetails!['securityRoot'] == null
                             ? const SizedBox()
                             : Column(
@@ -262,25 +301,36 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                     height: 16,
                                   ),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       TransactionHistoryDataTile(
                                         tileTitle: 'Security Root',
                                         tileValue: Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.only(right: 10),
-                                              child: Text(
-                                                formatAddrString(
-                                                  widget.transactionDetails!['securityRoot'],
+                                              padding: const EdgeInsets.only(
+                                                right: 10,
+                                              ),
+                                              child: RibnFont12TextWidget(
+                                                text: formatAddrString(
+                                                  widget.transactionDetails![
+                                                      'securityRoot'],
                                                   charsToDisplay: 4,
                                                 ),
-                                                style: dataTileTextStyle,
+                                                textAlignment:
+                                                    TextAlign.justify,
+                                                textColor:
+                                                    RibnColors.defaultText,
+                                                fontWeight: FontWeight.w400,
                                               ),
                                             ),
                                             CustomCopyButton(
-                                              textToBeCopied: widget.transactionDetails!['securityRoot'],
+                                              textToBeCopied:
+                                                  widget.transactionDetails![
+                                                      'securityRoot'],
                                               icon: Image.asset(
                                                 RibnAssets.copyIcon,
                                                 width: 20,
@@ -294,7 +344,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                   const SizedBox(
                                     height: 16,
                                   ),
-                                  const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                                  const DashedListSeparator(
+                                    color: RibnColors.lightGreyDivider,
+                                  ),
                                 ],
                               ),
                         const SizedBox(
@@ -310,16 +362,21 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(right: 10),
-                                    child: Text(
-                                      formatAddrString(
-                                        widget.transactionDetails!['blockId'].toString(),
+                                    child: RibnFont12TextWidget(
+                                      text: formatAddrString(
+                                        widget.transactionDetails!['blockId']
+                                            .toString(),
                                         charsToDisplay: 4,
                                       ),
-                                      style: dataTileTextStyle,
+                                      textAlignment: TextAlign.justify,
+                                      textColor: RibnColors.defaultText,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                   CustomCopyButton(
-                                    textToBeCopied: widget.transactionDetails!['blockId'].toString(),
+                                    textToBeCopied: widget
+                                        .transactionDetails!['blockId']
+                                        .toString(),
                                     icon: Image.asset(
                                       RibnAssets.copyIcon,
                                       width: 20,
@@ -336,13 +393,19 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(right: 10),
-                                    child: Text(
-                                      widget.transactionDetails!['blockHeight'].toString(),
-                                      style: dataTileTextStyle,
+                                    child: RibnFont12TextWidget(
+                                      text: widget
+                                          .transactionDetails!['blockHeight']
+                                          .toString(),
+                                      textAlignment: TextAlign.justify,
+                                      textColor: RibnColors.defaultText,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                   CustomCopyButton(
-                                    textToBeCopied: widget.transactionDetails!['blockHeight'].toString(),
+                                    textToBeCopied: widget
+                                        .transactionDetails!['blockHeight']
+                                        .toString(),
                                     icon: Image.asset(
                                       RibnAssets.copyIcon,
                                       width: 20,
@@ -356,7 +419,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                         const SizedBox(
                           height: 16,
                         ),
-                        const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                        const DashedListSeparator(
+                          color: RibnColors.lightGreyDivider,
+                        ),
                         const SizedBox(
                           height: 16,
                         ),
@@ -370,16 +435,22 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(right: 10),
-                                    child: Text(
-                                      formatAddrString(
-                                        widget.transactionDetails!['transactionId'].toString(),
+                                    child: RibnFont12TextWidget(
+                                      text: formatAddrString(
+                                        widget.transactionDetails![
+                                                'transactionId']
+                                            .toString(),
                                         charsToDisplay: 4,
                                       ),
-                                      style: dataTileTextStyle,
+                                      textAlignment: TextAlign.justify,
+                                      textColor: RibnColors.defaultText,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                   CustomCopyButton(
-                                    textToBeCopied: widget.transactionDetails!['transactionId'].toString(),
+                                    textToBeCopied: widget
+                                        .transactionDetails!['transactionId']
+                                        .toString(),
                                     icon: Image.asset(
                                       RibnAssets.copyIcon,
                                       width: 20,
@@ -435,14 +506,12 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    'www.topl.explorer',
-                    style: RibnToolkitTextStyles.h4.copyWith(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: RibnColors.tertiary,
-                      decoration: TextDecoration.underline,
-                    ),
+                  const RibnFont12TextWidget(
+                    text: 'www.topl.explorer',
+                    textAlignment: TextAlign.justify,
+                    textColor: RibnColors.tertiary,
+                    fontWeight: FontWeight.w400,
+                    textDecoration: TextDecoration.underline,
                   ),
                   const SizedBox(width: 5),
                   Container(

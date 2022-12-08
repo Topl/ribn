@@ -6,9 +6,10 @@ import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_dropdown.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font14_text_widget.dart';
 
 /// The section for editing asset unit.
 ///
@@ -48,7 +49,13 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
       width: 307,
       decoration: const BoxDecoration(
         color: RibnColors.whiteBackground,
-        boxShadow: [BoxShadow(color: Color(0x0f000000), offset: Offset(0, 4), blurRadius: 4, spreadRadius: 0)],
+        boxShadow: [
+          BoxShadow(
+              color: Color(0x0f000000),
+              offset: Offset(0, 4),
+              blurRadius: 4,
+              spreadRadius: 0,)
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,11 +75,14 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
               width: 24,
             ),
             hintText: 'Select Unit',
-            selectedItem: Text(
-              formatAssetUnit(
+            selectedItem: RibnFont12TextWidget(
+              text: formatAssetUnit(
                 selectedUnit ?? widget.currentUnit,
               ),
-              style: RibnToolkitTextStyles.dropdownButtonStyle,
+              textAlignment: TextAlign.start,
+              textColor: RibnColors.ghostButtonText,
+              fontWeight: FontWeight.w300
+              ,
             ),
           ),
           const SizedBox(height: 20),
@@ -81,9 +91,11 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
               LargeButton(
                 buttonWidth: 123,
                 buttonHeight: 33,
-                buttonChild: Text(
-                  'Save',
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
+                buttonChild: const RibnFont14TextWidget(
+                  text: 'Save',
+                  textAlignment: TextAlign.start,
+                  textColor: RibnColors.ghostButtonText,
+                  fontWeight: FontWeight.w300,
                 ),
                 backgroundColor: RibnColors.primary,
                 onPressed: () {
@@ -100,9 +112,11 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
               LargeButton(
                 buttonWidth: 123,
                 buttonHeight: 33,
-                buttonChild: Text(
-                  'Cancel',
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.ghostButtonText),
+                buttonChild: const RibnFont14TextWidget(
+                  text: 'Cancel',
+                  textAlignment: TextAlign.start,
+                  textColor: RibnColors.ghostButtonText,
+                  fontWeight: FontWeight.w300,
                 ),
                 backgroundColor: Colors.transparent,
                 hoverColor: Colors.transparent,
@@ -141,9 +155,13 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
                 .map(
                   (unit) => MaterialButton(
                     child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(unit, style: RibnToolkitTextStyles.smallBody),
-                    ),
+                        alignment: Alignment.centerLeft,
+                        child: RibnFont12TextWidget(
+                          text: unit,
+                          textAlignment: TextAlign.start,
+                          textColor: RibnColors.ghostButtonText,
+                          fontWeight: FontWeight.w300,
+                        ),),
                     onPressed: () {
                       setState(() {
                         dropdownOpened = false;

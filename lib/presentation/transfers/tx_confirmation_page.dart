@@ -10,6 +10,9 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font20_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h2_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h4_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -69,15 +72,15 @@ class TxConfirmationPage extends StatelessWidget {
                     child: LargeButton(
                       backgroundColor: RibnColors.primary,
                       dropShadowColor: RibnColors.whiteButtonShadow,
-                      buttonChild: Text(
-                        Strings.done,
-                        style: RibnToolkitTextStyles.btnLarge.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                        ),
+                      buttonChild: const RibnFont20TextWidget(
+                        text: Strings.done,
+                        textAlignment: TextAlign.justify,
+                        textColor: RibnColors.white,
+                        fontWeight: FontWeight.w400,
                       ),
                       onPressed: () {
-                        Keys.navigatorKey.currentState!.popUntil((route) => route.settings.name == Routes.home);
+                        Keys.navigatorKey.currentState!.popUntil(
+                            (route) => route.settings.name == Routes.home,);
                       },
                     ),
                   ),
@@ -105,21 +108,25 @@ class TxConfirmationPage extends StatelessWidget {
   ///
   /// Different for minting asset and asset/poly transfer.
   Widget _buildsPageTitle() {
-    final String text = mintedAsset ? Strings.assetIsBeingMinted : Strings.txWasBroadcasted;
+    final String text =
+        mintedAsset ? Strings.assetIsBeingMinted : Strings.txWasBroadcasted;
 
     return SizedBox(
       width: 220,
-      child: Text(
-        text,
-        style: RibnToolkitTextStyles.h2.copyWith(color: RibnColors.lightGreyTitle),
-        textAlign: TextAlign.center,
+      child: RibnH2TextWidget(
+        text: text,
+        textAlignment: TextAlign.justify,
+        textColor: RibnColors.lightGreyTitle,
+        fontWeight: FontWeight.w700,
+        textHeight: 1.34,
       ),
     );
   }
 
   /// Displays information about the tx that was broadcasted.
   Widget _buildTxInfo() {
-    final String txInfo = transferDetails.transferType == TransferType.polyTransfer
+    final String txInfo = transferDetails.transferType ==
+            TransferType.polyTransfer
         ? '${transferDetails.amount} ${'POLY'}'
         : '${transferDetails.amount} of ${transferDetails.assetCode!.shortName.show}';
 
@@ -130,22 +137,27 @@ class TxConfirmationPage extends StatelessWidget {
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              style: RibnToolkitTextStyles.h3.copyWith(fontWeight: FontWeight.bold, color: RibnColors.lightGreyTitle),
+              style: RibnToolkitTextStyles.h3.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: RibnColors.lightGreyTitle,),
               children: [
                 TextSpan(
                   text: 'Your ',
-                  style:
-                      RibnToolkitTextStyles.h3.copyWith(fontWeight: FontWeight.bold, color: RibnColors.lightGreyTitle),
+                  style: RibnToolkitTextStyles.h3.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: RibnColors.lightGreyTitle,),
                 ),
                 TextSpan(
                   text: txInfo,
-                  style:
-                      RibnToolkitTextStyles.h3.copyWith(fontWeight: FontWeight.bold, color: RibnColors.lightGreyTitle),
+                  style: RibnToolkitTextStyles.h3.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: RibnColors.lightGreyTitle,),
                 ),
                 TextSpan(
                   text: ' was sent to the Topl blockchain.',
-                  style:
-                      RibnToolkitTextStyles.h3.copyWith(fontWeight: FontWeight.bold, color: RibnColors.lightGreyTitle),
+                  style: RibnToolkitTextStyles.h3.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: RibnColors.lightGreyTitle,),
                 ),
               ],
             ),
@@ -161,10 +173,12 @@ class TxConfirmationPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
-          'Transaction ID: ${formatAddrString(transferDetails.transactionId!, charsToDisplay: 4)}',
-          style: RibnToolkitTextStyles.h4.copyWith(fontWeight: FontWeight.w400, color: RibnColors.lightGreyTitle),
-          textAlign: TextAlign.center,
+        RibnH4TextWidget(
+          text:
+              'Transaction ID: ${formatAddrString(transferDetails.transactionId!, charsToDisplay: 4)}',
+          textAlignment: TextAlign.justify,
+          textColor: RibnColors.lightGreyTitle,
+          fontWeight: FontWeight.w400,
         ),
         const SizedBox(width: 5),
         CustomCopyButton(
@@ -195,10 +209,11 @@ class TxConfirmationPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    Strings.viewInToplExplorer,
-                    style:
-                        RibnToolkitTextStyles.h4.copyWith(fontWeight: FontWeight.w400, color: RibnColors.secondaryDark),
+                  const RibnH4TextWidget(
+                    text: Strings.viewInToplExplorer,
+                    textAlignment: TextAlign.justify,
+                    textColor: RibnColors.secondaryDark,
+                    fontWeight: FontWeight.w400,
                   ),
                   const SizedBox(width: 5),
                   Image.asset(

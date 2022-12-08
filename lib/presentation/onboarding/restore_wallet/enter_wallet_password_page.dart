@@ -11,7 +11,9 @@ import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/warning_section.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h3_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_onboarding_h1_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 
 /// Allows the user to enter their wallet password to decrypt the Topl Key in [toplKeyStoreJson].
@@ -24,7 +26,8 @@ class EnterWalletPasswordPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _EnterWalletPasswordPageState createState() => _EnterWalletPasswordPageState();
+  _EnterWalletPasswordPageState createState() =>
+      _EnterWalletPasswordPageState();
 }
 
 class _EnterWalletPasswordPageState extends State<EnterWalletPasswordPage> {
@@ -48,10 +51,10 @@ class _EnterWalletPasswordPageState extends State<EnterWalletPasswordPage> {
           child: Column(
             children: [
               renderIfWeb(const WebOnboardingAppBar(currStep: 1, numSteps: 2)),
-              const Text(
-                Strings.restoreWallet,
-                style: RibnToolkitTextStyles.onboardingH1,
-                textAlign: TextAlign.center,
+              const RibnOnboardingH1TextWidget(
+                text: Strings.restoreWallet,
+                textAlignment: TextAlign.center,
+                textColor: RibnColors.lightGreyTitle,
               ),
               // warning section
               const Padding(
@@ -81,9 +84,11 @@ class _EnterWalletPasswordPageState extends State<EnterWalletPasswordPage> {
               ),
               const SizedBox(height: 10),
               _failedToRestoreWallet
-                  ? const Text(
-                      'Failed to restore wallet.',
-                      style: TextStyle(color: Colors.red),
+                  ? const RibnFont12TextWidget(
+                      text: Strings.failedToRestoreWallet,
+                      textAlignment: TextAlign.justify,
+                      textColor: RibnColors.redColor,
+                      fontWeight: FontWeight.normal,
                     )
                   : const SizedBox(),
             ],
@@ -97,12 +102,11 @@ class _EnterWalletPasswordPageState extends State<EnterWalletPasswordPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          Strings.enterWalletPassword,
-          style: RibnToolkitTextStyles.h3.copyWith(
-            fontWeight: FontWeight.bold,
-            color: RibnColors.lightGreyTitle,
-          ),
+        const RibnH3TextWidget(
+          text: Strings.enterWalletPassword,
+          textAlignment: TextAlign.justify,
+          textColor: RibnColors.lightGreyTitle,
+          fontWeight: FontWeight.bold,
         ),
         PasswordTextField(
           controller: _passwordController,

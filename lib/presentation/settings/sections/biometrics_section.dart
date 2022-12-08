@@ -10,8 +10,11 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_toggle.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font10_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font16_text_widget.dart';
 
 /// The section allows for users to toggle biometrics authentication on/off.
 class BiometricsSection extends StatefulWidget {
@@ -68,21 +71,34 @@ class _BiometricsSectionState extends State<BiometricsSection> {
           content: SingleChildScrollView(
             child: ListBody(
               children: const <Widget>[
-                Text(
-                  'Biometrics authentication is not set up on your device. Please enable biometrics in your device settings.',
+                RibnFont12TextWidget(
+                  text: Strings.biometricsSetupWarning,
+                  textAlignment: TextAlign.justify,
+                  textColor: RibnColors.defaultText,
+                  fontWeight: FontWeight.normal,
                 ),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Ok'),
+              child: const RibnFont12TextWidget(
+                text: Strings.oK,
+                textAlignment: TextAlign.justify,
+                textColor: RibnColors.defaultText,
+                fontWeight: FontWeight.normal,
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             const TextButton(
-              child: Text('Go to settings'),
+              child: RibnFont12TextWidget(
+                text: Strings.navigateToSettings,
+                textAlignment: TextAlign.justify,
+                textColor: RibnColors.defaultText,
+                fontWeight: FontWeight.normal,
+              ),
               onPressed: AppSettings.openSecuritySettings,
             ),
           ],
@@ -98,14 +114,19 @@ class _BiometricsSectionState extends State<BiometricsSection> {
       children: [
         Row(
           children: [
-            const Text(
-              Strings.enableBiometrics,
-              style: RibnToolkitTextStyles.extH3,
+            const RibnFont16TextWidget(
+              text: Strings.enableBiometrics,
+              textAlignment: TextAlign.justify,
+              textColor: RibnColors.defaultText,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 1,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Image.asset(
-                Platform.isIOS ? RibnAssets.iosBiometricsOutline : RibnAssets.andriodBiometricsOutline,
+                Platform.isIOS
+                    ? RibnAssets.iosBiometricsOutline
+                    : RibnAssets.andriodBiometricsOutline,
                 width: 40,
               ),
             ),
@@ -113,9 +134,11 @@ class _BiometricsSectionState extends State<BiometricsSection> {
         ),
         const Padding(
           padding: EdgeInsets.only(top: 6, bottom: 8),
-          child: Text(
-            Strings.enableBiometricsDescription,
-            style: RibnToolkitTextStyles.settingsSmallText,
+          child: RibnFont10TextWidget(
+            text: Strings.enableBiometricsDescription,
+            textAlignment: TextAlign.justify,
+            textColor: RibnColors.greyedOut,
+            fontWeight: FontWeight.w300,
           ),
         ),
         Transform.scale(

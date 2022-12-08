@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h4_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 
 /// One of the asset details displayed on [AssetDetailsPage].
@@ -24,7 +26,12 @@ class AssetCodeDetails extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Text('Asset code', style: RibnToolkitTextStyles.h4),
+            const RibnH4TextWidget(
+              text: 'Asset code',
+              textAlignment: TextAlign.start,
+              textColor: RibnColors.ghostButtonText,
+              fontWeight: FontWeight.w500,
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 4.0),
               child: CustomToolTip(
@@ -34,10 +41,11 @@ class AssetCodeDetails extends StatelessWidget {
                   width: 18,
                 ),
                 offsetPositionLeftValue: 80,
-                toolTipChild: const Text(
-                  Strings.assetCodeLongInfo,
-                  style: RibnToolkitTextStyles.toolTipTextStyle,
-                ),
+                toolTipChild: const RibnFont12TextWidget(
+                    text: Strings.assetCodeLongInfo,
+                    textAlignment: TextAlign.justify,
+                    textColor: RibnColors.defaultText,
+                    fontWeight: FontWeight.w300,),
               ),
             ),
           ],
@@ -45,10 +53,11 @@ class AssetCodeDetails extends StatelessWidget {
         const SizedBox(height: 3),
         Row(
           children: [
-            Text(
-              formatAddrString(assetCode),
-              style: RibnToolkitTextStyles.smallBody,
-            ),
+            RibnFont12TextWidget(
+                text: formatAddrString(assetCode),
+                textAlignment: TextAlign.start,
+                textColor: RibnColors.defaultText,
+                fontWeight: FontWeight.w300,),
             const SizedBox(width: 8),
             CustomCopyButton(
               textToBeCopied: assetCode,

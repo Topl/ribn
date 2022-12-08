@@ -13,7 +13,12 @@ import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/uploaded_file_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font16_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font20_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_onboarding_h1_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_onboarding_h3_text_widget.dart';
 
 /// This page allows the user to upload their Topl Main Key in order to restore a wallet.
 ///
@@ -46,21 +51,25 @@ class _RestoreWithToplKeyPageState extends State<RestoreWithToplKeyPage> {
           child: Column(
             children: [
               renderIfWeb(const WebOnboardingAppBar(currStep: 0, numSteps: 2)),
-              const Text(
-                Strings.restoreWallet,
-                style: RibnToolkitTextStyles.onboardingH1,
-                textAlign: TextAlign.center,
+              const RibnOnboardingH1TextWidget(
+                text: Strings.restoreWallet,
+                textColor: RibnColors.lightGreyTitle,
+                textAlignment: TextAlign.center,
               ),
               const SizedBox(height: 50),
               _buildUploadFileButton(),
               SizedBox(
                 height: 150,
-                child: uploadedFileName.isNotEmpty ? _buildUploadedFileContainer() : const SizedBox(),
+                child: uploadedFileName.isNotEmpty
+                    ? _buildUploadedFileContainer()
+                    : const SizedBox(),
               ),
               errorUploadingFile
-                  ? const Text(
-                      'Error Uploading File',
-                      style: TextStyle(color: Colors.red),
+                  ? const RibnFont12TextWidget(
+                      text: Strings.fileUploadError,
+                      textAlignment: TextAlign.justify,
+                      textColor: RibnColors.redColor,
+                      fontWeight: FontWeight.normal,
                     )
                   : const SizedBox(),
               const SizedBox(height: 30),
@@ -99,15 +108,18 @@ class _RestoreWithToplKeyPageState extends State<RestoreWithToplKeyPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              Strings.uploadFile,
-              style: RibnToolkitTextStyles.onboardingH3.copyWith(
-                fontWeight: FontWeight.w700,
-                fontSize: 19.5,
-              ),
+            const RibnFont20TextWidget(
+              text: Strings.uploadFile,
+              textColor: RibnColors.lightGreyTitle,
+              textAlignment: TextAlign.justify,
+              fontWeight: FontWeight.w400,
             ),
             const SizedBox(height: 5),
-            const Text(Strings.fileUploadLimit, style: RibnToolkitTextStyles.onboardingH3),
+            const RibnOnboardingH3TextWidget(
+              text: Strings.fileUploadLimit,
+              textColor: RibnColors.lightGreyTitle,
+              textAlignment: TextAlign.justify,
+            ),
             const SizedBox(height: 20),
             Image.asset(RibnAssets.addPlusPng, width: 70),
           ],
@@ -115,7 +127,8 @@ class _RestoreWithToplKeyPageState extends State<RestoreWithToplKeyPage> {
       ),
       onPressed: () async {
         try {
-          final FilePickerResult? result = await FilePicker.platform.pickFiles();
+          final FilePickerResult? result =
+              await FilePicker.platform.pickFiles();
           if (result != null) {
             final PlatformFile file = result.files.first;
             // utf8.decode the file bytes to get the file content as a string
@@ -143,12 +156,14 @@ class _RestoreWithToplKeyPageState extends State<RestoreWithToplKeyPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Uploaded file',
-            style: RibnToolkitTextStyles.body1Bold.copyWith(color: Colors.white),
-          ),
+          const RibnFont16TextWidget(
+              text: 'Uploaded file',
+              textAlignment: TextAlign.justify,
+              textColor: RibnColors.white,
+              fontWeight: FontWeight.bold,),
           const SizedBox(height: 5),
-          UploadedFileContainer(uploadedFileName: uploadedFileName, width: 484, height: 46),
+          UploadedFileContainer(
+              uploadedFileName: uploadedFileName, width: 484, height: 46,),
         ],
       ),
     );

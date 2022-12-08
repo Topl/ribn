@@ -5,8 +5,8 @@ import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font14_text_widget.dart';
 
 /// The section for editing asset icon.
 ///
@@ -38,7 +38,13 @@ class _AssetIconEditSectionState extends State<AssetIconEditSection> {
       width: 307,
       decoration: const BoxDecoration(
         color: RibnColors.whiteBackground,
-        boxShadow: [BoxShadow(color: Color(0x0f000000), offset: Offset(0, 4), blurRadius: 4, spreadRadius: 0)],
+        boxShadow: [
+          BoxShadow(
+              color: Color(0x0f000000),
+              offset: Offset(0, 4),
+              blurRadius: 4,
+              spreadRadius: 0,)
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,9 +56,11 @@ class _AssetIconEditSectionState extends State<AssetIconEditSection> {
               LargeButton(
                 buttonWidth: 123,
                 buttonHeight: 33,
-                buttonChild: Text(
-                  'Save',
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
+                buttonChild: const RibnFont14TextWidget(
+                  text: 'Save',
+                  textAlignment: TextAlign.start,
+                  textColor: RibnColors.white,
+                  fontWeight: FontWeight.w300,
                 ),
                 backgroundColor: RibnColors.primary,
                 onPressed: () {
@@ -69,9 +77,11 @@ class _AssetIconEditSectionState extends State<AssetIconEditSection> {
               LargeButton(
                 buttonWidth: 123,
                 buttonHeight: 33,
-                buttonChild: Text(
-                  'Cancel',
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.ghostButtonText),
+                buttonChild: const RibnFont14TextWidget(
+                  text: 'Cancel',
+                  textAlignment: TextAlign.start,
+                  textColor: RibnColors.white,
+                  fontWeight: FontWeight.w300,
                 ),
                 backgroundColor: Colors.transparent,
                 hoverColor: Colors.transparent,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
 
 class TransactionHistoryDataTile extends StatelessWidget {
   final bool reducedWidth;
@@ -16,17 +17,18 @@ class TransactionHistoryDataTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: reducedWidth == true ? const BoxConstraints(minWidth: 70) : const BoxConstraints(minWidth: 163),
+      constraints: reducedWidth == true
+          ? const BoxConstraints(minWidth: 70)
+          : const BoxConstraints(minWidth: 163),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Text(
-            tileTitle,
-            style: RibnToolkitTextStyles.hintStyle.copyWith(
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+          RibnFont12TextWidget(
+              text: tileTitle,
+              textAlignment: TextAlign.justify,
+              textColor: RibnColors.defaultText,
+              fontWeight: FontWeight.w300,),
           const SizedBox(
             height: 6,
           ),

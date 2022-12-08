@@ -20,9 +20,11 @@ import 'package:ribn/widgets/custom_divider.dart';
 import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font20_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h4_text_widget.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
 /// The transaction review page.
@@ -71,7 +73,8 @@ class TxReviewPage extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(11.6),
                         color: RibnColors.whiteBackground,
-                        border: Border.all(color: RibnColors.lightGrey, width: 1),
+                        border:
+                            Border.all(color: RibnColors.lightGrey, width: 1),
                         boxShadow: const [
                           BoxShadow(
                             color: RibnColors.greyShadow,
@@ -100,7 +103,9 @@ class TxReviewPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 38),
                       child: SizedBox(
                         width: 310,
-                        child: FeeInfo(fee: transferDetails.transactionReceipt!.fee!.getInNanopoly),
+                        child: FeeInfo(
+                            fee: transferDetails
+                                .transactionReceipt!.fee!.getInNanopoly,),
                       ),
                     ),
                   ],
@@ -118,17 +123,19 @@ class TxReviewPage extends StatelessWidget {
               ),
               // confirm button
               LargeButton(
-                buttonChild: Text(
-                  Strings.confirm,
-                  style: RibnToolkitTextStyles.btnLarge.copyWith(
-                    color: Colors.white,
-                  ),
+                buttonChild: const RibnFont20TextWidget(
+                  text: Strings.confirm,
+                  textAlignment: TextAlign.justify,
+                  textColor: RibnColors.white,
+                  fontWeight: FontWeight.w300,
                 ),
                 onPressed: () async {
                   context.loaderOverlay.show();
                   final Completer<TransferDetails?> txCompleter = Completer();
-                  StoreProvider.of<AppState>(context).dispatch(SignAndBroadcastTxAction(transferDetails, txCompleter));
-                  await txCompleter.future.then((TransferDetails? transferDetails) {
+                  StoreProvider.of<AppState>(context).dispatch(
+                      SignAndBroadcastTxAction(transferDetails, txCompleter),);
+                  await txCompleter.future
+                      .then((TransferDetails? transferDetails) {
                     if (transferDetails != null) {
                       Keys.navigatorKey.currentState?.pushNamed(
                         Routes.txConfirmation,
@@ -146,18 +153,19 @@ class TxReviewPage extends StatelessWidget {
               ),
               // cancel button
               LargeButton(
-                buttonChild: Text(
-                  Strings.cancel,
-                  style: RibnToolkitTextStyles.btnLarge.copyWith(
-                    color: RibnColors.ghostButtonText,
-                  ),
+                buttonChild: const RibnFont20TextWidget(
+                  text: Strings.cancel,
+                  textAlignment: TextAlign.justify,
+                  textColor: RibnColors.ghostButtonText,
+                  fontWeight: FontWeight.w300,
                 ),
                 backgroundColor: Colors.transparent,
                 hoverColor: Colors.transparent,
                 dropShadowColor: Colors.transparent,
                 borderColor: RibnColors.ghostButtonText,
                 onPressed: () {
-                  Keys.navigatorKey.currentState!.popUntil((route) => route.settings.name == Routes.home);
+                  Keys.navigatorKey.currentState!
+                      .popUntil((route) => route.settings.name == Routes.home);
                 },
               ),
               const SizedBox(height: 13),
@@ -169,13 +177,16 @@ class TxReviewPage extends StatelessWidget {
   }
 
   /// A helper function used to build review items on this page.
-  Widget _buildReviewItem({required String itemLabel, required Widget item, bool divider = true}) {
+  Widget _buildReviewItem(
+      {required String itemLabel, required Widget item, bool divider = true,}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          itemLabel,
-          style: RibnToolkitTextStyles.h4,
+        RibnH4TextWidget(
+          text: itemLabel,
+          textAlignment: TextAlign.justify,
+          textColor: RibnColors.ghostButtonText,
+          fontWeight: FontWeight.w300,
         ),
         const SizedBox(height: 6),
         item,
@@ -200,13 +211,12 @@ class TxReviewPage extends StatelessWidget {
         children: [
           Container(
             constraints: const BoxConstraints(maxWidth: 60),
-            child: Text(
-              '${transferDetails.amount} of ',
-              style: const TextStyle(
-                fontSize: 12,
-                fontFamily: 'DM Sans',
-              ),
-              overflow: TextOverflow.ellipsis,
+            child: RibnFont12TextWidget(
+              text: '${transferDetails.amount} of ',
+              textAlignment: TextAlign.justify,
+              textColor: RibnColors.defaultText,
+              fontWeight: FontWeight.w300,
+              textOverflow: TextOverflow.ellipsis,
             ),
           ),
           // conditional display based on transfer type
@@ -215,10 +225,17 @@ class TxReviewPage extends StatelessWidget {
                   children: [
                     Image.asset(RibnAssets.polysIcon),
                     const SizedBox(width: 5),
-                    Text('POLY', style: defaultTextStyle),
+                    const RibnFont12TextWidget(
+                      text: 'POLY',
+                      textAlignment: TextAlign.justify,
+                      textColor: RibnColors.defaultText,
+                      fontWeight: FontWeight.w300,
+                    )
                   ],
                 )
-              : AssetInfo(assetCode: transferDetails.assetCode!, assetDetails: transferDetails.assetDetails),
+              : AssetInfo(
+                  assetCode: transferDetails.assetCode!,
+                  assetDetails: transferDetails.assetDetails,),
         ],
       ),
     );
@@ -238,15 +255,18 @@ class TxReviewPage extends StatelessWidget {
             height: 26,
             child: SvgPicture.asset(RibnAssets.myFingerprint),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Text(
-              Strings.yourRibnWalletAddress,
-              style: defaultTextStyle,
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: RibnFont12TextWidget(
+              text: Strings.yourRibnWalletAddress,
+              textAlignment: TextAlign.justify,
+              textColor: RibnColors.defaultText,
+              fontWeight: FontWeight.w300,
             ),
           ),
           CustomCopyButton(
-            textToBeCopied: transferDetails.senders.first.toplAddress.toBase58(),
+            textToBeCopied:
+                transferDetails.senders.first.toplAddress.toBase58(),
             icon: Image.asset(
               RibnAssets.copyIcon,
               width: 26,
@@ -273,13 +293,16 @@ class TxReviewPage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Text(
-              formatAddrString(transferDetails.recipient),
-              style: defaultTextStyle,
+            child: RibnFont12TextWidget(
+              text: formatAddrString(transferDetails.recipient),
+              textAlignment: TextAlign.justify,
+              textColor: RibnColors.defaultText,
+              fontWeight: FontWeight.w300,
             ),
           ),
           CustomCopyButton(
-            textToBeCopied: transferDetails.senders.first.toplAddress.toBase58(),
+            textToBeCopied:
+                transferDetails.senders.first.toplAddress.toBase58(),
             icon: Image.asset(
               RibnAssets.copyIcon,
               width: 26,
@@ -297,16 +320,12 @@ class TxReviewPage extends StatelessWidget {
       item: SizedBox(
         width: 200,
         height: 50,
-        child: Text(
-          transferDetails.data,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 3,
-          style: const TextStyle(
-            fontFamily: 'DM Sans',
-            fontSize: 12,
-            color: Color(0xFF585858),
-          ),
-        ),
+        child: RibnFont12TextWidget(
+            text: transferDetails.data,
+            textAlignment: TextAlign.justify,
+            textColor: RibnColors.greyedOut,
+            fontWeight: FontWeight.w300,
+            maxLinesAllowed: 3,),
       ),
       divider: false,
     );

@@ -17,6 +17,10 @@ import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/peekaboo_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font15_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font16_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_onboarding_h1_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_onboarding_h3_text_widget.dart';
 import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
 
 /// This page allows the user to enter a known mnemonic / seed phrase in order to restore a wallet.
@@ -63,28 +67,30 @@ class _RestoreWalletPageState extends State<RestoreWalletPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             renderIfWeb(const WebOnboardingAppBar(currStep: 0, numSteps: 2)),
-            const Text(
-              Strings.restoreWallet,
-              style: RibnToolkitTextStyles.onboardingH1,
-              textAlign: TextAlign.center,
+            const RibnOnboardingH1TextWidget(
+              text: Strings.restoreWallet,
+              textAlignment: TextAlign.center,
+              textColor: RibnColors.lightGreyTitle,
             ),
             SizedBox(
               width: 700,
               child: Column(
                 children: [
                   const SizedBox(height: 30),
-                  const Text(
-                    Strings.restoreWalletSeedPhraseDesc,
-                    style: RibnToolkitTextStyles.onboardingH3,
+                  const RibnOnboardingH3TextWidget(
+                    text: Strings.restoreWalletSeedPhraseDesc,
+                    textAlignment: TextAlign.center,
+                    textColor: RibnColors.lightGreyTitle,
                   ),
                   const SizedBox(height: 30),
-                  Align(
+                  const Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      Strings.enterSeedPhrase,
-                      style: RibnToolkitTextStyles.extH3.copyWith(
-                        color: Colors.white,
-                      ),
+                    child: RibnFont16TextWidget(
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 1,
+                      text: Strings.enterSeedPhrase,
+                      textColor: RibnColors.white,
+                      textAlignment: TextAlign.justify,
                     ),
                   ),
                   // seed phrase text field
@@ -98,12 +104,17 @@ class _RestoreWalletPageState extends State<RestoreWalletPage> {
                       hasError: invalidSeedPhraseEntered,
                     ),
                   ),
-                  kIsWeb ? Align(alignment: Alignment.centerLeft, child: _buildAdvancedOption()) : const SizedBox(),
+                  kIsWeb
+                      ? Align(
+                          alignment: Alignment.centerLeft,
+                          child: _buildAdvancedOption(),)
+                      : const SizedBox(),
                 ],
               ),
             ),
             adaptableSpacer(),
-            renderIfMobile(const OnboardingProgressBar(numSteps: 2, currStep: 0)),
+            renderIfMobile(
+                const OnboardingProgressBar(numSteps: 2, currStep: 0),),
             const SizedBox(height: 20),
             ConfirmationButton(
               text: Strings.next,
@@ -140,22 +151,26 @@ class _RestoreWalletPageState extends State<RestoreWalletPage> {
       child: SizedBox(
         width: maxWidth,
         child: PeekabooButton(
-          buttonText: Text(
-            Strings.advancedOption,
-            style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15, color: RibnColors.whiteBackground),
-          ),
+          buttonText: const RibnFont15TextWidget(
+              text: Strings.advancedOption,
+              textAlignment: TextAlign.justify,
+              textColor: RibnColors.whiteBackground,
+              fontWeight: FontWeight.normal,),
           buttonChild: Padding(
             padding: const EdgeInsets.only(left: 8),
             child: RichText(
               text: TextSpan(
-                style: RibnToolkitTextStyles.body1Bold.copyWith(color: RibnColors.whiteBackground),
+                style: RibnToolkitTextStyles.body1Bold
+                    .copyWith(color: RibnColors.whiteBackground),
                 children: [
                   const TextSpan(text: 'Use '),
                   TextSpan(
                     text: 'Topl main key file',
-                    style: RibnToolkitTextStyles.body1Bold.copyWith(color: RibnColors.secondaryDark),
+                    style: RibnToolkitTextStyles.body1Bold
+                        .copyWith(color: RibnColors.secondaryDark),
                     recognizer: TapGestureRecognizer()
-                      ..onTap = () => Keys.navigatorKey.currentState?.pushNamed(Routes.restoreWithToplKey),
+                      ..onTap = () => Keys.navigatorKey.currentState
+                          ?.pushNamed(Routes.restoreWithToplKey),
                   ),
                 ],
               ),

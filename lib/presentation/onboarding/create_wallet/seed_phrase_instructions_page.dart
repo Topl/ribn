@@ -10,7 +10,8 @@ import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font18_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_onboarding_h1_text_widget.dart';
 
 /// This page shows intructions on how to keep the seed phrase secure.
 class SeedPhraseInstructionsPage extends StatelessWidget {
@@ -27,19 +28,19 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 renderIfWeb(const WebOnboardingAppBar()),
-                const Text(
-                  Strings.beforeYouStart,
-                  style: RibnToolkitTextStyles.onboardingH1,
+                const RibnOnboardingH1TextWidget(
+                  text: Strings.beforeYouStart,
+                  textColor: RibnColors.lightGreyTitle,
+                  textAlignment: TextAlign.justify,
                 ),
                 const SizedBox(height: 60),
-                SizedBox(
+                const SizedBox(
                   width: kIsWeb ? 550 : 350,
-                  child: Text(
-                    Strings.weRecommendSub,
-                    style: RibnToolkitTextStyles.h3.copyWith(
-                      color: RibnColors.lightGreyTitle,
-                      fontSize: 18,
-                    ),
+                  child: RibnFont18TextWidget(
+                    text: Strings.weRecommendSub,
+                    textColor: RibnColors.lightGreyTitle,
+                    textAlignment: TextAlign.justify,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 const SizedBox(height: 40),
@@ -69,7 +70,8 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
                 ConfirmationButton(
                   text: Strings.iUnderstand,
                   onPressed: () {
-                    Keys.navigatorKey.currentState?.pushNamed(Routes.generateSeedPhrase);
+                    Keys.navigatorKey.currentState
+                        ?.pushNamed(Routes.generateSeedPhrase);
                   },
                 )
               ],
@@ -99,23 +101,24 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
               width: width,
               height: height,
               child: Padding(
-                padding: EdgeInsets.only(left: iconLeftPadding, right: iconRightPadding),
+                padding: EdgeInsets.only(
+                    left: iconLeftPadding, right: iconRightPadding,),
                 child: Image.asset(pngIcon, width: 30),
               ),
             ),
             const SizedBox(width: 10),
             Padding(
               padding: EdgeInsets.only(top: textTopPadding),
-              child: SizedBox(
+              child: const SizedBox(
                 width: kIsWeb ? 500 : 295,
-                child: Text(
-                  text,
-                  textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
-                  style: RibnToolkitTextStyles.h3.copyWith(
-                    color: RibnColors.lightGreyTitle,
-                    fontSize: 18,
-                    height: 1.67,
-                  ),
+                child: RibnFont18TextWidget(
+                  text: Strings.weRecommendSub,
+                  textColor: RibnColors.lightGreyTitle,
+                  textAlignment: TextAlign.justify,
+                  fontWeight: FontWeight.w500,
+                  heightBehavior:
+                      TextHeightBehavior(applyHeightToFirstAscent: false),
+                  textHeight: 1.67,
                 ),
               ),
             ),

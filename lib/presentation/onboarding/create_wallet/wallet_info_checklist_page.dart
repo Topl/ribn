@@ -12,14 +12,15 @@ import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h1_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
 
 class WalletInfoChecklistPage extends StatefulWidget {
   const WalletInfoChecklistPage({Key? key}) : super(key: key);
 
   @override
-  State<WalletInfoChecklistPage> createState() => _WalletInfoChecklistPageState();
+  State<WalletInfoChecklistPage> createState() =>
+      _WalletInfoChecklistPageState();
 }
 
 class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
@@ -42,7 +43,8 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
   Future<void> runBiometrics() async {
     final LocalAuthentication _localAuthentication = LocalAuthentication();
 
-    final bool isBioAuthenticationSupported = await isBiometricsAuthenticationSupported(_localAuthentication);
+    final bool isBioAuthenticationSupported =
+        await isBiometricsAuthenticationSupported(_localAuthentication);
 
     setState(() {
       isBioSupported = isBioAuthenticationSupported ? true : false;
@@ -58,13 +60,11 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
           child: Column(
             children: [
               renderIfWeb(const WebOnboardingAppBar(currStep: 2)),
-              Text(
-                Strings.readCarefully,
-                style: RibnToolkitTextStyles.h1.copyWith(
-                  color: RibnColors.lightGreyTitle,
-                  fontSize: 28,
-                ),
-              ),
+              const RibnH1TextWidget(
+                  text: Strings.readCarefully,
+                  textAlignment: TextAlign.justify,
+                  textColor: RibnColors.lightGreyTitle,
+                  fontWeight: FontWeight.w700,),
               Padding(
                 padding: const EdgeInsets.only(top: 30.0, bottom: 45),
                 child: Image.asset(RibnAssets.warningPng, width: 76),
@@ -73,15 +73,18 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
                 checked: checkboxesState[Strings.savedMyWalletPasswordSafely]!,
                 activeText: true,
                 text: Strings.savedMyWalletPasswordSafely,
-                onChanged: (bool? val) => onChecked(val ?? false, Strings.savedMyWalletPasswordSafely),
+                onChanged: (bool? val) => onChecked(
+                    val ?? false, Strings.savedMyWalletPasswordSafely,),
               ),
               SizedBox(height: adaptHeight(0.03)),
               _buildCheckboxListTile(
                 checked: checkboxesState[Strings.toplCannotRecoverForMe]!,
-                activeText: checkboxesState[Strings.savedMyWalletPasswordSafely]!,
+                activeText:
+                    checkboxesState[Strings.savedMyWalletPasswordSafely]!,
                 text: Strings.toplCannotRecoverForMe,
                 onChanged: checkboxesState[Strings.savedMyWalletPasswordSafely]!
-                    ? (bool? val) => onChecked(val ?? false, Strings.toplCannotRecoverForMe)
+                    ? (bool? val) =>
+                        onChecked(val ?? false, Strings.toplCannotRecoverForMe)
                     : null,
               ),
               SizedBox(height: adaptHeight(0.03)),
@@ -90,7 +93,8 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
                 activeText: checkboxesState[Strings.toplCannotRecoverForMe]!,
                 text: Strings.spAndPasswordUnrecoverable,
                 onChanged: checkboxesState[Strings.toplCannotRecoverForMe]!
-                    ? (bool? val) => onChecked(val ?? false, Strings.spAndPasswordUnrecoverable)
+                    ? (bool? val) => onChecked(
+                        val ?? false, Strings.spAndPasswordUnrecoverable,)
                     : null,
                 renderTooltipIcon: true,
               ),
@@ -99,8 +103,9 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
               ConfirmationButton(
                 text: Strings.iUnderstand,
                 onPressed: () {
-                  Keys.navigatorKey.currentState
-                      ?.pushNamed(isBioSupported ? Routes.onboardingEnableBiometrics : Routes.walletCreated);
+                  Keys.navigatorKey.currentState?.pushNamed(isBioSupported
+                      ? Routes.onboardingEnableBiometrics
+                      : Routes.walletCreated,);
                 },
                 disabled: checkboxesState.containsValue(false),
               )

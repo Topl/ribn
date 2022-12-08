@@ -8,6 +8,8 @@ import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/hover_icon_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h4_text_widget.dart';
 
 /// One of the asset details displayed on [AssetDetailsPage].
 ///
@@ -36,22 +38,31 @@ class AssetLongNameDetails extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Text('Asset name', style: RibnToolkitTextStyles.h4),
+            const RibnH4TextWidget(
+                text: 'Asset name',
+                textAlignment: TextAlign.justify,
+                textColor: RibnColors.defaultText,
+                fontWeight: FontWeight.w500,),
             const Spacer(),
             editingSectionOpened
                 ? const SizedBox()
                 : HoverIconButton(
-                    buttonText: Text(
-                      'Edit',
-                      style: RibnToolkitTextStyles.dropdownButtonStyle.copyWith(color: RibnColors.primary),
-                    ),
+                    buttonText: const RibnFont12TextWidget(
+                        text: 'Edit',
+                        textAlignment: TextAlign.justify,
+                        textColor: RibnColors.primary,
+                        fontWeight: FontWeight.w300,),
                     buttonIcon: Image.asset(RibnAssets.editIcon),
                     onPressed: onEditPressed,
                   ),
           ],
         ),
         const SizedBox(height: 3),
-        Text(currLongName ?? 'Undefined', style: RibnToolkitTextStyles.smallBody),
+        RibnFont12TextWidget(
+            text: currLongName ?? 'Undefined',
+            textAlignment: TextAlign.justify,
+            textColor: RibnColors.primary,
+            fontWeight: FontWeight.w300,)
       ],
     );
   }

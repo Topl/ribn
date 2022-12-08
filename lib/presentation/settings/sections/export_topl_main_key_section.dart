@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font10_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font16_text_widget.dart';
 
 /// The section that allows for downloading the Topl Main Key.
 class ExportToplMainKeySection extends StatelessWidget {
@@ -19,28 +20,29 @@ class ExportToplMainKeySection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          Strings.exportToplMainKey,
-          style: RibnToolkitTextStyles.extH3,
-        ),
+        const RibnFont16TextWidget(
+            text: Strings.exportToplMainKey,
+            textAlignment: TextAlign.justify,
+            textColor: RibnColors.primary,
+            fontWeight: FontWeight.w500,
+            letterSpacing: 1,),
         const Padding(
           padding: EdgeInsets.only(top: 6, bottom: 8),
-          child: Text(
-            Strings.exportToplMainKeyDesc,
-            style: RibnToolkitTextStyles.settingsSmallText,
-          ),
+          child: RibnFont10TextWidget(
+              text: Strings.exportToplMainKeyDesc,
+              textAlignment: TextAlign.justify,
+              textColor: RibnColors.defaultText,
+              fontWeight: FontWeight.w300,),
         ),
         SizedBox(
           width: 110,
           height: 22,
           child: LargeButton(
-            buttonChild: Text(
-              Strings.exportWallet,
-              style: RibnToolkitTextStyles.btnLarge.copyWith(
-                color: Colors.white,
-                fontSize: 10,
-              ),
-            ),
+            buttonChild: const RibnFont10TextWidget(
+                text: Strings.exportWallet,
+                textAlignment: TextAlign.justify,
+                textColor: RibnColors.white,
+                fontWeight: FontWeight.w300,),
             backgroundColor: RibnColors.primary,
             hoverColor: RibnColors.primaryButtonHover,
             dropShadowColor: RibnColors.primaryButtonShadow,

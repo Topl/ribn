@@ -10,7 +10,7 @@ import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_onboarding_h1_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/onboarding_action_button.dart';
 
 /// This page allows the user to select between creating a new wallet or importing an existing wallet.
@@ -29,7 +29,9 @@ class SelectActionPage extends StatelessWidget {
           Keys.navigatorKey.currentState?.pushNamed(Routes.gettingStarted);
         },
       ),
-      kIsWeb ? const SizedBox(width: 100, height: 50) : const SizedBox(height: 50),
+      kIsWeb
+          ? const SizedBox(width: 100, height: 50)
+          : const SizedBox(height: 50),
       OnboardingActionButton(
         backgroundColor: RibnColors.primary,
         icon: Image.asset(RibnAssets.importWalletPng),
@@ -51,17 +53,18 @@ class SelectActionPage extends StatelessWidget {
               children: [
                 renderIfWeb(const WebOnboardingAppBar()),
                 const SizedBox(
-                  width: kIsWeb ? double.infinity : 245,
-                  child: Text(
-                    Strings.whatWouldYouLikeToDo,
-                    textAlign: TextAlign.center,
-                    style: RibnToolkitTextStyles.onboardingH1,
-                  ),
-                ),
+                    width: kIsWeb ? double.infinity : 245,
+                    child: RibnOnboardingH1TextWidget(
+                      text: Strings.whatWouldYouLikeToDo,
+                      textColor: RibnColors.lightGreyTitle,
+                      textAlignment: TextAlign.center,
+                    ),),
                 SizedBox(height: adaptHeight(0.1)),
                 // display actionbuttons in row or column depending on platform
                 kIsWeb
-                    ? Row(mainAxisAlignment: MainAxisAlignment.center, children: actionButtons)
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: actionButtons,)
                     : Column(children: actionButtons),
                 SizedBox(height: adaptHeight(0.1)),
               ],

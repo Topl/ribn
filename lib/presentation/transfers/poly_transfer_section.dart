@@ -14,9 +14,9 @@ import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font20_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 
@@ -145,8 +145,10 @@ class _PolyTransferSectionState extends State<PolyTransferSection> {
                       if (_validRecipientAddress.isNotEmpty) {
                         _recipientController.text = _validRecipientAddress;
                         _recipientController
-                          ..text = _recipientController.text.substring(0, _recipientController.text.length)
-                          ..selection = TextSelection.collapsed(offset: _recipientController.text.length);
+                          ..text = _recipientController.text
+                              .substring(0, _recipientController.text.length)
+                          ..selection = TextSelection.collapsed(
+                              offset: _recipientController.text.length,);
                       }
                       _validRecipientAddress = '';
                     });
@@ -229,19 +231,20 @@ class _PolyTransferSectionState extends State<PolyTransferSection> {
   }
 
   Widget _buildReviewButton(PolyTransferInputViewModel vm) {
-    final bool enteredValidInputs =
-        _validRecipientAddress.isNotEmpty && _amountController.text.isNotEmpty && _validAmount;
+    final bool enteredValidInputs = _validRecipientAddress.isNotEmpty &&
+        _amountController.text.isNotEmpty &&
+        _validAmount;
 
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: Center(
         child: LargeButton(
           buttonWidth: double.infinity,
-          buttonChild: Text(
-            Strings.review,
-            style: RibnToolkitTextStyles.btnLarge.copyWith(
-              color: Colors.white,
-            ),
+          buttonChild: const RibnFont20TextWidget(
+            text: Strings.review,
+            textAlignment: TextAlign.justify,
+            textColor: RibnColors.white,
+            fontWeight: FontWeight.w300,
           ),
           onPressed: enteredValidInputs
               ? () {

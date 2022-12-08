@@ -12,7 +12,9 @@ import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_onboarding_h1_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_onboarding_h3_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/animated_circle_step_loader.dart';
 
 /// This page shows a loading animation to indicate seed phrase generation.
@@ -20,7 +22,8 @@ class SeedPhraseGeneratingPage extends StatefulWidget {
   const SeedPhraseGeneratingPage({Key? key}) : super(key: key);
 
   @override
-  _SeedPhraseGeneratingPageState createState() => _SeedPhraseGeneratingPageState();
+  _SeedPhraseGeneratingPageState createState() =>
+      _SeedPhraseGeneratingPageState();
 }
 
 class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
@@ -41,7 +44,9 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
               clipBehavior: Clip.none,
               child: Center(
                 child: Column(
-                  children: seedPhraseGenerating ? seedPhraseGeneratingSection() : seedPhraseGeneratedSection(),
+                  children: seedPhraseGenerating
+                      ? seedPhraseGeneratingSection()
+                      : seedPhraseGeneratedSection(),
                 ),
               ),
             ),
@@ -67,14 +72,19 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
             seedPhraseGenerating = false;
           });
         },
+        activeCircleColor: RibnColors.primary,
+        inactiveCircleColor: RibnColors.inactive,
+        activeCircleRadius: 16,
+        inactiveCircleRadius: 8,
+        dotPadding: 8,
       ),
       SizedBox(
-        width: descriptionBoxWidth,
-        child: const Text(
-          Strings.aboutToShowSeedPhrase,
-          style: RibnToolkitTextStyles.onboardingH3,
-        ),
-      ),
+          width: descriptionBoxWidth,
+          child: const RibnOnboardingH3TextWidget(
+            text: Strings.aboutToShowSeedPhrase,
+            textColor: RibnColors.lightGreyTitle,
+            textHeight: 1.6, textAlignment: TextAlign.justify,
+          ),),
     ];
   }
 
@@ -84,10 +94,12 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
       renderIfWeb(const WebOnboardingAppBar()),
       const SizedBox(
         width: kIsWeb ? double.infinity : 312,
-        child: Text(
-          Strings.seedPhraseGenerated,
-          style: RibnToolkitTextStyles.onboardingH1,
-          textAlign: TextAlign.center,
+        child: RibnOnboardingH1TextWidget(
+          text: Strings.seedPhraseGenerated,
+          textColor: RibnColors.lightGreyTitle,
+          textHeight: 1.67,
+          letterSpacing: 1.42,
+          textAlignment: TextAlign.center,
         ),
       ),
       Padding(
@@ -96,9 +108,10 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
       ),
       SizedBox(
         width: descriptionBoxWidth,
-        child: const Text(
-          Strings.seedPhraseGeneratedDesc,
-          style: RibnToolkitTextStyles.onboardingH3,
+        child: const RibnOnboardingH1TextWidget(
+          text: Strings.seedPhraseGeneratedDesc,
+          textColor: RibnColors.lightGreyTitle,
+          textAlignment: TextAlign.justify,
         ),
       ),
       SizedBox(height: adaptHeight(0.1)),

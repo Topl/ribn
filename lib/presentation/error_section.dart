@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font14_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font22_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h4_text_widget.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 /// A generic error section that is displayed in case of unexpected errors.
@@ -27,23 +29,23 @@ class ErrorSection extends StatelessWidget {
         const SizedBox(
           width: 275,
           height: 64,
-          child: Text(
-            Strings.errorTitle,
-            style: TextStyle(
-              fontFamily: 'DM Sans',
-              color: Colors.black,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
+          child: RibnFont22TextWidget(
+            text: Strings.errorTitle,
+            textAlignment: TextAlign.start,
+            textColor: Colors.black,
+            fontWeight: FontWeight.bold,
           ),
         ),
         const SizedBox(height: 14),
         const SizedBox(
           width: 275,
           height: 133,
-          child: Text(
-            Strings.errorDescription,
-            style: RibnToolkitTextStyles.h4,
+          child: RibnH4TextWidget(
+            text: Strings.errorDescription,
+            textAlignment: TextAlign.start,
+            textColor: RibnColors.defaultText,
+            fontWeight: FontWeight.w500,
+            letterSpacing: 1,
           ),
         ),
         const SizedBox(height: 25),
@@ -52,11 +54,11 @@ class ErrorSection extends StatelessWidget {
           buttonHeight: buttonHeight,
           backgroundColor: RibnColors.primary,
           onPressed: onTryAgain,
-          buttonChild: Text(
-            Strings.refreshPage,
-            style: RibnToolkitTextStyles.btnMedium.copyWith(
-              color: Colors.white,
-            ),
+          buttonChild: const RibnFont14TextWidget(
+            text: Strings.refreshPage,
+            textAlignment: TextAlign.start,
+            textColor: RibnColors.defaultText,
+            fontWeight: FontWeight.w300,
           ),
         ),
         const SizedBox(height: 15),
@@ -68,11 +70,11 @@ class ErrorSection extends StatelessWidget {
           onPressed: () async {
             await launchUrlString(Strings.supportEmailLink);
           },
-          buttonChild: Text(
-            Strings.contactSupport,
-            style: RibnToolkitTextStyles.btnMedium.copyWith(
-              color: RibnColors.primary,
-            ),
+          buttonChild: const RibnFont14TextWidget(
+            text: Strings.contactSupport,
+            textAlignment: TextAlign.start,
+            textColor: RibnColors.primary,
+            fontWeight: FontWeight.w300,
           ),
         ),
       ],

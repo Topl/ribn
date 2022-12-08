@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h4_text_widget.dart';
 
 /// One of the asset details displayed on [AssetDetailsPage].
 ///
@@ -19,11 +21,21 @@ class AssetAmountDetails extends StatelessWidget {
       children: [
         Row(
           children: const [
-            Text('Total Amount', style: RibnToolkitTextStyles.h4),
+            RibnH4TextWidget(
+              text: 'Total Amount',
+              textAlignment: TextAlign.start,
+              textColor: RibnColors.ghostButtonText,
+              fontWeight: FontWeight.w500,
+            ),
           ],
         ),
         const SizedBox(height: 3),
-        Text(assetQuantity.toString(), style: RibnToolkitTextStyles.smallBody),
+        RibnFont12TextWidget(
+          text: assetQuantity.toString(),
+          textAlignment: TextAlign.start,
+          textColor: RibnColors.ghostButtonText,
+          fontWeight: FontWeight.w500,
+        )
       ],
     );
   }

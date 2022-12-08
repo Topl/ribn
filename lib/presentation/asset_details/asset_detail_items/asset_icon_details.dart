@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/hover_icon_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h4_text_widget.dart';
 
 /// One of the asset details displayed on [AssetDetailsPage].
 ///
@@ -33,15 +34,20 @@ class AssetIconDetails extends StatelessWidget {
           height: 30,
           child: Row(
             children: [
-              const Text('Icon', style: RibnToolkitTextStyles.h4),
+              const RibnH4TextWidget(
+                  text: 'Icon',
+                  textAlignment: TextAlign.justify,
+                  textColor: RibnColors.defaultText,
+                  fontWeight: FontWeight.w500,),
               const Spacer(),
               editingSectionOpened
                   ? const SizedBox()
                   : HoverIconButton(
-                      buttonText: Text(
-                        'Edit',
-                        style: RibnToolkitTextStyles.dropdownButtonStyle.copyWith(color: RibnColors.primary),
-                      ),
+                      buttonText: const RibnFont12TextWidget(
+                          text: 'Edit',
+                          textAlignment: TextAlign.justify,
+                          textColor: RibnColors.primary,
+                          fontWeight: FontWeight.w300,),
                       buttonIcon: Image.asset(RibnAssets.editIcon),
                       onPressed: onEditPressed,
                     ),

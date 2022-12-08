@@ -5,6 +5,8 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h1_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h3_text_widget.dart';
 
 class ExtensionInfoPage extends StatelessWidget {
   const ExtensionInfoPage({Key? key}) : super(key: key);
@@ -26,22 +28,22 @@ class ExtensionInfoPage extends StatelessWidget {
               children: [
                 ribnLogo(50),
                 const SizedBox(width: 12),
-                Text(
-                  Strings.ribnWallet,
-                  style: RibnToolkitTextStyles.h3.copyWith(
-                    color: RibnColors.lightGreyTitle,
-                  ),
+                const RibnH3TextWidget(
+                  text: Strings.ribnWallet,
+                  textAlignment: TextAlign.justify,
+                  textColor: RibnColors.lightGreyTitle,
+                  fontWeight: FontWeight.w500,
                 ),
               ],
             ),
             const SizedBox(height: 50),
-            Text(
-              Strings.openTheWalletBy,
-              style: RibnToolkitTextStyles.h1.copyWith(
-                color: RibnColors.lightGreyTitle,
-              ),
-              textAlign: TextAlign.left,
+            const RibnH1TextWidget(
+              text: Strings.openTheWalletBy,
+              textColor: RibnColors.lightGreyTitle,
+              fontWeight: FontWeight.w500,
+              textAlignment: TextAlign.left,
             ),
+
             const SizedBox(height: 30),
             RichText(
               text: TextSpan(
@@ -64,7 +66,8 @@ class ExtensionInfoPage extends StatelessWidget {
                     ),
                   ),
                   WidgetSpan(
-                    child: SvgPicture.asset(RibnAssets.extensionIcon, height: inlineIconHeight, width: inlineIconWidth),
+                    child: SvgPicture.asset(RibnAssets.extensionIcon,
+                        height: inlineIconHeight, width: inlineIconWidth,),
                   ),
                   TextSpan(
                     text: Strings.clickingTheIconPartThree,

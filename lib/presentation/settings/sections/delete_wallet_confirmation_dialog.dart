@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font14_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font15_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h2_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
 import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 
@@ -16,13 +18,17 @@ class DeleteWalletConfirmationDialog extends StatefulWidget {
     VoidCallback onIncorrectPasswordEntered,
   ) onConfirmDeletePressed;
 
-  const DeleteWalletConfirmationDialog({required this.onConfirmDeletePressed, Key? key}) : super(key: key);
+  const DeleteWalletConfirmationDialog(
+      {required this.onConfirmDeletePressed, Key? key,})
+      : super(key: key);
 
   @override
-  _DeleteWalletConfirmationDialogState createState() => _DeleteWalletConfirmationDialogState();
+  _DeleteWalletConfirmationDialogState createState() =>
+      _DeleteWalletConfirmationDialogState();
 }
 
-class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmationDialog> {
+class _DeleteWalletConfirmationDialogState
+    extends State<DeleteWalletConfirmationDialog> {
   final TextEditingController _passwordController = TextEditingController();
 
   /// True if incorrect password was entered.
@@ -33,20 +39,23 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
   @override
   Widget build(BuildContext context) {
     return CustomModal.renderCustomModal(
-      title: const Text(
-        Strings.deleteRibnWallet,
-        style: RibnToolkitTextStyles.extH2,
+      title: const RibnH2TextWidget(
+        text: Strings.deleteRibnWallet,
+        textAlignment: TextAlign.justify,
+        textColor: RibnColors.defaultText,
+        fontWeight: FontWeight.bold,
       ),
       context: context,
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             width: 228,
             height: 125,
-            child: Text(
-              Strings.deleteRibnWalletDesc,
-              style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15),
-            ),
+            child: RibnFont15TextWidget(
+                text: Strings.deleteRibnWalletDesc,
+                textAlignment: TextAlign.justify,
+                textColor: RibnColors.defaultText,
+                fontWeight: FontWeight.w300,),
           ),
           const SizedBox(height: 30),
           // enter password
@@ -55,21 +64,22 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  Strings.enterWalletPassword,
-                  style: TextStyle(
-                    fontFamily: 'DM Sans',
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                const RibnFont15TextWidget(
+                    text: Strings.enterWalletPassword,
+                    textAlignment: TextAlign.justify,
+                    textColor: RibnColors.defaultText,
+                    fontWeight: FontWeight.w700,),
                 PasswordTextField(
                   controller: _passwordController,
                   hintText: Strings.typeSomething,
                   obscurePassword: _obscurePassword,
                 ),
                 _incorrectPasswordError
-                    ? const Text('Incorrect Password', style: TextStyle(color: Colors.red))
+                    ? const RibnFont14TextWidget(
+                        text: 'Incorrect Password',
+                        textAlignment: TextAlign.justify,
+                        textColor: RibnColors.redColor,
+                        fontWeight: FontWeight.normal,)
                     : const SizedBox()
               ],
             ),
@@ -82,12 +92,11 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
           children: [
             // confirm delete
             LargeButton(
-              buttonChild: Text(
-                Strings.yesIWantToDelete,
-                style: RibnToolkitTextStyles.btnMedium.copyWith(
-                  color: Colors.white,
-                ),
-              ),
+              buttonChild: const RibnFont14TextWidget(
+                  text: Strings.yesIWantToDelete,
+                  textAlignment: TextAlign.justify,
+                  textColor: RibnColors.white,
+                  fontWeight: FontWeight.w300,),
               onPressed: () {
                 widget.onConfirmDeletePressed(
                   _passwordController.text,
@@ -103,12 +112,11 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
             const SizedBox(height: 20),
             // cancel delete
             LargeButton(
-              buttonChild: Text(
-                Strings.noIChangedMyMind,
-                style: RibnToolkitTextStyles.btnMedium.copyWith(
-                  color: RibnColors.ghostButtonText,
-                ),
-              ),
+              buttonChild: const RibnFont14TextWidget(
+                  text: Strings.noIChangedMyMind,
+                  textAlignment: TextAlign.justify,
+                  textColor: RibnColors.ghostButtonText,
+                  fontWeight: FontWeight.w300,),
               backgroundColor: Colors.transparent,
               hoverColor: Colors.transparent,
               dropShadowColor: Colors.transparent,

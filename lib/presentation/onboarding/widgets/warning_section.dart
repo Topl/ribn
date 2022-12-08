@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font15_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font18_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font20_text_widget.dart';
 
 /// A section to display important warning message when restoring wallet.
 class WarningSection extends StatelessWidget {
@@ -27,15 +29,12 @@ class WarningSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                Strings.warning,
-                style: kIsWeb
-                    ? RibnToolkitTextStyles.onboardingH3.copyWith(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 19.5,
-                      )
-                    : RibnToolkitTextStyles.extH3.copyWith(color: Colors.white),
-              ),
+              const RibnFont20TextWidget(
+                  text: Strings.warning,
+                  textColor: RibnColors.white,
+                  textAlignment: TextAlign.center,
+                  fontWeight: FontWeight.w700,
+                  textHeight: 1.6,),
               const SizedBox(
                 width: 4,
               ),
@@ -48,16 +47,21 @@ class WarningSection extends StatelessWidget {
           const SizedBox(
             height: 14,
           ),
-          Center(
+          const Center(
             child: SizedBox(
               width: kIsWeb ? 441 : 270,
               height: kIsWeb ? 92 : 102,
-              child: Text(
-                Strings.restoreWalletWarning,
-                style: kIsWeb
-                    ? RibnToolkitTextStyles.onboardingH3
-                    : RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15, color: Colors.white),
-              ),
+              child: kIsWeb
+                  ? RibnFont18TextWidget(
+                      text: Strings.restoreWalletWarning,
+                      textAlignment: TextAlign.justify,
+                      textColor: RibnColors.lightGreyTitle,
+                      fontWeight: FontWeight.w400,)
+                  : RibnFont15TextWidget(
+                      text: Strings.restoreWalletWarning,
+                      textAlignment: TextAlign.justify,
+                      textColor: RibnColors.white,
+                      fontWeight: FontWeight.w400,),
             ),
           ),
         ],

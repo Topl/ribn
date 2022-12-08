@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font16_text_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// The section for displaying helpful links.
@@ -23,15 +23,19 @@ class LinksSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          Strings.links,
-          style: RibnToolkitTextStyles.extH3,
+        const RibnFont16TextWidget(
+          text: Strings.links,
+          textAlignment: TextAlign.justify,
+          textColor: RibnColors.secondaryDark,
+          fontWeight: FontWeight.w500,
+          letterSpacing: 1,
         ),
         const SizedBox(height: 5),
         RichText(
           text: TextSpan(
             text: Strings.privacyPolicy,
-            recognizer: TapGestureRecognizer()..onTap = () async => await launchUrl(url1),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () async => await launchUrl(url1),
             style: linkStyle,
           ),
         ),
@@ -39,7 +43,8 @@ class LinksSection extends StatelessWidget {
         RichText(
           text: TextSpan(
             text: Strings.termsOfUse,
-            recognizer: TapGestureRecognizer()..onTap = () async => await launchUrl(url2),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () async => await launchUrl(url2),
             style: linkStyle,
           ),
         ),

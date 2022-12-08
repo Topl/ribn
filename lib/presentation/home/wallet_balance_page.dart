@@ -13,6 +13,12 @@ import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font15_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font16_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h2_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h3_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h4_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_card.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
@@ -68,39 +74,43 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       onWillChange: (prevVm, currVm) {
         // refresh balances on network toggle or when new addresses are generated
         final bool shouldRefresh = currVm.walletExists &&
-            (prevVm?.currentNetwork.networkName != currVm.currentNetwork.networkName ||
-                prevVm?.currentNetwork.lastCheckedTimestamp != currVm.currentNetwork.lastCheckedTimestamp ||
-                prevVm?.currentNetwork.addresses.length != currVm.currentNetwork.addresses.length);
+            (prevVm?.currentNetwork.networkName !=
+                    currVm.currentNetwork.networkName ||
+                prevVm?.currentNetwork.lastCheckedTimestamp !=
+                    currVm.currentNetwork.lastCheckedTimestamp ||
+                prevVm?.currentNetwork.addresses.length !=
+                    currVm.currentNetwork.addresses.length);
         if (shouldRefresh) refreshBalances(currVm);
       },
-      builder: (BuildContext context, WalletBalanceViewModel vm) => _failedToFetchBalances
-          ? Center(
-              child: ErrorSection(
-                onTryAgain: () => refreshBalances(vm),
-              ),
-            )
-          : RefreshIndicator(
-              backgroundColor: RibnColors.primary,
-              color: RibnColors.secondaryDark,
-              onRefresh: () async {
-                return refreshBalances(vm);
-              },
-              child: SingleChildScrollView(
-                child: Listener(
-                  onPointerDown: (_) {
-                    if (mounted) setState(() {});
+      builder: (BuildContext context, WalletBalanceViewModel vm) =>
+          _failedToFetchBalances
+              ? Center(
+                  child: ErrorSection(
+                    onTryAgain: () => refreshBalances(vm),
+                  ),
+                )
+              : RefreshIndicator(
+                  backgroundColor: RibnColors.primary,
+                  color: RibnColors.secondaryDark,
+                  onRefresh: () async {
+                    return refreshBalances(vm);
                   },
-                  child: Column(
-                    children: _fetchingBalances
-                        ? [const WalletBalanceShimmer()]
-                        : [
-                            _buildPolyContainer(vm),
-                            _buildAssetsListView(vm),
-                          ],
+                  child: SingleChildScrollView(
+                    child: Listener(
+                      onPointerDown: (_) {
+                        if (mounted) setState(() {});
+                      },
+                      child: Column(
+                        children: _fetchingBalances
+                            ? [const WalletBalanceShimmer()]
+                            : [
+                                _buildPolyContainer(vm),
+                                _buildAssetsListView(vm),
+                              ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
     );
   }
 
@@ -123,19 +133,20 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
             style: RibnToolkitTextStyles.toolTipTextStyle,
             children: [
               TextSpan(
-                text: hasPolys ? Strings.refillCurrentPolyBalance : Strings.refillEmptyPolyBalance,
+                text: hasPolys
+                    ? Strings.refillCurrentPolyBalance
+                    : Strings.refillEmptyPolyBalance,
               ),
               WidgetSpan(
                 child: GestureDetector(
                   onTap: () async => await launchUrl(url),
                   child: Row(
                     children: [
-                      Text(
-                        ' Baas. ',
-                        style: RibnToolkitTextStyles.toolTipTextStyle.copyWith(
-                          color: const Color(0xff00B5AB),
-                        ),
-                      ),
+                      const RibnFont12TextWidget(
+                          text: ' Baas. ',
+                          textAlignment: TextAlign.justify,
+                          textColor: RibnColors.primary,
+                          fontWeight: FontWeight.w300,),
                       Image.asset(
                         RibnAssets.openInNewWindow,
                         width: 10,
@@ -160,17 +171,20 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
           _fetchingBalances
               ? const CircularProgressIndicator()
               : _failedToFetchBalances
-                  ? const Text('Network Failure', style: TextStyle(color: Colors.red))
+                  ? const RibnFont12TextWidget(
+                      text: 'Network Failure',
+                      textAlignment: TextAlign.justify,
+                      textColor: RibnColors.redColor,
+                      fontWeight: FontWeight.normal,)
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          '${vm.polyBalance} POLY',
-                          style: RibnToolkitTextStyles.h2.copyWith(
-                            color: const Color(0xFFE5E5E5),
-                            letterSpacing: 1.42,
-                          ),
-                        ),
+                        RibnH2TextWidget(
+                            text: '${vm.polyBalance} POLY',
+                            textAlignment: TextAlign.justify,
+                            textColor: RibnColors.lightGreyTitle,
+                            fontWeight: FontWeight.normal,
+                            letterSpacing: 1.42,),
                         Padding(
                           padding: const EdgeInsets.only(left: 6.0),
                           child: SizedBox(
@@ -180,13 +194,13 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
                         ),
                       ],
                     ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Text(
-              'Available balance',
-              style: RibnToolkitTextStyles.h3.copyWith(
-                color: RibnColors.secondaryDark,
-              ),
+          const Padding(
+            padding: EdgeInsets.only(top: 8.0),
+            child: RibnH3TextWidget(
+              text: 'Available balance',
+              textAlignment: TextAlign.justify,
+              textColor: RibnColors.secondaryDark,
+              fontWeight: FontWeight.w500,
             ),
           ),
           const SizedBox(height: 20),
@@ -238,12 +252,12 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
-              padding: EdgeInsets.only(bottom: 8.0),
-              child: Text(
-                Strings.assets,
-                style: RibnToolkitTextStyles.extH3,
-              ),
-            ),
+                padding: EdgeInsets.only(bottom: 8.0),
+                child: RibnFont16TextWidget(
+                    text: Strings.assets,
+                    textAlignment: TextAlign.justify,
+                    textColor: RibnColors.defaultText,
+                    fontWeight: FontWeight.w500,),),
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -278,21 +292,30 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     required Function(AssetAmount) viewAssetDetails,
   }) {
     final String assetIcon = assetDetails?.icon ?? RibnAssets.undefinedIcon;
-    final String assetUnit = assetDetails?.unit != null ? formatAssetUnit(assetDetails!.unit) : 'Unit';
+    final String assetUnit = assetDetails?.unit != null
+        ? formatAssetUnit(assetDetails!.unit)
+        : 'Unit';
     final String assetLongName = assetDetails?.longName ?? '';
-    final bool isMissingAssetDetails =
-        assetIcon == RibnAssets.undefinedIcon || assetUnit == 'Unit' || assetLongName.isEmpty;
+    final bool isMissingAssetDetails = assetIcon == RibnAssets.undefinedIcon ||
+        assetUnit == 'Unit' ||
+        assetLongName.isEmpty;
 
     return AssetCard(
       onCardPress: () => viewAssetDetails(asset),
       iconImage: Image.asset(assetIcon, width: 31),
-      shortName: Text(
-        asset.assetCode.shortName.show.replaceAll('\x00', ''),
-        style: RibnToolkitTextStyles.assetShortNameStyle,
-        overflow: TextOverflow.ellipsis,
-      ),
+      shortName: RibnFont15TextWidget(
+          text: asset.assetCode.shortName.show.replaceAll('\x00', ''),
+          textAlignment: TextAlign.justify,
+          textColor: RibnColors.defaultText,
+          fontWeight: FontWeight.w500,
+          letterSpacing: 0.5,
+          textOverflow: TextOverflow.ellipsis,),
       assetLongName: assetLongName.isNotEmpty
-          ? Text(assetLongName, style: RibnToolkitTextStyles.assetLongNameStyle)
+          ? RibnFont12TextWidget(
+              text: assetLongName,
+              textAlignment: TextAlign.justify,
+              textColor: RibnColors.greyedOut,
+              fontWeight: FontWeight.normal,)
           : Container(
               width: 139,
               height: 13,
@@ -302,12 +325,12 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
               ),
             ),
       missingAsstDetailsCondition: isMissingAssetDetails,
-      assetQuantityDetails: Text(
-        '${asset.quantity.toString()} $assetUnit',
-        overflow: TextOverflow.ellipsis,
-        style: RibnToolkitTextStyles.assetShortNameStyle.copyWith(
-          color: RibnColors.primary,
-        ),
+      assetQuantityDetails: RibnFont12TextWidget(
+        text: '${asset.quantity.toString()} $assetUnit',
+        textAlignment: TextAlign.justify,
+        textColor: RibnColors.primary,
+        fontWeight: FontWeight.normal,
+        textOverflow: TextOverflow.ellipsis,
       ),
     );
   }
@@ -325,7 +348,12 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
         buttonChild: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(label, style: RibnToolkitTextStyles.h4.copyWith(color: Colors.white)),
+            RibnH4TextWidget(
+              text: label,
+              textAlignment: TextAlign.justify,
+              textColor: RibnColors.white,
+              fontWeight: FontWeight.normal,
+            ),
           ],
         ),
       ),

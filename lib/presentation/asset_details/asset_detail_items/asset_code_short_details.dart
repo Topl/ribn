@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h4_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 
 /// One of the asset details displayed on [AssetDetailsPage].
@@ -22,7 +24,11 @@ class AssetCodeShortDetails extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Text('Asset code · short', style: RibnToolkitTextStyles.h4),
+            const RibnH4TextWidget(
+                text: 'Asset code · short',
+                textAlignment: TextAlign.start,
+                textColor: RibnColors.defaultText,
+                fontWeight: FontWeight.w500,),
             Padding(
               padding: const EdgeInsets.only(left: 4.0),
               child: CustomToolTip(
@@ -32,16 +38,21 @@ class AssetCodeShortDetails extends StatelessWidget {
                   RibnAssets.greyHelpBubble,
                   width: 18,
                 ),
-                toolTipChild: const Text(
-                  Strings.assetCodeShortInfo,
-                  style: RibnToolkitTextStyles.toolTipTextStyle,
-                ),
+                toolTipChild: const RibnFont12TextWidget(
+                    textAlignment: TextAlign.justify,
+                    text: Strings.assetCodeShortInfo,
+                    textColor: RibnColors.defaultText,
+                    fontWeight: FontWeight.w300,),
               ),
             ),
           ],
         ),
         const SizedBox(height: 3),
-        Text(assetShortName, style: RibnToolkitTextStyles.smallBody),
+        RibnFont12TextWidget(
+            text: assetShortName,
+            textAlignment: TextAlign.justify,
+            textColor: RibnColors.defaultText,
+            fontWeight: FontWeight.w300,),
       ],
     );
   }

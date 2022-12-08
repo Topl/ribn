@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
 
 /// A custom display for asset information.
 class AssetInfo extends StatelessWidget {
@@ -22,16 +23,12 @@ class AssetInfo extends StatelessWidget {
     final bool assetNotSelected = assetCode == null;
 
     /// Default text to be displayed if no asset been selected.
-    const Text defaultText = Text(
-      'Choose Asset',
-      style: TextStyle(
-        color: Color(0xff6d6d6d),
+    const Text defaultText = RibnFont12TextWidget(
+        text: 'Choose Asset',
+        textAlignment: TextAlign.justify,
+        textColor: RibnColors.greyedOut,
         fontWeight: FontWeight.w600,
-        fontFamily: 'DM Sans',
-        fontStyle: FontStyle.normal,
-        fontSize: 12.0,
-      ),
-    );
+        );
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -55,15 +52,12 @@ class AssetInfo extends StatelessWidget {
                   children: [
                     Container(
                       constraints: const BoxConstraints(maxWidth: 75),
-                      child: Text(
-                        assetDetails?.longName ?? '',
-                        style: const TextStyle(
-                          fontFamily: 'DM Sans',
-                          fontSize: 12,
-                          color: RibnColors.defaultText,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                      child: RibnFont12TextWidget(
+                          text: assetDetails?.longName ?? '',
+                          textAlignment: TextAlign.justify,
+                          textColor: RibnColors.defaultText,
+                          fontWeight: FontWeight.w600,
+                          textOverflow: TextOverflow.ellipsis,),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -78,15 +72,13 @@ class AssetInfo extends StatelessWidget {
                     ),
                     SizedBox(
                       width: 60,
-                      child: Text(
-                        assetCode!.shortName.show,
-                        style: const TextStyle(
-                          fontFamily: 'DM Sans',
-                          fontSize: 12,
-                          color: RibnColors.primary,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                      child: RibnFont12TextWidget(
+                          text: assetCode!.shortName.show,
+                          textAlignment: TextAlign.justify,
+                          textColor: RibnColors.defaultText,
+                          fontWeight: FontWeight.w600,
+
+                          textOverflow: TextOverflow.ellipsis,),
                     ),
                   ],
                 ),

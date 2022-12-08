@@ -15,8 +15,9 @@ import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/fee_info.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font20_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_selection_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
@@ -83,7 +84,8 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
     });
   }
 
-  void disposeController(TextEditingController controller) => controller.dispose();
+  void disposeController(TextEditingController controller) =>
+      controller.dispose();
 
   void renderBottomButton() {
     return WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -139,15 +141,25 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
                   AssetSelectionField(
                     formattedSelectedAsset: {
                       'assetCode': _selectedAsset?.assetCode.toString(),
-                      'longName': widget.vm.assetDetails[_selectedAsset?.assetCode.toString()]?.longName,
+                      'longName': widget
+                          .vm
+                          .assetDetails[_selectedAsset?.assetCode.toString()]
+                          ?.longName,
                       'shortName': _selectedAsset?.assetCode.shortName.show,
-                      'assetIcon': widget.vm.assetDetails[_selectedAsset?.assetCode.toString()]?.icon,
+                      'assetIcon': widget
+                          .vm
+                          .assetDetails[_selectedAsset?.assetCode.toString()]
+                          ?.icon,
                     },
                     formattedAsset: (asset) {
                       return {
-                        'longName': widget.vm.assetDetails[asset!.assetCode.toString()]?.longName,
+                        'longName': widget
+                            .vm
+                            .assetDetails[asset!.assetCode.toString()]
+                            ?.longName,
                         'shortName': asset.assetCode.shortName.show,
-                        'assetIcon': widget.vm.assetDetails[asset!.assetCode.toString()]?.icon,
+                        'assetIcon': widget
+                            .vm.assetDetails[asset!.assetCode.toString()]?.icon,
                       };
                     },
                     assets: widget.vm.assets,
@@ -175,18 +187,23 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
                       setState(() {
                         _validAmount = TransferUtils.validateAmount(
                           amount,
-                          widget.vm.getAssetBalance(_selectedAsset?.assetCode.toString()),
+                          widget.vm.getAssetBalance(
+                              _selectedAsset?.assetCode.toString(),),
                         );
                       });
                     },
-                    selectedUnit: widget.vm.assetDetails[_selectedAsset?.assetCode.toString()]?.unit,
+                    selectedUnit: widget
+                        .vm
+                        .assetDetails[_selectedAsset?.assetCode.toString()]
+                        ?.unit,
                     controller: _amountController,
                     allowEditingUnit: false,
                     onUnitSelected: (String amount) {
                       setState(() {
                         _validAmount = TransferUtils.validateAmount(
                           amount,
-                          widget.vm.getAssetBalance(_selectedAsset?.assetCode.toString()),
+                          widget.vm.getAssetBalance(
+                              _selectedAsset?.assetCode.toString(),),
                         );
                       });
                     },
@@ -194,7 +211,8 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
                       RibnAssets.chevronDownDark,
                       width: 24,
                     ),
-                    maxTransferrableAmount: widget.vm.getAssetBalance(_selectedAsset?.assetCode.toString()),
+                    maxTransferrableAmount: widget.vm
+                        .getAssetBalance(_selectedAsset?.assetCode.toString()),
                   ),
                   // Displays the sender address.
                   const FromAddressField(),
@@ -210,7 +228,8 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
                         if (mounted) {
                           setState(() {
                             if (result) {
-                              _validRecipientAddress = _recipientController.text;
+                              _validRecipientAddress =
+                                  _recipientController.text;
                               _recipientController.text = '';
                             } else {
                               _validRecipientAddress = '';
@@ -231,8 +250,10 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
                         if (_validRecipientAddress.isNotEmpty) {
                           _recipientController.text = _validRecipientAddress;
                           _recipientController
-                            ..text = _recipientController.text.substring(0, _recipientController.text.length)
-                            ..selection = TextSelection.collapsed(offset: _recipientController.text.length);
+                            ..text = _recipientController.text
+                                .substring(0, _recipientController.text.length)
+                            ..selection = TextSelection.collapsed(
+                                offset: _recipientController.text.length,);
                         }
                         _validRecipientAddress = '';
                       });
@@ -257,19 +278,20 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
   }
 
   Widget _buildReviewButton(AssetTransferInputViewModel vm) {
-    final bool enteredValidInputs =
-        _validRecipientAddress.isNotEmpty && _amountController.text.isNotEmpty && _validAmount;
+    final bool enteredValidInputs = _validRecipientAddress.isNotEmpty &&
+        _amountController.text.isNotEmpty &&
+        _validAmount;
 
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: Center(
         child: LargeButton(
           buttonWidth: double.infinity,
-          buttonChild: Text(
-            Strings.review,
-            style: RibnToolkitTextStyles.btnLarge.copyWith(
-              color: Colors.white,
-            ),
+          buttonChild: const RibnFont20TextWidget(
+            text: Strings.review,
+            textAlignment: TextAlign.justify,
+            textColor: RibnColors.white,
+            fontWeight: FontWeight.w300,
           ),
           onPressed: enteredValidInputs
               ? () {
@@ -279,7 +301,8 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
                     amount: _amountController.text,
                     note: _noteController.text,
                     assetCode: _selectedAsset!.assetCode,
-                    assetDetails: vm.assetDetails[_selectedAsset!.assetCode.toString()],
+                    assetDetails:
+                        vm.assetDetails[_selectedAsset!.assetCode.toString()],
                     onRawTxCreated: (bool success) async {
                       context.loaderOverlay.hide();
                       // Display error dialog if failed to create raw tx

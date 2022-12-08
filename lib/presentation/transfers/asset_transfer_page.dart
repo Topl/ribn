@@ -7,7 +7,7 @@ import 'package:ribn/containers/poly_transfer_input_container.dart';
 import 'package:ribn/presentation/transfers/asset_transfer_section.dart';
 import 'package:ribn/presentation/transfers/poly_transfer_section.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font14_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/sliding_segment_control.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
@@ -64,19 +64,23 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
                       currentTabIndex = i as int;
                     })
                   },
-                  tabItems: <int, Widget>{
+                  tabItems: const <int, Widget>{
                     0: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(
-                        Strings.sendAssets,
-                        style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: RibnFont14TextWidget(
+                        text: Strings.sendAssets,
+                        textAlignment: TextAlign.justify,
+                        textColor: RibnColors.defaultText,
+                        fontWeight: FontWeight.w300,
                       ),
                     ),
                     1: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(
-                        Strings.sendNativeCoins,
-                        style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: RibnFont14TextWidget(
+                        text: Strings.sendNativeCoins,
+                        textAlignment: TextAlign.justify,
+                        textColor: RibnColors.defaultText,
+                        fontWeight: FontWeight.w300,
                       ),
                     ),
                   },
@@ -87,13 +91,15 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
                   ? AssetTransferInputContainer(
                       builder: (context, vm) => AssetTransferSection(
                         vm: vm,
-                        updateButton: (val) => setState(() => bottomButton = val),
+                        updateButton: (val) =>
+                            setState(() => bottomButton = val),
                       ),
                     )
                   : PolyTransferInputContainer(
                       builder: (context, vm) => PolyTransferSection(
                         vm: vm,
-                        updateButton: (val) => setState(() => bottomButton = val),
+                        updateButton: (val) =>
+                            setState(() => bottomButton = val),
                       ),
                     ),
               const SizedBox(height: 18),

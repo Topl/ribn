@@ -11,7 +11,9 @@ import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font18_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_onboarding_h1_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_onboarding_h3_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/accordion.dart';
 
 /// This page is displayed when user successfully creates their wallet.
@@ -25,9 +27,11 @@ class WalletCreatedPage extends StatefulWidget {
 class _WalletCreatedPageState extends State<WalletCreatedPage> {
   /// FAQs and their corresponding answeres
   final Map<String, String> faqs = {
-    Strings.howCanIKeepMySeedPhraseSecure: Strings.howCanIKeepMySeedPhraseSecureAns,
+    Strings.howCanIKeepMySeedPhraseSecure:
+        Strings.howCanIKeepMySeedPhraseSecureAns,
     Strings.howIsASeedPhraseDifferent: Strings.howIsASeedPhraseDifferentAns,
-    Strings.howIsMySeedPhraseUnrecoverable: Strings.howIsMySeedPhraseUnrecoverableAns,
+    Strings.howIsMySeedPhraseUnrecoverable:
+        Strings.howIsMySeedPhraseUnrecoverableAns,
   };
   @override
   Widget build(BuildContext context) {
@@ -38,10 +42,10 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
           child: Column(
             children: [
               renderIfWeb(const WebOnboardingAppBar(currStep: 3)),
-              const Text(
-                Strings.walletCreated,
-                style: RibnToolkitTextStyles.onboardingH1,
-                textAlign: TextAlign.center,
+              const RibnOnboardingH1TextWidget(
+                text: Strings.walletCreated,
+                textColor: RibnColors.lightGreyTitle,
+                textAlignment: TextAlign.center,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
@@ -58,40 +62,35 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                   children: [
                     const Align(
                       alignment: Alignment.centerLeft,
-                      child: Text(
-                        Strings.walletCreatedDesc,
-                        style: RibnToolkitTextStyles.onboardingH3,
+                      child: RibnOnboardingH3TextWidget(
+                        text: Strings.walletCreatedDesc,
+                        textColor: RibnColors.lightGreyTitle,
+                        textAlignment: TextAlign.center,
                       ),
                     ),
                     SizedBox(height: adaptHeight(0.05)),
-                    Align(
+                    const Align(
                       alignment: Alignment.centerLeft,
-                      child: Text(
-                        Strings.frequentlyAskedQuestions,
-                        style: RibnToolkitTextStyles.h3.copyWith(
-                          fontSize: 18,
-                          color: Colors.white,
-                        ),
-                      ),
+                      child: RibnFont18TextWidget(
+                          text: Strings.frequentlyAskedQuestions,
+                          textAlignment: TextAlign.justify,
+                          textColor: RibnColors.white,
+                          fontWeight: FontWeight.w500,),
                     ),
                     SizedBox(height: adaptHeight(0.01)),
                     ...faqs.keys
                         .map(
                           (q) => Accordion(
-                            header: Text(
-                              q,
-                              style: RibnToolkitTextStyles.h3.copyWith(
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
-                            description: Text(
-                              faqs[q]!,
-                              style: RibnToolkitTextStyles.h4.copyWith(
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
+                            header: RibnFont18TextWidget(
+                                text: q,
+                                textAlignment: TextAlign.justify,
+                                textColor: RibnColors.white,
+                                fontWeight: FontWeight.w500,),
+                            description: RibnFont18TextWidget(
+                                text: faqs[q]!,
+                                textAlignment: TextAlign.justify,
+                                textColor: RibnColors.white,
+                                fontWeight: FontWeight.w500,),
                             width: 648,
                             backgroundColor: RibnColors.primary,
                             collapsedBackgroundColor: RibnColors.primary,
@@ -110,7 +109,8 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                   if (kIsWeb) {
                     navigateToRoute(context, Routes.extensionInfo);
                   } else {
-                    Keys.navigatorKey.currentState?.pushNamedAndRemoveUntil(Routes.home, (_) => false);
+                    Keys.navigatorKey.currentState
+                        ?.pushNamedAndRemoveUntil(Routes.home, (_) => false);
                   }
                 },
               ),

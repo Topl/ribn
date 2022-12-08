@@ -3,8 +3,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h4_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 
 class IssuerAddressDetails extends StatelessWidget {
@@ -21,7 +23,11 @@ class IssuerAddressDetails extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Text(Strings.issuerAddress, style: RibnToolkitTextStyles.h4),
+            const RibnH4TextWidget(
+                text: Strings.issuerAddress,
+                textAlignment: TextAlign.justify,
+                textColor: RibnColors.defaultText,
+                fontWeight: FontWeight.w500,),
             Padding(
               padding: const EdgeInsets.only(left: 4.0),
               child: CustomToolTip(
@@ -31,10 +37,11 @@ class IssuerAddressDetails extends StatelessWidget {
                   width: 18,
                 ),
                 offsetPositionLeftValue: 100,
-                toolTipChild: const Text(
-                  Strings.issuerAddressInfo,
-                  style: RibnToolkitTextStyles.toolTipTextStyle,
-                ),
+                toolTipChild: const RibnFont12TextWidget(
+                    text: Strings.issuerAddressInfo,
+                    textAlignment: TextAlign.justify,
+                    textColor: RibnColors.primary,
+                    fontWeight: FontWeight.w300,),
               ),
             ),
           ],
@@ -44,10 +51,11 @@ class IssuerAddressDetails extends StatelessWidget {
           children: [
             SvgPicture.asset(RibnAssets.issuerFingerprint),
             const SizedBox(width: 8),
-            Text(
-              formatAddrString(issuerAddress),
-              style: RibnToolkitTextStyles.smallBody,
-            ),
+            RibnFont12TextWidget(
+                text: formatAddrString(issuerAddress),
+                textAlignment: TextAlign.justify,
+                textColor: RibnColors.primary,
+                fontWeight: FontWeight.w300,),
             const SizedBox(width: 8),
             CustomCopyButton(
               textToBeCopied: issuerAddress,

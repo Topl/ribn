@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h4_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 
 /// A wrapper widget used for custom input fields on transfer input pages.
@@ -38,19 +40,22 @@ class CustomInputField extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(
-                itemLabel,
-                style: RibnToolkitTextStyles.h4,
-              ),
+              RibnH4TextWidget(
+                  text: itemLabel,
+                  textAlignment: TextAlign.justify,
+                  textColor: RibnColors.defaultText,
+                  fontWeight: FontWeight.w500,),
               informationText != null
                   ? Padding(
                       padding: const EdgeInsets.only(left: 4.0),
                       child: CustomToolTip(
                         borderColor: Border.all(color: const Color(0xffE9E9E9)),
-                        toolTipChild: Text(
-                          informationText!,
-                          style: RibnToolkitTextStyles.toolTipTextStyle,
-                        ),
+                        toolTipChild: RibnFont12TextWidget(
+                            text: informationText!,
+                            textAlignment: TextAlign.justify,
+                            textColor: RibnColors.defaultText,
+                            fontWeight: FontWeight.w300,
+                         ),
                         offsetPositionLeftValue: 100,
                         toolTipIcon: Image.asset(
                           RibnAssets.greyHelpBubble,

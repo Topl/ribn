@@ -10,7 +10,7 @@ import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_onboarding_h1_text_widget.dart';
 import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
 
 /// Builds checks to ensure that the user understands the importance of the seed phrase.
@@ -18,10 +18,12 @@ class SeedPhraseInfoChecklistPage extends StatefulWidget {
   const SeedPhraseInfoChecklistPage({Key? key}) : super(key: key);
 
   @override
-  State<SeedPhraseInfoChecklistPage> createState() => _SeedPhraseInfoChecklistPageState();
+  State<SeedPhraseInfoChecklistPage> createState() =>
+      _SeedPhraseInfoChecklistPageState();
 }
 
-class _SeedPhraseInfoChecklistPageState extends State<SeedPhraseInfoChecklistPage> {
+class _SeedPhraseInfoChecklistPageState
+    extends State<SeedPhraseInfoChecklistPage> {
   /// Checkboxes and their corresponding checked value
   final Map<String, bool> checkboxesState = {
     Strings.neverShareMySeedPhrase: false,
@@ -39,9 +41,10 @@ class _SeedPhraseInfoChecklistPageState extends State<SeedPhraseInfoChecklistPag
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 renderIfWeb(const WebOnboardingAppBar()),
-                const Text(
-                  Strings.readCarefully,
-                  style: RibnToolkitTextStyles.onboardingH1,
+                const RibnOnboardingH1TextWidget(
+                  text: Strings.readCarefully,
+                  textColor: RibnColors.lightGreyTitle,
+                  textAlignment: TextAlign.justify,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 30.0, bottom: 45),
@@ -51,22 +54,26 @@ class _SeedPhraseInfoChecklistPageState extends State<SeedPhraseInfoChecklistPag
                   checked: checkboxesState[Strings.neverShareMySeedPhrase]!,
                   activeText: true,
                   text: Strings.neverShareMySeedPhrase,
-                  onChanged: (bool? val) => onChecked(val ?? false, Strings.neverShareMySeedPhrase),
+                  onChanged: (bool? val) =>
+                      onChecked(val ?? false, Strings.neverShareMySeedPhrase),
                 ),
                 const SizedBox(height: 40),
                 _buildCheckboxListTile(
-                  checked: checkboxesState[Strings.walletRecoveryUsingSeedPhrase]!,
+                  checked:
+                      checkboxesState[Strings.walletRecoveryUsingSeedPhrase]!,
                   activeText: checkboxesState[Strings.neverShareMySeedPhrase]!,
                   text: Strings.walletRecoveryUsingSeedPhrase,
                   onChanged: checkboxesState[Strings.neverShareMySeedPhrase]!
-                      ? (bool? val) => onChecked(val ?? false, Strings.walletRecoveryUsingSeedPhrase)
+                      ? (bool? val) => onChecked(
+                          val ?? false, Strings.walletRecoveryUsingSeedPhrase,)
                       : null,
                 ),
                 SizedBox(height: adaptHeight(0.1)),
                 ConfirmationButton(
                   text: Strings.iUnderstand,
                   onPressed: () {
-                    Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseInstructions);
+                    Keys.navigatorKey.currentState
+                        ?.pushNamed(Routes.seedPhraseInstructions);
                   },
                   disabled: checkboxesState.containsValue(false),
                 )

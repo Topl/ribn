@@ -15,9 +15,12 @@ import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font20_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h1_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h3_text_widget.dart';
 
 class EnableBiometrics extends StatefulWidget {
   const EnableBiometrics({Key? key}) : super(key: key);
@@ -65,21 +68,34 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
           content: SingleChildScrollView(
             child: ListBody(
               children: const <Widget>[
-                Text(
-                  'Biometrics authentication is not set up on your device. Please enable biometrics in your device settings.',
+                RibnFont12TextWidget(
+                  text: Strings.biometricsSetupWarning,
+                  textAlignment: TextAlign.justify,
+                  textColor: RibnColors.defaultText,
+                  fontWeight: FontWeight.normal,
                 ),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Ok'),
+              child: const RibnFont12TextWidget(
+                text: Strings.oK,
+                textAlignment: TextAlign.justify,
+                textColor: RibnColors.defaultText,
+                fontWeight: FontWeight.normal,
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             const TextButton(
-              child: Text('Go to settings'),
+              child: RibnFont12TextWidget(
+                text: Strings.navigateToSettings,
+                textAlignment: TextAlign.justify,
+                textColor: RibnColors.defaultText,
+                fontWeight: FontWeight.normal,
+              ),
               onPressed: AppSettings.openSecuritySettings,
             ),
           ],
@@ -100,7 +116,8 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
               children: [
                 CustomIconButton(
                   onPressed: () {
-                    Keys.navigatorKey.currentState?.pushNamed(Routes.walletCreated);
+                    Keys.navigatorKey.currentState
+                        ?.pushNamed(Routes.walletCreated);
                   },
                   icon: const Icon(
                     Icons.close,
@@ -109,25 +126,28 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
                 ),
               ],
             ),
-            Text(
-              Strings.enableBiometrics,
-              style: RibnToolkitTextStyles.h1.copyWith(
-                color: RibnColors.lightGreyTitle,
-                fontSize: 28,
-              ),
+            const RibnH1TextWidget(
+              text: Strings.enableBiometrics,
+              textAlignment: TextAlign.justify,
+              textColor: RibnColors.lightGreyTitle,
+              fontWeight: FontWeight.w700,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 30.0, bottom: 45),
               child: Image.asset(
-                Platform.isIOS ? RibnAssets.iosBiometrics : RibnAssets.andriodBiometrics,
+                Platform.isIOS
+                    ? RibnAssets.iosBiometrics
+                    : RibnAssets.andriodBiometrics,
                 width: 111,
               ),
             ),
             const SizedBox(
               width: kIsWeb ? 730 : 340,
-              child: Text(
-                Strings.enableBiometricsDescription,
-                style: RibnToolkitTextStyles.onboardingH3,
+              child: RibnH3TextWidget(
+                text: Strings.enableBiometricsDescription,
+                textAlignment: TextAlign.justify,
+                textColor: RibnColors.lightGreyTitle,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ],
@@ -144,15 +164,18 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
             LargeButton(
               buttonHeight: 50,
               buttonWidth: double.infinity,
-              buttonChild: Text(
-                Strings.enableBiometrics,
-                style: RibnToolkitTextStyles.btnLarge.copyWith(
-                  color: RibnColors.lightGreyTitle,
-                ),
-              ),
+              buttonChild: const RibnFont20TextWidget(
+                  text: Strings.enableBiometrics,
+                  textAlignment: TextAlign.justify,
+                  textColor: RibnColors.lightGreyTitle,
+                  fontWeight: FontWeight.w300,),
               onPressed: () {
                 runBiometrics(_localAuthentication).then(
-                  (value) => {if (_authorized) Keys.navigatorKey.currentState?.pushNamed(Routes.walletCreated)},
+                  (value) => {
+                    if (_authorized)
+                      Keys.navigatorKey.currentState
+                          ?.pushNamed(Routes.walletCreated)
+                  },
                 );
               },
               backgroundColor: RibnColors.primary,
@@ -164,12 +187,11 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
             LargeButton(
               buttonWidth: double.infinity,
               buttonHeight: 50,
-              buttonChild: Text(
-                Strings.skipForNow,
-                style: RibnToolkitTextStyles.btnLarge.copyWith(
-                  color: RibnColors.lightGreyTitle,
-                ),
-              ),
+              buttonChild: const RibnFont20TextWidget(
+                  text: Strings.skipForNow,
+                  textAlignment: TextAlign.justify,
+                  textColor: RibnColors.lightGreyTitle,
+                  fontWeight: FontWeight.w300,),
               backgroundColor: Colors.transparent,
               hoverColor: Colors.transparent,
               dropShadowColor: Colors.transparent,

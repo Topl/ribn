@@ -9,7 +9,8 @@ import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_h1_text_widget.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_onboarding_h3_text_widget.dart';
 
 class GettingStartedPage extends StatelessWidget {
   const GettingStartedPage({Key? key}) : super(key: key);
@@ -24,30 +25,31 @@ class GettingStartedPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               renderIfWeb(const WebOnboardingAppBar()),
-              Text(
-                Strings.gettingStarted,
-                textAlign: TextAlign.center,
-                style: RibnToolkitTextStyles.h1.copyWith(
-                  color: RibnColors.lightGreyTitle,
-                  fontSize: 28,
-                ),
+              const RibnH1TextWidget(
+                text: Strings.gettingStarted,
+                textAlignment: TextAlign.center,
+                textColor: RibnColors.lightGreyTitle,
+                fontWeight: FontWeight.w700,
+                textHeight: 1.57,
+                letterSpacing: 1.68,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 35.0, bottom: 45),
                 child: Image.asset(RibnAssets.gettingStartedPng, width: 70),
               ),
               const SizedBox(
-                width: kIsWeb ? 730 : 350,
-                child: Text(
-                  Strings.gettingStartedDescription,
-                  style: RibnToolkitTextStyles.onboardingH3,
-                ),
-              ),
+                  width: kIsWeb ? 730 : 350,
+                  child: RibnOnboardingH3TextWidget(
+                    text: Strings.gettingStartedDescription,
+                    textAlignment: TextAlign.justify,
+                    textColor: RibnColors.lightGreyTitle,
+                  ),),
               kIsWeb ? const SizedBox(height: 150) : const Spacer(),
               ConfirmationButton(
                 text: Strings.okLetsGo,
                 onPressed: () {
-                  Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseInfoChecklist);
+                  Keys.navigatorKey.currentState
+                      ?.pushNamed(Routes.seedPhraseInfoChecklist);
                 },
               ),
             ],

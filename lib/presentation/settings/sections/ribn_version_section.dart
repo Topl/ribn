@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/atoms/text/ribn_font16_text_widget.dart';
 
 /// The section for displaying the current Ribn version.
 class RibnVersionSection extends StatelessWidget {
@@ -17,12 +18,17 @@ class RibnVersionSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          Strings.ribnVersion,
-          style: RibnToolkitTextStyles.extH3,
-        ),
+        const RibnFont16TextWidget(
+            text: Strings.ribnVersion,
+            textAlignment: TextAlign.justify,
+            textColor: RibnColors.white,
+            fontWeight: FontWeight.w500,),
         const SizedBox(height: 10),
-        Text(appVersion, style: RibnToolkitTextStyles.settingsSmallText),
+        RibnFont16TextWidget(
+            text: appVersion,
+            textAlignment: TextAlign.justify,
+            textColor: RibnColors.greyedOut,
+            fontWeight: FontWeight.w300,)
       ],
     );
   }
