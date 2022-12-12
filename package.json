@@ -1,6 +1,6 @@
 {
 	"name": "ribn",
-	"version": "0.2.1",
+	"version": "0.3",
 	"description": "Topl's Wallet",
 	"main": "index.js",
 	"directories": {
