@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
@@ -51,7 +49,8 @@ class RibnApp extends StatelessWidget {
           title: 'Ribn',
           navigatorObservers: [Routes.routeObserver],
           onGenerateRoute: rootRouter.generateRoutes,
-          onGenerateInitialRoutes: (initialRoute) => onGenerateInitialRoute(initialRoute, store),
+          onGenerateInitialRoutes: (initialRoute) =>
+              onGenerateInitialRoute(initialRoute, store),
           initialRoute: getInitialRoute(store),
           navigatorKey: Keys.navigatorKey,
         ),
@@ -103,7 +102,8 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
     case Routes.externalSigning:
       return [
         MaterialPageRoute(
-          builder: (context) => ExternalSigningPage(store.state.internalMessage!),
+          builder: (context) =>
+              ExternalSigningPage(store.state.internalMessage!),
           settings: const RouteSettings(name: Routes.externalSigning),
         )
       ];
@@ -127,11 +127,13 @@ Future<void> initBgConnection(Store<AppState> store) async {
   try {
     Messenger.instance.connect();
     Messenger.instance.initMsgListener((String msgFromBgScript) {
-      final InternalMessage pendingRequest = InternalMessage.fromJson(msgFromBgScript);
+      final InternalMessage pendingRequest =
+          InternalMessage.fromJson(msgFromBgScript);
       store.dispatch(ReceivedInternalMsgAction(pendingRequest));
       completer.complete();
     });
-    Messenger.instance.sendMsg(jsonEncode({'method': InternalMethods.checkPendingRequest}));
+    Messenger.instance
+        .sendMsg(jsonEncode({'method': InternalMethods.checkPendingRequest}));
   } catch (e) {
     completer.complete();
     PlatformUtils.instance.closeWindow();
