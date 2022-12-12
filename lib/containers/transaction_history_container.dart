@@ -12,7 +12,8 @@ import 'package:ribn/platform/platform.dart';
 
 /// Intended to wrap the [TransactionHistoryPage] and provide it with the the [TransactionHistoryViewmodel].
 class TransactionHistoryContainer extends StatelessWidget {
-  const TransactionHistoryContainer({Key? key, required this.builder}) : super(key: key);
+  const TransactionHistoryContainer({Key? key, required this.builder})
+      : super(key: key);
   final ViewModelBuilder<TransactionHistoryViewmodel> builder;
 
   @override
@@ -39,7 +40,8 @@ class TransactionHistoryViewmodel {
   final Future<String>? blockHeight;
 
   /// Gets transactions associated with my wallet address from the Mempool and Genus
-  final Future<List<TransactionReceipt>> Function({int pageNum}) getTransactions;
+  final Future<List<TransactionReceipt>> Function({int pageNum})
+      getTransactions;
 
   TransactionHistoryViewmodel({
     required this.toplAddress,
@@ -55,10 +57,15 @@ class TransactionHistoryViewmodel {
       toplAddress: currNetwork.myWalletAddress!.toplAddress,
       networkId: store.state.keychainState.currentNetwork.networkId,
       assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
-      blockHeight: store.state.keychainState.currentNetwork.client!.getBlockNumber(),
+      blockHeight:
+          store.state.keychainState.currentNetwork.client!.getBlockNumber(),
       getTransactions: ({int pageNum = 0}) async {
-        final myWalletAddress = currNetwork.myWalletAddress!.toplAddress.toBase58();
-        final mempoolTxs = await getMempoolTxs(client: currNetwork.client!, walletAddress: myWalletAddress);
+        final myWalletAddress =
+            currNetwork.myWalletAddress!.toplAddress.toBase58();
+        final mempoolTxs = await getMempoolTxs(
+          client: currNetwork.client!,
+          walletAddress: myWalletAddress,
+        );
         final genusTxs = await getGenusTxs(walletAddress: myWalletAddress);
         return [...mempoolTxs, ...genusTxs];
       },
@@ -71,9 +78,13 @@ class TransactionHistoryViewmodel {
   }) async {
     final mempoolTxs = await client.getMempool();
     final pendingTxsForWallet = mempoolTxs.where((tx) {
-      final walletAddrInSenders = tx.from?.any((sender) => sender.senderAddress.toBase58() == walletAddress) ?? false;
+      final walletAddrInSenders = tx.from?.any(
+            (sender) => sender.senderAddress.toBase58() == walletAddress,
+          ) ??
+          false;
       // simple recipient or asset recipient
-      final walletAddrInRecipients = tx.to.any((recipient) => recipient.toJson()[0] == walletAddress);
+      final walletAddrInRecipients =
+          tx.to.any((recipient) => recipient.toJson()[0] == walletAddress);
       return walletAddrInSenders || walletAddrInRecipients;
     }).toList();
     final List<TransactionReceipt> formattedTxs = [];
@@ -116,14 +127,17 @@ class TransactionHistoryViewmodel {
         confirmationDepth: 1,
       ),
     );
-    final Map<String, dynamic> txResultJson = txQueryResult.toProto3Json() as Map<String, dynamic>;
+    final Map<String, dynamic> txResultJson =
+        txQueryResult.toProto3Json() as Map<String, dynamic>;
     final List<TransactionReceipt> txs = [];
     for (var element in (txResultJson['success']['transactions'] as List)) {
       if (element['inputs'] == null) continue;
       try {
         final outputs = formatRecipients(element['outputs'] as List);
         final newBoxes = formatNewBoxes(element['newBoxes']);
-        final inputs = (element['inputs'] as List).map((input) => [input['address'], input['nonce']]).toList();
+        final inputs = (element['inputs'] as List)
+            .map((input) => [input['address'], input['nonce']])
+            .toList();
         if (inputs.isEmpty) continue;
         // get tx per recipient
         outputs.toList().forEach((output) {
@@ -159,7 +173,8 @@ class TransactionHistoryViewmodel {
       final String type = (e['value'] as Map<String, dynamic>).keys.first;
       final quantity = (e['value'] as Map<String, dynamic>)[type]['quantity'];
       final assetCode = (e['value'] as Map<String, dynamic>)[type]['code'];
-      final securityRoot = (e['value'] as Map<String, dynamic>)[type]['securityRoot'];
+      final securityRoot =
+          (e['value'] as Map<String, dynamic>)[type]['securityRoot'];
       final metadata = (e['value'] as Map<String, dynamic>)[type]['metadata'];
       formattedOutputs.add([
         address,

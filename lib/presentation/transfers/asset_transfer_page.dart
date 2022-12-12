@@ -16,18 +16,13 @@ import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 /// Prompts the user to select an asset, the recipient address, amount, and an optional note as transaction metadata.
 class AssetTransferPage extends StatefulWidget {
   const AssetTransferPage({Key? key}) : super(key: key);
-
   @override
   State<AssetTransferPage> createState() => _AssetTransferPageState();
 }
 
 class _AssetTransferPageState extends State<AssetTransferPage> {
   int currentTabIndex = 0;
-
   dynamic bottomButton;
-
-  set setBottomButton(Widget value) => setState(() => bottomButton = value);
-
   bool isKeyboardVisible = false;
 
   @override
@@ -38,6 +33,12 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
       });
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
@@ -69,14 +70,16 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
                         Strings.sendAssets,
-                        style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                        style: RibnToolkitTextStyles.btnMedium
+                            .copyWith(color: RibnColors.defaultText),
                       ),
                     ),
                     1: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
                         Strings.sendNativeCoins,
-                        style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                        style: RibnToolkitTextStyles.btnMedium
+                            .copyWith(color: RibnColors.defaultText),
                       ),
                     ),
                   },
@@ -87,13 +90,15 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
                   ? AssetTransferInputContainer(
                       builder: (context, vm) => AssetTransferSection(
                         vm: vm,
-                        updateButton: (val) => setState(() => bottomButton = val),
+                        updateButton: (val) =>
+                            setState(() => bottomButton = val),
                       ),
                     )
                   : PolyTransferInputContainer(
                       builder: (context, vm) => PolyTransferSection(
                         vm: vm,
-                        updateButton: (val) => setState(() => bottomButton = val),
+                        updateButton: (val) =>
+                            setState(() => bottomButton = val),
                       ),
                     ),
               const SizedBox(height: 18),

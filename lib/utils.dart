@@ -1,6 +1,4 @@
-import 'dart:typed_data';
 import 'dart:ui';
-
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:brambldart/utils.dart';
 import 'package:flutter/foundation.dart';
@@ -20,8 +18,6 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
-import 'constants/assets.dart';
-import 'constants/keys.dart';
 
 /// Formats an address string to only dispaly its first and last 10 characters.
 String formatAddrString(String addr, {int charsToDisplay = 10}) {
@@ -57,19 +53,23 @@ void validateRecipientAddress({
   handleResult(result['success']);
 }
 
-Future<bool> isBiometricsAuthenticationSupported(LocalAuthentication auth) async {
+Future<bool> isBiometricsAuthenticationSupported(
+    LocalAuthentication auth,) async {
   final bool canCheckBiometrics = await auth.canCheckBiometrics;
   final bool isDeviceSupported = await auth.isDeviceSupported();
 
   return canCheckBiometrics && isDeviceSupported;
 }
 
-Future<bool> isBiometricsAuthenticationEnrolled(LocalAuthentication auth) async {
+Future<bool> isBiometricsAuthenticationEnrolled(
+    LocalAuthentication auth,) async {
   final bool canCheckBiometrics = await auth.canCheckBiometrics;
   final bool isDeviceSupported = await auth.isDeviceSupported();
   final List enrolledBiometrics = await auth.getAvailableBiometrics();
 
-  return canCheckBiometrics && isDeviceSupported && enrolledBiometrics.isNotEmpty;
+  return canCheckBiometrics &&
+      isDeviceSupported &&
+      enrolledBiometrics.isNotEmpty;
 }
 
 Future<bool> authenticateWithBiometrics(LocalAuthentication auth) async {
@@ -87,7 +87,8 @@ Future<bool> authenticateWithBiometrics(LocalAuthentication auth) async {
 Future<bool> isBiometricsTypeFingerprint(LocalAuthentication auth) async {
   final List enrolledBiometrics = await auth.getAvailableBiometrics();
 
-  return enrolledBiometrics.contains(BiometricType.fingerprint) && enrolledBiometrics.isNotEmpty;
+  return enrolledBiometrics.contains(BiometricType.fingerprint) &&
+      enrolledBiometrics.isNotEmpty;
 }
 
 void navigateToRoute(BuildContext context, String route) {
@@ -95,10 +96,12 @@ void navigateToRoute(BuildContext context, String route) {
 }
 
 /// Adapt to screen height based on [scaleFactor].
-double adaptHeight(double scaleFactor) => MediaQueryData.fromWindow(window).size.height * scaleFactor;
+double adaptHeight(double scaleFactor) =>
+    MediaQueryData.fromWindow(window).size.height * scaleFactor;
 
 /// Adapt to screen width based on [scaleFactor].
-double adaptWidth(double scaleFactor) => MediaQueryData.fromWindow(window).size.width * scaleFactor;
+double adaptWidth(double scaleFactor) =>
+    MediaQueryData.fromWindow(window).size.width * scaleFactor;
 
 double deviceTopPadding() => MediaQueryData.fromWindow(window).padding.top;
 
@@ -119,7 +122,8 @@ Future<void> showReceivingAddress() async {
     context: Keys.navigatorKey.currentContext!,
     builder: (context) {
       return StoreConnector<AppState, RibnAddress>(
-        converter: (store) => store.state.keychainState.currentNetwork.addresses.first,
+        converter: (store) =>
+            store.state.keychainState.currentNetwork.addresses.first,
         builder: (context, ribnAddress) {
           return CustomModal.renderCustomModal(
             context: Keys.navigatorKey.currentContext!,
@@ -187,7 +191,8 @@ Future<void> showReceivingAddress() async {
 
 final emptyStateBody = RichText(
   text: TextSpan(
-    style: RibnToolkitTextStyles.h4.copyWith(fontSize: kIsWeb ? 12 : 14, color: RibnColors.defaultText),
+    style: RibnToolkitTextStyles.h4
+        .copyWith(fontSize: kIsWeb ? 12 : 14, color: RibnColors.defaultText),
     children: <TextSpan>[
       TextSpan(
         text: Strings.emptyStateBody.substring(0, 30),
