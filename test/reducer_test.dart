@@ -1,8 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:bip_topl/bip_topl.dart' as bip_topl;
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'dart:typed_data';
 import 'package:redux/redux.dart';
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/onboarding_actions.dart';
@@ -12,6 +13,7 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/redux.dart';
 import 'package:ribn/repositories/keychain_repository.dart';
+
 import 'test_data.dart';
 
 void main() {
@@ -52,7 +54,7 @@ void main() {
         );
         expect(testStore.state.keychainState.keyStoreJson, testKeyStore);
         expect(testStore.state.keychainState.hdWallet!.rootVerifyKey,
-            hdWallet.rootVerifyKey);
+            hdWallet.rootVerifyKey,);
       });
       test('update network with addresses', () async {
         const KeychainRepository keychainRepo = KeychainRepository();
@@ -72,13 +74,13 @@ void main() {
         testStore.state.keychainState.networks.forEach((networkName, network) {
           listEquals(
               testStore.state.keychainState.networks[networkName]!.addresses,
-              networkAddresses[networkName]);
+              networkAddresses[networkName],);
         });
       });
       test('toggle network', () async {
         testStore.dispatch(UpdateCurrentNetworkAction(NetworkUtils.private));
         expect(testStore.state.keychainState.currentNetwork.networkName,
-            NetworkUtils.private);
+            NetworkUtils.private,);
       });
     });
   });
