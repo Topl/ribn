@@ -1,4 +1,6 @@
+import 'dart:typed_data';
 import 'dart:ui';
+
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:brambldart/utils.dart';
 import 'package:flutter/foundation.dart';
@@ -54,7 +56,8 @@ void validateRecipientAddress({
 }
 
 Future<bool> isBiometricsAuthenticationSupported(
-    LocalAuthentication auth,) async {
+  LocalAuthentication auth,
+) async {
   final bool canCheckBiometrics = await auth.canCheckBiometrics;
   final bool isDeviceSupported = await auth.isDeviceSupported();
 
@@ -62,7 +65,8 @@ Future<bool> isBiometricsAuthenticationSupported(
 }
 
 Future<bool> isBiometricsAuthenticationEnrolled(
-    LocalAuthentication auth,) async {
+  LocalAuthentication auth,
+) async {
   final bool canCheckBiometrics = await auth.canCheckBiometrics;
   final bool isDeviceSupported = await auth.isDeviceSupported();
   final List enrolledBiometrics = await auth.getAvailableBiometrics();
