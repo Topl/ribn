@@ -1,4 +1,6 @@
+import 'dart:typed_data';
 import 'dart:ui';
+
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:brambldart/utils.dart';
 import 'package:flutter/foundation.dart';
