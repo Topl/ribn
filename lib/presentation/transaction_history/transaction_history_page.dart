@@ -129,7 +129,6 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     int networkId,
     TransactionHistoryViewmodel vm,
   ) async {
-
     final List<TransactionReceipt> response =
         await vm.getTransactions(pageNum: _pageNumber);
     response.unique((transaction) => transaction.id.toString());
@@ -168,6 +167,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     }
     return response;
   }
+
   @override
   Widget build(BuildContext context) {
     return TransactionHistoryContainer(
@@ -205,7 +205,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                   child: Column(
                     children: [
                       CustomPageDropdownTitle(
-                        title: Strings.activityDetails,
+                        title: Strings.recentActivity,
                         chevronIconLink: RibnAssets.chevronDown,
                         currentSelectedItem: _filterSelectedItem,
                         itemsToSelectFrom: _itemsToSelectFrom,
