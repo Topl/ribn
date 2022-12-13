@@ -7,7 +7,6 @@ import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/transaction_history_container.dart';
-import 'package:ribn/helpers/helper_functions.dart';
 import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/transaction_history/service_locator/locator.dart';
 import 'package:ribn/utils.dart';
@@ -131,7 +130,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
   ) async {
     final List<TransactionReceipt> response =
         await vm.getTransactions(pageNum: _pageNumber);
-    response.unique((transaction) => transaction.id.toString());
+    //response.unique((transaction) => transaction.id.toString());
     // Filters transactions by sent or received
     if (_filterSelectedItem != 'Transaction types') {
       final List<TransactionReceipt> filteredTransactions =
