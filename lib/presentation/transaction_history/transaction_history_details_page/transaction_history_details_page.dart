@@ -29,7 +29,6 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
   @override
   Widget build(BuildContext context) {
     final _scrollController = ScrollController();
-
     final dataTileTextStyle = RibnToolkitTextStyles.hintStyle.copyWith(
       fontWeight: FontWeight.w400,
       color: const Color(0xff727372),

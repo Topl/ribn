@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:ribn/constants/rules.dart';

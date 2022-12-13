@@ -106,7 +106,6 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
           widget.transactionReceipt.minting == true) {
         return '+$transactionQuantity';
       }
-
       return '-$transactionQuantity';
     }
 
