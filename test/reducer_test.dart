@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:bip_topl/bip_topl.dart' as bip_topl;
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/foundation.dart';
@@ -13,7 +12,6 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/redux.dart';
 import 'package:ribn/repositories/keychain_repository.dart';
-
 import 'test_data.dart';
 
 void main() {
