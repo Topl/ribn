@@ -8,6 +8,7 @@ import 'package:ribn/presentation/transfers/mint_input_page.dart';
 import 'package:ribn/widgets/ribn_app_bar_wapper.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/organisms/ribn_bottom_app_bar.dart';
+import 'package:ribn_toolkit/widgets/organisms/ribn_bottom_app_barV2.dart';
 
 /// The 'home page' of Ribn.
 ///
@@ -22,17 +23,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final List<dynamic> _pages = [
     const WalletBalancePage(),
-    const MintInputPage(),
     const TxHistoryPage(),
   ];
   final List<Image> _pageIcons = [
     Image.asset(RibnAssets.walletGrey),
-    Image.asset(RibnAssets.circlePlus),
     Image.asset(RibnAssets.clockGrey)
   ];
   final List<Image> _activePageIcons = [
     Image.asset(RibnAssets.walletBlue),
-    Image.asset(RibnAssets.circlePlus),
     Image.asset(RibnAssets.clockBlue)
   ];
   int _currPage = 0;
@@ -41,7 +39,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const RibnAppBarWrapper(),
-      bottomNavigationBar: RibnBottomAppBar(
+      bottomNavigationBar: RibnBottomAppBarV2(
         pages: _pages,
         currPage: _currPage,
         activePageIcons: _activePageIcons,
@@ -56,17 +54,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void setCurrentPage(key) {
     setState(() {
       _currPage = key;
-
-      if (_currPage == 1) {
-        _currPage = 0;
-        Keys.navigatorKey.currentState?.pushNamed(
-          Routes.mintInput,
-          arguments: {
-            'mintingNewAsset': true,
-            'mintingToMyWallet': false,
-          },
-        );
-      }
     });
   }
 }
