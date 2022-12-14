@@ -7,7 +7,7 @@ class Strings {
   static const String assets = 'Assets';
   static const String send = 'Send';
   static const String receive = 'Receive';
-  static const String transactionHistory = 'Transaction History';
+  static const String transactionHistory = 'Activity details';
   static const String generateNewAddress = 'GENERATE NEW ADDRESS';
   static const String noAddresses = 'You have no addresses';
   static const String settings = 'Settings';
@@ -143,13 +143,20 @@ Write down the each word in the exact order it is presented.''';
       '''Export Topl Main Key and save it somewhere secure.\nYou can reimport this to restore your wallet.''';
   static const String exportWallet = 'Export Wallet';
   static const String dangerZone = 'Danger Zone';
-  static const String actionNotReversible = 'Careful, this action is not reversible!';
-  static const String deleteWallet = 'Delete Wallet';
+  static const String actionNotReversible = 'Careful, these actions are not reversible!';
+  static const String removeWallet = 'Remove wallet from your device';
+  static const String disconnectDApps = 'Disconnect DApps from Ribn';
+  static const String delete = 'Delete';
+  static const String disconnect = 'Disconnect';
   static const String deleteRibnWallet = 'Delete Ribn Wallet';
+  static const String disconnectRibnWalletDApps = 'Disconnect all DApps from Ribn wallet?';
   static const String deleteRibnWalletDesc =
       'Enter your wallet password to delete this wallet.\n\nThis action is not reversible. Your Ribn wallet will be deleted from this device.';
+  static const String disconnectRibnWalletDAppsDesc =
+      'By disconnecting, Ribn wallet will remove authorization to the following DApps:';
   static const String noIChangedMyMind = 'NO, I CHANGED MY MIND!';
   static const String yesIWantToDelete = 'YES, I WANT TO DELETE.';
+  static const String yesIWantToDisconnect = 'YES, I WANT TO DISCONNECT.';
   static const String enterWalletPassword = 'Enter Wallet Password';
   static const String unlock = 'Unlock';
   static const String next = 'Next';
@@ -270,7 +277,17 @@ Write down the each word in the exact order it is presented.''';
   static const String enableBiometricsDescription =
       '''Would you like to turn on biometrics for faster access to Ribn Wallet?\n 
 Ribn Wallet does not control the functionality of biometrics and does not have access to your biometrics information.''';
+  static const String recentActivity = 'Recent Activity';
+  static const String transactionDetails = 'Activity details';
+  static const String noActivityToReview = 'You currently have no wallet activity to review.';
   static const String noAssetsInWallet = 'You currently have no assets in your wallet';
   static const String emptyStateBody =
       'Here’s how you can get started:\n • Mint a new asset to a wallet address\n • Share your address to receive assets';
+  static const String connect = 'Connect';
+  static const String connectDApp = ' allowing this site to see my Ribn address, and suggest transactions to approve.';
+  static const String connecting = 'Connecting...';
+  static const String executeTransaction = 'You are about to execute the following transaction on';
+
+
+
 }

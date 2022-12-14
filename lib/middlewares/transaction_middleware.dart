@@ -124,14 +124,21 @@ void Function(Store<AppState> store, SignExternalTxAction action, NextDispatcher
 ) {
   return (store, action, next) async {
     try {
+
       final Map<String, dynamic> transferDetails = {};
+
       transferDetails['messageToSign'] =
           Base58Data.validated(action.pendingRequest.data!['messageToSign'] as String).value;
+
       final TransactionReceipt transactionReceipt = TransactionReceipt.fromJson(action.pendingRequest.data!['rawTx']);
+
       transferDetails['rawTx'] = transactionReceipt;
+
       final List<String> rawTxSenders = transactionReceipt.from!.map((e) => e.senderAddress.toBase58()).toList();
+
       final List<RibnAddress> sendersInWallet = List.from(store.state.keychainState.currentNetwork.addresses)
         ..retainWhere((addr) => rawTxSenders.contains(addr.toplAddress.toBase58()));
+
       if (sendersInWallet.isEmpty) {
         final InternalMessage response = InternalMessage(
           method: InternalMethods.returnResponse,
@@ -142,16 +149,19 @@ void Function(Store<AppState> store, SignExternalTxAction action, NextDispatcher
           origin: action.pendingRequest.origin,
         );
         next(SendInternalMsgAction(response));
+
       } else {
         final List<Credentials> credentials = keychainRepo.getCredentials(
           store.state.keychainState.hdWallet!,
           sendersInWallet,
         );
+
         final TransactionReceipt signedTx = await transactionRepo.signTx(
           store.state.keychainState.currentNetwork.client!,
           credentials,
           transferDetails,
         );
+
         final InternalMessage response = InternalMessage(
           method: InternalMethods.returnResponse,
           data: signedTx.toBroadcastJson(),
@@ -160,6 +170,7 @@ void Function(Store<AppState> store, SignExternalTxAction action, NextDispatcher
           id: action.pendingRequest.id,
           origin: action.pendingRequest.origin,
         );
+
         next(SendInternalMsgAction(response));
       }
     } catch (e) {

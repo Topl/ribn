@@ -27,6 +27,7 @@ class AssetCodeShortDetails extends StatelessWidget {
               padding: const EdgeInsets.only(left: 4.0),
               child: CustomToolTip(
                 offsetPositionLeftValue: 120,
+                borderColor: Border.all(color: const Color(0xffE9E9E9)),
                 toolTipIcon: Image.asset(
                   RibnAssets.greyHelpBubble,
                   width: 18,

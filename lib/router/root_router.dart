@@ -2,8 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/internal_message.dart';
+// import 'package:ribn/models/transaction_history_entry.dart';
 import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/presentation/asset_details/asset_details_page.dart';
+import 'package:ribn/presentation/authorize_and_sign/connect_dapp.dart';
+import 'package:ribn/presentation/authorize_and_sign/loading_dapp.dart';
+import 'package:ribn/presentation/authorize_and_sign/review_and_sign.dart';
 import 'package:ribn/presentation/enable_page.dart';
 import 'package:ribn/presentation/external_signing_page.dart';
 import 'package:ribn/presentation/home/home_page.dart';
@@ -26,6 +30,8 @@ import 'package:ribn/presentation/onboarding/restore_wallet/enter_wallet_passwor
 import 'package:ribn/presentation/onboarding/restore_wallet/restore_wallet_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/restore_with_topl_key_page.dart';
 import 'package:ribn/presentation/settings/settings_page.dart';
+import 'package:ribn/presentation/transaction_history/transaction_history_details_page/transaction_history_details_page.dart';
+import 'package:ribn/presentation/transaction_history/transaction_history_page.dart';
 import 'package:ribn/presentation/transfers/asset_transfer_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
 import 'package:ribn/presentation/transfers/tx_confirmation_page.dart';
@@ -157,6 +163,7 @@ class RootRouter {
       case Routes.txReview:
         {
           final TransferDetails transferDetails = settings.arguments as TransferDetails;
+
           if (kIsWeb) return pageRouteNotAnimated(TxReviewPage(transferDetails: transferDetails), settings);
           return pageRoute(TxReviewPage(transferDetails: transferDetails), settings);
         }
@@ -185,6 +192,21 @@ class RootRouter {
             settings,
           );
         }
+      case Routes.txHistory:
+        {
+          return pageRoute(const TxHistoryPage(), settings);
+        }
+      case Routes.txHistoryDetails:
+        final Map? transactionDetails = settings.arguments as Map;
+
+        {
+          return pageRoute(
+            TxHistoryDetailsPage(
+              transactionDetails: transactionDetails,
+            ),
+            settings,
+          );
+        }
       case Routes.settings:
         {
           if (kIsWeb) return pageRouteNotAnimated(const SettingsPage(), settings);
@@ -206,6 +228,23 @@ class RootRouter {
         {
           final String errorMessage = (settings.arguments ?? 'Unknown error occurred') as String;
           return errorRoute(errorMsg: errorMessage);
+        }
+
+      case Routes.connectDApp:
+        {
+          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
+          return pageRouteNotAnimated(ConnectDApp(pendingRequest), settings);
+        }
+      case Routes.reviewAndSignDApp:
+        {
+          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
+          if (kIsWeb) return pageRouteNotAnimated(ReviewAndSignDApp(pendingRequest), settings);
+          return pageRoute(ReviewAndSignDApp(pendingRequest), settings);
+        }
+      case Routes.loadingDApp:
+        {
+          final InternalMessage response = settings.arguments as InternalMessage;
+          return pageRouteNotAnimated(LoadingDApp(response: response), settings);
         }
       default:
         return errorRoute();

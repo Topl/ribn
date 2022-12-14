@@ -24,6 +24,12 @@ class _ExternalSigningPageState extends State<ExternalSigningPage> {
     return Scaffold(
       body: Column(
         children: [
+          Text(widget.request.id),
+          Text(widget.request.method),
+          Text(widget.request.origin),
+          Text(widget.request.sender),
+          Text(widget.request.target),
+          Text(widget.request.data.toString()),
           Text(widget.request.method),
           Text(widget.request.data.toString()),
           MaterialButton(

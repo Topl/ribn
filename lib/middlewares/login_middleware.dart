@@ -51,6 +51,10 @@ void Function(Store<AppState> store, AttemptLoginAction action, NextDispatcher n
       }
       // initialize hd wallet on success
       next(InitializeHDWalletAction(toplExtendedPrivateKey: toplExtendedPrvKeyUint8List));
+
+      //Generate Initial addresses for every network
+      next(GenerateInitialAddressesAction());
+
       action.completer.complete(true);
     } catch (e) {
       action.completer.complete(false);

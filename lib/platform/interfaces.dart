@@ -20,7 +20,28 @@ abstract class IPlatformUtils {
   void closeWindow();
 
   void createLoginSessionAlarm();
+
+  /// Web only
+  Future<void> clearDAppList();
+
+  /// Web only
+  Future getDAppList();
+
+  /// Web only
+  Future<void> consoleLog(dynamic item);
+
+  /// Web only
+  Future<T> convertToFuture<T>(Object jsPromise);
 }
+
+abstract class IWallet {
+  /// Returns wallet balance
+  String getBalance();
+
+  /// Returns wallet address
+  String getAddress();
+}
+
 
 abstract class IMessenger {
   /// Send [msg] to the background script.
@@ -46,6 +67,7 @@ abstract class IPlatformLocalStorage {
   ///
   /// [key] should be the Base58Encoded Topl Main Key.
   Future<void> saveKeyInSessionStorage(String key);
+
 
   /// Mobile-only
   ///

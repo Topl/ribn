@@ -9,7 +9,7 @@ class BottomReviewAction extends StatelessWidget {
     required this.maxHeight,
   }) : super(key: key);
 
-  final Column children;
+  final dynamic children;
   final bool transparentBackground;
   final double maxHeight;
 
@@ -21,7 +21,7 @@ class BottomReviewAction extends StatelessWidget {
         topRight: Radius.circular(25),
       ),
       child: Container(
-        constraints: BoxConstraints(maxHeight: kIsWeb ? 120 : maxHeight),
+        constraints: BoxConstraints(maxHeight: maxHeight),
         decoration: transparentBackground
             ? null
             : const BoxDecoration(
@@ -37,7 +37,7 @@ class BottomReviewAction extends StatelessWidget {
         child: BottomAppBar(
           color: transparentBackground ? Colors.transparent : Colors.white,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+            padding: const EdgeInsets.fromLTRB(20, 16, 20, kIsWeb ? 16 : 0),
             child: children,
           ),
           elevation: 0,

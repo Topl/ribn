@@ -34,3 +34,51 @@ export const isEnabled = async () => {
 		return err;
 	}
 };
+
+//v2
+
+export const authorize = async (name: string, icon: string) => {
+	try {
+		const result = await Messenger.forwardToContentScript({
+			method: API_METHODS.authorize,
+			data: { name: name, url: icon },
+		});
+		return result.data;
+	} catch (err) {
+		return err;
+	}
+};
+
+export const getBalance = async () => {
+	try {
+		const result = await Messenger.forwardToContentScript({
+			method: API_METHODS.getBalance,
+		});
+		return result.data;
+	} catch (err) {
+		return err;
+	}
+};
+
+export const signTransaction = async (rawTx: any) => {
+	try {
+		const result = await Messenger.forwardToContentScript({
+			method: API_METHODS.signTransaction,
+			data: rawTx,
+		});
+		return result.data;
+	} catch (err) {
+		return err;
+	}
+};
+
+export const revoke = async () => {
+	try {
+		const result = await Messenger.forwardToContentScript({
+			method: API_METHODS.revoke,
+		});
+		return result.data;
+	} catch (err) {
+		return err;
+	}
+};

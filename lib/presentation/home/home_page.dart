@@ -3,6 +3,7 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/presentation/home/wallet_balance_page.dart';
+import 'package:ribn/presentation/transaction_history/transaction_history_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
 import 'package:ribn/widgets/ribn_app_bar_wapper.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
@@ -22,14 +23,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final List<dynamic> _pages = [
     const WalletBalancePage(),
     const MintInputPage(),
+    const TxHistoryPage(),
   ];
   final List<Image> _pageIcons = [
     Image.asset(RibnAssets.walletGrey),
-    Image.asset(RibnAssets.plusGrey),
+    Image.asset(RibnAssets.circlePlus),
+    Image.asset(RibnAssets.clockGrey)
   ];
   final List<Image> _activePageIcons = [
     Image.asset(RibnAssets.walletBlue),
-    Image.asset(RibnAssets.plusBlue),
+    Image.asset(RibnAssets.circlePlus),
+    Image.asset(RibnAssets.clockBlue)
   ];
   int _currPage = 0;
 

@@ -12,6 +12,8 @@ class EmptyStateScreen extends StatelessWidget {
   final void Function() buttonOneAction;
   final String buttonTwoText;
   final void Function() buttonTwoAction;
+  final dynamic mobileHeight;
+  final dynamic desktopHeight;
 
   const EmptyStateScreen({
     required this.icon,
@@ -21,6 +23,8 @@ class EmptyStateScreen extends StatelessWidget {
     required this.buttonOneAction,
     required this.buttonTwoText,
     required this.buttonTwoAction,
+    required this.mobileHeight,
+    required this.desktopHeight,
     Key? key,
   }) : super(key: key);
 
@@ -30,8 +34,6 @@ class EmptyStateScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
-    const int dynamicWidthValue = kIsWeb ? 300 : 380;
 
     return Padding(
       padding: const EdgeInsets.only(top: 18, left: 24, right: 24),
@@ -42,16 +44,16 @@ class EmptyStateScreen extends StatelessWidget {
           boxShadow: [BoxShadow(color: RibnColors.paleGreen.withOpacity(1), blurRadius: 8, spreadRadius: 8)],
         ),
         width: width - 20,
-        height: height - dynamicWidthValue,
+        height: kIsWeb ? desktopHeight : mobileHeight,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const SizedBox(height: 15),
+            const SizedBox(height: 8),
             Image.asset(
               icon,
               width: kIsWeb ? 53 : 63,
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 8),
             SizedBox(
               width: 275,
               height: 64,
@@ -67,7 +69,7 @@ class EmptyStateScreen extends StatelessWidget {
             ),
             SizedBox(
               width: 275,
-              height: 73,
+              height: 60,
               child: body,
             ),
             Wrap(
@@ -103,7 +105,7 @@ class EmptyStateScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 8),
           ],
         ),
       ),

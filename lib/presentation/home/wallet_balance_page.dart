@@ -16,7 +16,7 @@ import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_card.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 /// One of the 3 main pages on the home screen.
 ///
@@ -107,11 +107,12 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
   /// Builds the top-half container on the balance page.
   /// Displays the balance in Polys and send/receive buttons.
   Widget _buildPolyContainer(WalletBalanceViewModel vm) {
-    final Uri url = Uri.parse(tooltipUrl);
+    // final Uri url = Uri.parse(tooltipUrl);
 
     CustomToolTip renderTooltip() {
       final bool hasPolys = vm.polyBalance > 0;
       return CustomToolTip(
+        borderColor: Border.all(color: const Color(0xffE9E9E9)),
         offsetPositionLeftValue: 180,
         toolTipIcon: Image.asset(
           RibnAssets.circleInfo,
@@ -126,7 +127,11 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
               ),
               WidgetSpan(
                 child: GestureDetector(
-                  onTap: () async => await launchUrl(url),
+                  // onTap: () async => await launchUrl(url),
+                  // Temporary add redirect to DApp flow
+                  onTap: () => Keys.navigatorKey.currentState?.pushNamed(
+                    Routes.loadingDApp,
+                  ),
                   child: Row(
                     children: [
                       Text(
@@ -224,6 +229,8 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
         ),
         buttonTwoText: 'Share',
         buttonTwoAction: () async => await showReceivingAddress(),
+        mobileHeight: MediaQuery.of(context).size.height * 0.5,
+        desktopHeight: 258,
       );
     }
 
@@ -246,6 +253,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: vm.assets.length,
               itemBuilder: (context, idx) {
+                // Here's how we get each individual asset
                 final AssetAmount asset = vm.assets[idx];
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),

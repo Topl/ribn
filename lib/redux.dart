@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/middlewares/app_middleware.dart';
@@ -15,11 +14,13 @@ import 'package:ribn/repositories/transaction_repository.dart';
 
 class Redux {
   static Store<AppState>? _store;
-  static const OnboardingRespository onboardingRespository = OnboardingRespository();
+  static const OnboardingRespository onboardingRespository =
+      OnboardingRespository();
   static const LoginRepository loginRepository = LoginRepository();
   static const MiscRepository miscRepository = MiscRepository();
   static const KeychainRepository keychainRepository = KeychainRepository();
-  static const TransactionRepository transactionRepository = TransactionRepository();
+  static const TransactionRepository transactionRepository =
+      TransactionRepository();
 
   static Store<AppState>? get store {
     if (_store == null) {
@@ -55,8 +56,10 @@ class Redux {
 
   static Future<Map<String, dynamic>> getPersistedAppState() async {
     try {
-      final String persistedAppState = await PlatformLocalStorage.instance.getState();
-      final Map<String, dynamic> mappedAppState = jsonDecode(persistedAppState) as Map<String, dynamic>;
+      final String persistedAppState =
+          await PlatformLocalStorage.instance.getState();
+      final Map<String, dynamic> mappedAppState =
+          jsonDecode(persistedAppState) as Map<String, dynamic>;
       return mappedAppState;
     } catch (e) {
       return {};
@@ -64,13 +67,13 @@ class Redux {
   }
 
   /// Gets the persisted app state from local storage, and if valid, initializes AppState with the persisted state.
-  ///
   /// Otherwise, a new AppState is initialized depending on [initTestStore].
   static Future<AppState> getInitialAppState(bool initTestStore) async {
     try {
       final Map<String, dynamic> appState = await getPersistedAppState();
       if (kIsWeb) {
-        final String? toplKey = await PlatformLocalStorage.instance.getKeyFromSessionStorage();
+        final String? toplKey =
+            await PlatformLocalStorage.instance.getKeyFromSessionStorage();
         appState['keychainState']['toplKey'] = toplKey;
       }
       return AppState.fromMap(appState);
