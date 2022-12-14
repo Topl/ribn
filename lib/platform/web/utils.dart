@@ -19,7 +19,7 @@ external Future<String> getCurrentView();
 external void createSessionAlarm();
 external Future<void> deleteAllowList();
 external Future<List<String>> retrieveAllowList();
-external void logToConsole(dynamic item);
+external Future<void> logToConsole(dynamic item);
 
 class PlatformUtils implements IPlatformUtils {
   PlatformUtils._internal();
@@ -69,7 +69,7 @@ class PlatformUtils implements IPlatformUtils {
   Future<List<String>> getDAppList() => retrieveAllowList();
 
   @override
-  void consoleLog(dynamic item) => logToConsole(item);
+  Future<void> consoleLog(dynamic item) => logToConsole(item);
 
   @override
   Future<T> convertToFuture<T>(Object jsPromise) {

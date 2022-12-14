@@ -36,6 +36,7 @@ class _SettingsPageState extends State<SettingsPage> {
       final List<String> dApps = await PlatformUtils.instance
           .convertToFuture(PlatformUtils.instance.getDAppList());
       await PlatformUtils.instance.consoleLog(dApps.toString());
+
       setState(() async {
         canDisconnect = dApps.isNotEmpty;
       });
