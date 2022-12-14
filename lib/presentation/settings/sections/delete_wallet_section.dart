@@ -9,8 +9,14 @@ class DeleteWalletSection extends StatelessWidget {
   /// Handler for when user confirms wallet deletion.
   final Function(BuildContext context) onDeletePressed;
 
+  final Function(BuildContext context) onDisconnectPressed;
+
+  final bool canDisconnect;
+
   const DeleteWalletSection({
     required this.onDeletePressed,
+    required this.onDisconnectPressed,
+    required this.canDisconnect,
     Key? key,
   }) : super(key: key);
 
@@ -29,6 +35,53 @@ class DeleteWalletSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
+        const Text(
+          Strings.actionNotReversible,
+          style: RibnToolkitTextStyles.settingsSmallText,
+        ),
+        const SizedBox(height: 10),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            color: RibnColors.paleGrey,
+          ),
+          width: 291,
+          height: 67,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  Strings.disconnectDApps,
+                  style: RibnToolkitTextStyles.settingsSmallText,
+                ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  width: 107,
+                  height: 22,
+                  child: LargeButton(
+                    buttonChild: Text(
+                      Strings.disconnect,
+                      style: RibnToolkitTextStyles.btnLarge.copyWith(
+                        color: RibnColors.primary.withOpacity(canDisconnect == true ? 1.0 : 0.3),
+                        fontSize: 10,
+                      ),
+                    ),
+                    backgroundColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    dropShadowColor: Colors.transparent,
+                    borderColor: RibnColors.primary.withOpacity(canDisconnect == true ? 1.0 : 0.3),
+                    onPressed: () => canDisconnect ?
+                      onDisconnectPressed(context) : null,),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 5,
+        ),
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
@@ -42,7 +95,7 @@ class DeleteWalletSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  Strings.actionNotReversible,
+                  Strings.removeWallet,
                   style: RibnToolkitTextStyles.settingsSmallText,
                 ),
                 const SizedBox(height: 10),
@@ -51,7 +104,7 @@ class DeleteWalletSection extends StatelessWidget {
                   height: 22,
                   child: LargeButton(
                     buttonChild: Text(
-                      Strings.deleteWallet,
+                      Strings.delete,
                       style: RibnToolkitTextStyles.btnLarge.copyWith(
                         color: RibnColors.primary,
                         fontSize: 10,
@@ -61,7 +114,9 @@ class DeleteWalletSection extends StatelessWidget {
                     hoverColor: Colors.transparent,
                     dropShadowColor: Colors.transparent,
                     borderColor: RibnColors.primary,
-                    onPressed: () => onDeletePressed(context),
+                    onPressed: () {
+                      onDeletePressed(context);
+                    },
                   ),
                 ),
               ],

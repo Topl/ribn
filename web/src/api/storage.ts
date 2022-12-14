@@ -8,9 +8,26 @@ export const ExtensionStorage = {
 			await ExtensionStorage.setStorage("allowList", currentAllowList);
 		}
 	},
+	removeFromAllowList: async (url: string) => {
+		const currentAllowList: string[] = await ExtensionStorage.getAllowList();
+		if (currentAllowList.includes(url)) {
+			const index = currentAllowList.findIndex((_) => _ === url);
+			currentAllowList.splice(index, 1);
+			await ExtensionStorage.setStorage("allowList", currentAllowList);
+		}
+	},
 	getAllowList: async (): Promise<string[]> => {
 		const storage = await ExtensionStorage.getStorage();
-		return storage["allowList"] ? storage["allowList"] : [];
+		console.log("allow list: ", storage.allowList);
+		return storage.allowList ?? [];
+	},
+    getAllowedString: async (): Promise<string> => {
+		const storage = await ExtensionStorage.getStorage();
+		console.log("allow list: ", storage.allowList.toString());
+		return storage.allowList.toString() ?? "";
+	},
+	clearAllowList: async () => {
+		await ExtensionStorage.setStorage("allowList", []);
 	},
 	getStorage: () => {
 		return new Promise<Record<string, any>>((resolve, reject) => {
@@ -24,9 +41,9 @@ export const ExtensionStorage = {
 	setStorage: async (key: string, val: any) => {
 		const storage = await ExtensionStorage.getStorage();
 		storage[key] = val;
-		await chrome.storage.local.set({...storage });
+		await chrome.storage.local.set({ ...storage });
 	},
-	
+
 	isOriginAllowed: async (originUrl: string) => {
 		const currentAllowList: string[] = await ExtensionStorage.getAllowList();
 		return currentAllowList.some((allowedUrl) => allowedUrl.includes(originUrl));

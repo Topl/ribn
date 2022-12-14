@@ -40,4 +40,24 @@ class PlatformUtils implements IPlatformUtils {
 
   @override
   void createLoginSessionAlarm() => throw UnimplementedError();
+
+  @override
+  Future clearDAppList() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future getDAppList() {
+    throw UnimplementedError();
+  }
+  @override
+  Future<void> consoleLog(dynamic item) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<T> convertToFuture<T>(Object jsPromise) {
+    throw UnimplementedError();
+  }
+
 }

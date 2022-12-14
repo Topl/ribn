@@ -1,3 +1,4 @@
+
 var ext_storage = {
     /**
     * Uses the `chrome.storage` api to get data from extension's local storage.
@@ -64,5 +65,5 @@ var ext_storage = {
      */
     extClearSessionStorage: async () => {
         await chrome.storage.session.clear();
-    }
+    },
 };
