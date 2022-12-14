@@ -51,7 +51,7 @@ class PlatformUtils implements IPlatformUtils {
     throw UnimplementedError();
   }
   @override
-  Future consoleLog(dynamic item) {
+  Future<void> consoleLog(dynamic item) {
     throw UnimplementedError();
   }
 
