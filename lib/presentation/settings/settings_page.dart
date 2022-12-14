@@ -36,7 +36,6 @@ class _SettingsPageState extends State<SettingsPage> {
       runBiometrics();
     } else {
       final List<String> dApps = await PlatformUtils.instance.convertToFuture(PlatformUtils.instance.getDAppList());
-      PlatformUtils.instance.consoleLog(dApps.toString());
 
       setState(() async {
         canDisconnect = dApps.isNotEmpty;
