@@ -47,7 +47,8 @@ class GettingStartedPage extends StatelessWidget {
               ConfirmationButton(
                 text: Strings.okLetsGo,
                 onPressed: () {
-                  Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseInfoChecklist);
+                  Keys.navigatorKey.currentState
+                      ?.pushNamed(Routes.seedPhraseInfoChecklist);
                 },
               ),
             ],

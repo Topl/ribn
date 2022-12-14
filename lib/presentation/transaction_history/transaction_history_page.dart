@@ -134,7 +134,11 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                     ),
                     FutureBuilder(
                       future: fetchTxHistory(
-                          context, vm.toplAddress, vm.networkId, vm,),
+                        context,
+                        vm.toplAddress,
+                        vm.networkId,
+                        vm,
+                      ),
                       builder: (context, AsyncSnapshot snapshot) {
                         switch (snapshot.connectionState) {
                           case ConnectionState.done:
@@ -176,7 +180,9 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                   borderRadius: BorderRadius.circular(11.6),
                                   color: RibnColors.whiteBackground,
                                   border: Border.all(
-                                      color: RibnColors.lightGrey, width: 1,),
+                                    color: RibnColors.lightGrey,
+                                    width: 1,
+                                  ),
                                   boxShadow: const [
                                     BoxShadow(
                                       color: RibnColors.greyShadow,
@@ -215,7 +221,8 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                     },
                                     separatorBuilder: (context, index) {
                                       return const DashedListSeparator(
-                                          color: RibnColors.lightGreyDivider,);
+                                        color: RibnColors.lightGreyDivider,
+                                      );
                                     },
                                   ),
                                 ),

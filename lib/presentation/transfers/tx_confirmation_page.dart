@@ -77,7 +77,9 @@ class TxConfirmationPage extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        Keys.navigatorKey.currentState!.popUntil((route) => route.settings.name == Routes.home);
+                        Keys.navigatorKey.currentState!.popUntil(
+                          (route) => route.settings.name == Routes.home,
+                        );
                       },
                     ),
                   ),
@@ -105,13 +107,15 @@ class TxConfirmationPage extends StatelessWidget {
   ///
   /// Different for minting asset and asset/poly transfer.
   Widget _buildsPageTitle() {
-    final String text = mintedAsset ? Strings.assetIsBeingMinted : Strings.txWasBroadcasted;
+    final String text =
+        mintedAsset ? Strings.assetIsBeingMinted : Strings.txWasBroadcasted;
 
     return SizedBox(
       width: 220,
       child: Text(
         text,
-        style: RibnToolkitTextStyles.h2.copyWith(color: RibnColors.lightGreyTitle),
+        style:
+            RibnToolkitTextStyles.h2.copyWith(color: RibnColors.lightGreyTitle),
         textAlign: TextAlign.center,
       ),
     );
@@ -119,7 +123,8 @@ class TxConfirmationPage extends StatelessWidget {
 
   /// Displays information about the tx that was broadcasted.
   Widget _buildTxInfo() {
-    final String txInfo = transferDetails.transferType == TransferType.polyTransfer
+    final String txInfo = transferDetails.transferType ==
+            TransferType.polyTransfer
         ? '${transferDetails.amount} ${'POLY'}'
         : '${transferDetails.amount} of ${transferDetails.assetCode!.shortName.show}';
 
@@ -130,22 +135,31 @@ class TxConfirmationPage extends StatelessWidget {
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              style: RibnToolkitTextStyles.h3.copyWith(fontWeight: FontWeight.bold, color: RibnColors.lightGreyTitle),
+              style: RibnToolkitTextStyles.h3.copyWith(
+                fontWeight: FontWeight.bold,
+                color: RibnColors.lightGreyTitle,
+              ),
               children: [
                 TextSpan(
                   text: 'Your ',
-                  style:
-                      RibnToolkitTextStyles.h3.copyWith(fontWeight: FontWeight.bold, color: RibnColors.lightGreyTitle),
+                  style: RibnToolkitTextStyles.h3.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: RibnColors.lightGreyTitle,
+                  ),
                 ),
                 TextSpan(
                   text: txInfo,
-                  style:
-                      RibnToolkitTextStyles.h3.copyWith(fontWeight: FontWeight.bold, color: RibnColors.lightGreyTitle),
+                  style: RibnToolkitTextStyles.h3.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: RibnColors.lightGreyTitle,
+                  ),
                 ),
                 TextSpan(
                   text: ' was sent to the Topl blockchain.',
-                  style:
-                      RibnToolkitTextStyles.h3.copyWith(fontWeight: FontWeight.bold, color: RibnColors.lightGreyTitle),
+                  style: RibnToolkitTextStyles.h3.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: RibnColors.lightGreyTitle,
+                  ),
                 ),
               ],
             ),
@@ -163,7 +177,10 @@ class TxConfirmationPage extends StatelessWidget {
       children: [
         Text(
           'Transaction ID: ${formatAddrString(transferDetails.transactionId!, charsToDisplay: 4)}',
-          style: RibnToolkitTextStyles.h4.copyWith(fontWeight: FontWeight.w400, color: RibnColors.lightGreyTitle),
+          style: RibnToolkitTextStyles.h4.copyWith(
+            fontWeight: FontWeight.w400,
+            color: RibnColors.lightGreyTitle,
+          ),
           textAlign: TextAlign.center,
         ),
         const SizedBox(width: 5),
@@ -197,8 +214,10 @@ class TxConfirmationPage extends StatelessWidget {
                 children: [
                   Text(
                     Strings.viewInToplExplorer,
-                    style:
-                        RibnToolkitTextStyles.h4.copyWith(fontWeight: FontWeight.w400, color: RibnColors.secondaryDark),
+                    style: RibnToolkitTextStyles.h4.copyWith(
+                      fontWeight: FontWeight.w400,
+                      color: RibnColors.secondaryDark,
+                    ),
                   ),
                   const SizedBox(width: 5),
                   Image.asset(

@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -21,8 +20,6 @@ class LoadingDApp extends StatefulWidget {
 }
 
 class _LoadingDAppState extends State<LoadingDApp> {
-
-
   @override
   void initState() {
     super.initState();
@@ -31,9 +28,7 @@ class _LoadingDAppState extends State<LoadingDApp> {
           .dispatch(SignExternalTxAction(widget.response));
       Navigator.of(context).pop();
     });
-
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -128,5 +123,4 @@ class _LoadingDAppState extends State<LoadingDApp> {
       ),
     );
   }
-
 }

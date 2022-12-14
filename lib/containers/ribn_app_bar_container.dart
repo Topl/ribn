@@ -55,7 +55,9 @@ class RibnAppBarViewModel {
   });
   static RibnAppBarViewModel fromStore(Store<AppState> store) {
     return RibnAppBarViewModel(
-      networks: store.state.keychainState.allNetworks.map((e) => e.networkName).toList(),
+      networks: store.state.keychainState.allNetworks
+          .map((e) => e.networkName)
+          .toList(),
       currentNetworkName: store.state.keychainState.currentNetworkName,
       updateNetwork: (String network) {
         store.dispatch(UpdateCurrentNetworkAction(network));
@@ -92,6 +94,9 @@ class RibnAppBarViewModel {
 
   @override
   int get hashCode {
-    return networks.hashCode ^ currentNetworkName.hashCode ^ updateNetwork.hashCode ^ selectSettingsOption.hashCode;
+    return networks.hashCode ^
+        currentNetworkName.hashCode ^
+        updateNetwork.hashCode ^
+        selectSettingsOption.hashCode;
   }
 }

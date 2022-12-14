@@ -22,7 +22,8 @@ external DedicatedWorkerGlobalScope get self;
 void main() {
   self.onMessage.listen((e) {
     final Map<String, dynamic> params = jsonDecode(e.data);
-    final Uint8List toplExtendedPrvKeyUint8List = const LoginRepository().decryptKeyStore(
+    final Uint8List toplExtendedPrvKeyUint8List =
+        const LoginRepository().decryptKeyStore(
       {
         'keyStoreJson': params['keyStoreJson'] as String,
         'password': params['password'] as String,

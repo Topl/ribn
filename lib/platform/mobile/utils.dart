@@ -50,6 +50,7 @@ class PlatformUtils implements IPlatformUtils {
   Future getDAppList() {
     throw UnimplementedError();
   }
+
   @override
   Future consoleLog(dynamic item) {
     throw UnimplementedError();
@@ -59,5 +60,4 @@ class PlatformUtils implements IPlatformUtils {
   Future<T> convertToFuture<T>(Object jsPromise) {
     throw UnimplementedError();
   }
-
 }

@@ -69,14 +69,16 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
                         Strings.sendAssets,
-                        style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                        style: RibnToolkitTextStyles.btnMedium
+                            .copyWith(color: RibnColors.defaultText),
                       ),
                     ),
                     1: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
                         Strings.sendNativeCoins,
-                        style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                        style: RibnToolkitTextStyles.btnMedium
+                            .copyWith(color: RibnColors.defaultText),
                       ),
                     ),
                   },
@@ -87,13 +89,15 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
                   ? AssetTransferInputContainer(
                       builder: (context, vm) => AssetTransferSection(
                         vm: vm,
-                        updateButton: (val) => setState(() => bottomButton = val),
+                        updateButton: (val) =>
+                            setState(() => bottomButton = val),
                       ),
                     )
                   : PolyTransferInputContainer(
                       builder: (context, vm) => PolyTransferSection(
                         vm: vm,
-                        updateButton: (val) => setState(() => bottomButton = val),
+                        updateButton: (val) =>
+                            setState(() => bottomButton = val),
                       ),
                     ),
               const SizedBox(height: 18),
