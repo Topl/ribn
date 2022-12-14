@@ -118,4 +118,5 @@ class RibnAssets {
   static const polyIconCircle = 'assets/icons/poly_icon_circle.png';
   static const clockWithBorder = 'assets/icons/clock_border.png';
   static const walletWithBorder = 'assets/icons/wallet_with_border.png';
+  static const connectDApp = 'assets/icons/connect_dapp.png';
 }

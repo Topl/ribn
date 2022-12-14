@@ -11,6 +11,9 @@ import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/platform/platform.dart';
+// import 'package:ribn/platform/web/wallet.dart';
+import 'package:ribn/presentation/authorize_and_sign/connect_dapp.dart';
+import 'package:ribn/presentation/authorize_and_sign/review_and_sign.dart';
 import 'package:ribn/presentation/enable_page.dart';
 import 'package:ribn/presentation/external_signing_page.dart';
 import 'package:ribn/presentation/home/home_page.dart';
@@ -32,6 +35,8 @@ void main() async {
     // Initiate background connection if new window/tab opens up for dApp interaction.
   } else if (currentAppView == AppViews.extensionTab && !needsOnboarding) {
     await initBgConnection(Redux.store!);
+    // Wallet().setJSCallbackFunction(_test());
+    // initialize();
   }
   setupLocator(
     Redux.store!,
@@ -42,6 +47,7 @@ void main() async {
 class RibnApp extends StatelessWidget {
   final RootRouter rootRouter = RootRouter();
   final Store<AppState> store;
+
   RibnApp(this.store, {Key? key}) : super(key: key);
 
   @override
@@ -74,6 +80,19 @@ String getInitialRoute(Store<AppState> store) {
   } else if (store.state.internalMessage?.method == InternalMethods.signTx) {
     return Routes.externalSigning;
   }
+
+  //v2
+  else if (store.state.internalMessage?.method == InternalMethods.authorize) {
+    return Routes.connectDApp;
+  }
+  else if (store.state.internalMessage?.method == InternalMethods.getBalance) {
+    return Routes.reviewAndSignDApp;
+  }
+  else if (store.state.internalMessage?.method ==
+      InternalMethods.signTransaction) {
+    return Routes.reviewAndSignDApp;
+  }
+
   return Routes.home;
 }
 
@@ -112,6 +131,23 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
           settings: const RouteSettings(name: Routes.externalSigning),
         )
       ];
+
+    //v2
+    case Routes.connectDApp:
+      return [
+        MaterialPageRoute(
+          builder: (context) => ConnectDApp(store.state.internalMessage!),
+          settings: const RouteSettings(name: Routes.connectDApp),
+        )
+      ];
+    case Routes.reviewAndSignDApp:
+      return [
+        MaterialPageRoute(
+          builder: (context) => ReviewAndSignDApp(store.state.internalMessage!),
+          settings: const RouteSettings(name: Routes.reviewAndSignDApp),
+        )
+      ];
+
     case Routes.welcome:
     default:
       return [

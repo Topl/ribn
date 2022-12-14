@@ -4,9 +4,9 @@
 library ext_utils;
 
 import 'dart:html';
+import 'dart:js_util';
 
 import 'package:js/js.dart';
-import 'package:js/js_util.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/platform/interfaces.dart';
 
@@ -17,6 +17,9 @@ external void downloadAsFile(String fileName, String text);
 external Future<void> openAppInNewTab();
 external Future<String> getCurrentView();
 external void createSessionAlarm();
+external Future<void> deleteAllowList();
+external Future<List<String>> retrieveAllowList();
+external Future<void> logToConsole(dynamic item);
 
 class PlatformUtils implements IPlatformUtils {
   PlatformUtils._internal();
@@ -31,7 +34,8 @@ class PlatformUtils implements IPlatformUtils {
   String getCurrentAppVersion() => getAppVersion();
 
   @override
-  void downloadFile(String fileName, String text) => downloadAsFile(fileName, text);
+  void downloadFile(String fileName, String text) =>
+      downloadAsFile(fileName, text);
 
   @override
   void deleteActiveWallet() => deleteWallet();
@@ -57,4 +61,18 @@ class PlatformUtils implements IPlatformUtils {
 
   @override
   void createLoginSessionAlarm() => createSessionAlarm();
+
+  @override
+  Future<void> clearDAppList() => deleteAllowList();
+
+  @override
+  Future<List<String>> getDAppList() => retrieveAllowList();
+
+  @override
+  Future<void> consoleLog(dynamic item) => logToConsole(item);
+
+  @override
+  Future<T> convertToFuture<T>(Object jsPromise) {
+    return promiseToFuture(jsPromise);
+  }
 }

@@ -46,4 +46,7 @@ class Routes {
   static const externalSigning = '/ext-signing';
   static const enable = '/enable';
   static const error = '/error';
+  static const connectDApp = '/connect-dapp';
+  static const reviewAndSignDApp = '/review-and-sign';
+  static const loadingDApp = '/loading-dapp';
 }

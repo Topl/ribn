@@ -33,13 +33,26 @@ class EnablePage extends StatelessWidget {
   }
 
   void sendResponse(BuildContext context, bool accept) {
-    final InternalMessage response = pendingRequest.copyWith(
-      method: InternalMethods.returnResponse,
-      sender: InternalMessage.defaultSender,
-      data: {
-        'enabled': accept,
-      },
-    );
+    late final InternalMessage response;
+
+    if (!accept) {
+      response = pendingRequest.copyWith(
+        method: InternalMethods.returnResponse,
+        sender: InternalMessage.defaultSender,
+        data: {
+          'enabled': accept,
+        },
+      );
+    } else {
+      response = pendingRequest.copyWith(
+        method: InternalMethods.returnResponse,
+        sender: InternalMessage.defaultSender,
+        data: {
+          'enabled': accept,
+          'walletAddress': StoreProvider.of<AppState>(context).state.keychainState.currentNetwork.addresses.first.toplAddress.toBase58()
+        },
+      );
+    }
     StoreProvider.of<AppState>(context).dispatch(SendInternalMsgAction(response));
   }
 }
