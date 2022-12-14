@@ -1,7 +1,7 @@
 {
   "name": "Ribn",
   "description": "Web wallet for Topl Blockchain",
-  "version": "0.2.1",
+  "version": "0.3.2",
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
   },

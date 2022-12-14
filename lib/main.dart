@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
@@ -18,13 +16,15 @@ import 'package:ribn/presentation/external_signing_page.dart';
 import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
+import 'package:ribn/presentation/transaction_history/service_locator/locator.dart';
 import 'package:ribn/redux.dart';
 import 'package:ribn/router/root_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Redux.initStore(initTestStore: true);
-  final AppViews currentAppView = await PlatformUtils.instance.getCurrentAppView();
+  await Redux.initStore(initTestStore: false);
+  final AppViews currentAppView =
+      await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
   // Open app in new tab if user needs onboarding
   if (currentAppView == AppViews.extension && needsOnboarding) {
@@ -33,6 +33,9 @@ void main() async {
   } else if (currentAppView == AppViews.extensionTab && !needsOnboarding) {
     await initBgConnection(Redux.store!);
   }
+  setupLocator(
+    Redux.store!,
+  ); //@dev call this function to setup any singletons required by app
   runApp(RibnApp(Redux.store!));
 }
 
@@ -51,7 +54,8 @@ class RibnApp extends StatelessWidget {
           title: 'Ribn',
           navigatorObservers: [Routes.routeObserver],
           onGenerateRoute: rootRouter.generateRoutes,
-          onGenerateInitialRoutes: (initialRoute) => onGenerateInitialRoute(initialRoute, store),
+          onGenerateInitialRoutes: (initialRoute) =>
+              onGenerateInitialRoute(initialRoute, store),
           initialRoute: getInitialRoute(store),
           navigatorKey: Keys.navigatorKey,
         ),
@@ -103,7 +107,8 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
     case Routes.externalSigning:
       return [
         MaterialPageRoute(
-          builder: (context) => ExternalSigningPage(store.state.internalMessage!),
+          builder: (context) =>
+              ExternalSigningPage(store.state.internalMessage!),
           settings: const RouteSettings(name: Routes.externalSigning),
         )
       ];
@@ -127,11 +132,13 @@ Future<void> initBgConnection(Store<AppState> store) async {
   try {
     Messenger.instance.connect();
     Messenger.instance.initMsgListener((String msgFromBgScript) {
-      final InternalMessage pendingRequest = InternalMessage.fromJson(msgFromBgScript);
+      final InternalMessage pendingRequest =
+          InternalMessage.fromJson(msgFromBgScript);
       store.dispatch(ReceivedInternalMsgAction(pendingRequest));
       completer.complete();
     });
-    Messenger.instance.sendMsg(jsonEncode({'method': InternalMethods.checkPendingRequest}));
+    Messenger.instance
+        .sendMsg(jsonEncode({'method': InternalMethods.checkPendingRequest}));
   } catch (e) {
     completer.complete();
     PlatformUtils.instance.closeWindow();

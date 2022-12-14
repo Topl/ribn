@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:bip_topl/bip_topl.dart' as bip_topl;
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/foundation.dart';
@@ -13,14 +12,14 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/redux.dart';
 import 'package:ribn/repositories/keychain_repository.dart';
-
 import 'test_data.dart';
 
 void main() {
   group('AppState reducer', () {
     final String testMnemonic = testData['mnemonic']!;
     final String testKeyStore = testData['keyStoreJson']!;
-    final Uint8List testToplExtendedPrivKey = Uint8List.fromList(toList(testData['toplExtendedPrvKey']!));
+    final Uint8List testToplExtendedPrivKey =
+        Uint8List.fromList(toList(testData['toplExtendedPrvKey']!));
     late Store<AppState> testStore;
     setUp(() async {
       await Redux.initStore(initTestStore: false);
@@ -52,7 +51,8 @@ void main() {
           ),
         );
         expect(testStore.state.keychainState.keyStoreJson, testKeyStore);
-        expect(testStore.state.keychainState.hdWallet!.rootVerifyKey, hdWallet.rootVerifyKey);
+        expect(testStore.state.keychainState.hdWallet!.rootVerifyKey,
+            hdWallet.rootVerifyKey,);
       });
       test('update network with addresses', () async {
         const KeychainRepository keychainRepo = KeychainRepository();
@@ -64,16 +64,21 @@ void main() {
         );
         final Map<String, List<RibnAddress>> networkAddresses = {};
         testStore.state.keychainState.networks.forEach((networkName, network) {
-          networkAddresses[networkName] = [keychainRepo.generateAddress(hdWallet, networkId: network.networkId)];
+          networkAddresses[networkName] = [
+            keychainRepo.generateAddress(hdWallet, networkId: network.networkId)
+          ];
         });
         testStore.dispatch(UpdateNetworksWithAddressesAction(networkAddresses));
         testStore.state.keychainState.networks.forEach((networkName, network) {
-          listEquals(testStore.state.keychainState.networks[networkName]!.addresses, networkAddresses[networkName]);
+          listEquals(
+              testStore.state.keychainState.networks[networkName]!.addresses,
+              networkAddresses[networkName],);
         });
       });
       test('toggle network', () async {
         testStore.dispatch(UpdateCurrentNetworkAction(NetworkUtils.private));
-        expect(testStore.state.keychainState.currentNetwork.networkName, NetworkUtils.private);
+        expect(testStore.state.keychainState.currentNetwork.networkName,
+            NetworkUtils.private,);
       });
     });
   });
