@@ -5,9 +5,9 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
-import 'package:ribn/presentation/asset_details/asset_detail_edit_sections.dart/asset_icon_edit_section.dart';
-import 'package:ribn/presentation/asset_details/asset_detail_edit_sections.dart/asset_long_name_edit_section.dart';
-import 'package:ribn/presentation/asset_details/asset_detail_edit_sections.dart/asset_unit_edit_section.dart';
+import 'package:ribn/presentation/asset_details/asset_detail_edit_sections/asset_icon_edit_section.dart';
+import 'package:ribn/presentation/asset_details/asset_detail_edit_sections/asset_long_name_edit_section.dart';
+import 'package:ribn/presentation/asset_details/asset_detail_edit_sections/asset_unit_edit_section.dart';
 import 'package:ribn/presentation/asset_details/asset_detail_items/asset_amount_details.dart';
 import 'package:ribn/presentation/asset_details/asset_detail_items/asset_code_details.dart';
 import 'package:ribn/presentation/asset_details/asset_detail_items/asset_code_short_details.dart';
@@ -148,7 +148,8 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
                           key: assetUnitKey,
                           currUnit: assetDetails?.unit,
                           editingSectionOpened: editingAssetUnit,
-                          onEditPressed: () => _onEditPressed(key: assetUnitKey, assetDetails: assetDetails),
+                          onEditPressed: () =>
+                              _onEditPressed(key: assetUnitKey, assetDetails: assetDetails),
                         ),
                         _buildDivider(),
                         // asset long name display - can be edited
@@ -156,7 +157,8 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
                           key: assetLongNameKey,
                           currLongName: assetDetails?.longName,
                           editingSectionOpened: editingAssetLongName,
-                          onEditPressed: () => _onEditPressed(key: assetLongNameKey, assetDetails: assetDetails),
+                          onEditPressed: () =>
+                              _onEditPressed(key: assetLongNameKey, assetDetails: assetDetails),
                         ),
                         _buildDivider(),
                         // asset icon display - can be edited
@@ -164,7 +166,8 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
                           key: assetIconKey,
                           currIcon: assetDetails?.icon,
                           editingSectionOpened: editingAssetIcon,
-                          onEditPressed: () => _onEditPressed(key: assetIconKey, assetDetails: assetDetails),
+                          onEditPressed: () =>
+                              _onEditPressed(key: assetIconKey, assetDetails: assetDetails),
                         ),
                         _buildDivider(),
                         // asset issuer address display
