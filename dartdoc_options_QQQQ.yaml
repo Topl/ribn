@@ -1,2 +1,0 @@
-dartdoc:
-  include: ['lib/models/ribn_address.dart']
