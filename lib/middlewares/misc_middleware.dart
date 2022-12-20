@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// Package imports:
 import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
@@ -8,14 +13,18 @@ import 'package:ribn/platform/platform.dart';
 import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/repositories/misc_repository.dart';
 
-List<Middleware<AppState>> createMiscMiddleware(LoginRepository loginRep, MiscRepository miscRepo) {
+List<Middleware<AppState>> createMiscMiddleware(
+    LoginRepository loginRep, MiscRepository miscRepo) {
   return <Middleware<AppState>>[
     TypedMiddleware<AppState, DeleteWalletAction>(_onDeleteWallet(loginRep)),
-    TypedMiddleware<AppState, DownloadAsFileAction>(_onDownloadAsFile(miscRepo)),
+    TypedMiddleware<AppState, DownloadAsFileAction>(
+        _onDownloadAsFile(miscRepo)),
   ];
 }
 
-void Function(Store<AppState> store, DeleteWalletAction action, NextDispatcher next) _onDeleteWallet(
+void Function(
+        Store<AppState> store, DeleteWalletAction action, NextDispatcher next)
+    _onDeleteWallet(
   LoginRepository loginRepo,
 ) {
   return (store, action, next) async {
@@ -35,7 +44,8 @@ void Function(Store<AppState> store, DeleteWalletAction action, NextDispatcher n
         PlatformUtils.instance.closeWindow();
       } else {
         await PlatformLocalStorage.instance.clearSecureStorage();
-        await Keys.navigatorKey.currentState?.pushNamedAndRemoveUntil(Routes.welcome, (_) => false);
+        await Keys.navigatorKey.currentState
+            ?.pushNamedAndRemoveUntil(Routes.welcome, (_) => false);
       }
     } catch (e) {
       // Complete with false to indicate error, i.e. incorrect password was entered
@@ -44,7 +54,9 @@ void Function(Store<AppState> store, DeleteWalletAction action, NextDispatcher n
   };
 }
 
-void Function(Store<AppState> store, DownloadAsFileAction action, NextDispatcher next) _onDownloadAsFile(
+void Function(
+        Store<AppState> store, DownloadAsFileAction action, NextDispatcher next)
+    _onDownloadAsFile(
   MiscRepository miscRepo,
 ) {
   return (store, action, next) {

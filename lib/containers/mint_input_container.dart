@@ -1,11 +1,16 @@
+// Dart imports:
 import 'dart:async';
 
-import 'package:brambldart/brambldart.dart';
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:brambldart/brambldart.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
+// Project imports:
 import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/network_utils.dart';
@@ -76,8 +81,11 @@ class MintInputViewmodel {
         AssetDetails? assetDetails,
         required Function(bool success) onRawTxCreated,
       }) async {
-        final ToplAddress issuerAddress = store.state.keychainState.currentNetwork.myWalletAddress!.toplAddress;
-        final TransferType transferType = mintingNewAsset ? TransferType.mintingAsset : TransferType.remintingAsset;
+        final ToplAddress issuerAddress = store
+            .state.keychainState.currentNetwork.myWalletAddress!.toplAddress;
+        final TransferType transferType = mintingNewAsset
+            ? TransferType.mintingAsset
+            : TransferType.remintingAsset;
         final TransferDetails transferDetails = TransferDetails(
           transferType: transferType,
           assetCode: AssetCode.initialize(
@@ -96,13 +104,17 @@ class MintInputViewmodel {
         await actionCompleter.future.then(
           (TransferDetails? transferDetails) {
             onRawTxCreated(transferDetails != null);
-            Keys.navigatorKey.currentState?.pushNamed(Routes.txReview, arguments: transferDetails);
+            Keys.navigatorKey.currentState
+                ?.pushNamed(Routes.txReview, arguments: transferDetails);
           },
         );
       },
-      assets: store.state.keychainState.currentNetwork.getAssetsIssuedByWallet(),
+      assets:
+          store.state.keychainState.currentNetwork.getAssetsIssuedByWallet(),
       currentNetwork: store.state.keychainState.currentNetwork,
-      networkFee: NetworkUtils.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
+      networkFee: NetworkUtils
+          .networkFees[store.state.keychainState.currentNetwork.networkId]!
+          .getInNanopoly,
       assetDetails: store.state.userDetailsState.assetDetails,
     );
   }
@@ -120,6 +132,9 @@ class MintInputViewmodel {
 
   @override
   int get hashCode {
-    return networkFee.hashCode ^ assets.hashCode ^ currentNetwork.hashCode ^ assetDetails.hashCode;
+    return networkFee.hashCode ^
+        assets.hashCode ^
+        currentNetwork.hashCode ^
+        assetDetails.hashCode;
   }
 }

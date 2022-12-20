@@ -1,7 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 class DashedListSeparator extends StatelessWidget {
-  const DashedListSeparator({Key? key, this.height = 1, this.color = Colors.black}) : super(key: key);
+  const DashedListSeparator(
+      {Key? key, this.height = 1, this.color = Colors.black})
+      : super(key: key);
   final double height;
   final Color color;
 

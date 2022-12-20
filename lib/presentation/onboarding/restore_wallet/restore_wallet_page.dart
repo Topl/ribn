@@ -1,8 +1,19 @@
-import 'package:bip_topl/bip_topl.dart';
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:bip_topl/bip_topl.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/peekaboo_button.dart';
+import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
+
+// Project imports:
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
@@ -12,12 +23,6 @@ import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/atoms/peekaboo_button.dart';
-import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
 
 /// This page allows the user to enter a known mnemonic / seed phrase in order to restore a wallet.
 ///
@@ -98,12 +103,17 @@ class _RestoreWalletPageState extends State<RestoreWalletPage> {
                       hasError: invalidSeedPhraseEntered,
                     ),
                   ),
-                  kIsWeb ? Align(alignment: Alignment.centerLeft, child: _buildAdvancedOption()) : const SizedBox(),
+                  kIsWeb
+                      ? Align(
+                          alignment: Alignment.centerLeft,
+                          child: _buildAdvancedOption())
+                      : const SizedBox(),
                 ],
               ),
             ),
             adaptableSpacer(),
-            renderIfMobile(const OnboardingProgressBar(numSteps: 2, currStep: 0)),
+            renderIfMobile(
+                const OnboardingProgressBar(numSteps: 2, currStep: 0)),
             const SizedBox(height: 20),
             ConfirmationButton(
               text: Strings.next,
@@ -142,20 +152,24 @@ class _RestoreWalletPageState extends State<RestoreWalletPage> {
         child: PeekabooButton(
           buttonText: Text(
             Strings.advancedOption,
-            style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15, color: RibnColors.whiteBackground),
+            style: RibnToolkitTextStyles.smallBody
+                .copyWith(fontSize: 15, color: RibnColors.whiteBackground),
           ),
           buttonChild: Padding(
             padding: const EdgeInsets.only(left: 8),
             child: RichText(
               text: TextSpan(
-                style: RibnToolkitTextStyles.body1Bold.copyWith(color: RibnColors.whiteBackground),
+                style: RibnToolkitTextStyles.body1Bold
+                    .copyWith(color: RibnColors.whiteBackground),
                 children: [
                   const TextSpan(text: 'Use '),
                   TextSpan(
                     text: 'Topl main key file',
-                    style: RibnToolkitTextStyles.body1Bold.copyWith(color: RibnColors.secondaryDark),
+                    style: RibnToolkitTextStyles.body1Bold
+                        .copyWith(color: RibnColors.secondaryDark),
                     recognizer: TapGestureRecognizer()
-                      ..onTap = () => Keys.navigatorKey.currentState?.pushNamed(Routes.restoreWithToplKey),
+                      ..onTap = () => Keys.navigatorKey.currentState
+                          ?.pushNamed(Routes.restoreWithToplKey),
                   ),
                 ],
               ),

@@ -1,21 +1,12 @@
-import 'package:brambldart/brambldart.dart';
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:brambldart/brambldart.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/strings.dart';
-import 'package:ribn/constants/ui_constants.dart';
-import 'package:ribn/containers/mint_input_container.dart';
-import 'package:ribn/models/asset_details.dart';
-import 'package:ribn/presentation/empty_state_screen.dart';
-import 'package:ribn/presentation/transfers/bottom_review_action.dart';
-import 'package:ribn/presentation/transfers/transfer_utils.dart';
-import 'package:ribn/presentation/transfers/widgets/issuer_address_field.dart';
-import 'package:ribn/utils.dart';
-import 'package:ribn/widgets/address_display_container.dart';
-import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
@@ -28,6 +19,20 @@ import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/sliding_segment_control.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
+// Project imports:
+import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/strings.dart';
+import 'package:ribn/constants/ui_constants.dart';
+import 'package:ribn/containers/mint_input_container.dart';
+import 'package:ribn/models/asset_details.dart';
+import 'package:ribn/presentation/empty_state_screen.dart';
+import 'package:ribn/presentation/transfers/bottom_review_action.dart';
+import 'package:ribn/presentation/transfers/transfer_utils.dart';
+import 'package:ribn/presentation/transfers/widgets/issuer_address_field.dart';
+import 'package:ribn/utils.dart';
+import 'package:ribn/widgets/address_display_container.dart';
+import 'package:ribn/widgets/fee_info.dart';
+
 /// The mint input page that allows the initiation of an mint asset transaction.
 class MintInputPage extends StatefulWidget {
   const MintInputPage({Key? key}) : super(key: key);
@@ -38,8 +43,10 @@ class MintInputPage extends StatefulWidget {
 
 class _MintInputPageState extends State<MintInputPage> {
   final TextEditingController _noteController = TextEditingController();
-  final TextEditingController _assetLongNameController = TextEditingController();
-  final TextEditingController _assetShortNameController = TextEditingController();
+  final TextEditingController _assetLongNameController =
+      TextEditingController();
+  final TextEditingController _assetShortNameController =
+      TextEditingController();
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _recipientController = TextEditingController();
   late List<TextEditingController> _controllers;
@@ -109,15 +116,8 @@ class _MintInputPageState extends State<MintInputPage> {
           icon: RibnAssets.walletWithBorder,
           title: Strings.noAssetsInWallet,
           body: emptyStateBody,
-          buttonOneText: 'Mint',
-          buttonOneAction: () => {
-            setState(() {
-              mintingNewAsset = true;
-              currentTabIndex = 0;
-            })
-          },
-          buttonTwoText: 'Share',
-          buttonTwoAction: () async => await showReceivingAddress(),
+          buttonOneText: 'Share',
+          buttonOneAction: () async => await showReceivingAddress(),
           mobileHeight: MediaQuery.of(context).size.height * 0.63,
           desktopHeight: 258,
         );
@@ -158,7 +158,9 @@ class _MintInputPageState extends State<MintInputPage> {
                 ),
               ),
               // ignore: prefer_const_constructors
-              IssuerAddressField(width: 213), // const ignored here so that tooltip can be dismissed
+              IssuerAddressField(
+                  width:
+                      213), // const ignored here so that tooltip can be dismissed
               // field for entering the recipient address
               RecipientField(
                 controller: _recipientController,
@@ -183,8 +185,10 @@ class _MintInputPageState extends State<MintInputPage> {
                     if (_validRecipientAddress.isNotEmpty) {
                       _recipientController.text = _validRecipientAddress;
                       _recipientController
-                        ..text = _recipientController.text.substring(0, _recipientController.text.length)
-                        ..selection = TextSelection.collapsed(offset: _recipientController.text.length);
+                        ..text = _recipientController.text
+                            .substring(0, _recipientController.text.length)
+                        ..selection = TextSelection.collapsed(
+                            offset: _recipientController.text.length);
                     }
                     _validRecipientAddress = '';
                   });
@@ -242,14 +246,16 @@ class _MintInputPageState extends State<MintInputPage> {
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Text(
                             Strings.mintAsset,
-                            style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                            style: RibnToolkitTextStyles.btnMedium
+                                .copyWith(color: RibnColors.defaultText),
                           ),
                         ),
                         1: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Text(
                             Strings.mintExistingAsset,
-                            style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                            style: RibnToolkitTextStyles.btnMedium
+                                .copyWith(color: RibnColors.defaultText),
                           ),
                         ),
                       },
@@ -312,13 +318,16 @@ class _MintInputPageState extends State<MintInputPage> {
         : AssetSelectionField(
             formattedSelectedAsset: {
               'assetCode': _selectedAsset?.assetCode.toString(),
-              'longName': vm.assetDetails[_selectedAsset?.assetCode.toString()]?.longName,
+              'longName': vm
+                  .assetDetails[_selectedAsset?.assetCode.toString()]?.longName,
               'shortName': _selectedAsset?.assetCode.shortName.show,
-              'assetIcon': vm.assetDetails[_selectedAsset?.assetCode.toString()]?.icon,
+              'assetIcon':
+                  vm.assetDetails[_selectedAsset?.assetCode.toString()]?.icon,
             },
             formattedAsset: (asset) {
               return {
-                'longName': vm.assetDetails[asset!.assetCode.toString()]?.longName,
+                'longName':
+                    vm.assetDetails[asset!.assetCode.toString()]?.longName,
                 'shortName': asset.assetCode.shortName.show,
                 'assetIcon': vm.assetDetails[asset!.assetCode.toString()]?.icon,
               };
@@ -327,7 +336,8 @@ class _MintInputPageState extends State<MintInputPage> {
             onSelected: (AssetAmount? asset) {
               setState(() {
                 _selectedAsset = asset;
-                _selectedUnit = vm.assetDetails[asset!.assetCode.toString()]?.unit;
+                _selectedUnit =
+                    vm.assetDetails[asset!.assetCode.toString()]?.unit;
                 _assetShortNameController.text = asset.assetCode.shortName.show;
               });
             },

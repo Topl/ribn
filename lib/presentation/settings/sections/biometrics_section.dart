@@ -1,17 +1,23 @@
-import 'dart:io';
+// Dart imports:
 import 'dart:io' show Platform;
+import 'dart:io';
 
-import 'package:app_settings/app_settings.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_toggle.dart';
+
+// Project imports:
 import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_toggle.dart';
 
 /// The section allows for users to toggle biometrics authentication on/off.
 class BiometricsSection extends StatefulWidget {
@@ -105,7 +111,9 @@ class _BiometricsSectionState extends State<BiometricsSection> {
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Image.asset(
-                Platform.isIOS ? RibnAssets.iosBiometricsOutline : RibnAssets.andriodBiometricsOutline,
+                Platform.isIOS
+                    ? RibnAssets.iosBiometricsOutline
+                    : RibnAssets.andriodBiometricsOutline,
                 width: 40,
               ),
             ),

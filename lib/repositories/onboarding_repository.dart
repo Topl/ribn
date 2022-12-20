@@ -1,9 +1,14 @@
+// Dart imports:
 import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
+
+// Package imports:
 import 'package:bip_topl/bip_topl.dart';
 import 'package:brambldart/credentials.dart';
 import 'package:brambldart/crypto.dart';
+
+// Project imports:
 import 'package:ribn/constants/rules.dart';
 
 class OnboardingRespository {
@@ -19,8 +24,10 @@ class OnboardingRespository {
     const Base58Encoder base58Encoder = Base58Encoder.instance;
     final String mnemonic = generateMnemonic(random);
     final Bip32KeyPair toplExtendedKeyPair = deriveToplExtendedKeys(mnemonic);
-    final Uint8List toplExtendedPrvKeyUint8List = Uint8List.fromList(toplExtendedKeyPair.privateKey!);
-    final String base58EncodedToplExtendedPrvKey = base58Encoder.encode(toplExtendedPrvKeyUint8List);
+    final Uint8List toplExtendedPrvKeyUint8List =
+        Uint8List.fromList(toplExtendedKeyPair.privateKey!);
+    final String base58EncodedToplExtendedPrvKey =
+        base58Encoder.encode(toplExtendedPrvKeyUint8List);
     final KeyStore keyStore = KeyStore.createNew(
       base58EncodedToplExtendedPrvKey,
       password,
@@ -45,9 +52,12 @@ class OnboardingRespository {
   Map<String, dynamic> generateKeyStore(Map<String, dynamic> params) {
     const Base58Encoder base58Encoder = Base58Encoder.instance;
     final Random random = Random.secure();
-    final Bip32KeyPair toplExtendedKeyPair = deriveToplExtendedKeys(params['mnemonic']);
-    final Uint8List toplExtendedPrvKeyUint8List = Uint8List.fromList(toplExtendedKeyPair.privateKey!);
-    final String base58EncodedToplExtendedPrvKey = base58Encoder.encode(toplExtendedPrvKeyUint8List);
+    final Bip32KeyPair toplExtendedKeyPair =
+        deriveToplExtendedKeys(params['mnemonic']);
+    final Uint8List toplExtendedPrvKeyUint8List =
+        Uint8List.fromList(toplExtendedKeyPair.privateKey!);
+    final String base58EncodedToplExtendedPrvKey =
+        base58Encoder.encode(toplExtendedPrvKeyUint8List);
     final KeyStore keyStore = KeyStore.createNew(
       base58EncodedToplExtendedPrvKey,
       params['password'],
@@ -63,6 +73,7 @@ class OnboardingRespository {
 
   Bip32KeyPair deriveToplExtendedKeys(String mnemonic) {
     final HdWallet hdWallet = HdWallet.fromMnemonic(mnemonic);
-    return hdWallet.deriveBaseAddress(purpose: Rules.defaultPurpose, coinType: Rules.defaultCoinType);
+    return hdWallet.deriveBaseAddress(
+        purpose: Rules.defaultPurpose, coinType: Rules.defaultCoinType);
   }
 }

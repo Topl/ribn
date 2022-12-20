@@ -196,17 +196,7 @@ class RootRouter {
         {
           return pageRoute(const TxHistoryPage(), settings);
         }
-      case Routes.txHistoryDetails:
-        final Map? transactionDetails = settings.arguments as Map;
 
-        {
-          return pageRoute(
-            TxHistoryDetailsPage(
-              transactionDetails: transactionDetails,
-            ),
-            settings,
-          );
-        }
       case Routes.settings:
         {
           if (kIsWeb) return pageRouteNotAnimated(const SettingsPage(), settings);

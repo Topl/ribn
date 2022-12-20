@@ -1,7 +1,11 @@
+// Dart imports:
 import 'dart:convert';
 import 'dart:typed_data';
 
+// Package imports:
 import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
 import 'package:ribn/constants/rules.dart';
@@ -17,8 +21,10 @@ List<Middleware<AppState>> createRestorewalletMiddleware(
   LoginRepository loginRepo,
 ) {
   return <Middleware<AppState>>[
-    TypedMiddleware<AppState, RestoreWalletWithMnemonicAction>(_restoreWalletWithMnemonic(onboardingRepo)),
-    TypedMiddleware<AppState, RestoreWalletWithToplKeyAction>(_restoreWalletWithToplKey(loginRepo)),
+    TypedMiddleware<AppState, RestoreWalletWithMnemonicAction>(
+        _restoreWalletWithMnemonic(onboardingRepo)),
+    TypedMiddleware<AppState, RestoreWalletWithToplKeyAction>(
+        _restoreWalletWithToplKey(loginRepo)),
   ];
 }
 
@@ -26,11 +32,13 @@ List<Middleware<AppState>> createRestorewalletMiddleware(
 ///
 /// Uses the [action.mnemonic] and [action.password] to generate a keystore.
 /// Dispatches [SuccessfullyRestoredWalletAction] if successfully generated keystore, otherwise [FailedToRestoreWalletAction].
-void Function(Store<AppState> store, RestoreWalletWithMnemonicAction action, NextDispatcher next)
+void Function(Store<AppState> store, RestoreWalletWithMnemonicAction action,
+        NextDispatcher next)
     _restoreWalletWithMnemonic(OnboardingRespository onboardingRepo) {
   return (store, action, next) async {
     try {
-      final AppViews currAppView = await PlatformUtils.instance.getCurrentAppView();
+      final AppViews currAppView =
+          await PlatformUtils.instance.getCurrentAppView();
       final Map<String, dynamic> results = jsonDecode(
         await PlatformWorkerRunner.instance.runWorker(
           workerScript: currAppView == AppViews.webDebug
@@ -46,7 +54,8 @@ void Function(Store<AppState> store, RestoreWalletWithMnemonicAction action, Nex
       next(
         SuccessfullyRestoredWalletAction(
           keyStoreJson: results['keyStoreJson'],
-          toplExtendedPrivateKey: uint8ListFromDynamic(results['toplExtendedPrvKeyUint8List']),
+          toplExtendedPrivateKey:
+              uint8ListFromDynamic(results['toplExtendedPrvKeyUint8List']),
         ),
       );
     } catch (e) {
@@ -59,8 +68,8 @@ void Function(Store<AppState> store, RestoreWalletWithMnemonicAction action, Nex
 ///
 /// Attempts to decrypt [action.toplKeyStoreJson] using [action.password].
 /// Dispatches [SuccessfullyRestoredWalletAction] upon success, otherwise [FailedToRestoreWalletAction].
-void Function(Store<AppState> store, RestoreWalletWithToplKeyAction action, NextDispatcher next)
-    _restoreWalletWithToplKey(LoginRepository loginRepo) {
+void Function(Store<AppState> store, RestoreWalletWithToplKeyAction action,
+    NextDispatcher next) _restoreWalletWithToplKey(LoginRepository loginRepo) {
   return (store, action, next) async {
     try {
       final Uint8List toplExtendedPrvKeyUint8List = loginRepo.decryptKeyStore({

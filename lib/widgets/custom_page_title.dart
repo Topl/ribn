@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
 
@@ -6,7 +9,9 @@ import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
 ///
 /// Used during the transfer flows.
 class CustomPageTitle extends StatelessWidget {
-  const CustomPageTitle({required this.title, this.top = 5, this.left = 10, Key? key}) : super(key: key);
+  const CustomPageTitle(
+      {required this.title, this.top = 5, this.left = 10, Key? key})
+      : super(key: key);
   final String title;
   final double top;
   final double left;

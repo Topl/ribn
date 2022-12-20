@@ -1,6 +1,10 @@
+// Dart imports:
 import 'dart:convert';
 
+// Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// Project imports:
 import 'package:ribn/constants/test_data.dart';
 
 @immutable
@@ -70,5 +74,8 @@ class OnboardingState {
   }
 
   @override
-  int get hashCode => mnemonic.hashCode ^ shuffledMnemonic.hashCode ^ userSelectedIndices.hashCode;
+  int get hashCode =>
+      mnemonic.hashCode ^
+      shuffledMnemonic.hashCode ^
+      userSelectedIndices.hashCode;
 }

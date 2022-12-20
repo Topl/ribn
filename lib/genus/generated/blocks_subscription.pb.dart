@@ -5,35 +5,48 @@
 // @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
+// Dart imports:
 import 'dart:core' as $core;
 
+// Package imports:
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
+// Project imports:
 import 'filters.pb.dart' as $4;
 import 'types.pb.dart' as $6;
 
 class CreateBlocksSubscriptionReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateBlocksSubscriptionReq',
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'CreateBlocksSubscriptionReq',
     package: const $pb.PackageName(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'co.topl.genus.services',
     ),
     createEmptyInstance: create,
   )
     ..aOM<$4.BlockFilter>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'filter',
       subBuilder: $4.BlockFilter.create,
     )
     ..a<$core.int>(
       2,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'confirmationDepth',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'confirmationDepth',
       $pb.PbFieldType.OU3,
     )
     ..a<$fixnum.Int64>(
       3,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'startHeight',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'startHeight',
       $pb.PbFieldType.OU6,
       defaultOrMaker: $fixnum.Int64.ZERO,
     )
@@ -72,23 +85,28 @@ class CreateBlocksSubscriptionReq extends $pb.GeneratedMessage {
     'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
     'Will be removed in next major version',
   )
-  CreateBlocksSubscriptionReq clone() => CreateBlocksSubscriptionReq()..mergeFromMessage(this);
+  CreateBlocksSubscriptionReq clone() =>
+      CreateBlocksSubscriptionReq()..mergeFromMessage(this);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
     'Will be removed in next major version',
   )
-  CreateBlocksSubscriptionReq copyWith(void Function(CreateBlocksSubscriptionReq) updates) =>
-      super.copyWith((message) => updates(message as CreateBlocksSubscriptionReq))
+  CreateBlocksSubscriptionReq copyWith(
+          void Function(CreateBlocksSubscriptionReq) updates) =>
+      super.copyWith(
+              (message) => updates(message as CreateBlocksSubscriptionReq))
           as CreateBlocksSubscriptionReq; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static CreateBlocksSubscriptionReq create() => CreateBlocksSubscriptionReq._();
+  static CreateBlocksSubscriptionReq create() =>
+      CreateBlocksSubscriptionReq._();
   CreateBlocksSubscriptionReq createEmptyInstance() => create();
-  static $pb.PbList<CreateBlocksSubscriptionReq> createRepeated() => $pb.PbList<CreateBlocksSubscriptionReq>();
+  static $pb.PbList<CreateBlocksSubscriptionReq> createRepeated() =>
+      $pb.PbList<CreateBlocksSubscriptionReq>();
   @$core.pragma('dart2js:noInline')
-  static CreateBlocksSubscriptionReq getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateBlocksSubscriptionReq>(create);
+  static CreateBlocksSubscriptionReq getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<CreateBlocksSubscriptionReq>(create);
   static CreateBlocksSubscriptionReq? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -130,24 +148,41 @@ class CreateBlocksSubscriptionReq extends $pb.GeneratedMessage {
   void clearStartHeight() => clearField(3);
 }
 
-enum BlocksSubscriptionRes_Failure_Reason { invalidRequest, dataConnectionError, notSet }
+enum BlocksSubscriptionRes_Failure_Reason {
+  invalidRequest,
+  dataConnectionError,
+  notSet
+}
 
 class BlocksSubscriptionRes_Failure extends $pb.GeneratedMessage {
-  static const $core.Map<$core.int, BlocksSubscriptionRes_Failure_Reason> _BlocksSubscriptionRes_Failure_ReasonByTag = {
+  static const $core.Map<$core.int, BlocksSubscriptionRes_Failure_Reason>
+      _BlocksSubscriptionRes_Failure_ReasonByTag = {
     1: BlocksSubscriptionRes_Failure_Reason.invalidRequest,
     2: BlocksSubscriptionRes_Failure_Reason.dataConnectionError,
     0: BlocksSubscriptionRes_Failure_Reason.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlocksSubscriptionRes.Failure',
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'BlocksSubscriptionRes.Failure',
     package: const $pb.PackageName(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'co.topl.genus.services',
     ),
     createEmptyInstance: create,
   )
     ..oo(0, [1, 2])
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'invalidRequest')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dataConnectionError')
+    ..aOS(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'invalidRequest')
+    ..aOS(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'dataConnectionError')
     ..hasRequiredFields = false;
 
   BlocksSubscriptionRes_Failure._() : super();
@@ -179,26 +214,32 @@ class BlocksSubscriptionRes_Failure extends $pb.GeneratedMessage {
     'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
     'Will be removed in next major version',
   )
-  BlocksSubscriptionRes_Failure clone() => BlocksSubscriptionRes_Failure()..mergeFromMessage(this);
+  BlocksSubscriptionRes_Failure clone() =>
+      BlocksSubscriptionRes_Failure()..mergeFromMessage(this);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
     'Will be removed in next major version',
   )
-  BlocksSubscriptionRes_Failure copyWith(void Function(BlocksSubscriptionRes_Failure) updates) =>
-      super.copyWith((message) => updates(message as BlocksSubscriptionRes_Failure))
+  BlocksSubscriptionRes_Failure copyWith(
+          void Function(BlocksSubscriptionRes_Failure) updates) =>
+      super.copyWith(
+              (message) => updates(message as BlocksSubscriptionRes_Failure))
           as BlocksSubscriptionRes_Failure; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static BlocksSubscriptionRes_Failure create() => BlocksSubscriptionRes_Failure._();
+  static BlocksSubscriptionRes_Failure create() =>
+      BlocksSubscriptionRes_Failure._();
   BlocksSubscriptionRes_Failure createEmptyInstance() => create();
-  static $pb.PbList<BlocksSubscriptionRes_Failure> createRepeated() => $pb.PbList<BlocksSubscriptionRes_Failure>();
+  static $pb.PbList<BlocksSubscriptionRes_Failure> createRepeated() =>
+      $pb.PbList<BlocksSubscriptionRes_Failure>();
   @$core.pragma('dart2js:noInline')
-  static BlocksSubscriptionRes_Failure getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<BlocksSubscriptionRes_Failure>(create);
+  static BlocksSubscriptionRes_Failure getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<BlocksSubscriptionRes_Failure>(create);
   static BlocksSubscriptionRes_Failure? _defaultInstance;
 
-  BlocksSubscriptionRes_Failure_Reason whichReason() => _BlocksSubscriptionRes_Failure_ReasonByTag[$_whichOneof(0)]!;
+  BlocksSubscriptionRes_Failure_Reason whichReason() =>
+      _BlocksSubscriptionRes_Failure_ReasonByTag[$_whichOneof(0)]!;
   void clearReason() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
@@ -229,27 +270,36 @@ class BlocksSubscriptionRes_Failure extends $pb.GeneratedMessage {
 enum BlocksSubscriptionRes_Result { success, failure, notSet }
 
 class BlocksSubscriptionRes extends $pb.GeneratedMessage {
-  static const $core.Map<$core.int, BlocksSubscriptionRes_Result> _BlocksSubscriptionRes_ResultByTag = {
+  static const $core.Map<$core.int, BlocksSubscriptionRes_Result>
+      _BlocksSubscriptionRes_ResultByTag = {
     1: BlocksSubscriptionRes_Result.success,
     2: BlocksSubscriptionRes_Result.failure,
     0: BlocksSubscriptionRes_Result.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlocksSubscriptionRes',
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'BlocksSubscriptionRes',
     package: const $pb.PackageName(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'co.topl.genus.services',
     ),
     createEmptyInstance: create,
   )
     ..oo(0, [1, 2])
     ..aOM<$6.Block>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'success',
       subBuilder: $6.Block.create,
     )
     ..aOM<BlocksSubscriptionRes_Failure>(
       2,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'failure',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'failure',
       subBuilder: BlocksSubscriptionRes_Failure.create,
     )
     ..hasRequiredFields = false;
@@ -273,33 +323,38 @@ class BlocksSubscriptionRes extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory BlocksSubscriptionRes.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BlocksSubscriptionRes.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
     'Will be removed in next major version',
   )
-  BlocksSubscriptionRes clone() => BlocksSubscriptionRes()..mergeFromMessage(this);
+  BlocksSubscriptionRes clone() =>
+      BlocksSubscriptionRes()..mergeFromMessage(this);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
     'Will be removed in next major version',
   )
-  BlocksSubscriptionRes copyWith(void Function(BlocksSubscriptionRes) updates) =>
+  BlocksSubscriptionRes copyWith(
+          void Function(BlocksSubscriptionRes) updates) =>
       super.copyWith((message) => updates(message as BlocksSubscriptionRes))
           as BlocksSubscriptionRes; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static BlocksSubscriptionRes create() => BlocksSubscriptionRes._();
   BlocksSubscriptionRes createEmptyInstance() => create();
-  static $pb.PbList<BlocksSubscriptionRes> createRepeated() => $pb.PbList<BlocksSubscriptionRes>();
+  static $pb.PbList<BlocksSubscriptionRes> createRepeated() =>
+      $pb.PbList<BlocksSubscriptionRes>();
   @$core.pragma('dart2js:noInline')
-  static BlocksSubscriptionRes getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<BlocksSubscriptionRes>(create);
+  static BlocksSubscriptionRes getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<BlocksSubscriptionRes>(create);
   static BlocksSubscriptionRes? _defaultInstance;
 
-  BlocksSubscriptionRes_Result whichResult() => _BlocksSubscriptionRes_ResultByTag[$_whichOneof(0)]!;
+  BlocksSubscriptionRes_Result whichResult() =>
+      _BlocksSubscriptionRes_ResultByTag[$_whichOneof(0)]!;
   void clearResult() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)

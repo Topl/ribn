@@ -1,7 +1,11 @@
-import 'package:brambldart/model.dart';
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
+
+// Package imports:
+import 'package:brambldart/model.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 
+// Project imports:
 import '../../../containers/transaction_history_container.dart';
 import '../dashed_list_separator/dashed_list_separator.dart';
 import '../transaction_data_row/transaction_data_row.dart';

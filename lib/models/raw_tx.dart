@@ -2,6 +2,7 @@
 //
 //     final rawTx = rawTxFromJson(jsonString);
 
+// Dart imports:
 import 'dart:convert';
 
 RawTx rawTxFromJson(String str) => RawTx.fromJson(json.decode(str));
@@ -44,13 +45,15 @@ class RawTx {
             List<NewBox>.from(json['newBoxes'].map((x) => NewBox.fromJson(x))),
         data: json['data'],
         from: List<List<String>>.from(
-            json['from'].map((x) => List<String>.from(x.map((x) => x))),),
+          json['from'].map((x) => List<String>.from(x.map((x) => x))),
+        ),
         minting: json['minting'],
         txId: json['txId'],
         boxesToRemove: List<String>.from(json['boxesToRemove'].map((x) => x)),
         fee: json['fee'],
         to: List<List<dynamic>>.from(
-            json['to'].map((x) => List<dynamic>.from(x.map((x) => x))),),
+          json['to'].map((x) => List<dynamic>.from(x.map((x) => x))),
+        ),
         propositionType: json['propositionType'],
         messageToSign: json['messageToSign'],
       );
@@ -61,13 +64,15 @@ class RawTx {
         'newBoxes': List<dynamic>.from(newBoxes.map((x) => x.toJson())),
         'data': data,
         'from': List<dynamic>.from(
-            from.map((x) => List<dynamic>.from(x.map((x) => x))),),
+          from.map((x) => List<dynamic>.from(x.map((x) => x))),
+        ),
         'minting': minting,
         'txId': txId,
         'boxesToRemove': List<dynamic>.from(boxesToRemove.map((x) => x)),
         'fee': fee,
         'to': List<dynamic>.from(
-            to.map((x) => List<dynamic>.from(x.map((x) => x))),),
+          to.map((x) => List<dynamic>.from(x.map((x) => x))),
+        ),
         'propositionType': propositionType,
         'messageToSign': messageToSign,
       };
@@ -125,8 +130,7 @@ class Value {
         quantity: json['quantity'],
         assetCode: json['assetCode'],
         metadata: json['metadata'],
-        securityRoot:
-            json['securityRoot'],
+        securityRoot: json['securityRoot'],
       );
 
   Map<String, dynamic> toJson() => {

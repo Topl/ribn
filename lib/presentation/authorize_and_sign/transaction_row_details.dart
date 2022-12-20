@@ -1,8 +1,13 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/strings.dart';
+
+// Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+
+// Project imports:
+import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/strings.dart';
 
 class TransactionRowDetails extends StatelessWidget {
   const TransactionRowDetails({
@@ -61,11 +66,14 @@ class TransactionRowDetails extends StatelessWidget {
             Row(
               children: [
                 Image.asset(
-                  isPolyTransfer ? RibnAssets.polyIconCircle : RibnAssets.undefinedIcon,
+                  isPolyTransfer
+                      ? RibnAssets.polyIconCircle
+                      : RibnAssets.undefinedIcon,
                   width: 23,
                 ),
                 const SizedBox(width: 5),
-                Text(isPolyTransfer ? 'POLY' : 'OTHER ASSET', style: defaultTextStyle),
+                Text(isPolyTransfer ? 'POLY' : 'OTHER ASSET',
+                    style: defaultTextStyle),
               ],
             )
           ],

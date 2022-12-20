@@ -5,21 +5,27 @@
 // @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
+// Dart imports:
 import 'dart:async' as $async;
-
 import 'dart:core' as $core;
 
+// Package imports:
 import 'package:grpc/service_api.dart' as $grpc;
+
+// Project imports:
 import 'blocks_query.pb.dart' as $1;
+
 export 'blocks_query.pb.dart';
 
 class BlocksQueryClient extends $grpc.Client {
-  static final _$query = $grpc.ClientMethod<$1.QueryBlocksReq, $1.QueryBlocksRes>(
+  static final _$query =
+      $grpc.ClientMethod<$1.QueryBlocksReq, $1.QueryBlocksRes>(
     '/co.topl.genus.services.BlocksQuery/Query',
     ($1.QueryBlocksReq value) => value.writeToBuffer(),
     ($core.List<$core.int> value) => $1.QueryBlocksRes.fromBuffer(value),
   );
-  static final _$queryStream = $grpc.ClientMethod<$1.BlocksQueryStreamReq, $1.BlocksQueryStreamRes>(
+  static final _$queryStream =
+      $grpc.ClientMethod<$1.BlocksQueryStreamReq, $1.BlocksQueryStreamRes>(
     '/co.topl.genus.services.BlocksQuery/QueryStream',
     ($1.BlocksQueryStreamReq value) => value.writeToBuffer(),
     ($core.List<$core.int> value) => $1.BlocksQueryStreamRes.fromBuffer(value),
@@ -70,7 +76,8 @@ abstract class BlocksQueryServiceBase extends $grpc.Service {
         queryStream_Pre,
         false,
         true,
-        ($core.List<$core.int> value) => $1.BlocksQueryStreamReq.fromBuffer(value),
+        ($core.List<$core.int> value) =>
+            $1.BlocksQueryStreamReq.fromBuffer(value),
         ($1.BlocksQueryStreamRes value) => value.writeToBuffer(),
       ),
     );
