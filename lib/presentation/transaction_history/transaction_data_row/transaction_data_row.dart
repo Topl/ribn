@@ -11,16 +11,11 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/ribn_sample_data_models.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/models/transactions/ribn_activity_details_model.dart';
-import 'package:ribn_toolkit/widgets/atoms/status_chip.dart';
-import 'package:ribn_toolkit/widgets/molecules/ribn_activity_details.dart';
 import 'package:ribn_toolkit/widgets/molecules/ribn_activity_tile.dart';
 
 // Project imports:
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/keys.dart';
-import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/utils.dart';

@@ -15,8 +15,6 @@ import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 
 // Project imports:
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/keys.dart';
-import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/asset_transfer_input_container.dart';
 import 'package:ribn/presentation/empty_state_screen.dart';
