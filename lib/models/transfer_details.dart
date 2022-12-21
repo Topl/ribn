@@ -1,4 +1,3 @@
-
 import 'dart:typed_data';
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/foundation.dart';
@@ -6,22 +5,47 @@ import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/models/ribn_address.dart';
 
-
 /// A helper class to hold all the details for a transfer being initiated inside Ribn.
 class TransferDetails {
+  /// The type of transfer
   final TransferType transferType;
+
+  /// The amount being transferred in nanoPoly's
   final String amount;
+
+  /// Address of the recipient
   final String recipient;
+
+  /// The sender/s address/s of this transaction.
   final List<RibnAddress> senders;
+
+  /// Extra data pertaining to transfer
   final String data;
+
+  /// The address to send leftover [Poly] tokens
   final RibnAddress? change;
+
+  /// The address to send leftover [Asset] and [Arbit] tokens
   final RibnAddress? consolidation;
+
+  /// AssetCode serves as a unique identifier for user issued assets
   final AssetCode? assetCode;
+
+  /// The networkId for returning correct transaction data per each Topl network
   final int? networkId;
+
+  /// Receipt for the transaction
   final TransactionReceipt? transactionReceipt;
+
+  /// The message that will have to be signed by the sender of this transaction
   final Uint8List? messageToSign;
+
+  /// The id of this transaction
   final String? transactionId;
+
+  /// User defined asset details.
   final AssetDetails? assetDetails;
+
   TransferDetails({
     required this.transferType,
     required this.amount,
