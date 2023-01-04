@@ -69,7 +69,8 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
         // refresh balances on network toggle or when new addresses are generated
         final bool shouldRefresh = currVm.walletExists &&
             (prevVm?.currentNetwork.networkName != currVm.currentNetwork.networkName ||
-                prevVm?.currentNetwork.lastCheckedTimestamp != currVm.currentNetwork.lastCheckedTimestamp ||
+                prevVm?.currentNetwork.lastCheckedTimestamp !=
+                    currVm.currentNetwork.lastCheckedTimestamp ||
                 prevVm?.currentNetwork.addresses.length != currVm.currentNetwork.addresses.length);
         if (shouldRefresh) refreshBalances(currVm);
       },
@@ -282,14 +283,21 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     required Function(AssetAmount) viewAssetDetails,
   }) {
     final String assetIcon = assetDetails?.icon ?? RibnAssets.undefinedIcon;
-    final String assetUnit = assetDetails?.unit != null ? formatAssetUnit(assetDetails!.unit) : 'Unit';
+
+    final String assetUnit =
+        assetDetails?.unit != null ? formatAssetUnit(assetDetails!.unit) : 'Unit';
     final String assetLongName = assetDetails?.longName ?? '';
     final bool isMissingAssetDetails =
         assetIcon == RibnAssets.undefinedIcon || assetUnit == 'Unit' || assetLongName.isEmpty;
 
+    bool isNft = false;
     return AssetCard(
+      isNft: isNft,
       onCardPress: () => viewAssetDetails(asset),
-      iconImage: Image.asset(assetIcon, width: 31),
+      iconImage: Image.asset(
+        assetIcon,
+        width: 300,
+      ),
       shortName: Text(
         asset.assetCode.shortName.show.replaceAll('\x00', ''),
         style: RibnToolkitTextStyles.assetShortNameStyle,
@@ -307,7 +315,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
             ),
       missingAsstDetailsCondition: isMissingAssetDetails,
       assetQuantityDetails: Text(
-        '${asset.quantity.toString()} $assetUnit',
+        isNft ? '${asset.quantity.toString()}' : '${asset.quantity.toString()} $assetUnit',
         overflow: TextOverflow.ellipsis,
         style: RibnToolkitTextStyles.assetShortNameStyle.copyWith(
           color: RibnColors.primary,

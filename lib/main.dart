@@ -25,9 +25,8 @@ import 'package:ribn/router/root_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Redux.initStore(initTestStore: false);
-  final AppViews currentAppView =
-      await PlatformUtils.instance.getCurrentAppView();
+  await Redux.initStore(initTestStore: true);
+  final AppViews currentAppView = await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
   // Open app in new tab if user needs onboarding
   if (currentAppView == AppViews.extension && needsOnboarding) {
@@ -60,8 +59,7 @@ class RibnApp extends StatelessWidget {
           title: 'Ribn',
           navigatorObservers: [Routes.routeObserver],
           onGenerateRoute: rootRouter.generateRoutes,
-          onGenerateInitialRoutes: (initialRoute) =>
-              onGenerateInitialRoute(initialRoute, store),
+          onGenerateInitialRoutes: (initialRoute) => onGenerateInitialRoute(initialRoute, store),
           initialRoute: getInitialRoute(store),
           navigatorKey: Keys.navigatorKey,
         ),
@@ -84,12 +82,9 @@ String getInitialRoute(Store<AppState> store) {
   //v2
   else if (store.state.internalMessage?.method == InternalMethods.authorize) {
     return Routes.connectDApp;
-  }
-  else if (store.state.internalMessage?.method == InternalMethods.getBalance) {
+  } else if (store.state.internalMessage?.method == InternalMethods.getBalance) {
     return Routes.reviewAndSignDApp;
-  }
-  else if (store.state.internalMessage?.method ==
-      InternalMethods.signTransaction) {
+  } else if (store.state.internalMessage?.method == InternalMethods.signTransaction) {
     return Routes.reviewAndSignDApp;
   }
 
@@ -126,8 +121,7 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
     case Routes.externalSigning:
       return [
         MaterialPageRoute(
-          builder: (context) =>
-              ExternalSigningPage(store.state.internalMessage!),
+          builder: (context) => ExternalSigningPage(store.state.internalMessage!),
           settings: const RouteSettings(name: Routes.externalSigning),
         )
       ];
@@ -168,13 +162,11 @@ Future<void> initBgConnection(Store<AppState> store) async {
   try {
     Messenger.instance.connect();
     Messenger.instance.initMsgListener((String msgFromBgScript) {
-      final InternalMessage pendingRequest =
-          InternalMessage.fromJson(msgFromBgScript);
+      final InternalMessage pendingRequest = InternalMessage.fromJson(msgFromBgScript);
       store.dispatch(ReceivedInternalMsgAction(pendingRequest));
       completer.complete();
     });
-    Messenger.instance
-        .sendMsg(jsonEncode({'method': InternalMethods.checkPendingRequest}));
+    Messenger.instance.sendMsg(jsonEncode({'method': InternalMethods.checkPendingRequest}));
   } catch (e) {
     completer.complete();
     PlatformUtils.instance.closeWindow();
