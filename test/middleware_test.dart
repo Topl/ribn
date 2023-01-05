@@ -1,10 +1,14 @@
+// Dart imports:
 import 'dart:async';
 import 'dart:typed_data';
 
+// Package imports:
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/login_actions.dart';
 import 'package:ribn/actions/onboarding_actions.dart';
@@ -14,7 +18,6 @@ import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/redux.dart';
 import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/repositories/onboarding_repository.dart';
-
 import 'shared_mocks.mocks.dart';
 import 'test_data.dart';
 
@@ -57,8 +60,10 @@ void main() {
         testStore.dispatch(GenerateMnemonicAction());
         verify(onboardingRepo.generateMnemonicForUser()).called(1);
         expect(testStore.state.onboardingState.mnemonic, testMnemonic);
-        expect(testStore.state.onboardingState.shuffledMnemonic,
-            unorderedEquals(testMnemonic.split(' ')));
+        expect(
+          testStore.state.onboardingState.shuffledMnemonic,
+          unorderedEquals(testMnemonic.split(' ')),
+        );
       });
       test('should generate keystore and initialize hd wallet', () async {
         when(onboardingRepo.generateMnemonicForUser())
@@ -125,7 +130,8 @@ void main() {
           loginRepo.decryptKeyStore(argThat(isNotNull)),
         ).thenAnswer(
           (_) => const LoginRepository().decryptKeyStore(
-              {'keyStoreJson': testKeyStore, 'password': invalidPassword}),
+            {'keyStoreJson': testKeyStore, 'password': invalidPassword},
+          ),
         );
         final Completer<bool> completer = Completer();
         testStore.dispatch(AttemptLoginAction(invalidPassword, completer));
@@ -158,30 +164,42 @@ void main() {
           Duration.zero,
           () => testStore.dispatch(
             InitializeHDWalletAction(
-                toplExtendedPrivateKey: TestData.toplExtendedPrvKeyUint8List),
+              toplExtendedPrivateKey: TestData.toplExtendedPrvKeyUint8List,
+            ),
           ),
         );
-        when(keychainRepo.generateAddress(argThat(isNotNull),
-                networkId: captureAnyNamed('networkId')))
-            .thenAnswer((_) => testAddress);
-        testStore.dispatch(GenerateAddressAction(0,
-            network: testStore.state.keychainState.currentNetwork));
+        when(
+          keychainRepo.generateAddress(
+            argThat(isNotNull),
+            networkId: captureAnyNamed('networkId'),
+          ),
+        ).thenAnswer((_) => testAddress);
+        testStore.dispatch(
+          GenerateAddressAction(
+            0,
+            network: testStore.state.keychainState.currentNetwork,
+          ),
+        );
         when(keychainRepo.getBalances(captureAny, captureAny)).thenAnswer((_) {
           return Future.value(
             (_.positionalArguments[1] as List<ToplAddress>)
                 .map(
-                    (e) => Balance(
-                          address: e.toBase58(),
-                          polys: PolyAmount.inNanopoly(quantity: testPolys),
-                          arbits: ArbitAmount.zero(),
-                        ),
-                    )
+                  (e) => Balance(
+                    address: e.toBase58(),
+                    polys: PolyAmount.inNanopoly(quantity: testPolys),
+                    arbits: ArbitAmount.zero(),
+                  ),
+                )
                 .toList(),
           );
         });
         final Completer<bool> completer = Completer();
-        testStore.dispatch(RefreshBalancesAction(
-            completer, testStore.state.keychainState.currentNetwork));
+        testStore.dispatch(
+          RefreshBalancesAction(
+            completer,
+            testStore.state.keychainState.currentNetwork,
+          ),
+        );
         await expectLater(completer.future, completion(true));
         expect(
           testStore

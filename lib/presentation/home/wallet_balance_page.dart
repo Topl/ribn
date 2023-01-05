@@ -1,5 +1,18 @@
-import 'package:brambldart/brambldart.dart';
+// Flutter imports:
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:brambldart/brambldart.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/asset_card.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
+import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
+
+// Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
@@ -10,12 +23,7 @@ import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/error_section.dart';
 import 'package:ribn/presentation/home/wallet_balance_shimmer.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/molecules/asset_card.dart';
-import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
-import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
+
 // import 'package:url_launcher/url_launcher.dart';
 
 /// One of the 3 main pages on the home screen.
@@ -228,16 +236,8 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
         icon: RibnAssets.walletWithBorder,
         title: Strings.noAssetsInWallet,
         body: emptyStateBody,
-        buttonOneText: 'Mint',
-        buttonOneAction: () => Keys.navigatorKey.currentState?.pushNamed(
-          Routes.mintInput,
-          arguments: {
-            'mintingNewAsset': true,
-            'mintingToMyWallet': true,
-          },
-        ),
-        buttonTwoText: 'Share',
-        buttonTwoAction: () async => await showReceivingAddress(),
+        buttonOneText: 'Share',
+        buttonOneAction: () async => await showReceivingAddress(),
         mobileHeight: MediaQuery.of(context).size.height * 0.5,
         desktopHeight: 258,
       );

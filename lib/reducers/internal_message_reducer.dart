@@ -1,4 +1,7 @@
+// Package imports:
 import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/models/internal_message.dart';
 

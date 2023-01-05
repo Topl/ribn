@@ -1,5 +1,10 @@
+// Dart imports:
 import 'dart:math';
+
+// Package imports:
 import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/models/onboarding_state.dart';
 

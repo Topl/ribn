@@ -1,8 +1,16 @@
+// Dart imports:
+import 'dart:convert';
+
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:ribn_toolkit/models/transactions/ribn_activity_details_model.dart';
+
+// Project imports:
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/internal_message.dart';
-// import 'package:ribn/models/transaction_history_entry.dart';
 import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/presentation/asset_details/asset_details_page.dart';
 import 'package:ribn/presentation/authorize_and_sign/connect_dapp.dart';
@@ -36,6 +44,8 @@ import 'package:ribn/presentation/transfers/asset_transfer_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
 import 'package:ribn/presentation/transfers/tx_confirmation_page.dart';
 import 'package:ribn/presentation/transfers/tx_review_page.dart';
+
+// import 'package:ribn/models/transaction_history_entry.dart';
 
 class RootRouter {
   Route<MaterialPageRoute> generateRoutes(RouteSettings settings) {
@@ -259,6 +269,18 @@ class RootRouter {
             settings,
           );
         }
+      case Routes.txHistoryDetails:
+        final Map transactionDetailsMap = settings.arguments as Map;
+        final RibnActivityDetailsModel transactionDetails =
+            RibnActivityDetailsModel.fromJson(
+          jsonEncode(transactionDetailsMap),
+        );
+        {
+          return pageRoute(
+            TxHistoryDetailsPage(ribnActivityDetailsModel: transactionDetails),
+            settings,
+          );
+        }
       case Routes.assetDetails:
         {
           final Map<String, dynamic> assetDetailsPageArgs =
@@ -278,17 +300,7 @@ class RootRouter {
         {
           return pageRoute(const TxHistoryPage(), settings);
         }
-      case Routes.txHistoryDetails:
-        final Map transactionDetails = settings.arguments as Map;
 
-        {
-          return pageRoute(
-            TxHistoryDetailsPage(
-              transactionDetails: transactionDetails,
-            ),
-            settings,
-          );
-        }
       case Routes.settings:
         {
           if (kIsWeb) {

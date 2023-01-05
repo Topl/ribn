@@ -1,9 +1,16 @@
+// Dart imports:
 import 'dart:async';
 import 'dart:convert';
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
@@ -11,7 +18,6 @@ import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/platform/platform.dart';
-// import 'package:ribn/platform/web/wallet.dart';
 import 'package:ribn/presentation/authorize_and_sign/connect_dapp.dart';
 import 'package:ribn/presentation/authorize_and_sign/review_and_sign.dart';
 import 'package:ribn/presentation/enable_page.dart';
@@ -22,6 +28,8 @@ import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
 import 'package:ribn/presentation/transaction_history/service_locator/locator.dart';
 import 'package:ribn/redux.dart';
 import 'package:ribn/router/root_router.dart';
+
+// import 'package:ribn/platform/web/wallet.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
