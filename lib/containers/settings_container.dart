@@ -10,7 +10,6 @@ import 'package:ribn/platform/platform.dart';
 import 'package:ribn/presentation/settings/sections/delete_wallet_confirmation_dialog.dart';
 import 'package:ribn/presentation/settings/sections/disconnect_wallet_confirmation_dialog.dart';
 
-
 /// Intended to wrap the [SettingsPage] and provide it with the the [SettingsViewModel].
 class SettingsContainer extends StatelessWidget {
   const SettingsContainer({Key? key, required this.builder}) : super(key: key);
@@ -86,7 +85,7 @@ class SettingsViewModel {
       onDisconnectPressed: (BuildContext context) async {
         final dApps = await PlatformUtils.instance
             .convertToFuture(PlatformUtils.instance.getDAppList());
-        await PlatformUtils.instance.consoleLog(dApps);
+        // await PlatformUtils.instance.consoleLog(dApps);
         // final bool disconnectResult =
         await showDialog(
           context: context,

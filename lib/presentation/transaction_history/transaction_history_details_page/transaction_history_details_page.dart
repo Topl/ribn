@@ -28,7 +28,8 @@ class TxHistoryDetailsPage extends StatefulWidget {
 class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
   @override
   Widget build(BuildContext context) {
-    final _scrollController = ScrollController();
+    final scrollController = ScrollController();
+
     final dataTileTextStyle = RibnToolkitTextStyles.hintStyle.copyWith(
       fontWeight: FontWeight.w400,
       color: const Color(0xff727372),
@@ -38,9 +39,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
       backgroundColor: RibnColors.background,
       body: Scrollbar(
         thumbVisibility: true,
-        controller: _scrollController,
+        controller: scrollController,
         child: SingleChildScrollView(
-          controller: _scrollController,
+          controller: scrollController,
           child: Column(
             children: [
               const CustomPageTextTitle(
@@ -100,7 +101,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                         const SizedBox(
                           height: 16,
                         ),
-                        const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                        const DashedListSeparator(
+                          color: RibnColors.lightGreyDivider,
+                        ),
                         const SizedBox(
                           height: 16,
                         ),
@@ -139,7 +142,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                         const SizedBox(
                           height: 16,
                         ),
-                        const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                        const DashedListSeparator(
+                          color: RibnColors.lightGreyDivider,
+                        ),
                         const SizedBox(
                           height: 16,
                         ),
@@ -165,7 +170,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                         const SizedBox(
                           height: 16,
                         ),
-                        const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                        const DashedListSeparator(
+                          color: RibnColors.lightGreyDivider,
+                        ),
                         const SizedBox(
                           height: 16,
                         ),
@@ -199,7 +206,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                         const SizedBox(
                           height: 16,
                         ),
-                        const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                        const DashedListSeparator(
+                          color: RibnColors.lightGreyDivider,
+                        ),
                         const SizedBox(
                           height: 16,
                         ),
@@ -211,17 +220,24 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                               SizedBox(
                                 width: 26,
                                 height: 26,
-                                child: SvgPicture.asset(RibnAssets.recipientFingerprint),
+                                child: SvgPicture.asset(
+                                  RibnAssets.recipientFingerprint,
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 10),
                                 child: Text(
-                                  formatAddrString(widget.transactionDetails!['transactionSenderAddress'].toString()),
+                                  formatAddrString(
+                                    widget.transactionDetails!['transactionSenderAddress']
+                                        .toString(),
+                                  ),
                                   style: dataTileTextStyle,
                                 ),
                               ),
                               CustomCopyButton(
-                                textToBeCopied: widget.transactionDetails!['transactionSenderAddress'].toString(),
+                                textToBeCopied: widget
+                                    .transactionDetails!['transactionSenderAddress']
+                                    .toString(),
                                 icon: Image.asset(
                                   RibnAssets.copyIcon,
                                   width: 20,
@@ -233,7 +249,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                         const SizedBox(
                           height: 16,
                         ),
-                        const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                        const DashedListSeparator(
+                          color: RibnColors.lightGreyDivider,
+                        ),
                         const SizedBox(
                           height: 16,
                         ),
@@ -252,7 +270,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                         const SizedBox(
                           height: 16,
                         ),
-                        const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                        const DashedListSeparator(
+                          color: RibnColors.lightGreyDivider,
+                        ),
                         widget.transactionDetails!['securityRoot'] == null
                             ? const SizedBox()
                             : Column(
@@ -269,7 +289,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.only(right: 10),
+                                              padding: const EdgeInsets.only(
+                                                right: 10,
+                                              ),
                                               child: Text(
                                                 formatAddrString(
                                                   widget.transactionDetails!['securityRoot'],
@@ -279,7 +301,8 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                               ),
                                             ),
                                             CustomCopyButton(
-                                              textToBeCopied: widget.transactionDetails!['securityRoot'],
+                                              textToBeCopied:
+                                                  widget.transactionDetails!['securityRoot'],
                                               icon: Image.asset(
                                                 RibnAssets.copyIcon,
                                                 width: 20,
@@ -293,7 +316,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                   const SizedBox(
                                     height: 16,
                                   ),
-                                  const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                                  const DashedListSeparator(
+                                    color: RibnColors.lightGreyDivider,
+                                  ),
                                 ],
                               ),
                         const SizedBox(
@@ -318,7 +343,8 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                     ),
                                   ),
                                   CustomCopyButton(
-                                    textToBeCopied: widget.transactionDetails!['blockId'].toString(),
+                                    textToBeCopied:
+                                        widget.transactionDetails!['blockId'].toString(),
                                     icon: Image.asset(
                                       RibnAssets.copyIcon,
                                       width: 20,
@@ -341,7 +367,8 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                     ),
                                   ),
                                   CustomCopyButton(
-                                    textToBeCopied: widget.transactionDetails!['blockHeight'].toString(),
+                                    textToBeCopied:
+                                        widget.transactionDetails!['blockHeight'].toString(),
                                     icon: Image.asset(
                                       RibnAssets.copyIcon,
                                       width: 20,
@@ -355,7 +382,9 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                         const SizedBox(
                           height: 16,
                         ),
-                        const DashedListSeparator(color: RibnColors.lightGreyDivider),
+                        const DashedListSeparator(
+                          color: RibnColors.lightGreyDivider,
+                        ),
                         const SizedBox(
                           height: 16,
                         ),
@@ -378,7 +407,8 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                     ),
                                   ),
                                   CustomCopyButton(
-                                    textToBeCopied: widget.transactionDetails!['transactionId'].toString(),
+                                    textToBeCopied:
+                                        widget.transactionDetails!['transactionId'].toString(),
                                     icon: Image.asset(
                                       RibnAssets.copyIcon,
                                       width: 20,

@@ -69,7 +69,8 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
                 ConfirmationButton(
                   text: Strings.iUnderstand,
                   onPressed: () {
-                    Keys.navigatorKey.currentState?.pushNamed(Routes.generateSeedPhrase);
+                    Keys.navigatorKey.currentState
+                        ?.pushNamed(Routes.generateSeedPhrase);
                   },
                 )
               ],
@@ -99,7 +100,10 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
               width: width,
               height: height,
               child: Padding(
-                padding: EdgeInsets.only(left: iconLeftPadding, right: iconRightPadding),
+                padding: EdgeInsets.only(
+                  left: iconLeftPadding,
+                  right: iconRightPadding,
+                ),
                 child: Image.asset(pngIcon, width: 30),
               ),
             ),
@@ -110,7 +114,8 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
                 width: kIsWeb ? 500 : 295,
                 child: Text(
                   text,
-                  textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+                  textHeightBehavior:
+                      const TextHeightBehavior(applyHeightToFirstAscent: false),
                   style: RibnToolkitTextStyles.h3.copyWith(
                     color: RibnColors.lightGreyTitle,
                     fontSize: 18,

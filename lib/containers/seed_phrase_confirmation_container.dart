@@ -46,10 +46,12 @@ class SeedPhraseConfirmationViewModel {
   static SeedPhraseConfirmationViewModel fromStore(Store<AppState> store) {
     return SeedPhraseConfirmationViewModel(
       shuffledMnemonic: store.state.onboardingState.shuffledMnemonic!,
-      mnemonicWordsList: store.state.onboardingState.mnemonic!.split(' ').toList(),
+      mnemonicWordsList:
+          store.state.onboardingState.mnemonic!.split(' ').toList(),
       userSelectedIndices: store.state.onboardingState.userSelectedIndices!,
-      finishedInputting: store.state.onboardingState.userSelectedIndices?.length ==
-          store.state.onboardingState.shuffledMnemonic?.length,
+      finishedInputting:
+          store.state.onboardingState.userSelectedIndices?.length ==
+              store.state.onboardingState.shuffledMnemonic?.length,
       selectWord: (idx) => store.dispatch(UserSelectedWordAction(idx)),
       confirmeIdxs: store.state.onboardingState.mobileConfirmIdxs,
     );
@@ -68,6 +70,9 @@ class SeedPhraseConfirmationViewModel {
 
   @override
   int get hashCode {
-    return shuffledMnemonic.hashCode ^ mnemonicWordsList.hashCode ^ userSelectedIndices.hashCode ^ selectWord.hashCode;
+    return shuffledMnemonic.hashCode ^
+        mnemonicWordsList.hashCode ^
+        userSelectedIndices.hashCode ^
+        selectWord.hashCode;
   }
 }

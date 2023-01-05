@@ -93,16 +93,20 @@ class AssetTransferInputViewModel {
           (TransferDetails? transferDetails) {
             final success = transferDetails != null;
             onRawTxCreated(success);
-            Keys.navigatorKey.currentState?.pushNamed(Routes.txReview, arguments: transferDetails);
+            Keys.navigatorKey.currentState
+                ?.pushNamed(Routes.txReview, arguments: transferDetails);
           },
         );
       },
       assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
       currentNetwork: store.state.keychainState.currentNetwork,
-      networkFee: NetworkUtils.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
+      networkFee: NetworkUtils
+          .networkFees[store.state.keychainState.currentNetwork.networkId]!
+          .getInNanopoly,
       assetDetails: store.state.userDetailsState.assetDetails,
       getAssetBalance: (String? assetCode) {
-        final List<AssetAmount> myAssets = store.state.keychainState.currentNetwork.getAllAssetsInWallet();
+        final List<AssetAmount> myAssets =
+            store.state.keychainState.currentNetwork.getAllAssetsInWallet();
         return myAssets
             .where((element) => element.assetCode.toString() == assetCode)
             .fold(0, (prev, value) => prev + value.quantity);
@@ -123,6 +127,9 @@ class AssetTransferInputViewModel {
 
   @override
   int get hashCode {
-    return assets.hashCode ^ networkFee.hashCode ^ assetDetails.hashCode ^ currentNetwork.hashCode;
+    return assets.hashCode ^
+        networkFee.hashCode ^
+        assetDetails.hashCode ^
+        currentNetwork.hashCode;
   }
 }

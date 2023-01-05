@@ -20,13 +20,11 @@ external String getBalance(void Function() f);
 @JS()
 external String getAddress(void Function() f);
 
-
 void initialize() {
   getWalletBalance = allowInterop(_getBalance);
   getWalletAddress = allowInterop(_getAddress);
   // JavaScript code may now call `functionName()` or `window.functionName()`.
 }
-
 
 String _getBalance() =>
     StoreProvider.of<AppState>(Keys.navigatorKey.currentContext!)
@@ -45,4 +43,3 @@ String _getAddress() =>
         .first
         .toplAddress
         .toBase58();
-

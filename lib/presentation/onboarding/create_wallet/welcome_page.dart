@@ -39,7 +39,9 @@ class WelcomePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: kIsWeb ? double.infinity : 310),
+                  constraints: const BoxConstraints(
+                    maxWidth: kIsWeb ? double.infinity : 310,
+                  ),
                   child: Text(
                     Strings.intro,
                     textAlign: TextAlign.center,
@@ -53,7 +55,8 @@ class WelcomePage extends StatelessWidget {
                 ConfirmationButton(
                   text: Strings.getStarted,
                   onPressed: () {
-                    Keys.navigatorKey.currentState?.pushNamed(Routes.selectAction);
+                    Keys.navigatorKey.currentState
+                        ?.pushNamed(Routes.selectAction);
                   },
                 ),
               ],

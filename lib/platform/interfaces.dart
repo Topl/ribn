@@ -42,7 +42,6 @@ abstract class IWallet {
   String getAddress();
 }
 
-
 abstract class IMessenger {
   /// Send [msg] to the background script.
   void sendMsg(String msg);
@@ -67,7 +66,6 @@ abstract class IPlatformLocalStorage {
   ///
   /// [key] should be the Base58Encoded Topl Main Key.
   Future<void> saveKeyInSessionStorage(String key);
-
 
   /// Mobile-only
   ///

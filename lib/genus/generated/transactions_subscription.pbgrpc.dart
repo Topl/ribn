@@ -14,7 +14,8 @@ import 'transactions_subscription.pb.dart' as $2;
 export 'transactions_subscription.pb.dart';
 
 class TransactionsSubscriptionClient extends $grpc.Client {
-  static final _$create = $grpc.ClientMethod<$2.CreateTxsSubscriptionReq, $2.TxsSubscriptionRes>(
+  static final _$create =
+      $grpc.ClientMethod<$2.CreateTxsSubscriptionReq, $2.TxsSubscriptionRes>(
     '/co.topl.genus.services.TransactionsSubscription/Create',
     ($2.CreateTxsSubscriptionReq value) => value.writeToBuffer(),
     ($core.List<$core.int> value) => $2.TxsSubscriptionRes.fromBuffer(value),
@@ -48,7 +49,8 @@ abstract class TransactionsSubscriptionServiceBase extends $grpc.Service {
         create_Pre,
         false,
         true,
-        ($core.List<$core.int> value) => $2.CreateTxsSubscriptionReq.fromBuffer(value),
+        ($core.List<$core.int> value) =>
+            $2.CreateTxsSubscriptionReq.fromBuffer(value),
         ($2.TxsSubscriptionRes value) => value.writeToBuffer(),
       ),
     );

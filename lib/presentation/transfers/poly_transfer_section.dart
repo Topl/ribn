@@ -145,8 +145,11 @@ class _PolyTransferSectionState extends State<PolyTransferSection> {
                       if (_validRecipientAddress.isNotEmpty) {
                         _recipientController.text = _validRecipientAddress;
                         _recipientController
-                          ..text = _recipientController.text.substring(0, _recipientController.text.length)
-                          ..selection = TextSelection.collapsed(offset: _recipientController.text.length);
+                          ..text = _recipientController.text
+                              .substring(0, _recipientController.text.length)
+                          ..selection = TextSelection.collapsed(
+                            offset: _recipientController.text.length,
+                          );
                       }
                       _validRecipientAddress = '';
                     });
@@ -229,8 +232,9 @@ class _PolyTransferSectionState extends State<PolyTransferSection> {
   }
 
   Widget _buildReviewButton(PolyTransferInputViewModel vm) {
-    final bool enteredValidInputs =
-        _validRecipientAddress.isNotEmpty && _amountController.text.isNotEmpty && _validAmount;
+    final bool enteredValidInputs = _validRecipientAddress.isNotEmpty &&
+        _amountController.text.isNotEmpty &&
+        _validAmount;
 
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 10),
