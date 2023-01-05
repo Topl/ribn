@@ -1,8 +1,14 @@
 // Flutter imports:
+
+// Flutter imports:
+import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:brambldart/brambldart.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
+
 // Project imports:
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
@@ -19,8 +25,6 @@ import 'package:ribn/presentation/asset_details/asset_detail_items/asset_long_na
 import 'package:ribn/presentation/asset_details/asset_detail_items/asset_unit_details.dart';
 import 'package:ribn/presentation/asset_details/asset_detail_items/issuer_address_details.dart';
 import 'package:ribn/widgets/custom_divider.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
 /// This page presents all details associated with an asset.
 ///
@@ -124,7 +128,9 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
                   const SizedBox(height: 40),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10,),
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
                     width: 309,
                     decoration: BoxDecoration(
                       borderRadius:
@@ -156,7 +162,9 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
                           currUnit: assetDetails?.unit,
                           editingSectionOpened: editingAssetUnit,
                           onEditPressed: () => _onEditPressed(
-                              key: assetUnitKey, assetDetails: assetDetails,),
+                            key: assetUnitKey,
+                            assetDetails: assetDetails,
+                          ),
                         ),
                         _buildDivider(),
                         // asset long name display - can be edited
@@ -165,8 +173,9 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
                           currLongName: assetDetails?.longName,
                           editingSectionOpened: editingAssetLongName,
                           onEditPressed: () => _onEditPressed(
-                              key: assetLongNameKey,
-                              assetDetails: assetDetails,),
+                            key: assetLongNameKey,
+                            assetDetails: assetDetails,
+                          ),
                         ),
                         _buildDivider(),
                         // asset icon display - can be edited
@@ -175,12 +184,15 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
                           currIcon: assetDetails?.icon,
                           editingSectionOpened: editingAssetIcon,
                           onEditPressed: () => _onEditPressed(
-                              key: assetIconKey, assetDetails: assetDetails,),
+                            key: assetIconKey,
+                            assetDetails: assetDetails,
+                          ),
                         ),
                         _buildDivider(),
                         // asset issuer address display
                         IssuerAddressDetails(
-                            issuerAddress: widget.issuerAddress,),
+                          issuerAddress: widget.issuerAddress,
+                        ),
                         _buildDivider(),
                         // asset code display
                         AssetCodeDetails(assetCode: widget.assetCode),

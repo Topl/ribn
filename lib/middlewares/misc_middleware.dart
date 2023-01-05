@@ -14,17 +14,22 @@ import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/repositories/misc_repository.dart';
 
 List<Middleware<AppState>> createMiscMiddleware(
-    LoginRepository loginRep, MiscRepository miscRepo,) {
+  LoginRepository loginRep,
+  MiscRepository miscRepo,
+) {
   return <Middleware<AppState>>[
     TypedMiddleware<AppState, DeleteWalletAction>(_onDeleteWallet(loginRep)),
     TypedMiddleware<AppState, DownloadAsFileAction>(
-        _onDownloadAsFile(miscRepo),),
+      _onDownloadAsFile(miscRepo),
+    ),
   ];
 }
 
 void Function(
-        Store<AppState> store, DeleteWalletAction action, NextDispatcher next,)
-    _onDeleteWallet(
+  Store<AppState> store,
+  DeleteWalletAction action,
+  NextDispatcher next,
+) _onDeleteWallet(
   LoginRepository loginRepo,
 ) {
   return (store, action, next) async {
@@ -55,8 +60,10 @@ void Function(
 }
 
 void Function(
-        Store<AppState> store, DownloadAsFileAction action, NextDispatcher next,)
-    _onDownloadAsFile(
+  Store<AppState> store,
+  DownloadAsFileAction action,
+  NextDispatcher next,
+) _onDownloadAsFile(
   MiscRepository miscRepo,
 ) {
   return (store, action, next) {

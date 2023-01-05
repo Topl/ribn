@@ -18,18 +18,24 @@ import 'package:ribn/repositories/onboarding_repository.dart';
 import 'package:ribn/utils.dart';
 
 List<Middleware<AppState>> createOnboardingMiddleware(
-    OnboardingRespository onboardingRespository,) {
+  OnboardingRespository onboardingRespository,
+) {
   return <Middleware<AppState>>[
     TypedMiddleware<AppState, GenerateMnemonicAction>(
-        _generateMnemonic(onboardingRespository),),
+      _generateMnemonic(onboardingRespository),
+    ),
     TypedMiddleware<AppState, CreatePasswordAction>(
-        _createPassword(onboardingRespository),),
+      _createPassword(onboardingRespository),
+    ),
   ];
 }
 
 /// Generates mnemonic for the user and redirects to [Routes.onboardingSteps]
-void Function(Store<AppState> store, GenerateMnemonicAction action,
-    NextDispatcher next,) _generateMnemonic(
+void Function(
+  Store<AppState> store,
+  GenerateMnemonicAction action,
+  NextDispatcher next,
+) _generateMnemonic(
   OnboardingRespository onboardingRespository,
 ) {
   return (store, action, next) async {
@@ -44,8 +50,10 @@ void Function(Store<AppState> store, GenerateMnemonicAction action,
 
 /// Generates a [KeyStore] with the provided password and initializes the HdWallet
 void Function(
-        Store<AppState> store, CreatePasswordAction action, NextDispatcher next,)
-    _createPassword(
+  Store<AppState> store,
+  CreatePasswordAction action,
+  NextDispatcher next,
+) _createPassword(
   OnboardingRespository onboardingRespository,
 ) {
   return (store, action, next) async {

@@ -42,7 +42,8 @@ class TransactionRepository {
             data: Latin1Data.validated(transferDetails.data),
           );
           final Map<String, dynamic> rawTx = await client.sendRawPolyTransfer(
-              polyTransaction: polyTransaction,);
+            polyTransaction: polyTransaction,
+          );
           return rawTx;
         }
       case TransferType.assetTransfer:
@@ -70,7 +71,8 @@ class TransactionRepository {
             data: Latin1Data.validated(transferDetails.data),
           );
           final Map<String, dynamic> rawTx = await client.sendRawAssetTransfer(
-              assetTransaction: assetTransaction,);
+            assetTransaction: assetTransaction,
+          );
           return rawTx;
         }
       case (TransferType.mintingAsset):
@@ -98,7 +100,8 @@ class TransactionRepository {
             data: Latin1Data.validated(transferDetails.data),
           );
           final Map<String, dynamic> rawTx = await client.sendRawAssetTransfer(
-              assetTransaction: assetTransaction,);
+            assetTransaction: assetTransaction,
+          );
           return rawTx;
         }
       default:
@@ -121,7 +124,9 @@ class TransactionRepository {
   }
 
   Future<String> broadcastTx(
-      BramblClient client, TransactionReceipt signedTx,) async {
+    BramblClient client,
+    TransactionReceipt signedTx,
+  ) async {
     return await client.sendSignedTransaction(signedTx);
   }
 

@@ -1,7 +1,10 @@
 // Flutter imports:
+
+// Flutter imports:
+import 'package:flutter/cupertino.dart';
+
 // Package imports:
 import 'package:brambldart/model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 
 // Project imports:

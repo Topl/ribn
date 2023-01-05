@@ -16,17 +16,21 @@ import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/utils.dart';
 
 List<Middleware<AppState>> createLoginMiddleware(
-    LoginRepository loginRepository,) {
+  LoginRepository loginRepository,
+) {
   return <Middleware<AppState>>[
     TypedMiddleware<AppState, AttemptLoginAction>(
-        _verifyPassword(loginRepository),),
+      _verifyPassword(loginRepository),
+    ),
   ];
 }
 
 /// Verifies that the wallet password is correct by attempting to decrypt the keystore.
 void Function(
-        Store<AppState> store, AttemptLoginAction action, NextDispatcher next,)
-    _verifyPassword(
+  Store<AppState> store,
+  AttemptLoginAction action,
+  NextDispatcher next,
+) _verifyPassword(
   LoginRepository loginRepository,
 ) {
   return (store, action, next) async {
@@ -62,8 +66,11 @@ void Function(
         );
       }
       // initialize hd wallet on success
-      next(InitializeHDWalletAction(
-          toplExtendedPrivateKey: toplExtendedPrvKeyUint8List,),);
+      next(
+        InitializeHDWalletAction(
+          toplExtendedPrivateKey: toplExtendedPrvKeyUint8List,
+        ),
+      );
 
       //Generate Initial addresses for every network
       next(GenerateInitialAddressesAction());

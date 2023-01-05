@@ -27,7 +27,10 @@ class KeychainRepository {
     required int networkId,
   }) {
     final Bip32KeyPair keyPair = hdWallet.deriveLastThreeLayers(
-        account: account, change: change, address: addr,);
+      account: account,
+      change: change,
+      address: addr,
+    );
     final ToplAddress toplAddress =
         hdWallet.toBaseAddress(spend: keyPair.publicKey!, networkId: networkId);
     final String keyPath = getKeyPath(purpose, coinType, account, change, addr);
@@ -44,7 +47,12 @@ class KeychainRepository {
 
   /// Constructs the key path, given the indices for [purpose], [coinType], [account], [change], and [address].
   String getKeyPath(
-      int purpose, int coinType, int account, int change, int address,) {
+    int purpose,
+    int coinType,
+    int account,
+    int change,
+    int address,
+  ) {
     String keyPath = 'm/';
     keyPath += isHardened(purpose)
         ? "${purpose - Rules.hardenedOffset}'/"
@@ -72,7 +80,9 @@ class KeychainRepository {
 
   /// Get corresponding crendentials of the [addresses] provided, using [hdWallet].
   List<Credentials> getCredentials(
-      HdWallet hdWallet, List<RibnAddress> addresses,) {
+    HdWallet hdWallet,
+    List<RibnAddress> addresses,
+  ) {
     final List<Credentials> creds = [];
     for (RibnAddress addr in addresses) {
       final Bip32KeyPair keyPair = hdWallet.deriveLastThreeLayers(

@@ -4,6 +4,10 @@ import 'dart:convert';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:ribn_toolkit/models/transactions/ribn_activity_details_model.dart';
+
 // Project imports:
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/internal_message.dart';
@@ -40,8 +44,6 @@ import 'package:ribn/presentation/transfers/asset_transfer_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
 import 'package:ribn/presentation/transfers/tx_confirmation_page.dart';
 import 'package:ribn/presentation/transfers/tx_review_page.dart';
-// Package imports:
-import 'package:ribn_toolkit/models/transactions/ribn_activity_details_model.dart';
 
 // import 'package:ribn/models/transaction_history_entry.dart';
 
@@ -73,7 +75,9 @@ class RootRouter {
         {
           if (kIsWeb) {
             return pageRouteNotAnimated(
-                const SeedPhraseInfoChecklistPage(), settings,);
+              const SeedPhraseInfoChecklistPage(),
+              settings,
+            );
           }
           return pageRoute(
             const SeedPhraseInfoChecklistPage(),
@@ -84,7 +88,9 @@ class RootRouter {
         {
           if (kIsWeb) {
             return pageRouteNotAnimated(
-                const SeedPhraseInstructionsPage(), settings,);
+              const SeedPhraseInstructionsPage(),
+              settings,
+            );
           }
           return pageRoute(const SeedPhraseInstructionsPage(), settings);
         }
@@ -92,7 +98,9 @@ class RootRouter {
         {
           if (kIsWeb) {
             return pageRouteNotAnimated(
-                const SeedPhraseGeneratingPage(), settings,);
+              const SeedPhraseGeneratingPage(),
+              settings,
+            );
           }
           return pageRoute(const SeedPhraseGeneratingPage(), settings);
         }
@@ -100,7 +108,9 @@ class RootRouter {
         {
           if (kIsWeb) {
             return pageRouteNotAnimated(
-                const SeedPhraseDisplayPage(), settings,);
+              const SeedPhraseDisplayPage(),
+              settings,
+            );
           }
           return pageRoute(const SeedPhraseDisplayPage(), settings);
         }
@@ -108,7 +118,9 @@ class RootRouter {
         {
           if (kIsWeb) {
             return pageRouteNotAnimated(
-                const SeedPhraseConfirmationPage(), settings,);
+              const SeedPhraseConfirmationPage(),
+              settings,
+            );
           }
           return pageRoute(const SeedPhraseConfirmationPage(), settings);
         }
@@ -116,7 +128,9 @@ class RootRouter {
         {
           if (kIsWeb) {
             return pageRouteNotAnimated(
-                const WalletInfoChecklistPage(), settings,);
+              const WalletInfoChecklistPage(),
+              settings,
+            );
           }
           return pageRoute(const WalletInfoChecklistPage(), settings);
         }
@@ -169,7 +183,9 @@ class RootRouter {
         {
           if (kIsWeb) {
             return pageRouteNotAnimated(
-                const RestoreWithToplKeyPage(), settings,);
+              const RestoreWithToplKeyPage(),
+              settings,
+            );
           }
           return pageRoute(const RestoreWithToplKeyPage(), settings);
         }
@@ -203,8 +219,9 @@ class RootRouter {
           final String keyStoreJson = settings.arguments as String;
           if (kIsWeb) {
             return pageRouteNotAnimated(
-                EnterWalletPasswordPage(toplKeyStoreJson: keyStoreJson),
-                settings,);
+              EnterWalletPasswordPage(toplKeyStoreJson: keyStoreJson),
+              settings,
+            );
           }
           return pageRoute(
             EnterWalletPasswordPage(toplKeyStoreJson: keyStoreJson),
@@ -218,10 +235,14 @@ class RootRouter {
 
           if (kIsWeb) {
             return pageRouteNotAnimated(
-                TxReviewPage(transferDetails: transferDetails), settings,);
+              TxReviewPage(transferDetails: transferDetails),
+              settings,
+            );
           }
           return pageRoute(
-              TxReviewPage(transferDetails: transferDetails), settings,);
+            TxReviewPage(transferDetails: transferDetails),
+            settings,
+          );
         }
       case Routes.txConfirmation:
         {
@@ -229,10 +250,14 @@ class RootRouter {
               settings.arguments as TransferDetails;
           if (kIsWeb) {
             return pageRouteNotAnimated(
-                TxConfirmationPage(transferDetails: transferDetails), settings,);
+              TxConfirmationPage(transferDetails: transferDetails),
+              settings,
+            );
           }
           return pageRoute(
-              TxConfirmationPage(transferDetails: transferDetails), settings,);
+            TxConfirmationPage(transferDetails: transferDetails),
+            settings,
+          );
         }
       case Routes.mintInput:
         {
@@ -248,7 +273,8 @@ class RootRouter {
         final Map transactionDetailsMap = settings.arguments as Map;
         final RibnActivityDetailsModel transactionDetails =
             RibnActivityDetailsModel.fromJson(
-                jsonEncode(transactionDetailsMap),);
+          jsonEncode(transactionDetailsMap),
+        );
         {
           return pageRoute(
             TxHistoryDetailsPage(ribnActivityDetailsModel: transactionDetails),
@@ -261,8 +287,9 @@ class RootRouter {
               settings.arguments as Map<String, dynamic>;
           if (kIsWeb) {
             return pageRouteNotAnimated(
-                AssetDetailsPage(asset: assetDetailsPageArgs['assetAmount']!),
-                settings,);
+              AssetDetailsPage(asset: assetDetailsPageArgs['assetAmount']!),
+              settings,
+            );
           }
           return pageRoute(
             AssetDetailsPage(asset: assetDetailsPageArgs['assetAmount']!),
@@ -296,7 +323,9 @@ class RootRouter {
               settings.arguments as InternalMessage;
           if (kIsWeb) {
             return pageRouteNotAnimated(
-                ExternalSigningPage(pendingRequest), settings,);
+              ExternalSigningPage(pendingRequest),
+              settings,
+            );
           }
           return pageRoute(ExternalSigningPage(pendingRequest), settings);
         }
@@ -319,7 +348,9 @@ class RootRouter {
               settings.arguments as InternalMessage;
           if (kIsWeb) {
             return pageRouteNotAnimated(
-                ReviewAndSignDApp(pendingRequest), settings,);
+              ReviewAndSignDApp(pendingRequest),
+              settings,
+            );
           }
           return pageRoute(ReviewAndSignDApp(pendingRequest), settings);
         }
@@ -328,15 +359,18 @@ class RootRouter {
           final InternalMessage response =
               settings.arguments as InternalMessage;
           return pageRouteNotAnimated(
-              LoadingDApp(response: response), settings,);
+            LoadingDApp(response: response),
+            settings,
+          );
         }
       default:
         return errorRoute();
     }
   }
 
-  Route<MaterialPageRoute> errorRoute(
-      {String errorMsg = 'Unknown error occurred',}) {
+  Route<MaterialPageRoute> errorRoute({
+    String errorMsg = 'Unknown error occurred',
+  }) {
     return MaterialPageRoute(
       builder: (context) {
         return Center(
@@ -359,7 +393,9 @@ class RootRouter {
 
   /// Builds a page route without an animation.
   Route<MaterialPageRoute> pageRouteNotAnimated(
-      Widget page, RouteSettings settings,) {
+    Widget page,
+    RouteSettings settings,
+  ) {
     return PageRouteBuilder(
       settings: settings,
       pageBuilder: (context, animation, secondaryAnimation) => page,

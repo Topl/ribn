@@ -31,15 +31,17 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
         thumbVisibility: true,
         controller: scrollController,
         child: SingleChildScrollView(
-            controller: scrollController,
-            child: RibnActivityDetails(
-                activityDetails: widget.ribnActivityDetailsModel,
-                dataTileTextStyle: const TextStyle(
-                  fontFamily: 'DM Sans',
-                  fontSize: 12,
-                  color: RibnColors.hintTextColor,
-                  fontWeight: FontWeight.normal,
-                ),),),
+          controller: scrollController,
+          child: RibnActivityDetails(
+            activityDetails: widget.ribnActivityDetailsModel,
+            dataTileTextStyle: const TextStyle(
+              fontFamily: 'DM Sans',
+              fontSize: 12,
+              color: RibnColors.hintTextColor,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+        ),
       ),
     );
   }

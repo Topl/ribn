@@ -2,6 +2,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Package imports:
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
+import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
+
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
@@ -13,10 +19,6 @@ import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
-// Package imports:
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
-import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
 
 class SeedPhraseConfirmationPage extends StatefulWidget {
   const SeedPhraseConfirmationPage({Key? key}) : super(key: key);
@@ -61,14 +63,18 @@ class _SeedPhraseConfirmationPageState
                   Image.asset(RibnAssets.penPaperPng, width: 70),
                   Padding(
                     padding: EdgeInsets.only(
-                        top: adaptHeight(0.04), bottom: adaptHeight(0.02),),
+                      top: adaptHeight(0.04),
+                      bottom: adaptHeight(0.02),
+                    ),
                     child: const Text(
                       Strings.ensureYourWordsAreCorrect,
                       style: RibnToolkitTextStyles.onboardingH3,
                     ),
                   ),
                   _buildSeedphraseConfirmationGrid(
-                      vm.confirmeIdxs, vm.mnemonicWordsList,),
+                    vm.confirmeIdxs,
+                    vm.mnemonicWordsList,
+                  ),
                   const SizedBox(height: 40),
                   renderIfMobile(
                     const Padding(
@@ -102,15 +108,25 @@ class _SeedPhraseConfirmationPageState
   }
 
   Widget _buildSeedphraseConfirmationGrid(
-      List<int> confirmIdxs, List mnemonicWordsList,) {
+    List<int> confirmIdxs,
+    List mnemonicWordsList,
+  ) {
     final List<Widget> mobileRows = [];
     List<Widget> webRowChildren = [];
     final List<List<Widget>> webRows = [];
     for (int i = 0; i < confirmIdxs.length; i++) {
-      mobileRows.add(_buildConfirmationTextField(
-          confirmIdxs[i], mnemonicWordsList[confirmIdxs[i]],),);
-      webRowChildren.add(_buildConfirmationTextField(
-          confirmIdxs[i], mnemonicWordsList[confirmIdxs[i]],),);
+      mobileRows.add(
+        _buildConfirmationTextField(
+          confirmIdxs[i],
+          mnemonicWordsList[confirmIdxs[i]],
+        ),
+      );
+      webRowChildren.add(
+        _buildConfirmationTextField(
+          confirmIdxs[i],
+          mnemonicWordsList[confirmIdxs[i]],
+        ),
+      );
       if ((i + 1) % 2 == 0) {
         webRows.add(webRowChildren);
         webRowChildren = [];
@@ -174,7 +190,9 @@ class _SeedPhraseConfirmationPageState
 class LowerCaseTextFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue,) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     return TextEditingValue(
       text: newValue.text.toLowerCase(),
       selection: newValue.selection,

@@ -1,10 +1,12 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:ribn_toolkit/widgets/organisms/ribn_app_bar.dart';
+
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/containers/ribn_app_bar_container.dart';
-// Package imports:
-import 'package:ribn_toolkit/widgets/organisms/ribn_app_bar.dart';
 
 /// Builds a wrapper around the AppBar from ToplToolkit to provide ViewModel & AppBarContainer
 class RibnAppBarWrapper extends StatefulWidget implements PreferredSizeWidget {

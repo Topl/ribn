@@ -60,8 +60,10 @@ void main() {
         testStore.dispatch(GenerateMnemonicAction());
         verify(onboardingRepo.generateMnemonicForUser()).called(1);
         expect(testStore.state.onboardingState.mnemonic, testMnemonic);
-        expect(testStore.state.onboardingState.shuffledMnemonic,
-            unorderedEquals(testMnemonic.split(' ')),);
+        expect(
+          testStore.state.onboardingState.shuffledMnemonic,
+          unorderedEquals(testMnemonic.split(' ')),
+        );
       });
       test('should generate keystore and initialize hd wallet', () async {
         when(onboardingRepo.generateMnemonicForUser())
@@ -128,7 +130,8 @@ void main() {
           loginRepo.decryptKeyStore(argThat(isNotNull)),
         ).thenAnswer(
           (_) => const LoginRepository().decryptKeyStore(
-              {'keyStoreJson': testKeyStore, 'password': invalidPassword},),
+            {'keyStoreJson': testKeyStore, 'password': invalidPassword},
+          ),
         );
         final Completer<bool> completer = Completer();
         testStore.dispatch(AttemptLoginAction(invalidPassword, completer));
@@ -161,14 +164,22 @@ void main() {
           Duration.zero,
           () => testStore.dispatch(
             InitializeHDWalletAction(
-                toplExtendedPrivateKey: TestData.toplExtendedPrvKeyUint8List,),
+              toplExtendedPrivateKey: TestData.toplExtendedPrvKeyUint8List,
+            ),
           ),
         );
-        when(keychainRepo.generateAddress(argThat(isNotNull),
-                networkId: captureAnyNamed('networkId'),),)
-            .thenAnswer((_) => testAddress);
-        testStore.dispatch(GenerateAddressAction(0,
-            network: testStore.state.keychainState.currentNetwork,),);
+        when(
+          keychainRepo.generateAddress(
+            argThat(isNotNull),
+            networkId: captureAnyNamed('networkId'),
+          ),
+        ).thenAnswer((_) => testAddress);
+        testStore.dispatch(
+          GenerateAddressAction(
+            0,
+            network: testStore.state.keychainState.currentNetwork,
+          ),
+        );
         when(keychainRepo.getBalances(captureAny, captureAny)).thenAnswer((_) {
           return Future.value(
             (_.positionalArguments[1] as List<ToplAddress>)
@@ -183,8 +194,12 @@ void main() {
           );
         });
         final Completer<bool> completer = Completer();
-        testStore.dispatch(RefreshBalancesAction(
-            completer, testStore.state.keychainState.currentNetwork,),);
+        testStore.dispatch(
+          RefreshBalancesAction(
+            completer,
+            testStore.state.keychainState.currentNetwork,
+          ),
+        );
         await expectLater(completer.future, completion(true));
         expect(
           testStore

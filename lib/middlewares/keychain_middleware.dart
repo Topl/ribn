@@ -10,23 +10,29 @@ import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/repositories/keychain_repository.dart';
 
 List<Middleware<AppState>> createKeychainMiddleware(
-    KeychainRepository keyChainRepo,) {
+  KeychainRepository keyChainRepo,
+) {
   return <Middleware<AppState>>[
     TypedMiddleware<AppState, GenerateInitialAddressesAction>(
-        _onGenerateInitialAddresses(keyChainRepo),),
+      _onGenerateInitialAddresses(keyChainRepo),
+    ),
     TypedMiddleware<AppState, GenerateAddressAction>(
-        _onGenerateAddress(keyChainRepo),),
+      _onGenerateAddress(keyChainRepo),
+    ),
     TypedMiddleware<AppState, RefreshBalancesAction>(
-        _onRefereshBalances(keyChainRepo),),
+      _onRefereshBalances(keyChainRepo),
+    ),
   ];
 }
 
 /// Generates the initial addresses for each of the networks.
 ///
 /// Dispatches [UpdateNetworksWithAddressesAction] to update [RibnNetworks]s with the newly generated addreses.
-void Function(Store<AppState> store, GenerateInitialAddressesAction action,
-        NextDispatcher next,)
-    _onGenerateInitialAddresses(KeychainRepository keychainRepo) {
+void Function(
+  Store<AppState> store,
+  GenerateInitialAddressesAction action,
+  NextDispatcher next,
+) _onGenerateInitialAddresses(KeychainRepository keychainRepo) {
   return (store, action, next) {
     try {
       final HdWallet hdWallet = store.state.keychainState.hdWallet!;
@@ -45,8 +51,11 @@ void Function(Store<AppState> store, GenerateInitialAddressesAction action,
 
 /// On receiving [GenerateAddressAction] action, generates a new address and dispatches [AddAddressAction]
 /// to add the generated addresses under the current network.
-void Function(Store<AppState> store, GenerateAddressAction action,
-    NextDispatcher next,) _onGenerateAddress(
+void Function(
+  Store<AppState> store,
+  GenerateAddressAction action,
+  NextDispatcher next,
+) _onGenerateAddress(
   KeychainRepository keychainRepo,
 ) {
   return (store, action, next) async {
@@ -73,8 +82,11 @@ void Function(Store<AppState> store, GenerateAddressAction action,
 /// Responds to [RefreshBalancesAction] by updating balances for the addresses in the wallet under the current network.
 ///
 /// If no addresses exist, a new address is generated.
-void Function(Store<AppState> store, RefreshBalancesAction action,
-    NextDispatcher next,) _onRefereshBalances(
+void Function(
+  Store<AppState> store,
+  RefreshBalancesAction action,
+  NextDispatcher next,
+) _onRefereshBalances(
   KeychainRepository keychainRepo,
 ) {
   return (store, action, next) async {

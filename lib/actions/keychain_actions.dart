@@ -10,8 +10,10 @@ import 'package:ribn/models/ribn_network.dart';
 class InitializeHDWalletAction {
   final String? keyStoreJson;
   final Uint8List toplExtendedPrivateKey;
-  const InitializeHDWalletAction(
-      {this.keyStoreJson, required this.toplExtendedPrivateKey,});
+  const InitializeHDWalletAction({
+    this.keyStoreJson,
+    required this.toplExtendedPrivateKey,
+  });
 }
 
 class GenerateInitialAddressesAction {

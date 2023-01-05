@@ -4,10 +4,18 @@ import 'dart:async';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
+
 // Project imports:
 import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/constants/keys.dart';
@@ -22,12 +30,6 @@ import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/asset_info.dart';
 import 'package:ribn/widgets/custom_divider.dart';
 import 'package:ribn/widgets/fee_info.dart';
-import 'package:ribn_toolkit/constants/assets.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
 /// The transaction review page.
 ///
@@ -106,8 +108,9 @@ class TxReviewPage extends StatelessWidget {
                       child: SizedBox(
                         width: 310,
                         child: FeeInfo(
-                            fee: transferDetails
-                                .transactionReceipt!.fee!.getInNanopoly,),
+                          fee: transferDetails
+                              .transactionReceipt!.fee!.getInNanopoly,
+                        ),
                       ),
                     ),
                   ],
@@ -135,7 +138,8 @@ class TxReviewPage extends StatelessWidget {
                   context.loaderOverlay.show();
                   final Completer<TransferDetails?> txCompleter = Completer();
                   StoreProvider.of<AppState>(context).dispatch(
-                      SignAndBroadcastTxAction(transferDetails, txCompleter),);
+                    SignAndBroadcastTxAction(transferDetails, txCompleter),
+                  );
                   await txCompleter.future
                       .then((TransferDetails? transferDetails) {
                     if (transferDetails != null) {
@@ -179,8 +183,11 @@ class TxReviewPage extends StatelessWidget {
   }
 
   /// A helper function used to build review items on this page.
-  Widget _buildReviewItem(
-      {required String itemLabel, required Widget item, bool divider = true,}) {
+  Widget _buildReviewItem({
+    required String itemLabel,
+    required Widget item,
+    bool divider = true,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -231,7 +238,8 @@ class TxReviewPage extends StatelessWidget {
                 )
               : AssetInfo(
                   assetCode: transferDetails.assetCode!,
-                  assetDetails: transferDetails.assetDetails,),
+                  assetDetails: transferDetails.assetDetails,
+                ),
         ],
       ),
     );
