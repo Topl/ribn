@@ -38,8 +38,8 @@ class _SettingsPageState extends State<SettingsPage> {
     if (!kIsWeb) {
       runBiometrics();
     } else {
-      final List<String> dApps =
-          await PlatformUtils.instance.convertToFuture(PlatformUtils.instance.getDAppList());
+      final List<String> dApps = await PlatformUtils.instance
+          .convertToFuture(PlatformUtils.instance.getDAppList());
 
       setState(() async {
         canDisconnect = dApps.isNotEmpty;
