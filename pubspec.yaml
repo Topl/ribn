@@ -53,7 +53,9 @@ dependencies:
   file_picker: ^5.2.4
   dio: ^4.0.6
   ribn_toolkit:
-    path: ../ribn-toolkit
+    git:
+      url: https://github.com/Topl/ribn-toolkit
+      ref: main
   brambldart:
     git:
       url: https://github.com/Topl/BramblDart
