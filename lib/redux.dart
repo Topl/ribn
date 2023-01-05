@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/middlewares/app_middleware.dart';
@@ -68,7 +67,6 @@ class Redux {
   }
 
   /// Gets the persisted app state from local storage, and if valid, initializes AppState with the persisted state.
-  ///
   /// Otherwise, a new AppState is initialized depending on [initTestStore].
   static Future<AppState> getInitialAppState(bool initTestStore) async {
     try {

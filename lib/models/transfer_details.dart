@@ -1,6 +1,5 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter/foundation.dart';
-
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/models/ribn_address.dart';

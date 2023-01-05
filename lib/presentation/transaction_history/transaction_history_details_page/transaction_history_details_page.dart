@@ -154,8 +154,7 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                             TransactionHistoryDataTile(
                               tileTitle: 'Status',
                               tileValue: StatusChip(
-                                status: widget
-                                    .transactionDetails!['transactionStatus'],
+                                status: widget.transactionDetails!['transactionStatus'],
                               ),
                             ),
                             TransactionHistoryDataTile(
@@ -185,20 +184,17 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                               SizedBox(
                                 width: 26,
                                 height: 26,
-                                child:
-                                    SvgPicture.asset(RibnAssets.myFingerprint),
+                                child: SvgPicture.asset(RibnAssets.myFingerprint),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
                                 child: Text(
                                   Strings.yourRibnWalletAddress,
                                   style: dataTileTextStyle,
                                 ),
                               ),
                               CustomCopyButton(
-                                textToBeCopied: widget
-                                    .transactionDetails!['myRibnWalletAddress'],
+                                textToBeCopied: widget.transactionDetails!['myRibnWalletAddress'],
                                 icon: Image.asset(
                                   RibnAssets.copyIcon,
                                   width: 20,
@@ -229,20 +225,18 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
                                 child: Text(
                                   formatAddrString(
-                                    widget.transactionDetails![
-                                            'transactionSenderAddress']
+                                    widget.transactionDetails!['transactionSenderAddress']
                                         .toString(),
                                   ),
                                   style: dataTileTextStyle,
                                 ),
                               ),
                               CustomCopyButton(
-                                textToBeCopied: widget.transactionDetails![
-                                        'transactionSenderAddress']
+                                textToBeCopied: widget
+                                    .transactionDetails!['transactionSenderAddress']
                                     .toString(),
                                 icon: Image.asset(
                                   RibnAssets.copyIcon,
@@ -287,14 +281,12 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                     height: 16,
                                   ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       TransactionHistoryDataTile(
                                         tileTitle: 'Security Root',
                                         tileValue: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             Padding(
                                               padding: const EdgeInsets.only(
@@ -302,8 +294,7 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                               ),
                                               child: Text(
                                                 formatAddrString(
-                                                  widget.transactionDetails![
-                                                      'securityRoot'],
+                                                  widget.transactionDetails!['securityRoot'],
                                                   charsToDisplay: 4,
                                                 ),
                                                 style: dataTileTextStyle,
@@ -311,8 +302,7 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                             ),
                                             CustomCopyButton(
                                               textToBeCopied:
-                                                  widget.transactionDetails![
-                                                      'securityRoot'],
+                                                  widget.transactionDetails!['securityRoot'],
                                               icon: Image.asset(
                                                 RibnAssets.copyIcon,
                                                 width: 20,
@@ -346,17 +336,15 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                     padding: const EdgeInsets.only(right: 10),
                                     child: Text(
                                       formatAddrString(
-                                        widget.transactionDetails!['blockId']
-                                            .toString(),
+                                        widget.transactionDetails!['blockId'].toString(),
                                         charsToDisplay: 4,
                                       ),
                                       style: dataTileTextStyle,
                                     ),
                                   ),
                                   CustomCopyButton(
-                                    textToBeCopied: widget
-                                        .transactionDetails!['blockId']
-                                        .toString(),
+                                    textToBeCopied:
+                                        widget.transactionDetails!['blockId'].toString(),
                                     icon: Image.asset(
                                       RibnAssets.copyIcon,
                                       width: 20,
@@ -374,15 +362,13 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                   Padding(
                                     padding: const EdgeInsets.only(right: 10),
                                     child: Text(
-                                      widget.transactionDetails!['blockHeight']
-                                          .toString(),
+                                      widget.transactionDetails!['blockHeight'].toString(),
                                       style: dataTileTextStyle,
                                     ),
                                   ),
                                   CustomCopyButton(
-                                    textToBeCopied: widget
-                                        .transactionDetails!['blockHeight']
-                                        .toString(),
+                                    textToBeCopied:
+                                        widget.transactionDetails!['blockHeight'].toString(),
                                     icon: Image.asset(
                                       RibnAssets.copyIcon,
                                       width: 20,
@@ -414,18 +400,15 @@ class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
                                     padding: const EdgeInsets.only(right: 10),
                                     child: Text(
                                       formatAddrString(
-                                        widget.transactionDetails![
-                                                'transactionId']
-                                            .toString(),
+                                        widget.transactionDetails!['transactionId'].toString(),
                                         charsToDisplay: 4,
                                       ),
                                       style: dataTileTextStyle,
                                     ),
                                   ),
                                   CustomCopyButton(
-                                    textToBeCopied: widget
-                                        .transactionDetails!['transactionId']
-                                        .toString(),
+                                    textToBeCopied:
+                                        widget.transactionDetails!['transactionId'].toString(),
                                     icon: Image.asset(
                                       RibnAssets.copyIcon,
                                       width: 20,

@@ -76,6 +76,7 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
         activeCircleRadius: 8,
         inactiveCircleRadius: 4.5,
         dotPadding: 8,
+        renderCenterIcon: false,
       ),
       SizedBox(
         width: descriptionBoxWidth,

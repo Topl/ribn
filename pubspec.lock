@@ -487,6 +487,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.6.5"
+  get_it:
+    dependency: "direct main"
+    description:
+      name: get_it
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.2.0"
   glob:
     dependency: transitive
     description:
@@ -599,6 +606,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.7.0"
+  lazy_load_scrollview:
+    dependency: "direct main"
+    description:
+      name: lazy_load_scrollview
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.0"
   lint:
     dependency: transitive
     description:
@@ -620,6 +634,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  loading_overlay:
+    dependency: "direct main"
+    description:
+      name: loading_overlay
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
   local_auth:
     dependency: "direct main"
     description:
@@ -633,7 +654,7 @@ packages:
       name: local_auth_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.15"
+    version: "1.0.16"
   local_auth_ios:
     dependency: transitive
     description:
@@ -911,8 +932,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "0.4-front-end"
-      resolved-ref: "62ba848e6d0044f39000b77fc656bd4c11e55506"
+      ref: main
+      resolved-ref: eddadffd87f25a336e4f5d262476d744174e3ff9
       url: "https://github.com/Topl/ribn-toolkit"
     source: git
     version: "1.0.0+1"

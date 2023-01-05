@@ -28,7 +28,7 @@ abstract class IPlatformUtils {
   Future getDAppList();
 
   /// Web only
-  void consoleLog(dynamic item);
+  Future<void> consoleLog(dynamic item);
 
   /// Web only
   Future<T> convertToFuture<T>(Object jsPromise);

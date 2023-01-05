@@ -7,6 +7,7 @@ class NetworkUtils {
   static const String toplNet = 'toplnet';
   static const String valhalla = 'valhalla';
   static const String private = 'private';
+  static const String privateIP  = '35.226.176.100';
   static int toplNetId = constants.networkRegistry[toplNet]!;
   static int valhallaId = constants.networkRegistry[valhalla]!;
   static int privateId = constants.networkRegistry[private]!;
@@ -26,6 +27,6 @@ class NetworkUtils {
   static Map<int, String> networkUrls = {
     valhallaId: 'https://vertx.topl.services/valhalla/$projectId',
     toplNetId: 'https://vertx.topl.services/mainnet/$projectId',
-    privateId: 'http://35.226.176.100:9085'
+    privateId: 'http://$privateIP:9085'
   };
 }

@@ -1,8 +1,9 @@
 import 'package:grpc/grpc.dart';
+import 'package:ribn/constants/network_utils.dart';
 
 class PlatformGenusConfig {
   static ClientChannel channel = ClientChannel(
-    '35.226.176.100',
+    NetworkUtils.privateIP,
     port: 8089,
     options: const ChannelOptions(
       credentials: ChannelCredentials.insecure(),
