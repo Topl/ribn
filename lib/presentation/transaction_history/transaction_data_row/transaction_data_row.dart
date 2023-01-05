@@ -20,6 +20,7 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/utils.dart';
 
+import '../../../constants/routes.dart';
 import '../transaction_history_details_page/transaction_history_details_page.dart';
 
 class TransactionDataRow extends StatefulWidget {
@@ -153,7 +154,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                       .shortName
                       .show
                       .replaceAll('\x00', '')
-                  : 'Unknown',
+                  : '',
           transactionStatus: transactionStatus,
           transactionDate:
               '${renderSentReceivedMintedText()} on $formattedDate',
@@ -162,7 +163,10 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
               'isPolyTransaction': isPolyTransaction,
               'transactionType': renderSentReceivedMintedText(),
               'timestamp': formattedDateAlternate,
-              'assetDetails': isPolyTransaction ? {} : assetDetails,
+              'assetDetails': isPolyTransaction
+                  ? {}
+                  : assetDetails ??
+                      {"unit": transactionAmountForAssetTransfer()},
               'icon': isPolyTransaction
                   ? renderPolyIcon()
                   : renderAssetIcon(assetDetails?.icon),
@@ -174,7 +178,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                           .shortName
                           .show
                           .replaceAll('\x00', '')
-                      : 'Unknown',
+                      : '',
               'transactionStatus': transactionStatus,
               'transactionAmount': isPolyTransaction
                   ? transactionAmountForPolyTransfer
@@ -187,7 +191,9 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                   transactionSenderAddress.senderAddress.toBase58(),
                   charsToDisplay: 4),
               'note': note,
-              'securityRoot': isPolyTransaction ? '' : securityRoot,
+              'securityRoot': isPolyTransaction
+                  ? ''
+                  : formatAddressString(securityRoot, charsToDisplay: 4),
               'blockId':
                   formatAddressString(blockId.toString(), charsToDisplay: 4),
               'blockHeight': blockNumber?.blockNum,
@@ -195,14 +201,8 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                   charsToDisplay: 4),
               'networkId': widget.networkId,
             };
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_) => TxHistoryDetailsPage(
-                          ribnActivityDetailsModel:
-                              RibnActivityDetailsModel.fromJson(
-                                  jsonEncode(details)),
-                        )));
+            Navigator.pushNamed(context, Routes.txHistoryDetails,
+                arguments: details);
           },
         );
       },
