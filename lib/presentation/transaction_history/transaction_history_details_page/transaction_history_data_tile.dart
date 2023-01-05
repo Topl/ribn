@@ -16,7 +16,9 @@ class TransactionHistoryDataTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: reducedWidth == true ? const BoxConstraints(minWidth: 70) : const BoxConstraints(minWidth: 163),
+      constraints: reducedWidth == true
+          ? const BoxConstraints(minWidth: 70)
+          : const BoxConstraints(minWidth: 163),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceAround,

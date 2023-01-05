@@ -165,7 +165,10 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
           _fetchingBalances
               ? const CircularProgressIndicator()
               : _failedToFetchBalances
-                  ? const Text('Network Failure', style: TextStyle(color: Colors.red))
+                  ? const Text(
+                      'Network Failure',
+                      style: TextStyle(color: Colors.red),
+                    )
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -337,7 +340,10 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
         buttonChild: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(label, style: RibnToolkitTextStyles.h4.copyWith(color: Colors.white)),
+            Text(
+              label,
+              style: RibnToolkitTextStyles.h4.copyWith(color: Colors.white),
+            ),
           ],
         ),
       ),

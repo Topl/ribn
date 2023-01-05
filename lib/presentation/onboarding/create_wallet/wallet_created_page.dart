@@ -25,9 +25,11 @@ class WalletCreatedPage extends StatefulWidget {
 class _WalletCreatedPageState extends State<WalletCreatedPage> {
   /// FAQs and their corresponding answeres
   final Map<String, String> faqs = {
-    Strings.howCanIKeepMySeedPhraseSecure: Strings.howCanIKeepMySeedPhraseSecureAns,
+    Strings.howCanIKeepMySeedPhraseSecure:
+        Strings.howCanIKeepMySeedPhraseSecureAns,
     Strings.howIsASeedPhraseDifferent: Strings.howIsASeedPhraseDifferentAns,
-    Strings.howIsMySeedPhraseUnrecoverable: Strings.howIsMySeedPhraseUnrecoverableAns,
+    Strings.howIsMySeedPhraseUnrecoverable:
+        Strings.howIsMySeedPhraseUnrecoverableAns,
   };
   @override
   Widget build(BuildContext context) {
@@ -110,7 +112,8 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                   if (kIsWeb) {
                     navigateToRoute(context, Routes.extensionInfo);
                   } else {
-                    Keys.navigatorKey.currentState?.pushNamedAndRemoveUntil(Routes.home, (_) => false);
+                    Keys.navigatorKey.currentState
+                        ?.pushNamedAndRemoveUntil(Routes.home, (_) => false);
                   }
                 },
               ),

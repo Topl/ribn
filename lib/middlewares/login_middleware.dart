@@ -12,14 +12,22 @@ import 'package:ribn/platform/platform.dart';
 import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/utils.dart';
 
-List<Middleware<AppState>> createLoginMiddleware(LoginRepository loginRepository) {
+List<Middleware<AppState>> createLoginMiddleware(
+  LoginRepository loginRepository,
+) {
   return <Middleware<AppState>>[
-    TypedMiddleware<AppState, AttemptLoginAction>(_verifyPassword(loginRepository)),
+    TypedMiddleware<AppState, AttemptLoginAction>(
+      _verifyPassword(loginRepository),
+    ),
   ];
 }
 
 /// Verifies that the wallet password is correct by attempting to decrypt the keystore.
-void Function(Store<AppState> store, AttemptLoginAction action, NextDispatcher next) _verifyPassword(
+void Function(
+  Store<AppState> store,
+  AttemptLoginAction action,
+  NextDispatcher next,
+) _verifyPassword(
   LoginRepository loginRepository,
 ) {
   return (store, action, next) async {
@@ -28,7 +36,9 @@ void Function(Store<AppState> store, AttemptLoginAction action, NextDispatcher n
       // create isolate/worker to avoid hanging the UI
       final List result = jsonDecode(
         await PlatformWorkerRunner.instance.runWorker(
-          workerScript: currAppView == AppViews.webDebug ? '/web/workers/login_worker.js' : '/workers/login_worker.js',
+          workerScript: currAppView == AppViews.webDebug
+              ? '/web/workers/login_worker.js'
+              : '/workers/login_worker.js',
           function: loginRepository.decryptKeyStore,
           params: {
             'keyStoreJson': store.state.keychainState.keyStoreJson,
@@ -50,11 +60,14 @@ void Function(Store<AppState> store, AttemptLoginAction action, NextDispatcher n
         );
       }
       // initialize hd wallet on success
-      next(InitializeHDWalletAction(toplExtendedPrivateKey: toplExtendedPrvKeyUint8List));
+      next(
+        InitializeHDWalletAction(
+          toplExtendedPrivateKey: toplExtendedPrvKeyUint8List,
+        ),
+      );
 
       //Generate Initial addresses for every network
       next(GenerateInitialAddressesAction());
-
       action.completer.complete(true);
     } catch (e) {
       action.completer.complete(false);

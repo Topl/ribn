@@ -22,7 +22,8 @@ class Messenger implements IMessenger {
   void connect() => openConnection();
 
   @override
-  void initMsgListener(Function msgHandler) => addPortMessageListener(allowInterop(msgHandler));
+  void initMsgListener(Function msgHandler) =>
+      addPortMessageListener(allowInterop(msgHandler));
 
   @override
   void sendMsg(String msg) => sendPortMessage(msg);

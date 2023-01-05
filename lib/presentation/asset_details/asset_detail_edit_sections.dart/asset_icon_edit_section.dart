@@ -38,7 +38,14 @@ class _AssetIconEditSectionState extends State<AssetIconEditSection> {
       width: 307,
       decoration: const BoxDecoration(
         color: RibnColors.whiteBackground,
-        boxShadow: [BoxShadow(color: Color(0x0f000000), offset: Offset(0, 4), blurRadius: 4, spreadRadius: 0)],
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x0f000000),
+            offset: Offset(0, 4),
+            blurRadius: 4,
+            spreadRadius: 0,
+          )
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +59,8 @@ class _AssetIconEditSectionState extends State<AssetIconEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Save',
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
+                  style: RibnToolkitTextStyles.btnMedium
+                      .copyWith(color: Colors.white),
                 ),
                 backgroundColor: RibnColors.primary,
                 onPressed: () {
@@ -71,7 +79,8 @@ class _AssetIconEditSectionState extends State<AssetIconEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Cancel',
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.ghostButtonText),
+                  style: RibnToolkitTextStyles.btnMedium
+                      .copyWith(color: RibnColors.ghostButtonText),
                 ),
                 backgroundColor: Colors.transparent,
                 hoverColor: Colors.transparent,
@@ -105,6 +114,13 @@ class _AssetIconEditSectionState extends State<AssetIconEditSection> {
         children: UIConstants.assetIconsList
             .map(
               (icon) => PortalEntry(
+                portal: Image.asset(
+                  icon,
+                  width: 31,
+                ),
+                portalAnchor: Alignment.bottomCenter,
+                childAnchor: Alignment.topCenter,
+                visible: _selectedIcon == icon,
                 child: MaterialButton(
                   padding: EdgeInsets.zero,
                   minWidth: 0,
@@ -115,13 +131,6 @@ class _AssetIconEditSectionState extends State<AssetIconEditSection> {
                   },
                   child: Image.asset(icon),
                 ),
-                portal: Image.asset(
-                  icon,
-                  width: 31,
-                ),
-                portalAnchor: Alignment.bottomCenter,
-                childAnchor: Alignment.topCenter,
-                visible: _selectedIcon == icon,
               ),
             )
             .toList(),

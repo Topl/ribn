@@ -98,12 +98,19 @@ class _RestoreWalletPageState extends State<RestoreWalletPage> {
                       hasError: invalidSeedPhraseEntered,
                     ),
                   ),
-                  kIsWeb ? Align(alignment: Alignment.centerLeft, child: _buildAdvancedOption()) : const SizedBox(),
+                  kIsWeb
+                      ? Align(
+                          alignment: Alignment.centerLeft,
+                          child: _buildAdvancedOption(),
+                        )
+                      : const SizedBox(),
                 ],
               ),
             ),
             adaptableSpacer(),
-            renderIfMobile(const OnboardingProgressBar(numSteps: 2, currStep: 0)),
+            renderIfMobile(
+              const OnboardingProgressBar(numSteps: 2, currStep: 0),
+            ),
             const SizedBox(height: 20),
             ConfirmationButton(
               text: Strings.next,
@@ -142,20 +149,24 @@ class _RestoreWalletPageState extends State<RestoreWalletPage> {
         child: PeekabooButton(
           buttonText: Text(
             Strings.advancedOption,
-            style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15, color: RibnColors.whiteBackground),
+            style: RibnToolkitTextStyles.smallBody
+                .copyWith(fontSize: 15, color: RibnColors.whiteBackground),
           ),
           buttonChild: Padding(
             padding: const EdgeInsets.only(left: 8),
             child: RichText(
               text: TextSpan(
-                style: RibnToolkitTextStyles.body1Bold.copyWith(color: RibnColors.whiteBackground),
+                style: RibnToolkitTextStyles.body1Bold
+                    .copyWith(color: RibnColors.whiteBackground),
                 children: [
                   const TextSpan(text: 'Use '),
                   TextSpan(
                     text: 'Topl main key file',
-                    style: RibnToolkitTextStyles.body1Bold.copyWith(color: RibnColors.secondaryDark),
+                    style: RibnToolkitTextStyles.body1Bold
+                        .copyWith(color: RibnColors.secondaryDark),
                     recognizer: TapGestureRecognizer()
-                      ..onTap = () => Keys.navigatorKey.currentState?.pushNamed(Routes.restoreWithToplKey),
+                      ..onTap = () => Keys.navigatorKey.currentState
+                          ?.pushNamed(Routes.restoreWithToplKey),
                   ),
                 ],
               ),
