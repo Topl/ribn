@@ -4,7 +4,7 @@ import 'package:ribn/presentation/home/wallet_balance_page.dart';
 import 'package:ribn/presentation/transaction_history/transaction_history_page.dart';
 import 'package:ribn/widgets/ribn_app_bar_wapper.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/widgets/organisms/ribn_bottom_app_barV2.dart';
+import 'package:ribn_toolkit/widgets/organisms/ribn_bottom_app_bar_v2.dart';
 
 /// The 'home page' of Ribn.
 ///
