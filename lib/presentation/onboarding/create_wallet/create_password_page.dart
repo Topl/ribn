@@ -2,15 +2,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
-import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
@@ -22,6 +15,11 @@ import 'package:ribn/presentation/onboarding/widgets/mobile_onboarding_progress_
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
+import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CreatePasswordPage extends StatefulWidget {
   const CreatePasswordPage({Key? key}) : super(key: key);
@@ -161,7 +159,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                   ),
                   const SizedBox(height: 40),
                   renderIfMobile(
-                      const MobileOnboardingProgressBar(currStep: 2)),
+                      const MobileOnboardingProgressBar(currStep: 2),),
                   ConfirmationButton(
                     text: Strings.done,
                     disabled: !_atLeast8Chars ||

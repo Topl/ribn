@@ -2,17 +2,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 // Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
-import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
-
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
@@ -24,6 +16,12 @@ import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/fee_info.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 
 /// The input page that allows initiating poly transfer transaction.
 ///
@@ -153,7 +151,7 @@ class _PolyTransferSectionState extends State<PolyTransferSection> {
                           ..text = _recipientController.text
                               .substring(0, _recipientController.text.length)
                           ..selection = TextSelection.collapsed(
-                              offset: _recipientController.text.length);
+                              offset: _recipientController.text.length,);
                       }
                       _validRecipientAddress = '';
                     });

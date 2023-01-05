@@ -40,7 +40,7 @@ class LoginViewModel {
   /// Handler for when there is an attempt to login using [password].
   final Function(
       {required String password,
-      required VoidCallback onIncorrectPasswordEntered}) attemptLogin;
+      required VoidCallback onIncorrectPasswordEntered,}) attemptLogin;
 
   /// Handler for when there is attempt to restore wallet from the login page.
   final VoidCallback restoreWallet;
@@ -57,7 +57,7 @@ class LoginViewModel {
     return LoginViewModel(
       attemptLogin: (
           {required String password,
-          required VoidCallback onIncorrectPasswordEntered}) async {
+          required VoidCallback onIncorrectPasswordEntered,}) async {
         final Completer<bool> loginCompleter = Completer();
         store.dispatch(AttemptLoginAction(password, loginCompleter));
         await loginCompleter.future.then((bool loginSuccess) {

@@ -1,12 +1,10 @@
 // Flutter imports:
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:brambldart/brambldart.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-
 // Project imports:
 import 'package:ribn/genus/generated/filters.pb.dart';
 import 'package:ribn/genus/generated/services_types.pb.dart';

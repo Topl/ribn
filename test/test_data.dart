@@ -19,11 +19,11 @@ Map<String, dynamic> testData = {
   'invalidPassword': '1234567',
   'address': RibnAddress(
     toplAddress: ToplAddress.fromBase58(
-        'AUDxRxPtWPeejAMfEeYMYfwQ7Shk5qLw4swZkW6sek3D4FMDrQ6D'),
+        'AUDxRxPtWPeejAMfEeYMYfwQ7Shk5qLw4swZkW6sek3D4FMDrQ6D',),
     addressIndex: 0,
     keyPath: '',
     balance: Rules.initBalance(
-        'AUDxRxPtWPeejAMfEeYMYfwQ7Shk5qLw4swZkW6sek3D4FMDrQ6D'),
+        'AUDxRxPtWPeejAMfEeYMYfwQ7Shk5qLw4swZkW6sek3D4FMDrQ6D',),
     networkId: NetworkUtils.privateId,
   ),
 };

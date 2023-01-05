@@ -44,7 +44,7 @@ class EmptyStateScreen extends StatelessWidget {
             BoxShadow(
                 color: RibnColors.paleGreen.withOpacity(1),
                 blurRadius: 8,
-                spreadRadius: 8)
+                spreadRadius: 8,)
           ],
         ),
         width: width - 20,

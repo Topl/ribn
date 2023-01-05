@@ -1,12 +1,6 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-// Package imports:
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
-
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
@@ -14,6 +8,10 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
+// Package imports:
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
 
 /// The initial welcome page displayed during onboarding on mobile.
 class WelcomePage extends StatelessWidget {
@@ -45,7 +43,7 @@ class WelcomePage extends StatelessWidget {
                 const SizedBox(height: 20),
                 ConstrainedBox(
                   constraints: const BoxConstraints(
-                      maxWidth: kIsWeb ? double.infinity : 310),
+                      maxWidth: kIsWeb ? double.infinity : 310,),
                   child: Text(
                     Strings.intro,
                     textAlign: TextAlign.center,

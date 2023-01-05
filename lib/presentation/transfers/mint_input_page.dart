@@ -1,24 +1,11 @@
 // Flutter imports:
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:brambldart/brambldart.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
-import 'package:ribn_toolkit/widgets/molecules/asset_long_name_field.dart';
-import 'package:ribn_toolkit/widgets/molecules/asset_selection_field.dart';
-import 'package:ribn_toolkit/widgets/molecules/asset_short_name_field.dart';
-import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
-import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
-import 'package:ribn_toolkit/widgets/molecules/sliding_segment_control.dart';
-import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
-
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
@@ -32,6 +19,17 @@ import 'package:ribn/presentation/transfers/widgets/issuer_address_field.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/fee_info.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/asset_long_name_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/asset_selection_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/asset_short_name_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/sliding_segment_control.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
 /// The mint input page that allows the initiation of an mint asset transaction.
 class MintInputPage extends StatefulWidget {
@@ -160,7 +158,7 @@ class _MintInputPageState extends State<MintInputPage> {
               // ignore: prefer_const_constructors
               IssuerAddressField(
                   width:
-                      213), // const ignored here so that tooltip can be dismissed
+                      213,), // const ignored here so that tooltip can be dismissed
               // field for entering the recipient address
               RecipientField(
                 controller: _recipientController,
@@ -188,7 +186,7 @@ class _MintInputPageState extends State<MintInputPage> {
                         ..text = _recipientController.text
                             .substring(0, _recipientController.text.length)
                         ..selection = TextSelection.collapsed(
-                            offset: _recipientController.text.length);
+                            offset: _recipientController.text.length,);
                     }
                     _validRecipientAddress = '';
                   });

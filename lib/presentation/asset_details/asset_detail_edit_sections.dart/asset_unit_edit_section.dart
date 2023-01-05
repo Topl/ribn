@@ -1,19 +1,17 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_dropdown.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-
 // Project imports:
 import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/utils.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_dropdown.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The section for editing asset unit.
 ///
@@ -58,7 +56,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
               color: Color(0x0f000000),
               offset: Offset(0, 4),
               blurRadius: 4,
-              spreadRadius: 0)
+              spreadRadius: 0,)
         ],
       ),
       child: Column(

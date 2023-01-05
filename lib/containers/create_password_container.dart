@@ -11,7 +11,7 @@ import 'package:ribn/models/app_state.dart';
 
 class CreatePasswordContainer extends StatelessWidget {
   const CreatePasswordContainer(
-      {Key? key, required this.builder, required this.onDidChange})
+      {Key? key, required this.builder, required this.onDidChange,})
       : super(key: key);
   final ViewModelBuilder<CreatePasswordViewModel> builder;
   final Function(CreatePasswordViewModel?, CreatePasswordViewModel)?

@@ -1,12 +1,6 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-// Package imports:
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
-
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
@@ -17,6 +11,10 @@ import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
+// Package imports:
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
 
 /// Builds checks to ensure that the user understands the importance of the seed phrase.
 class SeedPhraseInfoChecklistPage extends StatefulWidget {
@@ -69,7 +67,7 @@ class _SeedPhraseInfoChecklistPageState
                   text: Strings.walletRecoveryUsingSeedPhrase,
                   onChanged: checkboxesState[Strings.neverShareMySeedPhrase]!
                       ? (bool? val) => onChecked(
-                          val ?? false, Strings.walletRecoveryUsingSeedPhrase)
+                          val ?? false, Strings.walletRecoveryUsingSeedPhrase,)
                       : null,
                 ),
                 SizedBox(height: adaptHeight(0.1)),

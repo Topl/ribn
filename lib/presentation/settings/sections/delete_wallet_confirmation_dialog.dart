@@ -1,15 +1,13 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-
+// Project imports:
+import 'package:ribn/constants/strings.dart';
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
 import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
-
-// Project imports:
-import 'package:ribn/constants/strings.dart';
 
 /// The confimation dialog that is displayed before deleting the wallet.
 ///
@@ -22,7 +20,7 @@ class DeleteWalletConfirmationDialog extends StatefulWidget {
   ) onConfirmDeletePressed;
 
   const DeleteWalletConfirmationDialog(
-      {required this.onConfirmDeletePressed, Key? key})
+      {required this.onConfirmDeletePressed, Key? key,})
       : super(key: key);
 
   @override
@@ -79,7 +77,7 @@ class _DeleteWalletConfirmationDialogState
                 ),
                 _incorrectPasswordError
                     ? const Text('Incorrect Password',
-                        style: TextStyle(color: Colors.red))
+                        style: TextStyle(color: Colors.red),)
                     : const SizedBox()
               ],
             ),

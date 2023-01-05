@@ -1,12 +1,10 @@
 // Dart imports:
 import 'dart:convert';
 
-// Flutter imports:
-import 'package:flutter/foundation.dart';
-
 // Package imports:
 import 'package:brambldart/brambldart.dart';
-
+// Flutter imports:
+import 'package:flutter/foundation.dart';
 // Project imports:
 import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/rules.dart';
@@ -42,7 +40,7 @@ class RibnNetwork {
   });
 
   factory RibnNetwork.initial(
-      {required int networkId, required String networkName}) {
+      {required int networkId, required String networkName,}) {
     return RibnNetwork(
       networkName: networkName,
       networkId: networkId,
@@ -78,7 +76,7 @@ class RibnNetwork {
 
   int getNextExternalAddressIndex() {
     return addresses.lastIndexWhere(
-            (addr) => addr.changeIndex == Rules.defaultChangeIndex) +
+            (addr) => addr.changeIndex == Rules.defaultChangeIndex,) +
         1;
   }
 
@@ -102,7 +100,7 @@ class RibnNetwork {
         (AssetAmount currAsset) {
           return AssetAmount(
               quantity: currAsset.quantity + assetQuantity,
-              assetCode: asset.assetCode);
+              assetCode: asset.assetCode,);
         },
         ifAbsent: () => asset,
       );
@@ -120,7 +118,7 @@ class RibnNetwork {
     return getAllAssetsInWallet()
         .where((AssetAmount asset) =>
             asset.assetCode.issuer.toBase58() ==
-            myWalletAddress?.toplAddress.toBase58())
+            myWalletAddress?.toplAddress.toBase58(),)
         .toList();
   }
 

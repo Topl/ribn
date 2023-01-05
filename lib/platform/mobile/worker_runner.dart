@@ -23,8 +23,9 @@ class PlatformWorkerRunner implements IPlatformWorkerRunner {
     final String? workerScript,
     Map<String, dynamic> params = const {},
   }) async {
-    if (function == null)
+    if (function == null) {
       throw Exception('Dart isolate requires `function` to not be null');
+    }
     if (Keys.isTestingEnvironment) return jsonEncode(function(params));
     try {
       return jsonEncode(await compute(function, params));

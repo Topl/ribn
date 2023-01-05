@@ -33,7 +33,7 @@ class OnboardingContainer extends StatelessWidget {
         padding: EdgeInsets.only(
             top: topPadding,
             left: isXsScreenSize ? 10 : 20,
-            right: isXsScreenSize ? 10 : 20),
+            right: isXsScreenSize ? 10 : 20,),
         child: child,
       ),
     );

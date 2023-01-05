@@ -1,15 +1,13 @@
 // Dart imports:
 import 'dart:async';
 
+// Package imports:
+import 'package:brambldart/model.dart';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-// Package imports:
-import 'package:brambldart/model.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-
 // Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
@@ -104,7 +102,7 @@ class WalletBalanceViewModel {
       refreshBalances: ({required Function(bool success) onBalancesRefreshed}) {
         final Completer<bool> actionCompleter = Completer();
         store.dispatch(RefreshBalancesAction(
-            actionCompleter, store.state.keychainState.currentNetwork));
+            actionCompleter, store.state.keychainState.currentNetwork,),);
         actionCompleter.future.then((bool value) => onBalancesRefreshed(value));
       },
       currentNetwork: store.state.keychainState.currentNetwork,

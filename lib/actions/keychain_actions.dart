@@ -11,7 +11,7 @@ class InitializeHDWalletAction {
   final String? keyStoreJson;
   final Uint8List toplExtendedPrivateKey;
   const InitializeHDWalletAction(
-      {this.keyStoreJson, required this.toplExtendedPrivateKey});
+      {this.keyStoreJson, required this.toplExtendedPrivateKey,});
 }
 
 class GenerateInitialAddressesAction {

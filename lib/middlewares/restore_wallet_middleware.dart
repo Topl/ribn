@@ -22,9 +22,9 @@ List<Middleware<AppState>> createRestorewalletMiddleware(
 ) {
   return <Middleware<AppState>>[
     TypedMiddleware<AppState, RestoreWalletWithMnemonicAction>(
-        _restoreWalletWithMnemonic(onboardingRepo)),
+        _restoreWalletWithMnemonic(onboardingRepo),),
     TypedMiddleware<AppState, RestoreWalletWithToplKeyAction>(
-        _restoreWalletWithToplKey(loginRepo)),
+        _restoreWalletWithToplKey(loginRepo),),
   ];
 }
 
@@ -33,7 +33,7 @@ List<Middleware<AppState>> createRestorewalletMiddleware(
 /// Uses the [action.mnemonic] and [action.password] to generate a keystore.
 /// Dispatches [SuccessfullyRestoredWalletAction] if successfully generated keystore, otherwise [FailedToRestoreWalletAction].
 void Function(Store<AppState> store, RestoreWalletWithMnemonicAction action,
-        NextDispatcher next)
+        NextDispatcher next,)
     _restoreWalletWithMnemonic(OnboardingRespository onboardingRepo) {
   return (store, action, next) async {
     try {
@@ -69,7 +69,7 @@ void Function(Store<AppState> store, RestoreWalletWithMnemonicAction action,
 /// Attempts to decrypt [action.toplKeyStoreJson] using [action.password].
 /// Dispatches [SuccessfullyRestoredWalletAction] upon success, otherwise [FailedToRestoreWalletAction].
 void Function(Store<AppState> store, RestoreWalletWithToplKeyAction action,
-    NextDispatcher next) _restoreWalletWithToplKey(LoginRepository loginRepo) {
+    NextDispatcher next,) _restoreWalletWithToplKey(LoginRepository loginRepo) {
   return (store, action, next) async {
     try {
       final Uint8List toplExtendedPrvKeyUint8List = loginRepo.decryptKeyStore({

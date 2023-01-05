@@ -24,8 +24,9 @@ class PlatformWorkerRunner implements IPlatformWorkerRunner {
     final String? workerScript,
     Map<String, dynamic> params = const {},
   }) {
-    if (workerScript == null)
+    if (workerScript == null) {
       throw Exception('JS worker requires `workerScript` to not be null');
+    }
     final Completer<String> completer = Completer();
     try {
       final Worker worker = Worker(workerScript);

@@ -26,12 +26,12 @@ List<Middleware<AppState>> createTransactionMiddleware(
 ) {
   return <Middleware<AppState>>[
     TypedMiddleware<AppState, InitiateTxAction>(
-        _initiateTx(transactionRepo, keychainRepo)),
+        _initiateTx(transactionRepo, keychainRepo),),
     TypedMiddleware<AppState, CreateRawTxAction>(_createRawTx(transactionRepo)),
     TypedMiddleware<AppState, SignAndBroadcastTxAction>(
-        _signAndBroadcastTx(transactionRepo, keychainRepo)),
+        _signAndBroadcastTx(transactionRepo, keychainRepo),),
     TypedMiddleware<AppState, SignExternalTxAction>(
-        _signExternalTx(transactionRepo, keychainRepo)),
+        _signExternalTx(transactionRepo, keychainRepo),),
   ];
 }
 
@@ -40,7 +40,7 @@ List<Middleware<AppState>> createTransactionMiddleware(
 /// Updates the [TransferDetails] with some defaults like the sender, change, and consolidation addresses, as well as
 /// the current network, before dispatching [CreateRawTxAction].
 void Function(
-        Store<AppState> store, InitiateTxAction action, NextDispatcher next)
+        Store<AppState> store, InitiateTxAction action, NextDispatcher next,)
     _initiateTx(
   TransactionRepository transactionRepo,
   KeychainRepository keychainRepo,
@@ -68,7 +68,7 @@ void Function(
 ///
 /// Also dispatches [ToggleLoadingRawTxAction] to stop the loading indicator.
 void Function(
-        Store<AppState> store, CreateRawTxAction action, NextDispatcher next)
+        Store<AppState> store, CreateRawTxAction action, NextDispatcher next,)
     _createRawTx(
   TransactionRepository transactionRepo,
 ) {
@@ -97,7 +97,7 @@ void Function(
 /// Signs and broadcasts the transactions, updates the [TransferDetails] with the txId,
 /// and navigates to the confirmation page.
 void Function(Store<AppState> store, SignAndBroadcastTxAction action,
-    NextDispatcher next) _signAndBroadcastTx(
+    NextDispatcher next,) _signAndBroadcastTx(
   TransactionRepository transactionRepo,
   KeychainRepository keychainRepo,
 ) {
@@ -135,7 +135,7 @@ void Function(Store<AppState> store, SignAndBroadcastTxAction action,
 }
 
 void Function(
-        Store<AppState> store, SignExternalTxAction action, NextDispatcher next)
+        Store<AppState> store, SignExternalTxAction action, NextDispatcher next,)
     _signExternalTx(
   TransactionRepository transactionRepo,
   KeychainRepository keychainRepo,
@@ -145,7 +145,7 @@ void Function(
       final Map<String, dynamic> transferDetails = {};
 
       transferDetails['messageToSign'] = Base58Data.validated(
-              action.pendingRequest.data!['messageToSign'] as String)
+              action.pendingRequest.data!['messageToSign'] as String,)
           .value;
 
       final TransactionReceipt transactionReceipt =
@@ -160,7 +160,7 @@ void Function(
       final List<RibnAddress> sendersInWallet =
           List.from(store.state.keychainState.currentNetwork.addresses)
             ..retainWhere(
-                (addr) => rawTxSenders.contains(addr.toplAddress.toBase58()));
+                (addr) => rawTxSenders.contains(addr.toplAddress.toBase58()),);
 
       if (sendersInWallet.isEmpty) {
         final InternalMessage response = InternalMessage(

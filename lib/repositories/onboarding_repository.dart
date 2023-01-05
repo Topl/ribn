@@ -74,6 +74,6 @@ class OnboardingRespository {
   Bip32KeyPair deriveToplExtendedKeys(String mnemonic) {
     final HdWallet hdWallet = HdWallet.fromMnemonic(mnemonic);
     return hdWallet.deriveBaseAddress(
-        purpose: Rules.defaultPurpose, coinType: Rules.defaultCoinType);
+        purpose: Rules.defaultPurpose, coinType: Rules.defaultCoinType,);
   }
 }

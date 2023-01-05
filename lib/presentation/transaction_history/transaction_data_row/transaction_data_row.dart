@@ -1,27 +1,21 @@
 // Dart imports:
-import 'dart:convert';
-
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:brambldart/model.dart';
 import 'package:brambldart/utils.dart';
+// Flutter imports:
+import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/ribn_sample_data_models.dart';
-import 'package:ribn_toolkit/models/transactions/ribn_activity_details_model.dart';
-import 'package:ribn_toolkit/widgets/molecules/ribn_activity_tile.dart';
-
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/utils.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/ribn_sample_data_models.dart';
+import 'package:ribn_toolkit/widgets/molecules/ribn_activity_tile.dart';
 
 import '../../../constants/routes.dart';
-import '../transaction_history_details_page/transaction_history_details_page.dart';
 
 class TransactionDataRow extends StatefulWidget {
   final List<AssetAmount> assets;
@@ -159,14 +153,14 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
           transactionDate:
               '${renderSentReceivedMintedText()} on $formattedDate',
           onTap: () {
-            Map details = {
+            final Map details = {
               'isPolyTransaction': isPolyTransaction,
               'transactionType': renderSentReceivedMintedText(),
               'timestamp': formattedDateAlternate,
               'assetDetails': isPolyTransaction
                   ? {}
                   : assetDetails ??
-                      {"unit": transactionAmountForAssetTransfer()},
+                      {'unit': transactionAmountForAssetTransfer()},
               'icon': isPolyTransaction
                   ? renderPolyIcon()
                   : renderAssetIcon(assetDetails?.icon),
@@ -186,10 +180,10 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
               'fee': fee,
               'myRibnWalletAddress': formatAddressString(
                   widget.myRibnWalletAddress,
-                  charsToDisplay: 4),
+                  charsToDisplay: 4,),
               'transactionSenderAddress': formatAddressString(
                   transactionSenderAddress.senderAddress.toBase58(),
-                  charsToDisplay: 4),
+                  charsToDisplay: 4,),
               'note': note,
               'securityRoot': isPolyTransaction
                   ? ''
@@ -198,11 +192,11 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                   formatAddressString(blockId.toString(), charsToDisplay: 4),
               'blockHeight': blockNumber?.blockNum,
               'transactionId': formatAddressString(transactionId.toString(),
-                  charsToDisplay: 4),
+                  charsToDisplay: 4,),
               'networkId': widget.networkId,
             };
             Navigator.pushNamed(context, Routes.txHistoryDetails,
-                arguments: details);
+                arguments: details,);
           },
         );
       },
