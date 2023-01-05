@@ -64,7 +64,11 @@ class ExtensionInfoPage extends StatelessWidget {
                     ),
                   ),
                   WidgetSpan(
-                    child: SvgPicture.asset(RibnAssets.extensionIcon, height: inlineIconHeight, width: inlineIconWidth),
+                    child: SvgPicture.asset(
+                      RibnAssets.extensionIcon,
+                      height: inlineIconHeight,
+                      width: inlineIconWidth,
+                    ),
                   ),
                   TextSpan(
                     text: Strings.clickingTheIconPartThree,

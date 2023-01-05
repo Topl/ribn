@@ -21,7 +21,8 @@ external DedicatedWorkerGlobalScope get self;
 void main() {
   self.onMessage.listen((e) {
     final Map<String, dynamic> params = jsonDecode(e.data);
-    final Map<String, dynamic> results = const OnboardingRespository().generateKeyStore({
+    final Map<String, dynamic> results =
+        const OnboardingRespository().generateKeyStore({
       'mnemonic': params['mnemonic'],
       'password': params['password'],
     });

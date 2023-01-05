@@ -31,7 +31,8 @@ class LinksSection extends StatelessWidget {
         RichText(
           text: TextSpan(
             text: Strings.privacyPolicy,
-            recognizer: TapGestureRecognizer()..onTap = () async => await launchUrl(url1),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () async => await launchUrl(url1),
             style: linkStyle,
           ),
         ),
@@ -39,7 +40,8 @@ class LinksSection extends StatelessWidget {
         RichText(
           text: TextSpan(
             text: Strings.termsOfUse,
-            recognizer: TapGestureRecognizer()..onTap = () async => await launchUrl(url2),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () async => await launchUrl(url2),
             style: linkStyle,
           ),
         ),

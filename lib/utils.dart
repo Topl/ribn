@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:barcode_widget/barcode_widget.dart';
@@ -56,7 +55,8 @@ void validateRecipientAddress({
 }
 
 Future<bool> isBiometricsAuthenticationSupported(
-    LocalAuthentication auth,) async {
+  LocalAuthentication auth,
+) async {
   final bool canCheckBiometrics = await auth.canCheckBiometrics;
   final bool isDeviceSupported = await auth.isDeviceSupported();
 
@@ -64,14 +64,13 @@ Future<bool> isBiometricsAuthenticationSupported(
 }
 
 Future<bool> isBiometricsAuthenticationEnrolled(
-    LocalAuthentication auth,) async {
+  LocalAuthentication auth,
+) async {
   final bool canCheckBiometrics = await auth.canCheckBiometrics;
   final bool isDeviceSupported = await auth.isDeviceSupported();
   final List enrolledBiometrics = await auth.getAvailableBiometrics();
 
-  return canCheckBiometrics &&
-      isDeviceSupported &&
-      enrolledBiometrics.isNotEmpty;
+  return canCheckBiometrics && isDeviceSupported && enrolledBiometrics.isNotEmpty;
 }
 
 Future<bool> authenticateWithBiometrics(LocalAuthentication auth) async {
@@ -89,8 +88,7 @@ Future<bool> authenticateWithBiometrics(LocalAuthentication auth) async {
 Future<bool> isBiometricsTypeFingerprint(LocalAuthentication auth) async {
   final List enrolledBiometrics = await auth.getAvailableBiometrics();
 
-  return enrolledBiometrics.contains(BiometricType.fingerprint) &&
-      enrolledBiometrics.isNotEmpty;
+  return enrolledBiometrics.contains(BiometricType.fingerprint) && enrolledBiometrics.isNotEmpty;
 }
 
 void navigateToRoute(BuildContext context, String route) {
@@ -102,8 +100,7 @@ double adaptHeight(double scaleFactor) =>
     MediaQueryData.fromWindow(window).size.height * scaleFactor;
 
 /// Adapt to screen width based on [scaleFactor].
-double adaptWidth(double scaleFactor) =>
-    MediaQueryData.fromWindow(window).size.width * scaleFactor;
+double adaptWidth(double scaleFactor) => MediaQueryData.fromWindow(window).size.width * scaleFactor;
 
 double deviceTopPadding() => MediaQueryData.fromWindow(window).padding.top;
 
@@ -124,8 +121,7 @@ Future<void> showReceivingAddress() async {
     context: Keys.navigatorKey.currentContext!,
     builder: (context) {
       return StoreConnector<AppState, RibnAddress>(
-        converter: (store) =>
-            store.state.keychainState.currentNetwork.addresses.first,
+        converter: (store) => store.state.keychainState.currentNetwork.addresses.first,
         builder: (context, ribnAddress) {
           return CustomModal.renderCustomModal(
             context: Keys.navigatorKey.currentContext!,

@@ -11,20 +11,28 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 class Paging extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Paging',
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'Paging',
     package: const $pb.PackageName(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'co.topl.genus.services',
     ),
     createEmptyInstance: create,
   )
     ..a<$core.int>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pageNumber',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'pageNumber',
       $pb.PbFieldType.OU3,
     )
     ..a<$core.int>(
       2,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pageSize',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'pageSize',
       $pb.PbFieldType.OU3,
     )
     ..hasRequiredFields = false;
@@ -43,9 +51,11 @@ class Paging extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory Paging.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory Paging.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
-  factory Paging.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory Paging.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -59,14 +69,16 @@ class Paging extends $pb.GeneratedMessage {
     'Will be removed in next major version',
   )
   Paging copyWith(void Function(Paging) updates) =>
-      super.copyWith((message) => updates(message as Paging)) as Paging; // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as Paging))
+          as Paging; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Paging create() => Paging._();
   Paging createEmptyInstance() => create();
   static $pb.PbList<Paging> createRepeated() => $pb.PbList<Paging>();
   @$core.pragma('dart2js:noInline')
-  static Paging getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Paging>(create);
+  static Paging getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Paging>(create);
   static Paging? _defaultInstance;
 
   @$pb.TagNumber(1)

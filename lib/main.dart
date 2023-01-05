@@ -84,11 +84,10 @@ String getInitialRoute(Store<AppState> store) {
   //v2
   else if (store.state.internalMessage?.method == InternalMethods.authorize) {
     return Routes.connectDApp;
-  }
-  else if (store.state.internalMessage?.method == InternalMethods.getBalance) {
+  } else if (store.state.internalMessage?.method ==
+      InternalMethods.getBalance) {
     return Routes.reviewAndSignDApp;
-  }
-  else if (store.state.internalMessage?.method ==
+  } else if (store.state.internalMessage?.method ==
       InternalMethods.signTransaction) {
     return Routes.reviewAndSignDApp;
   }
