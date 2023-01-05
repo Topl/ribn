@@ -10,11 +10,13 @@ import 'package:ribn/constants/strings.dart';
 
 class Rules {
   Rules._();
+
   static const int minPasswordLength = 8;
   static const int scryptN = 8192;
   static const int extendedSecretKeySize = hd.extendedSecretKeySize;
   static const int toplKeyDepth = 2;
   static const int hardenedOffset = constants.hardenedOffset;
+
   // Reference: [CIP-1852](https://github.com/cardano-foundation/CIPs/blob/master/CIP-1852/CIP-1852.md)
   // m / purpose' / coin_type' / account' / role / index
   static const int defaultPurpose = constants.defaultPurpose; // 1852'

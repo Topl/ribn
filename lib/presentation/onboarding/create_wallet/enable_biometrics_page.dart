@@ -85,8 +85,8 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
               },
             ),
             const TextButton(
-              child: Text('Go to settings'),
               onPressed: AppSettings.openSecuritySettings,
+              child: Text('Go to settings'),
             ),
           ],
         );

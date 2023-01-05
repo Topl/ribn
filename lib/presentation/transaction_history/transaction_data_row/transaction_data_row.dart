@@ -82,7 +82,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
         ? widget.transactionReceipt.to.first.toJson()[1]
         : widget.transactionReceipt.to.first.toJson()[1]['quantity'];
     final Sender transactionSenderAddress = widget.transactionReceipt.from![0];
-    final String? fee = '${widget.transactionReceipt.fee!.quantity} nanoPOLYs';
+    final String fee = '${widget.transactionReceipt.fee!.quantity} nanoPOLYs';
     final Latin1Data? note = widget.transactionReceipt.data;
     final String securityRoot = isPolyTransaction
         ? ''

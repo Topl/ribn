@@ -173,12 +173,12 @@ void main() {
           return Future.value(
             (_.positionalArguments[1] as List<ToplAddress>)
                 .map(
-                  (e) => Balance(
-                    address: e.toBase58(),
-                    polys: PolyAmount.inNanopoly(quantity: testPolys),
-                    arbits: ArbitAmount.zero(),
-                  ),
-                )
+                    (e) => Balance(
+                          address: e.toBase58(),
+                          polys: PolyAmount.inNanopoly(quantity: testPolys),
+                          arbits: ArbitAmount.zero(),
+                        ),
+                    )
                 .toList(),
           );
         });

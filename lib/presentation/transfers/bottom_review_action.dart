@@ -37,11 +37,11 @@ class BottomReviewAction extends StatelessWidget {
               ),
         child: BottomAppBar(
           color: transparentBackground ? Colors.transparent : Colors.white,
+          elevation: 0,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 16, 20, kIsWeb ? 16 : 0),
             child: children,
           ),
-          elevation: 0,
         ),
       ),
     );

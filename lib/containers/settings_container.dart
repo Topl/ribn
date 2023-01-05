@@ -92,7 +92,7 @@ class SettingsViewModel {
       onDisconnectPressed: (BuildContext context) async {
         final dApps = await PlatformUtils.instance
             .convertToFuture(PlatformUtils.instance.getDAppList());
-        await PlatformUtils.instance.consoleLog(dApps);
+        // await PlatformUtils.instance.consoleLog(dApps);
         // final bool disconnectResult =
         await showDialog(
           context: context,

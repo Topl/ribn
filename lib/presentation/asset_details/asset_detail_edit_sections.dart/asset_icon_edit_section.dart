@@ -118,6 +118,13 @@ class _AssetIconEditSectionState extends State<AssetIconEditSection> {
         children: UIConstants.assetIconsList
             .map(
               (icon) => PortalEntry(
+                portal: Image.asset(
+                  icon,
+                  width: 31,
+                ),
+                portalAnchor: Alignment.bottomCenter,
+                childAnchor: Alignment.topCenter,
+                visible: _selectedIcon == icon,
                 child: MaterialButton(
                   padding: EdgeInsets.zero,
                   minWidth: 0,
@@ -128,13 +135,6 @@ class _AssetIconEditSectionState extends State<AssetIconEditSection> {
                   },
                   child: Image.asset(icon),
                 ),
-                portal: Image.asset(
-                  icon,
-                  width: 31,
-                ),
-                portalAnchor: Alignment.bottomCenter,
-                childAnchor: Alignment.topCenter,
-                visible: _selectedIcon == icon,
               ),
             )
             .toList(),

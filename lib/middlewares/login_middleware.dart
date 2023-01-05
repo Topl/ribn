@@ -67,7 +67,6 @@ void Function(
 
       //Generate Initial addresses for every network
       next(GenerateInitialAddressesAction());
-
       action.completer.complete(true);
     } catch (e) {
       action.completer.complete(false);

@@ -88,8 +88,8 @@ class _BiometricsSectionState extends State<BiometricsSection> {
               },
             ),
             const TextButton(
-              child: Text('Go to settings'),
               onPressed: AppSettings.openSecuritySettings,
+              child: Text('Go to settings'),
             ),
           ],
         );
