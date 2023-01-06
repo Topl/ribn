@@ -177,7 +177,7 @@ packages:
       name: checked_yaml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   cli_pkg:
     dependency: transitive
     description:
@@ -205,7 +205,7 @@ packages:
       name: code_builder
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.3.0"
+    version: "4.4.0"
   collection:
     dependency: transitive
     description:
@@ -427,7 +427,7 @@ packages:
       name: flutter_secure_storage_macos
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   flutter_secure_storage_platform_interface:
     dependency: transitive
     description:
@@ -647,28 +647,28 @@ packages:
       name: local_auth
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.2"
+    version: "2.1.3"
   local_auth_android:
     dependency: transitive
     description:
       name: local_auth_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.16"
+    version: "1.0.17"
   local_auth_ios:
     dependency: transitive
     description:
       name: local_auth_ios
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.10"
+    version: "1.0.12"
   local_auth_platform_interface:
     dependency: transitive
     description:
       name: local_auth_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.5"
+    version: "1.0.6"
   local_auth_windows:
     dependency: transitive
     description:
@@ -913,7 +913,7 @@ packages:
       name: quiver
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "3.2.1"
   redux:
     dependency: "direct main"
     description:
@@ -933,7 +933,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "5ccb7a7e1454fb2281545701164f9d38a46fae85"
+      resolved-ref: f5a68e8083372cc50ce1019a2e4dac40de247fa7
       url: "https://github.com/Topl/ribn-toolkit"
     source: git
     version: "1.0.0+1"
@@ -1272,7 +1272,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.2"
+    version: "3.1.3"
   xdg_directories:
     dependency: transitive
     description:
