@@ -1,8 +1,13 @@
 // ignore_for_file: implementation_imports
+
+// Dart imports:
 import 'dart:typed_data';
 
+// Package imports:
 import 'package:bip_topl/bip_topl.dart';
 import 'package:brambldart/brambldart.dart';
+
+// Project imports:
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/ribn_address.dart';
 

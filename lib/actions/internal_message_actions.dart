@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:ribn/models/internal_message.dart';
 
 class SendInternalMsgAction {

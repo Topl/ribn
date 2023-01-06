@@ -1,8 +1,15 @@
+// Dart imports:
+
+// Flutter imports:
+import 'package:flutter/foundation.dart';
+
+// Package imports:
 import 'package:bip_topl/bip_topl.dart' as bip_topl;
 import 'package:brambldart/brambldart.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/constants/network_utils.dart';

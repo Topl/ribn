@@ -1,7 +1,10 @@
+// Package imports:
 import 'package:brambldart/brambldart.dart';
 import 'package:brambldart/credentials.dart' as hd;
 import 'package:brambldart/utils.dart' as constants;
 import 'package:dio/dio.dart';
+
+// Project imports:
 import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/strings.dart';
 
@@ -39,10 +42,8 @@ class Rules {
     NetworkUtils.privateId:
         'https://staging.valhalla.annulus.topl.services/#/transaction/',
   };
-
   static String txHistoryUrl(String addr, int networkId) =>
       '${txHistoryUrls[networkId]!}/v1/address/history/$addr';
-
   static String txDetailsUrl(String txId, int networkId) =>
       '${txDetailsRedirectUrls[networkId]!}$txId';
   static const transferTypes = [
@@ -50,7 +51,6 @@ class Rules {
     Strings.assetTransfer,
     Strings.minting
   ];
-
   static BramblClient getBramblCient(int networkId) {
     final Dio httpClient = Dio(
       BaseOptions(

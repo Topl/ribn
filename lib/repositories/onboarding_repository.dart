@@ -1,9 +1,14 @@
+// Dart imports:
 import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
+
+// Package imports:
 import 'package:bip_topl/bip_topl.dart';
 import 'package:brambldart/credentials.dart';
 import 'package:brambldart/crypto.dart';
+
+// Project imports:
 import 'package:ribn/constants/rules.dart';
 
 class OnboardingRespository {

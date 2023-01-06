@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
 
 class MobileOnboardingProgressBar extends StatelessWidget {

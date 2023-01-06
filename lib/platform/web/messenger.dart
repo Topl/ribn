@@ -1,7 +1,10 @@
 @JS('ribn_messenger')
 library messenger;
 
+// Package imports:
 import 'package:js/js.dart';
+
+// Project imports:
 import 'package:ribn/platform/interfaces.dart';
 
 @JS()

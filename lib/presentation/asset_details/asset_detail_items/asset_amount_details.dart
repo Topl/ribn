@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:ribn_toolkit/constants/styles.dart';
 
 /// One of the asset details displayed on [AssetDetailsPage].

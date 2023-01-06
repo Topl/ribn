@@ -1,10 +1,12 @@
 @JS()
 library ribn_wallet;
 
+// Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:js/js.dart';
-import 'package:ribn/models/app_state.dart';
 
+// Project imports:
+import 'package:ribn/models/app_state.dart';
 import '../../constants/keys.dart';
 
 /// Allows assigning a function to be callable from `window.functionName()`
