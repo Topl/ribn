@@ -1,9 +1,12 @@
+// Dart imports:
 import 'dart:convert';
 import 'dart:typed_data';
 
+// Package imports:
 import 'package:bip_topl/bip_topl.dart';
-
 import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/login_actions.dart';
 import 'package:ribn/constants/rules.dart';
@@ -32,7 +35,8 @@ void Function(
 ) {
   return (store, action, next) async {
     try {
-      final AppViews currAppView = await PlatformUtils.instance.getCurrentAppView();
+      final AppViews currAppView =
+          await PlatformUtils.instance.getCurrentAppView();
       // create isolate/worker to avoid hanging the UI
       final List result = jsonDecode(
         await PlatformWorkerRunner.instance.runWorker(
@@ -46,10 +50,12 @@ void Function(
           },
         ),
       );
-      final Uint8List toplExtendedPrvKeyUint8List = uint8ListFromDynamic(result);
+      final Uint8List toplExtendedPrvKeyUint8List =
+          uint8ListFromDynamic(result);
       // if extension: key is temporarily stored in `chrome.storage.session` & session alarm created
       // if mobile: key is persisted securely in secure storage
-      if (currAppView == AppViews.extension || currAppView == AppViews.extensionTab) {
+      if (currAppView == AppViews.extension ||
+          currAppView == AppViews.extensionTab) {
         await PlatformLocalStorage.instance.saveKeyInSessionStorage(
           Base58Encoder.instance.encode(toplExtendedPrvKeyUint8List),
         );

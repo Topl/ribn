@@ -1,4 +1,7 @@
+// Package imports:
 import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/models/user_details_state.dart';

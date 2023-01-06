@@ -1,17 +1,22 @@
-import 'package:brambldart/brambldart.dart';
+// Flutter imports:
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:brambldart/brambldart.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_dropdown_title.dart';
+
+// Project imports:
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/keys.dart';
-import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/transaction_history_container.dart';
 import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/transaction_history/dashed_list_separator/dashed_list_separator.dart';
 import 'package:ribn/presentation/transaction_history/transaction_data_row/transaction_data_row.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/widgets/organisms/custom_page_dropdown_title.dart';
 
 class TxHistoryPage extends StatefulWidget {
   final Future<String>? blockHeight;
@@ -149,17 +154,8 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                 icon: RibnAssets.clockWithBorder,
                                 title: Strings.noActivityToReview,
                                 body: emptyStateBody,
-                                buttonOneText: 'Mint',
-                                buttonOneAction: () =>
-                                    Keys.navigatorKey.currentState?.pushNamed(
-                                  Routes.mintInput,
-                                  arguments: {
-                                    'mintingNewAsset': true,
-                                    'mintingToMyWallet': true,
-                                  },
-                                ),
-                                buttonTwoText: 'Share',
-                                buttonTwoAction: () async =>
+                                buttonOneText: 'Share',
+                                buttonOneAction: () async =>
                                     await showReceivingAddress(),
                                 mobileHeight:
                                     MediaQuery.of(context).size.height * 0.63,
