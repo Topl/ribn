@@ -318,6 +318,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
             ),
       missingAsstDetailsCondition: isMissingAssetDetails,
       assetQuantityDetails: Text(
+        // ignore: dead_code
         isNft ? '${asset.quantity.toString()}' : '${asset.quantity.toString()} $assetUnit',
         overflow: TextOverflow.ellipsis,
         style: RibnToolkitTextStyles.assetShortNameStyle.copyWith(
