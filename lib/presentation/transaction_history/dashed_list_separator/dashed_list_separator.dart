@@ -1,7 +1,12 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 class DashedListSeparator extends StatelessWidget {
-  const DashedListSeparator({Key? key, this.height = 1, this.color = Colors.black}) : super(key: key);
+  const DashedListSeparator({
+    Key? key,
+    this.height = 1,
+    this.color = Colors.black,
+  }) : super(key: key);
   final double height;
   final Color color;
 
@@ -14,6 +19,8 @@ class DashedListSeparator extends StatelessWidget {
         final dashHeight = height;
         final dashCount = (boxWidth / (2 * dashWidth)).floor();
         return Flex(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          direction: Axis.horizontal,
           children: List.generate(dashCount, (_) {
             return SizedBox(
               width: dashWidth,
@@ -23,8 +30,6 @@ class DashedListSeparator extends StatelessWidget {
               ),
             );
           }),
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          direction: Axis.horizontal,
         );
       },
     );

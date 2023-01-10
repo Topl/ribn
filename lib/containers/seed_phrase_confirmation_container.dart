@@ -1,8 +1,12 @@
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
+// Project imports:
 import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/models/app_state.dart';
 
@@ -46,10 +50,12 @@ class SeedPhraseConfirmationViewModel {
   static SeedPhraseConfirmationViewModel fromStore(Store<AppState> store) {
     return SeedPhraseConfirmationViewModel(
       shuffledMnemonic: store.state.onboardingState.shuffledMnemonic!,
-      mnemonicWordsList: store.state.onboardingState.mnemonic!.split(' ').toList(),
+      mnemonicWordsList:
+          store.state.onboardingState.mnemonic!.split(' ').toList(),
       userSelectedIndices: store.state.onboardingState.userSelectedIndices!,
-      finishedInputting: store.state.onboardingState.userSelectedIndices?.length ==
-          store.state.onboardingState.shuffledMnemonic?.length,
+      finishedInputting:
+          store.state.onboardingState.userSelectedIndices?.length ==
+              store.state.onboardingState.shuffledMnemonic?.length,
       selectWord: (idx) => store.dispatch(UserSelectedWordAction(idx)),
       confirmeIdxs: store.state.onboardingState.mobileConfirmIdxs,
     );
@@ -68,6 +74,9 @@ class SeedPhraseConfirmationViewModel {
 
   @override
   int get hashCode {
-    return shuffledMnemonic.hashCode ^ mnemonicWordsList.hashCode ^ userSelectedIndices.hashCode ^ selectWord.hashCode;
+    return shuffledMnemonic.hashCode ^
+        mnemonicWordsList.hashCode ^
+        userSelectedIndices.hashCode ^
+        selectWord.hashCode;
   }
 }

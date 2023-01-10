@@ -1,11 +1,14 @@
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 
 class KeepAliveFutureBuilder extends StatefulWidget {
   final Future future;
   final AsyncWidgetBuilder builder;
-  const KeepAliveFutureBuilder(
-      {Key? key, required this.future, required this.builder,})
-      : super(key: key);
+  const KeepAliveFutureBuilder({
+    Key? key,
+    required this.future,
+    required this.builder,
+  }) : super(key: key);
   @override
   _KeepAliveFutureBuilderState createState() => _KeepAliveFutureBuilderState();
 }

@@ -1,8 +1,13 @@
+// Dart imports:
 import 'dart:convert';
 
-import 'package:brambldart/brambldart.dart';
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 
+// Package imports:
+import 'package:brambldart/brambldart.dart';
+
+// Project imports:
 import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/ribn_address.dart';
@@ -36,7 +41,10 @@ class RibnNetwork {
     this.lastCheckedTimestamp = -1,
   });
 
-  factory RibnNetwork.initial({required int networkId, required String networkName}) {
+  factory RibnNetwork.initial({
+    required int networkId,
+    required String networkName,
+  }) {
     return RibnNetwork(
       networkName: networkName,
       networkId: networkId,
@@ -71,11 +79,16 @@ class RibnNetwork {
   }
 
   int getNextExternalAddressIndex() {
-    return addresses.lastIndexWhere((addr) => addr.changeIndex == Rules.defaultChangeIndex) + 1;
+    return addresses.lastIndexWhere(
+          (addr) => addr.changeIndex == Rules.defaultChangeIndex,
+        ) +
+        1;
   }
 
   int getNextInternalAddressIndex() {
-    return addresses.lastIndexWhere((addr) => addr.changeIndex == Rules.internalIdx) + 1;
+    return addresses
+            .lastIndexWhere((addr) => addr.changeIndex == Rules.internalIdx) +
+        1;
   }
 
   /// Returns a list of all the assets owned by [myWalletAddress]
@@ -90,7 +103,10 @@ class RibnNetwork {
       myAssets.update(
         asset.assetCode.serialize(),
         (AssetAmount currAsset) {
-          return AssetAmount(quantity: currAsset.quantity + assetQuantity, assetCode: asset.assetCode);
+          return AssetAmount(
+            quantity: currAsset.quantity + assetQuantity,
+            assetCode: asset.assetCode,
+          );
         },
         ifAbsent: () => asset,
       );
@@ -106,7 +122,11 @@ class RibnNetwork {
   /// Returns the list of all assets issued/minted by this wallet.
   List<AssetAmount> getAssetsIssuedByWallet() {
     return getAllAssetsInWallet()
-        .where((AssetAmount asset) => asset.assetCode.issuer.toBase58() == myWalletAddress?.toplAddress.toBase58())
+        .where(
+          (AssetAmount asset) =>
+              asset.assetCode.issuer.toBase58() ==
+              myWalletAddress?.toplAddress.toBase58(),
+        )
         .toList();
   }
 
@@ -155,7 +175,8 @@ class RibnNetwork {
 
   String toJson() => json.encode(toMap());
 
-  factory RibnNetwork.fromJson(String source) => RibnNetwork.fromMap(json.decode(source));
+  factory RibnNetwork.fromJson(String source) =>
+      RibnNetwork.fromMap(json.decode(source));
 
   @override
   String toString() {

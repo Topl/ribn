@@ -5,16 +5,21 @@
 // @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
+// Dart imports:
 import 'dart:async' as $async;
-
 import 'dart:core' as $core;
 
+// Package imports:
 import 'package:grpc/service_api.dart' as $grpc;
+
+// Project imports:
 import 'transactions_subscription.pb.dart' as $2;
+
 export 'transactions_subscription.pb.dart';
 
 class TransactionsSubscriptionClient extends $grpc.Client {
-  static final _$create = $grpc.ClientMethod<$2.CreateTxsSubscriptionReq, $2.TxsSubscriptionRes>(
+  static final _$create =
+      $grpc.ClientMethod<$2.CreateTxsSubscriptionReq, $2.TxsSubscriptionRes>(
     '/co.topl.genus.services.TransactionsSubscription/Create',
     ($2.CreateTxsSubscriptionReq value) => value.writeToBuffer(),
     ($core.List<$core.int> value) => $2.TxsSubscriptionRes.fromBuffer(value),
@@ -48,7 +53,8 @@ abstract class TransactionsSubscriptionServiceBase extends $grpc.Service {
         create_Pre,
         false,
         true,
-        ($core.List<$core.int> value) => $2.CreateTxsSubscriptionReq.fromBuffer(value),
+        ($core.List<$core.int> value) =>
+            $2.CreateTxsSubscriptionReq.fromBuffer(value),
         ($2.TxsSubscriptionRes value) => value.writeToBuffer(),
       ),
     );

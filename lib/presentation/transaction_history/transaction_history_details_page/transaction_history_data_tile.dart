@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:ribn_toolkit/constants/styles.dart';
 
 class TransactionHistoryDataTile extends StatelessWidget {
@@ -16,7 +19,9 @@ class TransactionHistoryDataTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: reducedWidth == true ? const BoxConstraints(minWidth: 70) : const BoxConstraints(minWidth: 163),
+      constraints: reducedWidth == true
+          ? const BoxConstraints(minWidth: 70)
+          : const BoxConstraints(minWidth: 163),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceAround,

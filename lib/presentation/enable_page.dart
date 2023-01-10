@@ -1,10 +1,15 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+
+// Project imports:
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/internal_message.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 class EnablePage extends StatelessWidget {
   final InternalMessage pendingRequest;
@@ -49,10 +54,18 @@ class EnablePage extends StatelessWidget {
         sender: InternalMessage.defaultSender,
         data: {
           'enabled': accept,
-          'walletAddress': StoreProvider.of<AppState>(context).state.keychainState.currentNetwork.addresses.first.toplAddress.toBase58()
+          'walletAddress': StoreProvider.of<AppState>(context)
+              .state
+              .keychainState
+              .currentNetwork
+              .addresses
+              .first
+              .toplAddress
+              .toBase58()
         },
       );
     }
-    StoreProvider.of<AppState>(context).dispatch(SendInternalMsgAction(response));
+    StoreProvider.of<AppState>(context)
+        .dispatch(SendInternalMsgAction(response));
   }
 }

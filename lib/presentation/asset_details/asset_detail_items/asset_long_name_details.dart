@@ -1,13 +1,18 @@
 // ignore_for_file: unused_import
 
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:ribn/models/app_state.dart';
-import 'package:ribn/models/asset_details.dart';
 import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/hover_icon_button.dart';
+
+// Project imports:
+import 'package:ribn/models/app_state.dart';
+import 'package:ribn/models/asset_details.dart';
 
 /// One of the asset details displayed on [AssetDetailsPage].
 ///
@@ -43,7 +48,8 @@ class AssetLongNameDetails extends StatelessWidget {
                 : HoverIconButton(
                     buttonText: Text(
                       'Edit',
-                      style: RibnToolkitTextStyles.dropdownButtonStyle.copyWith(color: RibnColors.primary),
+                      style: RibnToolkitTextStyles.dropdownButtonStyle
+                          .copyWith(color: RibnColors.primary),
                     ),
                     buttonIcon: Image.asset(RibnAssets.editIcon),
                     onPressed: onEditPressed,
@@ -51,7 +57,10 @@ class AssetLongNameDetails extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 3),
-        Text(currLongName ?? 'Undefined', style: RibnToolkitTextStyles.smallBody),
+        Text(
+          currLongName ?? 'Undefined',
+          style: RibnToolkitTextStyles.smallBody,
+        ),
       ],
     );
   }

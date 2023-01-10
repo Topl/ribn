@@ -1,3 +1,4 @@
+// Dart imports:
 import 'dart:convert';
 
 /// User defined asset details.
@@ -47,16 +48,21 @@ class AssetDetails {
 
   String toJson() => json.encode(toMap());
 
-  factory AssetDetails.fromJson(String source) => AssetDetails.fromMap(json.decode(source));
+  factory AssetDetails.fromJson(String source) =>
+      AssetDetails.fromMap(json.decode(source));
 
   @override
-  String toString() => 'AssetDetails(longName: $longName, icon: $icon, unit: $unit)';
+  String toString() =>
+      'AssetDetails(longName: $longName, icon: $icon, unit: $unit)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is AssetDetails && other.longName == longName && other.icon == icon && other.unit == unit;
+    return other is AssetDetails &&
+        other.longName == longName &&
+        other.icon == icon &&
+        other.unit == unit;
   }
 
   @override

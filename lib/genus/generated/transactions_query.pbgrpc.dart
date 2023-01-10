@@ -5,12 +5,16 @@
 // @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
+// Dart imports:
 import 'dart:async' as $async;
-
 import 'dart:core' as $core;
 
+// Package imports:
 import 'package:grpc/service_api.dart' as $grpc;
+
+// Project imports:
 import 'transactions_query.pb.dart' as $0;
+
 export 'transactions_query.pb.dart';
 
 class TransactionsQueryClient extends $grpc.Client {
@@ -19,7 +23,8 @@ class TransactionsQueryClient extends $grpc.Client {
     ($0.QueryTxsReq value) => value.writeToBuffer(),
     ($core.List<$core.int> value) => $0.QueryTxsRes.fromBuffer(value),
   );
-  static final _$queryStreamed = $grpc.ClientMethod<$0.TxsQueryStreamReq, $0.TxsQueryStreamRes>(
+  static final _$queryStreamed =
+      $grpc.ClientMethod<$0.TxsQueryStreamReq, $0.TxsQueryStreamRes>(
     '/co.topl.genus.services.TransactionsQuery/QueryStreamed',
     ($0.TxsQueryStreamReq value) => value.writeToBuffer(),
     ($core.List<$core.int> value) => $0.TxsQueryStreamRes.fromBuffer(value),

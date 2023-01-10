@@ -2,12 +2,16 @@
 // in ribn/test/shared_mocks.dart.
 // Do not manually edit this file.
 
+// Dart imports:
 import 'dart:async' as _i6;
 import 'dart:typed_data' as _i8;
 
+// Package imports:
 import 'package:brambldart/brambldart.dart' as _i4;
 import 'package:brambldart/credentials.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
+
+// Project imports:
 import 'package:ribn/models/internal_message.dart' as _i10;
 import 'package:ribn/models/ribn_address.dart' as _i3;
 import 'package:ribn/models/transfer_details.dart' as _i13;
