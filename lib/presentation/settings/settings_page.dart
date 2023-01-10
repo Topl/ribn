@@ -34,18 +34,23 @@ class _SettingsPageState extends State<SettingsPage> {
   late VoidCallback onUpdated;
 
   @override
-  initState() async {
+  initState() {
     if (!kIsWeb) {
       runBiometrics();
     } else {
-      final List<String> dApps = await PlatformUtils.instance
-          .convertToFuture(PlatformUtils.instance.getDAppList());
-
-      setState(() async {
-        canDisconnect = dApps.isNotEmpty;
-      });
+      loadDApps();
     }
     super.initState();
+  }
+
+  loadDApps() async {
+    final List<String> dApps =
+        await PlatformUtils.instance.convertToFuture(PlatformUtils.instance.getDAppList());
+    await PlatformUtils.instance.consoleLog(dApps.toString());
+
+    setState(() {
+      canDisconnect = dApps.isNotEmpty;
+    });
   }
 
   runBiometrics() async {
