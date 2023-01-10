@@ -26,6 +26,10 @@ Ribn allows users to:
 * Navigate to and select the directory with path `ribn/build/web/`
 * The app should be loaded and you should be able to open it like you would any other extension 
 
+## Using Test Credentials
+* Change `Line 28` in `main.dart` to: `await Redux.initStore(initTestStore: true);`
+* PW is Topl1234
+* Seed phrase can be found in `test_data.dart`
 
 ## Feature requests and bugs
 Please file feature requests and bugs at the [issue tracker](https://github.com/Topl/ribn/issues). If you want to contribute to this library, please submit a Pull Request.

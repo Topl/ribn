@@ -1,8 +1,12 @@
+// Dart imports:
 import 'dart:convert';
 import 'dart:typed_data';
 
+// Package imports:
 import 'package:bip_topl/bip_topl.dart';
 import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/actions/onboarding_actions.dart';
@@ -13,15 +17,25 @@ import 'package:ribn/platform/platform.dart';
 import 'package:ribn/repositories/onboarding_repository.dart';
 import 'package:ribn/utils.dart';
 
-List<Middleware<AppState>> createOnboardingMiddleware(OnboardingRespository onboardingRespository) {
+List<Middleware<AppState>> createOnboardingMiddleware(
+  OnboardingRespository onboardingRespository,
+) {
   return <Middleware<AppState>>[
-    TypedMiddleware<AppState, GenerateMnemonicAction>(_generateMnemonic(onboardingRespository)),
-    TypedMiddleware<AppState, CreatePasswordAction>(_createPassword(onboardingRespository)),
+    TypedMiddleware<AppState, GenerateMnemonicAction>(
+      _generateMnemonic(onboardingRespository),
+    ),
+    TypedMiddleware<AppState, CreatePasswordAction>(
+      _createPassword(onboardingRespository),
+    ),
   ];
 }
 
 /// Generates mnemonic for the user and redirects to [Routes.onboardingSteps]
-void Function(Store<AppState> store, GenerateMnemonicAction action, NextDispatcher next) _generateMnemonic(
+void Function(
+  Store<AppState> store,
+  GenerateMnemonicAction action,
+  NextDispatcher next,
+) _generateMnemonic(
   OnboardingRespository onboardingRespository,
 ) {
   return (store, action, next) async {
@@ -35,12 +49,17 @@ void Function(Store<AppState> store, GenerateMnemonicAction action, NextDispatch
 }
 
 /// Generates a [KeyStore] with the provided password and initializes the HdWallet
-void Function(Store<AppState> store, CreatePasswordAction action, NextDispatcher next) _createPassword(
+void Function(
+  Store<AppState> store,
+  CreatePasswordAction action,
+  NextDispatcher next,
+) _createPassword(
   OnboardingRespository onboardingRespository,
 ) {
   return (store, action, next) async {
     try {
-      final AppViews currAppView = await PlatformUtils.instance.getCurrentAppView();
+      final AppViews currAppView =
+          await PlatformUtils.instance.getCurrentAppView();
       // create isolate/worker to avoid hanging the UI
       final Map<String, dynamic> results = jsonDecode(
         await PlatformWorkerRunner.instance.runWorker(
@@ -54,10 +73,12 @@ void Function(Store<AppState> store, CreatePasswordAction action, NextDispatcher
           },
         ),
       );
-      final Uint8List toplExtendedPrvKeyUint8List = uint8ListFromDynamic(results['toplExtendedPrvKeyUint8List']);
+      final Uint8List toplExtendedPrvKeyUint8List =
+          uint8ListFromDynamic(results['toplExtendedPrvKeyUint8List']);
       // if extension: key is temporarily stored in `chrome.storage.session` & session alarm created
       // if mobile: key is persisted securely in secure storage
-      if (currAppView == AppViews.extension || currAppView == AppViews.extensionTab) {
+      if (currAppView == AppViews.extension ||
+          currAppView == AppViews.extensionTab) {
         await PlatformLocalStorage.instance.saveKeyInSessionStorage(
           Base58Encoder.instance.encode(toplExtendedPrvKeyUint8List),
         );

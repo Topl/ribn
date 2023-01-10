@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
+
+// Project imports:
 import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
@@ -36,7 +41,8 @@ class _ExternalSigningPageState extends State<ExternalSigningPage> {
             color: Colors.blue,
             child: const Text(Strings.sign),
             onPressed: () {
-              StoreProvider.of<AppState>(context).dispatch(SignExternalTxAction(widget.request));
+              StoreProvider.of<AppState>(context)
+                  .dispatch(SignExternalTxAction(widget.request));
             },
           ),
         ],

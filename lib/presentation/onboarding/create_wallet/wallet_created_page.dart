@@ -1,5 +1,13 @@
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/molecules/accordion.dart';
+
+// Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
@@ -10,9 +18,6 @@ import 'package:ribn/presentation/onboarding/widgets/mobile_onboarding_progress_
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/molecules/accordion.dart';
 
 /// This page is displayed when user successfully creates their wallet.
 class WalletCreatedPage extends StatefulWidget {
@@ -25,9 +30,11 @@ class WalletCreatedPage extends StatefulWidget {
 class _WalletCreatedPageState extends State<WalletCreatedPage> {
   /// FAQs and their corresponding answeres
   final Map<String, String> faqs = {
-    Strings.howCanIKeepMySeedPhraseSecure: Strings.howCanIKeepMySeedPhraseSecureAns,
+    Strings.howCanIKeepMySeedPhraseSecure:
+        Strings.howCanIKeepMySeedPhraseSecureAns,
     Strings.howIsASeedPhraseDifferent: Strings.howIsASeedPhraseDifferentAns,
-    Strings.howIsMySeedPhraseUnrecoverable: Strings.howIsMySeedPhraseUnrecoverableAns,
+    Strings.howIsMySeedPhraseUnrecoverable:
+        Strings.howIsMySeedPhraseUnrecoverableAns,
   };
   @override
   Widget build(BuildContext context) {
@@ -110,7 +117,8 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                   if (kIsWeb) {
                     navigateToRoute(context, Routes.extensionInfo);
                   } else {
-                    Keys.navigatorKey.currentState?.pushNamedAndRemoveUntil(Routes.home, (_) => false);
+                    Keys.navigatorKey.currentState
+                        ?.pushNamedAndRemoveUntil(Routes.home, (_) => false);
                   }
                 },
               ),

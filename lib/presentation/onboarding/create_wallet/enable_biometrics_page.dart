@@ -1,10 +1,20 @@
+// Dart imports:
 import 'dart:io' show Platform;
 
-import 'package:app_settings/app_settings.dart';
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+
+// Project imports:
 import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
@@ -14,10 +24,6 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 class EnableBiometrics extends StatefulWidget {
   const EnableBiometrics({Key? key}) : super(key: key);
@@ -79,8 +85,8 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
               },
             ),
             const TextButton(
-              child: Text('Go to settings'),
               onPressed: AppSettings.openSecuritySettings,
+              child: Text('Go to settings'),
             ),
           ],
         );
@@ -100,7 +106,8 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
               children: [
                 CustomIconButton(
                   onPressed: () {
-                    Keys.navigatorKey.currentState?.pushNamed(Routes.walletCreated);
+                    Keys.navigatorKey.currentState
+                        ?.pushNamed(Routes.walletCreated);
                   },
                   icon: const Icon(
                     Icons.close,
@@ -119,7 +126,9 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
             Padding(
               padding: const EdgeInsets.only(top: 30.0, bottom: 45),
               child: Image.asset(
-                Platform.isIOS ? RibnAssets.iosBiometrics : RibnAssets.andriodBiometrics,
+                Platform.isIOS
+                    ? RibnAssets.iosBiometrics
+                    : RibnAssets.andriodBiometrics,
                 width: 111,
               ),
             ),
@@ -152,7 +161,11 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
               ),
               onPressed: () {
                 runBiometrics(_localAuthentication).then(
-                  (value) => {if (_authorized) Keys.navigatorKey.currentState?.pushNamed(Routes.walletCreated)},
+                  (value) => {
+                    if (_authorized)
+                      Keys.navigatorKey.currentState
+                          ?.pushNamed(Routes.walletCreated)
+                  },
                 );
               },
               backgroundColor: RibnColors.primary,

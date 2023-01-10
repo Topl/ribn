@@ -1,11 +1,15 @@
+// Dart imports:
 
-import 'dart:typed_data';
-import 'package:brambldart/brambldart.dart';
+// Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// Package imports:
+import 'package:brambldart/brambldart.dart';
+
+// Project imports:
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/models/ribn_address.dart';
-
 
 /// A helper class to hold all the details for a transfer being initiated inside Ribn.
 class TransferDetails {

@@ -1,5 +1,12 @@
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+
+// Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
@@ -9,8 +16,6 @@ import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 
 /// This page shows intructions on how to keep the seed phrase secure.
 class SeedPhraseInstructionsPage extends StatelessWidget {
@@ -69,7 +74,8 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
                 ConfirmationButton(
                   text: Strings.iUnderstand,
                   onPressed: () {
-                    Keys.navigatorKey.currentState?.pushNamed(Routes.generateSeedPhrase);
+                    Keys.navigatorKey.currentState
+                        ?.pushNamed(Routes.generateSeedPhrase);
                   },
                 )
               ],
@@ -99,7 +105,10 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
               width: width,
               height: height,
               child: Padding(
-                padding: EdgeInsets.only(left: iconLeftPadding, right: iconRightPadding),
+                padding: EdgeInsets.only(
+                  left: iconLeftPadding,
+                  right: iconRightPadding,
+                ),
                 child: Image.asset(pngIcon, width: 30),
               ),
             ),
@@ -110,7 +119,8 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
                 width: kIsWeb ? 500 : 295,
                 child: Text(
                   text,
-                  textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
+                  textHeightBehavior:
+                      const TextHeightBehavior(applyHeightToFirstAscent: false),
                   style: RibnToolkitTextStyles.h3.copyWith(
                     color: RibnColors.lightGreyTitle,
                     fontSize: 18,
