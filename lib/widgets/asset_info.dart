@@ -11,6 +11,8 @@ import 'package:ribn_toolkit/constants/colors.dart';
 // Project imports:
 import 'package:ribn/models/asset_details.dart';
 
+import 'package:ribn/constants/strings.dart';
+
 /// A custom display for asset information.
 class AssetInfo extends StatelessWidget {
   /// AssetCode for which information needs to be displayed.
@@ -30,7 +32,7 @@ class AssetInfo extends StatelessWidget {
 
     /// Default text to be displayed if no asset been selected.
     const Text defaultText = Text(
-      'Choose Asset',
+      Strings.selectAsset,
       style: TextStyle(
         color: Color(0xff6d6d6d),
         fontWeight: FontWeight.w600,

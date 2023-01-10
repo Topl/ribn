@@ -321,4 +321,5 @@ Ribn Wallet does not control the functionality of biometrics and does not have a
   static const String connecting = 'Connecting...';
   static const String executeTransaction =
       'You are about to execute the following transaction on';
+  static const String selectAsset = 'Select Asset';
 }
