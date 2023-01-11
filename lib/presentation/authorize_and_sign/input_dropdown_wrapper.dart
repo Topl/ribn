@@ -5,7 +5,8 @@ import 'package:ribn_toolkit/widgets/molecules/input_dropdown.dart';
 // import 'package:ribn_toolkit/widgets/organisms/ribn_app_bar.dart';
 
 /// Builds a wrapper around the AppBar from ToplToolkit to provide ViewModel & AppBarContainer
-class InputDropdownWrapper extends StatefulWidget implements PreferredSizeWidget {
+class InputDropdownWrapper extends StatefulWidget
+    implements PreferredSizeWidget {
   const InputDropdownWrapper({
     Key? key,
   })  : preferredSize = const Size.fromHeight(40),

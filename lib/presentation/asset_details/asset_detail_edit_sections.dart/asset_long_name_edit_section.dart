@@ -27,7 +27,8 @@ class AssetLongNameEditSection extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AssetLongNameEditSectionState createState() => _AssetLongNameEditSectionState();
+  _AssetLongNameEditSectionState createState() =>
+      _AssetLongNameEditSectionState();
 }
 
 class _AssetLongNameEditSectionState extends State<AssetLongNameEditSection> {
@@ -53,7 +54,13 @@ class _AssetLongNameEditSectionState extends State<AssetLongNameEditSection> {
       width: 307,
       decoration: const BoxDecoration(
         color: RibnColors.whiteBackground,
-        boxShadow: [BoxShadow(color: Color(0x0f000000), offset: Offset(0, 4), blurRadius: 4, spreadRadius: 0)],
+        boxShadow: [
+          BoxShadow(
+              color: Color(0x0f000000),
+              offset: Offset(0, 4),
+              blurRadius: 4,
+              spreadRadius: 0)
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +74,8 @@ class _AssetLongNameEditSectionState extends State<AssetLongNameEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Save',
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
+                  style: RibnToolkitTextStyles.btnMedium
+                      .copyWith(color: Colors.white),
                 ),
                 backgroundColor: RibnColors.primary,
                 onPressed: () {
@@ -86,7 +94,8 @@ class _AssetLongNameEditSectionState extends State<AssetLongNameEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Cancel',
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.ghostButtonText),
+                  style: RibnToolkitTextStyles.btnMedium
+                      .copyWith(color: RibnColors.ghostButtonText),
                 ),
                 backgroundColor: Colors.transparent,
                 hoverColor: Colors.transparent,

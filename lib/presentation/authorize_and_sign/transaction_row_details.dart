@@ -61,11 +61,14 @@ class TransactionRowDetails extends StatelessWidget {
             Row(
               children: [
                 Image.asset(
-                  isPolyTransfer ? RibnAssets.polyIconCircle : RibnAssets.undefinedIcon,
+                  isPolyTransfer
+                      ? RibnAssets.polyIconCircle
+                      : RibnAssets.undefinedIcon,
                   width: 23,
                 ),
                 const SizedBox(width: 5),
-                Text(isPolyTransfer ? 'POLY' : 'OTHER ASSET', style: defaultTextStyle),
+                Text(isPolyTransfer ? 'POLY' : 'OTHER ASSET',
+                    style: defaultTextStyle),
               ],
             )
           ],

@@ -41,7 +41,12 @@ class EmptyStateScreen extends StatelessWidget {
         padding: EdgeInsets.zero,
         decoration: BoxDecoration(
           color: RibnColors.paleGreen,
-          boxShadow: [BoxShadow(color: RibnColors.paleGreen.withOpacity(1), blurRadius: 8, spreadRadius: 8)],
+          boxShadow: [
+            BoxShadow(
+                color: RibnColors.paleGreen.withOpacity(1),
+                blurRadius: 8,
+                spreadRadius: 8)
+          ],
         ),
         width: width - 20,
         height: kIsWeb ? desktopHeight : mobileHeight,

@@ -40,24 +40,30 @@ class SeedPhraseDisplayPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  kIsWeb ? const WebOnboardingAppBar(currStep: 0) : const SizedBox(),
+                  kIsWeb
+                      ? const WebOnboardingAppBar(currStep: 0)
+                      : const SizedBox(),
                   SizedBox(
                     child: Text(
                       Strings.writeDownSeedPhrase,
-                      style: RibnToolkitTextStyles.onboardingH1.copyWith(letterSpacing: 0.5),
+                      style: RibnToolkitTextStyles.onboardingH1
+                          .copyWith(letterSpacing: 0.5),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   Image.asset(RibnAssets.penPaperPng, width: 70),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: kIsWeb ? 40 : adaptHeight(0.03)),
+                    padding: EdgeInsets.symmetric(
+                        vertical: kIsWeb ? 40 : adaptHeight(0.03)),
                     child: const Text(
                       Strings.writeDownSeedPhraseInExactOrder,
                       style: RibnToolkitTextStyles.onboardingH3,
                     ),
                   ),
                   Container(
-                    height: kIsWeb ? 280 : adaptHeight(isXsScreenSize ? 0.58 : 0.41),
+                    height: kIsWeb
+                        ? 280
+                        : adaptHeight(isXsScreenSize ? 0.58 : 0.41),
                     width: kIsWeb ? 674 : adaptWidth(isXsScreenSize ? 1 : 0.9),
                     decoration: BoxDecoration(
                       color: RibnColors.greyText.withOpacity(0.24),
@@ -75,7 +81,8 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                                   alignment: Alignment.bottomRight,
                                   child: _buildButton(
                                     Strings.copy,
-                                    onPressed: () => Clipboard.setData(ClipboardData(text: seedPhrase)),
+                                    onPressed: () => Clipboard.setData(
+                                        ClipboardData(text: seedPhrase)),
                                     width: 19,
                                     height: 15,
                                   ),
@@ -93,8 +100,11 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                               padding: const EdgeInsets.only(top: 8.0),
                               child: _buildButton(
                                 Strings.download,
-                                onPressed: () => StoreProvider.of<AppState>(context).dispatch(
-                                  DownloadAsFileAction(Strings.seedPhraseFileName, seedPhrase),
+                                onPressed: () =>
+                                    StoreProvider.of<AppState>(context)
+                                        .dispatch(
+                                  DownloadAsFileAction(
+                                      Strings.seedPhraseFileName, seedPhrase),
                                 ),
                                 width: 30,
                                 height: 23,
@@ -104,11 +114,13 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                         : const SizedBox(),
                   ),
                   SizedBox(height: adaptHeight(0.1)),
-                  renderIfMobile(const MobileOnboardingProgressBar(currStep: 0)),
+                  renderIfMobile(
+                      const MobileOnboardingProgressBar(currStep: 0)),
                   ConfirmationButton(
                     text: Strings.done,
                     onPressed: () {
-                      Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseConfirm);
+                      Keys.navigatorKey.currentState
+                          ?.pushNamed(Routes.seedPhraseConfirm);
                     },
                   ),
                 ],
@@ -161,7 +173,8 @@ class SeedPhraseDisplayPage extends StatelessWidget {
             width: 25,
             child: Text(
               '${idx + 1}. ',
-              style: RibnToolkitTextStyles.h3.copyWith(color: const Color(0xff00FFC5), letterSpacing: 0.5),
+              style: RibnToolkitTextStyles.h3
+                  .copyWith(color: const Color(0xff00FFC5), letterSpacing: 0.5),
             ),
           ),
           Text(
@@ -179,7 +192,9 @@ class SeedPhraseDisplayPage extends StatelessWidget {
     required double width,
     required double height,
   }) {
-    final String icon = buttonText == Strings.download ? RibnAssets.downloadPng : RibnAssets.contentCopyPng;
+    final String icon = buttonText == Strings.download
+        ? RibnAssets.downloadPng
+        : RibnAssets.contentCopyPng;
     return TextButton(
       onPressed: onPressed,
       child: RichText(
@@ -187,8 +202,10 @@ class SeedPhraseDisplayPage extends StatelessWidget {
           children: [
             TextSpan(
               text: '$buttonText ',
-              style: RibnToolkitTextStyles.h3
-                  .copyWith(color: const Color(0xff00FFC5), letterSpacing: 0.5, height: kIsWeb ? 1 : 0),
+              style: RibnToolkitTextStyles.h3.copyWith(
+                  color: const Color(0xff00FFC5),
+                  letterSpacing: 0.5,
+                  height: kIsWeb ? 1 : 0),
             ),
             WidgetSpan(
               child: Padding(

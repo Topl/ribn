@@ -18,10 +18,12 @@ class SeedPhraseInfoChecklistPage extends StatefulWidget {
   const SeedPhraseInfoChecklistPage({Key? key}) : super(key: key);
 
   @override
-  State<SeedPhraseInfoChecklistPage> createState() => _SeedPhraseInfoChecklistPageState();
+  State<SeedPhraseInfoChecklistPage> createState() =>
+      _SeedPhraseInfoChecklistPageState();
 }
 
-class _SeedPhraseInfoChecklistPageState extends State<SeedPhraseInfoChecklistPage> {
+class _SeedPhraseInfoChecklistPageState
+    extends State<SeedPhraseInfoChecklistPage> {
   /// Checkboxes and their corresponding checked value
   final Map<String, bool> checkboxesState = {
     Strings.neverShareMySeedPhrase: false,
@@ -51,22 +53,26 @@ class _SeedPhraseInfoChecklistPageState extends State<SeedPhraseInfoChecklistPag
                   checked: checkboxesState[Strings.neverShareMySeedPhrase]!,
                   activeText: true,
                   text: Strings.neverShareMySeedPhrase,
-                  onChanged: (bool? val) => onChecked(val ?? false, Strings.neverShareMySeedPhrase),
+                  onChanged: (bool? val) =>
+                      onChecked(val ?? false, Strings.neverShareMySeedPhrase),
                 ),
                 const SizedBox(height: 40),
                 _buildCheckboxListTile(
-                  checked: checkboxesState[Strings.walletRecoveryUsingSeedPhrase]!,
+                  checked:
+                      checkboxesState[Strings.walletRecoveryUsingSeedPhrase]!,
                   activeText: checkboxesState[Strings.neverShareMySeedPhrase]!,
                   text: Strings.walletRecoveryUsingSeedPhrase,
                   onChanged: checkboxesState[Strings.neverShareMySeedPhrase]!
-                      ? (bool? val) => onChecked(val ?? false, Strings.walletRecoveryUsingSeedPhrase)
+                      ? (bool? val) => onChecked(
+                          val ?? false, Strings.walletRecoveryUsingSeedPhrase)
                       : null,
                 ),
                 SizedBox(height: adaptHeight(0.1)),
                 ConfirmationButton(
                   text: Strings.iUnderstand,
                   onPressed: () {
-                    Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseInstructions);
+                    Keys.navigatorKey.currentState
+                        ?.pushNamed(Routes.seedPhraseInstructions);
                   },
                   disabled: checkboxesState.containsValue(false),
                 )

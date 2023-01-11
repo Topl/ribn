@@ -30,7 +30,8 @@ void main() {
   final String invalidPassword = testData['invalidPassword']!;
   final String testKeyStore = testData['keyStoreJson']!;
   final RibnAddress testAddress = testData['address'];
-  final Uint8List testToplExtendedPrivKey = Uint8List.fromList(toList(testData['toplExtendedPrvKey']!));
+  final Uint8List testToplExtendedPrivKey =
+      Uint8List.fromList(toList(testData['toplExtendedPrvKey']!));
 
   late Store<AppState> testStore;
 
@@ -51,14 +52,17 @@ void main() {
     setUp(reset);
     group('Onboarding middleware', () {
       test('should generate mnemonic', () {
-        when(onboardingRepo.generateMnemonicForUser()).thenAnswer((_) => testMnemonic);
+        when(onboardingRepo.generateMnemonicForUser())
+            .thenAnswer((_) => testMnemonic);
         testStore.dispatch(GenerateMnemonicAction());
         verify(onboardingRepo.generateMnemonicForUser()).called(1);
         expect(testStore.state.onboardingState.mnemonic, testMnemonic);
-        expect(testStore.state.onboardingState.shuffledMnemonic, unorderedEquals(testMnemonic.split(' ')));
+        expect(testStore.state.onboardingState.shuffledMnemonic,
+            unorderedEquals(testMnemonic.split(' ')));
       });
       test('should generate keystore and initialize hd wallet', () async {
-        when(onboardingRepo.generateMnemonicForUser()).thenAnswer((_) => testMnemonic);
+        when(onboardingRepo.generateMnemonicForUser())
+            .thenAnswer((_) => testMnemonic);
         testStore.dispatch(GenerateMnemonicAction());
         // mnemonic: captureAnyNamed('mnemonic'),
         // password: captureAnyNamed('password'),
@@ -89,7 +93,8 @@ void main() {
     group('Login middleware', () {
       setUp(() {
         // generate mnemonic
-        when(onboardingRepo.generateMnemonicForUser()).thenAnswer((_) => testMnemonic);
+        when(onboardingRepo.generateMnemonicForUser())
+            .thenAnswer((_) => testMnemonic);
         testStore.dispatch(GenerateMnemonicAction());
         // generate keystore
         when(
@@ -119,7 +124,8 @@ void main() {
         when(
           loginRepo.decryptKeyStore(argThat(isNotNull)),
         ).thenAnswer(
-          (_) => const LoginRepository().decryptKeyStore({'keyStoreJson': testKeyStore, 'password': invalidPassword}),
+          (_) => const LoginRepository().decryptKeyStore(
+              {'keyStoreJson': testKeyStore, 'password': invalidPassword}),
         );
         final Completer<bool> completer = Completer();
         testStore.dispatch(AttemptLoginAction(invalidPassword, completer));
@@ -133,26 +139,33 @@ void main() {
     group('Keychain middleware', () {
       setUp(() {
         // generate mnemonic
-        when(onboardingRepo.generateMnemonicForUser()).thenAnswer((_) => testMnemonic);
+        when(onboardingRepo.generateMnemonicForUser())
+            .thenAnswer((_) => testMnemonic);
         testStore.dispatch(GenerateMnemonicAction());
         // generate keystore
-        when(onboardingRepo.generateKeyStore(argThat(isNotNull)))
-            .thenReturn({'keyStoreJson': testKeyStore, 'toplExtendedPrvKeyUint8List': testToplExtendedPrivKey});
+        when(onboardingRepo.generateKeyStore(argThat(isNotNull))).thenReturn({
+          'keyStoreJson': testKeyStore,
+          'toplExtendedPrvKeyUint8List': testToplExtendedPrivKey
+        });
         testStore.dispatch(CreatePasswordAction(validPassword));
         // login
-        when(loginRepo.decryptKeyStore(captureAny)).thenReturn(testToplExtendedPrivKey);
+        when(loginRepo.decryptKeyStore(captureAny))
+            .thenReturn(testToplExtendedPrivKey);
       });
       test('Should refresh balances', () async {
         const testPolys = 10000;
         await Future.delayed(
           Duration.zero,
           () => testStore.dispatch(
-            InitializeHDWalletAction(toplExtendedPrivateKey: TestData.toplExtendedPrvKeyUint8List),
+            InitializeHDWalletAction(
+                toplExtendedPrivateKey: TestData.toplExtendedPrvKeyUint8List),
           ),
         );
-        when(keychainRepo.generateAddress(argThat(isNotNull), networkId: captureAnyNamed('networkId')))
+        when(keychainRepo.generateAddress(argThat(isNotNull),
+                networkId: captureAnyNamed('networkId')))
             .thenAnswer((_) => testAddress);
-        testStore.dispatch(GenerateAddressAction(0, network: testStore.state.keychainState.currentNetwork));
+        testStore.dispatch(GenerateAddressAction(0,
+            network: testStore.state.keychainState.currentNetwork));
         when(keychainRepo.getBalances(captureAny, captureAny)).thenAnswer((_) {
           return Future.value(
             (_.positionalArguments[1] as List<ToplAddress>)
@@ -167,10 +180,12 @@ void main() {
           );
         });
         final Completer<bool> completer = Completer();
-        testStore.dispatch(RefreshBalancesAction(completer, testStore.state.keychainState.currentNetwork));
+        testStore.dispatch(RefreshBalancesAction(
+            completer, testStore.state.keychainState.currentNetwork));
         await expectLater(completer.future, completion(true));
         expect(
-          testStore.state.keychainState.currentNetwork.addresses.first.balance.polys,
+          testStore
+              .state.keychainState.currentNetwork.addresses.first.balance.polys,
           PolyAmount.inNanopoly(quantity: testPolys),
         );
       });

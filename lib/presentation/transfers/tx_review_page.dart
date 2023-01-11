@@ -71,7 +71,8 @@ class TxReviewPage extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(11.6),
                         color: RibnColors.whiteBackground,
-                        border: Border.all(color: RibnColors.lightGrey, width: 1),
+                        border:
+                            Border.all(color: RibnColors.lightGrey, width: 1),
                         boxShadow: const [
                           BoxShadow(
                             color: RibnColors.greyShadow,
@@ -100,7 +101,9 @@ class TxReviewPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 38),
                       child: SizedBox(
                         width: 310,
-                        child: FeeInfo(fee: transferDetails.transactionReceipt!.fee!.getInNanopoly),
+                        child: FeeInfo(
+                            fee: transferDetails
+                                .transactionReceipt!.fee!.getInNanopoly),
                       ),
                     ),
                   ],
@@ -127,8 +130,10 @@ class TxReviewPage extends StatelessWidget {
                 onPressed: () async {
                   context.loaderOverlay.show();
                   final Completer<TransferDetails?> txCompleter = Completer();
-                  StoreProvider.of<AppState>(context).dispatch(SignAndBroadcastTxAction(transferDetails, txCompleter));
-                  await txCompleter.future.then((TransferDetails? transferDetails) {
+                  StoreProvider.of<AppState>(context).dispatch(
+                      SignAndBroadcastTxAction(transferDetails, txCompleter));
+                  await txCompleter.future
+                      .then((TransferDetails? transferDetails) {
                     if (transferDetails != null) {
                       Keys.navigatorKey.currentState?.pushNamed(
                         Routes.txConfirmation,
@@ -157,7 +162,8 @@ class TxReviewPage extends StatelessWidget {
                 dropShadowColor: Colors.transparent,
                 borderColor: RibnColors.ghostButtonText,
                 onPressed: () {
-                  Keys.navigatorKey.currentState!.popUntil((route) => route.settings.name == Routes.home);
+                  Keys.navigatorKey.currentState!
+                      .popUntil((route) => route.settings.name == Routes.home);
                 },
               ),
               const SizedBox(height: 13),
@@ -169,7 +175,8 @@ class TxReviewPage extends StatelessWidget {
   }
 
   /// A helper function used to build review items on this page.
-  Widget _buildReviewItem({required String itemLabel, required Widget item, bool divider = true}) {
+  Widget _buildReviewItem(
+      {required String itemLabel, required Widget item, bool divider = true}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -218,7 +225,9 @@ class TxReviewPage extends StatelessWidget {
                     Text('POLY', style: defaultTextStyle),
                   ],
                 )
-              : AssetInfo(assetCode: transferDetails.assetCode!, assetDetails: transferDetails.assetDetails),
+              : AssetInfo(
+                  assetCode: transferDetails.assetCode!,
+                  assetDetails: transferDetails.assetDetails),
         ],
       ),
     );
@@ -246,7 +255,8 @@ class TxReviewPage extends StatelessWidget {
             ),
           ),
           CustomCopyButton(
-            textToBeCopied: transferDetails.senders.first.toplAddress.toBase58(),
+            textToBeCopied:
+                transferDetails.senders.first.toplAddress.toBase58(),
             icon: Image.asset(
               RibnAssets.copyIcon,
               width: 26,
@@ -279,7 +289,8 @@ class TxReviewPage extends StatelessWidget {
             ),
           ),
           CustomCopyButton(
-            textToBeCopied: transferDetails.senders.first.toplAddress.toBase58(),
+            textToBeCopied:
+                transferDetails.senders.first.toplAddress.toBase58(),
             icon: Image.asset(
               RibnAssets.copyIcon,
               width: 26,

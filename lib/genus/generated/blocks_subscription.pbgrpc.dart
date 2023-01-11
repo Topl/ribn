@@ -14,7 +14,8 @@ import 'blocks_subscription.pb.dart' as $3;
 export 'blocks_subscription.pb.dart';
 
 class BlocksSubscriptionClient extends $grpc.Client {
-  static final _$create = $grpc.ClientMethod<$3.CreateBlocksSubscriptionReq, $3.BlocksSubscriptionRes>(
+  static final _$create = $grpc.ClientMethod<$3.CreateBlocksSubscriptionReq,
+      $3.BlocksSubscriptionRes>(
     '/co.topl.genus.services.BlocksSubscription/Create',
     ($3.CreateBlocksSubscriptionReq value) => value.writeToBuffer(),
     ($core.List<$core.int> value) => $3.BlocksSubscriptionRes.fromBuffer(value),
@@ -43,12 +44,14 @@ abstract class BlocksSubscriptionServiceBase extends $grpc.Service {
 
   BlocksSubscriptionServiceBase() {
     $addMethod(
-      $grpc.ServiceMethod<$3.CreateBlocksSubscriptionReq, $3.BlocksSubscriptionRes>(
+      $grpc.ServiceMethod<$3.CreateBlocksSubscriptionReq,
+          $3.BlocksSubscriptionRes>(
         'Create',
         create_Pre,
         false,
         true,
-        ($core.List<$core.int> value) => $3.CreateBlocksSubscriptionReq.fromBuffer(value),
+        ($core.List<$core.int> value) =>
+            $3.CreateBlocksSubscriptionReq.fromBuffer(value),
         ($3.BlocksSubscriptionRes value) => value.writeToBuffer(),
       ),
     );

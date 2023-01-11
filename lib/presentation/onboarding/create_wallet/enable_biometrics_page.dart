@@ -100,7 +100,8 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
               children: [
                 CustomIconButton(
                   onPressed: () {
-                    Keys.navigatorKey.currentState?.pushNamed(Routes.walletCreated);
+                    Keys.navigatorKey.currentState
+                        ?.pushNamed(Routes.walletCreated);
                   },
                   icon: const Icon(
                     Icons.close,
@@ -119,7 +120,9 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
             Padding(
               padding: const EdgeInsets.only(top: 30.0, bottom: 45),
               child: Image.asset(
-                Platform.isIOS ? RibnAssets.iosBiometrics : RibnAssets.andriodBiometrics,
+                Platform.isIOS
+                    ? RibnAssets.iosBiometrics
+                    : RibnAssets.andriodBiometrics,
                 width: 111,
               ),
             ),
@@ -152,7 +155,11 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
               ),
               onPressed: () {
                 runBiometrics(_localAuthentication).then(
-                  (value) => {if (_authorized) Keys.navigatorKey.currentState?.pushNamed(Routes.walletCreated)},
+                  (value) => {
+                    if (_authorized)
+                      Keys.navigatorKey.currentState
+                          ?.pushNamed(Routes.walletCreated)
+                  },
                 );
               },
               backgroundColor: RibnColors.primary,

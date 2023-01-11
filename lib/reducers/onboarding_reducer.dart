@@ -7,12 +7,14 @@ import 'package:ribn/models/onboarding_state.dart';
 final onboardingReducer = combineReducers<OnboardingState>(
   [
     TypedReducer<OnboardingState, UserSelectedWordAction>(_onUserSelectedWord),
-    TypedReducer<OnboardingState, MnemonicSuccessfullyGeneratedAction>(_onMnemonicGenerated),
+    TypedReducer<OnboardingState, MnemonicSuccessfullyGeneratedAction>(
+        _onMnemonicGenerated),
   ],
 );
 
 /// Updates the mnemonic in [AppState]
-OnboardingState _onMnemonicGenerated(OnboardingState onboardingState, MnemonicSuccessfullyGeneratedAction action) {
+OnboardingState _onMnemonicGenerated(OnboardingState onboardingState,
+    MnemonicSuccessfullyGeneratedAction action) {
   return onboardingState.copyWith(
     mnemonic: action.mnemonic,
     shuffledMnemonic: List.from(action.mnemonic.split(' '))..shuffle(Random()),
@@ -20,8 +22,10 @@ OnboardingState _onMnemonicGenerated(OnboardingState onboardingState, MnemonicSu
   );
 }
 
-OnboardingState _onUserSelectedWord(OnboardingState onboardingState, UserSelectedWordAction action) {
+OnboardingState _onUserSelectedWord(
+    OnboardingState onboardingState, UserSelectedWordAction action) {
   return onboardingState.copyWith(
-    userSelectedIndices: List.from(onboardingState.userSelectedIndices ?? [])..add(action.idx),
+    userSelectedIndices: List.from(onboardingState.userSelectedIndices ?? [])
+      ..add(action.idx),
   );
 }

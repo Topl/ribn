@@ -16,13 +16,17 @@ class DeleteWalletConfirmationDialog extends StatefulWidget {
     VoidCallback onIncorrectPasswordEntered,
   ) onConfirmDeletePressed;
 
-  const DeleteWalletConfirmationDialog({required this.onConfirmDeletePressed, Key? key}) : super(key: key);
+  const DeleteWalletConfirmationDialog(
+      {required this.onConfirmDeletePressed, Key? key})
+      : super(key: key);
 
   @override
-  _DeleteWalletConfirmationDialogState createState() => _DeleteWalletConfirmationDialogState();
+  _DeleteWalletConfirmationDialogState createState() =>
+      _DeleteWalletConfirmationDialogState();
 }
 
-class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmationDialog> {
+class _DeleteWalletConfirmationDialogState
+    extends State<DeleteWalletConfirmationDialog> {
   final TextEditingController _passwordController = TextEditingController();
 
   /// True if incorrect password was entered.
@@ -69,7 +73,8 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
                   obscurePassword: _obscurePassword,
                 ),
                 _incorrectPasswordError
-                    ? const Text('Incorrect Password', style: TextStyle(color: Colors.red))
+                    ? const Text('Incorrect Password',
+                        style: TextStyle(color: Colors.red))
                     : const SizedBox()
               ],
             ),

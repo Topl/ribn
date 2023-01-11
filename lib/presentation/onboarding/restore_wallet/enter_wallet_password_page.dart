@@ -24,7 +24,8 @@ class EnterWalletPasswordPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _EnterWalletPasswordPageState createState() => _EnterWalletPasswordPageState();
+  _EnterWalletPasswordPageState createState() =>
+      _EnterWalletPasswordPageState();
 }
 
 class _EnterWalletPasswordPageState extends State<EnterWalletPasswordPage> {

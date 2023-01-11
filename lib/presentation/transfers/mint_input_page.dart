@@ -38,8 +38,10 @@ class MintInputPage extends StatefulWidget {
 
 class _MintInputPageState extends State<MintInputPage> {
   final TextEditingController _noteController = TextEditingController();
-  final TextEditingController _assetLongNameController = TextEditingController();
-  final TextEditingController _assetShortNameController = TextEditingController();
+  final TextEditingController _assetLongNameController =
+      TextEditingController();
+  final TextEditingController _assetShortNameController =
+      TextEditingController();
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _recipientController = TextEditingController();
   late List<TextEditingController> _controllers;
@@ -158,7 +160,9 @@ class _MintInputPageState extends State<MintInputPage> {
                 ),
               ),
               // ignore: prefer_const_constructors
-              IssuerAddressField(width: 213), // const ignored here so that tooltip can be dismissed
+              IssuerAddressField(
+                  width:
+                      213), // const ignored here so that tooltip can be dismissed
               // field for entering the recipient address
               RecipientField(
                 controller: _recipientController,
@@ -183,8 +187,10 @@ class _MintInputPageState extends State<MintInputPage> {
                     if (_validRecipientAddress.isNotEmpty) {
                       _recipientController.text = _validRecipientAddress;
                       _recipientController
-                        ..text = _recipientController.text.substring(0, _recipientController.text.length)
-                        ..selection = TextSelection.collapsed(offset: _recipientController.text.length);
+                        ..text = _recipientController.text
+                            .substring(0, _recipientController.text.length)
+                        ..selection = TextSelection.collapsed(
+                            offset: _recipientController.text.length);
                     }
                     _validRecipientAddress = '';
                   });
@@ -242,14 +248,16 @@ class _MintInputPageState extends State<MintInputPage> {
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Text(
                             Strings.mintAsset,
-                            style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                            style: RibnToolkitTextStyles.btnMedium
+                                .copyWith(color: RibnColors.defaultText),
                           ),
                         ),
                         1: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Text(
                             Strings.mintExistingAsset,
-                            style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                            style: RibnToolkitTextStyles.btnMedium
+                                .copyWith(color: RibnColors.defaultText),
                           ),
                         ),
                       },
@@ -312,13 +320,16 @@ class _MintInputPageState extends State<MintInputPage> {
         : AssetSelectionField(
             formattedSelectedAsset: {
               'assetCode': _selectedAsset?.assetCode.toString(),
-              'longName': vm.assetDetails[_selectedAsset?.assetCode.toString()]?.longName,
+              'longName': vm
+                  .assetDetails[_selectedAsset?.assetCode.toString()]?.longName,
               'shortName': _selectedAsset?.assetCode.shortName.show,
-              'assetIcon': vm.assetDetails[_selectedAsset?.assetCode.toString()]?.icon,
+              'assetIcon':
+                  vm.assetDetails[_selectedAsset?.assetCode.toString()]?.icon,
             },
             formattedAsset: (asset) {
               return {
-                'longName': vm.assetDetails[asset!.assetCode.toString()]?.longName,
+                'longName':
+                    vm.assetDetails[asset!.assetCode.toString()]?.longName,
                 'shortName': asset.assetCode.shortName.show,
                 'assetIcon': vm.assetDetails[asset!.assetCode.toString()]?.icon,
               };
@@ -327,7 +338,8 @@ class _MintInputPageState extends State<MintInputPage> {
             onSelected: (AssetAmount? asset) {
               setState(() {
                 _selectedAsset = asset;
-                _selectedUnit = vm.assetDetails[asset!.assetCode.toString()]?.unit;
+                _selectedUnit =
+                    vm.assetDetails[asset!.assetCode.toString()]?.unit;
                 _assetShortNameController.text = asset.assetCode.shortName.show;
               });
             },

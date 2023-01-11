@@ -29,7 +29,9 @@ class SelectActionPage extends StatelessWidget {
           Keys.navigatorKey.currentState?.pushNamed(Routes.gettingStarted);
         },
       ),
-      kIsWeb ? const SizedBox(width: 100, height: 50) : const SizedBox(height: 50),
+      kIsWeb
+          ? const SizedBox(width: 100, height: 50)
+          : const SizedBox(height: 50),
       OnboardingActionButton(
         backgroundColor: RibnColors.primary,
         icon: Image.asset(RibnAssets.importWalletPng),
@@ -61,7 +63,9 @@ class SelectActionPage extends StatelessWidget {
                 SizedBox(height: adaptHeight(0.1)),
                 // display actionbuttons in row or column depending on platform
                 kIsWeb
-                    ? Row(mainAxisAlignment: MainAxisAlignment.center, children: actionButtons)
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: actionButtons)
                     : Column(children: actionButtons),
                 SizedBox(height: adaptHeight(0.1)),
               ],

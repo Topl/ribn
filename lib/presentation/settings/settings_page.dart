@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
@@ -35,7 +33,8 @@ class _SettingsPageState extends State<SettingsPage> {
     if (!kIsWeb) {
       runBiometrics();
     } else {
-      final List<String> dApps = await PlatformUtils.instance.convertToFuture(PlatformUtils.instance.getDAppList());
+      final List<String> dApps = await PlatformUtils.instance
+          .convertToFuture(PlatformUtils.instance.getDAppList());
 
       setState(() async {
         canDisconnect = dApps.isNotEmpty;
@@ -57,23 +56,22 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return SettingsContainer(
       builder: (BuildContext context, SettingsViewModel vm) {
         vm.canDisconnect = canDisconnect;
         return Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const CustomPageTextTitle(
-                title: Strings.settings,
-                hideBackArrow: true,
-              ),
-              _buildSettingsListItems(vm, context),
-            ],
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                const CustomPageTextTitle(
+                  title: Strings.settings,
+                  hideBackArrow: true,
+                ),
+                _buildSettingsListItems(vm, context),
+              ],
+            ),
           ),
-        ),
-      );
+        );
       },
     );
   }
