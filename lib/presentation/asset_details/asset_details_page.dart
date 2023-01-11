@@ -1,10 +1,14 @@
 // Flutter imports:
 
-// Package imports:
-import 'package:brambldart/brambldart.dart';
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:brambldart/brambldart.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
+
 // Project imports:
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
@@ -21,8 +25,6 @@ import 'package:ribn/presentation/asset_details/asset_detail_items/asset_long_na
 import 'package:ribn/presentation/asset_details/asset_detail_items/asset_unit_details.dart';
 import 'package:ribn/presentation/asset_details/asset_detail_items/issuer_address_details.dart';
 import 'package:ribn/widgets/custom_divider.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
 /// This page presents all details associated with an asset.
 ///

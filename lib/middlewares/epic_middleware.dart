@@ -1,7 +1,10 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
+
 // Package imports:
 import 'package:redux_epics/redux_epics.dart';
+import 'package:rxdart/rxdart.dart';
+
 // Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
@@ -12,7 +15,6 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/repositories/misc_repository.dart';
 import 'package:ribn/utils.dart';
-import 'package:rxdart/rxdart.dart';
 
 Epic<AppState> createEpicMiddleware(MiscRepository miscRepo) =>
     combineEpics<AppState>([

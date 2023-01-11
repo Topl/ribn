@@ -3,16 +3,18 @@ import 'dart:async';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/molecules/animated_circle_step_loader.dart';
+
 // Project imports:
 import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/internal_message.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/widgets/molecules/animated_circle_step_loader.dart';
 
 class LoadingDApp extends StatefulWidget {
   const LoadingDApp({Key? key, required this.response}) : super(key: key);

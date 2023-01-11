@@ -1,11 +1,13 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-// Project imports:
-import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/strings.dart';
+
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+
+// Project imports:
+import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/strings.dart';
 
 class TransactionRowDetails extends StatelessWidget {
   const TransactionRowDetails({
