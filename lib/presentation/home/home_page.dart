@@ -1,4 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/organisms/ribn_bottom_app_bar.dart';
+
+// Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
@@ -6,8 +13,6 @@ import 'package:ribn/presentation/home/wallet_balance_page.dart';
 import 'package:ribn/presentation/transaction_history/transaction_history_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
 import 'package:ribn/widgets/ribn_app_bar_wapper.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/widgets/organisms/ribn_bottom_app_bar.dart';
 
 /// The 'home page' of Ribn.
 ///

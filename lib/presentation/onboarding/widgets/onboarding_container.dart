@@ -1,5 +1,8 @@
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
 
 class OnboardingContainer extends StatelessWidget {
@@ -28,9 +31,10 @@ class OnboardingContainer extends StatelessWidget {
       ),
       child: Padding(
         padding: EdgeInsets.only(
-            top: topPadding,
-            left: isXsScreenSize ? 10 : 20,
-            right: isXsScreenSize ? 10 : 20),
+          top: topPadding,
+          left: isXsScreenSize ? 10 : 20,
+          right: isXsScreenSize ? 10 : 20,
+        ),
         child: child,
       ),
     );

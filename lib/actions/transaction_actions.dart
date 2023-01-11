@@ -1,7 +1,10 @@
+// Dart imports:
 import 'dart:async';
 
+// Package imports:
 import 'package:brambldart/model.dart';
 
+// Project imports:
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/models/transfer_details.dart';

@@ -1,4 +1,7 @@
+// Package imports:
 import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/models/internal_message.dart';
 
@@ -6,11 +9,14 @@ import 'package:ribn/models/internal_message.dart';
 final internalMessageReducer = combineReducers<InternalMessage?>(
   [
     TypedReducer<InternalMessage?, ReceivedInternalMsgAction>(
-        _onReceivedInternalMsg),
+      _onReceivedInternalMsg,
+    ),
   ],
 );
 
 InternalMessage _onReceivedInternalMsg(
-    InternalMessage? internalMessage, ReceivedInternalMsgAction action) {
+  InternalMessage? internalMessage,
+  ReceivedInternalMsgAction action,
+) {
   return action.pendingRequest;
 }

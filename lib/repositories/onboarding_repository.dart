@@ -1,9 +1,14 @@
+// Dart imports:
 import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
+
+// Package imports:
 import 'package:bip_topl/bip_topl.dart';
 import 'package:brambldart/credentials.dart';
 import 'package:brambldart/crypto.dart';
+
+// Project imports:
 import 'package:ribn/constants/rules.dart';
 
 class OnboardingRespository {
@@ -69,6 +74,8 @@ class OnboardingRespository {
   Bip32KeyPair deriveToplExtendedKeys(String mnemonic) {
     final HdWallet hdWallet = HdWallet.fromMnemonic(mnemonic);
     return hdWallet.deriveBaseAddress(
-        purpose: Rules.defaultPurpose, coinType: Rules.defaultCoinType);
+      purpose: Rules.defaultPurpose,
+      coinType: Rules.defaultCoinType,
+    );
   }
 }

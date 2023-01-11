@@ -1,5 +1,8 @@
+// Dart imports:
 import 'dart:async';
 import 'dart:typed_data';
+
+// Project imports:
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/models/ribn_network.dart';
@@ -7,8 +10,10 @@ import 'package:ribn/models/ribn_network.dart';
 class InitializeHDWalletAction {
   final String? keyStoreJson;
   final Uint8List toplExtendedPrivateKey;
-  const InitializeHDWalletAction(
-      {this.keyStoreJson, required this.toplExtendedPrivateKey});
+  const InitializeHDWalletAction({
+    this.keyStoreJson,
+    required this.toplExtendedPrivateKey,
+  });
 }
 
 class GenerateInitialAddressesAction {
