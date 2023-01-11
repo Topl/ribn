@@ -32,11 +32,11 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
 
   @override
   void initState() {
-    KeyboardVisibilityController().onChange.listen((bool visible) {
-      setState(() {
-        isKeyboardVisible = visible;
-      });
-    });
+    // KeyboardVisibilityController().onChange.listen((bool visible) {
+    //   setState(() {
+    //     isKeyboardVisible = visible;
+    //   });
+    // });
     super.initState();
   }
 
