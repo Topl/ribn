@@ -1,8 +1,12 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:local_auth/local_auth.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
+
 // Project imports:
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/settings_container.dart';
@@ -13,8 +17,6 @@ import 'package:ribn/presentation/settings/sections/export_topl_main_key_section
 import 'package:ribn/presentation/settings/sections/links_section.dart';
 import 'package:ribn/presentation/settings/sections/ribn_version_section.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
 /// The settings page of the application.
 class SettingsPage extends StatefulWidget {

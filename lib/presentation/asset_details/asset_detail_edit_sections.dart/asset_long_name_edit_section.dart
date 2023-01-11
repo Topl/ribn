@@ -1,15 +1,17 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
-// Project imports:
-import 'package:ribn/actions/user_details_actions.dart';
-import 'package:ribn/constants/strings.dart';
-import 'package:ribn/models/app_state.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+
+// Project imports:
+import 'package:ribn/actions/user_details_actions.dart';
+import 'package:ribn/constants/strings.dart';
+import 'package:ribn/models/app_state.dart';
 
 /// The section for editing asset long anme.
 class AssetLongNameEditSection extends StatefulWidget {

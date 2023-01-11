@@ -1,9 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-// Project imports:
-import 'package:ribn/constants/strings.dart';
+
 // Package imports:
 import 'package:ribn_toolkit/constants/styles.dart';
+
+// Project imports:
+import 'package:ribn/constants/strings.dart';
 
 /// The section for displaying the current Ribn version.
 class RibnVersionSection extends StatelessWidget {

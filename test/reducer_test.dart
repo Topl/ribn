@@ -2,13 +2,17 @@
 
 // Dart imports:
 
+// Dart imports:
+
+// Flutter imports:
+import 'package:flutter/foundation.dart';
+
 // Package imports:
 import 'package:bip_topl/bip_topl.dart' as bip_topl;
 import 'package:brambldart/brambldart.dart';
-// Flutter imports:
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:redux/redux.dart';
+
 // Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/onboarding_actions.dart';
@@ -18,7 +22,6 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/redux.dart';
 import 'package:ribn/repositories/keychain_repository.dart';
-
 import 'test_data.dart';
 
 void main() {

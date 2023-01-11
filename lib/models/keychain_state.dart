@@ -1,11 +1,13 @@
 // Dart imports:
 import 'dart:convert';
 
+// Flutter imports:
+import 'package:flutter/foundation.dart';
+
 // Package imports:
 import 'package:bip_topl/bip_topl.dart' as bip_topl;
 import 'package:brambldart/credentials.dart';
-// Flutter imports:
-import 'package:flutter/foundation.dart';
+
 // Project imports:
 import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/rules.dart';

@@ -4,7 +4,7 @@
 
 // Dart imports:
 import 'dart:convert';
-
+import 'dart:typed_data';
 RawTx rawTxFromJson(String str) => RawTx.fromJson(json.decode(str));
 
 String rawTxToJson(RawTx data) => json.encode(data.toJson());

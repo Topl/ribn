@@ -1,14 +1,16 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-// Project imports:
-import 'package:ribn/constants/strings.dart';
-import 'package:ribn/platform/platform.dart';
+
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/ribn_custom_modal.dart';
 import 'package:ribn_toolkit/widgets/organisms/ribn_disconnect_app_container.dart';
+
+// Project imports:
+import 'package:ribn/constants/strings.dart';
+import 'package:ribn/platform/platform.dart';
 
 /// The confirmation dialog that is displayed before disconnecting the wallet.
 class DisconnectWalletConfirmationDialog extends StatefulWidget {
