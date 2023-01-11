@@ -10,7 +10,7 @@ import 'package:brambldart/brambldart.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/models/ribn_address.dart';
-
+import 'dart:typed_data';
 /// A helper class to hold all the details for a transfer being initiated inside Ribn.
 class TransferDetails {
   final TransferType transferType;
