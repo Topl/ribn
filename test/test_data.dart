@@ -1,6 +1,5 @@
 // Package imports:
 import 'package:brambldart/credentials.dart';
-import 'dart:typed_data';
 // Project imports:
 import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/rules.dart';
