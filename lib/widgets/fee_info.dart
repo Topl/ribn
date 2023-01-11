@@ -35,22 +35,22 @@ class FeeInfo extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-          Spacer(),
-          Text('${convertPolyToUsd(fee)} USD',
-            style: const TextStyle(
-              fontFamily: 'DM Sans',
-              fontSize: 11,
-              color: RibnColors.greyText,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          // Spacer(),
+          // Text('${convertPolyToUsd(fee)} USD',
+          //   style: const TextStyle(
+          //     fontFamily: 'DM Sans',
+          //     fontSize: 11,
+          //     color: RibnColors.greyText,
+          //     fontWeight: FontWeight.w600,
+          //   ),
+          // ),
         ],)
       ],
     );
   }
 
   // Mock function
-  String convertPolyToUsd(num poly){
-    return (poly * 0.15).toStringAsFixed(2);
-  }
+  // String convertPolyToUsd(num poly){
+  //   return (poly * 0.15).toStringAsFixed(2);
+  // }
 }
