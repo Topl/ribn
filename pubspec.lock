@@ -939,8 +939,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: RIBN-555
-      resolved-ref: "2326f026bb7130ca95a20b2adac741f2bb5c7952"
+      ref: main
+      resolved-ref: "28119180b0fd1a9203b7413f494d2abb684fda19"
       url: "https://github.com/Topl/ribn-toolkit"
     source: git
     version: "1.0.0+1"
