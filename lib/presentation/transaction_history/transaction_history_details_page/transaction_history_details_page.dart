@@ -23,15 +23,15 @@ class TxHistoryDetailsPage extends StatefulWidget {
 class _TxHistoryPageDetailsState extends State<TxHistoryDetailsPage> {
   @override
   Widget build(BuildContext context) {
-    final scrollController = ScrollController();
+    final _scrollController = ScrollController();
 
     return Scaffold(
       backgroundColor: RibnColors.background,
       body: Scrollbar(
         thumbVisibility: true,
-        controller: scrollController,
+        controller: _scrollController,
         child: SingleChildScrollView(
-          controller: scrollController,
+          controller: _scrollController,
           child: RibnActivityDetails(
             activityDetails: widget.ribnActivityDetailsModel,
             dataTileTextStyle: const TextStyle(
