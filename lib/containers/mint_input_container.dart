@@ -1,15 +1,13 @@
 // Dart imports:
 import 'dart:async';
 
+// Package imports:
+import 'package:brambldart/brambldart.dart';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-// Package imports:
-import 'package:brambldart/brambldart.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-
 // Project imports:
 import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/constants/keys.dart';

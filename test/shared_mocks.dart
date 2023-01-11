@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:mockito/annotations.dart';
+
 // Project imports:
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/repositories/keychain_repository.dart';

@@ -1,11 +1,10 @@
 // Flutter imports:
 
-// Flutter imports:
-import 'package:flutter/cupertino.dart';
-
 // Package imports:
 import 'package:brambldart/credentials.dart';
 import 'package:brambldart/model.dart';
+// Flutter imports:
+import 'package:flutter/cupertino.dart';
 
 // Project imports:
 import '../containers/transaction_history_container.dart';
