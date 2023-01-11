@@ -69,7 +69,7 @@ class TxReviewPage extends StatelessWidget {
                     // review box
                     Container(
                       width: 310,
-                      height: 300,
+                      height: 340,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 19.5,
                         vertical: 15,
