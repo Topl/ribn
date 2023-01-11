@@ -1,13 +1,19 @@
 // Dart imports:
 import 'dart:io' show Platform;
 
-// Package imports:
-import 'package:app_settings/app_settings.dart';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+
 // Project imports:
 import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/assets.dart';
@@ -18,10 +24,6 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 class EnableBiometrics extends StatefulWidget {
   const EnableBiometrics({Key? key}) : super(key: key);

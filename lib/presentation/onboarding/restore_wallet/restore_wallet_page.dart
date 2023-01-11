@@ -1,12 +1,20 @@
 // Flutter imports:
 
-// Package imports:
-import 'package:bip_topl/bip_topl.dart';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:bip_topl/bip_topl.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/peekaboo_button.dart';
+import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
+
 // Project imports:
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/keys.dart';
@@ -17,12 +25,6 @@ import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/atoms/peekaboo_button.dart';
-import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
 
 /// This page allows the user to enter a known mnemonic / seed phrase in order to restore a wallet.
 ///
