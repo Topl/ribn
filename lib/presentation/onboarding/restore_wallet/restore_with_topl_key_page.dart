@@ -1,8 +1,15 @@
+// Dart imports:
 import 'dart:convert';
 
-import 'package:file_picker/file_picker.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+
+// Project imports:
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
@@ -13,7 +20,6 @@ import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/uploaded_file_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 
 /// This page allows the user to upload their Topl Main Key in order to restore a wallet.
 ///
@@ -109,8 +115,10 @@ class _RestoreWithToplKeyPageState extends State<RestoreWithToplKeyPage> {
               ),
             ),
             const SizedBox(height: 5),
-            const Text(Strings.fileUploadLimit,
-                style: RibnToolkitTextStyles.onboardingH3),
+            const Text(
+              Strings.fileUploadLimit,
+              style: RibnToolkitTextStyles.onboardingH3,
+            ),
             const SizedBox(height: 20),
             Image.asset(RibnAssets.addPlusPng, width: 70),
           ],
@@ -154,7 +162,10 @@ class _RestoreWithToplKeyPageState extends State<RestoreWithToplKeyPage> {
           ),
           const SizedBox(height: 5),
           UploadedFileContainer(
-              uploadedFileName: uploadedFileName, width: 484, height: 46),
+            uploadedFileName: uploadedFileName,
+            width: 484,
+            height: 46,
+          ),
         ],
       ),
     );

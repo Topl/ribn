@@ -1,6 +1,11 @@
+// Dart imports:
 import 'dart:typed_data';
+
+// Package imports:
 import 'package:brambldart/brambldart.dart';
 import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/actions/user_details_actions.dart';
@@ -21,12 +26,15 @@ List<Middleware<AppState>> createTransactionMiddleware(
 ) {
   return <Middleware<AppState>>[
     TypedMiddleware<AppState, InitiateTxAction>(
-        _initiateTx(transactionRepo, keychainRepo)),
+      _initiateTx(transactionRepo, keychainRepo),
+    ),
     TypedMiddleware<AppState, CreateRawTxAction>(_createRawTx(transactionRepo)),
     TypedMiddleware<AppState, SignAndBroadcastTxAction>(
-        _signAndBroadcastTx(transactionRepo, keychainRepo)),
+      _signAndBroadcastTx(transactionRepo, keychainRepo),
+    ),
     TypedMiddleware<AppState, SignExternalTxAction>(
-        _signExternalTx(transactionRepo, keychainRepo)),
+      _signExternalTx(transactionRepo, keychainRepo),
+    ),
   ];
 }
 
@@ -35,8 +43,10 @@ List<Middleware<AppState>> createTransactionMiddleware(
 /// Updates the [TransferDetails] with some defaults like the sender, change, and consolidation addresses, as well as
 /// the current network, before dispatching [CreateRawTxAction].
 void Function(
-        Store<AppState> store, InitiateTxAction action, NextDispatcher next)
-    _initiateTx(
+  Store<AppState> store,
+  InitiateTxAction action,
+  NextDispatcher next,
+) _initiateTx(
   TransactionRepository transactionRepo,
   KeychainRepository keychainRepo,
 ) {
@@ -63,8 +73,10 @@ void Function(
 ///
 /// Also dispatches [ToggleLoadingRawTxAction] to stop the loading indicator.
 void Function(
-        Store<AppState> store, CreateRawTxAction action, NextDispatcher next)
-    _createRawTx(
+  Store<AppState> store,
+  CreateRawTxAction action,
+  NextDispatcher next,
+) _createRawTx(
   TransactionRepository transactionRepo,
 ) {
   return (store, action, next) async {
@@ -91,8 +103,11 @@ void Function(
 ///
 /// Signs and broadcasts the transactions, updates the [TransferDetails] with the txId,
 /// and navigates to the confirmation page.
-void Function(Store<AppState> store, SignAndBroadcastTxAction action,
-    NextDispatcher next) _signAndBroadcastTx(
+void Function(
+  Store<AppState> store,
+  SignAndBroadcastTxAction action,
+  NextDispatcher next,
+) _signAndBroadcastTx(
   TransactionRepository transactionRepo,
   KeychainRepository keychainRepo,
 ) {
@@ -130,8 +145,10 @@ void Function(Store<AppState> store, SignAndBroadcastTxAction action,
 }
 
 void Function(
-        Store<AppState> store, SignExternalTxAction action, NextDispatcher next)
-    _signExternalTx(
+  Store<AppState> store,
+  SignExternalTxAction action,
+  NextDispatcher next,
+) _signExternalTx(
   TransactionRepository transactionRepo,
   KeychainRepository keychainRepo,
 ) {
@@ -140,8 +157,8 @@ void Function(
       final Map<String, dynamic> transferDetails = {};
 
       transferDetails['messageToSign'] = Base58Data.validated(
-              action.pendingRequest.data!['messageToSign'] as String)
-          .value;
+        action.pendingRequest.data!['messageToSign'] as String,
+      ).value;
 
       final TransactionReceipt transactionReceipt =
           TransactionReceipt.fromJson(action.pendingRequest.data!['rawTx']);
@@ -155,7 +172,8 @@ void Function(
       final List<RibnAddress> sendersInWallet =
           List.from(store.state.keychainState.currentNetwork.addresses)
             ..retainWhere(
-                (addr) => rawTxSenders.contains(addr.toplAddress.toBase58()));
+              (addr) => rawTxSenders.contains(addr.toplAddress.toBase58()),
+            );
 
       if (sendersInWallet.isEmpty) {
         final InternalMessage response = InternalMessage(

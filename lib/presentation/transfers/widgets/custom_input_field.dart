@@ -1,7 +1,12 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/assets.dart';
+
+// Package imports:
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
+
+// Project imports:
+import 'package:ribn/constants/assets.dart';
 
 /// A wrapper widget used for custom input fields on transfer input pages.
 class CustomInputField extends StatelessWidget {

@@ -1,11 +1,16 @@
+// Dart imports:
 import 'dart:typed_data';
 
+// Package imports:
 import 'package:brambldart/brambldart.dart';
-// import 'package:brambldart/src/model/box/token_value_holder.dart';
+
+// Project imports:
 import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/transfer_details.dart';
+
+// import 'package:brambldart/src/model/box/token_value_holder.dart';
 
 class TransactionRepository {
   const TransactionRepository();
@@ -37,7 +42,8 @@ class TransactionRepository {
             data: Latin1Data.validated(transferDetails.data),
           );
           final Map<String, dynamic> rawTx = await client.sendRawPolyTransfer(
-              polyTransaction: polyTransaction);
+            polyTransaction: polyTransaction,
+          );
           return rawTx;
         }
       case TransferType.assetTransfer:
@@ -65,7 +71,8 @@ class TransactionRepository {
             data: Latin1Data.validated(transferDetails.data),
           );
           final Map<String, dynamic> rawTx = await client.sendRawAssetTransfer(
-              assetTransaction: assetTransaction);
+            assetTransaction: assetTransaction,
+          );
           return rawTx;
         }
       case (TransferType.mintingAsset):
@@ -93,7 +100,8 @@ class TransactionRepository {
             data: Latin1Data.validated(transferDetails.data),
           );
           final Map<String, dynamic> rawTx = await client.sendRawAssetTransfer(
-              assetTransaction: assetTransaction);
+            assetTransaction: assetTransaction,
+          );
           return rawTx;
         }
       default:
@@ -116,7 +124,9 @@ class TransactionRepository {
   }
 
   Future<String> broadcastTx(
-      BramblClient client, TransactionReceipt signedTx) async {
+    BramblClient client,
+    TransactionReceipt signedTx,
+  ) async {
     return await client.sendSignedTransaction(signedTx);
   }
 

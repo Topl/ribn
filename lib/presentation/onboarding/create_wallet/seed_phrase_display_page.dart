@@ -1,7 +1,14 @@
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+
+// Project imports:
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
@@ -14,8 +21,6 @@ import 'package:ribn/presentation/onboarding/widgets/mobile_onboarding_progress_
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
 
 class SeedPhraseDisplayPage extends StatelessWidget {
   const SeedPhraseDisplayPage({Key? key}) : super(key: key);
@@ -54,7 +59,8 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                   Image.asset(RibnAssets.penPaperPng, width: 70),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        vertical: kIsWeb ? 40 : adaptHeight(0.03)),
+                      vertical: kIsWeb ? 40 : adaptHeight(0.03),
+                    ),
                     child: const Text(
                       Strings.writeDownSeedPhraseInExactOrder,
                       style: RibnToolkitTextStyles.onboardingH3,
@@ -82,7 +88,8 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                                   child: _buildButton(
                                     Strings.copy,
                                     onPressed: () => Clipboard.setData(
-                                        ClipboardData(text: seedPhrase)),
+                                      ClipboardData(text: seedPhrase),
+                                    ),
                                     width: 19,
                                     height: 15,
                                   ),
@@ -104,7 +111,9 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                                     StoreProvider.of<AppState>(context)
                                         .dispatch(
                                   DownloadAsFileAction(
-                                      Strings.seedPhraseFileName, seedPhrase),
+                                    Strings.seedPhraseFileName,
+                                    seedPhrase,
+                                  ),
                                 ),
                                 width: 30,
                                 height: 23,
@@ -115,7 +124,8 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                   ),
                   SizedBox(height: adaptHeight(0.1)),
                   renderIfMobile(
-                      const MobileOnboardingProgressBar(currStep: 0)),
+                    const MobileOnboardingProgressBar(currStep: 0),
+                  ),
                   ConfirmationButton(
                     text: Strings.done,
                     onPressed: () {
@@ -203,9 +213,10 @@ class SeedPhraseDisplayPage extends StatelessWidget {
             TextSpan(
               text: '$buttonText ',
               style: RibnToolkitTextStyles.h3.copyWith(
-                  color: const Color(0xff00FFC5),
-                  letterSpacing: 0.5,
-                  height: kIsWeb ? 1 : 0),
+                color: const Color(0xff00FFC5),
+                letterSpacing: 0.5,
+                height: kIsWeb ? 1 : 0,
+              ),
             ),
             WidgetSpan(
               child: Padding(

@@ -1,5 +1,11 @@
+// Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// Package imports:
 import 'package:redux_epics/redux_epics.dart';
+import 'package:rxdart/rxdart.dart';
+
+// Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/actions/restore_wallet_actions.dart';
@@ -9,7 +15,6 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/repositories/misc_repository.dart';
 import 'package:ribn/utils.dart';
-import 'package:rxdart/rxdart.dart';
 
 Epic<AppState> createEpicMiddleware(MiscRepository miscRepo) =>
     combineEpics<AppState>([
@@ -18,7 +23,8 @@ Epic<AppState> createEpicMiddleware(MiscRepository miscRepo) =>
       TypedEpic<AppState, PersistAppState>(_onPersistAppState(miscRepo)),
       TypedEpic<AppState, NavigateToRoute>(_onNavigateToRoute()),
       TypedEpic<AppState, SuccessfullyRestoredWalletAction>(
-          _onSuccessfullyRestoredWallet(miscRepo)),
+        _onSuccessfullyRestoredWallet(miscRepo),
+      ),
     ]);
 
 /// A list of all the actions that should trigger appState persistence
@@ -57,8 +63,11 @@ Epic<AppState> _persistenceTriggerEpic() =>
 Stream<dynamic> Function(Stream<ApiErrorAction>, EpicStore<AppState>)
     _onApiError() {
   return (actions, store) {
-    return actions.switchMap((action) => Stream.value(
-        NavigateToRoute(Routes.error, arguments: action.errorMessage)));
+    return actions.switchMap(
+      (action) => Stream.value(
+        NavigateToRoute(Routes.error, arguments: action.errorMessage),
+      ),
+    );
   };
 }
 
@@ -78,7 +87,8 @@ Stream<dynamic> Function(Stream<PersistAppState>, EpicStore<AppState>)
             }
           } catch (e) {
             return ApiErrorAction(
-                'Failed to persist state. Error: ${e.toString()}');
+              'Failed to persist state. Error: ${e.toString()}',
+            );
           }
         }
 
@@ -110,8 +120,9 @@ Stream<dynamic> Function(Stream<NavigateToRoute>, EpicStore<AppState>)
 /// [navigateToRoute] is selected based on whether the app is open in extension view or full page, i.e.
 /// user is restoring wallet during onboarding (fullpage- iew) vs from the login page (extension view).
 Stream<dynamic> Function(
-        Stream<SuccessfullyRestoredWalletAction>, EpicStore<AppState>)
-    _onSuccessfullyRestoredWallet(
+  Stream<SuccessfullyRestoredWalletAction>,
+  EpicStore<AppState>,
+) _onSuccessfullyRestoredWallet(
   MiscRepository miscRepo,
 ) {
   return (actions, store) {

@@ -1,7 +1,11 @@
+// Dart imports:
 import 'dart:io';
 
+// Package imports:
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:path_provider/path_provider.dart';
+
+// Project imports:
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/platform/interfaces.dart';
 
@@ -22,14 +26,16 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   @override
   Future<String> getState() async {
     final File file = File(
-        '${(await getApplicationDocumentsDirectory()).path}/app_state.json');
+      '${(await getApplicationDocumentsDirectory()).path}/app_state.json',
+    );
     return await file.readAsString();
   }
 
   @override
   Future<void> saveState(String data) async {
     final file = File(
-        '${(await getApplicationDocumentsDirectory()).path}/app_state.json');
+      '${(await getApplicationDocumentsDirectory()).path}/app_state.json',
+    );
     await file.writeAsString(data, flush: true);
   }
 
