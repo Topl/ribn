@@ -20,7 +20,7 @@ import 'package:ribn/repositories/login_repository.dart' as _i7;
 import 'package:ribn/repositories/misc_repository.dart' as _i9;
 import 'package:ribn/repositories/onboarding_repository.dart' as _i5;
 import 'package:ribn/repositories/transaction_repository.dart' as _i12;
-
+import 'dart:typed_data';
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters

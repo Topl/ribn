@@ -2,7 +2,7 @@
 
 // Flutter imports:
 import 'package:flutter/foundation.dart';
-
+import 'dart:typed_data';
 // Package imports:
 import 'package:bip_topl/bip_topl.dart' as bip_topl;
 import 'package:brambldart/brambldart.dart';
