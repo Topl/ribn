@@ -11,6 +11,7 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
+import 'package:ribn_toolkit/widgets/molecules/ribn_checkbox_wrappable_text.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title_with_leading_child.dart';
 
 import '../../models/internal_message.dart';
@@ -117,56 +118,17 @@ class _ConnectDAppState extends State<ConnectDApp> {
                         color: RibnColors.mediumGrey,
                       ),
                       padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-                      child: CheckboxWrappableText(
+                      child: RibnCheckboxWrappableText(
                         fillColor: Colors.transparent,
                         checkColor: RibnColors.darkGreen,
                         borderColor: RibnColors.darkGreen,
-                        value: authChecked,
+                        value:authChecked ,
                         onChanged: (bool? val) {
                           setState(() {
                             authChecked = val!;
                           });
                         },
-                        label: RichText(
-                          key: GlobalKey(),
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'I trust ',
-                                style: RibnToolkitTextStyles.h3.copyWith(
-                                  color: RibnColors.defaultText,
-                                  fontSize: 11,
-                                  height: 2,
-                                ),
-                              ),
-                              TextSpan(
-                                text: widget.request.origin,
-                                style: RibnToolkitTextStyles.h3.copyWith(
-                                  color: RibnColors.defaultText,
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w500,
-                                  height: 2,
-                                ),
-                              ),
-                              TextSpan(
-                                text: ' and am',
-                                style: RibnToolkitTextStyles.h3.copyWith(
-                                  color: RibnColors.defaultText,
-                                  fontSize: 11,
-                                  height: 2,
-                                ),
-                              ),
-                              TextSpan(
-                                text: Strings.connectDApp,
-                                style: RibnToolkitTextStyles.h3.copyWith(
-                                  color: RibnColors.defaultText,
-                                  fontSize: 11,
-                                  height: 2,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        origin: widget.request.origin,
                       ),
                     ),
                     const SizedBox(

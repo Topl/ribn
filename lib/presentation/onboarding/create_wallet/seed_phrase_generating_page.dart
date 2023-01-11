@@ -21,7 +21,8 @@ class SeedPhraseGeneratingPage extends StatefulWidget {
   const SeedPhraseGeneratingPage({Key? key}) : super(key: key);
 
   @override
-  _SeedPhraseGeneratingPageState createState() => _SeedPhraseGeneratingPageState();
+  _SeedPhraseGeneratingPageState createState() =>
+      _SeedPhraseGeneratingPageState();
 }
 
 class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
@@ -42,7 +43,9 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
               clipBehavior: Clip.none,
               child: Center(
                 child: Column(
-                  children: seedPhraseGenerating ? seedPhraseGeneratingSection() : seedPhraseGeneratedSection(),
+                  children: seedPhraseGenerating
+                      ? seedPhraseGeneratingSection()
+                      : seedPhraseGeneratedSection(),
                 ),
               ),
             ),
@@ -73,6 +76,7 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
         activeCircleRadius: 8,
         inactiveCircleRadius: 4.5,
         dotPadding: 8,
+        renderCenterIcon: true,
       ),
       SizedBox(
         width: descriptionBoxWidth,

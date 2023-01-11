@@ -54,7 +54,7 @@ dependencies:
   ribn_toolkit:
     git:
       url: https://github.com/Topl/ribn-toolkit
-      ref: 0.4-front-end
+      ref: RIBN-555
 #  ribn_toolkit:
 #    path: ../ribn_toolkit
   brambldart:

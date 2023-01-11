@@ -16,6 +16,7 @@ import 'package:ribn_toolkit/widgets/atoms/animated_expand_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title_with_leading_child.dart';
+import 'package:ribn_toolkit/widgets/organisms/ribn_tx_container.dart';
 
 import '../../actions/internal_message_actions.dart';
 import '../../constants/routes.dart';
@@ -50,7 +51,6 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
   void initState() {
     transactionDetails = widget.request.data!['rawTx'];
     transaction = RawTx.fromJson(widget.request.data!['rawTx']);
-
     walletAddress = StoreProvider.of<AppState>(context)
         .state
         .keychainState
@@ -83,7 +83,7 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 width: 360,
-                height: isExpanded ? 388 : 228,
+                height: isExpanded ? 420 : 250,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(11.6)),
                   color: RibnColors.whiteBackground,
@@ -164,37 +164,8 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                       ),
                       child: Stack(
                         children: <Widget>[
-                          MediaQuery.removePadding(
-                            context: context,
-                            removeTop: true,
-                            removeBottom: true,
-                            child: RawScrollbar(
-                              shape: const StadiumBorder(),
-                              mainAxisMargin: 10,
-                              crossAxisMargin: 8,
-                              thumbVisibility: true,
-                              thumbColor: RibnColors.primary,
-                              thickness: 10,
-                              child: ScrollConfiguration(
-                                behavior: ScrollConfiguration.of(context)
-                                    .copyWith(scrollbars: false),
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  primary: false,
-                                  padding: const EdgeInsets.all(10),
-                                  itemCount: 1,
-                                  itemBuilder: (buildContext, index) {
-                                    return SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: SelectableText(
-                                        // mockDAppTransactionJson,
-                                        getPrettyJson(widget.request.data),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
+                          RibnTxContainer(
+                            data: getPrettyJson(widget.request.data),
                           ),
                           Positioned(
                             right: 10,
@@ -284,6 +255,7 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
 
         StoreProvider.of<AppState>(context)
             .dispatch(SendInternalMsgAction(response));
+        Navigator.pop(context);
       },
     );
   }
