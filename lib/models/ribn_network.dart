@@ -1,12 +1,10 @@
 // Dart imports:
 import 'dart:convert';
 
-// Flutter imports:
-import 'package:flutter/foundation.dart';
-
 // Package imports:
 import 'package:brambldart/brambldart.dart';
-
+// Flutter imports:
+import 'package:flutter/foundation.dart';
 // Project imports:
 import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/rules.dart';
