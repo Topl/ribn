@@ -51,6 +51,7 @@ dependencies:
   barcode_widget: ^2.0.1
   flutter_portal: ^0.4.0
   file_picker: ^4.3.3
+  import_sorter: ^4.6.0
   ribn_toolkit:
     git:
       url: https://github.com/Topl/ribn-toolkit

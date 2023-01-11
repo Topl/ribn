@@ -1,14 +1,23 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
+// Project imports:
 import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/models/app_state.dart';
 
 class CreatePasswordContainer extends StatelessWidget {
-  const CreatePasswordContainer({Key? key, required this.builder, required this.onDidChange}) : super(key: key);
+  const CreatePasswordContainer({
+    Key? key,
+    required this.builder,
+    required this.onDidChange,
+  }) : super(key: key);
   final ViewModelBuilder<CreatePasswordViewModel> builder;
-  final Function(CreatePasswordViewModel?, CreatePasswordViewModel)? onDidChange;
+  final Function(CreatePasswordViewModel?, CreatePasswordViewModel)?
+      onDidChange;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +42,10 @@ class CreatePasswordViewModel {
   });
   static CreatePasswordViewModel fromStore(Store<AppState> store) {
     return CreatePasswordViewModel(
-      attemptCreatePassword: (String password) => store.dispatch(CreatePasswordAction(password)),
-      passwordSuccessfullyCreated: store.state.keychainState.keyStoreJson != null,
+      attemptCreatePassword: (String password) =>
+          store.dispatch(CreatePasswordAction(password)),
+      passwordSuccessfullyCreated:
+          store.state.keychainState.keyStoreJson != null,
       keyStoreJson: store.state.keychainState.keyStoreJson,
     );
   }
@@ -49,5 +60,6 @@ class CreatePasswordViewModel {
   }
 
   @override
-  int get hashCode => passwordSuccessfullyCreated.hashCode & keyStoreJson.hashCode;
+  int get hashCode =>
+      passwordSuccessfullyCreated.hashCode & keyStoreJson.hashCode;
 }

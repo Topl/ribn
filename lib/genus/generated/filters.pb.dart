@@ -5,19 +5,29 @@
 // @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
+// Dart imports:
 import 'dart:core' as $core;
 
+// Package imports:
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class StringSelection extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'StringSelection',
-    package:
-        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'StringSelection',
+    package: const $pb.PackageName(
+        const $core.bool.fromEnvironment('protobuf.omit_message_names')
+            ? ''
+            : 'co.topl.genus'),
     createEmptyInstance: create,
   )
-    ..pPS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'values')
+    ..pPS(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'values')
     ..hasRequiredFields = false;
 
   StringSelection._() : super();
@@ -35,7 +45,8 @@ class StringSelection extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory StringSelection.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory StringSelection.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -55,10 +66,11 @@ class StringSelection extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static StringSelection create() => StringSelection._();
   StringSelection createEmptyInstance() => create();
-  static $pb.PbList<StringSelection> createRepeated() => $pb.PbList<StringSelection>();
+  static $pb.PbList<StringSelection> createRepeated() =>
+      $pb.PbList<StringSelection>();
   @$core.pragma('dart2js:noInline')
-  static StringSelection getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<StringSelection>(create);
+  static StringSelection getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<StringSelection>(create);
   static StringSelection? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -68,27 +80,36 @@ class StringSelection extends $pb.GeneratedMessage {
 enum NumberRange_FilterType { min, max, notSet }
 
 class NumberRange extends $pb.GeneratedMessage {
-  static const $core.Map<$core.int, NumberRange_FilterType> _NumberRange_FilterTypeByTag = {
+  static const $core.Map<$core.int, NumberRange_FilterType>
+      _NumberRange_FilterTypeByTag = {
     1: NumberRange_FilterType.min,
     2: NumberRange_FilterType.max,
     0: NumberRange_FilterType.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NumberRange',
-    package:
-        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'NumberRange',
+    package: const $pb.PackageName(
+        const $core.bool.fromEnvironment('protobuf.omit_message_names')
+            ? ''
+            : 'co.topl.genus'),
     createEmptyInstance: create,
   )
     ..oo(0, [1, 2])
     ..a<$fixnum.Int64>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'min',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'min',
       $pb.PbFieldType.OU6,
       defaultOrMaker: $fixnum.Int64.ZERO,
     )
     ..a<$fixnum.Int64>(
       2,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'max',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'max',
       $pb.PbFieldType.OU6,
       defaultOrMaker: $fixnum.Int64.ZERO,
     )
@@ -108,9 +129,11 @@ class NumberRange extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory NumberRange.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory NumberRange.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
-  factory NumberRange.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory NumberRange.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -124,17 +147,20 @@ class NumberRange extends $pb.GeneratedMessage {
     'Will be removed in next major version',
   )
   NumberRange copyWith(void Function(NumberRange) updates) =>
-      super.copyWith((message) => updates(message as NumberRange)) as NumberRange; // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as NumberRange))
+          as NumberRange; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static NumberRange create() => NumberRange._();
   NumberRange createEmptyInstance() => create();
   static $pb.PbList<NumberRange> createRepeated() => $pb.PbList<NumberRange>();
   @$core.pragma('dart2js:noInline')
-  static NumberRange getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<NumberRange>(create);
+  static NumberRange getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<NumberRange>(create);
   static NumberRange? _defaultInstance;
 
-  NumberRange_FilterType whichFilterType() => _NumberRange_FilterTypeByTag[$_whichOneof(0)]!;
+  NumberRange_FilterType whichFilterType() =>
+      _NumberRange_FilterTypeByTag[$_whichOneof(0)]!;
   void clearFilterType() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
@@ -164,14 +190,20 @@ class NumberRange extends $pb.GeneratedMessage {
 
 class NumberSelection extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'NumberSelection',
-    package:
-        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'NumberSelection',
+    package: const $pb.PackageName(
+        const $core.bool.fromEnvironment('protobuf.omit_message_names')
+            ? ''
+            : 'co.topl.genus'),
     createEmptyInstance: create,
   )
     ..p<$fixnum.Int64>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'values',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'values',
       $pb.PbFieldType.KU6,
     )
     ..hasRequiredFields = false;
@@ -191,7 +223,8 @@ class NumberSelection extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory NumberSelection.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory NumberSelection.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -211,10 +244,11 @@ class NumberSelection extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static NumberSelection create() => NumberSelection._();
   NumberSelection createEmptyInstance() => create();
-  static $pb.PbList<NumberSelection> createRepeated() => $pb.PbList<NumberSelection>();
+  static $pb.PbList<NumberSelection> createRepeated() =>
+      $pb.PbList<NumberSelection>();
   @$core.pragma('dart2js:noInline')
-  static NumberSelection getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<NumberSelection>(create);
+  static NumberSelection getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<NumberSelection>(create);
   static NumberSelection? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -223,12 +257,20 @@ class NumberSelection extends $pb.GeneratedMessage {
 
 class BooleanSelection extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BooleanSelection',
-    package:
-        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'BooleanSelection',
+    package: const $pb.PackageName(
+        const $core.bool.fromEnvironment('protobuf.omit_message_names')
+            ? ''
+            : 'co.topl.genus'),
     createEmptyInstance: create,
   )
-    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'value')
+    ..aOB(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'value')
     ..hasRequiredFields = false;
 
   BooleanSelection._() : super();
@@ -246,7 +288,8 @@ class BooleanSelection extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory BooleanSelection.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BooleanSelection.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -266,10 +309,11 @@ class BooleanSelection extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static BooleanSelection create() => BooleanSelection._();
   BooleanSelection createEmptyInstance() => create();
-  static $pb.PbList<BooleanSelection> createRepeated() => $pb.PbList<BooleanSelection>();
+  static $pb.PbList<BooleanSelection> createRepeated() =>
+      $pb.PbList<BooleanSelection>();
   @$core.pragma('dart2js:noInline')
-  static BooleanSelection getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<BooleanSelection>(create);
+  static BooleanSelection getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<BooleanSelection>(create);
   static BooleanSelection? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -285,35 +329,51 @@ class BooleanSelection extends $pb.GeneratedMessage {
   void clearValue() => clearField(1);
 }
 
-enum TokenValueFilter_FilterType { assetCodeSelection, quantityRange, tokenValueTypeSelection, notSet }
+enum TokenValueFilter_FilterType {
+  assetCodeSelection,
+  quantityRange,
+  tokenValueTypeSelection,
+  notSet
+}
 
 class TokenValueFilter extends $pb.GeneratedMessage {
-  static const $core.Map<$core.int, TokenValueFilter_FilterType> _TokenValueFilter_FilterTypeByTag = {
+  static const $core.Map<$core.int, TokenValueFilter_FilterType>
+      _TokenValueFilter_FilterTypeByTag = {
     1: TokenValueFilter_FilterType.assetCodeSelection,
     2: TokenValueFilter_FilterType.quantityRange,
     3: TokenValueFilter_FilterType.tokenValueTypeSelection,
     0: TokenValueFilter_FilterType.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TokenValueFilter',
-    package:
-        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'TokenValueFilter',
+    package: const $pb.PackageName(
+        const $core.bool.fromEnvironment('protobuf.omit_message_names')
+            ? ''
+            : 'co.topl.genus'),
     createEmptyInstance: create,
   )
     ..oo(0, [1, 2, 3])
     ..aOM<StringSelection>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'assetCodeSelection',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'assetCodeSelection',
       subBuilder: StringSelection.create,
     )
     ..aOM<NumberRange>(
       2,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'quantityRange',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'quantityRange',
       subBuilder: NumberRange.create,
     )
     ..aOM<StringSelection>(
       3,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'tokenValueTypeSelection',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'tokenValueTypeSelection',
       subBuilder: StringSelection.create,
     )
     ..hasRequiredFields = false;
@@ -341,7 +401,8 @@ class TokenValueFilter extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory TokenValueFilter.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TokenValueFilter.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -361,13 +422,15 @@ class TokenValueFilter extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static TokenValueFilter create() => TokenValueFilter._();
   TokenValueFilter createEmptyInstance() => create();
-  static $pb.PbList<TokenValueFilter> createRepeated() => $pb.PbList<TokenValueFilter>();
+  static $pb.PbList<TokenValueFilter> createRepeated() =>
+      $pb.PbList<TokenValueFilter>();
   @$core.pragma('dart2js:noInline')
-  static TokenValueFilter getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TokenValueFilter>(create);
+  static TokenValueFilter getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<TokenValueFilter>(create);
   static TokenValueFilter? _defaultInstance;
 
-  TokenValueFilter_FilterType whichFilterType() => _TokenValueFilter_FilterTypeByTag[$_whichOneof(0)]!;
+  TokenValueFilter_FilterType whichFilterType() =>
+      _TokenValueFilter_FilterTypeByTag[$_whichOneof(0)]!;
   void clearFilterType() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
@@ -415,14 +478,20 @@ class TokenValueFilter extends $pb.GeneratedMessage {
 
 class TransactionFilter_AndFilter extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TransactionFilter.AndFilter',
-    package:
-        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'TransactionFilter.AndFilter',
+    package: const $pb.PackageName(
+        const $core.bool.fromEnvironment('protobuf.omit_message_names')
+            ? ''
+            : 'co.topl.genus'),
     createEmptyInstance: create,
   )
     ..pc<TransactionFilter>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filters',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'filters',
       $pb.PbFieldType.PM,
       subBuilder: TransactionFilter.create,
     )
@@ -453,23 +522,28 @@ class TransactionFilter_AndFilter extends $pb.GeneratedMessage {
     'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
     'Will be removed in next major version',
   )
-  TransactionFilter_AndFilter clone() => TransactionFilter_AndFilter()..mergeFromMessage(this);
+  TransactionFilter_AndFilter clone() =>
+      TransactionFilter_AndFilter()..mergeFromMessage(this);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
     'Will be removed in next major version',
   )
-  TransactionFilter_AndFilter copyWith(void Function(TransactionFilter_AndFilter) updates) =>
-      super.copyWith((message) => updates(message as TransactionFilter_AndFilter))
+  TransactionFilter_AndFilter copyWith(
+          void Function(TransactionFilter_AndFilter) updates) =>
+      super.copyWith(
+              (message) => updates(message as TransactionFilter_AndFilter))
           as TransactionFilter_AndFilter; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static TransactionFilter_AndFilter create() => TransactionFilter_AndFilter._();
+  static TransactionFilter_AndFilter create() =>
+      TransactionFilter_AndFilter._();
   TransactionFilter_AndFilter createEmptyInstance() => create();
-  static $pb.PbList<TransactionFilter_AndFilter> createRepeated() => $pb.PbList<TransactionFilter_AndFilter>();
+  static $pb.PbList<TransactionFilter_AndFilter> createRepeated() =>
+      $pb.PbList<TransactionFilter_AndFilter>();
   @$core.pragma('dart2js:noInline')
-  static TransactionFilter_AndFilter getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TransactionFilter_AndFilter>(create);
+  static TransactionFilter_AndFilter getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<TransactionFilter_AndFilter>(create);
   static TransactionFilter_AndFilter? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -478,14 +552,20 @@ class TransactionFilter_AndFilter extends $pb.GeneratedMessage {
 
 class TransactionFilter_OrFilter extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TransactionFilter.OrFilter',
-    package:
-        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'TransactionFilter.OrFilter',
+    package: const $pb.PackageName(
+        const $core.bool.fromEnvironment('protobuf.omit_message_names')
+            ? ''
+            : 'co.topl.genus'),
     createEmptyInstance: create,
   )
     ..pc<TransactionFilter>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filters',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'filters',
       $pb.PbFieldType.PM,
       subBuilder: TransactionFilter.create,
     )
@@ -516,23 +596,27 @@ class TransactionFilter_OrFilter extends $pb.GeneratedMessage {
     'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
     'Will be removed in next major version',
   )
-  TransactionFilter_OrFilter clone() => TransactionFilter_OrFilter()..mergeFromMessage(this);
+  TransactionFilter_OrFilter clone() =>
+      TransactionFilter_OrFilter()..mergeFromMessage(this);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
     'Will be removed in next major version',
   )
-  TransactionFilter_OrFilter copyWith(void Function(TransactionFilter_OrFilter) updates) =>
-      super.copyWith((message) => updates(message as TransactionFilter_OrFilter))
+  TransactionFilter_OrFilter copyWith(
+          void Function(TransactionFilter_OrFilter) updates) =>
+      super.copyWith(
+              (message) => updates(message as TransactionFilter_OrFilter))
           as TransactionFilter_OrFilter; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static TransactionFilter_OrFilter create() => TransactionFilter_OrFilter._();
   TransactionFilter_OrFilter createEmptyInstance() => create();
-  static $pb.PbList<TransactionFilter_OrFilter> createRepeated() => $pb.PbList<TransactionFilter_OrFilter>();
+  static $pb.PbList<TransactionFilter_OrFilter> createRepeated() =>
+      $pb.PbList<TransactionFilter_OrFilter>();
   @$core.pragma('dart2js:noInline')
-  static TransactionFilter_OrFilter getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TransactionFilter_OrFilter>(create);
+  static TransactionFilter_OrFilter getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<TransactionFilter_OrFilter>(create);
   static TransactionFilter_OrFilter? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -541,14 +625,20 @@ class TransactionFilter_OrFilter extends $pb.GeneratedMessage {
 
 class TransactionFilter_NotFilter extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TransactionFilter.NotFilter',
-    package:
-        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'TransactionFilter.NotFilter',
+    package: const $pb.PackageName(
+        const $core.bool.fromEnvironment('protobuf.omit_message_names')
+            ? ''
+            : 'co.topl.genus'),
     createEmptyInstance: create,
   )
     ..aOM<TransactionFilter>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'filter',
       subBuilder: TransactionFilter.create,
     )
     ..hasRequiredFields = false;
@@ -578,23 +668,28 @@ class TransactionFilter_NotFilter extends $pb.GeneratedMessage {
     'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
     'Will be removed in next major version',
   )
-  TransactionFilter_NotFilter clone() => TransactionFilter_NotFilter()..mergeFromMessage(this);
+  TransactionFilter_NotFilter clone() =>
+      TransactionFilter_NotFilter()..mergeFromMessage(this);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
     'Will be removed in next major version',
   )
-  TransactionFilter_NotFilter copyWith(void Function(TransactionFilter_NotFilter) updates) =>
-      super.copyWith((message) => updates(message as TransactionFilter_NotFilter))
+  TransactionFilter_NotFilter copyWith(
+          void Function(TransactionFilter_NotFilter) updates) =>
+      super.copyWith(
+              (message) => updates(message as TransactionFilter_NotFilter))
           as TransactionFilter_NotFilter; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static TransactionFilter_NotFilter create() => TransactionFilter_NotFilter._();
+  static TransactionFilter_NotFilter create() =>
+      TransactionFilter_NotFilter._();
   TransactionFilter_NotFilter createEmptyInstance() => create();
-  static $pb.PbList<TransactionFilter_NotFilter> createRepeated() => $pb.PbList<TransactionFilter_NotFilter>();
+  static $pb.PbList<TransactionFilter_NotFilter> createRepeated() =>
+      $pb.PbList<TransactionFilter_NotFilter>();
   @$core.pragma('dart2js:noInline')
-  static TransactionFilter_NotFilter getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TransactionFilter_NotFilter>(create);
+  static TransactionFilter_NotFilter getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<TransactionFilter_NotFilter>(create);
   static TransactionFilter_NotFilter? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -614,9 +709,13 @@ class TransactionFilter_NotFilter extends $pb.GeneratedMessage {
 
 class TransactionFilter_AllFilter extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TransactionFilter.AllFilter',
-    package:
-        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'TransactionFilter.AllFilter',
+    package: const $pb.PackageName(
+        const $core.bool.fromEnvironment('protobuf.omit_message_names')
+            ? ''
+            : 'co.topl.genus'),
     createEmptyInstance: create,
   )..hasRequiredFields = false;
 
@@ -637,23 +736,28 @@ class TransactionFilter_AllFilter extends $pb.GeneratedMessage {
     'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
     'Will be removed in next major version',
   )
-  TransactionFilter_AllFilter clone() => TransactionFilter_AllFilter()..mergeFromMessage(this);
+  TransactionFilter_AllFilter clone() =>
+      TransactionFilter_AllFilter()..mergeFromMessage(this);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
     'Will be removed in next major version',
   )
-  TransactionFilter_AllFilter copyWith(void Function(TransactionFilter_AllFilter) updates) =>
-      super.copyWith((message) => updates(message as TransactionFilter_AllFilter))
+  TransactionFilter_AllFilter copyWith(
+          void Function(TransactionFilter_AllFilter) updates) =>
+      super.copyWith(
+              (message) => updates(message as TransactionFilter_AllFilter))
           as TransactionFilter_AllFilter; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static TransactionFilter_AllFilter create() => TransactionFilter_AllFilter._();
+  static TransactionFilter_AllFilter create() =>
+      TransactionFilter_AllFilter._();
   TransactionFilter_AllFilter createEmptyInstance() => create();
-  static $pb.PbList<TransactionFilter_AllFilter> createRepeated() => $pb.PbList<TransactionFilter_AllFilter>();
+  static $pb.PbList<TransactionFilter_AllFilter> createRepeated() =>
+      $pb.PbList<TransactionFilter_AllFilter>();
   @$core.pragma('dart2js:noInline')
-  static TransactionFilter_AllFilter getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TransactionFilter_AllFilter>(create);
+  static TransactionFilter_AllFilter getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<TransactionFilter_AllFilter>(create);
   static TransactionFilter_AllFilter? _defaultInstance;
 }
 
@@ -680,7 +784,8 @@ enum TransactionFilter_FilterType {
 }
 
 class TransactionFilter extends $pb.GeneratedMessage {
-  static const $core.Map<$core.int, TransactionFilter_FilterType> _TransactionFilter_FilterTypeByTag = {
+  static const $core.Map<$core.int, TransactionFilter_FilterType>
+      _TransactionFilter_FilterTypeByTag = {
     1: TransactionFilter_FilterType.txTypeSelection,
     2: TransactionFilter_FilterType.timestampRange,
     3: TransactionFilter_FilterType.inputAddressSelection,
@@ -702,85 +807,119 @@ class TransactionFilter extends $pb.GeneratedMessage {
     0: TransactionFilter_FilterType.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TransactionFilter',
-    package:
-        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'TransactionFilter',
+    package: const $pb.PackageName(
+        const $core.bool.fromEnvironment('protobuf.omit_message_names')
+            ? ''
+            : 'co.topl.genus'),
     createEmptyInstance: create,
   )
     ..oo(0, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18])
     ..aOM<StringSelection>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'txTypeSelection',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'txTypeSelection',
       subBuilder: StringSelection.create,
     )
     ..aOM<NumberRange>(
       2,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestampRange',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'timestampRange',
       subBuilder: NumberRange.create,
     )
     ..aOM<StringSelection>(
       3,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'inputAddressSelection',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'inputAddressSelection',
       subBuilder: StringSelection.create,
     )
     ..aOM<NumberSelection>(
       4,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'inputNonceSelection',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'inputNonceSelection',
       subBuilder: NumberSelection.create,
     )
     ..aOM<StringSelection>(
       5,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'outputTokenBoxTypeSelection',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'outputTokenBoxTypeSelection',
       subBuilder: StringSelection.create,
     )
     ..aOM<TokenValueFilter>(
       6,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'outputTokenValueFilter',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'outputTokenValueFilter',
       subBuilder: TokenValueFilter.create,
     )
     ..aOM<StringSelection>(
       7,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'outputAddressSelection',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'outputAddressSelection',
       subBuilder: StringSelection.create,
     )
     ..aOM<BooleanSelection>(
       8,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'mintingSelection',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'mintingSelection',
       subBuilder: BooleanSelection.create,
     )
     ..aOM<StringSelection>(
       9,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'txIdSelection',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'txIdSelection',
       subBuilder: StringSelection.create,
     )
     ..aOM<StringSelection>(
       10,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'boxesToRemoveSelection',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'boxesToRemoveSelection',
       subBuilder: StringSelection.create,
     )
     ..aOM<NumberRange>(
       11,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'feeRange',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'feeRange',
       subBuilder: NumberRange.create,
     )
     ..aOM<StringSelection>(
       12,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'propositionSelection',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'propositionSelection',
       subBuilder: StringSelection.create,
     )
     ..aOM<StringSelection>(
       13,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blockIdSelection',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'blockIdSelection',
       subBuilder: StringSelection.create,
     )
     ..aOM<NumberRange>(
       14,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blockHeightRange',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'blockHeightRange',
       subBuilder: NumberRange.create,
     )
     ..aOM<TransactionFilter_AndFilter>(
       15,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'and',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'and',
       subBuilder: TransactionFilter_AndFilter.create,
     )
     ..aOM<TransactionFilter_OrFilter>(
@@ -790,12 +929,16 @@ class TransactionFilter extends $pb.GeneratedMessage {
     )
     ..aOM<TransactionFilter_NotFilter>(
       17,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'not',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'not',
       subBuilder: TransactionFilter_NotFilter.create,
     )
     ..aOM<TransactionFilter_AllFilter>(
       18,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'all',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'all',
       subBuilder: TransactionFilter_AllFilter.create,
     )
     ..hasRequiredFields = false;
@@ -883,7 +1026,8 @@ class TransactionFilter extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory TransactionFilter.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TransactionFilter.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -903,13 +1047,15 @@ class TransactionFilter extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static TransactionFilter create() => TransactionFilter._();
   TransactionFilter createEmptyInstance() => create();
-  static $pb.PbList<TransactionFilter> createRepeated() => $pb.PbList<TransactionFilter>();
+  static $pb.PbList<TransactionFilter> createRepeated() =>
+      $pb.PbList<TransactionFilter>();
   @$core.pragma('dart2js:noInline')
-  static TransactionFilter getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TransactionFilter>(create);
+  static TransactionFilter getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<TransactionFilter>(create);
   static TransactionFilter? _defaultInstance;
 
-  TransactionFilter_FilterType whichFilterType() => _TransactionFilter_FilterTypeByTag[$_whichOneof(0)]!;
+  TransactionFilter_FilterType whichFilterType() =>
+      _TransactionFilter_FilterTypeByTag[$_whichOneof(0)]!;
   void clearFilterType() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
@@ -1167,14 +1313,20 @@ class TransactionFilter extends $pb.GeneratedMessage {
 
 class BlockFilter_AndFilter extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlockFilter.AndFilter',
-    package:
-        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'BlockFilter.AndFilter',
+    package: const $pb.PackageName(
+        const $core.bool.fromEnvironment('protobuf.omit_message_names')
+            ? ''
+            : 'co.topl.genus'),
     createEmptyInstance: create,
   )
     ..pc<BlockFilter>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filters',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'filters',
       $pb.PbFieldType.PM,
       subBuilder: BlockFilter.create,
     )
@@ -1195,30 +1347,34 @@ class BlockFilter_AndFilter extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory BlockFilter_AndFilter.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BlockFilter_AndFilter.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
     'Will be removed in next major version',
   )
-  BlockFilter_AndFilter clone() => BlockFilter_AndFilter()..mergeFromMessage(this);
+  BlockFilter_AndFilter clone() =>
+      BlockFilter_AndFilter()..mergeFromMessage(this);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
     'Will be removed in next major version',
   )
-  BlockFilter_AndFilter copyWith(void Function(BlockFilter_AndFilter) updates) =>
+  BlockFilter_AndFilter copyWith(
+          void Function(BlockFilter_AndFilter) updates) =>
       super.copyWith((message) => updates(message as BlockFilter_AndFilter))
           as BlockFilter_AndFilter; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static BlockFilter_AndFilter create() => BlockFilter_AndFilter._();
   BlockFilter_AndFilter createEmptyInstance() => create();
-  static $pb.PbList<BlockFilter_AndFilter> createRepeated() => $pb.PbList<BlockFilter_AndFilter>();
+  static $pb.PbList<BlockFilter_AndFilter> createRepeated() =>
+      $pb.PbList<BlockFilter_AndFilter>();
   @$core.pragma('dart2js:noInline')
-  static BlockFilter_AndFilter getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<BlockFilter_AndFilter>(create);
+  static BlockFilter_AndFilter getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<BlockFilter_AndFilter>(create);
   static BlockFilter_AndFilter? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -1227,14 +1383,20 @@ class BlockFilter_AndFilter extends $pb.GeneratedMessage {
 
 class BlockFilter_OrFilter extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlockFilter.OrFilter',
-    package:
-        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'BlockFilter.OrFilter',
+    package: const $pb.PackageName(
+        const $core.bool.fromEnvironment('protobuf.omit_message_names')
+            ? ''
+            : 'co.topl.genus'),
     createEmptyInstance: create,
   )
     ..pc<BlockFilter>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filters',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'filters',
       $pb.PbFieldType.PM,
       subBuilder: BlockFilter.create,
     )
@@ -1255,14 +1417,16 @@ class BlockFilter_OrFilter extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory BlockFilter_OrFilter.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BlockFilter_OrFilter.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
     'Will be removed in next major version',
   )
-  BlockFilter_OrFilter clone() => BlockFilter_OrFilter()..mergeFromMessage(this);
+  BlockFilter_OrFilter clone() =>
+      BlockFilter_OrFilter()..mergeFromMessage(this);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
@@ -1275,10 +1439,11 @@ class BlockFilter_OrFilter extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static BlockFilter_OrFilter create() => BlockFilter_OrFilter._();
   BlockFilter_OrFilter createEmptyInstance() => create();
-  static $pb.PbList<BlockFilter_OrFilter> createRepeated() => $pb.PbList<BlockFilter_OrFilter>();
+  static $pb.PbList<BlockFilter_OrFilter> createRepeated() =>
+      $pb.PbList<BlockFilter_OrFilter>();
   @$core.pragma('dart2js:noInline')
-  static BlockFilter_OrFilter getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<BlockFilter_OrFilter>(create);
+  static BlockFilter_OrFilter getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<BlockFilter_OrFilter>(create);
   static BlockFilter_OrFilter? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -1287,14 +1452,20 @@ class BlockFilter_OrFilter extends $pb.GeneratedMessage {
 
 class BlockFilter_NotFilter extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlockFilter.NotFilter',
-    package:
-        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'BlockFilter.NotFilter',
+    package: const $pb.PackageName(
+        const $core.bool.fromEnvironment('protobuf.omit_message_names')
+            ? ''
+            : 'co.topl.genus'),
     createEmptyInstance: create,
   )
     ..aOM<BlockFilter>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'filter',
       subBuilder: BlockFilter.create,
     )
     ..hasRequiredFields = false;
@@ -1314,30 +1485,34 @@ class BlockFilter_NotFilter extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory BlockFilter_NotFilter.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BlockFilter_NotFilter.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
     'Will be removed in next major version',
   )
-  BlockFilter_NotFilter clone() => BlockFilter_NotFilter()..mergeFromMessage(this);
+  BlockFilter_NotFilter clone() =>
+      BlockFilter_NotFilter()..mergeFromMessage(this);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
     'Will be removed in next major version',
   )
-  BlockFilter_NotFilter copyWith(void Function(BlockFilter_NotFilter) updates) =>
+  BlockFilter_NotFilter copyWith(
+          void Function(BlockFilter_NotFilter) updates) =>
       super.copyWith((message) => updates(message as BlockFilter_NotFilter))
           as BlockFilter_NotFilter; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static BlockFilter_NotFilter create() => BlockFilter_NotFilter._();
   BlockFilter_NotFilter createEmptyInstance() => create();
-  static $pb.PbList<BlockFilter_NotFilter> createRepeated() => $pb.PbList<BlockFilter_NotFilter>();
+  static $pb.PbList<BlockFilter_NotFilter> createRepeated() =>
+      $pb.PbList<BlockFilter_NotFilter>();
   @$core.pragma('dart2js:noInline')
-  static BlockFilter_NotFilter getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<BlockFilter_NotFilter>(create);
+  static BlockFilter_NotFilter getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<BlockFilter_NotFilter>(create);
   static BlockFilter_NotFilter? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -1357,9 +1532,13 @@ class BlockFilter_NotFilter extends $pb.GeneratedMessage {
 
 class BlockFilter_AllFilter extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlockFilter.AllFilter',
-    package:
-        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'BlockFilter.AllFilter',
+    package: const $pb.PackageName(
+        const $core.bool.fromEnvironment('protobuf.omit_message_names')
+            ? ''
+            : 'co.topl.genus'),
     createEmptyInstance: create,
   )..hasRequiredFields = false;
 
@@ -1370,30 +1549,34 @@ class BlockFilter_AllFilter extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory BlockFilter_AllFilter.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BlockFilter_AllFilter.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
     'Will be removed in next major version',
   )
-  BlockFilter_AllFilter clone() => BlockFilter_AllFilter()..mergeFromMessage(this);
+  BlockFilter_AllFilter clone() =>
+      BlockFilter_AllFilter()..mergeFromMessage(this);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
     'Will be removed in next major version',
   )
-  BlockFilter_AllFilter copyWith(void Function(BlockFilter_AllFilter) updates) =>
+  BlockFilter_AllFilter copyWith(
+          void Function(BlockFilter_AllFilter) updates) =>
       super.copyWith((message) => updates(message as BlockFilter_AllFilter))
           as BlockFilter_AllFilter; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static BlockFilter_AllFilter create() => BlockFilter_AllFilter._();
   BlockFilter_AllFilter createEmptyInstance() => create();
-  static $pb.PbList<BlockFilter_AllFilter> createRepeated() => $pb.PbList<BlockFilter_AllFilter>();
+  static $pb.PbList<BlockFilter_AllFilter> createRepeated() =>
+      $pb.PbList<BlockFilter_AllFilter>();
   @$core.pragma('dart2js:noInline')
-  static BlockFilter_AllFilter getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<BlockFilter_AllFilter>(create);
+  static BlockFilter_AllFilter getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<BlockFilter_AllFilter>(create);
   static BlockFilter_AllFilter? _defaultInstance;
 }
 
@@ -1416,7 +1599,8 @@ enum BlockFilter_FilterType {
 }
 
 class BlockFilter extends $pb.GeneratedMessage {
-  static const $core.Map<$core.int, BlockFilter_FilterType> _BlockFilter_FilterTypeByTag = {
+  static const $core.Map<$core.int, BlockFilter_FilterType>
+      _BlockFilter_FilterTypeByTag = {
     1: BlockFilter_FilterType.idSelection,
     2: BlockFilter_FilterType.parentIdSelection,
     3: BlockFilter_FilterType.timestampRange,
@@ -1434,65 +1618,91 @@ class BlockFilter extends $pb.GeneratedMessage {
     0: BlockFilter_FilterType.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlockFilter',
-    package:
-        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names')
+        ? ''
+        : 'BlockFilter',
+    package: const $pb.PackageName(
+        const $core.bool.fromEnvironment('protobuf.omit_message_names')
+            ? ''
+            : 'co.topl.genus'),
     createEmptyInstance: create,
   )
     ..oo(0, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 16, 17, 18])
     ..aOM<StringSelection>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'idSelection',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'idSelection',
       subBuilder: StringSelection.create,
     )
     ..aOM<StringSelection>(
       2,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'parentIdSelection',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'parentIdSelection',
       subBuilder: StringSelection.create,
     )
     ..aOM<NumberRange>(
       3,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestampRange',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'timestampRange',
       subBuilder: NumberRange.create,
     )
     ..aOM<TokenValueFilter>(
       4,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'generatorBoxTokenValueFilter',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'generatorBoxTokenValueFilter',
       subBuilder: TokenValueFilter.create,
     )
     ..aOM<StringSelection>(
       5,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'publicKeySelection',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'publicKeySelection',
       subBuilder: StringSelection.create,
     )
     ..aOM<NumberRange>(
       6,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'heightRange',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'heightRange',
       subBuilder: NumberRange.create,
     )
     ..aOM<NumberSelection>(
       7,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'heightSelection',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'heightSelection',
       subBuilder: NumberSelection.create,
     )
     ..aOM<NumberRange>(
       8,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'difficultyRange',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'difficultyRange',
       subBuilder: NumberRange.create,
     )
     ..aOM<NumberSelection>(
       9,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'versionSelection',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'versionSelection',
       subBuilder: NumberSelection.create,
     )
     ..aOM<NumberRange>(
       10,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'numTransactionRange',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'numTransactionRange',
       subBuilder: NumberRange.create,
     )
     ..aOM<BlockFilter_AndFilter>(
       15,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'and',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'and',
       subBuilder: BlockFilter_AndFilter.create,
     )
     ..aOM<BlockFilter_OrFilter>(
@@ -1502,12 +1712,16 @@ class BlockFilter extends $pb.GeneratedMessage {
     )
     ..aOM<BlockFilter_NotFilter>(
       17,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'not',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'not',
       subBuilder: BlockFilter_NotFilter.create,
     )
     ..aOM<BlockFilter_AllFilter>(
       18,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'all',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names')
+          ? ''
+          : 'all',
       subBuilder: BlockFilter_AllFilter.create,
     )
     ..hasRequiredFields = false;
@@ -1574,9 +1788,11 @@ class BlockFilter extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory BlockFilter.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BlockFilter.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
-  factory BlockFilter.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BlockFilter.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -1590,17 +1806,20 @@ class BlockFilter extends $pb.GeneratedMessage {
     'Will be removed in next major version',
   )
   BlockFilter copyWith(void Function(BlockFilter) updates) =>
-      super.copyWith((message) => updates(message as BlockFilter)) as BlockFilter; // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as BlockFilter))
+          as BlockFilter; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static BlockFilter create() => BlockFilter._();
   BlockFilter createEmptyInstance() => create();
   static $pb.PbList<BlockFilter> createRepeated() => $pb.PbList<BlockFilter>();
   @$core.pragma('dart2js:noInline')
-  static BlockFilter getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<BlockFilter>(create);
+  static BlockFilter getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<BlockFilter>(create);
   static BlockFilter? _defaultInstance;
 
-  BlockFilter_FilterType whichFilterType() => _BlockFilter_FilterTypeByTag[$_whichOneof(0)]!;
+  BlockFilter_FilterType whichFilterType() =>
+      _BlockFilter_FilterTypeByTag[$_whichOneof(0)]!;
   void clearFilterType() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)

@@ -1,6 +1,15 @@
-import 'package:brambldart/brambldart.dart';
+// Flutter imports:
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:brambldart/brambldart.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_dropdown_title.dart';
+
+// Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
@@ -10,8 +19,6 @@ import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/transaction_history/dashed_list_separator/dashed_list_separator.dart';
 import 'package:ribn/presentation/transaction_history/transaction_data_row/transaction_data_row.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/widgets/organisms/custom_page_dropdown_title.dart';
 
 class TxHistoryPage extends StatefulWidget {
   final Future<String>? blockHeight;
@@ -134,7 +141,11 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                     ),
                     FutureBuilder(
                       future: fetchTxHistory(
-                          context, vm.toplAddress, vm.networkId, vm,),
+                        context,
+                        vm.toplAddress,
+                        vm.networkId,
+                        vm,
+                      ),
                       builder: (context, AsyncSnapshot snapshot) {
                         switch (snapshot.connectionState) {
                           case ConnectionState.done:
@@ -176,7 +187,9 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                   borderRadius: BorderRadius.circular(11.6),
                                   color: RibnColors.whiteBackground,
                                   border: Border.all(
-                                      color: RibnColors.lightGrey, width: 1,),
+                                    color: RibnColors.lightGrey,
+                                    width: 1,
+                                  ),
                                   boxShadow: const [
                                     BoxShadow(
                                       color: RibnColors.greyShadow,
@@ -215,7 +228,8 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                     },
                                     separatorBuilder: (context, index) {
                                       return const DashedListSeparator(
-                                          color: RibnColors.lightGreyDivider,);
+                                        color: RibnColors.lightGreyDivider,
+                                      );
                                     },
                                   ),
                                 ),

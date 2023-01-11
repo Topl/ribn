@@ -1,19 +1,22 @@
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/ribn_checkbox_wrappable_text.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title_with_leading_child.dart';
+
+// Project imports:
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/authorize_and_sign/input_dropdown_wrapper.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
-import 'package:ribn_toolkit/widgets/molecules/ribn_checkbox_wrappable_text.dart';
-import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title_with_leading_child.dart';
-
 import '../../models/internal_message.dart';
 
 class ConnectDApp extends StatefulWidget {
@@ -122,7 +125,7 @@ class _ConnectDAppState extends State<ConnectDApp> {
                         fillColor: Colors.transparent,
                         checkColor: RibnColors.darkGreen,
                         borderColor: RibnColors.darkGreen,
-                        value:authChecked ,
+                        value: authChecked,
                         onChanged: (bool? val) {
                           setState(() {
                             authChecked = val!;

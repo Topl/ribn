@@ -1,8 +1,13 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/strings.dart';
+
+// Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+
+// Project imports:
+import 'package:ribn/constants/strings.dart';
 
 /// The section on the settings page that allows user to delete their wallet.
 class DeleteWalletSection extends StatelessWidget {
@@ -64,16 +69,19 @@ class DeleteWalletSection extends StatelessWidget {
                     buttonChild: Text(
                       Strings.disconnect,
                       style: RibnToolkitTextStyles.btnLarge.copyWith(
-                        color: RibnColors.primary.withOpacity(canDisconnect == true ? 1.0 : 0.3),
+                        color: RibnColors.primary
+                            .withOpacity(canDisconnect == true ? 1.0 : 0.3),
                         fontSize: 10,
                       ),
                     ),
                     backgroundColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     dropShadowColor: Colors.transparent,
-                    borderColor: RibnColors.primary.withOpacity(canDisconnect == true ? 1.0 : 0.3),
-                    onPressed: () => canDisconnect ?
-                      onDisconnectPressed(context) : null,),
+                    borderColor: RibnColors.primary
+                        .withOpacity(canDisconnect == true ? 1.0 : 0.3),
+                    onPressed: () =>
+                        canDisconnect ? onDisconnectPressed(context) : null,
+                  ),
                 ),
               ],
             ),

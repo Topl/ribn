@@ -1,5 +1,8 @@
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
@@ -41,7 +44,13 @@ class EmptyStateScreen extends StatelessWidget {
         padding: EdgeInsets.zero,
         decoration: BoxDecoration(
           color: RibnColors.paleGreen,
-          boxShadow: [BoxShadow(color: RibnColors.paleGreen.withOpacity(1), blurRadius: 8, spreadRadius: 8)],
+          boxShadow: [
+            BoxShadow(
+              color: RibnColors.paleGreen.withOpacity(1),
+              blurRadius: 8,
+              spreadRadius: 8,
+            )
+          ],
         ),
         width: width - 20,
         height: kIsWeb ? desktopHeight : mobileHeight,

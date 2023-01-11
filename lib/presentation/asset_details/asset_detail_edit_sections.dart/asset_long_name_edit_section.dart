@@ -1,12 +1,17 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:ribn/actions/user_details_actions.dart';
-import 'package:ribn/constants/strings.dart';
-import 'package:ribn/models/app_state.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+
+// Project imports:
+import 'package:ribn/actions/user_details_actions.dart';
+import 'package:ribn/constants/strings.dart';
+import 'package:ribn/models/app_state.dart';
 
 /// The section for editing asset long anme.
 class AssetLongNameEditSection extends StatefulWidget {
@@ -27,7 +32,8 @@ class AssetLongNameEditSection extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AssetLongNameEditSectionState createState() => _AssetLongNameEditSectionState();
+  _AssetLongNameEditSectionState createState() =>
+      _AssetLongNameEditSectionState();
 }
 
 class _AssetLongNameEditSectionState extends State<AssetLongNameEditSection> {
@@ -53,7 +59,14 @@ class _AssetLongNameEditSectionState extends State<AssetLongNameEditSection> {
       width: 307,
       decoration: const BoxDecoration(
         color: RibnColors.whiteBackground,
-        boxShadow: [BoxShadow(color: Color(0x0f000000), offset: Offset(0, 4), blurRadius: 4, spreadRadius: 0)],
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x0f000000),
+            offset: Offset(0, 4),
+            blurRadius: 4,
+            spreadRadius: 0,
+          )
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +80,8 @@ class _AssetLongNameEditSectionState extends State<AssetLongNameEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Save',
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
+                  style: RibnToolkitTextStyles.btnMedium
+                      .copyWith(color: Colors.white),
                 ),
                 backgroundColor: RibnColors.primary,
                 onPressed: () {
@@ -86,7 +100,8 @@ class _AssetLongNameEditSectionState extends State<AssetLongNameEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Cancel',
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.ghostButtonText),
+                  style: RibnToolkitTextStyles.btnMedium
+                      .copyWith(color: RibnColors.ghostButtonText),
                 ),
                 backgroundColor: Colors.transparent,
                 hoverColor: Colors.transparent,

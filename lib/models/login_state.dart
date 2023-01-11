@@ -1,3 +1,4 @@
+// Dart imports:
 import 'dart:convert';
 
 class LoginState {
@@ -40,16 +41,20 @@ class LoginState {
 
   String toJson() => json.encode(toMap());
 
-  factory LoginState.fromJson(String source) => LoginState.fromMap(json.decode(source));
+  factory LoginState.fromJson(String source) =>
+      LoginState.fromMap(json.decode(source));
 
   @override
-  String toString() => 'LoginState(isLoggedIn: $isLoggedIn, lastLogin: $lastLogin)';
+  String toString() =>
+      'LoginState(isLoggedIn: $isLoggedIn, lastLogin: $lastLogin)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is LoginState && other.isLoggedIn == isLoggedIn && other.lastLogin == lastLogin;
+    return other is LoginState &&
+        other.isLoggedIn == isLoggedIn &&
+        other.lastLogin == lastLogin;
   }
 
   @override
