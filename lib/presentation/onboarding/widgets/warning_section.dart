@@ -1,14 +1,12 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-// Package imports:
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
+// Package imports:
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 
 /// A section to display important warning message when restoring wallet.
 class WarningSection extends StatelessWidget {

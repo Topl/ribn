@@ -42,7 +42,7 @@ class RawTx {
         txType: json['txType'],
         timestamp: json['timestamp'],
         newBoxes:
-            List<NewBox>.from(json['newBoxes'].map((x) => NewBox.fromJson(x))),
+            List<NewBox>.from(json['newBoxes'].map(NewBox.fromJson)),
         data: json['data'],
         from: List<List<String>>.from(
           json['from'].map((x) => List<String>.from(x.map((x) => x))),
