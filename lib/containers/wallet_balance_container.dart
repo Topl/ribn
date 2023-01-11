@@ -17,7 +17,8 @@ import 'package:ribn/models/ribn_network.dart';
 class WalletBalanceContainer extends StatelessWidget {
   final ViewModelBuilder<WalletBalanceViewModel> builder;
   final void Function(WalletBalanceViewModel vm) onInitialBuild;
-  final void Function(WalletBalanceViewModel?, WalletBalanceViewModel) onWillChange;
+  final void Function(WalletBalanceViewModel?, WalletBalanceViewModel)
+      onWillChange;
   const WalletBalanceContainer({
     Key? key,
     required this.builder,
@@ -57,7 +58,8 @@ class WalletBalanceViewModel {
   final Function(AssetAmount) viewAssetDetails;
 
   /// Callback to refresh balances.
-  final void Function({required Function(bool success) onBalancesRefreshed}) refreshBalances;
+  final void Function({required Function(bool success) onBalancesRefreshed})
+      refreshBalances;
 
   /// The current network being viewed.
   final RibnNetwork currentNetwork;
@@ -82,8 +84,10 @@ class WalletBalanceViewModel {
       polyBalance: store.state.keychainState.currentNetwork.getPolysInWallet(),
       assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
       assetDetails: store.state.userDetailsState.assetDetails,
-      navigateToSendAssets: () => store.dispatch(NavigateToRoute(Routes.assetsTransferInput)),
-      navigateToSendPolys: () => store.dispatch(NavigateToRoute(Routes.polyTransferInput)),
+      navigateToSendAssets: () =>
+          store.dispatch(NavigateToRoute(Routes.assetsTransferInput)),
+      navigateToSendPolys: () =>
+          store.dispatch(NavigateToRoute(Routes.polyTransferInput)),
       viewAssetDetails: (AssetAmount assetAmount) => store.dispatch(
         NavigateToRoute(
           Routes.assetDetails,
@@ -94,7 +98,8 @@ class WalletBalanceViewModel {
       ),
       refreshBalances: ({required Function(bool success) onBalancesRefreshed}) {
         final Completer<bool> actionCompleter = Completer();
-        store.dispatch(RefreshBalancesAction(actionCompleter, store.state.keychainState.currentNetwork));
+        store.dispatch(RefreshBalancesAction(
+            actionCompleter, store.state.keychainState.currentNetwork));
         actionCompleter.future.then((bool value) => onBalancesRefreshed(value));
       },
       currentNetwork: store.state.keychainState.currentNetwork,

@@ -56,7 +56,8 @@ void validateRecipientAddress({
 }
 
 Future<bool> isBiometricsAuthenticationSupported(
-    LocalAuthentication auth,) async {
+  LocalAuthentication auth,
+) async {
   final bool canCheckBiometrics = await auth.canCheckBiometrics;
   final bool isDeviceSupported = await auth.isDeviceSupported();
 
@@ -64,7 +65,8 @@ Future<bool> isBiometricsAuthenticationSupported(
 }
 
 Future<bool> isBiometricsAuthenticationEnrolled(
-    LocalAuthentication auth,) async {
+  LocalAuthentication auth,
+) async {
   final bool canCheckBiometrics = await auth.canCheckBiometrics;
   final bool isDeviceSupported = await auth.isDeviceSupported();
   final List enrolledBiometrics = await auth.getAvailableBiometrics();

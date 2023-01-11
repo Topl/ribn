@@ -42,22 +42,27 @@ class RootRouter {
     switch (settings.name) {
       case Routes.welcome:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const WelcomePage(), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(const WelcomePage(), settings);
           return pageRoute(const WelcomePage(), settings);
         }
       case Routes.selectAction:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const SelectActionPage(), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(const SelectActionPage(), settings);
           return pageRoute(const SelectActionPage(), settings);
         }
       case Routes.gettingStarted:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const GettingStartedPage(), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(const GettingStartedPage(), settings);
           return pageRoute(const GettingStartedPage(), settings);
         }
       case Routes.seedPhraseInfoChecklist:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const SeedPhraseInfoChecklistPage(), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(
+                const SeedPhraseInfoChecklistPage(), settings);
           return pageRoute(
             const SeedPhraseInfoChecklistPage(),
             settings,
@@ -65,37 +70,49 @@ class RootRouter {
         }
       case Routes.seedPhraseInstructions:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const SeedPhraseInstructionsPage(), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(
+                const SeedPhraseInstructionsPage(), settings);
           return pageRoute(const SeedPhraseInstructionsPage(), settings);
         }
       case Routes.generateSeedPhrase:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const SeedPhraseGeneratingPage(), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(
+                const SeedPhraseGeneratingPage(), settings);
           return pageRoute(const SeedPhraseGeneratingPage(), settings);
         }
       case Routes.displaySeedphrase:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const SeedPhraseDisplayPage(), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(
+                const SeedPhraseDisplayPage(), settings);
           return pageRoute(const SeedPhraseDisplayPage(), settings);
         }
       case Routes.seedPhraseConfirm:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const SeedPhraseConfirmationPage(), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(
+                const SeedPhraseConfirmationPage(), settings);
           return pageRoute(const SeedPhraseConfirmationPage(), settings);
         }
       case Routes.walletInfoChecklist:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const WalletInfoChecklistPage(), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(
+                const WalletInfoChecklistPage(), settings);
           return pageRoute(const WalletInfoChecklistPage(), settings);
         }
       case Routes.createPassword:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const CreatePasswordPage(), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(const CreatePasswordPage(), settings);
           return pageRoute(const CreatePasswordPage(), settings);
         }
       case Routes.extensionInfo:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const ExtensionInfoPage(), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(const ExtensionInfoPage(), settings);
           return pageRoute(const ExtensionInfoPage(), settings);
         }
       case Routes.login:
@@ -105,7 +122,8 @@ class RootRouter {
         }
       case Routes.walletCreated:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const WalletCreatedPage(), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(const WalletCreatedPage(), settings);
           return pageRoute(const WalletCreatedPage(), settings);
         }
       case Routes.home:
@@ -115,17 +133,21 @@ class RootRouter {
         }
       case Routes.assetsTransferInput:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const AssetTransferPage(), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(const AssetTransferPage(), settings);
           return pageRouteNotAnimated(const AssetTransferPage(), settings);
         }
       case Routes.restoreWallet:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const RestoreWalletPage(), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(const RestoreWalletPage(), settings);
           return pageRoute(const RestoreWalletPage(), settings);
         }
       case Routes.restoreWithToplKey:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const RestoreWithToplKeyPage(), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(
+                const RestoreWithToplKeyPage(), settings);
           return pageRoute(const RestoreWithToplKeyPage(), settings);
         }
       case Routes.restoreWalletNewPassword:
@@ -148,13 +170,17 @@ class RootRouter {
         }
       case Routes.onboardingEnableBiometrics:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const EnableBiometrics(), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(const EnableBiometrics(), settings);
           return pageRoute(const EnableBiometrics(), settings);
         }
       case Routes.enterWalletPassword:
         {
           final String keyStoreJson = settings.arguments as String;
-          if (kIsWeb) return pageRouteNotAnimated(EnterWalletPasswordPage(toplKeyStoreJson: keyStoreJson), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(
+                EnterWalletPasswordPage(toplKeyStoreJson: keyStoreJson),
+                settings);
           return pageRoute(
             EnterWalletPasswordPage(toplKeyStoreJson: keyStoreJson),
             settings,
@@ -162,20 +188,29 @@ class RootRouter {
         }
       case Routes.txReview:
         {
-          final TransferDetails transferDetails = settings.arguments as TransferDetails;
+          final TransferDetails transferDetails =
+              settings.arguments as TransferDetails;
 
-          if (kIsWeb) return pageRouteNotAnimated(TxReviewPage(transferDetails: transferDetails), settings);
-          return pageRoute(TxReviewPage(transferDetails: transferDetails), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(
+                TxReviewPage(transferDetails: transferDetails), settings);
+          return pageRoute(
+              TxReviewPage(transferDetails: transferDetails), settings);
         }
       case Routes.txConfirmation:
         {
-          final TransferDetails transferDetails = settings.arguments as TransferDetails;
-          if (kIsWeb) return pageRouteNotAnimated(TxConfirmationPage(transferDetails: transferDetails), settings);
-          return pageRoute(TxConfirmationPage(transferDetails: transferDetails), settings);
+          final TransferDetails transferDetails =
+              settings.arguments as TransferDetails;
+          if (kIsWeb)
+            return pageRouteNotAnimated(
+                TxConfirmationPage(transferDetails: transferDetails), settings);
+          return pageRoute(
+              TxConfirmationPage(transferDetails: transferDetails), settings);
         }
       case Routes.mintInput:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const MintInputPage(), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(const MintInputPage(), settings);
           return pageRoute(
             const MintInputPage(),
             settings,
@@ -183,9 +218,12 @@ class RootRouter {
         }
       case Routes.assetDetails:
         {
-          final Map<String, dynamic> assetDetailsPageArgs = settings.arguments as Map<String, dynamic>;
+          final Map<String, dynamic> assetDetailsPageArgs =
+              settings.arguments as Map<String, dynamic>;
           if (kIsWeb) {
-            return pageRouteNotAnimated(AssetDetailsPage(asset: assetDetailsPageArgs['assetAmount']!), settings);
+            return pageRouteNotAnimated(
+                AssetDetailsPage(asset: assetDetailsPageArgs['assetAmount']!),
+                settings);
           }
           return pageRoute(
             AssetDetailsPage(asset: assetDetailsPageArgs['assetAmount']!),
@@ -209,49 +247,63 @@ class RootRouter {
         }
       case Routes.settings:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const SettingsPage(), settings);
+          if (kIsWeb)
+            return pageRouteNotAnimated(const SettingsPage(), settings);
           return pageRoute(const SettingsPage(), settings);
         }
       case Routes.enable:
         {
-          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
-          if (kIsWeb) return pageRouteNotAnimated(EnablePage(pendingRequest), settings);
+          final InternalMessage pendingRequest =
+              settings.arguments as InternalMessage;
+          if (kIsWeb)
+            return pageRouteNotAnimated(EnablePage(pendingRequest), settings);
           return pageRoute(EnablePage(pendingRequest), settings);
         }
       case Routes.externalSigning:
         {
-          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
-          if (kIsWeb) return pageRouteNotAnimated(ExternalSigningPage(pendingRequest), settings);
+          final InternalMessage pendingRequest =
+              settings.arguments as InternalMessage;
+          if (kIsWeb)
+            return pageRouteNotAnimated(
+                ExternalSigningPage(pendingRequest), settings);
           return pageRoute(ExternalSigningPage(pendingRequest), settings);
         }
       case Routes.error:
         {
-          final String errorMessage = (settings.arguments ?? 'Unknown error occurred') as String;
+          final String errorMessage =
+              (settings.arguments ?? 'Unknown error occurred') as String;
           return errorRoute(errorMsg: errorMessage);
         }
 
       case Routes.connectDApp:
         {
-          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
+          final InternalMessage pendingRequest =
+              settings.arguments as InternalMessage;
           return pageRouteNotAnimated(ConnectDApp(pendingRequest), settings);
         }
       case Routes.reviewAndSignDApp:
         {
-          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
-          if (kIsWeb) return pageRouteNotAnimated(ReviewAndSignDApp(pendingRequest), settings);
+          final InternalMessage pendingRequest =
+              settings.arguments as InternalMessage;
+          if (kIsWeb)
+            return pageRouteNotAnimated(
+                ReviewAndSignDApp(pendingRequest), settings);
           return pageRoute(ReviewAndSignDApp(pendingRequest), settings);
         }
       case Routes.loadingDApp:
         {
-          final InternalMessage response = settings.arguments as InternalMessage;
-          return pageRouteNotAnimated(LoadingDApp(response: response), settings);
+          final InternalMessage response =
+              settings.arguments as InternalMessage;
+          return pageRouteNotAnimated(
+              LoadingDApp(response: response), settings);
         }
       default:
         return errorRoute();
     }
   }
 
-  Route<MaterialPageRoute> errorRoute({String errorMsg = 'Unknown error occurred'}) {
+  Route<MaterialPageRoute> errorRoute(
+      {String errorMsg = 'Unknown error occurred'}) {
     return MaterialPageRoute(
       builder: (context) {
         return Center(
@@ -273,7 +325,8 @@ class RootRouter {
   }
 
   /// Builds a page route without an animation.
-  Route<MaterialPageRoute> pageRouteNotAnimated(Widget page, RouteSettings settings) {
+  Route<MaterialPageRoute> pageRouteNotAnimated(
+      Widget page, RouteSettings settings) {
     return PageRouteBuilder(
       settings: settings,
       pageBuilder: (context, animation, secondaryAnimation) => page,

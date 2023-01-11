@@ -19,7 +19,8 @@ class WalletInfoChecklistPage extends StatefulWidget {
   const WalletInfoChecklistPage({Key? key}) : super(key: key);
 
   @override
-  State<WalletInfoChecklistPage> createState() => _WalletInfoChecklistPageState();
+  State<WalletInfoChecklistPage> createState() =>
+      _WalletInfoChecklistPageState();
 }
 
 class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
@@ -42,7 +43,8 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
   Future<void> runBiometrics() async {
     final LocalAuthentication _localAuthentication = LocalAuthentication();
 
-    final bool isBioAuthenticationSupported = await isBiometricsAuthenticationSupported(_localAuthentication);
+    final bool isBioAuthenticationSupported =
+        await isBiometricsAuthenticationSupported(_localAuthentication);
 
     setState(() {
       isBioSupported = isBioAuthenticationSupported ? true : false;
@@ -73,15 +75,18 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
                 checked: checkboxesState[Strings.savedMyWalletPasswordSafely]!,
                 activeText: true,
                 text: Strings.savedMyWalletPasswordSafely,
-                onChanged: (bool? val) => onChecked(val ?? false, Strings.savedMyWalletPasswordSafely),
+                onChanged: (bool? val) => onChecked(
+                    val ?? false, Strings.savedMyWalletPasswordSafely),
               ),
               SizedBox(height: adaptHeight(0.03)),
               _buildCheckboxListTile(
                 checked: checkboxesState[Strings.toplCannotRecoverForMe]!,
-                activeText: checkboxesState[Strings.savedMyWalletPasswordSafely]!,
+                activeText:
+                    checkboxesState[Strings.savedMyWalletPasswordSafely]!,
                 text: Strings.toplCannotRecoverForMe,
                 onChanged: checkboxesState[Strings.savedMyWalletPasswordSafely]!
-                    ? (bool? val) => onChecked(val ?? false, Strings.toplCannotRecoverForMe)
+                    ? (bool? val) =>
+                        onChecked(val ?? false, Strings.toplCannotRecoverForMe)
                     : null,
               ),
               SizedBox(height: adaptHeight(0.03)),
@@ -90,7 +95,8 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
                 activeText: checkboxesState[Strings.toplCannotRecoverForMe]!,
                 text: Strings.spAndPasswordUnrecoverable,
                 onChanged: checkboxesState[Strings.toplCannotRecoverForMe]!
-                    ? (bool? val) => onChecked(val ?? false, Strings.spAndPasswordUnrecoverable)
+                    ? (bool? val) => onChecked(
+                        val ?? false, Strings.spAndPasswordUnrecoverable)
                     : null,
                 renderTooltipIcon: true,
               ),
@@ -99,8 +105,9 @@ class _WalletInfoChecklistPageState extends State<WalletInfoChecklistPage> {
               ConfirmationButton(
                 text: Strings.iUnderstand,
                 onPressed: () {
-                  Keys.navigatorKey.currentState
-                      ?.pushNamed(isBioSupported ? Routes.onboardingEnableBiometrics : Routes.walletCreated);
+                  Keys.navigatorKey.currentState?.pushNamed(isBioSupported
+                      ? Routes.onboardingEnableBiometrics
+                      : Routes.walletCreated);
                 },
                 disabled: checkboxesState.containsValue(false),
               )

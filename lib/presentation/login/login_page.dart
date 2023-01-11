@@ -53,7 +53,8 @@ class _LoginPageState extends State<LoginPage> {
     bool authenticated = false;
     try {
       authenticated = await authenticateWithBiometrics(_localAuthentication);
-      final String toplKey = (await PlatformLocalStorage.instance.getKeyFromSecureStorage())!;
+      final String toplKey =
+          (await PlatformLocalStorage.instance.getKeyFromSecureStorage())!;
       if (authenticated) {
         StoreProvider.of<AppState>(context).dispatch(
           InitializeHDWalletAction(
@@ -79,7 +80,10 @@ class _LoginPageState extends State<LoginPage> {
   void _checkBiometrics(LoginViewModel vm) {
     if (vm.isBiometricsEnabled) {
       _biometricsLogin().then(
-        (value) => {if (_authorized) Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)},
+        (value) => {
+          if (_authorized)
+            Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)
+        },
       );
     }
   }
@@ -120,14 +124,17 @@ class _LoginPageState extends State<LoginPage> {
                   containerWidth: adaptWidth(1),
                   waveAmplitude: 30,
                   containerChild: Column(
-                    mainAxisAlignment: kIsWeb ? MainAxisAlignment.start : MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: kIsWeb
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
                         children: [
                           SizedBox(height: deviceTopPadding()),
                           renderIfWeb(const SizedBox(height: 40)),
-                          Image.asset(RibnAssets.newRibnLogo, width: kIsWeb ? 102 : 138),
+                          Image.asset(RibnAssets.newRibnLogo,
+                              width: kIsWeb ? 102 : 138),
                           Text(
                             Strings.ribnWallet,
                             style: RibnToolkitTextStyles.h1.copyWith(
@@ -166,7 +173,9 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ],
                       ),
-                      kIsWeb ? const SizedBox(height: 40) : const SizedBox(height: 25),
+                      kIsWeb
+                          ? const SizedBox(height: 40)
+                          : const SizedBox(height: 25),
                       LargeButton(
                         backgroundColor: RibnColors.primary,
                         dropShadowColor: RibnColors.whiteButtonShadow,
@@ -272,7 +281,8 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               TextSpan(
                 text: Strings.forgotPassword,
-                recognizer: TapGestureRecognizer()..onTap = () => onButtonPress(),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () => onButtonPress(),
               )
             ],
           ),

@@ -14,7 +14,8 @@ class OnboardingContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double topPadding = kIsWeb ? 50 : MediaQuery.of(context).size.height * 0.12;
+    final double topPadding =
+        kIsWeb ? 50 : MediaQuery.of(context).size.height * 0.12;
     return Container(
       height: double.infinity,
       width: double.infinity,
@@ -26,7 +27,10 @@ class OnboardingContainer extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.only(top: topPadding, left: isXsScreenSize ? 10 : 20, right: isXsScreenSize ? 10 : 20),
+        padding: EdgeInsets.only(
+            top: topPadding,
+            left: isXsScreenSize ? 10 : 20,
+            right: isXsScreenSize ? 10 : 20),
         child: child,
       ),
     );

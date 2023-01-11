@@ -64,7 +64,8 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
   ///
   /// When the user wants to edit an item on the page, [editSectionOverlay] is assigned the appropriate widget and displayed
   /// on the page. See [_buildEditSectionOverlay].
-  OverlayEntry editSectionOverlay = OverlayEntry(builder: (context) => const SizedBox());
+  OverlayEntry editSectionOverlay =
+      OverlayEntry(builder: (context) => const SizedBox());
 
   /// True if the asset unit section is being edited.
   bool editingAssetUnit = false;
@@ -100,7 +101,8 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, AssetDetails?>(
       // Get access to AssetDetails for this asset from the store
-      converter: (store) => store.state.userDetailsState.assetDetails[widget.assetCode],
+      converter: (store) =>
+          store.state.userDetailsState.assetDetails[widget.assetCode],
       builder: (context, assetDetails) {
         return Listener(
           onPointerDown: (_) {
@@ -118,10 +120,12 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
                   ),
                   const SizedBox(height: 40),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
                     width: 309,
                     decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(11.6)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(11.6)),
                       color: RibnColors.whiteBackground,
                       border: Border.all(color: RibnColors.lightGrey, width: 1),
                       boxShadow: const [
@@ -148,7 +152,8 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
                           key: assetUnitKey,
                           currUnit: assetDetails?.unit,
                           editingSectionOpened: editingAssetUnit,
-                          onEditPressed: () => _onEditPressed(key: assetUnitKey, assetDetails: assetDetails),
+                          onEditPressed: () => _onEditPressed(
+                              key: assetUnitKey, assetDetails: assetDetails),
                         ),
                         _buildDivider(),
                         // asset long name display - can be edited
@@ -156,7 +161,9 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
                           key: assetLongNameKey,
                           currLongName: assetDetails?.longName,
                           editingSectionOpened: editingAssetLongName,
-                          onEditPressed: () => _onEditPressed(key: assetLongNameKey, assetDetails: assetDetails),
+                          onEditPressed: () => _onEditPressed(
+                              key: assetLongNameKey,
+                              assetDetails: assetDetails),
                         ),
                         _buildDivider(),
                         // asset icon display - can be edited
@@ -164,11 +171,13 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
                           key: assetIconKey,
                           currIcon: assetDetails?.icon,
                           editingSectionOpened: editingAssetIcon,
-                          onEditPressed: () => _onEditPressed(key: assetIconKey, assetDetails: assetDetails),
+                          onEditPressed: () => _onEditPressed(
+                              key: assetIconKey, assetDetails: assetDetails),
                         ),
                         _buildDivider(),
                         // asset issuer address display
-                        IssuerAddressDetails(issuerAddress: widget.issuerAddress),
+                        IssuerAddressDetails(
+                            issuerAddress: widget.issuerAddress),
                         _buildDivider(),
                         // asset code display
                         AssetCodeDetails(assetCode: widget.assetCode),
@@ -192,7 +201,8 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
     required GlobalKey key,
     required Widget editSection,
   }) async {
-    final RenderBox renderbox = key.currentContext!.findRenderObject() as RenderBox;
+    final RenderBox renderbox =
+        key.currentContext!.findRenderObject() as RenderBox;
     final Offset offset = renderbox.localToGlobal(Offset.zero);
     resetOverlays();
     editSectionOverlay = OverlayEntry(

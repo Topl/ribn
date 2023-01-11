@@ -70,5 +70,8 @@ class OnboardingState {
   }
 
   @override
-  int get hashCode => mnemonic.hashCode ^ shuffledMnemonic.hashCode ^ userSelectedIndices.hashCode;
+  int get hashCode =>
+      mnemonic.hashCode ^
+      shuffledMnemonic.hashCode ^
+      userSelectedIndices.hashCode;
 }

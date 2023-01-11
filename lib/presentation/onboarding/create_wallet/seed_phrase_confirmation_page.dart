@@ -19,10 +19,12 @@ class SeedPhraseConfirmationPage extends StatefulWidget {
   const SeedPhraseConfirmationPage({Key? key}) : super(key: key);
 
   @override
-  State<SeedPhraseConfirmationPage> createState() => _SeedPhraseConfirmationPageState();
+  State<SeedPhraseConfirmationPage> createState() =>
+      _SeedPhraseConfirmationPageState();
 }
 
-class _SeedPhraseConfirmationPageState extends State<SeedPhraseConfirmationPage> {
+class _SeedPhraseConfirmationPageState
+    extends State<SeedPhraseConfirmationPage> {
   final Map<int, TextEditingController> idxControllerMap = {};
   final Map<TextEditingController, bool> controllerErrorMap = {};
 
@@ -48,19 +50,22 @@ class _SeedPhraseConfirmationPageState extends State<SeedPhraseConfirmationPage>
                   SizedBox(
                     child: Text(
                       Strings.writeDownSeedPhrase,
-                      style: RibnToolkitTextStyles.onboardingH1.copyWith(letterSpacing: 0.5),
+                      style: RibnToolkitTextStyles.onboardingH1
+                          .copyWith(letterSpacing: 0.5),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   Image.asset(RibnAssets.penPaperPng, width: 70),
                   Padding(
-                    padding: EdgeInsets.only(top: adaptHeight(0.04), bottom: adaptHeight(0.02)),
+                    padding: EdgeInsets.only(
+                        top: adaptHeight(0.04), bottom: adaptHeight(0.02)),
                     child: const Text(
                       Strings.ensureYourWordsAreCorrect,
                       style: RibnToolkitTextStyles.onboardingH3,
                     ),
                   ),
-                  _buildSeedphraseConfirmationGrid(vm.confirmeIdxs, vm.mnemonicWordsList),
+                  _buildSeedphraseConfirmationGrid(
+                      vm.confirmeIdxs, vm.mnemonicWordsList),
                   const SizedBox(height: 40),
                   renderIfMobile(
                     const Padding(
@@ -73,12 +78,14 @@ class _SeedPhraseConfirmationPageState extends State<SeedPhraseConfirmationPage>
                     onPressed: () {
                       // Update errors if text entered does not match mnemonic word at specified idx
                       idxControllerMap.forEach((idx, controller) {
-                        final bool wordsMatch = controller.text.trim() == vm.mnemonicWordsList[idx];
+                        final bool wordsMatch =
+                            controller.text.trim() == vm.mnemonicWordsList[idx];
                         controllerErrorMap[controller] = !wordsMatch;
                       });
                       setState(() {});
                       if (!controllerErrorMap.values.contains(true)) {
-                        Keys.navigatorKey.currentState?.pushNamed(Routes.createPassword);
+                        Keys.navigatorKey.currentState
+                            ?.pushNamed(Routes.createPassword);
                       }
                     },
                   ),
@@ -91,13 +98,16 @@ class _SeedPhraseConfirmationPageState extends State<SeedPhraseConfirmationPage>
     );
   }
 
-  Widget _buildSeedphraseConfirmationGrid(List<int> confirmIdxs, List mnemonicWordsList) {
+  Widget _buildSeedphraseConfirmationGrid(
+      List<int> confirmIdxs, List mnemonicWordsList) {
     final List<Widget> mobileRows = [];
     List<Widget> webRowChildren = [];
     final List<List<Widget>> webRows = [];
     for (int i = 0; i < confirmIdxs.length; i++) {
-      mobileRows.add(_buildConfirmationTextField(confirmIdxs[i], mnemonicWordsList[confirmIdxs[i]]));
-      webRowChildren.add(_buildConfirmationTextField(confirmIdxs[i], mnemonicWordsList[confirmIdxs[i]]));
+      mobileRows.add(_buildConfirmationTextField(
+          confirmIdxs[i], mnemonicWordsList[confirmIdxs[i]]));
+      webRowChildren.add(_buildConfirmationTextField(
+          confirmIdxs[i], mnemonicWordsList[confirmIdxs[i]]));
       if ((i + 1) % 2 == 0) {
         webRows.add(webRowChildren);
         webRowChildren = [];
@@ -126,7 +136,8 @@ class _SeedPhraseConfirmationPageState extends State<SeedPhraseConfirmationPage>
 
   Widget _buildConfirmationTextField(int idx, String word) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: kIsWeb ? 20 : 0),
+      padding:
+          const EdgeInsets.symmetric(vertical: 5, horizontal: kIsWeb ? 20 : 0),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Column(
@@ -159,7 +170,8 @@ class _SeedPhraseConfirmationPageState extends State<SeedPhraseConfirmationPage>
 
 class LowerCaseTextFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
     return TextEditingValue(
       text: newValue.text.toLowerCase(),
       selection: newValue.selection,

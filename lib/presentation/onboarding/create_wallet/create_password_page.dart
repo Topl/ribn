@@ -29,7 +29,8 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   final FocusNode _newPasswordFocus = FocusNode();
   final FocusNode _confirmPasswordFocus = FocusNode();
   final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   bool _termsOfUseChecked = false;
   bool _atLeast8Chars = false;
   bool _passwordsMatch = false;
@@ -38,15 +39,20 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   void initState() {
     [_newPasswordFocus, _newPasswordController].toList().forEach((elem) {
       elem.addListener(() {
-        if (!_newPasswordFocus.hasPrimaryFocus || _newPasswordController.text.length >= 8) {
-          _atLeast8Chars = _newPasswordController.text.isNotEmpty && _newPasswordController.text.length >= 8;
+        if (!_newPasswordFocus.hasPrimaryFocus ||
+            _newPasswordController.text.length >= 8) {
+          _atLeast8Chars = _newPasswordController.text.isNotEmpty &&
+              _newPasswordController.text.length >= 8;
           setState(() {});
         }
       });
     });
-    [_confirmPasswordFocus, _confirmPasswordController].toList().forEach((elem) {
+    [_confirmPasswordFocus, _confirmPasswordController]
+        .toList()
+        .forEach((elem) {
       elem.addListener(() {
-        if (!_confirmPasswordFocus.hasPrimaryFocus || _confirmPasswordController.text == _newPasswordController.text) {
+        if (!_confirmPasswordFocus.hasPrimaryFocus ||
+            _confirmPasswordController.text == _newPasswordController.text) {
           _passwordsMatch = _confirmPasswordController.text.isNotEmpty &&
               _confirmPasswordController.text == _newPasswordController.text;
           setState(() {});
@@ -60,7 +66,8 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
   Widget build(BuildContext context) {
     return CreatePasswordContainer(
       onDidChange: (prevVm, newVm) {
-        if (prevVm?.keyStoreJson != newVm.keyStoreJson && newVm.passwordSuccessfullyCreated) {
+        if (prevVm?.keyStoreJson != newVm.keyStoreJson &&
+            newVm.passwordSuccessfullyCreated) {
           context.loaderOverlay.hide();
           navigateToRoute(context, Routes.walletInfoChecklist);
         }
@@ -104,7 +111,9 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                         SizedBox(height: adaptHeight(0.02)),
                         CheckboxWrappableText(
                           wrapText: false,
-                          borderColor: _termsOfUseChecked ? const Color(0xff80FF00) : RibnColors.lightGreyTitle,
+                          borderColor: _termsOfUseChecked
+                              ? const Color(0xff80FF00)
+                              : RibnColors.lightGreyTitle,
                           value: _termsOfUseChecked,
                           onChanged: (bool? checked) {
                             setState(() {
@@ -131,7 +140,8 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () async {
-                                      final Uri url = Uri.parse(Strings.termsOfUseUrl);
+                                      final Uri url =
+                                          Uri.parse(Strings.termsOfUseUrl);
 
                                       await launchUrl(url);
                                     },
@@ -145,10 +155,13 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                     ),
                   ),
                   const SizedBox(height: 40),
-                  renderIfMobile(const MobileOnboardingProgressBar(currStep: 2)),
+                  renderIfMobile(
+                      const MobileOnboardingProgressBar(currStep: 2)),
                   ConfirmationButton(
                     text: Strings.done,
-                    disabled: !_atLeast8Chars || !_passwordsMatch || !_termsOfUseChecked,
+                    disabled: !_atLeast8Chars ||
+                        !_passwordsMatch ||
+                        !_termsOfUseChecked,
                     onPressed: () {
                       context.loaderOverlay.show();
                       vm.attemptCreatePassword(_confirmPasswordController.text);
@@ -197,7 +210,9 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
             Strings.atLeast8Chars,
             textAlign: TextAlign.left,
             style: RibnToolkitTextStyles.h3.copyWith(
-              color: !_atLeast8Chars && _newPasswordController.text.isNotEmpty ? Colors.red : Colors.white,
+              color: !_atLeast8Chars && _newPasswordController.text.isNotEmpty
+                  ? Colors.red
+                  : Colors.white,
             ),
           ),
         ),
@@ -248,7 +263,10 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
             Strings.passwordsMustMatch,
             textAlign: TextAlign.left,
             style: RibnToolkitTextStyles.h3.copyWith(
-              color: !_passwordsMatch && _confirmPasswordController.text.isNotEmpty ? Colors.red : Colors.white,
+              color:
+                  !_passwordsMatch && _confirmPasswordController.text.isNotEmpty
+                      ? Colors.red
+                      : Colors.white,
             ),
           ),
         ),

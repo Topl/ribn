@@ -43,7 +43,8 @@ class AssetLongNameDetails extends StatelessWidget {
                 : HoverIconButton(
                     buttonText: Text(
                       'Edit',
-                      style: RibnToolkitTextStyles.dropdownButtonStyle.copyWith(color: RibnColors.primary),
+                      style: RibnToolkitTextStyles.dropdownButtonStyle
+                          .copyWith(color: RibnColors.primary),
                     ),
                     buttonIcon: Image.asset(RibnAssets.editIcon),
                     onPressed: onEditPressed,
@@ -51,7 +52,8 @@ class AssetLongNameDetails extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 3),
-        Text(currLongName ?? 'Undefined', style: RibnToolkitTextStyles.smallBody),
+        Text(currLongName ?? 'Undefined',
+            style: RibnToolkitTextStyles.smallBody),
       ],
     );
   }

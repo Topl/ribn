@@ -49,10 +49,18 @@ class EnablePage extends StatelessWidget {
         sender: InternalMessage.defaultSender,
         data: {
           'enabled': accept,
-          'walletAddress': StoreProvider.of<AppState>(context).state.keychainState.currentNetwork.addresses.first.toplAddress.toBase58()
+          'walletAddress': StoreProvider.of<AppState>(context)
+              .state
+              .keychainState
+              .currentNetwork
+              .addresses
+              .first
+              .toplAddress
+              .toBase58()
         },
       );
     }
-    StoreProvider.of<AppState>(context).dispatch(SendInternalMsgAction(response));
+    StoreProvider.of<AppState>(context)
+        .dispatch(SendInternalMsgAction(response));
   }
 }
