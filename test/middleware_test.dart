@@ -1,8 +1,6 @@
 // Dart imports:
 import 'dart:typed_data';
-
 import 'dart:async';
-import 'dart:typed_data';
 
 // Package imports:
 import 'package:brambldart/brambldart.dart';
