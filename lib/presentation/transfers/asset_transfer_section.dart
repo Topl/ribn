@@ -159,7 +159,7 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
                       };
                     },
                     assets: widget.vm.assets,
-                    label: Strings.youSend,
+                    label: Strings.sending,
                     onSelected: (AssetAmount? asset) {
                       setState(() {
                         _selectedAsset = asset!;

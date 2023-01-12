@@ -44,6 +44,8 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
   late final String walletAddress;
   late final RawTx transaction;
   bool isExpanded = false;
+  
+  ScrollController _scrollController = ScrollController();
 
   final TextStyle defaultTextStyle = const TextStyle(
     fontFamily: 'DM Sans',
@@ -178,12 +180,14 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                               mainAxisMargin: 10,
                               crossAxisMargin: 8,
                               thumbVisibility: true,
+                              controller: _scrollController,
                               thumbColor: RibnColors.primary,
                               thickness: 10,
                               child: ScrollConfiguration(
                                 behavior: ScrollConfiguration.of(context)
                                     .copyWith(scrollbars: false),
                                 child: ListView.builder(
+                                  controller: _scrollController,
                                   shrinkWrap: true,
                                   primary: false,
                                   padding: const EdgeInsets.all(10),

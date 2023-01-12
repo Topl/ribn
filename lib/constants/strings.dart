@@ -246,7 +246,7 @@ Write down the each word in the exact order it is presented.''';
   static const String assetCodeLongInfo =
       'Asset code serves as a unique identifier\nfor user issued assets.';
   static const String assetCodeShortInfo =
-      'This is used to view the short name for your \nasset as this will be the information used to\nidentify a particular asset on the blockchain.';
+      'This is used to view the name for your \nasset as this will be the information used to\nidentify a particular asset on the blockchain.';
   static const String issuerAddressInfo =
       'This is the address of the party who originally\ncreated a certain asset. You can copy the\nissuer address and paste it into the Topl explorer\nfor more information.';
   static const String assetDetails = 'Asset Details';

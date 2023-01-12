@@ -186,7 +186,7 @@ class _PolyTransferSectionState extends State<PolyTransferSection> {
   /// Builds the UI for indicating poly transfer.
   Widget _buildPolyDisplay() {
     return CustomInputField(
-      itemLabel: Strings.youSend,
+      itemLabel: Strings.sending,
       item: Container(
         width: 310,
         height: 36,
