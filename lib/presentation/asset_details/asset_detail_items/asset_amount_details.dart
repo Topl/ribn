@@ -1,6 +1,5 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:ribn_toolkit/constants/styles.dart';
 
@@ -10,6 +9,7 @@ import 'package:ribn_toolkit/constants/styles.dart';
 class AssetAmountDetails extends StatelessWidget {
   /// The total quantity of the asset.
   final num assetQuantity;
+
   const AssetAmountDetails({
     Key? key,
     required this.assetQuantity,
@@ -22,11 +22,18 @@ class AssetAmountDetails extends StatelessWidget {
       children: [
         Row(
           children: const [
-            Text('Amount', style: RibnToolkitTextStyles.h4),
+            SizedBox( height: 20,
+                child: Text('Amount', style: RibnToolkitTextStyles.h4)),
           ],
         ),
         const SizedBox(height: 3),
-        Text(assetQuantity.toString(), style: RibnToolkitTextStyles.smallBody),
+        SizedBox(
+            width: 20,
+            height: 20,
+            child: Center(
+              child: Text(assetQuantity.toString(),
+                  style: RibnToolkitTextStyles.smallBody),
+            )),
       ],
     );
   }

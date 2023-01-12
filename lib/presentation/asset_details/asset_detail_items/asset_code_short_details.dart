@@ -35,7 +35,7 @@ class AssetCodeShortDetails extends StatelessWidget {
                 borderColor: Border.all(color: const Color(0xffE9E9E9)),
                 toolTipIcon: Image.asset(
                   RibnAssets.greyHelpBubble,
-                  width: 18,
+                  width: 20,
                 ),
                 toolTipChild: const Text(
                   Strings.assetCodeShortInfo,
@@ -47,18 +47,15 @@ class AssetCodeShortDetails extends StatelessWidget {
         ),
         const SizedBox(height: 3),
         Row(children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 3, bottom: 5),
-            child: SizedBox(
-              width: 20,
-                height: 20,
-                child: currentIcon == null
-                    ? Image.asset(RibnAssets.undefinedIcon)
-                    : Image.asset(
-                        currentIcon!,
-                        width: 31,
-                      ),
-            ),
+          SizedBox(
+            width: 20,
+              height: 20,
+              child: currentIcon == null
+                  ? Image.asset(RibnAssets.undefinedIcon)
+                  : Image.asset(
+                      currentIcon!,
+                      width: 31,
+                    ),
           ),
           SizedBox(width: 5,),
           Text(assetShortName, style: RibnToolkitTextStyles.smallBody),

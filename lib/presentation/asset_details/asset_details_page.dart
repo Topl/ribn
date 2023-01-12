@@ -147,15 +147,23 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
                         // asset name display
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            AssetCodeShortDetails(
-                              assetShortName: widget.assetShortName,
-                              currentIcon: assetDetails?.icon,
+                            Expanded(
+                              flex: 1,
+                              child: AssetCodeShortDetails(
+                                assetShortName: widget.assetShortName,
+                                currentIcon: assetDetails?.icon,
+                              ),
                             ),
-                            Spacer(flex: 2),
-                            AssetAmountDetails(
-                                assetQuantity: widget.assetQuantity),
-                            Spacer(flex: 1),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: AssetAmountDetails(
+                                  assetQuantity: widget.assetQuantity),
+                            ),
                           ],
                         ),
                         _buildDivider(),
