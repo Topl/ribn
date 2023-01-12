@@ -149,14 +149,14 @@ packages:
       name: built_value
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.4.2"
+    version: "8.4.3"
   built_value_generator:
     dependency: "direct dev"
     description:
       name: built_value_generator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.4.2"
+    version: "8.4.3"
   characters:
     dependency: transitive
     description:
@@ -914,13 +914,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
-  quiver:
-    dependency: transitive
-    description:
-      name: quiver
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.2.1"
   redux:
     dependency: "direct main"
     description:
@@ -939,8 +932,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: RIBN-555
-      resolved-ref: "2326f026bb7130ca95a20b2adac741f2bb5c7952"
+      ref: main
+      resolved-ref: "5236552154573707ee492c52c415e87b4bdc5d68"
       url: "https://github.com/Topl/ribn-toolkit"
     source: git
     version: "1.0.0+1"
@@ -1242,7 +1235,7 @@ packages:
       name: web_socket_channel
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0"
   webkit_inspection_protocol:
     dependency: transitive
     description:

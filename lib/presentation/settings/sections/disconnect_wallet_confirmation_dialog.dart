@@ -12,10 +12,6 @@ import 'package:ribn_toolkit/widgets/organisms/ribn_disconnect_app_container.dar
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/platform/platform.dart';
 
-// Project imports:
-import 'package:ribn/constants/strings.dart';
-import 'package:ribn/platform/platform.dart';
-
 /// The confirmation dialog that is displayed before disconnecting the wallet.
 class DisconnectWalletConfirmationDialog extends StatefulWidget {
   const DisconnectWalletConfirmationDialog({Key? key, required this.dApps})
