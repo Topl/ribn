@@ -36,8 +36,8 @@ class AssetIconDetails extends StatelessWidget {
           height: 30,
           child: Row(
             children: [
-              const Text('Icon', style: RibnToolkitTextStyles.h4),
-              const Spacer(),
+              // const Text('Icon', style: RibnToolkitTextStyles.h4),
+              // const Spacer(),
               editingSectionOpened
                   ? const SizedBox()
                   : HoverIconButton(
