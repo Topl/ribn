@@ -299,7 +299,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       onCardPress: () => viewAssetDetails(asset),
       iconImage: Image.asset(
         assetIcon,
-        width: 45,
+        width: 30,
       ),
       shortName: Text(
         asset.assetCode.shortName.show.replaceAll('\x00', ''),
