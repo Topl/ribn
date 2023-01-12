@@ -16,7 +16,10 @@ class AssetColumn extends StatelessWidget {
       children: [
         Container(
           height: 30,
-          child: child1,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: child1,
+          ),
         ),
         const SizedBox(height: 3),
         Container(
