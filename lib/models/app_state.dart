@@ -127,8 +127,7 @@ class AppState {
 
   String toJson() => json.encode(toMap());
 
-  factory AppState.fromJson(String source) =>
-      AppState.fromMap(json.decode(source));
+  factory AppState.fromJson(String source) => AppState.fromMap(json.decode(source));
 
   @override
   String toString() {
