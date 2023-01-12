@@ -1,12 +1,7 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:ribn_toolkit/constants/styles.dart';
-
-// Project imports:
-
-import 'package:ribn/utils.dart';
 
 /// One of the asset details displayed on [AssetDetailsPage].
 ///
@@ -14,6 +9,7 @@ import 'package:ribn/utils.dart';
 class TokenMetadataDetails extends StatelessWidget {
   /// The asset code to be displayed.
   final String tokenMetadata;
+
   const TokenMetadataDetails({
     Key? key,
     required this.tokenMetadata,
