@@ -65,8 +65,7 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
   ///
   /// When the user wants to edit an item on the page, [editSectionOverlay] is assigned the appropriate widget and displayed
   /// on the page. See [_buildEditSectionOverlay].
-  OverlayEntry editSectionOverlay =
-      OverlayEntry(builder: (context) => const SizedBox());
+  OverlayEntry editSectionOverlay = OverlayEntry(builder: (context) => const SizedBox());
 
   /// True if the asset unit section is being edited.
   bool editingAssetUnit = false;
@@ -102,8 +101,7 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, AssetDetails?>(
       // Get access to AssetDetails for this asset from the store
-      converter: (store) =>
-          store.state.userDetailsState.assetDetails[widget.assetCode],
+      converter: (store) => store.state.userDetailsState.assetDetails[widget.assetCode],
       builder: (context, assetDetails) {
         print(assetDetails);
         return Listener(
@@ -121,65 +119,67 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
                     hideBackArrow: true,
                   ),
                   const SizedBox(height: 40),
-                  Container(
+                  Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
+                      horizontal: 15,
                     ),
-                    width: 309,
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(11.6)),
-                      color: RibnColors.whiteBackground,
-                      border: Border.all(color: RibnColors.lightGrey, width: 1),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: RibnColors.greyShadow,
-                          spreadRadius: 0,
-                          blurRadius: 37.5,
-                          offset: Offset(0, -6),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // asset name display
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: AssetCodeShortDetails(
-                                assetShortName: widget.assetShortName,
-                                currentIcon: assetDetails?.icon,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(11.6)),
+                        color: RibnColors.whiteBackground,
+                        border: Border.all(color: RibnColors.lightGrey, width: 1),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: RibnColors.greyShadow,
+                            spreadRadius: 0,
+                            blurRadius: 37.5,
+                            offset: Offset(0, -6),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // asset name display
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: AssetCodeShortDetails(
+                                  assetShortName: widget.assetShortName,
+                                  currentIcon: assetDetails?.icon,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: AssetAmountDetails(
-                                  assetQuantity: widget.assetQuantity),
-                            ),
-                          ],
-                        ),
-                        _buildDivider(),
-                        // asset issuer address display
-                        IssuerAddressDetails(
-                          issuerAddress: widget.issuerAddress,
-                        ),
-                        _buildDivider(),
-                        // asset code display
-                        AssetCodeDetails(assetCode: widget.assetCode),
-                        _buildDivider(),
-                        //TODO: Figure out how to pipe metadata in
-                        TokenMetadataDetails(
-                          tokenMetadata: "",
-                        ),
-                      ],
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: AssetAmountDetails(assetQuantity: widget.assetQuantity),
+                              ),
+                            ],
+                          ),
+                          _buildDivider(),
+                          // asset issuer address display
+                          IssuerAddressDetails(
+                            issuerAddress: widget.issuerAddress,
+                          ),
+                          _buildDivider(),
+                          // asset code display
+                          AssetCodeDetails(assetCode: widget.assetCode),
+                          _buildDivider(),
+                          //TODO: Figure out how to pipe metadata in
+                          TokenMetadataDetails(
+                            tokenMetadata: "",
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:ribn/presentation/asset_details/asset_detail_items/asset_column.dart';
 // Package imports:
 import 'package:ribn_toolkit/constants/styles.dart';
 
@@ -17,24 +18,9 @@ class AssetAmountDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: const [
-            SizedBox( height: 20,
-                child: Text('Amount', style: RibnToolkitTextStyles.h4)),
-          ],
-        ),
-        const SizedBox(height: 3),
-        SizedBox(
-            width: 20,
-            height: 20,
-            child: Center(
-              child: Text(assetQuantity.toString(),
-                  style: RibnToolkitTextStyles.smallBody),
-            )),
-      ],
+    return AssetColumn(
+      child1: Text('Amount', style: RibnToolkitTextStyles.h4),
+      child2: Text(assetQuantity.toString(), style: RibnToolkitTextStyles.smallBody),
     );
   }
 }
