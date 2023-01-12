@@ -25,6 +25,9 @@ class DisconnectWalletConfirmationDialog extends StatefulWidget {
 
 class _DisconnectWalletConfirmationDialogState
     extends State<DisconnectWalletConfirmationDialog> {
+
+  ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return CustomModal.renderCustomModal(
@@ -56,12 +59,14 @@ class _DisconnectWalletConfirmationDialogState
               mainAxisMargin: 0,
               crossAxisMargin: 0,
               thumbVisibility: true,
+              controller: _scrollController,
               thumbColor: RibnColors.primary,
               thickness: 10,
               child: ScrollConfiguration(
                 behavior:
                     ScrollConfiguration.of(context).copyWith(scrollbars: false),
                 child: ListView.builder(
+                  controller: _scrollController,
                   shrinkWrap: true,
                   primary: false,
                   itemCount: widget.dApps.length,

@@ -42,6 +42,7 @@ class AssetUnitEditSection extends StatefulWidget {
 class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
   /// True if the dropdown is active.
   bool dropdownOpened = false;
+  ScrollController controller = new ScrollController();
 
   /// Assigned the new unit when selected from the dropdown.
   String? selectedUnit;
@@ -66,7 +67,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomDropDown(
-            dropdownChild: _buildUnitDropdownChild(),
+            dropdownChild: _buildUnitDropdownChild(controller),
             childAlignment: Alignment.bottomCenter,
             dropDownAlignment: Alignment.topCenter,
             visible: dropdownOpened,
@@ -135,7 +136,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
   /// Builds the Unit dropdown widget.
   ///
   /// Allows user to select from a list of custom units, i.e. [UIConstants.assetUnitsList].
-  Widget _buildUnitDropdownChild() {
+  Widget _buildUnitDropdownChild(ScrollController _scrollController) {
     return Container(
       width: 120,
       height: 135,
@@ -148,8 +149,10 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
         context: context,
         removeTop: true,
         child: Scrollbar(
+          controller: _scrollController,
           thumbVisibility: true,
           child: ListView(
+            controller: _scrollController,
             padding: const EdgeInsets.all(0),
             children: UIConstants.assetUnitsList
                 .map(
