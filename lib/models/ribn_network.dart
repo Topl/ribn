@@ -57,13 +57,13 @@ class RibnNetwork {
   /// Initializes [RibnNetwork] for [NetworkUtils.valhalla], [NetworkUtils.toplNet], and [NetworkUtils.private].
   static Map<String, RibnNetwork> initializeToplNetworks() {
     return {
-      NetworkUtils.valhalla: RibnNetwork.initial(
-        networkId: NetworkUtils.valhallaId,
-        networkName: NetworkUtils.valhalla,
-      ),
       NetworkUtils.toplNet: RibnNetwork.initial(
         networkId: NetworkUtils.toplNetId,
         networkName: NetworkUtils.toplNet,
+      ),
+      NetworkUtils.valhalla: RibnNetwork.initial(
+        networkId: NetworkUtils.valhallaId,
+        networkName: NetworkUtils.valhalla,
       ),
       NetworkUtils.private: RibnNetwork.initial(
         networkId: NetworkUtils.privateId,
@@ -86,9 +86,7 @@ class RibnNetwork {
   }
 
   int getNextInternalAddressIndex() {
-    return addresses
-            .lastIndexWhere((addr) => addr.changeIndex == Rules.internalIdx) +
-        1;
+    return addresses.lastIndexWhere((addr) => addr.changeIndex == Rules.internalIdx) + 1;
   }
 
   /// Returns a list of all the assets owned by [myWalletAddress]
@@ -124,8 +122,7 @@ class RibnNetwork {
     return getAllAssetsInWallet()
         .where(
           (AssetAmount asset) =>
-              asset.assetCode.issuer.toBase58() ==
-              myWalletAddress?.toplAddress.toBase58(),
+              asset.assetCode.issuer.toBase58() == myWalletAddress?.toplAddress.toBase58(),
         )
         .toList();
   }
@@ -175,8 +172,7 @@ class RibnNetwork {
 
   String toJson() => json.encode(toMap());
 
-  factory RibnNetwork.fromJson(String source) =>
-      RibnNetwork.fromMap(json.decode(source));
+  factory RibnNetwork.fromJson(String source) => RibnNetwork.fromMap(json.decode(source));
 
   @override
   String toString() {
