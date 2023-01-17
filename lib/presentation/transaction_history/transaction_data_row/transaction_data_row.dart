@@ -49,8 +49,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
   }
 
   getBlockHeight() async {
-    final transactionBlockHeightNum =
-        int.parse('${widget.transactionReceipt.blockNumber}');
+    final transactionBlockHeightNum = int.parse('${widget.transactionReceipt.blockNumber}');
     final blockHeightString = await widget.blockHeight;
     final blockHeightNum = int.parse(blockHeightString!);
     final heightDifference = blockHeightNum - transactionBlockHeightNum;
@@ -63,8 +62,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isPolyTransaction = widget.transactionReceipt.txType ==
-            'PolyTransfer' ||
+    final bool isPolyTransaction = widget.transactionReceipt.txType == 'PolyTransfer' ||
         widget.transactionReceipt.to.first.toJson()[1].runtimeType == String;
     final int timestampInt = widget.transactionReceipt.timestamp;
     final DateTime date = DateTime.fromMillisecondsSinceEpoch(timestampInt);
@@ -78,24 +76,18 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
         ? widget.transactionReceipt.to.first.toJson()[1]
         : widget.transactionReceipt.to.first.toJson()[1]['quantity'];
     final Sender transactionSenderAddress = widget.transactionReceipt.from![0];
-    final String fee = '${widget.transactionReceipt.fee!.quantity} nanoPOLYs';
+    final String fee = '${widget.transactionReceipt.fee!.quantity} POLYs';
     final Latin1Data? note = widget.transactionReceipt.data;
-    final String securityRoot = isPolyTransaction
-        ? ''
-        : widget.transactionReceipt.to.first.toJson()[1]['securityRoot'];
+    final String securityRoot =
+        isPolyTransaction ? '' : widget.transactionReceipt.to.first.toJson()[1]['securityRoot'];
     final String assetCode = isPolyTransaction
         ? ''
-        : widget.transactionReceipt.to.first
-            .toJson()[1]['assetCode']
-            .toString();
+        : widget.transactionReceipt.to.first.toJson()[1]['assetCode'].toString();
     final ModifierId? blockId = widget.transactionReceipt.blockId;
     final BlockNum? blockNumber = widget.transactionReceipt.blockNumber;
     final ModifierId transactionId = widget.transactionReceipt.id;
     final String renderPlusOrMinusPolyTransfer =
-        transactionReceiverAddress == widget.myRibnWalletAddress &&
-                isPolyTransaction
-            ? '+'
-            : '-';
+        transactionReceiverAddress == widget.myRibnWalletAddress && isPolyTransaction ? '+' : '-';
     final String transactionAmountForPolyTransfer =
         '$renderPlusOrMinusPolyTransfer$transactionQuantity';
 
@@ -126,8 +118,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
 
     return StoreConnector<AppState, AssetDetails?>(
       // Get access to AssetDetails for this asset from the store only if not poly transaction
-      converter: (store) =>
-          store.state.userDetailsState.assetDetails[assetCode],
+      converter: (store) => store.state.userDetailsState.assetDetails[assetCode],
       builder: (context, assetDetails) {
         final List filteredAsset = widget.assets
             .where(
@@ -137,23 +128,16 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
 
         return RibnActivityTile(
           tileColor: RibnColors.whiteColor,
-          assetIcon: isPolyTransaction
-              ? renderPolyIcon()
-              : renderAssetIcon(assetDetails?.icon),
+          assetIcon: isPolyTransaction ? renderPolyIcon() : renderAssetIcon(assetDetails?.icon),
           assetBalance:
               '${transactionAmountForAssetTransfer()} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
           assetShortName: isPolyTransaction
               ? 'POLY'
               : filteredAsset.isNotEmpty
-                  ? filteredAsset[0]
-                      .assetCode
-                      .shortName
-                      .show
-                      .replaceAll('\x00', '')
+                  ? filteredAsset[0].assetCode.shortName.show.replaceAll('\x00', '')
                   : '',
           transactionStatus: transactionStatus,
-          transactionDate:
-              '${renderSentReceivedMintedText()} on $formattedDate',
+          transactionDate: '${renderSentReceivedMintedText()} on $formattedDate',
           onTap: () {
             final Map details = {
               'isPolyTransaction': isPolyTransaction,
@@ -161,19 +145,12 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
               'timestamp': formattedDateAlternate,
               'assetDetails': isPolyTransaction
                   ? {}
-                  : assetDetails ??
-                      {'unit': transactionAmountForAssetTransfer()},
-              'icon': isPolyTransaction
-                  ? renderPolyIcon()
-                  : renderAssetIcon(assetDetails?.icon),
+                  : assetDetails ?? {'unit': transactionAmountForAssetTransfer()},
+              'icon': isPolyTransaction ? renderPolyIcon() : renderAssetIcon(assetDetails?.icon),
               'shortName': isPolyTransaction
                   ? 'POLY'
                   : filteredAsset.isNotEmpty
-                      ? filteredAsset[0]
-                          .assetCode
-                          .shortName
-                          .show
-                          .replaceAll('\x00', '')
+                      ? filteredAsset[0].assetCode.shortName.show.replaceAll('\x00', '')
                       : '',
               'transactionStatus': transactionStatus,
               'transactionAmount': isPolyTransaction
@@ -189,11 +166,9 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                 charsToDisplay: 4,
               ),
               'note': note,
-              'securityRoot': isPolyTransaction
-                  ? ''
-                  : formatAddressString(securityRoot, charsToDisplay: 4),
-              'blockId':
-                  formatAddressString(blockId.toString(), charsToDisplay: 4),
+              'securityRoot':
+                  isPolyTransaction ? '' : formatAddressString(securityRoot, charsToDisplay: 4),
+              'blockId': formatAddressString(blockId.toString(), charsToDisplay: 4),
               'blockHeight': blockNumber?.blockNum,
               'transactionId': formatAddressString(
                 transactionId.toString(),
@@ -213,9 +188,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
   }
 
   String renderAssetIcon(assetDetailsIcon) {
-    return assetDetailsIcon == null
-        ? RibnAssets.undefinedIcon
-        : assetDetailsIcon!;
+    return assetDetailsIcon == null ? RibnAssets.undefinedIcon : assetDetailsIcon!;
   }
 
   String renderPolyIcon() {

@@ -933,7 +933,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "0fc4e965fb14b74d099d8c13e485cb7164cf0f78"
+      resolved-ref: "8b65d0cc2fc014c699be29064cca73e182879798"
       url: "https://github.com/Topl/ribn-toolkit"
     source: git
     version: "1.0.0+1"
