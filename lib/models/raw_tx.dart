@@ -10,6 +10,45 @@ RawTx rawTxFromJson(String str) => RawTx.fromJson(json.decode(str));
 String rawTxToJson(RawTx data) => json.encode(data.toJson());
 
 class RawTx {
+  /// Transfer Type from Bifrost. Can be three different types:
+  /// [PolyTransfer](https://github.com/Topl/Bifrost/blob/main/common/src/main/scala/co/topl/modifier/transaction/PolyTransfer.scala),
+  /// [AssetTransfer](https://github.com/Topl/Bifrost/blob/main/common/src/main/scala/co/topl/modifier/transaction/AssetTransfer.scala),
+  /// [ArbitTransfer](https://github.com/Topl/Bifrost/blob/main/common/src/main/scala/co/topl/modifier/transaction/ArbitTransfer.scala)
+  final String txType;
+
+  /// The time stamp of the transaction
+  final int timestamp;
+
+  /// The number of boxes that were generated with this transaction.
+  final List<NewBox> newBoxes;
+
+  /// Byte data represented by Latin-1 encoded text. [Latin1Data](https://github.com/Topl/Bifrost/blob/main/common/src/main/scala/co/topl/utils/StringDataTypes.scala)
+  final dynamic data;
+
+  /// The sender/s address/s of this transaction.
+  final List<List<String>> from;
+
+  /// Whether this transfer will be a minting transfer
+  final bool minting;
+
+  /// The Id of the transaction
+  final String txId;
+
+  /// The boxes that will be deleted as a result of this transaction
+  final List<String> boxesToRemove;
+
+  /// Fee to be paid to the network for the transaction (unit is nanoPoly)
+  final String fee;
+
+  /// The recipient/s address/s of this transaction.
+  final List<List<dynamic>> to;
+
+  /// The propositionType that has or will be used by the sender to generate the proposition eg., PublicKeyCurve25519, ThresholdCurve25519. [Proposition](https://github.com/Topl/Bifrost/blob/main/common/src/main/scala/co/topl/attestation/Proposition.scala)
+  final String propositionType;
+
+  /// The message that will have to be signed by the sender of this transaction
+  final String messageToSign;
+
   RawTx({
     required this.txType,
     required this.timestamp,
@@ -25,24 +64,10 @@ class RawTx {
     required this.messageToSign,
   });
 
-  final String txType;
-  final int timestamp;
-  final List<NewBox> newBoxes;
-  final dynamic data;
-  final List<List<String>> from;
-  final bool minting;
-  final String txId;
-  final List<String> boxesToRemove;
-  final String fee;
-  final List<List<dynamic>> to;
-  final String propositionType;
-  final String messageToSign;
-
   factory RawTx.fromJson(Map<String, dynamic> json) => RawTx(
         txType: json['txType'],
         timestamp: json['timestamp'],
-        newBoxes:
-            List<NewBox>.from(json['newBoxes'].map((x) => NewBox.fromJson(x))),
+        newBoxes: List<NewBox>.from(json['newBoxes'].map((x) => NewBox.fromJson(x))),
         data: json['data'],
         from: List<List<String>>.from(
           json['from'].map((x) => List<String>.from(x.map((x) => x))),
@@ -78,6 +103,7 @@ class RawTx {
       };
 }
 
+/// [TokenBox](https://github.com/Topl/Bifrost/blob/main/common/src/main/scala/co/topl/modifier/box/Box.scala)
 class NewBox {
   NewBox({
     required this.nonce,
@@ -87,10 +113,22 @@ class NewBox {
     required this.value,
   });
 
+  /// Number used once
   final String nonce;
+
+  /// Id of boxs
   final String id;
+
+  /// Evidence content serves as a fingerprint (or commitment) of a particular proposition that is used to lock a box. [Evidence](https://github.com/Topl/Bifrost/blob/main/common/src/main/scala/co/topl/attestation/Evidence.scala)
   final String evidence;
+
+  /// Type of box. Can be 3 types:
+  /// [ArbitBox](https://github.com/Topl/Bifrost/blob/main/common/src/main/scala/co/topl/modifier/box/ArbitBox.scala),
+  /// [PolyBox](https://github.com/Topl/Bifrost/blob/main/common/src/main/scala/co/topl/modifier/box/PolyBox.scala),
+  /// [AssetBox](https://github.com/Topl/Bifrost/blob/main/common/src/main/scala/co/topl/modifier/box/AssetBox.scala)
   final String type;
+
+  /// Value of box
   final Value value;
 
   factory NewBox.fromJson(Map<String, dynamic> json) => NewBox(
@@ -119,10 +157,20 @@ class Value {
     required this.securityRoot,
   });
 
+  /// Can either be [Simple](https://github.com/Topl/Bifrost/blob/main/common/src/main/scala/co/topl/modifier/box/TokenValueHolder.scala) of
+  /// [Asset](https://github.com/Topl/Bifrost/blob/main/common/src/main/scala/co/topl/modifier/box/TokenValueHolder.scala)
   final String type;
+
+  /// Quantity of box, unit is in nanoPolys
   final String quantity;
+
+  /// AssetCode serves as a unique identifier for user issued assets [AssetCode](https://github.com/Topl/Bifrost/blob/main/common/src/main/scala/co/topl/modifier/box/AssetCode.scala)
   final String assetCode;
+
+  /// Additional [Latin1Data](https://github.com/Topl/Bifrost/blob/main/common/src/main/scala/co/topl/utils/StringDataTypes.scala) MetaData
   final dynamic metadata;
+
+  /// [SecurityRoot](https://github.com/Topl/Bifrost/blob/main/common/src/main/scala/co/topl/modifier/box/SecurityRoot.scala)
   final String securityRoot;
 
   factory Value.fromJson(Map<String, dynamic> json) => Value(
