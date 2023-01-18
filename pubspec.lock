@@ -28,7 +28,7 @@ packages:
       name: app_settings
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.8"
+    version: "4.2.0"
   archive:
     dependency: transitive
     description:
@@ -90,7 +90,7 @@ packages:
     description:
       path: "."
       ref: TSDK-133
-      resolved-ref: fa1dc12f568120b60d1b2875c299a0efd9458925
+      resolved-ref: "9c3edfba1edc8f6ecaf03f34ec71f44e17141b04"
       url: "https://github.com/Topl/BramblDart"
     source: git
     version: "0.0.1"
@@ -149,14 +149,14 @@ packages:
       name: built_value
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.4.2"
+    version: "8.4.3"
   built_value_generator:
     dependency: "direct dev"
     description:
       name: built_value_generator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.4.2"
+    version: "8.4.3"
   characters:
     dependency: transitive
     description:
@@ -177,7 +177,7 @@ packages:
       name: checked_yaml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   cli_pkg:
     dependency: transitive
     description:
@@ -205,7 +205,7 @@ packages:
       name: code_builder
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.3.0"
+    version: "4.4.0"
   collection:
     dependency: transitive
     description:
@@ -579,7 +579,7 @@ packages:
     source: hosted
     version: "3.1.3"
   import_sorter:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: import_sorter
       url: "https://pub.dartlang.org"
@@ -654,28 +654,28 @@ packages:
       name: local_auth
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.2"
+    version: "2.1.3"
   local_auth_android:
     dependency: transitive
     description:
       name: local_auth_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.16"
+    version: "1.0.17"
   local_auth_ios:
     dependency: transitive
     description:
       name: local_auth_ios
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.10"
+    version: "1.0.12"
   local_auth_platform_interface:
     dependency: transitive
     description:
       name: local_auth_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.5"
+    version: "1.0.6"
   local_auth_windows:
     dependency: transitive
     description:
@@ -914,13 +914,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
-  quiver:
-    dependency: transitive
-    description:
-      name: quiver
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.1.0"
   redux:
     dependency: "direct main"
     description:
@@ -939,8 +932,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "0.4-front-end"
-      resolved-ref: "62ba848e6d0044f39000b77fc656bd4c11e55506"
+      ref: main
+      resolved-ref: "5236552154573707ee492c52c415e87b4bdc5d68"
       url: "https://github.com/Topl/ribn-toolkit"
     source: git
     version: "1.0.0+1"
@@ -1242,7 +1235,7 @@ packages:
       name: web_socket_channel
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0"
   webkit_inspection_protocol:
     dependency: transitive
     description:
@@ -1293,7 +1286,7 @@ packages:
       name: xdg_directories
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0+2"
+    version: "0.2.0+3"
   xml:
     dependency: transitive
     description:

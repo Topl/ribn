@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
+import 'package:ribn_toolkit/widgets/molecules/ribn_custom_modal.dart';
+import 'package:ribn_toolkit/widgets/organisms/ribn_disconnect_app_container.dart';
 
 // Project imports:
 import 'package:ribn/constants/strings.dart';
@@ -27,10 +28,12 @@ class _DisconnectWalletConfirmationDialogState
     extends State<DisconnectWalletConfirmationDialog> {
   @override
   Widget build(BuildContext context) {
-    return CustomModal.renderCustomModal(
-      title: const Text(
+    return RibnCustomModal.renderRibnCustomModal(
+      width: 227,
+      height: 250,
+      title: Text(
         Strings.disconnectRibnWalletDApps,
-        style: RibnToolkitTextStyles.extH2,
+        style: RibnToolkitTextStyles.extH2.copyWith(fontSize: 18),
         textAlign: TextAlign.center,
       ),
       context: context,
@@ -38,48 +41,16 @@ class _DisconnectWalletConfirmationDialogState
         children: [
           Text(
             Strings.disconnectRibnWalletDAppsDesc,
-            style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15),
+            style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 12),
           ),
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            width: 360,
-            height: 105,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(11.6)),
-              color: RibnColors.mediumGrey,
-            ),
-            child: RawScrollbar(
-              shape: const StadiumBorder(),
-              mainAxisMargin: 0,
-              crossAxisMargin: 0,
-              thumbVisibility: true,
-              thumbColor: RibnColors.primary,
-              thickness: 10,
-              child: ScrollConfiguration(
-                behavior:
-                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  primary: false,
-                  itemCount: widget.dApps.length,
-                  itemBuilder: (buildContext, index) {
-                    return Text(
-                      widget.dApps[index],
-                      style: const TextStyle(
-                        fontFamily: 'DM Sans',
-                        fontSize: 11,
-                        height: 2.5,
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
+          RibnDisconnectDAppContainer(
+            width: 227,
+            dapps: widget.dApps,
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 10),
         ],
       ),
       actionsAlignment: MainAxisAlignment.center,
@@ -90,9 +61,8 @@ class _DisconnectWalletConfirmationDialogState
             LargeButton(
               buttonChild: Text(
                 Strings.yesIWantToDisconnect,
-                style: RibnToolkitTextStyles.btnMedium.copyWith(
-                  color: Colors.white,
-                ),
+                style: RibnToolkitTextStyles.btnMedium
+                    .copyWith(color: Colors.white, fontSize: 10),
               ),
               onPressed: () async {
                 // Disconnect action to go here
@@ -100,16 +70,15 @@ class _DisconnectWalletConfirmationDialogState
                     .convertToFuture(PlatformUtils.instance.clearDAppList());
                 Navigator.of(context, rootNavigator: true).pop(true);
               },
-              buttonWidth: 285,
+              buttonWidth: 227,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 15),
             // cancel disconnect
             LargeButton(
               buttonChild: Text(
                 Strings.noIChangedMyMind,
-                style: RibnToolkitTextStyles.btnMedium.copyWith(
-                  color: RibnColors.ghostButtonText,
-                ),
+                style: RibnToolkitTextStyles.btnMedium
+                    .copyWith(color: RibnColors.ghostButtonText, fontSize: 10),
               ),
               backgroundColor: Colors.transparent,
               hoverColor: Colors.transparent,
@@ -119,7 +88,7 @@ class _DisconnectWalletConfirmationDialogState
                 // Cancel action to go here
                 Navigator.of(context, rootNavigator: true).pop(false);
               },
-              buttonWidth: 285,
+              buttonWidth: 227,
             ),
           ],
         )

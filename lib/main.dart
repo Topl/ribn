@@ -4,12 +4,10 @@ import 'dart:convert';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-
 // Project imports:
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/keys.dart';

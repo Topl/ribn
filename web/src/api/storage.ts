@@ -1,4 +1,4 @@
-import { API_ERRORS } from "../utils/configs";
+import { API_ERRORS, TOPL_URLS } from "../utils/configs";
 
 export const ExtensionStorage = {
 	addToAllowList: async (url: string) => {
@@ -18,10 +18,13 @@ export const ExtensionStorage = {
 	},
 	getAllowList: async (): Promise<string[]> => {
 		const storage = await ExtensionStorage.getStorage();
-		console.log("allow list: ", storage.allowList);
-		return storage.allowList ?? [];
+		let allowList = [];
+		if (storage.allowList) {
+			allowList = storage.allowList.filter((url: string) => !TOPL_URLS.includes(url));
+		}
+		return allowList ?? [];
 	},
-    getAllowedString: async (): Promise<string> => {
+	getAllowedString: async (): Promise<string> => {
 		const storage = await ExtensionStorage.getStorage();
 		console.log("allow list: ", storage.allowList.toString());
 		return storage.allowList.toString() ?? "";

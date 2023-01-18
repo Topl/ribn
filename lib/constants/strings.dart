@@ -172,9 +172,9 @@ Write down the each word in the exact order it is presented.''';
       'Enter your wallet password to delete this wallet.\n\nThis action is not reversible. Your Ribn wallet will be deleted from this device.';
   static const String disconnectRibnWalletDAppsDesc =
       'By disconnecting, Ribn wallet will remove authorization to the following DApps:';
-  static const String noIChangedMyMind = 'NO, I CHANGED MY MIND!';
+  static const String noIChangedMyMind = 'No, I changed my mind!';
   static const String yesIWantToDelete = 'YES, I WANT TO DELETE.';
-  static const String yesIWantToDisconnect = 'YES, I WANT TO DISCONNECT.';
+  static const String yesIWantToDisconnect = 'Yes, I want to disconnect.';
   static const String enterWalletPassword = 'Enter Wallet Password';
   static const String unlock = 'Unlock';
   static const String next = 'Next';

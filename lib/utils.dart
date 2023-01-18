@@ -25,7 +25,7 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/widgets/custom_divider.dart';
-
+import 'dart:typed_data';
 /// Formats an address string to only dispaly its first and last 10 characters.
 String formatAddrString(String addr, {int charsToDisplay = 10}) {
   const numDots = 3;

@@ -29,6 +29,7 @@ clean: ## Cleans the environment
 	@flutter clean
 	@flutter pub get
 fix_warnings: ## fix any warnings
+	@flutter pub run import_sorter:main
 	@echo "╠ Attempting to fix warnings..."
 	@dart fix --dry-run
 	@dart fix --apply

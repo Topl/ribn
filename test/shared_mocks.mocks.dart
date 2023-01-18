@@ -5,6 +5,7 @@
 // Dart imports:
 import 'dart:async' as _i6;
 import 'dart:typed_data' as _i8;
+import 'dart:typed_data';
 
 // Package imports:
 import 'package:brambldart/brambldart.dart' as _i4;
