@@ -12,8 +12,9 @@ Ribn allows users to:
 ## Build locally 
 * Ensure you have [Node.js](https://nodejs.org) v16 installed. 
     * Recommended: If you are using nvm, you can run `nvm use` to install the right Node version.
-* Ensure you have [Flutter](https://docs.flutter.dev/get-started/install) v2 installed.
+* Ensure you have the latest version of [Flutter](https://docs.flutter.dev/get-started/install) installed.
 * Install dependencies
+    * Install [git-lfs](https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage) **BEFORE** running `flutter pub get`
     * Install Flutter dependencies: `flutter pub get`
     * Install Node dependencies: `npm install`
 * Bundle [extension scripts](web/src/) using webpack: `npm run build`
