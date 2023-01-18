@@ -1,12 +1,18 @@
-import 'package:brambldart/brambldart.dart';
+// Flutter imports:
+
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:brambldart/brambldart.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:ribn/genus/generated/filters.pb.dart';
 import 'package:ribn/genus/generated/services_types.pb.dart';
 import 'package:ribn/genus/generated/transactions_query.pbgrpc.dart';
-
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/platform/platform.dart';
 

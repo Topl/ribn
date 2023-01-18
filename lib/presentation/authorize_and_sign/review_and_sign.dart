@@ -1,15 +1,12 @@
+// Dart imports:
 import 'dart:convert';
 
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/strings.dart';
-import 'package:ribn/models/raw_tx.dart';
-import 'package:ribn/presentation/authorize_and_sign/input_dropdown_wrapper.dart';
-import 'package:ribn/presentation/authorize_and_sign/transaction_row_details.dart';
-import 'package:ribn/presentation/transfers/bottom_review_action.dart';
-import 'package:ribn/widgets/fee_info.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/animated_expand_button.dart';
@@ -17,6 +14,14 @@ import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title_with_leading_child.dart';
 
+// Project imports:
+import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/strings.dart';
+import 'package:ribn/models/raw_tx.dart';
+import 'package:ribn/presentation/authorize_and_sign/input_dropdown_wrapper.dart';
+import 'package:ribn/presentation/authorize_and_sign/transaction_row_details.dart';
+import 'package:ribn/presentation/transfers/bottom_review_action.dart';
+import 'package:ribn/widgets/fee_info.dart';
 import '../../actions/internal_message_actions.dart';
 import '../../constants/routes.dart';
 import '../../models/app_state.dart';
@@ -39,6 +44,8 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
   late final String walletAddress;
   late final RawTx transaction;
   bool isExpanded = false;
+  
+  ScrollController _scrollController = ScrollController();
 
   final TextStyle defaultTextStyle = const TextStyle(
     fontFamily: 'DM Sans',
@@ -173,12 +180,14 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                               mainAxisMargin: 10,
                               crossAxisMargin: 8,
                               thumbVisibility: true,
+                              controller: _scrollController,
                               thumbColor: RibnColors.primary,
                               thickness: 10,
                               child: ScrollConfiguration(
                                 behavior: ScrollConfiguration.of(context)
                                     .copyWith(scrollbars: false),
                                 child: ListView.builder(
+                                  controller: _scrollController,
                                   shrinkWrap: true,
                                   primary: false,
                                   padding: const EdgeInsets.all(10),

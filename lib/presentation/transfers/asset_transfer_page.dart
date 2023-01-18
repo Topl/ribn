@@ -1,15 +1,19 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+
+// Package imports:
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/molecules/sliding_segment_control.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
+
+// Project imports:
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/asset_transfer_input_container.dart';
 import 'package:ribn/containers/poly_transfer_input_container.dart';
 import 'package:ribn/presentation/transfers/asset_transfer_section.dart';
 import 'package:ribn/presentation/transfers/poly_transfer_section.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/molecules/sliding_segment_control.dart';
-import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
 /// The asset transfer input page that allows the initiation of an asset transfer.
 ///
@@ -27,11 +31,11 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
 
   @override
   void initState() {
-    KeyboardVisibilityController().onChange.listen((bool visible) {
-      setState(() {
-        isKeyboardVisible = visible;
-      });
-    });
+    // KeyboardVisibilityController().onChange.listen((bool visible) {
+    //   setState(() {
+    //     isKeyboardVisible = visible;
+    //   });
+    // });
     super.initState();
   }
 

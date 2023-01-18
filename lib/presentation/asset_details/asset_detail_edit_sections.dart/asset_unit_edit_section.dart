@@ -1,14 +1,19 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_dropdown.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+
+// Project imports:
 import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_dropdown.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 /// The section for editing asset unit.
 ///
@@ -37,6 +42,7 @@ class AssetUnitEditSection extends StatefulWidget {
 class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
   /// True if the dropdown is active.
   bool dropdownOpened = false;
+  ScrollController controller = new ScrollController();
 
   /// Assigned the new unit when selected from the dropdown.
   String? selectedUnit;
@@ -48,13 +54,20 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
       width: 307,
       decoration: const BoxDecoration(
         color: RibnColors.whiteBackground,
-        boxShadow: [BoxShadow(color: Color(0x0f000000), offset: Offset(0, 4), blurRadius: 4, spreadRadius: 0)],
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x0f000000),
+            offset: Offset(0, 4),
+            blurRadius: 4,
+            spreadRadius: 0,
+          )
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomDropDown(
-            dropdownChild: _buildUnitDropdownChild(),
+            dropdownChild: _buildUnitDropdownChild(controller),
             childAlignment: Alignment.bottomCenter,
             dropDownAlignment: Alignment.topCenter,
             visible: dropdownOpened,
@@ -83,7 +96,8 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Save',
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
+                  style: RibnToolkitTextStyles.btnMedium
+                      .copyWith(color: Colors.white),
                 ),
                 backgroundColor: RibnColors.primary,
                 onPressed: () {
@@ -102,7 +116,8 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Cancel',
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.ghostButtonText),
+                  style: RibnToolkitTextStyles.btnMedium
+                      .copyWith(color: RibnColors.ghostButtonText),
                 ),
                 backgroundColor: Colors.transparent,
                 hoverColor: Colors.transparent,
@@ -121,7 +136,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
   /// Builds the Unit dropdown widget.
   ///
   /// Allows user to select from a list of custom units, i.e. [UIConstants.assetUnitsList].
-  Widget _buildUnitDropdownChild() {
+  Widget _buildUnitDropdownChild(ScrollController _scrollController) {
     return Container(
       width: 120,
       height: 135,
@@ -134,8 +149,10 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
         context: context,
         removeTop: true,
         child: Scrollbar(
+          controller: _scrollController,
           thumbVisibility: true,
           child: ListView(
+            controller: _scrollController,
             padding: const EdgeInsets.all(0),
             children: UIConstants.assetUnitsList
                 .map(

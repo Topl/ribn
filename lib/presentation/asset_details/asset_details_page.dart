@@ -1,23 +1,24 @@
+// Flutter imports:
+
+// Package imports:
 import 'package:brambldart/brambldart.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+// Project imports:
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
-import 'package:ribn/presentation/asset_details/asset_detail_edit_sections.dart/asset_icon_edit_section.dart';
-import 'package:ribn/presentation/asset_details/asset_detail_edit_sections.dart/asset_long_name_edit_section.dart';
-import 'package:ribn/presentation/asset_details/asset_detail_edit_sections.dart/asset_unit_edit_section.dart';
 import 'package:ribn/presentation/asset_details/asset_detail_items/asset_amount_details.dart';
 import 'package:ribn/presentation/asset_details/asset_detail_items/asset_code_details.dart';
 import 'package:ribn/presentation/asset_details/asset_detail_items/asset_code_short_details.dart';
-import 'package:ribn/presentation/asset_details/asset_detail_items/asset_icon_details.dart';
-import 'package:ribn/presentation/asset_details/asset_detail_items/asset_long_name_details.dart';
-import 'package:ribn/presentation/asset_details/asset_detail_items/asset_unit_details.dart';
-import 'package:ribn/presentation/asset_details/asset_detail_items/issuer_address_details.dart';
+import 'package:ribn/presentation/asset_details/asset_detail_items/token_metadata_details.dart';
 import 'package:ribn/widgets/custom_divider.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
+
+import 'asset_detail_items/issuer_address_details.dart';
 
 /// This page presents all details associated with an asset.
 ///
@@ -31,7 +32,7 @@ class AssetDetailsPage extends StatefulWidget {
   final String assetCode;
 
   /// The asset short name of this [asset] (also refered to as asset code short).
-  final String assetShorName;
+  final String assetShortName;
 
   /// The quantity of this [asset] that the user has in their wallet.
   final num assetQuantity;
@@ -43,7 +44,7 @@ class AssetDetailsPage extends StatefulWidget {
     Key? key,
     required this.asset,
   })  : assetCode = asset.assetCode.toString(),
-        assetShorName = asset.assetCode.shortName.show,
+        assetShortName = asset.assetCode.shortName.show,
         assetQuantity = asset.quantity,
         issuerAddress = asset.assetCode.issuer.toBase58(),
         super(key: key);
@@ -102,6 +103,7 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
       // Get access to AssetDetails for this asset from the store
       converter: (store) => store.state.userDetailsState.assetDetails[widget.assetCode],
       builder: (context, assetDetails) {
+        print(assetDetails);
         return Listener(
           onPointerDown: (_) {
             if (mounted) setState(() {});
@@ -117,62 +119,67 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
                     hideBackArrow: true,
                   ),
                   const SizedBox(height: 40),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    width: 309,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(11.6)),
-                      color: RibnColors.whiteBackground,
-                      border: Border.all(color: RibnColors.lightGrey, width: 1),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: RibnColors.greyShadow,
-                          spreadRadius: 0,
-                          blurRadius: 37.5,
-                          offset: Offset(0, -6),
-                        ),
-                      ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 15,
                     ),
-                    child: Column(
-                      children: [
-                        // asset short name display
-                        AssetCodeShortDetails(
-                          assetShortName: widget.assetShorName,
-                        ),
-                        _buildDivider(),
-                        // asset amount/quantity display
-                        AssetAmountDetails(assetQuantity: widget.assetQuantity),
-                        _buildDivider(),
-                        // asset unit display - can be edited
-                        AssetUnitDetails(
-                          key: assetUnitKey,
-                          currUnit: assetDetails?.unit,
-                          editingSectionOpened: editingAssetUnit,
-                          onEditPressed: () => _onEditPressed(key: assetUnitKey, assetDetails: assetDetails),
-                        ),
-                        _buildDivider(),
-                        // asset long name display - can be edited
-                        AssetLongNameDetails(
-                          key: assetLongNameKey,
-                          currLongName: assetDetails?.longName,
-                          editingSectionOpened: editingAssetLongName,
-                          onEditPressed: () => _onEditPressed(key: assetLongNameKey, assetDetails: assetDetails),
-                        ),
-                        _buildDivider(),
-                        // asset icon display - can be edited
-                        AssetIconDetails(
-                          key: assetIconKey,
-                          currIcon: assetDetails?.icon,
-                          editingSectionOpened: editingAssetIcon,
-                          onEditPressed: () => _onEditPressed(key: assetIconKey, assetDetails: assetDetails),
-                        ),
-                        _buildDivider(),
-                        // asset issuer address display
-                        IssuerAddressDetails(issuerAddress: widget.issuerAddress),
-                        _buildDivider(),
-                        // asset code display
-                        AssetCodeDetails(assetCode: widget.assetCode),
-                      ],
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(11.6)),
+                        color: RibnColors.whiteBackground,
+                        border: Border.all(color: RibnColors.lightGrey, width: 1),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: RibnColors.greyShadow,
+                            spreadRadius: 0,
+                            blurRadius: 37.5,
+                            offset: Offset(0, -6),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // asset name display
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: AssetCodeShortDetails(
+                                  assetShortName: widget.assetShortName,
+                                  currentIcon: assetDetails?.icon,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: AssetAmountDetails(assetQuantity: widget.assetQuantity),
+                              ),
+                            ],
+                          ),
+                          _buildDivider(),
+                          // asset issuer address display
+                          IssuerAddressDetails(
+                            issuerAddress: widget.issuerAddress,
+                          ),
+                          _buildDivider(),
+                          // asset code display
+                          AssetCodeDetails(assetCode: widget.assetCode),
+                          _buildDivider(),
+                          //TODO: Figure out how to pipe metadata in
+                          TokenMetadataDetails(
+                            tokenMetadata: "",
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -188,24 +195,25 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
   ///
   /// Uses the [key] provided to get the correct widget position and
   /// updates [editSectionOverlay] with the [editSection] provided.
-  void _buildEditSectionOverlay({
-    required GlobalKey key,
-    required Widget editSection,
-  }) async {
-    final RenderBox renderbox = key.currentContext!.findRenderObject() as RenderBox;
-    final Offset offset = renderbox.localToGlobal(Offset.zero);
-    resetOverlays();
-    editSectionOverlay = OverlayEntry(
-      builder: (context) {
-        return Positioned(
-          left: offset.dx - 20,
-          top: offset.dy + 22,
-          child: editSection,
-        );
-      },
-    );
-    Overlay.of(context)!.insert(editSectionOverlay);
-  }
+  // void _buildEditSectionOverlay({
+  //   required GlobalKey key,
+  //   required Widget editSection,
+  // }) async {
+  //   final RenderBox renderbox =
+  //       key.currentContext!.findRenderObject() as RenderBox;
+  //   final Offset offset = renderbox.localToGlobal(Offset.zero);
+  //   resetOverlays();
+  //   editSectionOverlay = OverlayEntry(
+  //     builder: (context) {
+  //       return Positioned(
+  //         left: offset.dx - 20,
+  //         top: offset.dy + 22,
+  //         child: editSection,
+  //       );
+  //     },
+  //   );
+  //   Overlay.of(context)!.insert(editSectionOverlay);
+  // }
 
   /// Removes any overlay from the screen and resets
   /// indicators for editing.
@@ -224,49 +232,49 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
   ///
   /// Depending on the [key] passed, the state is updated and
   /// [_buildEditSectionOverlay] is called with the appropriate [editSection] widget.
-  void _onEditPressed({required Key key, required AssetDetails? assetDetails}) {
-    if (key == assetUnitKey) {
-      setState(() {
-        editingAssetUnit = true;
-      });
-      _buildEditSectionOverlay(
-        key: assetUnitKey,
-        editSection: AssetUnitEditSection(
-          assetCode: widget.assetCode,
-          currentUnit: assetDetails?.unit,
-          onActionTaken: () => resetOverlays(resetAll: true),
-        ),
-      );
-    } else if (key == assetLongNameKey) {
-      setState(() {
-        editingAssetLongName = true;
-      });
-      _buildEditSectionOverlay(
-        key: assetLongNameKey,
-        editSection: AssetLongNameEditSection(
-          assetCode: widget.assetCode,
-          currentAssetLongName: assetDetails?.longName,
-          onActionTaken: () => resetOverlays(resetAll: true),
-        ),
-      );
-    } else {
-      setState(() {
-        editingAssetIcon = true;
-      });
-      _buildEditSectionOverlay(
-        key: assetIconKey,
-        editSection: AssetIconEditSection(
-          assetCode: widget.assetCode,
-          onActionTaken: () => resetOverlays(resetAll: true),
-        ),
-      );
-    }
-  }
+  // void _onEditPressed({required Key key, required AssetDetails? assetDetails}) {
+  //   if (key == assetUnitKey) {
+  //     setState(() {
+  //       editingAssetUnit = true;
+  //     });
+  //     _buildEditSectionOverlay(
+  //       key: assetUnitKey,
+  //       editSection: AssetUnitEditSection(
+  //         assetCode: widget.assetCode,
+  //         currentUnit: assetDetails?.unit,
+  //         onActionTaken: () => resetOverlays(resetAll: true),
+  //       ),
+  //     );
+  //   } else if (key == assetLongNameKey) {
+  //     setState(() {
+  //       editingAssetLongName = true;
+  //     });
+  //     _buildEditSectionOverlay(
+  //       key: assetLongNameKey,
+  //       editSection: AssetLongNameEditSection(
+  //         assetCode: widget.assetCode,
+  //         currentAssetLongName: assetDetails?.longName,
+  //         onActionTaken: () => resetOverlays(resetAll: true),
+  //       ),
+  //     );
+  //   } else {
+  //     setState(() {
+  //       editingAssetIcon = true;
+  //     });
+  //     _buildEditSectionOverlay(
+  //       key: assetIconKey,
+  //       editSection: AssetIconEditSection(
+  //         assetCode: widget.assetCode,
+  //         onActionTaken: () => resetOverlays(resetAll: true),
+  //       ),
+  //     );
+  //   }
+  // }
 
   /// Builds a divider that is used to separate asset detail items on screen.
   Widget _buildDivider() {
     return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 5),
+      padding: EdgeInsets.fromLTRB(0, 15, 0, 10),
       child: CustomDivider(),
     );
   }

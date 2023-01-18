@@ -1,6 +1,9 @@
+// Package imports:
 import 'package:bip_topl/bip_topl.dart';
 import 'package:brambldart/credentials.dart';
 import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/keychain_state.dart';
@@ -9,10 +12,16 @@ import 'package:ribn/models/ribn_network.dart';
 /// Reducer responsible for updating [KeyChainState]
 final keychainReducer = combineReducers<KeychainState>(
   [
-    TypedReducer<KeychainState, InitializeHDWalletAction>(_onHdWalletInitialization),
-    TypedReducer<KeychainState, UpdateNetworksWithAddressesAction>(_onNetworksUpdated),
+    TypedReducer<KeychainState, InitializeHDWalletAction>(
+      _onHdWalletInitialization,
+    ),
+    TypedReducer<KeychainState, UpdateNetworksWithAddressesAction>(
+      _onNetworksUpdated,
+    ),
     TypedReducer<KeychainState, AddAddressAction>(_onAddAddresses),
-    TypedReducer<KeychainState, UpdateCurrentNetworkAction>(_onCurrentNetworkUpdated),
+    TypedReducer<KeychainState, UpdateCurrentNetworkAction>(
+      _onCurrentNetworkUpdated,
+    ),
     TypedReducer<KeychainState, UpdateBalancesAction>(_onBalancesUpdated),
   ],
 );
@@ -20,7 +29,10 @@ final keychainReducer = combineReducers<KeychainState>(
 /// Creates a new [HdWallet] upon successful login, where root = toplExtendedPrivateKey.
 ///
 /// Optionally updates the [keyStoreJson], for instance, when creating a new wallet for the first time.
-KeychainState _onHdWalletInitialization(KeychainState keychainState, InitializeHDWalletAction action) {
+KeychainState _onHdWalletInitialization(
+  KeychainState keychainState,
+  InitializeHDWalletAction action,
+) {
   return keychainState.copyWith(
     keyStoreJson: action.keyStoreJson ?? keychainState.keyStoreJson,
     hdWallet: HdWallet(
@@ -33,7 +45,10 @@ KeychainState _onHdWalletInitialization(KeychainState keychainState, InitializeH
 }
 
 /// Updates ribn networks with [action.networkAddresses].
-KeychainState _onNetworksUpdated(KeychainState keychainState, UpdateNetworksWithAddressesAction action) {
+KeychainState _onNetworksUpdated(
+  KeychainState keychainState,
+  UpdateNetworksWithAddressesAction action,
+) {
   final Map<String, RibnNetwork> networks = Map.from(keychainState.networks);
   networks.forEach(
     (networkName, ribnNetwork) {
@@ -46,7 +61,10 @@ KeychainState _onNetworksUpdated(KeychainState keychainState, UpdateNetworksWith
 }
 
 /// Add [action.addresses] to the list of addresses under the network specified by [action.networkName].
-KeychainState _onAddAddresses(KeychainState keychainState, AddAddressAction action) {
+KeychainState _onAddAddresses(
+  KeychainState keychainState,
+  AddAddressAction action,
+) {
   final RibnNetwork network = keychainState.networks[action.networkName]!;
   final RibnNetwork updatedNetwork = network.copyWith(
     addresses: List.from(network.addresses)..add(action.address),
@@ -63,7 +81,10 @@ KeychainState _onAddAddresses(KeychainState keychainState, AddAddressAction acti
 ///
 /// More specifically, updates the [keychainState.currentNetworkName] and the [lastCheckedTimestamp] of the network associated with
 /// [action.networkName].
-KeychainState _onCurrentNetworkUpdated(KeychainState keychainState, UpdateCurrentNetworkAction action) {
+KeychainState _onCurrentNetworkUpdated(
+  KeychainState keychainState,
+  UpdateCurrentNetworkAction action,
+) {
   return keychainState.copyWith(
     currentNetworkName: action.networkName,
     networks: {
@@ -76,7 +97,10 @@ KeychainState _onCurrentNetworkUpdated(KeychainState keychainState, UpdateCurren
 }
 
 /// Updates the current network with a list of addresses that have updated balances.
-KeychainState _onBalancesUpdated(KeychainState keychainState, UpdateBalancesAction action) {
+KeychainState _onBalancesUpdated(
+  KeychainState keychainState,
+  UpdateBalancesAction action,
+) {
   return keychainState.copyWith(
     networks: {
       ...keychainState.networks,

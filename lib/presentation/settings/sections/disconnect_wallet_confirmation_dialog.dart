@@ -1,10 +1,15 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/strings.dart';
-import 'package:ribn/platform/platform.dart';
+
+// Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
+
+// Project imports:
+import 'package:ribn/constants/strings.dart';
+import 'package:ribn/platform/platform.dart';
 
 /// The confirmation dialog that is displayed before disconnecting the wallet.
 class DisconnectWalletConfirmationDialog extends StatefulWidget {
@@ -20,6 +25,9 @@ class DisconnectWalletConfirmationDialog extends StatefulWidget {
 
 class _DisconnectWalletConfirmationDialogState
     extends State<DisconnectWalletConfirmationDialog> {
+
+  ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return CustomModal.renderCustomModal(
@@ -51,12 +59,14 @@ class _DisconnectWalletConfirmationDialogState
               mainAxisMargin: 0,
               crossAxisMargin: 0,
               thumbVisibility: true,
+              controller: _scrollController,
               thumbColor: RibnColors.primary,
               thickness: 10,
               child: ScrollConfiguration(
                 behavior:
                     ScrollConfiguration.of(context).copyWith(scrollbars: false),
                 child: ListView.builder(
+                  controller: _scrollController,
                   shrinkWrap: true,
                   primary: false,
                   itemCount: widget.dApps.length,

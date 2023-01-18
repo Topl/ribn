@@ -1,6 +1,14 @@
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/molecules/animated_circle_step_loader.dart';
+
+// Project imports:
 import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
@@ -12,16 +20,14 @@ import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/molecules/animated_circle_step_loader.dart';
 
 /// This page shows a loading animation to indicate seed phrase generation.
 class SeedPhraseGeneratingPage extends StatefulWidget {
   const SeedPhraseGeneratingPage({Key? key}) : super(key: key);
 
   @override
-  _SeedPhraseGeneratingPageState createState() => _SeedPhraseGeneratingPageState();
+  _SeedPhraseGeneratingPageState createState() =>
+      _SeedPhraseGeneratingPageState();
 }
 
 class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
@@ -42,7 +48,9 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
               clipBehavior: Clip.none,
               child: Center(
                 child: Column(
-                  children: seedPhraseGenerating ? seedPhraseGeneratingSection() : seedPhraseGeneratedSection(),
+                  children: seedPhraseGenerating
+                      ? seedPhraseGeneratingSection()
+                      : seedPhraseGeneratedSection(),
                 ),
               ),
             ),
@@ -73,6 +81,7 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
         activeCircleRadius: 8,
         inactiveCircleRadius: 4.5,
         dotPadding: 8,
+        renderCenterIcon: false,
       ),
       SizedBox(
         width: descriptionBoxWidth,

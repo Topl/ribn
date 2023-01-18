@@ -1,10 +1,22 @@
+// Dart imports:
 import 'dart:async';
 
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
+
+// Project imports:
 import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
@@ -18,12 +30,6 @@ import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/asset_info.dart';
 import 'package:ribn/widgets/custom_divider.dart';
 import 'package:ribn/widgets/fee_info.dart';
-import 'package:ribn_toolkit/constants/assets.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
 /// The transaction review page.
 ///
@@ -63,7 +69,7 @@ class TxReviewPage extends StatelessWidget {
                     // review box
                     Container(
                       width: 310,
-                      height: 300,
+                      height: 340,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 19.5,
                         vertical: 15,
@@ -71,7 +77,8 @@ class TxReviewPage extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(11.6),
                         color: RibnColors.whiteBackground,
-                        border: Border.all(color: RibnColors.lightGrey, width: 1),
+                        border:
+                            Border.all(color: RibnColors.lightGrey, width: 1),
                         boxShadow: const [
                           BoxShadow(
                             color: RibnColors.greyShadow,
@@ -100,7 +107,10 @@ class TxReviewPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 38),
                       child: SizedBox(
                         width: 310,
-                        child: FeeInfo(fee: transferDetails.transactionReceipt!.fee!.getInNanopoly),
+                        child: FeeInfo(
+                          fee: transferDetails
+                              .transactionReceipt!.fee!.getInNanopoly,
+                        ),
                       ),
                     ),
                   ],
@@ -127,8 +137,11 @@ class TxReviewPage extends StatelessWidget {
                 onPressed: () async {
                   context.loaderOverlay.show();
                   final Completer<TransferDetails?> txCompleter = Completer();
-                  StoreProvider.of<AppState>(context).dispatch(SignAndBroadcastTxAction(transferDetails, txCompleter));
-                  await txCompleter.future.then((TransferDetails? transferDetails) {
+                  StoreProvider.of<AppState>(context).dispatch(
+                    SignAndBroadcastTxAction(transferDetails, txCompleter),
+                  );
+                  await txCompleter.future
+                      .then((TransferDetails? transferDetails) {
                     if (transferDetails != null) {
                       Keys.navigatorKey.currentState?.pushNamed(
                         Routes.txConfirmation,
@@ -157,7 +170,8 @@ class TxReviewPage extends StatelessWidget {
                 dropShadowColor: Colors.transparent,
                 borderColor: RibnColors.ghostButtonText,
                 onPressed: () {
-                  Keys.navigatorKey.currentState!.popUntil((route) => route.settings.name == Routes.home);
+                  Keys.navigatorKey.currentState!
+                      .popUntil((route) => route.settings.name == Routes.home);
                 },
               ),
               const SizedBox(height: 13),
@@ -169,7 +183,11 @@ class TxReviewPage extends StatelessWidget {
   }
 
   /// A helper function used to build review items on this page.
-  Widget _buildReviewItem({required String itemLabel, required Widget item, bool divider = true}) {
+  Widget _buildReviewItem({
+    required String itemLabel,
+    required Widget item,
+    bool divider = true,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -218,7 +236,10 @@ class TxReviewPage extends StatelessWidget {
                     Text('POLY', style: defaultTextStyle),
                   ],
                 )
-              : AssetInfo(assetCode: transferDetails.assetCode!, assetDetails: transferDetails.assetDetails),
+              : AssetInfo(
+                  assetCode: transferDetails.assetCode!,
+                  assetDetails: transferDetails.assetDetails,
+                ),
         ],
       ),
     );
@@ -246,7 +267,8 @@ class TxReviewPage extends StatelessWidget {
             ),
           ),
           CustomCopyButton(
-            textToBeCopied: transferDetails.senders.first.toplAddress.toBase58(),
+            textToBeCopied:
+                transferDetails.senders.first.toplAddress.toBase58(),
             icon: Image.asset(
               RibnAssets.copyIcon,
               width: 26,
@@ -279,7 +301,8 @@ class TxReviewPage extends StatelessWidget {
             ),
           ),
           CustomCopyButton(
-            textToBeCopied: transferDetails.senders.first.toplAddress.toBase58(),
+            textToBeCopied:
+                transferDetails.senders.first.toplAddress.toBase58(),
             icon: Image.asset(
               RibnAssets.copyIcon,
               width: 26,

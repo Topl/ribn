@@ -1,9 +1,14 @@
+// Dart imports:
 import 'dart:convert';
 
-import 'package:bip_topl/bip_topl.dart' as bip_topl;
-import 'package:brambldart/credentials.dart';
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 
+// Package imports:
+import 'package:bip_topl/bip_topl.dart' as bip_topl;
+import 'package:brambldart/credentials.dart';
+
+// Project imports:
 import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/test_data.dart';
@@ -104,7 +109,10 @@ class KeychainState {
 
   @override
   int get hashCode {
-    return keyStoreJson.hashCode ^ hdWallet.hashCode ^ networks.hashCode ^ currentNetworkName.hashCode;
+    return keyStoreJson.hashCode ^
+        hdWallet.hashCode ^
+        networks.hashCode ^
+        currentNetworkName.hashCode;
   }
 
   KeychainState copyWith({

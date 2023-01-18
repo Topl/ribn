@@ -1,17 +1,22 @@
+// Package imports:
 import 'package:brambldart/brambldart.dart';
 import 'package:brambldart/credentials.dart' as hd;
 import 'package:brambldart/utils.dart' as constants;
 import 'package:dio/dio.dart';
+
+// Project imports:
 import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/strings.dart';
 
 class Rules {
   Rules._();
+
   static const int minPasswordLength = 8;
   static const int scryptN = 8192;
   static const int extendedSecretKeySize = hd.extendedSecretKeySize;
   static const int toplKeyDepth = 2;
   static const int hardenedOffset = constants.hardenedOffset;
+
   // Reference: [CIP-1852](https://github.com/cardano-foundation/CIPs/blob/master/CIP-1852/CIP-1852.md)
   // m / purpose' / coin_type' / account' / role / index
   static const int defaultPurpose = constants.defaultPurpose; // 1852'
@@ -23,17 +28,19 @@ class Rules {
   static const int assetCodeVersion = constants.supportedAssetCodeVersion;
   static const int internalIdx = 1;
   static Map<int, String> txHistoryUrls = {
-    NetworkUtils.valhallaId: 'https://annulus-api.topl.services/staging/valhalla',
     NetworkUtils.toplNetId: 'https://annulus-api.topl.services/staging/toplnet',
+    NetworkUtils.valhallaId: 'https://annulus-api.topl.services/staging/valhalla',
     NetworkUtils.privateId: 'https://annulus-api.topl.services/staging/valhalla',
   };
   static Map<int, String> txDetailsRedirectUrls = {
-    NetworkUtils.valhallaId: 'https://staging.valhalla.annulus.topl.services/#/transaction/',
     NetworkUtils.toplNetId: 'https://staging.toplnet.annulus.topl.services/#/transaction/',
+    NetworkUtils.valhallaId: 'https://staging.valhalla.annulus.topl.services/#/transaction/',
     NetworkUtils.privateId: 'https://staging.valhalla.annulus.topl.services/#/transaction/',
   };
-  static String txHistoryUrl(String addr, int networkId) => '${txHistoryUrls[networkId]!}/v1/address/history/$addr';
-  static String txDetailsUrl(String txId, int networkId) => '${txDetailsRedirectUrls[networkId]!}$txId';
+  static String txHistoryUrl(String addr, int networkId) =>
+      '${txHistoryUrls[networkId]!}/v1/address/history/$addr';
+  static String txDetailsUrl(String txId, int networkId) =>
+      '${txDetailsRedirectUrls[networkId]!}$txId';
   static const transferTypes = [Strings.polyTransfer, Strings.assetTransfer, Strings.minting];
   static BramblClient getBramblCient(int networkId) {
     final Dio httpClient = Dio(

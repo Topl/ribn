@@ -1,8 +1,19 @@
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
+import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
+import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+// Project imports:
 import 'package:ribn/actions/restore_wallet_actions.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
@@ -12,12 +23,6 @@ import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/warning_section.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
-import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
-import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 /// Page for creating a new wallet password, when restoring wallet with a [seedPhrase].
 class NewWalletPasswordPage extends StatefulWidget {
@@ -36,7 +41,8 @@ class NewWalletPasswordPage extends StatefulWidget {
 class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
   /// Controllers for password textfields.
   final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   /// True if the password entered is at least 8 characters.
   bool _atLeast8Chars = false;
@@ -52,12 +58,15 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
   @override
   void initState() {
     // Initialize listeners for each controller.
-    [_newPasswordController, _confirmPasswordController].toList().forEach((controller) {
+    [_newPasswordController, _confirmPasswordController]
+        .toList()
+        .forEach((controller) {
       controller.addListener(() {
         setState(() {
           hasErrors[controller] = false;
           _atLeast8Chars = _newPasswordController.text.length >= 8;
-          _passwordsMatch = _newPasswordController.text == _confirmPasswordController.text;
+          _passwordsMatch =
+              _newPasswordController.text == _confirmPasswordController.text;
         });
       });
     });
@@ -67,7 +76,9 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
   @override
   void dispose() {
     // Dispose listeners for each controller.
-    [_newPasswordController, _confirmPasswordController].toList().forEach((controller) {
+    [_newPasswordController, _confirmPasswordController]
+        .toList()
+        .forEach((controller) {
       controller.dispose();
     });
     super.dispose();
@@ -84,7 +95,9 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                renderIfWeb(const WebOnboardingAppBar(currStep: 1, numSteps: 2)),
+                renderIfWeb(
+                  const WebOnboardingAppBar(currStep: 1, numSteps: 2),
+                ),
                 const Text(
                   Strings.restoreWallet,
                   style: RibnToolkitTextStyles.onboardingH1,
@@ -108,11 +121,15 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
                   ),
                 ),
                 const SizedBox(height: 40),
-                renderIfMobile(const OnboardingProgressBar(numSteps: 2, currStep: 0)),
+                renderIfMobile(
+                  const OnboardingProgressBar(numSteps: 2, currStep: 0),
+                ),
                 const SizedBox(height: 20),
                 ConfirmationButton(
                   text: Strings.done,
-                  disabled: !_atLeast8Chars || !_passwordsMatch || !_termsOfUseChecked,
+                  disabled: !_atLeast8Chars ||
+                      !_passwordsMatch ||
+                      !_termsOfUseChecked,
                   onPressed: () {
                     context.loaderOverlay.show();
                     StoreProvider.of<AppState>(context).dispatch(
@@ -164,7 +181,9 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
             Strings.atLeast8Chars,
             textAlign: TextAlign.left,
             style: RibnToolkitTextStyles.h3.copyWith(
-              color: !_atLeast8Chars && _newPasswordController.text.isNotEmpty ? Colors.red : Colors.white,
+              color: !_atLeast8Chars && _newPasswordController.text.isNotEmpty
+                  ? Colors.red
+                  : Colors.white,
             ),
           ),
         ),
@@ -214,7 +233,10 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
             Strings.passwordsMustMatch,
             textAlign: TextAlign.left,
             style: RibnToolkitTextStyles.h3.copyWith(
-              color: !_passwordsMatch && _confirmPasswordController.text.isNotEmpty ? Colors.red : Colors.white,
+              color:
+                  !_passwordsMatch && _confirmPasswordController.text.isNotEmpty
+                      ? Colors.red
+                      : Colors.white,
             ),
           ),
         ),
@@ -226,7 +248,9 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
     final url = Uri.parse(Strings.termsOfUseUrl);
     return CheckboxWrappableText(
       wrapText: false,
-      borderColor: _termsOfUseChecked ? const Color(0xff80FF00) : RibnColors.lightGreyTitle,
+      borderColor: _termsOfUseChecked
+          ? const Color(0xff80FF00)
+          : RibnColors.lightGreyTitle,
       value: _termsOfUseChecked,
       onChanged: (bool? checked) {
         setState(() {
