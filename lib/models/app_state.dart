@@ -18,7 +18,7 @@ class AppState {
   final KeychainState keychainState;
   final UserDetailsState userDetailsState;
   final InternalMessage? internalMessage;
-  String appVersion;
+  final String appVersion;
   AppState({
     required this.onboardingState,
     required this.loginState,
