@@ -9,7 +9,6 @@ import 'package:brambldart/utils.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/ribn_sample_data_models.dart';
 import 'package:ribn_toolkit/widgets/molecules/ribn_activity_tile.dart';
 
 // Project imports:
@@ -78,7 +77,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
         ? widget.transactionReceipt.to.first.toJson()[1]
         : widget.transactionReceipt.to.first.toJson()[1]['quantity'];
     final Sender transactionSenderAddress = widget.transactionReceipt.from![0];
-    final String fee = '${widget.transactionReceipt.fee!.quantity} nanoPOLYs';
+    final String fee = '${widget.transactionReceipt.fee!.quantity} POLYs';
     final Latin1Data? note = widget.transactionReceipt.data;
     final String securityRoot = isPolyTransaction
         ? ''
@@ -180,25 +179,14 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
                   ? transactionAmountForPolyTransfer
                   : '${transactionAmountForAssetTransfer()} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
               'fee': fee,
-              'myRibnWalletAddress': formatAddressString(
-                widget.myRibnWalletAddress,
-                charsToDisplay: 4,
-              ),
-              'transactionSenderAddress': formatAddressString(
-                transactionSenderAddress.senderAddress.toBase58(),
-                charsToDisplay: 4,
-              ),
+              'myRibnWalletAddress': widget.myRibnWalletAddress,
+              'transactionSenderAddress':
+                  transactionSenderAddress.senderAddress.toBase58(),
               'note': note,
-              'securityRoot': isPolyTransaction
-                  ? ''
-                  : formatAddressString(securityRoot, charsToDisplay: 4),
-              'blockId':
-                  formatAddressString(blockId.toString(), charsToDisplay: 4),
+              'securityRoot': isPolyTransaction ? '' : securityRoot,
+              'blockId': blockId.toString(),
               'blockHeight': blockNumber?.blockNum,
-              'transactionId': formatAddressString(
-                transactionId.toString(),
-                charsToDisplay: 4,
-              ),
+              'transactionId': transactionId.toString(),
               'networkId': widget.networkId,
             };
             Navigator.pushNamed(
