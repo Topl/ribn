@@ -27,8 +27,6 @@ import 'package:ribn/presentation/transaction_history/service_locator/locator.da
 import 'package:ribn/redux.dart';
 import 'package:ribn/router/root_router.dart';
 
-// import 'package:ribn/platform/web/wallet.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Redux.initStore(initTestStore: false);
