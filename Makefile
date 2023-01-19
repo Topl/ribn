@@ -67,3 +67,12 @@ analyze:
 
 ditto:
 	echo "hello world"
+
+apple_silicone_ios_clean:
+	@cd ios
+	@sudo rm -r Pods/
+	@rm -r .symlinks/
+	@rm Podfile.lock
+	@sudo arch -x86_64 gem install ffi
+	@arch -x86_64 pod install
+	@cd ..

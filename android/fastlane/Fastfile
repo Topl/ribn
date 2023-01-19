@@ -14,8 +14,19 @@
 # update_fastlane
 
 default_platform(:android)
+fastlane_require 'dotenv'
+
+APP_ID = nil
+
+before_all do
+    Dotenv.overload '../../.env.secret'
+    APP_ID = ENV['ANDROID_APP_ID']
+end
+
+
 
 platform :android do
+
   lane :beta do
     
     previous_build_number = google_play_track_version_codes(
@@ -37,4 +48,17 @@ platform :android do
         release_status: "draft",
     )
   end
+
+    lane :distribute do
+        gradle(task: "bundle",build_type: 'Release')
+
+        firebase_app_distribution(
+            app: "#{APP_ID}",
+            android_artifact_type: "AAB",
+            android_artifact_path: "../build/app/outputs/bundle/release/app-release.aab",
+            service_credentials_file: "../topl_firebase_app_distribution_admin_keys.json",
+            groups: 'topl-dev',
+            release_notes: "Test of Nightlies",
+        )
+    end
 end

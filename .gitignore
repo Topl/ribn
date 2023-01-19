@@ -3,11 +3,14 @@ dist/
 mock/
 pubspec.lock
 
+
 # Ignore secrets
 key.properties
 service_account_key.json
 android_keys.zip
 *.p8
+.env.secret
+topl_firebase_app_distribution_admin_keys.json
 
 
 # Obfuscation related
