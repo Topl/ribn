@@ -9,7 +9,6 @@ import 'dart:js_util';
 
 // Package imports:
 import 'package:js/js.dart';
-
 // Project imports:
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/platform/interfaces.dart';
