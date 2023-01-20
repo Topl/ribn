@@ -113,15 +113,19 @@ platform :ios do
     delete_temp_keychain(keychain_name)
   end
 
+    APP_ID = nil
+
     before_all do
-        Dotenv.overload '.env.secret'
+        Dotenv.overload '../../.env.secret'
+        APP_ID = ENV['ANDROID_APP_ID']
     end
+  
 
     lane :distribute do 
         gym
 
         firebase_app_distribution(
-            app: ENV['IOS_APP_ID'],
+            app: "#{APP_ID}",
             service_credentials_file: "../topl_firebase_app_distribution_admin_keys.json",
             groups: 'topl-dev',
             release_notes: "Test of Nightlies",
