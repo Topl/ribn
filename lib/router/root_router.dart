@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/models/transfer_details.dart';
-import 'package:ribn/platform/mobile/platform_mobile.dart';
 import 'package:ribn/presentation/asset_details/asset_details_page.dart';
 import 'package:ribn/presentation/authorize_and_sign/connect_dapp.dart';
 import 'package:ribn/presentation/authorize_and_sign/loading_dapp.dart';
@@ -50,8 +49,6 @@ class RootRouter {
   Route<MaterialPageRoute> generateRoutes(
     RouteSettings settings,
   ) {
-    PlatformUtils.instance
-        .consoleLog("current route: ${settings.name} isWeb: ${kIsWeb}");
     switch (settings.name) {
       case Routes.welcome:
         {

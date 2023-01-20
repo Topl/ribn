@@ -134,7 +134,6 @@ class BackgroundMessenger {
                 });
         },
         enable: (request: InternalMessage, sendResponse: (response?: InternalMessage) => void) => {
-            console.log("enable: ", request)
             ExtensionStorage.isOriginAllowed(request.origin as string).then((isAllowed) => {
                 if (!isAllowed) {
                     createPopup()
@@ -157,7 +156,6 @@ class BackgroundMessenger {
             });
         },
         isEnabled: (request: InternalMessage, sendResponse: (response?: InternalMessage) => void) => {
-            console.log("isEnabled: ", request)
             ExtensionStorage.isOriginAllowed(request.origin as string).then((isAllowed) => {
                 sendResponse({
                     ...request,
@@ -171,7 +169,6 @@ class BackgroundMessenger {
         //v2
         authorize: (request: InternalMessage, sendResponse: (response?: InternalMessage) => void) => {
             ExtensionStorage.isOriginAllowed(request.origin as string).then((isAllowed) => {
-                console.log("authorize: ", request, " isAllowed: ", isAllowed)
                 if (!isAllowed) {
                     request.additionalNavigation = "/connect-dapp"
                     createPopup()
@@ -180,7 +177,6 @@ class BackgroundMessenger {
                             if (result.data && result.data["enabled"] == true) {
                                 await ExtensionStorage.addToAllowList(request.origin as string);
                             }
-                            console.log("authorizeeeeee: ", request, " isAllowed: ", result)
                             result.additionalNavigation = "/connect-dapp"
                             sendResponse(result);
                         });
@@ -288,7 +284,6 @@ class BackgroundMessenger {
      */
     public initListener = () => {
         chrome.runtime.onMessage.addListener((request: InternalMessage, _, sendResponse: (response?: InternalMessage) => void) => {
-            console.log("requestinitListener: ", request)
             if (request.sender !== SENDERS.webpage) sendResponse({
                 ...request,
                 error: {

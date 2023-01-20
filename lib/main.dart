@@ -55,7 +55,6 @@ class RibnApp extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _RinAppState();
   }
 }
@@ -68,13 +67,11 @@ class _RinAppState extends State<RibnApp> {
     setState(() {
       rootRouter = RootRouter();
     });
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return StoreProvider<AppState>(
       store: widget.store,
       child: Portal(
