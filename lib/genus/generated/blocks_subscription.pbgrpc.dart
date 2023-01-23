@@ -5,16 +5,21 @@
 // @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
+// Dart imports:
 import 'dart:async' as $async;
-
 import 'dart:core' as $core;
 
+// Package imports:
 import 'package:grpc/service_api.dart' as $grpc;
+
+// Project imports:
 import 'blocks_subscription.pb.dart' as $3;
+
 export 'blocks_subscription.pb.dart';
 
 class BlocksSubscriptionClient extends $grpc.Client {
-  static final _$create = $grpc.ClientMethod<$3.CreateBlocksSubscriptionReq, $3.BlocksSubscriptionRes>(
+  static final _$create = $grpc.ClientMethod<$3.CreateBlocksSubscriptionReq,
+      $3.BlocksSubscriptionRes>(
     '/co.topl.genus.services.BlocksSubscription/Create',
     ($3.CreateBlocksSubscriptionReq value) => value.writeToBuffer(),
     ($core.List<$core.int> value) => $3.BlocksSubscriptionRes.fromBuffer(value),
@@ -43,12 +48,14 @@ abstract class BlocksSubscriptionServiceBase extends $grpc.Service {
 
   BlocksSubscriptionServiceBase() {
     $addMethod(
-      $grpc.ServiceMethod<$3.CreateBlocksSubscriptionReq, $3.BlocksSubscriptionRes>(
+      $grpc.ServiceMethod<$3.CreateBlocksSubscriptionReq,
+          $3.BlocksSubscriptionRes>(
         'Create',
         create_Pre,
         false,
         true,
-        ($core.List<$core.int> value) => $3.CreateBlocksSubscriptionReq.fromBuffer(value),
+        ($core.List<$core.int> value) =>
+            $3.CreateBlocksSubscriptionReq.fromBuffer(value),
         ($3.BlocksSubscriptionRes value) => value.writeToBuffer(),
       ),
     );

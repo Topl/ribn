@@ -1,15 +1,21 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
+// Dart imports:
 import 'dart:async';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/presentation/settings/sections/delete_wallet_confirmation_dialog.dart';
 import 'package:ribn/presentation/settings/sections/disconnect_wallet_confirmation_dialog.dart';
-
 
 /// Intended to wrap the [SettingsPage] and provide it with the the [SettingsViewModel].
 class SettingsContainer extends StatelessWidget {
@@ -86,7 +92,7 @@ class SettingsViewModel {
       onDisconnectPressed: (BuildContext context) async {
         final dApps = await PlatformUtils.instance
             .convertToFuture(PlatformUtils.instance.getDAppList());
-        await PlatformUtils.instance.consoleLog(dApps);
+        // await PlatformUtils.instance.consoleLog(dApps);
         // final bool disconnectResult =
         await showDialog(
           context: context,

@@ -1,11 +1,16 @@
+// Dart imports:
 import 'dart:typed_data';
 
+// Package imports:
 import 'package:brambldart/brambldart.dart';
-// import 'package:brambldart/src/model/box/token_value_holder.dart';
+
+// Project imports:
 import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/transfer_details.dart';
+
+// import 'package:brambldart/src/model/box/token_value_holder.dart';
 
 class TransactionRepository {
   const TransactionRepository();
@@ -19,8 +24,10 @@ class TransactionRepository {
     switch (transferDetails.transferType) {
       case TransferType.polyTransfer:
         {
-          final List<ToplAddress> senders = transferDetails.senders.map((e) => e.toplAddress).toList();
-          final ToplAddress recipient = ToplAddress.fromBase58(transferDetails.recipient);
+          final List<ToplAddress> senders =
+              transferDetails.senders.map((e) => e.toplAddress).toList();
+          final ToplAddress recipient =
+              ToplAddress.fromBase58(transferDetails.recipient);
           final PolyTransaction polyTransaction = PolyTransaction(
             recipients: [
               SimpleRecipient(
@@ -34,13 +41,17 @@ class TransactionRepository {
             fee: NetworkUtils.networkFees[transferDetails.networkId],
             data: Latin1Data.validated(transferDetails.data),
           );
-          final Map<String, dynamic> rawTx = await client.sendRawPolyTransfer(polyTransaction: polyTransaction);
+          final Map<String, dynamic> rawTx = await client.sendRawPolyTransfer(
+            polyTransaction: polyTransaction,
+          );
           return rawTx;
         }
       case TransferType.assetTransfer:
         {
-          final List<ToplAddress> senders = transferDetails.senders.map((e) => e.toplAddress).toList();
-          final ToplAddress recipient = ToplAddress.fromBase58(transferDetails.recipient);
+          final List<ToplAddress> senders =
+              transferDetails.senders.map((e) => e.toplAddress).toList();
+          final ToplAddress recipient =
+              ToplAddress.fromBase58(transferDetails.recipient);
           final AssetValue assetValue = AssetValue(
             transferDetails.amount,
             transferDetails.assetCode!,
@@ -59,14 +70,17 @@ class TransactionRepository {
             fee: NetworkUtils.networkFees[transferDetails.networkId],
             data: Latin1Data.validated(transferDetails.data),
           );
-          final Map<String, dynamic> rawTx = await client.sendRawAssetTransfer(assetTransaction: assetTransaction);
+          final Map<String, dynamic> rawTx = await client.sendRawAssetTransfer(
+            assetTransaction: assetTransaction,
+          );
           return rawTx;
         }
       case (TransferType.mintingAsset):
       case (TransferType.remintingAsset):
         {
           final ToplAddress issuer = transferDetails.assetCode!.issuer;
-          final ToplAddress recipient = ToplAddress.fromBase58(transferDetails.recipient);
+          final ToplAddress recipient =
+              ToplAddress.fromBase58(transferDetails.recipient);
           final AssetValue assetValue = AssetValue(
             transferDetails.amount,
             transferDetails.assetCode!,
@@ -85,7 +99,9 @@ class TransactionRepository {
             fee: NetworkUtils.networkFees[transferDetails.networkId],
             data: Latin1Data.validated(transferDetails.data),
           );
-          final Map<String, dynamic> rawTx = await client.sendRawAssetTransfer(assetTransaction: assetTransaction);
+          final Map<String, dynamic> rawTx = await client.sendRawAssetTransfer(
+            assetTransaction: assetTransaction,
+          );
           return rawTx;
         }
       default:
@@ -107,7 +123,10 @@ class TransactionRepository {
     );
   }
 
-  Future<String> broadcastTx(BramblClient client, TransactionReceipt signedTx) async {
+  Future<String> broadcastTx(
+    BramblClient client,
+    TransactionReceipt signedTx,
+  ) async {
     return await client.sendSignedTransaction(signedTx);
   }
 

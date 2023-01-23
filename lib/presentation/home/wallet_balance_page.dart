@@ -1,5 +1,18 @@
-import 'package:brambldart/brambldart.dart';
+// Flutter imports:
+
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:brambldart/brambldart.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/asset_card.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
+import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
+
+// Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
@@ -10,12 +23,7 @@ import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/error_section.dart';
 import 'package:ribn/presentation/home/wallet_balance_shimmer.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/molecules/asset_card.dart';
-import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
-import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
+
 // import 'package:url_launcher/url_launcher.dart';
 
 /// One of the 3 main pages on the home screen.
@@ -69,7 +77,8 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
         // refresh balances on network toggle or when new addresses are generated
         final bool shouldRefresh = currVm.walletExists &&
             (prevVm?.currentNetwork.networkName != currVm.currentNetwork.networkName ||
-                prevVm?.currentNetwork.lastCheckedTimestamp != currVm.currentNetwork.lastCheckedTimestamp ||
+                prevVm?.currentNetwork.lastCheckedTimestamp !=
+                    currVm.currentNetwork.lastCheckedTimestamp ||
                 prevVm?.currentNetwork.addresses.length != currVm.currentNetwork.addresses.length);
         if (shouldRefresh) refreshBalances(currVm);
       },
@@ -164,7 +173,10 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
           _fetchingBalances
               ? const CircularProgressIndicator()
               : _failedToFetchBalances
-                  ? const Text('Network Failure', style: TextStyle(color: Colors.red))
+                  ? const Text(
+                      'Network Failure',
+                      style: TextStyle(color: Colors.red),
+                    )
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -219,16 +231,8 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
         icon: RibnAssets.walletWithBorder,
         title: Strings.noAssetsInWallet,
         body: emptyStateBody,
-        buttonOneText: 'Mint',
-        buttonOneAction: () => Keys.navigatorKey.currentState?.pushNamed(
-          Routes.mintInput,
-          arguments: {
-            'mintingNewAsset': true,
-            'mintingToMyWallet': true,
-          },
-        ),
-        buttonTwoText: 'Share',
-        buttonTwoAction: () async => await showReceivingAddress(),
+        buttonOneText: 'Share',
+        buttonOneAction: () async => await showReceivingAddress(),
         mobileHeight: MediaQuery.of(context).size.height * 0.5,
         desktopHeight: 258,
       );
@@ -282,14 +286,21 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     required Function(AssetAmount) viewAssetDetails,
   }) {
     final String assetIcon = assetDetails?.icon ?? RibnAssets.undefinedIcon;
-    final String assetUnit = assetDetails?.unit != null ? formatAssetUnit(assetDetails!.unit) : 'Unit';
+
+    final String assetUnit =
+        assetDetails?.unit != null ? formatAssetUnit(assetDetails!.unit) : 'Unit';
     final String assetLongName = assetDetails?.longName ?? '';
     final bool isMissingAssetDetails =
         assetIcon == RibnAssets.undefinedIcon || assetUnit == 'Unit' || assetLongName.isEmpty;
 
+    bool isNft = false;
     return AssetCard(
+      isNft: isNft,
       onCardPress: () => viewAssetDetails(asset),
-      iconImage: Image.asset(assetIcon, width: 31),
+      iconImage: Image.asset(
+        assetIcon,
+        width: 30,
+      ),
       shortName: Text(
         asset.assetCode.shortName.show.replaceAll('\x00', ''),
         style: RibnToolkitTextStyles.assetShortNameStyle,
@@ -307,10 +318,11 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
             ),
       missingAsstDetailsCondition: isMissingAssetDetails,
       assetQuantityDetails: Text(
-        '${asset.quantity.toString()} $assetUnit',
+        // ignore: dead_code
+        isNft ? '${asset.quantity.toString()}' : '${asset.quantity.toString()}',
         overflow: TextOverflow.ellipsis,
         style: RibnToolkitTextStyles.assetShortNameStyle.copyWith(
-          color: RibnColors.primary,
+          color: RibnColors.greyText,
         ),
       ),
     );
@@ -329,7 +341,10 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
         buttonChild: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(label, style: RibnToolkitTextStyles.h4.copyWith(color: Colors.white)),
+            Text(
+              label,
+              style: RibnToolkitTextStyles.h4.copyWith(color: Colors.white),
+            ),
           ],
         ),
       ),

@@ -1,11 +1,16 @@
+// Dart imports:
 import 'dart:async';
 
-import 'package:brambldart/brambldart.dart';
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:brambldart/brambldart.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
+// Project imports:
 import 'package:ribn/actions/transaction_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/network_utils.dart';
@@ -93,16 +98,20 @@ class AssetTransferInputViewModel {
           (TransferDetails? transferDetails) {
             final success = transferDetails != null;
             onRawTxCreated(success);
-            Keys.navigatorKey.currentState?.pushNamed(Routes.txReview, arguments: transferDetails);
+            Keys.navigatorKey.currentState
+                ?.pushNamed(Routes.txReview, arguments: transferDetails);
           },
         );
       },
       assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
       currentNetwork: store.state.keychainState.currentNetwork,
-      networkFee: NetworkUtils.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly,
+      networkFee: NetworkUtils
+          .networkFees[store.state.keychainState.currentNetwork.networkId]!
+          .getInNanopoly,
       assetDetails: store.state.userDetailsState.assetDetails,
       getAssetBalance: (String? assetCode) {
-        final List<AssetAmount> myAssets = store.state.keychainState.currentNetwork.getAllAssetsInWallet();
+        final List<AssetAmount> myAssets =
+            store.state.keychainState.currentNetwork.getAllAssetsInWallet();
         return myAssets
             .where((element) => element.assetCode.toString() == assetCode)
             .fold(0, (prev, value) => prev + value.quantity);
@@ -123,6 +132,9 @@ class AssetTransferInputViewModel {
 
   @override
   int get hashCode {
-    return assets.hashCode ^ networkFee.hashCode ^ assetDetails.hashCode ^ currentNetwork.hashCode;
+    return assets.hashCode ^
+        networkFee.hashCode ^
+        assetDetails.hashCode ^
+        currentNetwork.hashCode;
   }
 }

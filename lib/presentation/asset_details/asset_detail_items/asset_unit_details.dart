@@ -1,7 +1,9 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/hover_icon_button.dart';
 
@@ -39,7 +41,8 @@ class AssetUnitDetails extends StatelessWidget {
                 : HoverIconButton(
                     buttonText: Text(
                       'Edit',
-                      style: RibnToolkitTextStyles.dropdownButtonStyle.copyWith(color: RibnColors.primary),
+                      style: RibnToolkitTextStyles.dropdownButtonStyle
+                          .copyWith(color: RibnColors.primary),
                     ),
                     buttonIcon: Image.asset(RibnAssets.editIcon),
                     onPressed: onEditPressed,

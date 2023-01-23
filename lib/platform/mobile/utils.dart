@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/platform/interfaces.dart';
 
@@ -50,6 +51,7 @@ class PlatformUtils implements IPlatformUtils {
   Future getDAppList() {
     throw UnimplementedError();
   }
+
   @override
   Future<void> consoleLog(dynamic item) {
     throw UnimplementedError();
@@ -59,5 +61,4 @@ class PlatformUtils implements IPlatformUtils {
   Future<T> convertToFuture<T>(Object jsPromise) {
     throw UnimplementedError();
   }
-
 }

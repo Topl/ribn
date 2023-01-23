@@ -3,10 +3,14 @@
 @JS()
 library sample;
 
+// Dart imports:
 import 'dart:convert';
 import 'dart:html';
 
+// Package imports:
 import 'package:js/js.dart';
+
+// Project imports:
 import 'package:ribn/repositories/onboarding_repository.dart';
 
 @JS('self')
@@ -21,7 +25,8 @@ external DedicatedWorkerGlobalScope get self;
 void main() {
   self.onMessage.listen((e) {
     final Map<String, dynamic> params = jsonDecode(e.data);
-    final Map<String, dynamic> results = const OnboardingRespository().generateKeyStore({
+    final Map<String, dynamic> results =
+        const OnboardingRespository().generateKeyStore({
       'mnemonic': params['mnemonic'],
       'password': params['password'],
     });

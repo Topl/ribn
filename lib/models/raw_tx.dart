@@ -2,6 +2,7 @@
 //
 //     final rawTx = rawTxFromJson(jsonString);
 
+// Dart imports:
 import 'dart:convert';
 
 RawTx rawTxFromJson(String str) => RawTx.fromJson(json.decode(str));

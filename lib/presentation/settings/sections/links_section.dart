@@ -1,9 +1,14 @@
+// Flutter imports:
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/strings.dart';
+
+// Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+// Project imports:
+import 'package:ribn/constants/strings.dart';
 
 /// The section for displaying helpful links.
 class LinksSection extends StatelessWidget {
@@ -31,7 +36,8 @@ class LinksSection extends StatelessWidget {
         RichText(
           text: TextSpan(
             text: Strings.privacyPolicy,
-            recognizer: TapGestureRecognizer()..onTap = () async => await launchUrl(url1),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () async => await launchUrl(url1),
             style: linkStyle,
           ),
         ),
@@ -39,7 +45,8 @@ class LinksSection extends StatelessWidget {
         RichText(
           text: TextSpan(
             text: Strings.termsOfUse,
-            recognizer: TapGestureRecognizer()..onTap = () async => await launchUrl(url2),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () async => await launchUrl(url2),
             style: linkStyle,
           ),
         ),

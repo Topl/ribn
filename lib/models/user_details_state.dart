@@ -1,8 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
+// Dart imports:
 import 'dart:convert';
 
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 
+// Project imports:
 import 'package:ribn/models/asset_details.dart';
 
 /// This class holds custom details about the wallet user.
@@ -37,7 +41,8 @@ class UserDetailsState {
 
   Map<String, dynamic> toMap() {
     return {
-      'assetDetails': assetDetails.map((key, value) => MapEntry(key, value.toMap())),
+      'assetDetails':
+          assetDetails.map((key, value) => MapEntry(key, value.toMap())),
       'isBiometricsEnabled': isBiometricsEnabled,
     };
   }
@@ -58,16 +63,19 @@ class UserDetailsState {
 
   String toJson() => json.encode(toMap());
 
-  factory UserDetailsState.fromJson(String source) => UserDetailsState.fromMap(json.decode(source));
+  factory UserDetailsState.fromJson(String source) =>
+      UserDetailsState.fromMap(json.decode(source));
 
   @override
-  String toString() => 'UserDetailsState(assetDetails: $assetDetails, isBiometricsEnabled: $isBiometricsEnabled)';
+  String toString() =>
+      'UserDetailsState(assetDetails: $assetDetails, isBiometricsEnabled: $isBiometricsEnabled)';
 
   @override
   bool operator ==(covariant UserDetailsState other) {
     if (identical(this, other)) return true;
 
-    return mapEquals(other.assetDetails, assetDetails) && other.isBiometricsEnabled == isBiometricsEnabled;
+    return mapEquals(other.assetDetails, assetDetails) &&
+        other.isBiometricsEnabled == isBiometricsEnabled;
   }
 
   @override
