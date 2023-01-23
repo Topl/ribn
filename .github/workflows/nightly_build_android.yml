@@ -1,0 +1,87 @@
+name: nightly_build_android
+
+on:
+  push:
+    branches:
+      - nightly
+  pull_request:
+    branches:
+      - nightly
+
+env:
+  JAVA_VERSION: "17.x"
+  FLUTTER_CHANNEL: "stable"
+  PROPERTIES_PATH: "./android/key.properties"
+
+jobs:
+  build_android:
+    name: Build Flutter (Android)
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout Nightly
+        uses: actions/checkout@v3
+        with:
+          ref: 'nightly'
+
+      # Setup the java environment required to build Android
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{env.JAVA_VERSION}}
+
+      # Cache gradle to speed up future builds
+      - name: Cache Gradle
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      # Decrypt keys required for signing
+      - name: Decrypt Android keys
+        run: sh ./.github/scripts/decrypt_android_secrets.sh
+        env:
+          ANDROID_KEYS_SECRET_PASSPHRASE: ${{ secrets.ANDROID_KEYS_SECRET_PASSPHRASE }}
+
+
+      # Setup the flutter environment.
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{env.FLUTTER_CHANNEL}}
+          cache: true
+
+      # Prints version to the console
+      - name: Flutter Version
+        run: flutter --version
+
+      # Creates generated files
+      - name: Install flutter dependencies
+        run: make gen
+
+
+      # Statically analyze the Dart code for any errors.
+      - run: flutter analyze .
+
+      # Build APK
+      - name: APK Build
+        run: flutter build apk --release
+
+      # Build App bundle
+      - name: Bundle Build
+        run: flutter build appbundle
+
+      # Upload APK Artifact
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: apk-build
+          path: build/app/outputs/apk/release
+
+      # TODO Upload App Bundle to firebase
+      - name: Upload Appbundle to Firebase
+        run: echo "hello world"
