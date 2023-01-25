@@ -29,7 +29,7 @@ import 'package:ribn/router/root_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Redux.initStore(initTestStore: false);
+  await Redux.initStore(initTestStore: true);
   final AppViews currentAppView =
       await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
@@ -48,32 +48,16 @@ void main() async {
   runApp(RibnApp(Redux.store!));
 }
 
-class RibnApp extends StatefulWidget {
+class RibnApp extends StatelessWidget {
   final Store<AppState> store;
-
+  final RootRouter rootRouter = RootRouter();
   RibnApp(this.store, {Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return _RinAppState();
-  }
-}
-
-class _RinAppState extends State<RibnApp> {
-  late RootRouter rootRouter;
-
-  @override
-  void initState() {
-    setState(() {
-      rootRouter = RootRouter();
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return StoreProvider<AppState>(
-      store: widget.store,
+      store: store,
       child: Portal(
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -81,8 +65,8 @@ class _RinAppState extends State<RibnApp> {
           navigatorObservers: [Routes.routeObserver],
           onGenerateRoute: rootRouter.generateRoutes,
           onGenerateInitialRoutes: (initialRoute) =>
-              onGenerateInitialRoute(initialRoute, widget.store),
-          initialRoute: getInitialRoute(widget.store),
+              onGenerateInitialRoute(initialRoute, store),
+          initialRoute: getInitialRoute(store),
           navigatorKey: Keys.navigatorKey,
         ),
       ),
@@ -129,14 +113,6 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
         )
       ];
     case Routes.home:
-      if (store.state.internalMessage?.additionalNavigation == Routes.home) {
-        return [
-          MaterialPageRoute(
-            builder: (context) => ConnectDApp(store.state.internalMessage!),
-            settings: const RouteSettings(name: Routes.connectDApp),
-          )
-        ];
-      }
       return [
         MaterialPageRoute(
             builder: (context) => const HomePage(),
