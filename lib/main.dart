@@ -55,7 +55,6 @@ class RibnApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return StoreProvider<AppState>(
       store: store,
       child: Portal(
