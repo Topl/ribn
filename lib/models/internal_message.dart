@@ -11,31 +11,33 @@ class InternalMessage {
   final String sender;
   final String id;
   final String origin;
-  InternalMessage({
-    required this.method,
-    this.data,
-    required this.target,
-    this.sender = defaultSender,
-    required this.id,
-    required this.origin,
-  });
+  String additionalNavigation;
+  InternalMessage(
+      {required this.method,
+      this.data,
+      required this.target,
+      this.sender = defaultSender,
+      required this.id,
+      required this.origin,
+      this.additionalNavigation = ""});
 
-  InternalMessage copyWith({
-    String? method,
-    Map<String, dynamic>? data,
-    String? target,
-    String? sender,
-    String? id,
-    String? origin,
-  }) {
+  InternalMessage copyWith(
+      {String? method,
+      Map<String, dynamic>? data,
+      String? target,
+      String? sender,
+      String? id,
+      String? origin,
+      String? additionalNavigation}) {
     return InternalMessage(
-      method: method ?? this.method,
-      data: data ?? this.data,
-      target: target ?? this.target,
-      sender: sender ?? this.sender,
-      id: id ?? this.id,
-      origin: origin ?? this.origin,
-    );
+        method: method ?? this.method,
+        data: data ?? this.data,
+        target: target ?? this.target,
+        sender: sender ?? this.sender,
+        id: id ?? this.id,
+        origin: origin ?? this.origin,
+        additionalNavigation:
+            additionalNavigation ?? this.additionalNavigation);
   }
 
   static const String defaultSender = 'ribn';
@@ -48,20 +50,21 @@ class InternalMessage {
       'sender': sender,
       'id': id,
       'origin': origin,
+      'additionalNavigation': additionalNavigation
     };
   }
 
   factory InternalMessage.fromMap(Map<String, dynamic> map) {
     return InternalMessage(
-      method: map['method'] as String,
-      data: map['data'] != null
-          ? Map<String, dynamic>.from(map['data'] as Map<String, dynamic>)
-          : null,
-      target: map['target'] as String,
-      sender: map['sender'] as String,
-      id: map['id'] as String,
-      origin: map['origin'] as String,
-    );
+        method: map['method'] as String,
+        data: map['data'] != null
+            ? Map<String, dynamic>.from(map['data'] as Map<String, dynamic>)
+            : null,
+        target: map['target'] as String,
+        sender: map['sender'] as String,
+        id: map['id'] as String,
+        origin: map['origin'] as String,
+        additionalNavigation: map['additionalNavigation'] as String);
   }
 
   String toJson() => json.encode(toMap());
@@ -71,7 +74,7 @@ class InternalMessage {
 
   @override
   String toString() {
-    return 'InternalMessage(method: $method, data: $data, target: $target, sender: $sender, id: $id, origin: $origin)';
+    return 'InternalMessage(method: $method, data: $data, target: $target, sender: $sender, id: $id, origin: $origin,additionalNavigation:$additionalNavigation)';
   }
 
   @override

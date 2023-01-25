@@ -18,12 +18,10 @@ export const ExtensionStorage = {
 	},
 	getAllowList: async (): Promise<string[]> => {
 		const storage = await ExtensionStorage.getStorage();
-		console.log("allow list: ", storage.allowList);
 		return storage.allowList ?? [];
 	},
-    getAllowedString: async (): Promise<string> => {
+	getAllowedString: async (): Promise<string> => {
 		const storage = await ExtensionStorage.getStorage();
-		console.log("allow list: ", storage.allowList.toString());
 		return storage.allowList.toString() ?? "";
 	},
 	clearAllowList: async () => {
@@ -47,5 +45,5 @@ export const ExtensionStorage = {
 	isOriginAllowed: async (originUrl: string) => {
 		const currentAllowList: string[] = await ExtensionStorage.getAllowList();
 		return currentAllowList.some((allowedUrl) => allowedUrl.includes(originUrl));
-	},
+	}
 };
