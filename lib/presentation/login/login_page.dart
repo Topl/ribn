@@ -1,23 +1,14 @@
 // Flutter imports:
 
+// Package imports:
+import 'package:bip_topl/bip_topl.dart';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
-// Package imports:
-import 'package:bip_topl/bip_topl.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
-import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
-import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 // Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/constants/assets.dart';
@@ -29,6 +20,13 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/utils.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
+import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// Builds the login page.
 ///
@@ -127,8 +125,8 @@ class _LoginPageState extends State<LoginPage> {
             child: Scaffold(
               body: SingleChildScrollView(
                 child: WaveContainer(
-                  containerHeight: adaptHeight(1),
-                  containerWidth: adaptWidth(1),
+                  containerHeight: MediaQuery.of(context).size.height,
+                  containerWidth: MediaQuery.of(context).size.width,
                   waveAmplitude: 30,
                   containerChild: Column(
                     mainAxisAlignment: kIsWeb

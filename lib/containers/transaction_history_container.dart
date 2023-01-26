@@ -18,8 +18,7 @@ import 'package:ribn/platform/platform.dart';
 
 /// Intended to wrap the [TransactionHistoryPage] and provide it with the the [TransactionHistoryViewmodel].
 class TransactionHistoryContainer extends StatelessWidget {
-  const TransactionHistoryContainer({Key? key, required this.builder})
-      : super(key: key);
+  const TransactionHistoryContainer({Key? key, required this.builder}) : super(key: key);
   final ViewModelBuilder<TransactionHistoryViewmodel> builder;
 
   @override
@@ -46,8 +45,7 @@ class TransactionHistoryViewmodel {
   final Future<String>? blockHeight;
 
   /// Gets transactions associated with my wallet address from the Mempool and Genus
-  final Future<List<TransactionReceipt>> Function({int pageNum})
-      getTransactions;
+  final Future<List<TransactionReceipt>> Function({int pageNum}) getTransactions;
 
   TransactionHistoryViewmodel({
     required this.toplAddress,
@@ -63,11 +61,9 @@ class TransactionHistoryViewmodel {
       toplAddress: currNetwork.myWalletAddress!.toplAddress,
       networkId: store.state.keychainState.currentNetwork.networkId,
       assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
-      blockHeight:
-          store.state.keychainState.currentNetwork.client!.getBlockNumber(),
+      blockHeight: store.state.keychainState.currentNetwork.client!.getBlockNumber(),
       getTransactions: ({int pageNum = 0}) async {
-        final myWalletAddress =
-            currNetwork.myWalletAddress!.toplAddress.toBase58();
+        final myWalletAddress = currNetwork.myWalletAddress!.toplAddress.toBase58();
         final mempoolTxs = await getMempoolTxs(
           client: currNetwork.client!,
           walletAddress: myWalletAddress,
@@ -93,6 +89,7 @@ class TransactionHistoryViewmodel {
           tx.to.any((recipient) => recipient.toJson()[0] == walletAddress);
       return walletAddrInSenders || walletAddrInRecipients;
     }).toList();
+    print('QQQQ pending TXs ${pendingTxsForWallet}');
     final List<TransactionReceipt> formattedTxs = [];
     pendingTxsForWallet.toList().forEach((rawTx) {
       rawTx.to.toList().forEach((recipient) {
@@ -133,17 +130,18 @@ class TransactionHistoryViewmodel {
         confirmationDepth: 1,
       ),
     );
-    final Map<String, dynamic> txResultJson =
-        txQueryResult.toProto3Json() as Map<String, dynamic>;
+    final Map<String, dynamic> txResultJson = txQueryResult.toProto3Json() as Map<String, dynamic>;
     final List<TransactionReceipt> txs = [];
     for (var element in (txResultJson['success']['transactions'] as List)) {
       if (element['inputs'] == null) continue;
       try {
+        // print('QQQQ element $element');
         final outputs = formatRecipients(element['outputs'] as List);
+        // print('QQQQ outputs $outputs');
         final newBoxes = formatNewBoxes(element['newBoxes']);
-        final inputs = (element['inputs'] as List)
-            .map((input) => [input['address'], input['nonce']])
-            .toList();
+        // print('QQQQ newBoxes $newBoxes');
+        final inputs =
+            (element['inputs'] as List).map((input) => [input['address'], input['nonce']]).toList();
         if (inputs.isEmpty) continue;
         // get tx per recipient
         outputs.toList().forEach((output) {
@@ -161,6 +159,7 @@ class TransactionHistoryViewmodel {
             'blockId': element['blockId'],
             'minting': element['minting'],
           });
+          // print('QQQQ tx $tx');
           txs.add(tx);
         });
       } catch (e) {
@@ -179,8 +178,7 @@ class TransactionHistoryViewmodel {
       final String type = (e['value'] as Map<String, dynamic>).keys.first;
       final quantity = (e['value'] as Map<String, dynamic>)[type]['quantity'];
       final assetCode = (e['value'] as Map<String, dynamic>)[type]['code'];
-      final securityRoot =
-          (e['value'] as Map<String, dynamic>)[type]['securityRoot'];
+      final securityRoot = (e['value'] as Map<String, dynamic>)[type]['securityRoot'];
       final metadata = (e['value'] as Map<String, dynamic>)[type]['metadata'];
       formattedOutputs.add([
         address,

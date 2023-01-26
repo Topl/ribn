@@ -3,7 +3,6 @@ import 'dart:convert';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
-
 // Project imports:
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/models/keychain_state.dart';
@@ -20,8 +19,7 @@ class AppState {
   final UserDetailsState userDetailsState;
   final InternalMessage? internalMessage;
   final String appVersion;
-
-  const AppState({
+  AppState({
     required this.onboardingState,
     required this.loginState,
     required this.keychainState,
@@ -127,7 +125,8 @@ class AppState {
 
   String toJson() => json.encode(toMap());
 
-  factory AppState.fromJson(String source) => AppState.fromMap(json.decode(source));
+  factory AppState.fromJson(String source) =>
+      AppState.fromMap(json.decode(source));
 
   @override
   String toString() {

@@ -4,12 +4,10 @@ import 'dart:convert';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-
 // Project imports:
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/keys.dart';
@@ -28,8 +26,6 @@ import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
 import 'package:ribn/presentation/transaction_history/service_locator/locator.dart';
 import 'package:ribn/redux.dart';
 import 'package:ribn/router/root_router.dart';
-
-// import 'package:ribn/platform/web/wallet.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,9 +48,8 @@ void main() async {
 }
 
 class RibnApp extends StatelessWidget {
-  final RootRouter rootRouter = RootRouter();
   final Store<AppState> store;
-
+  final RootRouter rootRouter = RootRouter();
   RibnApp(this.store, {Key? key}) : super(key: key);
 
   @override
@@ -115,9 +110,7 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
     case Routes.home:
       return [
         MaterialPageRoute(
-          builder: (context) => const HomePage(),
-          settings: const RouteSettings(name: Routes.home),
-        )
+            builder: (context) => const HomePage(), settings: RouteSettings(name: Routes.home))
       ];
     case Routes.enable:
       return [

@@ -60,6 +60,9 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
 
   @override
   Widget build(BuildContext context) {
+    print('QQQQ tx reciept ${widget.transactionReceipt}');
+    // print('QQQQ assets ${widget.assets}');
+
     final bool isPolyTransaction = widget.transactionReceipt.txType == 'PolyTransfer' ||
         widget.transactionReceipt.to.first.toJson()[1].runtimeType == String;
     final int timestampInt = widget.transactionReceipt.timestamp;
@@ -74,6 +77,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
         ? widget.transactionReceipt.to.first.toJson()[1]
         : widget.transactionReceipt.to.first.toJson()[1]['quantity'];
     final Sender transactionSenderAddress = widget.transactionReceipt.from![0];
+
     final String fee = '${widget.transactionReceipt.fee!.quantity} nanoPOLYs';
     final Latin1Data? note = widget.transactionReceipt.data;
     final String securityRoot =
