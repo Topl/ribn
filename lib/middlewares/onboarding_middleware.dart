@@ -17,6 +17,7 @@ import 'package:ribn/platform/platform.dart';
 import 'package:ribn/repositories/onboarding_repository.dart';
 import 'package:ribn/utils.dart';
 
+// TODO: Remove when finished
 List<Middleware<AppState>> createOnboardingMiddleware(
   OnboardingRespository onboardingRespository,
 ) {
@@ -58,8 +59,7 @@ void Function(
 ) {
   return (store, action, next) async {
     try {
-      final AppViews currAppView =
-          await PlatformUtils.instance.getCurrentAppView();
+      final AppViews currAppView = await PlatformUtils.instance.getCurrentAppView();
       // create isolate/worker to avoid hanging the UI
       final Map<String, dynamic> results = jsonDecode(
         await PlatformWorkerRunner.instance.runWorker(
@@ -77,8 +77,7 @@ void Function(
           uint8ListFromDynamic(results['toplExtendedPrvKeyUint8List']);
       // if extension: key is temporarily stored in `chrome.storage.session` & session alarm created
       // if mobile: key is persisted securely in secure storage
-      if (currAppView == AppViews.extension ||
-          currAppView == AppViews.extensionTab) {
+      if (currAppView == AppViews.extension || currAppView == AppViews.extensionTab) {
         await PlatformLocalStorage.instance.saveKeyInSessionStorage(
           Base58Encoder.instance.encode(toplExtendedPrvKeyUint8List),
         );

@@ -1,6 +1,11 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/models/onboarding_state.dart';
+import 'package:ribn/providers/onboarding_provider.dart';
+import 'package:ribn/repositories/onboarding_repository.dart';
 
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
@@ -18,11 +23,21 @@ import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart
 import 'package:ribn/utils.dart';
 
 /// This page shows intructions on how to keep the seed phrase secure.
-class SeedPhraseInstructionsPage extends StatelessWidget {
+class SeedPhraseInstructionsPage extends HookConsumerWidget {
   const SeedPhraseInstructionsPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    useEffect(() {
+      print('QQQQ here 1');
+      final String mnemonic = OnboardingRespository().generateMnemonicForUser();
+
+      Future.delayed(Duration.zero, () {
+        ref.read(onboardingProvider.notifier).state = OnboardingState(mnemonic: mnemonic);
+      });
+      return () {};
+    }, []);
+
     return Scaffold(
       body: OnboardingContainer(
         child: SingleChildScrollView(
@@ -74,8 +89,7 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
                 ConfirmationButton(
                   text: Strings.iUnderstand,
                   onPressed: () {
-                    Keys.navigatorKey.currentState
-                        ?.pushNamed(Routes.generateSeedPhrase);
+                    Keys.navigatorKey.currentState?.pushNamed(Routes.generateSeedPhrase);
                   },
                 )
               ],
@@ -119,8 +133,7 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
                 width: kIsWeb ? 500 : 295,
                 child: Text(
                   text,
-                  textHeightBehavior:
-                      const TextHeightBehavior(applyHeightToFirstAscent: false),
+                  textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
                   style: RibnToolkitTextStyles.h3.copyWith(
                     color: RibnColors.lightGreyTitle,
                     fontSize: 18,

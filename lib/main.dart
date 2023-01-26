@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:redux/redux.dart';
 // Project imports:
 import 'package:ribn/actions/internal_message_actions.dart';
@@ -44,7 +45,7 @@ void main() async {
   setupLocator(
     Redux.store!,
   ); //@dev call this function to setup any singletons required by app
-  runApp(RibnApp(Redux.store!));
+  runApp(ProviderScope(child: RibnApp(Redux.store!)));
 }
 
 class RibnApp extends StatelessWidget {
