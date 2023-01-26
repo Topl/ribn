@@ -28,6 +28,7 @@ clean: ## Cleans the environment
 	@rm -rf pubspec.lock
 	@flutter clean
 	@flutter pub get
+
 fix_warnings: ## fix any warnings
 	@echo "╠ Attempting to fix warnings..."
 	@dart fix --dry-run
@@ -67,3 +68,14 @@ analyze:
 
 ditto:
 	echo "hello world"
+
+arm_mac_hard_clean:
+	flutter clean && \
+	flutter pub get && \
+	cd ios && \
+	sudo rm -r Pods/ && \
+	rm -r .symlinks/ && \
+	rm Podfile.lock && \
+	sudo arch -x86_64 gem install ffi && \
+	arch -x86_64 pod install && \
+	cd ..

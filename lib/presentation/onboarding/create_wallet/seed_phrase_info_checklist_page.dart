@@ -1,6 +1,7 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
@@ -18,25 +19,25 @@ import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
 
-/// Builds checks to ensure that the user understands the importance of the seed phrase.
-class SeedPhraseInfoChecklistPage extends StatefulWidget {
-  const SeedPhraseInfoChecklistPage({Key? key}) : super(key: key);
-
-  @override
-  State<SeedPhraseInfoChecklistPage> createState() =>
-      _SeedPhraseInfoChecklistPageState();
-}
-
-class _SeedPhraseInfoChecklistPageState
-    extends State<SeedPhraseInfoChecklistPage> {
-  /// Checkboxes and their corresponding checked value
-  final Map<String, bool> checkboxesState = {
-    Strings.neverShareMySeedPhrase: false,
-    Strings.walletRecoveryUsingSeedPhrase: false,
-  };
+class name extends HookWidget {
+  const name({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+/// Builds checks to ensure that the user understands the importance of the seed phrase.
+class SeedPhraseInfoChecklistPage extends HookWidget {
+  const SeedPhraseInfoChecklistPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    /// Checkboxes and their corresponding checked value
+    final neverShareMySeedPhrase = useState(false);
+    final walletRecoveryUsingSeedPhrase = useState(false);
+
     return Scaffold(
       body: OnboardingContainer(
         child: SingleChildScrollView(
@@ -55,33 +56,27 @@ class _SeedPhraseInfoChecklistPageState
                   child: Image.asset(RibnAssets.warningPng, width: 76),
                 ),
                 _buildCheckboxListTile(
-                  checked: checkboxesState[Strings.neverShareMySeedPhrase]!,
+                  checked: neverShareMySeedPhrase.value,
                   activeText: true,
                   text: Strings.neverShareMySeedPhrase,
-                  onChanged: (bool? val) =>
-                      onChecked(val ?? false, Strings.neverShareMySeedPhrase),
+                  onChanged: (bool? val) => neverShareMySeedPhrase.value = val ?? false,
                 ),
                 const SizedBox(height: 40),
                 _buildCheckboxListTile(
-                  checked:
-                      checkboxesState[Strings.walletRecoveryUsingSeedPhrase]!,
-                  activeText: checkboxesState[Strings.neverShareMySeedPhrase]!,
+                  checked: walletRecoveryUsingSeedPhrase.value,
+                  activeText: neverShareMySeedPhrase.value,
                   text: Strings.walletRecoveryUsingSeedPhrase,
-                  onChanged: checkboxesState[Strings.neverShareMySeedPhrase]!
-                      ? (bool? val) => onChecked(
-                            val ?? false,
-                            Strings.walletRecoveryUsingSeedPhrase,
-                          )
+                  onChanged: neverShareMySeedPhrase.value
+                      ? (bool? val) => walletRecoveryUsingSeedPhrase.value = val ?? false
                       : null,
                 ),
                 SizedBox(height: adaptHeight(0.1)),
                 ConfirmationButton(
                   text: Strings.iUnderstand,
                   onPressed: () {
-                    Keys.navigatorKey.currentState
-                        ?.pushNamed(Routes.seedPhraseInstructions);
+                    Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseInstructions);
                   },
-                  disabled: checkboxesState.containsValue(false),
+                  disabled: !walletRecoveryUsingSeedPhrase.value || !neverShareMySeedPhrase.value,
                 )
               ],
             ),
@@ -114,20 +109,5 @@ class _SeedPhraseInfoChecklistPageState
         wrapText: true,
       ),
     );
-  }
-
-  void onChecked(bool val, String key) {
-    setState(() {
-      // Uncheck all checkboxes underneath if unselected
-      if (!val) {
-        bool shouldUncheck = false;
-        checkboxesState.keys.toList().forEach((element) {
-          if (element == key) shouldUncheck = true;
-          if (shouldUncheck) checkboxesState[element] = false;
-        });
-      } else {
-        checkboxesState[key] = true;
-      }
-    });
   }
 }
