@@ -25,6 +25,7 @@ import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart
 import 'package:ribn/utils.dart';
 
 class SeedPhraseDisplayPage extends HookConsumerWidget {
+  static const Key copyKey = Key('copyKey');
   const SeedPhraseDisplayPage({Key? key}) : super(key: key);
 
   @override
@@ -36,6 +37,7 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
     final bool isXsScreenSize = isXsWidth && isXsHeight ? true : false;
 
     final onboardingState = ref.watch(onboardingProvider);
+    final onboardingNotifier = ref.watch(onboardingProvider.notifier);
     final seedPhrase = onboardingState.mnemonic!;
 
     final List<String> seedPhraseWordsList = seedPhrase.split(' ').toList();
@@ -84,9 +86,11 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
                               alignment: Alignment.bottomRight,
                               child: _buildButton(
                                 Strings.copy,
-                                onPressed: () => Clipboard.setData(
-                                  ClipboardData(text: seedPhrase),
-                                ),
+                                onPressed: () => onboardingNotifier.regenerateMnemonic(),
+
+                                // Clipboard.setData(
+                                //   ClipboardData(text: seedPhrase),
+                                // ),
                                 width: 19,
                                 height: 15,
                               ),
@@ -197,6 +201,7 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
     final String icon =
         buttonText == Strings.download ? RibnAssets.downloadPng : RibnAssets.contentCopyPng;
     return TextButton(
+      key: copyKey,
       onPressed: onPressed,
       child: RichText(
         text: TextSpan(
