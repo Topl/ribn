@@ -1,0 +1,84 @@
+name: nightly_build_android
+
+on:
+  push:
+    branches:
+      - nightly
+  pull_request:
+    branches:
+      - nightly
+
+env:
+  JAVA_VERSION: "17.x"
+  FLUTTER_CHANNEL: "stable"
+  PROPERTIES_PATH: "./android/key.properties"
+
+jobs:
+  build_android:
+    name: Build Flutter (Android)
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout Nightly
+        uses: actions/checkout@v3
+        with:
+          ref: 'nightly'
+
+      # Setup the java environment required to build Android
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{env.JAVA_VERSION}}
+
+      # Cache gradle to speed up future builds
+      - name: Cache Gradle
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      # Decrypt keys required for signing
+      - name: Decrypt Android keys
+        run: sh ./.github/scripts/decrypt_android_secrets.sh
+        env:
+          ANDROID_KEYS_SECRET_PASSPHRASE: ${{ secrets.ANDROID_KEYS_SECRET_PASSPHRASE }}
+
+
+      # Setup the flutter environment.
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{env.FLUTTER_CHANNEL}}
+          cache: true
+
+      # Prints version to the console
+      - name: Flutter Version
+        run: flutter --version
+
+      # Creates generated files
+      - name: Install flutter dependencies
+        run: make gen
+
+      # Statically analyze the Dart code for any errors.
+      - run: flutter analyze .
+
+      - name: Build android app
+        run: flutter build appbundle --release
+
+      - name: Upload android build
+        uses: actions/upload-artifact@v3
+        with:
+          name: android_appbundle
+          path: build/app/outputs/bundle/release/app-release.aab
+
+      - name: upload artifact to Firebase App Distribution
+          uses: wzieba/Firebase-Distribution-Github-Action@v1
+          with:
+            appId: ${{secrets.FIREBASE_ANDROID_APP_ID}}
+            serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+            groups: 'topl-dev'
+            file: build/app/outputs/bundle/release/app-release.aab
