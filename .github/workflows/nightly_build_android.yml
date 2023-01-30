@@ -63,25 +63,22 @@ jobs:
       - name: Install flutter dependencies
         run: make gen
 
-
       # Statically analyze the Dart code for any errors.
       - run: flutter analyze .
 
-      # Build APK
-      - name: APK Build
-        run: flutter build apk --release
+      - name: Build android app
+        run: flutter build appbundle --release
 
-      # Build App bundle
-      - name: Bundle Build
-        run: flutter build appbundle
-
-      # Upload APK Artifact
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@master
+      - name: Upload android build
+        uses: actions/upload-artifact@v3
         with:
-          name: apk-build
-          path: build/app/outputs/apk/release
+          name: android_appbundle
+          path: build/app/outputs/bundle/release/app-release.aab
 
-      # TODO Upload App Bundle to firebase
-      - name: Upload Appbundle to Firebase
-        run: echo "hello world"
+      - name: upload artifact to Firebase App Distribution
+          uses: wzieba/Firebase-Distribution-Github-Action@v1
+          with:
+            appId: ${{secrets.FIREBASE_ANDROID_APP_ID}}
+            serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+            groups: 'topl-dev'
+            file: build/app/outputs/bundle/release/app-release.aab
