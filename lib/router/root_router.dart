@@ -4,10 +4,6 @@ import 'dart:convert';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-// Package imports:
-import 'package:ribn_toolkit/models/transactions/ribn_activity_details_model.dart';
-
 // Project imports:
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/internal_message.dart';
@@ -44,11 +40,15 @@ import 'package:ribn/presentation/transfers/asset_transfer_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
 import 'package:ribn/presentation/transfers/tx_confirmation_page.dart';
 import 'package:ribn/presentation/transfers/tx_review_page.dart';
+// Package imports:
+import 'package:ribn_toolkit/models/transactions/ribn_activity_details_model.dart';
 
 // import 'package:ribn/models/transaction_history_entry.dart';
 
 class RootRouter {
-  Route<MaterialPageRoute> generateRoutes(RouteSettings settings) {
+  Route<MaterialPageRoute> generateRoutes(
+    RouteSettings settings,
+  ) {
     switch (settings.name) {
       case Routes.welcome:
         {
@@ -162,7 +162,9 @@ class RootRouter {
         }
       case Routes.home:
         {
-          if (kIsWeb) return pageRouteNotAnimated(const HomePage(), settings);
+          if (kIsWeb) {
+            return pageRouteNotAnimated(const HomePage(), settings);
+          }
           return pageRoute(const HomePage(), settings);
         }
       case Routes.assetsTransferInput:
@@ -335,7 +337,6 @@ class RootRouter {
               (settings.arguments ?? 'Unknown error occurred') as String;
           return errorRoute(errorMsg: errorMessage);
         }
-
       case Routes.connectDApp:
         {
           final InternalMessage pendingRequest =

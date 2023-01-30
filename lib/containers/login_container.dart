@@ -3,11 +3,9 @@ import 'dart:async';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-
 // Project imports:
 import 'package:ribn/actions/login_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
@@ -64,7 +62,14 @@ class LoginViewModel {
         store.dispatch(AttemptLoginAction(password, loginCompleter));
         await loginCompleter.future.then((bool loginSuccess) {
           if (loginSuccess) {
-            Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home);
+            if (store.state.internalMessage?.additionalNavigation ==
+                    Routes.connectDApp &&
+                store.state.internalMessage != null) {
+              Keys.navigatorKey.currentState?.pushNamed(Routes.connectDApp,
+                  arguments: store.state.internalMessage);
+            } else {
+              Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home);
+            }
           } else {
             onIncorrectPasswordEntered();
           }

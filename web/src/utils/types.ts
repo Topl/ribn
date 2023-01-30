@@ -12,4 +12,5 @@ export type InternalMessage = {
 	error?: Record<string, any>;
 	event?: string;
 	origin?: string;
+	additionalNavigation?:string
 };

@@ -1,4 +1,5 @@
 // Project imports:
+import 'package:flutter/cupertino.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/platform/interfaces.dart';
 
@@ -53,8 +54,8 @@ class PlatformUtils implements IPlatformUtils {
   }
 
   @override
-  Future<void> consoleLog(dynamic item) {
-    throw UnimplementedError();
+  Future<void> consoleLog(dynamic item) async {
+    debugPrint(item);
   }
 
   @override
