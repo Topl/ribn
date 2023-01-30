@@ -1,4 +1,5 @@
 import 'package:brambldart/brambldart.dart';
+import 'package:ribn/providers/logger_provider.dart';
 
 /// This filters out Change UTxOs
 ///
@@ -8,10 +9,21 @@ import 'package:brambldart/brambldart.dart';
 List<TransactionReceipt> filterOutChangeUTxO(List<TransactionReceipt> txs) {
   return txs.where((tx) {
     // Get the senders address
-    final Sender transactionSenderAddress = tx.from![0];
+    final Sender? transactionSenderAddress = tx.from?[0];
 
+    // If there is no sender, filter out and log issue
+    if (transactionSenderAddress == null) {
+      transactionLogger().severe('Transaction does not have a sender');
+      return false;
+    }
     // Get teh recievers address
-    final String transactionReceiverAddress = tx.to.first.toJson()[0].toString();
+    final String? transactionReceiverAddress = tx.to.first?.toJson()?[0].toString();
+
+    // If there is no receiver, filter out and log issue
+    if (transactionReceiverAddress == null) {
+      transactionLogger().severe('Transaction does not have a receiver');
+      return false;
+    }
 
     return transactionSenderAddress.toString() != transactionReceiverAddress;
   }).toList();
