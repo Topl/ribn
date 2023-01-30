@@ -89,7 +89,6 @@ class TransactionHistoryViewmodel {
           tx.to.any((recipient) => recipient.toJson()[0] == walletAddress);
       return walletAddrInSenders || walletAddrInRecipients;
     }).toList();
-    print('QQQQ pending TXs ${pendingTxsForWallet}');
     final List<TransactionReceipt> formattedTxs = [];
     pendingTxsForWallet.toList().forEach((rawTx) {
       rawTx.to.toList().forEach((recipient) {
@@ -135,17 +134,13 @@ class TransactionHistoryViewmodel {
     for (var element in (txResultJson['success']['transactions'] as List)) {
       if (element['inputs'] == null) continue;
       try {
-        // print('QQQQ element $element');
         final outputs = formatRecipients(element['outputs'] as List);
-        // print('QQQQ outputs $outputs');
         final newBoxes = formatNewBoxes(element['newBoxes']);
-        // print('QQQQ newBoxes $newBoxes');
         final inputs =
             (element['inputs'] as List).map((input) => [input['address'], input['nonce']]).toList();
         if (inputs.isEmpty) continue;
         // get tx per recipient
         outputs.toList().forEach((output) {
-          print('QQQQ output $output');
           final tx = TransactionReceipt.fromJson({
             'txId': element['txId'],
             'from': inputs,
@@ -160,7 +155,6 @@ class TransactionHistoryViewmodel {
             'blockId': element['blockId'],
             'minting': element['minting'],
           });
-          // print('QQQQ tx $tx');
           txs.add(tx);
         });
       } catch (e) {
