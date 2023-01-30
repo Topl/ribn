@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:brambldart/brambldart.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:ribn/utils/transaction_utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_dropdown_title.dart';
 
@@ -72,15 +73,14 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     TransactionHistoryViewmodel vm,
   ) async {
     final List<TransactionReceipt> response =
-        await vm.getTransactions(pageNum: pageNum);
+        filterOutChangeUTxO(await vm.getTransactions(pageNum: pageNum));
 
     // Filters transactions by sent or received
     if (filterSelectedItem != 'Transaction types') {
       final List<TransactionReceipt> transactions = response;
 
       for (var transaction in transactions) {
-        final String transactionReceiverAddress =
-            transaction.to.first.toJson()[0].toString();
+        final String transactionReceiverAddress = transaction.to.first.toJson()[0].toString();
         final Sender transactionSenderAddress = transaction.from![0];
         final myRibnAddress = toplAddress.toBase58();
         final wasMinted = transaction.minting == true;
@@ -112,8 +112,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
   @override
   Widget build(BuildContext context) {
     return TransactionHistoryContainer(
-      builder: (BuildContext context, TransactionHistoryViewmodel vm) =>
-          LoaderOverlay(
+      builder: (BuildContext context, TransactionHistoryViewmodel vm) => LoaderOverlay(
         overlayColor: Colors.transparent,
         child: Scaffold(
           backgroundColor: RibnColors.background,
@@ -155,17 +154,14 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                 title: Strings.noActivityToReview,
                                 body: emptyStateBody,
                                 buttonOneText: 'Share',
-                                buttonOneAction: () async =>
-                                    await showReceivingAddress(),
-                                mobileHeight:
-                                    MediaQuery.of(context).size.height * 0.63,
+                                buttonOneAction: () async => await showReceivingAddress(),
+                                mobileHeight: MediaQuery.of(context).size.height * 0.63,
                                 desktopHeight: 360,
                               );
                             }
 
                             return Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 20, bottom: 20),
+                              padding: const EdgeInsets.only(top: 20, bottom: 20),
                               child: Container(
                                 width: MediaQuery.of(context).size.width - 40,
                                 padding: const EdgeInsets.symmetric(
@@ -191,26 +187,22 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                 child: SingleChildScrollView(
                                   child: ListView.separated(
                                     reverse: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
+                                    physics: const NeverScrollableScrollPhysics(),
                                     scrollDirection: Axis.vertical,
-                                    itemCount: filterSelectedItem ==
-                                            startingFilterValue
+                                    itemCount: filterSelectedItem == startingFilterValue
                                         ? snapshot.data?.length
                                         : filteredTransactions.length,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
                                       final TransactionReceipt transaction =
-                                          filterSelectedItem ==
-                                                  startingFilterValue
+                                          filterSelectedItem == startingFilterValue
                                               ? snapshot.data[index]
                                               : filteredTransactions[index];
 
                                       return TransactionDataRow(
                                         transactionReceipt: transaction,
                                         assets: vm.assets,
-                                        myRibnWalletAddress:
-                                            vm.toplAddress.toBase58(),
+                                        myRibnWalletAddress: vm.toplAddress.toBase58(),
                                         blockHeight: vm.blockHeight,
                                         networkId: vm.networkId,
                                       );

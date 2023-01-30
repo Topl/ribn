@@ -12,7 +12,7 @@
     "Flutter Team": "flutter-dev@googlegroups.com"
   },
   "source": {
-    "http": "https://github.com/flutter/plugins/tree/master/packages/url_launcher/url_launcher_macos"
+    "http": "https://github.com/flutter/plugins/tree/main/packages/url_launcher/url_launcher_macos"
   },
   "source_files": "Classes/**/*",
   "dependencies": {

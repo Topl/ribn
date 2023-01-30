@@ -145,6 +145,7 @@ class TransactionHistoryViewmodel {
         if (inputs.isEmpty) continue;
         // get tx per recipient
         outputs.toList().forEach((output) {
+          print('QQQQ output $output');
           final tx = TransactionReceipt.fromJson({
             'txId': element['txId'],
             'from': inputs,
