@@ -60,6 +60,9 @@ jobs:
       - name: Flutter Version
         run: flutter --version
 
+      - name: Pubcache clear
+        run: flutter pub cache clean -f
+
       # Creates generated files
       - name: Install flutter dependencies
         run: make gen
