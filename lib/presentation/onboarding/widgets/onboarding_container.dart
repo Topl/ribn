@@ -44,7 +44,7 @@ class OnboardingContainer extends StatelessWidget {
               width: double.infinity,
               child: child,
             ),
-            if (showBackButton)
+            if (showBackButton && !kIsWeb)
               Positioned(
                 left: 0,
                 top: 0,
