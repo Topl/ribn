@@ -53,10 +53,9 @@ dependencies:
   file_picker: ^4.3.3
   import_sorter: ^4.6.0
   ribn_toolkit:
-    path: ../ribn-toolkit
-    # git:
-    #   url: https://github.com/Topl/ribn-toolkit
-    #   ref: main
+    git:
+      url: https://github.com/Topl/ribn-toolkit
+      ref: main
   brambldart:
     git:
       url: https://github.com/Topl/BramblDart
