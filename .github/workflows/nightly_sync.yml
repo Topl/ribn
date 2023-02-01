@@ -3,6 +3,7 @@ name: nightly_sync
 on:
   schedule:
     - cron:  '0 0 * * *'
+  workflow_dispatch:
 
 jobs:
   sync-branch:
@@ -19,7 +20,7 @@ jobs:
           github_token: ${{ github.token }}
           
       - name: grab app version
-        run: $ version=$(awk '/version:/ {match($0, /version:/); print substr($0, RSTART+9, RLENGTH + 12);}' pubspec.yaml)
+        run: version=$(awk '/version:/ {match($0, /version:/); print substr($0, RSTART+9, RLENGTH + 12);}' pubspec.yaml)
 
       - name: Tag Nightly Release
         run: git tag n$version-$(date +%y%m%d) nightly
