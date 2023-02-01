@@ -39,7 +39,11 @@ class OnboardingContainer extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            child,
+            Container(
+              height: double.infinity,
+              width: double.infinity,
+              child: child,
+            ),
             if (showBackButton)
               Positioned(
                 left: 0,
