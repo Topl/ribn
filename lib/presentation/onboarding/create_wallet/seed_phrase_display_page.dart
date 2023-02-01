@@ -27,8 +27,6 @@ class SeedPhraseDisplayPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const kIsWeb = true;
-
     return StoreConnector<AppState, String>(
       converter: (store) => store.state.onboardingState.mnemonic!,
       builder: (context, seedPhrase) {
