@@ -26,8 +26,7 @@ class SeedPhraseGeneratingPage extends StatefulWidget {
   const SeedPhraseGeneratingPage({Key? key}) : super(key: key);
 
   @override
-  _SeedPhraseGeneratingPageState createState() =>
-      _SeedPhraseGeneratingPageState();
+  _SeedPhraseGeneratingPageState createState() => _SeedPhraseGeneratingPageState();
 }
 
 class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
@@ -44,6 +43,7 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
       builder: (context, vm) {
         return Scaffold(
           body: OnboardingContainer(
+            showBackButton: seedPhraseGenerating ? false : true,
             child: SingleChildScrollView(
               clipBehavior: Clip.none,
               child: Center(

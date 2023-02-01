@@ -45,14 +45,12 @@ class SeedPhraseDisplayPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  kIsWeb
-                      ? const WebOnboardingAppBar(currStep: 0)
-                      : const SizedBox(),
+                  kIsWeb ? const WebOnboardingAppBar(currStep: 0) : const SizedBox(),
                   SizedBox(
+                    width: 200,
                     child: Text(
                       Strings.writeDownSeedPhrase,
-                      style: RibnToolkitTextStyles.onboardingH1
-                          .copyWith(letterSpacing: 0.5),
+                      style: RibnToolkitTextStyles.onboardingH1.copyWith(letterSpacing: 0.5),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -67,9 +65,7 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    height: kIsWeb
-                        ? 280
-                        : adaptHeight(isXsScreenSize ? 0.58 : 0.41),
+                    height: kIsWeb ? 280 : adaptHeight(isXsScreenSize ? 0.58 : 0.41),
                     width: kIsWeb ? 674 : adaptWidth(isXsScreenSize ? 1 : 0.9),
                     decoration: BoxDecoration(
                       color: RibnColors.greyText.withOpacity(0.24),
@@ -107,9 +103,7 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                               padding: const EdgeInsets.only(top: 8.0),
                               child: _buildButton(
                                 Strings.download,
-                                onPressed: () =>
-                                    StoreProvider.of<AppState>(context)
-                                        .dispatch(
+                                onPressed: () => StoreProvider.of<AppState>(context).dispatch(
                                   DownloadAsFileAction(
                                     Strings.seedPhraseFileName,
                                     seedPhrase,
@@ -129,8 +123,7 @@ class SeedPhraseDisplayPage extends StatelessWidget {
                   ConfirmationButton(
                     text: Strings.done,
                     onPressed: () {
-                      Keys.navigatorKey.currentState
-                          ?.pushNamed(Routes.seedPhraseConfirm);
+                      Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseConfirm);
                     },
                   ),
                 ],
@@ -202,9 +195,8 @@ class SeedPhraseDisplayPage extends StatelessWidget {
     required double width,
     required double height,
   }) {
-    final String icon = buttonText == Strings.download
-        ? RibnAssets.downloadPng
-        : RibnAssets.contentCopyPng;
+    final String icon =
+        buttonText == Strings.download ? RibnAssets.downloadPng : RibnAssets.contentCopyPng;
     return TextButton(
       onPressed: onPressed,
       child: RichText(
