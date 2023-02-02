@@ -9,7 +9,6 @@ import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/animated_circle_step_loader.dart';
 
 // Project imports:
-import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
@@ -26,8 +25,7 @@ class SeedPhraseGeneratingPage extends StatefulWidget {
   const SeedPhraseGeneratingPage({Key? key}) : super(key: key);
 
   @override
-  _SeedPhraseGeneratingPageState createState() =>
-      _SeedPhraseGeneratingPageState();
+  _SeedPhraseGeneratingPageState createState() => _SeedPhraseGeneratingPageState();
 }
 
 class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {

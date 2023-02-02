@@ -2,6 +2,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/providers/onboarding_provider.dart';
 
 // Package imports:
 import 'package:ribn_toolkit/constants/styles.dart';
@@ -13,97 +16,84 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/containers/seed_phrase_confirmation_container.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
 
-class SeedPhraseConfirmationPage extends StatefulWidget {
+class SeedPhraseConfirmationPage extends HookConsumerWidget {
   const SeedPhraseConfirmationPage({Key? key}) : super(key: key);
 
   @override
-  State<SeedPhraseConfirmationPage> createState() =>
-      _SeedPhraseConfirmationPageState();
-}
-
-class _SeedPhraseConfirmationPageState
-    extends State<SeedPhraseConfirmationPage> {
-  final Map<int, TextEditingController> idxControllerMap = {};
-  final Map<TextEditingController, bool> controllerErrorMap = {};
-
-  @override
-  Widget build(BuildContext context) {
-    return SeedPhraseConfirmationContainer(
-      onInit: (store) {
-        // populate [controllers] and [hasErrors] maps
-        store.state.onboardingState.mobileConfirmIdxs.toList().forEach((idx) {
-          final TextEditingController controller = TextEditingController();
-          idxControllerMap[idx] = controller;
-          controllerErrorMap[controller] = false;
-        });
-      },
-      builder: (context, vm) {
-        return Scaffold(
-          body: OnboardingContainer(
-            child: SingleChildScrollView(
-              clipBehavior: Clip.none,
-              child: Column(
-                children: [
-                  renderIfWeb(const WebOnboardingAppBar(currStep: 1)),
-                  SizedBox(
-                    child: Text(
-                      Strings.writeDownSeedPhrase,
-                      style: RibnToolkitTextStyles.onboardingH1
-                          .copyWith(letterSpacing: 0.5),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Image.asset(RibnAssets.penPaperPng, width: 70),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: adaptHeight(0.04),
-                      bottom: adaptHeight(0.02),
-                    ),
-                    child: const Text(
-                      Strings.ensureYourWordsAreCorrect,
-                      style: RibnToolkitTextStyles.onboardingH3,
-                    ),
-                  ),
-                  _buildSeedphraseConfirmationGrid(
-                    vm.confirmeIdxs,
-                    vm.mnemonicWordsList,
-                  ),
-                  const SizedBox(height: 40),
-                  renderIfMobile(
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 20.0),
-                      child: OnboardingProgressBar(numSteps: 4, currStep: 1),
-                    ),
-                  ),
-                  ConfirmationButton(
-                    text: Strings.done,
-                    onPressed: () {
-                      // Update errors if text entered does not match mnemonic word at specified idx
-                      idxControllerMap.forEach((idx, controller) {
-                        final bool wordsMatch =
-                            controller.text.trim() == vm.mnemonicWordsList[idx];
-                        controllerErrorMap[controller] = !wordsMatch;
-                      });
-                      setState(() {});
-                      if (!controllerErrorMap.values.contains(true)) {
-                        Keys.navigatorKey.currentState
-                            ?.pushNamed(Routes.createPassword);
-                      }
-                    },
-                  ),
-                ],
+  Widget build(BuildContext context, WidgetRef ref) {
+    final onboardingState = ref.watch(onboardingProvider);
+    final Map<int, TextEditingController> idxControllerMap = {};
+    final Map<TextEditingController, bool> controllerErrorMap = {};
+    // return SeedPhraseConfirmationContainer(
+    //   onInit: (store) {
+    //     // populate [controllers] and [hasErrors] maps
+    //     store.state.onboardingState.mobileConfirmIdxs.toList().forEach((idx) {
+    //       final TextEditingController controller = TextEditingController();
+    //       idxControllerMap[idx] = controller;
+    //       controllerErrorMap[controller] = false;
+    //     });
+    //   },
+    //   builder: (context, vm) {
+    return Scaffold(
+      body: OnboardingContainer(
+        child: SingleChildScrollView(
+          clipBehavior: Clip.none,
+          child: Column(
+            children: [
+              renderIfWeb(const WebOnboardingAppBar(currStep: 1)),
+              SizedBox(
+                child: Text(
+                  Strings.writeDownSeedPhrase,
+                  style: RibnToolkitTextStyles.onboardingH1.copyWith(letterSpacing: 0.5),
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
+              Image.asset(RibnAssets.penPaperPng, width: 70),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: adaptHeight(0.04),
+                  bottom: adaptHeight(0.02),
+                ),
+                child: const Text(
+                  Strings.ensureYourWordsAreCorrect,
+                  style: RibnToolkitTextStyles.onboardingH3,
+                ),
+              ),
+              _buildSeedphraseConfirmationGrid(
+                onboardingState.mobileConfirmIdxs,
+                onboardingState.shuffledMnemonic!,
+              ),
+              const SizedBox(height: 40),
+              renderIfMobile(
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 20.0),
+                  child: OnboardingProgressBar(numSteps: 4, currStep: 1),
+                ),
+              ),
+              ConfirmationButton(
+                text: Strings.done,
+                onPressed: () {
+                  // Update errors if text entered does not match mnemonic word at specified idx
+                  idxControllerMap.forEach((idx, controller) {
+                    final bool wordsMatch =
+                        controller.text.trim() == onboardingState.shuffledMnemonic![idx];
+                    controllerErrorMap[controller] = !wordsMatch;
+                  });
+                  if (!controllerErrorMap.values.contains(true)) {
+                    Keys.navigatorKey.currentState?.pushNamed(Routes.createPassword);
+                  }
+                },
+              ),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
@@ -153,10 +143,13 @@ class _SeedPhraseConfirmationPageState
     );
   }
 
-  Widget _buildConfirmationTextField(int idx, String word) {
+  Widget _buildConfirmationTextField(
+      int idx,
+      String word,
+      Map<int, TextEditingController> idxControllerMap,
+      Map<TextEditingController, bool> controllerErrorMap) {
     return Padding(
-      padding:
-          const EdgeInsets.symmetric(vertical: 5, horizontal: kIsWeb ? 20 : 0),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: kIsWeb ? 20 : 0),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Column(
@@ -184,6 +177,15 @@ class _SeedPhraseConfirmationPageState
         ),
       ),
     );
+  }
+}
+
+class _SeedPhraseGrid extends HookWidget {
+  const _SeedPhraseGrid({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
 

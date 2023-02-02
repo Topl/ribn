@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/mockito.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_display_page.dart';
-import 'package:ribn/providers/onboarding_provider.dart';
+import 'package:ribn/providers/packages/random_provider.dart';
 
 import 'mocks/random_mocks.dart';
 
