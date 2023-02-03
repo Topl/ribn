@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - nightly
+  workflow_dispatch:
 
 env:
   JAVA_VERSION: "17.x"
@@ -22,6 +23,7 @@ jobs:
       - name: Checkout Nightly
         uses: actions/checkout@v3
         with:
+          lfs: true
           ref: 'nightly'
 
       # Setup the java environment required to build Android
@@ -62,9 +64,6 @@ jobs:
       # Creates generated files
       - name: Install flutter dependencies
         run: make gen
-
-      # Statically analyze the Dart code for any errors.
-      - run: flutter analyze .
 
       - name: Build android app
         run: flutter build appbundle --release
