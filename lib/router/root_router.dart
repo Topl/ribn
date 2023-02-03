@@ -118,11 +118,11 @@ class RootRouter {
         {
           if (kIsWeb) {
             return pageRouteNotAnimated(
-              const SeedPhraseConfirmationPage(),
+              SeedPhraseConfirmationPage(),
               settings,
             );
           }
-          return pageRoute(const SeedPhraseConfirmationPage(), settings);
+          return pageRoute(SeedPhraseConfirmationPage(), settings);
         }
       case Routes.walletInfoChecklist:
         {

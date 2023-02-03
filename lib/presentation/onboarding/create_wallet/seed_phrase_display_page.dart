@@ -36,7 +36,6 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
     final bool isXsHeight = height < 667.0 ? true : false;
     final bool isXsScreenSize = isXsWidth && isXsHeight ? true : false;
     final onboardingState = ref.watch(onboardingProvider);
-    final onboardingNotifier = ref.watch(onboardingProvider.notifier);
     final seedPhrase = onboardingState.mnemonic!;
     final List<String> seedPhraseWordsList = seedPhrase.split(' ').toList();
     return Scaffold(

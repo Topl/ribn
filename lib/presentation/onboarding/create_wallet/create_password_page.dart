@@ -2,6 +2,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Package imports:
 import 'package:loader_overlay/loader_overlay.dart';
@@ -13,9 +15,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/routes.dart';
+// import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/containers/create_password_container.dart';
+// import 'package:ribn/containers/create_password_container.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/mobile_onboarding_progress_bar.dart';
@@ -23,61 +25,52 @@ import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
 
-class CreatePasswordPage extends StatefulWidget {
+class CreatePasswordPage extends HookConsumerWidget {
   const CreatePasswordPage({Key? key}) : super(key: key);
 
-  @override
-  _CreatePasswordPageState createState() => _CreatePasswordPageState();
-}
-
-class _CreatePasswordPageState extends State<CreatePasswordPage> {
-  final FocusNode _newPasswordFocus = FocusNode();
-  final FocusNode _confirmPasswordFocus = FocusNode();
-  final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
-  bool _termsOfUseChecked = false;
-  bool _atLeast8Chars = false;
-  bool _passwordsMatch = false;
-
-  @override
-  void initState() {
-    [_newPasswordFocus, _newPasswordController].toList().forEach((elem) {
-      elem.addListener(() {
-        if (!_newPasswordFocus.hasPrimaryFocus || _newPasswordController.text.length >= 8) {
-          _atLeast8Chars =
-              _newPasswordController.text.isNotEmpty && _newPasswordController.text.length >= 8;
-          setState(() {});
-        }
-      });
-    });
-    [_confirmPasswordFocus, _confirmPasswordController].toList().forEach((elem) {
-      elem.addListener(() {
-        if (!_confirmPasswordFocus.hasPrimaryFocus ||
-            _confirmPasswordController.text == _newPasswordController.text) {
-          _passwordsMatch = _confirmPasswordController.text.isNotEmpty &&
-              _confirmPasswordController.text == _newPasswordController.text;
-          setState(() {});
-        }
-      });
-    });
-    super.initState();
-  }
+  // QQQQ delete
+  // @override
+  // void initState() {
+  //   [_newPasswordFocus, _newPasswordController].toList().forEach((elem) {
+  //     elem.addListener(() {
+  //       if (!_newPasswordFocus.hasPrimaryFocus || _newPasswordController.text.length >= 8) {
+  //         _atLeast8Chars =
+  //             _newPasswordController.text.isNotEmpty && _newPasswordController.text.length >= 8;
+  //         setState(() {});
+  //       }
+  //     });
+  //   });
+  //   [_confirmPasswordFocus, _confirmPasswordController].toList().forEach((elem) {
+  //     elem.addListener(() {
+  //       if (!_confirmPasswordFocus.hasPrimaryFocus ||
+  //           _confirmPasswordController.text == _newPasswordController.text) {
+  //         _passwordsMatch = _confirmPasswordController.text.isNotEmpty &&
+  //             _confirmPasswordController.text == _newPasswordController.text;
+  //         setState(() {});
+  //       }
+  //     });
+  //   });
+  //   super.initState();
+  // }
 
   @override
-  Widget build(BuildContext context) {
-    return CreatePasswordContainer(
-      onDidChange: (prevVm, newVm) {
-        if (prevVm?.keyStoreJson != newVm.keyStoreJson && newVm.passwordSuccessfullyCreated) {
-          context.loaderOverlay.hide();
-          navigateToRoute(context, Routes.walletInfoChecklist);
-        }
-      },
-      builder: (context, vm) => LoaderOverlay(
-        child: Scaffold(
-          resizeToAvoidBottomInset: true,
-          body: OnboardingContainer(
-            child: SingleChildScrollView(
-              clipBehavior: Clip.none,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _termsOfUseChecked = useState(false);
+    final _atLeast8Chars = useState(false);
+    final _passwordsMatch = useState(false);
+
+    // final FocusNode _newPasswordFocus = useFocusNode();
+    // final FocusNode _confirmPasswordFocus = useFocusNode();
+    final TextEditingController _newPasswordController = useTextEditingController();
+    final TextEditingController _confirmPasswordController = useTextEditingController();
+
+    return LoaderOverlay(
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: OnboardingContainer(
+          child: SingleChildScrollView(
+            clipBehavior: Clip.none,
+            child: Form(
               child: Column(
                 children: [
                   renderIfWeb(const WebOnboardingAppBar(currStep: 2)),
@@ -108,20 +101,23 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                           ),
                         ),
                         SizedBox(height: adaptHeight(0.02)),
-                        _buildNewPasswordSection(),
+                        _NewPasswordSection(
+                          textEditingController: _newPasswordController,
+                        ),
                         SizedBox(height: adaptHeight(0.02)),
-                        _buildConfirmPasswordSection(),
+                        _ConfirmPasswordSection(
+                          textEditingController: _confirmPasswordController,
+                          newPasswordTextEditingController: _newPasswordController,
+                        ),
                         SizedBox(height: adaptHeight(0.02)),
                         CheckboxWrappableText(
                           wrapText: false,
-                          borderColor: _termsOfUseChecked
+                          borderColor: _termsOfUseChecked.value
                               ? const Color(0xff80FF00)
                               : RibnColors.lightGreyTitle,
-                          value: _termsOfUseChecked,
+                          value: _termsOfUseChecked.value,
                           onChanged: (bool? checked) {
-                            setState(() {
-                              _termsOfUseChecked = checked ?? false;
-                            });
+                            _termsOfUseChecked.value = checked ?? false;
                           },
                           label: RichText(
                             maxLines: 2,
@@ -162,10 +158,12 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
                   ),
                   ConfirmationButton(
                     text: Strings.done,
-                    disabled: !_atLeast8Chars || !_passwordsMatch || !_termsOfUseChecked,
+                    disabled: !_atLeast8Chars.value ||
+                        !_passwordsMatch.value ||
+                        !_termsOfUseChecked.value,
                     onPressed: () {
                       context.loaderOverlay.show();
-                      vm.attemptCreatePassword(_confirmPasswordController.text);
+                      // vm.attemptCreatePassword(_confirmPasswordController.text);
                     },
                   ),
                 ],
@@ -176,8 +174,18 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
       ),
     );
   }
+}
 
-  Widget _buildNewPasswordSection() {
+class _NewPasswordSection extends StatelessWidget {
+  final TextEditingController textEditingController;
+  const _NewPasswordSection({
+    required this.textEditingController,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final bool _atLeast8Chars = textEditingController.text.length > 7;
     return Column(
       children: [
         Align(
@@ -195,10 +203,10 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
         Align(
           alignment: Alignment.centerLeft,
           child: PasswordTextField(
-            focusNode: _newPasswordFocus,
+            // focusNode: _newPasswordFocus,
             width: kIsWeb ? 350 : adaptWidth(0.9),
             fillColor: RibnColors.whiteButtonShadow,
-            controller: _newPasswordController,
+            controller: textEditingController,
             hintText: '',
             obscurePassword: true,
             textInputAction: TextInputAction.next,
@@ -211,7 +219,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
             Strings.atLeast8Chars,
             textAlign: TextAlign.left,
             style: RibnToolkitTextStyles.h3.copyWith(
-              color: !_atLeast8Chars && _newPasswordController.text.isNotEmpty
+              color: !_atLeast8Chars && textEditingController.text.isNotEmpty
                   ? Colors.red
                   : Colors.white,
             ),
@@ -230,8 +238,22 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
       ],
     );
   }
+}
 
-  _buildConfirmPasswordSection() {
+class _ConfirmPasswordSection extends StatelessWidget {
+  final TextEditingController textEditingController;
+  final TextEditingController newPasswordTextEditingController;
+
+  const _ConfirmPasswordSection({
+    required this.textEditingController,
+    required this.newPasswordTextEditingController,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final bool _passwordsMatch =
+        textEditingController.text == newPasswordTextEditingController.text;
     return Column(
       children: [
         Align(
@@ -249,10 +271,10 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
         Align(
           alignment: Alignment.centerLeft,
           child: PasswordTextField(
-            focusNode: _confirmPasswordFocus,
+            // focusNode: _confirmPasswordFocus,
             width: kIsWeb ? 350 : adaptWidth(0.9),
             fillColor: RibnColors.whiteButtonShadow,
-            controller: _confirmPasswordController,
+            controller: textEditingController,
             hintText: '',
             obscurePassword: true,
           ),
@@ -264,7 +286,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
             Strings.passwordsMustMatch,
             textAlign: TextAlign.left,
             style: RibnToolkitTextStyles.h3.copyWith(
-              color: !_passwordsMatch && _confirmPasswordController.text.isNotEmpty
+              color: !_passwordsMatch && textEditingController.text.isNotEmpty
                   ? Colors.red
                   : Colors.white,
             ),
