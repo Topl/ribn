@@ -16,7 +16,7 @@ jobs:
       - name: checkout and rebase
         run: |
           git pull
-          git rebase origin/dev
+          git merge origin/dev -m ""
 
       - name: Tag and Push Nightly Release
         run: |
