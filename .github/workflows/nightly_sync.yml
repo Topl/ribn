@@ -15,7 +15,7 @@ jobs:
         run: |
           git checkout nightly
           git pull
-          git rebase main
+          git rebase dev
 
       - name: Tag and Push Nightly Release
         run: |
