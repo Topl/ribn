@@ -18,13 +18,16 @@ jobs:
           from_branch: dev
           target_branch: nightly
           github_token: ${{ github.token }}
-          
-      - name: grab app version
-        run: version=$(awk '/version:/ {match($0, /version:/); print substr($0, RSTART+9, RLENGTH + 12);}' pubspec.yaml)
 
-      - name: Tag Nightly Release
-        run: git tag n$version-$(date +%y%m%d) nightly
+      - name: checkout and rebase
+        run: |
+          git checkout nightly
+          git pull
+          git rebase main
 
-      - name: Push tag
-        run: git push origin n$version-$(date +%y%m%d)
+      - name: Tag and Push Nightly Release
+        run: |
+          version=$(awk '/version:/ {match($0, /version:/); print substr($0, RSTART+9, RLENGTH + 12);}' pubspec.yaml)
+          git tag n$version-$(date +%y%m%d)
+          git push --atomic origin nightly n$version-$(date +%y%m%d)
 
