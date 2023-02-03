@@ -24,12 +24,10 @@ class SeedPhraseConfirmationPage extends StatefulWidget {
   const SeedPhraseConfirmationPage({Key? key}) : super(key: key);
 
   @override
-  State<SeedPhraseConfirmationPage> createState() =>
-      _SeedPhraseConfirmationPageState();
+  State<SeedPhraseConfirmationPage> createState() => _SeedPhraseConfirmationPageState();
 }
 
-class _SeedPhraseConfirmationPageState
-    extends State<SeedPhraseConfirmationPage> {
+class _SeedPhraseConfirmationPageState extends State<SeedPhraseConfirmationPage> {
   final Map<int, TextEditingController> idxControllerMap = {};
   final Map<TextEditingController, bool> controllerErrorMap = {};
 
@@ -53,10 +51,10 @@ class _SeedPhraseConfirmationPageState
                 children: [
                   renderIfWeb(const WebOnboardingAppBar(currStep: 1)),
                   SizedBox(
+                    width: 200,
                     child: Text(
                       Strings.writeDownSeedPhrase,
-                      style: RibnToolkitTextStyles.onboardingH1
-                          .copyWith(letterSpacing: 0.5),
+                      style: RibnToolkitTextStyles.onboardingH1.copyWith(letterSpacing: 0.5),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -87,14 +85,12 @@ class _SeedPhraseConfirmationPageState
                     onPressed: () {
                       // Update errors if text entered does not match mnemonic word at specified idx
                       idxControllerMap.forEach((idx, controller) {
-                        final bool wordsMatch =
-                            controller.text.trim() == vm.mnemonicWordsList[idx];
+                        final bool wordsMatch = controller.text.trim() == vm.mnemonicWordsList[idx];
                         controllerErrorMap[controller] = !wordsMatch;
                       });
                       setState(() {});
                       if (!controllerErrorMap.values.contains(true)) {
-                        Keys.navigatorKey.currentState
-                            ?.pushNamed(Routes.createPassword);
+                        Keys.navigatorKey.currentState?.pushNamed(Routes.createPassword);
                       }
                     },
                   ),
@@ -155,8 +151,7 @@ class _SeedPhraseConfirmationPageState
 
   Widget _buildConfirmationTextField(int idx, String word) {
     return Padding(
-      padding:
-          const EdgeInsets.symmetric(vertical: 5, horizontal: kIsWeb ? 20 : 0),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: kIsWeb ? 20 : 0),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Column(

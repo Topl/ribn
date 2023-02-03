@@ -24,57 +24,67 @@ class SelectActionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> actionButtons = [
-      OnboardingActionButton(
-        backgroundColor: RibnColors.primary,
-        icon: Image.asset(RibnAssets.createWalletPng),
-        title: Strings.createWallet,
-        description: Strings.firstTimeWallet,
-        onPressed: () {
-          Keys.navigatorKey.currentState?.pushNamed(Routes.gettingStarted);
-        },
+      Expanded(
+        child: OnboardingActionButton(
+          backgroundColor: RibnColors.primary,
+          icon: Image.asset(RibnAssets.createWalletPng),
+          title: Strings.createWallet,
+          description: Strings.firstTimeWallet,
+          onPressed: () {
+            Keys.navigatorKey.currentState?.pushNamed(Routes.gettingStarted);
+          },
+        ),
       ),
-      kIsWeb
-          ? const SizedBox(width: 100, height: 50)
-          : const SizedBox(height: 50),
-      OnboardingActionButton(
-        backgroundColor: RibnColors.primary,
-        icon: Image.asset(RibnAssets.importWalletPng),
-        description: Strings.importWalletUsingSeedPhrase,
-        title: Strings.importWallet,
-        onPressed: () {
-          Keys.navigatorKey.currentState?.pushNamed(Routes.restoreWallet);
-        },
+      kIsWeb ? const SizedBox(width: 100, height: 50) : const SizedBox(height: 25),
+      Expanded(
+        child: OnboardingActionButton(
+          backgroundColor: RibnColors.primary,
+          icon: Image.asset(RibnAssets.importWalletPng),
+          description: Strings.importWalletUsingSeedPhrase,
+          title: Strings.importWallet,
+          onPressed: () {
+            Keys.navigatorKey.currentState?.pushNamed(Routes.restoreWallet);
+          },
+        ),
       )
     ];
 
     return Scaffold(
       body: OnboardingContainer(
-        child: SingleChildScrollView(
-          clipBehavior: Clip.none,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                renderIfWeb(const WebOnboardingAppBar()),
-                const SizedBox(
-                  width: kIsWeb ? double.infinity : 245,
-                  child: Text(
-                    Strings.whatWouldYouLikeToDo,
-                    textAlign: TextAlign.center,
-                    style: RibnToolkitTextStyles.onboardingH1,
-                  ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              renderIfWeb(const WebOnboardingAppBar()),
+              const SizedBox(
+                width: kIsWeb ? double.infinity : 245,
+                child: Text(
+                  Strings.whatWouldYouLikeToDo,
+                  textAlign: TextAlign.center,
+                  style: RibnToolkitTextStyles.onboardingH1,
                 ),
-                SizedBox(height: adaptHeight(0.1)),
-                // display actionbuttons in row or column depending on platform
-                kIsWeb
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+              ),
+              SizedBox(height: adaptHeight(0.05)),
+              // display actionbuttons in row or column depending on platform
+              kIsWeb
+                  ? Container(
+                      constraints: BoxConstraints(
+                        maxHeight: 263,
+                        maxWidth: 800,
+                      ),
+                      child: Row(
+                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: actionButtons,
-                      )
-                    : Column(children: actionButtons),
-                SizedBox(height: adaptHeight(0.1)),
-              ],
-            ),
+                      ),
+                    )
+                  : Expanded(
+                      child: Column(
+                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: actionButtons,
+                      ),
+                    ),
+              SizedBox(height: adaptHeight(0.05)),
+            ],
           ),
         ),
       ),
