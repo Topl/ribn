@@ -24,6 +24,7 @@ class ExtensionInfoPage extends StatelessWidget {
         );
     return Scaffold(
       body: OnboardingContainer(
+        showBackButton: false,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

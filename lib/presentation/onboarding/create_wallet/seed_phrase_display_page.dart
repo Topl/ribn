@@ -1,6 +1,7 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
@@ -34,104 +35,113 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
     final bool isXsWidth = width < 375.0 ? true : false;
     final bool isXsHeight = height < 667.0 ? true : false;
     final bool isXsScreenSize = isXsWidth && isXsHeight ? true : false;
-
     final onboardingState = ref.watch(onboardingProvider);
     final onboardingNotifier = ref.watch(onboardingProvider.notifier);
     final seedPhrase = onboardingState.mnemonic!;
-
     final List<String> seedPhraseWordsList = seedPhrase.split(' ').toList();
     return Scaffold(
       body: OnboardingContainer(
         isXsScreenSize: isXsScreenSize,
-        child: SingleChildScrollView(
-          clipBehavior: Clip.none,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              kIsWeb ? const WebOnboardingAppBar(currStep: 0) : const SizedBox(),
-              SizedBox(
-                child: Text(
-                  Strings.writeDownSeedPhrase,
-                  style: RibnToolkitTextStyles.onboardingH1.copyWith(letterSpacing: 0.5),
-                  textAlign: TextAlign.center,
-                ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            kIsWeb ? const WebOnboardingAppBar(currStep: 0) : const SizedBox(),
+            SizedBox(
+              width: 200,
+              child: Text(
+                Strings.writeDownSeedPhrase,
+                style: RibnToolkitTextStyles.onboardingH1.copyWith(letterSpacing: 0.5),
+                textAlign: TextAlign.center,
               ),
-              Image.asset(RibnAssets.penPaperPng, width: 70),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: kIsWeb ? 40 : adaptHeight(0.03),
-                ),
-                child: const Text(
-                  Strings.writeDownSeedPhraseInExactOrder,
-                  style: RibnToolkitTextStyles.onboardingH3,
-                ),
+            ),
+            Image.asset(RibnAssets.penPaperPng, width: 70),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: kIsWeb ? 40 : adaptHeight(0.03),
               ),
-              Container(
-                height: kIsWeb ? 280 : adaptHeight(isXsScreenSize ? 0.58 : 0.41),
-                width: kIsWeb ? 674 : adaptWidth(isXsScreenSize ? 1 : 0.9),
-                decoration: BoxDecoration(
-                  color: RibnColors.greyText.withOpacity(0.24),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Column(
-                  children: [
-                    _buildGrid(seedPhraseWordsList),
-                    const Spacer(),
-                    kIsWeb
-                        ? const SizedBox()
-                        : Padding(
-                            padding: const EdgeInsets.only(right: 20),
-                            child: Align(
-                              alignment: Alignment.bottomRight,
-                              child: _buildButton(
-                                Strings.copy,
-                                onPressed: () => onboardingNotifier.regenerateMnemonic(),
-
-                                // Clipboard.setData(
-                                //   ClipboardData(text: seedPhrase),
-                                // ),
-                                width: 19,
-                                height: 15,
+              child: const Text(
+                Strings.writeDownSeedPhraseInExactOrder,
+                style: RibnToolkitTextStyles.onboardingH3,
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxHeight: 280,
+                    maxWidth: 674,
+                  ),
+                  decoration: BoxDecoration(
+                    color: RibnColors.greyText.withOpacity(0.24),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  padding: EdgeInsets.all(15),
+                  child: Column(
+                    children: [
+                      _buildGrid(seedPhraseWordsList),
+                      kIsWeb
+                          ? const SizedBox()
+                          : Padding(
+                              padding: const EdgeInsets.only(right: 20),
+                              child: Align(
+                                alignment: Alignment.bottomRight,
+                                child: _buildButton(
+                                  Strings.copy,
+                                  onPressed: () => Clipboard.setData(
+                                    ClipboardData(text: seedPhrase),
+                                  ),
+                                  width: 19,
+                                  height: 15,
+                                ),
                               ),
                             ),
-                          ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-              SizedBox(
-                width: 674,
-                child: kIsWeb
-                    ? Align(
-                        alignment: Alignment.bottomRight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: _buildButton(
-                            Strings.download,
-                            onPressed: () => StoreProvider.of<AppState>(context).dispatch(
-                              DownloadAsFileAction(
-                                Strings.seedPhraseFileName,
-                                seedPhrase,
-                              ),
+            ),
+            SizedBox(
+              width: 674,
+              child: kIsWeb
+                  ? Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: _buildButton(
+                          Strings.download,
+                          onPressed: () => StoreProvider.of<AppState>(context).dispatch(
+                            DownloadAsFileAction(
+                              Strings.seedPhraseFileName,
+                              seedPhrase,
                             ),
-                            width: 30,
-                            height: 23,
                           ),
+                          width: 30,
+                          height: 23,
                         ),
-                      )
-                    : const SizedBox(),
+                      ),
+                    )
+                  : const SizedBox(),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                top: 20,
               ),
-              SizedBox(height: adaptHeight(0.1)),
-              renderIfMobile(
-                const MobileOnboardingProgressBar(currStep: 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  renderIfMobile(
+                    const MobileOnboardingProgressBar(currStep: 0),
+                  ),
+                  ConfirmationButton(
+                    text: Strings.done,
+                    onPressed: () {
+                      Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseConfirm);
+                    },
+                  ),
+                ],
               ),
-              ConfirmationButton(
-                text: Strings.done,
-                onPressed: () {
-                  Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseConfirm);
-                },
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -149,17 +159,19 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
         children.add(_buildGridItem(idx, word));
       }
     });
-    return SizedBox(
-      height: 280,
+    return Expanded(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           ...List.generate(
             rows.length,
-            (index) => Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: rows[index],
+            (index) => Padding(
+              padding: EdgeInsets.symmetric(vertical: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: rows[index],
+              ),
             ),
           )
         ],
@@ -168,10 +180,8 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
   }
 
   Widget _buildGridItem(int idx, String word) {
-    return SizedBox(
-      width: kIsWeb ? 150 : 100,
+    return Expanded(
       child: Row(
-        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
@@ -182,9 +192,12 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
                   .copyWith(color: const Color(0xff00FFC5), letterSpacing: 0.5),
             ),
           ),
-          Text(
-            word,
-            style: RibnToolkitTextStyles.h3.copyWith(letterSpacing: 0.5),
+          Expanded(
+            flex: 6,
+            child: Text(
+              word,
+              style: RibnToolkitTextStyles.h3.copyWith(letterSpacing: 0.5),
+            ),
           ),
         ],
       ),

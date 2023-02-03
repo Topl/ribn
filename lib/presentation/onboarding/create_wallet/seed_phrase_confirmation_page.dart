@@ -23,23 +23,11 @@ import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart
 import 'package:ribn/utils.dart';
 
 class SeedPhraseConfirmationPage extends HookConsumerWidget {
-  const SeedPhraseConfirmationPage({Key? key}) : super(key: key);
-
-  @override
   Widget build(BuildContext context, WidgetRef ref) {
     final onboardingState = ref.watch(onboardingProvider);
     final Map<int, TextEditingController> idxControllerMap = {};
     final Map<TextEditingController, bool> controllerErrorMap = {};
-    // return SeedPhraseConfirmationContainer(
-    //   onInit: (store) {
-    //     // populate [controllers] and [hasErrors] maps
-    //     store.state.onboardingState.mobileConfirmIdxs.toList().forEach((idx) {
-    //       final TextEditingController controller = TextEditingController();
-    //       idxControllerMap[idx] = controller;
-    //       controllerErrorMap[controller] = false;
-    //     });
-    //   },
-    //   builder: (context, vm) {
+
     return Scaffold(
       body: OnboardingContainer(
         child: SingleChildScrollView(
@@ -48,6 +36,7 @@ class SeedPhraseConfirmationPage extends HookConsumerWidget {
             children: [
               renderIfWeb(const WebOnboardingAppBar(currStep: 1)),
               SizedBox(
+                width: 200,
                 child: Text(
                   Strings.writeDownSeedPhrase,
                   style: RibnToolkitTextStyles.onboardingH1.copyWith(letterSpacing: 0.5),
@@ -66,8 +55,8 @@ class SeedPhraseConfirmationPage extends HookConsumerWidget {
                 ),
               ),
               _buildSeedphraseConfirmationGrid(
-                onboardingState.mobileConfirmIdxs,
-                onboardingState.shuffledMnemonic!,
+                vm.confirmeIdxs,
+                vm.mnemonicWordsList,
               ),
               const SizedBox(height: 40),
               renderIfMobile(
@@ -81,8 +70,7 @@ class SeedPhraseConfirmationPage extends HookConsumerWidget {
                 onPressed: () {
                   // Update errors if text entered does not match mnemonic word at specified idx
                   idxControllerMap.forEach((idx, controller) {
-                    final bool wordsMatch =
-                        controller.text.trim() == onboardingState.shuffledMnemonic![idx];
+                    final bool wordsMatch = controller.text.trim() == vm.mnemonicWordsList[idx];
                     controllerErrorMap[controller] = !wordsMatch;
                   });
                   if (!controllerErrorMap.values.contains(true)) {

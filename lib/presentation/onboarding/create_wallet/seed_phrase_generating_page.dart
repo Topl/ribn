@@ -42,6 +42,7 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
       builder: (context, vm) {
         return Scaffold(
           body: OnboardingContainer(
+            showBackButton: seedPhraseGenerating ? false : true,
             child: SingleChildScrollView(
               clipBehavior: Clip.none,
               child: Center(
