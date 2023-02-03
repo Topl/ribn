@@ -36,7 +36,7 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
     final bool isXsHeight = height < 667.0 ? true : false;
     final bool isXsScreenSize = isXsWidth && isXsHeight ? true : false;
     final onboardingState = ref.watch(onboardingProvider);
-    final seedPhrase = onboardingState.mnemonic!;
+    final seedPhrase = onboardingState.mnemonic;
     final List<String> seedPhraseWordsList = seedPhrase.split(' ').toList();
     return Scaffold(
       body: OnboardingContainer(
@@ -86,9 +86,11 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
                                 alignment: Alignment.bottomRight,
                                 child: _buildButton(
                                   Strings.copy,
-                                  onPressed: () => Clipboard.setData(
-                                    ClipboardData(text: seedPhrase),
-                                  ),
+                                  onPressed: () {
+                                    Clipboard.setData(
+                                      ClipboardData(text: seedPhrase),
+                                    );
+                                  },
                                   width: 19,
                                   height: 15,
                                 ),

@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pinenacl/encoding.dart';
 
 final entropyProvider = Provider<Entropy Function(dynamic)>((ref) {
-  return (random) => Entropy.generate(from_entropy_size(128), RandomBridge(random).nextUint8);
+  return (random) => Entropy.generate(from_entropy_size(160), RandomBridge(random).nextUint8);
 });
 
 final entropyFuncProvider = Provider<String Function(dynamic)>((ref) {

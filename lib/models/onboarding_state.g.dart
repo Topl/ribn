@@ -8,9 +8,9 @@ part of 'onboarding_state.dart';
 
 _$_OnboardingState _$$_OnboardingStateFromJson(Map<String, dynamic> json) =>
     _$_OnboardingState(
-      mnemonic: json['mnemonic'] as String?,
-      shuffledMnemonic: (json['shuffledMnemonic'] as List<dynamic>?)
-          ?.map((e) => e as String)
+      mnemonic: json['mnemonic'] as String,
+      shuffledMnemonic: (json['shuffledMnemonic'] as List<dynamic>)
+          .map((e) => e as String)
           .toList(),
       userSelectedIndices: (json['userSelectedIndices'] as List<dynamic>?)
           ?.map((e) => e as int)

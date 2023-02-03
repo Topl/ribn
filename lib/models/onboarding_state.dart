@@ -12,15 +12,11 @@ part 'onboarding_state.g.dart';
 @freezed
 class OnboardingState with _$OnboardingState {
   const factory OnboardingState({
-    String? mnemonic,
-    List<String>? shuffledMnemonic,
+    required String mnemonic,
+    required List<String> shuffledMnemonic,
     List<int>? userSelectedIndices,
     @Default([8, 10, 14, 13]) List<int> mobileConfirmIdxs,
   }) = _OnboardingState;
-
-  factory OnboardingState.initial() {
-    return const OnboardingState();
-  }
 
   factory OnboardingState.test() {
     return const OnboardingState(

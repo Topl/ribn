@@ -29,8 +29,17 @@ class SeedPhraseConfirmationPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final onboardingState = ref.watch(onboardingProvider);
 
-    final List<String> mnemonicWordsList = onboardingState.shuffledMnemonic!;
+    useEffect(() {
+      return () {
+        _formKey.currentState?.dispose();
+      };
+    });
+
+    final List<String> mnemonicWordsList = onboardingState.shuffledMnemonic;
     final List<int> confirmeIdxs = onboardingState.mobileConfirmIdxs;
+
+    print('QQQQ mnemonicWordsList $mnemonicWordsList');
+    print('QQQQ confirmeIdxs $confirmeIdxs');
 
     return Scaffold(
       body: OnboardingContainer(
@@ -60,7 +69,7 @@ class SeedPhraseConfirmationPage extends HookConsumerWidget {
                     style: RibnToolkitTextStyles.onboardingH3,
                   ),
                 ),
-                _SeedPhraseCOnfirmationGrid(
+                _SeedPhraseConfirmationGrid(
                   confirmIdxs: confirmeIdxs,
                   mnemonicWordsList: mnemonicWordsList,
                 ),
@@ -88,10 +97,10 @@ class SeedPhraseConfirmationPage extends HookConsumerWidget {
   }
 }
 
-class _SeedPhraseCOnfirmationGrid extends StatelessWidget {
+class _SeedPhraseConfirmationGrid extends StatelessWidget {
   final List<int> confirmIdxs;
   final List<String> mnemonicWordsList;
-  const _SeedPhraseCOnfirmationGrid({
+  const _SeedPhraseConfirmationGrid({
     required this.confirmIdxs,
     required this.mnemonicWordsList,
     Key? key,
@@ -171,7 +180,7 @@ class ConfirmationTextField extends HookWidget {
               hintText: Strings.typeSomething,
               inputFormatters: [LowerCaseTextFormatter()],
               validator: (String? text) {
-                if (text == null || text.isEmpty) {
+                if (text == null || text.isEmpty || text != word) {
                   return 'Please enter word';
                 } else if (text != word) {
                   return 'Word does not match';

@@ -20,8 +20,8 @@ OnboardingState _$OnboardingStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$OnboardingState {
-  String? get mnemonic => throw _privateConstructorUsedError;
-  List<String>? get shuffledMnemonic => throw _privateConstructorUsedError;
+  String get mnemonic => throw _privateConstructorUsedError;
+  List<String> get shuffledMnemonic => throw _privateConstructorUsedError;
   List<int>? get userSelectedIndices => throw _privateConstructorUsedError;
   List<int> get mobileConfirmIdxs => throw _privateConstructorUsedError;
 
@@ -38,8 +38,8 @@ abstract class $OnboardingStateCopyWith<$Res> {
       _$OnboardingStateCopyWithImpl<$Res, OnboardingState>;
   @useResult
   $Res call(
-      {String? mnemonic,
-      List<String>? shuffledMnemonic,
+      {String mnemonic,
+      List<String> shuffledMnemonic,
       List<int>? userSelectedIndices,
       List<int> mobileConfirmIdxs});
 }
@@ -57,20 +57,20 @@ class _$OnboardingStateCopyWithImpl<$Res, $Val extends OnboardingState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? mnemonic = freezed,
-    Object? shuffledMnemonic = freezed,
+    Object? mnemonic = null,
+    Object? shuffledMnemonic = null,
     Object? userSelectedIndices = freezed,
     Object? mobileConfirmIdxs = null,
   }) {
     return _then(_value.copyWith(
-      mnemonic: freezed == mnemonic
+      mnemonic: null == mnemonic
           ? _value.mnemonic
           : mnemonic // ignore: cast_nullable_to_non_nullable
-              as String?,
-      shuffledMnemonic: freezed == shuffledMnemonic
+              as String,
+      shuffledMnemonic: null == shuffledMnemonic
           ? _value.shuffledMnemonic
           : shuffledMnemonic // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<String>,
       userSelectedIndices: freezed == userSelectedIndices
           ? _value.userSelectedIndices
           : userSelectedIndices // ignore: cast_nullable_to_non_nullable
@@ -92,8 +92,8 @@ abstract class _$$_OnboardingStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? mnemonic,
-      List<String>? shuffledMnemonic,
+      {String mnemonic,
+      List<String> shuffledMnemonic,
       List<int>? userSelectedIndices,
       List<int> mobileConfirmIdxs});
 }
@@ -109,20 +109,20 @@ class __$$_OnboardingStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? mnemonic = freezed,
-    Object? shuffledMnemonic = freezed,
+    Object? mnemonic = null,
+    Object? shuffledMnemonic = null,
     Object? userSelectedIndices = freezed,
     Object? mobileConfirmIdxs = null,
   }) {
     return _then(_$_OnboardingState(
-      mnemonic: freezed == mnemonic
+      mnemonic: null == mnemonic
           ? _value.mnemonic
           : mnemonic // ignore: cast_nullable_to_non_nullable
-              as String?,
-      shuffledMnemonic: freezed == shuffledMnemonic
+              as String,
+      shuffledMnemonic: null == shuffledMnemonic
           ? _value._shuffledMnemonic
           : shuffledMnemonic // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<String>,
       userSelectedIndices: freezed == userSelectedIndices
           ? _value._userSelectedIndices
           : userSelectedIndices // ignore: cast_nullable_to_non_nullable
@@ -141,8 +141,8 @@ class _$_OnboardingState
     with DiagnosticableTreeMixin
     implements _OnboardingState {
   const _$_OnboardingState(
-      {this.mnemonic,
-      final List<String>? shuffledMnemonic,
+      {required this.mnemonic,
+      required final List<String> shuffledMnemonic,
       final List<int>? userSelectedIndices,
       final List<int> mobileConfirmIdxs = const [8, 10, 14, 13]})
       : _shuffledMnemonic = shuffledMnemonic,
@@ -153,14 +153,12 @@ class _$_OnboardingState
       _$$_OnboardingStateFromJson(json);
 
   @override
-  final String? mnemonic;
-  final List<String>? _shuffledMnemonic;
+  final String mnemonic;
+  final List<String> _shuffledMnemonic;
   @override
-  List<String>? get shuffledMnemonic {
-    final value = _shuffledMnemonic;
-    if (value == null) return null;
+  List<String> get shuffledMnemonic {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_shuffledMnemonic);
   }
 
   final List<int>? _userSelectedIndices;
@@ -236,8 +234,8 @@ class _$_OnboardingState
 
 abstract class _OnboardingState implements OnboardingState {
   const factory _OnboardingState(
-      {final String? mnemonic,
-      final List<String>? shuffledMnemonic,
+      {required final String mnemonic,
+      required final List<String> shuffledMnemonic,
       final List<int>? userSelectedIndices,
       final List<int> mobileConfirmIdxs}) = _$_OnboardingState;
 
@@ -245,9 +243,9 @@ abstract class _OnboardingState implements OnboardingState {
       _$_OnboardingState.fromJson;
 
   @override
-  String? get mnemonic;
+  String get mnemonic;
   @override
-  List<String>? get shuffledMnemonic;
+  List<String> get shuffledMnemonic;
   @override
   List<int>? get userSelectedIndices;
   @override

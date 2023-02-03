@@ -163,6 +163,8 @@ class CreatePasswordPage extends HookConsumerWidget {
                         !_termsOfUseChecked.value,
                     onPressed: () {
                       context.loaderOverlay.show();
+
+                      // QQQQ reimplement
                       // vm.attemptCreatePassword(_confirmPasswordController.text);
                     },
                   ),
