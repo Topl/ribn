@@ -41,8 +41,7 @@ class NewWalletPasswordPage extends StatefulWidget {
 class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
   /// Controllers for password textfields.
   final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   /// True if the password entered is at least 8 characters.
   bool _atLeast8Chars = false;
@@ -58,15 +57,12 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
   @override
   void initState() {
     // Initialize listeners for each controller.
-    [_newPasswordController, _confirmPasswordController]
-        .toList()
-        .forEach((controller) {
+    [_newPasswordController, _confirmPasswordController].toList().forEach((controller) {
       controller.addListener(() {
         setState(() {
           hasErrors[controller] = false;
           _atLeast8Chars = _newPasswordController.text.length >= 8;
-          _passwordsMatch =
-              _newPasswordController.text == _confirmPasswordController.text;
+          _passwordsMatch = _newPasswordController.text == _confirmPasswordController.text;
         });
       });
     });
@@ -76,9 +72,7 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
   @override
   void dispose() {
     // Dispose listeners for each controller.
-    [_newPasswordController, _confirmPasswordController]
-        .toList()
-        .forEach((controller) {
+    [_newPasswordController, _confirmPasswordController].toList().forEach((controller) {
       controller.dispose();
     });
     super.dispose();
@@ -127,9 +121,7 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
                 const SizedBox(height: 20),
                 ConfirmationButton(
                   text: Strings.done,
-                  disabled: !_atLeast8Chars ||
-                      !_passwordsMatch ||
-                      !_termsOfUseChecked,
+                  disabled: !_atLeast8Chars || !_passwordsMatch || !_termsOfUseChecked,
                   onPressed: () {
                     context.loaderOverlay.show();
                     StoreProvider.of<AppState>(context).dispatch(
@@ -233,10 +225,9 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
             Strings.passwordsMustMatch,
             textAlign: TextAlign.left,
             style: RibnToolkitTextStyles.h3.copyWith(
-              color:
-                  !_passwordsMatch && _confirmPasswordController.text.isNotEmpty
-                      ? Colors.red
-                      : Colors.white,
+              color: !_passwordsMatch && _confirmPasswordController.text.isNotEmpty
+                  ? Colors.red
+                  : Colors.white,
             ),
           ),
         ),
@@ -248,9 +239,7 @@ class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
     final url = Uri.parse(Strings.termsOfUseUrl);
     return CheckboxWrappableText(
       wrapText: false,
-      borderColor: _termsOfUseChecked
-          ? const Color(0xff80FF00)
-          : RibnColors.lightGreyTitle,
+      borderColor: _termsOfUseChecked ? const Color(0xff80FF00) : RibnColors.lightGreyTitle,
       value: _termsOfUseChecked,
       onChanged: (bool? checked) {
         setState(() {

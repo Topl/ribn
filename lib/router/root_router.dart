@@ -137,9 +137,9 @@ class RootRouter {
       case Routes.createPassword:
         {
           if (kIsWeb) {
-            return pageRouteNotAnimated(const CreatePasswordPage(), settings);
+            return pageRouteNotAnimated(CreatePasswordPage(), settings);
           }
-          return pageRoute(const CreatePasswordPage(), settings);
+          return pageRoute(CreatePasswordPage(), settings);
         }
       case Routes.extensionInfo:
         {

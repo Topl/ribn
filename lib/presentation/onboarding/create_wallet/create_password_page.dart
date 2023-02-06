@@ -26,7 +26,7 @@ import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart
 import 'package:ribn/utils.dart';
 
 class CreatePasswordPage extends HookConsumerWidget {
-  const CreatePasswordPage({Key? key}) : super(key: key);
+  CreatePasswordPage({Key? key}) : super(key: key);
 
   // QQQQ delete
   // @override
@@ -53,16 +53,57 @@ class CreatePasswordPage extends HookConsumerWidget {
   //   super.initState();
   // }
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _termsOfUseChecked = useState(false);
-    final _atLeast8Chars = useState(false);
-    final _passwordsMatch = useState(false);
+    useEffect(() {
+      return () {
+        _formKey.currentState?.dispose();
+      };
+    }, []);
 
     // final FocusNode _newPasswordFocus = useFocusNode();
     // final FocusNode _confirmPasswordFocus = useFocusNode();
     final TextEditingController _newPasswordController = useTextEditingController();
     final TextEditingController _confirmPasswordController = useTextEditingController();
+
+    final _termsOfUseChecked = useState(false);
+    final _atLeast8Chars = useState(false);
+    final _passwordsMatch = useState(false);
+
+    useEffect(() {
+      void _passwordCheck() {
+        // If the new password is greater then 7 set [_atLeast8Chars] to true
+        if (_newPasswordController.text.length > 7) {
+          _atLeast8Chars.value = true;
+        }
+        // Else if it is true and not greater then 7, then set to false
+        else if (_atLeast8Chars.value) {
+          _atLeast8Chars.value = false;
+        }
+
+        // If both passwords match, then set [_passwordsMatch] to true
+        if (_newPasswordController.text == _confirmPasswordController.text) {
+          _passwordsMatch.value = true;
+        }
+        // Else if they dont match and [_passwordsMatch] is true set it to false
+        else if (_passwordsMatch.value) {
+          _passwordsMatch.value = false;
+        }
+      }
+
+      _newPasswordController.addListener(
+        () {
+          _passwordCheck();
+        },
+      );
+      _confirmPasswordController.addListener(
+        () {
+          _passwordCheck();
+        },
+      );
+    }, []);
 
     return LoaderOverlay(
       child: Scaffold(
@@ -71,6 +112,7 @@ class CreatePasswordPage extends HookConsumerWidget {
           child: SingleChildScrollView(
             clipBehavior: Clip.none,
             child: Form(
+              key: _formKey,
               child: Column(
                 children: [
                   renderIfWeb(const WebOnboardingAppBar(currStep: 2)),
@@ -103,11 +145,12 @@ class CreatePasswordPage extends HookConsumerWidget {
                         SizedBox(height: adaptHeight(0.02)),
                         _NewPasswordSection(
                           textEditingController: _newPasswordController,
+                          atLeast8Chars: _atLeast8Chars.value,
                         ),
                         SizedBox(height: adaptHeight(0.02)),
                         _ConfirmPasswordSection(
                           textEditingController: _confirmPasswordController,
-                          newPasswordTextEditingController: _newPasswordController,
+                          passwordsMatch: _passwordsMatch.value,
                         ),
                         SizedBox(height: adaptHeight(0.02)),
                         CheckboxWrappableText(
@@ -180,14 +223,15 @@ class CreatePasswordPage extends HookConsumerWidget {
 
 class _NewPasswordSection extends StatelessWidget {
   final TextEditingController textEditingController;
+  final bool atLeast8Chars;
   const _NewPasswordSection({
     required this.textEditingController,
+    required this.atLeast8Chars,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final bool _atLeast8Chars = textEditingController.text.length > 7;
     return Column(
       children: [
         Align(
@@ -221,7 +265,7 @@ class _NewPasswordSection extends StatelessWidget {
             Strings.atLeast8Chars,
             textAlign: TextAlign.left,
             style: RibnToolkitTextStyles.h3.copyWith(
-              color: !_atLeast8Chars && textEditingController.text.isNotEmpty
+              color: !atLeast8Chars && textEditingController.text.isNotEmpty
                   ? Colors.red
                   : Colors.white,
             ),
@@ -244,18 +288,16 @@ class _NewPasswordSection extends StatelessWidget {
 
 class _ConfirmPasswordSection extends StatelessWidget {
   final TextEditingController textEditingController;
-  final TextEditingController newPasswordTextEditingController;
+  final bool passwordsMatch;
 
   const _ConfirmPasswordSection({
     required this.textEditingController,
-    required this.newPasswordTextEditingController,
+    required this.passwordsMatch,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final bool _passwordsMatch =
-        textEditingController.text == newPasswordTextEditingController.text;
     return Column(
       children: [
         Align(
@@ -288,7 +330,7 @@ class _ConfirmPasswordSection extends StatelessWidget {
             Strings.passwordsMustMatch,
             textAlign: TextAlign.left,
             style: RibnToolkitTextStyles.h3.copyWith(
-              color: !_passwordsMatch && textEditingController.text.isNotEmpty
+              color: !passwordsMatch && textEditingController.value.text.isNotEmpty
                   ? Colors.red
                   : Colors.white,
             ),

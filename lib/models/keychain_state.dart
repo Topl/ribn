@@ -34,6 +34,7 @@ class KeychainState {
   /// Gets all supported [RibnNetwork]s.
   List<RibnNetwork> get allNetworks => networks.values.toList();
 
+  // TODO, convert to Freezed
   const KeychainState({
     this.keyStoreJson,
     this.hdWallet,

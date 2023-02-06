@@ -38,9 +38,6 @@ class SeedPhraseConfirmationPage extends HookConsumerWidget {
     final List<String> mnemonicWordsList = onboardingState.shuffledMnemonic;
     final List<int> confirmeIdxs = onboardingState.mobileConfirmIdxs;
 
-    print('QQQQ mnemonicWordsList $mnemonicWordsList');
-    print('QQQQ confirmeIdxs $confirmeIdxs');
-
     return Scaffold(
       body: OnboardingContainer(
         child: SingleChildScrollView(
@@ -163,6 +160,11 @@ class ConfirmationTextField extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final textController = useTextEditingController();
+
+    // QQQQ remove
+    useEffect(() {
+      textController.text = word;
+    }, []);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: kIsWeb ? 20 : 0),
       child: Align(
@@ -181,11 +183,8 @@ class ConfirmationTextField extends HookWidget {
               inputFormatters: [LowerCaseTextFormatter()],
               validator: (String? text) {
                 if (text == null || text.isEmpty || text != word) {
-                  return 'Please enter word';
-                } else if (text != word) {
-                  return 'Word does not match';
+                  return '';
                 }
-
                 return null;
               },
             ),
