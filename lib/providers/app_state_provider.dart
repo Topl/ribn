@@ -11,16 +11,6 @@ final appStateProvider = StateNotifierProvider<AppStateNotifier, void>((ref) {
 class AppStateNotifier extends StateNotifier<void> {
   AppStateNotifier() : super(null);
 
-  Future<dynamic> persistAppState({required AppState appState}) async {
-    try {
-      // state is not persisted when app opened in debug view
-      if (!await isAppOpenedInDebugView()) {
-        await MiscRepository().persistAppState(appState.toJson());
-      }
-    } catch (e) {
-      await handleApiError(
-        errorMessage: 'Failed to persist state. Error: ${e.toString()}',
-      );
-    }
-  }
+  // TODO: for now this will just reach out to redux. Move to using this provider only in the future
+  Future<dynamic> persistAppState() async {}
 }

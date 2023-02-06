@@ -24,7 +24,7 @@ final onboardingProvider = StateNotifierProvider<OnboardingNotifier, OnboardingS
 });
 
 class OnboardingNotifier extends StateNotifier<OnboardingState> {
-  Ref ref;
+  final Ref ref;
   OnboardingNotifier(this.ref) : super(_generateOnboardingState(ref)) {}
 
   static OnboardingState _generateOnboardingState(ref) {
