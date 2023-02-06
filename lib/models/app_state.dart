@@ -9,7 +9,6 @@ import 'package:ribn/models/keychain_state.dart';
 import 'package:ribn/models/login_state.dart';
 import 'package:ribn/models/onboarding_state.dart';
 import 'package:ribn/models/user_details_state.dart';
-import 'package:ribn/platform/platform.dart';
 
 @immutable
 class AppState {
@@ -18,14 +17,13 @@ class AppState {
   final KeychainState keychainState;
   final UserDetailsState userDetailsState;
   final InternalMessage? internalMessage;
-  final String appVersion;
+
   AppState({
     required this.onboardingState,
     required this.loginState,
     required this.keychainState,
     required this.userDetailsState,
     this.internalMessage,
-    required this.appVersion,
   });
 
   factory AppState.initial() {
@@ -34,18 +32,15 @@ class AppState {
       loginState: LoginState.initial(),
       keychainState: KeychainState.initial(),
       userDetailsState: UserDetailsState.initial(),
-      appVersion: getAppVersion(),
     );
   }
 
   factory AppState.test() {
-    final String appVersion = getAppVersion();
     return AppState(
       onboardingState: OnboardingState.test(),
       loginState: LoginState.initial(),
       keychainState: KeychainState.test(),
       userDetailsState: UserDetailsState.initial(),
-      appVersion: appVersion,
     );
   }
 
@@ -54,14 +49,6 @@ class AppState {
   }
 
   bool needsLogin() => keychainState.hdWallet == null;
-
-  static String getAppVersion() {
-    try {
-      return PlatformUtils.instance.getCurrentAppVersion();
-    } catch (e) {
-      return 'Dev';
-    }
-  }
 
   @override
   bool operator ==(Object other) {
@@ -72,8 +59,7 @@ class AppState {
         other.loginState == loginState &&
         other.keychainState == keychainState &&
         other.userDetailsState == userDetailsState &&
-        other.internalMessage == internalMessage &&
-        other.appVersion == appVersion;
+        other.internalMessage == internalMessage;
   }
 
   @override
@@ -82,8 +68,7 @@ class AppState {
         loginState.hashCode ^
         keychainState.hashCode ^
         userDetailsState.hashCode ^
-        internalMessage.hashCode ^
-        appVersion.hashCode;
+        internalMessage.hashCode;
   }
 
   AppState copyWith({
@@ -100,7 +85,6 @@ class AppState {
       keychainState: keychainState ?? this.keychainState,
       userDetailsState: userDetailsState ?? this.userDetailsState,
       internalMessage: internalMessage ?? this.internalMessage,
-      appVersion: appVersion ?? this.appVersion,
     );
   }
 
@@ -109,7 +93,6 @@ class AppState {
       'loginState': loginState.toMap(),
       'keychainState': keychainState.toMap(),
       'userDetailsState': userDetailsState.toMap(),
-      'appVersion': appVersion,
     };
   }
 
@@ -119,7 +102,6 @@ class AppState {
       loginState: LoginState.fromMap(map['loginState']),
       keychainState: KeychainState.fromMap(map['keychainState']),
       userDetailsState: UserDetailsState.fromMap(map['userDetailsState']),
-      appVersion: getAppVersion(),
     );
   }
 
@@ -130,6 +112,6 @@ class AppState {
 
   @override
   String toString() {
-    return 'AppState(onboardingState: $onboardingState, loginState: $loginState, keychainState: $keychainState, userDetailsState: $userDetailsState, internalMessage: $internalMessage, appVersion: $appVersion)';
+    return 'AppState(onboardingState: $onboardingState, loginState: $loginState, keychainState: $keychainState, userDetailsState: $userDetailsState, internalMessage: $internalMessage)';
   }
 }

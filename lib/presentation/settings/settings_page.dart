@@ -1,71 +1,27 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 // Package imports:
 import 'package:local_auth/local_auth.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
-
 // Project imports:
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/settings_container.dart';
-import 'package:ribn/platform/platform.dart';
 import 'package:ribn/presentation/settings/sections/biometrics_section.dart';
 import 'package:ribn/presentation/settings/sections/delete_wallet_section.dart';
 import 'package:ribn/presentation/settings/sections/export_topl_main_key_section.dart';
 import 'package:ribn/presentation/settings/sections/links_section.dart';
 import 'package:ribn/presentation/settings/sections/ribn_version_section.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/providers/settings_page_provider.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
 /// The settings page of the application.
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends ConsumerWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
-  bool isBioSupported = false;
-
-  bool canDisconnect = false;
-
-  late VoidCallback onUpdated;
-
-  @override
-  initState() {
-    if (!kIsWeb) {
-      runBiometrics();
-    } else {
-      loadDApps();
-    }
-    super.initState();
-  }
-
-  loadDApps() async {
-    final List<String> dApps =
-        await PlatformUtils.instance.convertToFuture(PlatformUtils.instance.getDAppList());
-    await PlatformUtils.instance.consoleLog(dApps.toString());
-
-    setState(() {
-      canDisconnect = dApps.isNotEmpty;
-    });
-  }
-
-  runBiometrics() async {
-    final LocalAuthentication localAuthentication = LocalAuthentication();
-
-    final bool isBioAuthenticationSupported =
-        await isBiometricsAuthenticationSupported(localAuthentication);
-
-    setState(() {
-      isBioSupported = isBioAuthenticationSupported ? true : false;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SettingsContainer(
       builder: (BuildContext context, SettingsViewModel vm) {
         vm.canDisconnect = canDisconnect;
@@ -85,18 +41,14 @@ class _SettingsPageState extends State<SettingsPage> {
       },
     );
   }
+}
 
-  /// Builds the divider intended for separating the items on the settings page.
-  Widget _buildDivider() => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15.0),
-        child: Container(
-          height: 1,
-          color: const Color(0xFFE9E9E9),
-        ),
-      );
+/// Builds the list of items on the settings page.
+class SettingsListItems extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    bool isBiometricsSupported = ref.watch(biometricsSupportedProvider);
 
-  /// Builds the list of items on the settings page.
-  Widget _buildSettingsListItems(SettingsViewModel vm, BuildContext context) {
     return Container(
       color: RibnColors.background,
       child: Padding(
@@ -113,9 +65,9 @@ class _SettingsPageState extends State<SettingsPage> {
                     onExportPressed: vm.exportToplMainKey,
                   )
                 : const SizedBox(),
-            isBioSupported ? _buildDivider() : const SizedBox(),
-            isBioSupported
-                ? BiometricsSection(isBiometricsEnabled: vm.isBiometricsEnabled)
+            isBiometricsSupported ? _buildDivider() : const SizedBox(),
+            isBiometricsSupported
+                ? BiometricsSection(isBiometricsEnabled: ref.watch(biometricsEnabledProvider))
                 : const SizedBox(),
             _buildDivider(),
             DeleteWalletSection(
@@ -129,4 +81,13 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
+
+  /// Builds the divider intended for separating the items on the settings page.
+  Widget _buildDivider() => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15.0),
+        child: Container(
+          height: 1,
+          color: const Color(0xFFE9E9E9),
+        ),
+      );
 }

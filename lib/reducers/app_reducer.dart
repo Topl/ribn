@@ -18,7 +18,6 @@ AppState appReducer(AppState state, dynamic action) {
       keychainState: keychainReducer(state.keychainState, action),
       userDetailsState: userDetailsReducer(state.userDetailsState, action),
       internalMessage: internalMessageReducer(state.internalMessage, action),
-      appVersion: state.appVersion,
     );
   }
 }

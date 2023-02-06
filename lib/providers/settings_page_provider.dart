@@ -1,0 +1,131 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:redux/redux.dart';
+import 'package:ribn/models/app_state.dart';
+import 'package:ribn/platform/platform.dart';
+import 'package:ribn/presentation/settings/sections/disconnect_wallet_confirmation_dialog.dart';
+import 'package:ribn/providers/utility_provider.dart';
+import 'package:ribn/utils.dart';
+
+import '../actions/misc_actions.dart';
+import '../presentation/settings/sections/delete_wallet_confirmation_dialog.dart';
+
+// Todo add proper biometrics detection
+final biometricsSupportedProvider = Provider<bool>((ref) => !kIsWeb);
+
+final biometricsEnabledProvider = Provider<bool>((ref) => true);
+
+final canDisconnectDAppsProvider = Provider<bool>((ref) => true);
+
+final settingsProvider = StateNotifierProvider<SettingsNotifier, SettingsViewModel>((ref) => SettingsNotifier(ref));
+
+class SettingsNotifier extends StateNotifier<SettingsViewModel>{
+  final Ref ref;
+
+  bool isBioSupported = false;
+  bool canDisconnect = false;
+
+  SettingsNotifier(this.ref) : super(SettingsViewModel.fromStore(ref.read(storeProvider)));
+
+
+  initState() => !kIsWeb ? _runBiometrics() : _loadDApps();
+
+  _loadDApps() async {
+    final List<String> dApps = await PlatformUtils.instance
+        .convertToFuture(PlatformUtils.instance.getDAppList());
+    await PlatformUtils.instance.consoleLog(dApps.toString());
+
+    canDisconnect = dApps.isNotEmpty;
+  }
+
+  _runBiometrics() async {
+    final LocalAuthentication localAuthentication = LocalAuthentication();
+
+    final bool isBioAuthenticationSupported =
+        await isBiometricsAuthenticationSupported(localAuthentication);
+
+    isBioSupported = isBioAuthenticationSupported ? true : false;
+  }
+}
+
+class SettingsViewModel {
+  /// Callback to download the Topl Main Key.
+  final VoidCallback exportToplMainKey;
+
+  /// Handler for when user selects 'delete wallet'
+  final Future<void> Function(BuildContext context) onDeletePressed;
+
+  /// Handler for when user selects 'disconnect wallet'
+  final Future<void> Function(BuildContext context) onDisconnectPressed;
+
+  /// The current app version.
+  final String appVersion;
+
+  /// True if biometrics authentication is enabled
+  final bool isBiometricsEnabled;
+
+  bool canDisconnect = false;
+
+  SettingsViewModel({
+    required this.exportToplMainKey,
+    required this.onDeletePressed,
+    required this.onDisconnectPressed,
+    required this.appVersion,
+    required this.isBiometricsEnabled,
+  });
+
+  static SettingsViewModel fromStore(Store<AppState> store) {
+    final container = ProviderContainer();
+
+    return SettingsViewModel(
+      exportToplMainKey: () => store.dispatch(
+        DownloadAsFileAction(
+          'topl_main_key.json',
+          store.state.keychainState.keyStoreJson!,
+        ),
+      ),
+      onDeletePressed: (BuildContext context) async =>
+          _onDeletePressed(context, store),
+      onDisconnectPressed: _onDisconnectPressed,
+      appVersion: container.read(appVersionProvider),
+      isBiometricsEnabled: store.state.userDetailsState.isBiometricsEnabled,
+    );
+  }
+
+  static Future<void> _onDisconnectPressed(BuildContext context) async {
+    final dApps = await PlatformUtils.instance
+        .convertToFuture(PlatformUtils.instance.getDAppList());
+    await showDialog(
+      context: context,
+      builder: (context) => DisconnectWalletConfirmationDialog(dApps: dApps),
+    );
+  }
+
+  static _onDeletePressed(BuildContext context, Store<AppState> store) async {
+    await showDialog(
+      context: context,
+      builder: (context) => DeleteWalletConfirmationDialog(
+        onConfirmDeletePressed: (
+          String password,
+          VoidCallback onIncorrectPasswordEntered,
+        ) async {
+          final Completer<bool> actionCompleter = Completer();
+          store.dispatch(
+            DeleteWalletAction(
+              password: password,
+              completer: actionCompleter,
+            ),
+          );
+          // onIncorrectPasswordEntered called if response returned is false
+          await actionCompleter.future.then((value) {
+            if (!value) onIncorrectPasswordEntered();
+          });
+        },
+      ),
+    );
+  }
+}
