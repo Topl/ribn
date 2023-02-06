@@ -13,6 +13,8 @@ import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
 
+import '../repositories/misc_repository.dart';
+
 /// Intended to wrap the [LoginPage] and provide it with the the [LoginViewModel].
 class LoginContainer extends StatelessWidget {
   const LoginContainer({
@@ -36,10 +38,10 @@ class LoginContainer extends StatelessWidget {
 
 class LoginViewModel {
   /// Handler for when there is an attempt to login using [password].
-  final Function({
-    required String password,
-    required VoidCallback onIncorrectPasswordEntered,
-  }) attemptLogin;
+  final Function(
+      {required String password,
+      required VoidCallback onIncorrectPasswordEntered,
+      required BuildContext context}) attemptLogin;
 
   /// Handler for when there is attempt to restore wallet from the login page.
   final VoidCallback restoreWallet;
@@ -55,16 +57,19 @@ class LoginViewModel {
   static LoginViewModel fromStore(Store<AppState> store) {
     return LoginViewModel(
       attemptLogin: ({
+        required BuildContext context,
         required String password,
         required VoidCallback onIncorrectPasswordEntered,
       }) async {
         final Completer<bool> loginCompleter = Completer();
         store.dispatch(AttemptLoginAction(password, loginCompleter));
-        await loginCompleter.future.then((bool loginSuccess) {
+        await loginCompleter.future.then((bool loginSuccess) async {
           if (loginSuccess) {
             if (store.state.internalMessage?.additionalNavigation ==
                     Routes.connectDApp &&
                 store.state.internalMessage != null) {
+              await MiscRepository().persistAppState(
+                  StoreProvider.of<AppState>(context).state.toJson());
               Keys.navigatorKey.currentState?.pushNamed(Routes.connectDApp,
                   arguments: store.state.internalMessage);
             } else {
