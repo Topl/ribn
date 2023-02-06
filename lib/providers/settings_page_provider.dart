@@ -8,6 +8,7 @@ import 'package:redux/redux.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/presentation/settings/sections/disconnect_wallet_confirmation_dialog.dart';
+import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/providers/utility_provider.dart';
 import 'package:ribn/utils.dart';
 
@@ -17,32 +18,35 @@ import '../presentation/settings/sections/delete_wallet_confirmation_dialog.dart
 // Todo add proper biometrics detection
 final biometricsSupportedProvider = Provider<bool>((ref) => !kIsWeb);
 
-final biometricsEnabledProvider = Provider<bool>((ref) => true);
+final biometricsEnabledProvider = StateProvider<bool>(((ref) => true));
 
-final canDisconnectDAppsProvider = Provider<bool>((ref) => true);
+final canDisconnectDAppsProvider = FutureProvider.autoDispose<bool>((ref) async {
+  if (!kIsWeb) return false;
 
-final settingsProvider = StateNotifierProvider<SettingsNotifier, SettingsViewModel>((ref) => SettingsNotifier(ref));
+  final List<String> dApps = await PlatformUtils.instance
+      .convertToFuture(PlatformUtils.instance.getDAppList());
+  await PlatformUtils.instance.consoleLog(dApps.toString());
 
-class SettingsNotifier extends StateNotifier<SettingsViewModel>{
+  return dApps.isNotEmpty;
+});
+
+final settingsProvider =
+    StateNotifierProvider<SettingsNotifier, SettingsViewModel>(
+        (ref) => SettingsNotifier(ref));
+
+class SettingsNotifier extends StateNotifier<SettingsViewModel> {
   final Ref ref;
 
   bool isBioSupported = false;
   bool canDisconnect = false;
 
-  SettingsNotifier(this.ref) : super(SettingsViewModel.fromStore(ref.read(storeProvider)));
-
-
-  initState() => !kIsWeb ? _runBiometrics() : _loadDApps();
-
-  _loadDApps() async {
-    final List<String> dApps = await PlatformUtils.instance
-        .convertToFuture(PlatformUtils.instance.getDAppList());
-    await PlatformUtils.instance.consoleLog(dApps.toString());
-
-    canDisconnect = dApps.isNotEmpty;
+  SettingsNotifier(this.ref)
+      : super(SettingsViewModel.fromStore(ref.read(storeProvider))) {
   }
 
-  _runBiometrics() async {
+
+
+  runBiometrics() async {
     final LocalAuthentication localAuthentication = LocalAuthentication();
 
     final bool isBioAuthenticationSupported =
