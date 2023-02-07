@@ -17,6 +17,7 @@ jobs:
           run: |
             git pull
             version=$(awk '/version:/ {match($0, /version:/); print substr($0, RSTART+9, RLENGTH + 12);}' pubspec.yaml)
+            nversion="n$version-$(date +%y%m%d)"
 
       - uses: actions/checkout@v3
         with:
@@ -25,11 +26,11 @@ jobs:
       - name: checkout and rebase
         run: |
           git pull
-          git merge origin/dev -m "n$version-$(date +%y%m%d)"
-          git commit --amend -m "n$version-$(date +%y%m%d)"
+          git merge origin/dev -m "$nversion"
+          git commit --amend -m "$nversion"
 
       - name: Tag and Push Nightly Release
         run: |
-          git tag n$version-$(date +%y%m%d)
-          git push --atomic origin nightly n$version-$(date +%y%m%d)
+          git tag $nversion
+          git push --atomic origin nightly $nversion
 
