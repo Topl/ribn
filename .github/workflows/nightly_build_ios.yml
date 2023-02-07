@@ -42,17 +42,10 @@ jobs:
       - name: Build iOS app
         run: flutter build ios --release --no-codesign
 
-      - name: explore outputs
-        run: ls -lahR ~/build/app/
-
-      - name: explore output paths
-        run: find ~/build/app/ -type f
-
-
-#      - name: upload artifact to Firebase App Distribution
-#        uses: wzieba/Firebase-Distribution-Github-Action@v1
-#        with:
-#          appId: ${{secrets.FIREBASE_ANDROID_APP_ID}}
-#          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-#          groups: 'topl-dev'
-#          file: build/app/outputs/bundle/release/app-release.aab
+      - name: upload artifact to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{secrets.FIREBASE_ANDROID_APP_ID}}
+          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+          groups: 'topl-dev'
+          file: ios-build/Runner.ipa
