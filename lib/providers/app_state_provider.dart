@@ -6,6 +6,7 @@ final appStateProvider = StateNotifierProvider<AppStateNotifier, void>((ref) {
   return AppStateNotifier(ref);
 });
 
+// QQQQ TODO: Replace app state redux with this
 class AppStateNotifier extends StateNotifier<void> {
   final Ref ref;
   AppStateNotifier(this.ref) : super(null);

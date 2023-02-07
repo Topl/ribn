@@ -77,6 +77,9 @@ class CreatePasswordPage extends HookConsumerWidget {
     final onboardingNotifier = ref.read(onboardingProvider.notifier);
 
     useEffect(() {
+      // QQQQ revert
+      _newPasswordController.text = 'qqqqqqqq';
+      _confirmPasswordController.text = 'qqqqqqqq';
       void _passwordCheck() {
         // If the new password is greater then 7 set [_atLeast8Chars] to true
         if (_newPasswordController.text.length > 7) {
