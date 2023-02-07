@@ -14,10 +14,10 @@ jobs:
           ref: 'dev'
 
       - name: Get release version
-          run: |
-            git pull
-            version=$(awk '/version:/ {match($0, /version:/); print substr($0, RSTART+9, RLENGTH + 12);}' pubspec.yaml)
-            nversion="n$version-$(date +%y%m%d)"
+        run: |
+          git pull
+          version=$(awk '/version:/ {match($0, /version:/); print substr($0, RSTART+9, RLENGTH + 12);}' pubspec.yaml)
+          nversion="n$version-$(date +%y%m%d)"
 
       - uses: actions/checkout@v3
         with:
