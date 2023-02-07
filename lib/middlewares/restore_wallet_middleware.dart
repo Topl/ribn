@@ -41,8 +41,7 @@ void Function(
 ) _restoreWalletWithMnemonic(OnboardingRespository onboardingRepo) {
   return (store, action, next) async {
     try {
-      final AppViews currAppView =
-          await PlatformUtils.instance.getCurrentAppView();
+      final AppViews currAppView = await PlatformUtils.instance.getCurrentAppView();
       final Map<String, dynamic> results = jsonDecode(
         await PlatformWorkerRunner.instance.runWorker(
           workerScript: currAppView == AppViews.webDebug
@@ -58,11 +57,11 @@ void Function(
       next(
         SuccessfullyRestoredWalletAction(
           keyStoreJson: results['keyStoreJson'],
-          toplExtendedPrivateKey:
-              uint8ListFromDynamic(results['toplExtendedPrvKeyUint8List']),
+          toplExtendedPrivateKey: uint8ListFromDynamic(results['toplExtendedPrvKeyUint8List']),
         ),
       );
     } catch (e) {
+      print('QQQQ error restore wallet $e');
       next(ApiErrorAction(e.toString()));
     }
   };

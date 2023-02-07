@@ -5,7 +5,6 @@ import 'dart:typed_data';
 
 import 'package:bip_topl/bip_topl.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/onboarding_state.dart';
 import 'package:ribn/platform/mobile/storage.dart';
@@ -95,9 +94,9 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
             keyStoreJson: results['keyStoreJson'],
           );
 
-      await ref.read(appStateProvider.notifier).persistAppState(
-            appState: appState,
-          );
+      await ref.read(appStateProvider.notifier).persistAppState();
+
+      print('QQQQ end of create');
     } catch (e) {
       handleApiError(errorMessage: e.toString());
     }

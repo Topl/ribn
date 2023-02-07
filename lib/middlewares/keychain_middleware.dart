@@ -44,6 +44,7 @@ void Function(
       });
       next(UpdateNetworksWithAddressesAction(networkAddresses));
     } catch (e) {
+      print('QQQQ error keychain 1 $e');
       next(ApiErrorAction(e.toString()));
     }
   };
@@ -74,6 +75,7 @@ void Function(
         ),
       );
     } catch (e) {
+      print('QQQQ error keychain 2 $e');
       next(ApiErrorAction(e.toString()));
     }
   };
@@ -108,8 +110,7 @@ void Function(
           for (Balance bal in balances) bal.address: bal
         };
         // addresses with updated balances
-        final List<RibnAddress> addressesWithUpdatedBalances =
-            action.network.addresses.map(
+        final List<RibnAddress> addressesWithUpdatedBalances = action.network.addresses.map(
           (addr) {
             return addr.copyWith(
               balance: addrBalanceMap[addr.toplAddress.toBase58()],

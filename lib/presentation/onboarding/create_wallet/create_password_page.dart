@@ -7,6 +7,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Package imports:
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:ribn/constants/routes.dart';
+import 'package:ribn/providers/onboarding_provider.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
@@ -71,6 +73,8 @@ class CreatePasswordPage extends HookConsumerWidget {
     final _termsOfUseChecked = useState(false);
     final _atLeast8Chars = useState(false);
     final _passwordsMatch = useState(false);
+
+    final onboardingNotifier = ref.read(onboardingProvider.notifier);
 
     useEffect(() {
       void _passwordCheck() {
@@ -204,11 +208,12 @@ class CreatePasswordPage extends HookConsumerWidget {
                     disabled: !_atLeast8Chars.value ||
                         !_passwordsMatch.value ||
                         !_termsOfUseChecked.value,
-                    onPressed: () {
+                    onPressed: () async {
                       context.loaderOverlay.show();
-
-                      // QQQQ reimplement
-                      // vm.attemptCreatePassword(_confirmPasswordController.text);
+                      await onboardingNotifier.createPassword(
+                          password: _newPasswordController.value.text);
+                      context.loaderOverlay.hide();
+                      navigateToRoute(context, Routes.walletInfoChecklist);
                     },
                   ),
                 ],
