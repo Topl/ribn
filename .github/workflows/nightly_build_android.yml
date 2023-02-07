@@ -26,7 +26,7 @@ jobs:
           lfs: true
           ref: 'nightly'
 
-      # Setup the java environment required to build Android
+      # Setup the java environment required to build
       - name: Setup Java
         uses: actions/setup-java@v1
         with:

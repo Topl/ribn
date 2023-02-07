@@ -1,0 +1,79 @@
+name: Nightly Build Web
+
+on:
+  push:
+    branches:
+      - nightly
+  pull_request:
+    branches:
+      - nightly
+  workflow_dispatch:
+
+env:
+  FLUTTER_CHANNEL: "stable"
+
+jobs:
+  build_chrome:
+    name: Build Flutter (Android)
+    runs-on: macOS-latest
+    steps:
+
+      - name: Checkout Nightly
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+          ref: 'nightly'
+
+      - name: Read .nvmrc
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id: nvm
+
+      - name: Use Node.js (.nvmrc)
+        uses: actions/setup-node@v1
+        with:
+          node-version: "${{ steps.nvm.outputs.NVMRC }}"
+
+      # Setup the flutter environment.
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{env.FLUTTER_CHANNEL}}
+          cache: true
+
+      - name: Install NPM dependencies
+        run: npm install
+
+      - name: Build with Webpack
+        run: npm run build
+
+      # Prints version to the console
+      - name: Flutter Version
+        run: flutter --version
+
+      # Creates generated files
+      - name: Install flutter dependencies
+        run: make gen
+
+      - name: Build the Flutter Chrome extension
+        run: flutter build web --web-renderer html --csp --release
+
+      - name: Zip build
+        uses: papeloto/action-zip@v1
+        with:
+          files: build/web/
+          dest: ribn_chrome_ext.zip
+
+      - name: Upload draft to Chrome Web Store dev portal
+        run: sh ./.github/scripts/upload_chrome_ext.sh
+        env:
+          EXTENSION_CLIENT_ID: ${{ secrets.EXTENSION_CLIENT_ID }}
+          EXTENSION_CLIENT_SECRET: ${{ secrets.EXTENSION_CLIENT_SECRET }}
+          EXTENSION_REFRESH_TOKEN: ${{ secrets.EXTENSION_REFRESH_TOKEN }}
+          EXTENSION_PATH: ribn_chrome_ext.zip
+          EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
+
+      - name: Upload extension build
+        uses: actions/upload-artifact@v3
+        with:
+          name: ribn_chrome_ext.zip
+          path: ribn_chrome_ext.zip
