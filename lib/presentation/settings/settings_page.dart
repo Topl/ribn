@@ -1,17 +1,15 @@
 // Flutter imports:
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-// Package imports:
-// import 'package:local_auth/local_auth.dart';
-
 // Project imports:
 import 'package:ribn/constants/strings.dart';
 // import 'package:ribn/containers/settings_container.dart';
 import 'package:ribn/presentation/settings/sections/biometrics_section.dart';
+import 'package:ribn/presentation/settings/sections/danger_container_section.dart';
 import 'package:ribn/presentation/settings/sections/delete_wallet_section.dart';
-import 'package:ribn/presentation/settings/sections/export_topl_main_key_section.dart';
+import 'package:ribn/presentation/settings/sections/disconnect_dapps_section.dart';
+// import 'package:ribn/presentation/settings/sections/export_topl_main_key_section.dart';
 import 'package:ribn/presentation/settings/sections/links_section.dart';
 import 'package:ribn/presentation/settings/sections/ribn_version_section.dart';
 import 'package:ribn/providers/settings_page_provider.dart';
@@ -48,54 +46,49 @@ class SettingsListItems extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isBiometricsSupported = ref.watch(biometricsSupportedProvider);
-    final canDisconnectDApp = ref.read(canDisconnectDAppsProvider);
+    final canDisconnectDApp = ref.watch(canDisconnectDAppsProvider);
     final appVersion = ref.read(appVersionProvider);
     final settings = ref.watch(settingsProvider);
 
     return Container(
-      color: RibnColors.background,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            RibnVersionSection(appVersion: appVersion),
-            _buildDivider(),
-            const LinksSection(),
-            kIsWeb ? _buildDivider() : const SizedBox(),
-            kIsWeb
-                ? ExportToplMainKeySection(
-              onExportPressed: settings.exportToplMainKey,
-            )
-                : const SizedBox(),
-            isBiometricsSupported ? _buildDivider() : const SizedBox(),
-            isBiometricsSupported
-                ? BiometricsSection(
-                isBiometricsEnabled: ref.watch(biometricsEnabledProvider))
-                : const SizedBox(),
-            _buildDivider(),
-            canDisconnectDApp.when(data: (data) =>
-                DeleteWalletSection(
-                  onDeletePressed: settings.onDeletePressed,
-                  onDisconnectPressed: settings.onDisconnectPressed,
-                  canDisconnect: data,
-                ),
-                error: (_, __) => Container(),
-                loading: () => Container()),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
-    );
+        color: RibnColors.background,
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  RibnVersionSection(appVersion: appVersion),
+                  divider,
+                  const LinksSection(),
+                  divider,
+                  isBiometricsSupported.when(
+                      data: (data) => data
+                          ? BiometricsSection(
+                              isBiometricsEnabled:
+                                  // ref.watch(biometricsEnabledProvider)
+                                  false)
+                          : const SizedBox(),
+                      error: (_, __) => Container(),
+                      loading: () => Container()),
+                  divider,
+                  DangerContainerSection(children: [
+                    //Disconnect DApps
+                    canDisconnectDApp.when(
+                        data: (data) => data
+                            ? DisconnectDAppsSection(
+                                onDisconnectPressed:
+                                    settings.onDisconnectPressed,
+                                canDisconnect: data)
+                            : Container(),
+                        error: (_, __) => Container(),
+                        loading: () => Container()),
+                    SizedBox(height: 10),
+                    //Delete Wallet Section
+                    DeleteWalletSection(
+                        onDeletePressed: settings.onDeletePressed),
+                  ]),
+                ])));
   }
 
-  /// Builds the divider intended for separating the items on the settings page.
-  Widget _buildDivider() =>
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15.0),
-        child: Container(
-          height: 1,
-          color: const Color(0xFFE9E9E9),
-        ),
-      );
+  final divider = const Divider(height: 32);
 }

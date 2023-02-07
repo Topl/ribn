@@ -3,24 +3,32 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:local_auth/local_auth.dart';
+// import 'package:local_auth/local_auth.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/presentation/settings/sections/disconnect_wallet_confirmation_dialog.dart';
 import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/providers/utility_provider.dart';
-import 'package:ribn/utils.dart';
+// import 'package:ribn/utils.dart';
 
 import '../actions/misc_actions.dart';
 import '../presentation/settings/sections/delete_wallet_confirmation_dialog.dart';
 
 // Todo add proper biometrics detection
-final biometricsSupportedProvider = Provider<bool>((ref) => !kIsWeb);
+final biometricsSupportedProvider = FutureProvider.autoDispose<bool>((ref) async {
+  return true;
+  // If is web, return false by default
+  if (kIsWeb) return false;
 
-final biometricsEnabledProvider = StateProvider<bool>(((ref) => true));
+  return true;
+  // return await isBiometricsAuthenticationSupported(LocalAuthentication());
+});
+
+// final biometricsEnabledProvider =
 
 final canDisconnectDAppsProvider = FutureProvider.autoDispose<bool>((ref) async {
+  return true;
   if (!kIsWeb) return false;
 
   final List<String> dApps = await PlatformUtils.instance
@@ -37,22 +45,8 @@ final settingsProvider =
 class SettingsNotifier extends StateNotifier<SettingsViewModel> {
   final Ref ref;
 
-  bool isBioSupported = false;
-  bool canDisconnect = false;
-
   SettingsNotifier(this.ref)
       : super(SettingsViewModel.fromStore(ref.read(storeProvider))) {
-  }
-
-
-
-  runBiometrics() async {
-    final LocalAuthentication localAuthentication = LocalAuthentication();
-
-    final bool isBioAuthenticationSupported =
-        await isBiometricsAuthenticationSupported(localAuthentication);
-
-    isBioSupported = isBioAuthenticationSupported ? true : false;
   }
 }
 
