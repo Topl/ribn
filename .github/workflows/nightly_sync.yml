@@ -1,4 +1,4 @@
-name: nightly_sync
+name: Nightly Sync
 
 on:
   schedule:
