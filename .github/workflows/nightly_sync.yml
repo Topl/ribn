@@ -26,7 +26,7 @@ jobs:
       - name: checkout and rebase
         run: |
           git pull
-          git merge origin/dev -m "$nversion"
+          git merge origin/dev -m "$nversion" --allow-unrelated-histories
           git commit --amend -m "$nversion"
 
       - name: Tag and Push Nightly Release
