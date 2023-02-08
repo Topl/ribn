@@ -117,7 +117,9 @@ platform :ios do
         firebase_app_distribution(
             app: "1:719584265811:ios:35eaa6e2805d2b1ad5a8a6",
             groups: 'topl-dev',
-            release_notes: "Lots of amazing new features to test out!"
+            release_notes: "Lots of amazing new features to test out!",
+            ipa_path: '../build/ios/ipa/Ribn.ipa',
+            service_credentials_file: '../service_account_key.json',
         )
 
     end
