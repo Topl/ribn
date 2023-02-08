@@ -8,53 +8,45 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:ribn/providers/biometrics_provider.dart';
+import 'package:ribn/providers/packages/local_authentication_provider.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 // Project imports:
-import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/utils.dart';
 
-class EnableBiometrics extends HookWidget {
+class EnableBiometrics extends HookConsumerWidget {
   const EnableBiometrics({Key? key}) : super(key: key);
 
-  final LocalAuthentication _localAuthentication = LocalAuthentication();
+  Future<void> runBiometrics(
+      WidgetRef ref, BuildContext context, ValueNotifier<bool> authorized) async {
+    final LocalAuthentication _localAuthentication = ref.read(localAuthenticationProvider)();
 
-  Future<void> runBiometrics(auth, context) async {
     bool authenticated = false;
-    await isBiometricsAuthenticationEnrolled(auth);
+    await isBiometricsAuthenticationEnrolled(_localAuthentication);
 
     try {
-      authenticated = await authenticateWithBiometrics(auth);
+      authenticated = await authenticateWithBiometrics(_localAuthentication);
     } catch (e) {
       if (Platform.isAndroid) await _showMyDialog(context);
       return;
     }
 
-    if (!mounted || !authenticated) {
-      return;
+    if (authenticated) {
+      authorized.value = authenticated;
+      ref.read(biometricsProvider.notifier).updateBiometrics(true);
     }
-
-    setState(() {
-      _authorized = authenticated ? true : false;
-    });
-
-    StoreProvider.of<AppState>(context).dispatch(
-      UpdateBiometricsAction(
-        isBiometricsEnabled: true,
-      ),
-    );
   }
 
   Future<void> _showMyDialog(context) async {
@@ -90,7 +82,7 @@ class EnableBiometrics extends HookWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final authorized = useState(false);
 
     return Scaffold(
@@ -154,7 +146,7 @@ class EnableBiometrics extends HookWidget {
                 ),
               ),
               onPressed: () {
-                runBiometrics(_localAuthentication, context).then(
+                runBiometrics(ref, context, authorized).then(
                   (value) => {
                     if (authorized.value)
                       Keys.navigatorKey.currentState?.pushNamed(Routes.walletCreated)
