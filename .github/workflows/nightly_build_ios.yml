@@ -1,0 +1,51 @@
+name: Nightly Build iOS
+
+on:
+  push:
+    branches:
+      - nightly
+  pull_request:
+    branches:
+      - nightly
+  workflow_dispatch:
+
+env:
+  FLUTTER_CHANNEL: "stable"
+
+jobs:
+  build_ios:
+    name: Build Flutter
+    runs-on: macOS-latest
+    steps:
+
+      - name: Checkout Nightly
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+          ref: 'nightly'
+
+      # Setup the flutter environment.
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{env.FLUTTER_CHANNEL}}
+          cache: true
+
+      # Prints version to the console
+      - name: Flutter Version
+        run: flutter --version
+
+      # Creates generated files
+      - name: Install flutter dependencies
+        run: make gen
+
+      - name: Build iOS app
+        run: flutter build ipa --release --no-codesign --build-number=${{ github.run_number }} --dart-define=nightlyBuildVersion=$nversion
+
+      - name: upload artifact to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{secrets.FIREBASE_IOS_APP_ID}}
+          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+          groups: 'topl-dev'
+          file: ios-build/Runner.ipa
