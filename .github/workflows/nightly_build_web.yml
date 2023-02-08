@@ -14,7 +14,7 @@ env:
 
 jobs:
   build_chrome:
-    name: Build Flutter (Android)
+    name: Build Flutter (Web)
     runs-on: macOS-latest
     steps:
 
@@ -55,7 +55,7 @@ jobs:
         run: make gen
 
       - name: Build the Flutter Chrome extension
-        run: flutter build web --web-renderer html --csp --release
+        run: flutter build web --web-renderer html --csp --release --build-number=${{ github.run_number }} --dart-define=nightlyBuildVersion=$nversion
 
       - name: Zip build
         uses: papeloto/action-zip@v1
