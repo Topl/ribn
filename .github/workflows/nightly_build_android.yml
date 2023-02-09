@@ -70,7 +70,7 @@ jobs:
         run: make gen
 
       - name: Build android app
-        run: flutter build appbundle --release --build-number=${{ github.run_number }} --dart-define=nightlyBuildVersion=$nversion
+        run: flutter build appbundle --release --build-number=${{github.run_number}} --dart-define=nightlyBuildVersion=$nversion
 
       - name: Upload android build
         uses: actions/upload-artifact@v3
@@ -85,6 +85,7 @@ jobs:
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
           groups: 'topl-dev'
           file: build/app/outputs/bundle/release/app-release.aab
+
 
 
 
