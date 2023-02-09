@@ -68,14 +68,22 @@ jobs:
           files: build/web/
           dest: ribn_chrome_ext.zip
 
-      - name: Upload draft to Chrome Web Store dev portal
-        run: sh ./.github/scripts/upload_chrome_ext.sh
-        env:
-          EXTENSION_CLIENT_ID: ${{ secrets.EXTENSION_CLIENT_ID }}
-          EXTENSION_CLIENT_SECRET: ${{ secrets.EXTENSION_CLIENT_SECRET }}
-          EXTENSION_REFRESH_TOKEN: ${{ secrets.EXTENSION_REFRESH_TOKEN }}
-          EXTENSION_PATH: ribn_chrome_ext.zip
-          EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
+#      - name: Upload draft to Chrome Web Store dev portal
+#        run: sh ./.github/scripts/upload_chrome_ext.sh
+#        env:
+#          EXTENSION_CLIENT_ID: ${{ secrets.EXTENSION_CLIENT_ID }}
+#          EXTENSION_CLIENT_SECRET: ${{ secrets.EXTENSION_CLIENT_SECRET }}
+#          EXTENSION_REFRESH_TOKEN: ${{ secrets.EXTENSION_REFRESH_TOKEN }}
+#          EXTENSION_PATH: ribn_chrome_ext.zip
+#          EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
+      - name: Upload to firebase
+        uses: mnao305/chrome-extension-upload@v4.0.1
+        with:
+          file-path: ribn_chrome_ext.zip
+          extension-id: ${{ secrets.EXTENSION_ID }}
+          client-id: {{ secrets.EXTENSION_CLIENT_ID }}
+          client-secret: ${{ secrets.EXTENSION_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.EXTENSION_REFRESH_TOKEN }}
 
       - name: Upload extension build
         uses: actions/upload-artifact@v3
