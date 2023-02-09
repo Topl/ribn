@@ -44,7 +44,6 @@ void Function(
       });
       next(UpdateNetworksWithAddressesAction(networkAddresses));
     } catch (e) {
-      print('QQQQ error keychain 1 $e');
       next(ApiErrorAction(e.toString()));
     }
   };
@@ -75,7 +74,6 @@ void Function(
         ),
       );
     } catch (e) {
-      print('QQQQ error keychain 2 $e');
       next(ApiErrorAction(e.toString()));
     }
   };

@@ -58,7 +58,6 @@ Epic<AppState> _persistenceTriggerEpic() => (Stream<dynamic> actions, EpicStore<
 //     };
 
 /// Redirects to [Routes.error] whenever [ApiErrorAction] is received.
-/// QQQQ TODO: Remove this
 Stream<dynamic> Function(Stream<ApiErrorAction>, EpicStore<AppState>) _onApiError() {
   return (actions, store) {
     return actions.switchMap(

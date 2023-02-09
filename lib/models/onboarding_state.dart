@@ -26,19 +26,4 @@ class OnboardingState with _$OnboardingState {
     );
   }
   factory OnboardingState.fromJson(Map<String, dynamic> json) => _$OnboardingStateFromJson(json);
-
-  // QQQQ delete possibly
-  // @override
-  // bool operator ==(Object other) {
-  //   if (identical(this, other)) return true;
-
-  //   return other is OnboardingState &&
-  //       other.mnemonic == mnemonic &&
-  //       listEquals(other.shuffledMnemonic, shuffledMnemonic) &&
-  //       listEquals(other.userSelectedIndices, userSelectedIndices);
-  // }
-
-  // QQQQ delete possibly
-  // @override
-  // int get hashCode => mnemonic.hashCode ^ shuffledMnemonic.hashCode ^ userSelectedIndices.hashCode;
 }

@@ -1,8 +1,7 @@
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/utils/navigation_utils.dart';
 
-// QQQQ comment and discuss how this should replace [ApiErrorAction]
-// Epic middleware line 62
+/// This will handle an error and navigate to an error page
 Future<void> handleApiError({
   required String errorMessage,
 }) async {

@@ -71,7 +71,6 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                // QQQQ test
                 PasswordTextField(
                   controller: _passwordController,
                   hintText: Strings.typeSomething,

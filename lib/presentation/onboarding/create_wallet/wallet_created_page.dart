@@ -1,6 +1,7 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
@@ -20,24 +21,17 @@ import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart
 import 'package:ribn/utils.dart';
 
 /// This page is displayed when user successfully creates their wallet.
-class WalletCreatedPage extends StatefulWidget {
+class WalletCreatedPage extends HookWidget {
   const WalletCreatedPage({Key? key}) : super(key: key);
 
   @override
-  State<WalletCreatedPage> createState() => _WalletCreatedPageState();
-}
-
-class _WalletCreatedPageState extends State<WalletCreatedPage> {
-  /// FAQs and their corresponding answeres
-  final Map<String, String> faqs = {
-    Strings.howCanIKeepMySeedPhraseSecure:
-        Strings.howCanIKeepMySeedPhraseSecureAns,
-    Strings.howIsASeedPhraseDifferent: Strings.howIsASeedPhraseDifferentAns,
-    Strings.howIsMySeedPhraseUnrecoverable:
-        Strings.howIsMySeedPhraseUnrecoverableAns,
-  };
-  @override
   Widget build(BuildContext context) {
+    /// FAQs and their corresponding answeres
+    final ValueNotifier<Map<String, String>> faqs = useState({
+      Strings.howCanIKeepMySeedPhraseSecure: Strings.howCanIKeepMySeedPhraseSecureAns,
+      Strings.howIsASeedPhraseDifferent: Strings.howIsASeedPhraseDifferentAns,
+      Strings.howIsMySeedPhraseUnrecoverable: Strings.howIsMySeedPhraseUnrecoverableAns,
+    });
     return Scaffold(
       body: OnboardingContainer(
         child: SingleChildScrollView(
@@ -82,7 +76,7 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                       ),
                     ),
                     SizedBox(height: adaptHeight(0.01)),
-                    ...faqs.keys
+                    ...faqs.value.keys
                         .map(
                           (q) => Accordion(
                             header: Text(
@@ -93,7 +87,7 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                               ),
                             ),
                             description: Text(
-                              faqs[q]!,
+                              faqs.value[q]!,
                               style: RibnToolkitTextStyles.h4.copyWith(
                                 color: Colors.white,
                                 fontSize: 18,

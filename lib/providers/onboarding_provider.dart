@@ -41,7 +41,6 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
     // final Random random = ref.read(randomProvider)();
 
     // final entropy = ref.read(entropyProvider)(random);
-    // print('QQQQ mnemonic ${ref.read(entropyFuncProvider)(entropy)}');
     // return ref.read(entropyFuncProvider)(entropy);
   }
 
