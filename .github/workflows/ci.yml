@@ -76,7 +76,7 @@ jobs:
         run: make gen
 
       - name: Run tests
-      - run: |
+        run: |
           flutter build aot
           flutter analyze
           flutter test --coverage .

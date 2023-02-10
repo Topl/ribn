@@ -58,6 +58,7 @@ jobs:
   upload_ios:
     needs: build_ios
     runs-on: ubuntu-latest
+    steps:
 
       - name: Checkout Nightly
         uses: actions/checkout@v3
