@@ -69,7 +69,7 @@ jobs:
 
       - uses: stelynx/dart-full-coverage@v1.1.1
         with:
-          package: egakcap
+          package: ribn
           ignore: "*_state.dart, do_not_import_me.dart"
 
       - name: Install dependencies and generated files
