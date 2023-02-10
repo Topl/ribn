@@ -83,6 +83,8 @@ class RibnApp extends StatelessWidget {
 }
 
 String getInitialRoute(Store<AppState> store) {
+  print('QQQQ needsOnboarding ${store.state.needsOnboarding()}');
+  print('QQQQ needsLogin ${store.state.needsLogin()}');
   if (store.state.needsOnboarding()) {
     return Routes.welcome;
   } else if (store.state.needsLogin()) {

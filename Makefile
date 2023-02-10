@@ -78,3 +78,7 @@ arm_mac_hard_clean:
 	sudo arch -x86_64 gem install ffi && \
 	arch -x86_64 pod install && \
 	cd ..
+
+file_test:
+	@reset
+	@flutter test test/onboarding/create_wallet_test.dart

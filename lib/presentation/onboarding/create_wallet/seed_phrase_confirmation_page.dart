@@ -23,7 +23,10 @@ import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart
 import 'package:ribn/utils.dart';
 
 class SeedPhraseConfirmationPage extends HookConsumerWidget {
-  SeedPhraseConfirmationPage({Key? key}) : super(key: key);
+  static const Key seedPhraseConfirmationPageKey = Key('seedPhraseConfirmationPageKey');
+  static const Key seedPhraseConfirmationConfirmationButtonKey =
+      Key('seedPhraseConfirmationConfirmationButtonKey');
+  SeedPhraseConfirmationPage({Key key = seedPhraseConfirmationPageKey}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
   Widget build(BuildContext context, WidgetRef ref) {
@@ -78,6 +81,7 @@ class SeedPhraseConfirmationPage extends HookConsumerWidget {
                   ),
                 ),
                 ConfirmationButton(
+                  key: seedPhraseConfirmationConfirmationButtonKey,
                   text: Strings.done,
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {

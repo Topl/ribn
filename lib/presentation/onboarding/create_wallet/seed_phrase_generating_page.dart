@@ -22,7 +22,10 @@ import 'package:ribn/utils.dart';
 
 /// This page shows a loading animation to indicate seed phrase generation.
 class SeedPhraseGeneratingPage extends HookConsumerWidget {
-  const SeedPhraseGeneratingPage({Key? key}) : super(key: key);
+  static const Key seedPhraseGeneratingPageKey = Key('seedPhraseGeneratingPageKey');
+  static const Key seedPhraseGeneratingConfirmationButtonKey =
+      Key('seedPhraseGeneratingConfirmationButtonKey');
+  const SeedPhraseGeneratingPage({Key key = seedPhraseGeneratingPageKey}) : super(key: key);
 
   /// True if animated loader needs to be shown.
 
@@ -107,6 +110,7 @@ class SeedPhraseGeneratingPage extends HookConsumerWidget {
       ),
       SizedBox(height: adaptHeight(0.1)),
       ConfirmationButton(
+        key: seedPhraseGeneratingConfirmationButtonKey,
         text: Strings.cont,
         onPressed: () {
           Keys.navigatorKey.currentState?.pushNamed(Routes.displaySeedphrase);

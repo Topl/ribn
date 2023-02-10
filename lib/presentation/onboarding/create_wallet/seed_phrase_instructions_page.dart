@@ -20,7 +20,10 @@ import 'package:ribn/utils.dart';
 
 /// This page shows intructions on how to keep the seed phrase secure.
 class SeedPhraseInstructionsPage extends HookConsumerWidget {
-  const SeedPhraseInstructionsPage({Key? key}) : super(key: key);
+  static const Key seedPhraseInstructionsPageKey = Key('SeedPhraseInstructionsPageKey');
+  static const Key seedPhraseInstructionsConfirmationButtonKey =
+      Key('seedPhraseInstructionsConfirmationButtonKey');
+  const SeedPhraseInstructionsPage({Key key = seedPhraseInstructionsPageKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -73,6 +76,7 @@ class SeedPhraseInstructionsPage extends HookConsumerWidget {
                 ),
                 SizedBox(height: adaptHeight(0.1)),
                 ConfirmationButton(
+                  key: seedPhraseInstructionsConfirmationButtonKey,
                   text: Strings.iUnderstand,
                   onPressed: () {
                     Keys.navigatorKey.currentState?.pushNamed(Routes.generateSeedPhrase);

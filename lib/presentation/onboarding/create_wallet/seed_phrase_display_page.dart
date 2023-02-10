@@ -26,7 +26,10 @@ import 'package:ribn/utils.dart';
 
 class SeedPhraseDisplayPage extends HookConsumerWidget {
   static const Key copyKey = Key('copyKey');
-  const SeedPhraseDisplayPage({Key? key}) : super(key: key);
+  static const Key seedPhraseDisplayPageKey = Key('seedPhraseDisplayPageKey');
+  static const Key seedPhraseDisplayConfirmationButtonKey =
+      Key('seedPhraseDisplayConfirmationButtonKey');
+  const SeedPhraseDisplayPage({Key key = seedPhraseDisplayPageKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -77,26 +80,31 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
                     color: RibnColors.greyText.withOpacity(0.24),
                     borderRadius: BorderRadius.circular(5),
                   ),
-                  padding: EdgeInsets.all(15),
-                  child: Column(
+                  child: Stack(
                     children: [
-                      _buildGrid(seedPhraseWordsList),
+                      Container(
+                        margin: EdgeInsets.only(
+                          left: 15,
+                          right: 15,
+                          top: 15,
+                          bottom: 20,
+                        ),
+                        child: _buildGrid(seedPhraseWordsList),
+                      ),
                       kIsWeb
                           ? const SizedBox()
-                          : Padding(
-                              padding: const EdgeInsets.only(right: 20),
-                              child: Align(
-                                alignment: Alignment.bottomRight,
-                                child: _buildButton(
-                                  Strings.copy,
-                                  onPressed: () {
-                                    Clipboard.setData(
-                                      ClipboardData(text: seedPhrase),
-                                    );
-                                  },
-                                  width: 19,
-                                  height: 15,
-                                ),
+                          : Positioned(
+                              bottom: 10,
+                              right: 10,
+                              child: _buildButton(
+                                Strings.copy,
+                                onPressed: () {
+                                  Clipboard.setData(
+                                    ClipboardData(text: seedPhrase),
+                                  );
+                                },
+                                width: 19,
+                                height: 15,
                               ),
                             ),
                     ],
@@ -137,6 +145,7 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
                     const MobileOnboardingProgressBar(currStep: 0),
                   ),
                   ConfirmationButton(
+                    key: seedPhraseDisplayConfirmationButtonKey,
                     text: Strings.done,
                     onPressed: () {
                       Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseConfirm);
@@ -163,23 +172,21 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
         children.add(_buildGridItem(idx, word));
       }
     });
-    return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          ...List.generate(
-            rows.length,
-            (index) => Padding(
-              padding: EdgeInsets.symmetric(vertical: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: rows[index],
-              ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        ...List.generate(
+          rows.length,
+          (index) => Padding(
+            padding: EdgeInsets.symmetric(vertical: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: rows[index],
             ),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 

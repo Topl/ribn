@@ -1,0 +1,80 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/getting_started_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_confirmation_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_display_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_generating_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_info_checklist_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_instructions_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/select_action_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
+
+import '../essential_test_provider_widget.dart';
+import '../mocks/store_mocks.dart';
+
+void main() {
+  testWidgets('Test Successful Create Wallet Flow', (WidgetTester tester) async {
+    // TODO: Refactor styling so we don't have to override window size
+    tester.binding.window.physicalSizeTestValue = Size(10000, 10000);
+    await tester.pumpWidget(
+      await essentialTestProviderWidget(
+        overrides: [],
+        mockStore: getStoreMocks(isNewUser: true),
+      ),
+    );
+
+    expect(find.byKey(WelcomePage.welcomePageKey), findsOneWidget);
+    await tester.tap(find.byKey(WelcomePage.welcomePageConfirmationButtonKey));
+    await tester.pumpAndSettle();
+    expect(find.byKey(SelectActionPage.selectActionPageKey), findsOneWidget);
+    await tester.tap(find.byKey(SelectActionPage.createWalletActionButtonKey));
+    await tester.pumpAndSettle();
+    expect(find.byKey(GettingStartedPage.gettingStartedPageKey), findsOneWidget);
+    await tester.tap(find.byKey(GettingStartedPage.gettingStartedConfirmationButtonKey));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(SeedPhraseInfoChecklistPage.seedPhraseInfoChecklistPageKey), findsOneWidget);
+
+    // Try to tap confirm button and make sure the page does not change
+    await tester
+        .tap(find.byKey(SeedPhraseInfoChecklistPage.seedPhraseInfoChecklistConfirmationButtonKey));
+    await tester.pumpAndSettle();
+    expect(find.byKey(SeedPhraseInfoChecklistPage.seedPhraseInfoChecklistPageKey), findsOneWidget);
+
+    // Now try and tap the first checkbox and attempt to move pages, should stay on same page
+    await tester.tap(find.byKey(SeedPhraseInfoChecklistPage.neverShareMySeedPhraseKey));
+    await tester.pumpAndSettle();
+    await tester
+        .tap(find.byKey(SeedPhraseInfoChecklistPage.seedPhraseInfoChecklistConfirmationButtonKey));
+    await tester.pumpAndSettle();
+    expect(find.byKey(SeedPhraseInfoChecklistPage.seedPhraseInfoChecklistPageKey), findsOneWidget);
+
+    // Now tap the second checkbox and page should move to next page
+    await tester.tap(find.byKey(SeedPhraseInfoChecklistPage.walletRecoveryUsingSeedPhraseKey));
+    await tester.pumpAndSettle();
+    await tester
+        .tap(find.byKey(SeedPhraseInfoChecklistPage.seedPhraseInfoChecklistConfirmationButtonKey));
+    await tester.pumpAndSettle();
+    expect(find.byKey(SeedPhraseInstructionsPage.seedPhraseInstructionsPageKey), findsOneWidget);
+    await tester
+        .tap(find.byKey(SeedPhraseInstructionsPage.seedPhraseInstructionsConfirmationButtonKey));
+    await tester.pumpAndSettle();
+    expect(find.byKey(SeedPhraseGeneratingPage.seedPhraseGeneratingPageKey), findsOneWidget);
+
+    // The seed generation page has a set time delay and this will make time pass so that the confirm button will appear
+    await pumpTester(tester, duration: 1, loops: 10);
+
+    await tester
+        .tap(find.byKey(SeedPhraseGeneratingPage.seedPhraseGeneratingConfirmationButtonKey));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(SeedPhraseDisplayPage.seedPhraseDisplayPageKey), findsOneWidget);
+    await tester.tap(find.byKey(SeedPhraseDisplayPage.seedPhraseDisplayConfirmationButtonKey));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(SeedPhraseConfirmationPage.seedPhraseConfirmationPageKey), findsOneWidget);
+    await tester
+        .tap(find.byKey(SeedPhraseConfirmationPage.seedPhraseConfirmationConfirmationButtonKey));
+    await tester.pumpAndSettle();
+  });
+}

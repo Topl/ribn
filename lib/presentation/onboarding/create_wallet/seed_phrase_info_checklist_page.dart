@@ -19,18 +19,15 @@ import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
 
-class name extends HookWidget {
-  const name({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
 /// Builds checks to ensure that the user understands the importance of the seed phrase.
 class SeedPhraseInfoChecklistPage extends HookWidget {
-  const SeedPhraseInfoChecklistPage({Key? key}) : super(key: key);
+  static const Key seedPhraseInfoChecklistPageKey = Key('seedPhraseInfoChecklistPageKey');
+  static const Key seedPhraseInfoChecklistConfirmationButtonKey =
+      Key('seedPhraseInfoChecklistConfirmationButtonKey');
+  static const Key neverShareMySeedPhraseKey = Key('neverShareMySeedPhraseKey');
+  static const Key walletRecoveryUsingSeedPhraseKey = Key('walletRecoveryUsingSeedPhraseKey');
+
+  const SeedPhraseInfoChecklistPage({Key key = seedPhraseInfoChecklistPageKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +57,7 @@ class SeedPhraseInfoChecklistPage extends HookWidget {
                   activeText: true,
                   text: Strings.neverShareMySeedPhrase,
                   onChanged: (bool? val) => neverShareMySeedPhrase.value = val ?? false,
+                  checkboxKey: neverShareMySeedPhraseKey,
                 ),
                 const SizedBox(height: 40),
                 _buildCheckboxListTile(
@@ -69,9 +67,11 @@ class SeedPhraseInfoChecklistPage extends HookWidget {
                   onChanged: neverShareMySeedPhrase.value
                       ? (bool? val) => walletRecoveryUsingSeedPhrase.value = val ?? false
                       : null,
+                  checkboxKey: walletRecoveryUsingSeedPhraseKey,
                 ),
                 SizedBox(height: adaptHeight(0.1)),
                 ConfirmationButton(
+                  key: seedPhraseInfoChecklistConfirmationButtonKey,
                   text: Strings.iUnderstand,
                   onPressed: () {
                     Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseInstructions);
@@ -91,10 +91,12 @@ class SeedPhraseInfoChecklistPage extends HookWidget {
     required bool activeText,
     required String text,
     required Function(bool?)? onChanged,
+    required Key checkboxKey,
   }) {
     return SizedBox(
       width: kIsWeb ? 600 : 350,
       child: CheckboxWrappableText(
+        checkboxKey: checkboxKey,
         fillColor: Colors.transparent,
         checkColor: const Color(0xff80FF00),
         borderColor: checked

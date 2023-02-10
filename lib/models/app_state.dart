@@ -38,12 +38,13 @@ class AppState {
     );
   }
 
-  factory AppState.test() {
+  factory AppState.test({
+    bool isNewUser = false,
+  }) {
     final String appVersion = getAppVersion();
     return AppState(
-      // onboardingState: OnboardingState.test(),
       loginState: LoginState.initial(),
-      keychainState: KeychainState.test(),
+      keychainState: !isNewUser ? KeychainState.test() : KeychainState.initial(),
       userDetailsState: UserDetailsState.initial(),
       appVersion: appVersion,
     );
