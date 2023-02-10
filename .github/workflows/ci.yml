@@ -76,9 +76,7 @@ jobs:
         run: make gen
 
       - name: Run tests
-        run: |
-          flutter build apk
-          flutter test --coverage .
+        run: flutter test --coverage .
 
       - uses: codecov/codecov-action@v1.0.2
         with:
