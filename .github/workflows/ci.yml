@@ -77,7 +77,7 @@ jobs:
 
       - name: Run tests
         run: |
-          flutter build web
+          flutter build android
           flutter test --coverage .
 
       - uses: codecov/codecov-action@v1.0.2
