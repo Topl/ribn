@@ -42,7 +42,6 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print('QQQQ wallet 1');
     final isBioSupported = useState(false);
 
     final savedMyWalletPasswordSafely = useState(false);

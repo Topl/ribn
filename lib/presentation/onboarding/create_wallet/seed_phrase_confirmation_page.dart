@@ -172,10 +172,6 @@ class ConfirmationTextField extends HookWidget {
   Widget build(BuildContext context) {
     final textController = useTextEditingController();
 
-    // QQQQ remove
-    useEffect(() {
-      textController.text = word;
-    }, []);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: kIsWeb ? 20 : 0),
       child: Align(

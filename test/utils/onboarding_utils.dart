@@ -27,7 +27,6 @@ Future<void> fillOutSeedPhraseConfirmation({
   expect(find.byKey(SeedPhraseConfirmationPage.seedPhraseConfirmationPageKey), findsOneWidget);
 
   for (var i = 0; i < mobileConfirmIdxs.length; i++) {
-    print('QQQQ idx $i');
     final textFieldKey = find.byKey(SeedPhraseConfirmationPage.confirmationTextFieldKey(i));
 
     final int index = mobileConfirmIdxs[i];

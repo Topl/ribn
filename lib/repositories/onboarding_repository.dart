@@ -50,8 +50,6 @@ class OnboardingRespository {
   }
 
   Map<String, dynamic> generateKeyStore(Map<String, dynamic> params) {
-    print('QQQQ 4');
-
     const Base58Encoder base58Encoder = Base58Encoder.instance;
     final Random random = Random.secure();
     final Bip32KeyPair toplExtendedKeyPair = deriveToplExtendedKeys(params['mnemonic']);
@@ -65,7 +63,6 @@ class OnboardingRespository {
       random,
       scryptN: Rules.scryptN,
     );
-    print('QQQQ 5');
 
     final String keyStoreJson = keyStore.toJson();
     return {

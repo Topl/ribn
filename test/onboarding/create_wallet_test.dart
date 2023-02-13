@@ -33,18 +33,23 @@ void main() {
       ),
     );
 
+    /// Welcome Page Section
     expect(find.byKey(WelcomePage.welcomePageKey), findsOneWidget);
     await tester.tap(find.byKey(WelcomePage.welcomePageConfirmationButtonKey));
     await tester.pumpAndSettle();
+
+    /// Select Action
     expect(find.byKey(SelectActionPage.selectActionPageKey), findsOneWidget);
     await tester.tap(find.byKey(SelectActionPage.createWalletActionButtonKey));
     await tester.pumpAndSettle();
+
+    /// Getting Started
     expect(find.byKey(GettingStartedPage.gettingStartedPageKey), findsOneWidget);
     await tester.tap(find.byKey(GettingStartedPage.gettingStartedConfirmationButtonKey));
     await tester.pumpAndSettle();
 
+    /// Seed phrase info checklist
     expect(find.byKey(SeedPhraseInfoChecklistPage.seedPhraseInfoChecklistPageKey), findsOneWidget);
-
     // Try to tap confirm button and make sure the page does not change
     await tester
         .tap(find.byKey(SeedPhraseInfoChecklistPage.seedPhraseInfoChecklistConfirmationButtonKey));
@@ -69,36 +74,35 @@ void main() {
     await tester
         .tap(find.byKey(SeedPhraseInstructionsPage.seedPhraseInstructionsConfirmationButtonKey));
     await tester.pumpAndSettle();
-    expect(find.byKey(SeedPhraseGeneratingPage.seedPhraseGeneratingPageKey), findsOneWidget);
 
+    /// Seed phrase generation
+    expect(find.byKey(SeedPhraseGeneratingPage.seedPhraseGeneratingPageKey), findsOneWidget);
     // The seed generation page has a set time delay and this will make time pass so that the confirm button will appear
     await pumpTester(tester, duration: 1, loops: 10);
-
     await tester
         .tap(find.byKey(SeedPhraseGeneratingPage.seedPhraseGeneratingConfirmationButtonKey));
     await tester.pumpAndSettle();
 
+    /// Seed phrase Display
     expect(find.byKey(SeedPhraseDisplayPage.seedPhraseDisplayPageKey), findsOneWidget);
     await tester.tap(find.byKey(SeedPhraseDisplayPage.seedPhraseDisplayConfirmationButtonKey));
     await tester.pumpAndSettle();
 
+    /// Seed phrase confirmation section
     expect(find.byKey(SeedPhraseConfirmationPage.seedPhraseConfirmationPageKey), findsOneWidget);
-
     await fillOutSeedPhraseConfirmation(tester: tester);
-
     await tester
         .tap(find.byKey(SeedPhraseConfirmationPage.seedPhraseConfirmationConfirmationButtonKey));
     await tester.pumpAndSettle();
 
+    /// Create Password section
     expect(find.byKey(CreatePasswordPage.createPasswordPageKey), findsOneWidget);
-
     await fillOutCreatePassword(tester: tester);
     await tester.pumpAndSettle();
-
     await clickCreatePasswordConfirm(tester);
 
+    /// Wallet Info Checklist  Section
     expect(find.byKey(WalletInfoChecklistPage.walletInfoChecklistPageKey), findsOneWidget);
-
     await tester.tap(find.byKey(WalletInfoChecklistPage.savedMyWalletPasswordSafelyKey));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(WalletInfoChecklistPage.toplCannotRecoverForMeKey));
@@ -108,8 +112,8 @@ void main() {
     await tester.tap(find.byKey(WalletInfoChecklistPage.walletInfoChecklistConfirmationButtonKey));
     await tester.pumpAndSettle();
 
+    /// Wallet Page Created Section
     expect(find.byKey(WalletCreatedPage.walletCreatedPageKey), findsOneWidget);
-
     await tester.ensureVisible(find.byKey(WalletCreatedPage.walletCreatedConfirmationButtonKey));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(WalletCreatedPage.walletCreatedConfirmationButtonKey));

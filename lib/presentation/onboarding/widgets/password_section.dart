@@ -32,10 +32,6 @@ class PasswordSection extends HookConsumerWidget {
     /// Adds listeners to update provider
     /// You have to read inside useEffect, otherwise it will have a cached value of all inputs at widget load
     useEffect(() {
-      // QQQQ revert
-      _newPasswordController.text = 'qqqqqqqq';
-      _confirmPasswordController.text = 'qqqqqqqq';
-
       _newPasswordController.addListener(
         () {
           final _passwordState = ref.read(passwordProvider);
