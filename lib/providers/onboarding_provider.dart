@@ -1,6 +1,7 @@
 // import 'dart:math';
 
 import 'dart:convert';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:bip_topl/bip_topl.dart';
@@ -12,6 +13,8 @@ import 'package:ribn/platform/mobile/utils.dart';
 import 'package:ribn/platform/mobile/worker_runner.dart';
 import 'package:ribn/providers/app_state_provider.dart';
 import 'package:ribn/providers/keychain_provider.dart';
+import 'package:ribn/providers/packages/entropy_provider.dart';
+import 'package:ribn/providers/packages/random_provider.dart';
 import 'package:ribn/repositories/onboarding_repository.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/utils/error_handling_utils.dart';
@@ -37,11 +40,11 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
 
   static String _generateMnemonic(ref) {
     // QQQQ change back
-    return 'vote initial ship clean pencil genre struggle say hidden later quit scissors sentence illness leaf';
-    // final Random random = ref.read(randomProvider)();
+    // return 'vote initial ship clean pencil genre struggle say hidden later quit scissors sentence illness leaf';
+    final Random random = ref.read(randomProvider)();
 
-    // final entropy = ref.read(entropyProvider)(random);
-    // return ref.read(entropyFuncProvider)(entropy);
+    final entropy = ref.read(entropyProvider)(random);
+    return ref.read(entropyFuncProvider)(entropy);
   }
 
   regenerateMnemonic() {
@@ -56,8 +59,9 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
     required String password,
   }) async {
     try {
+      print('QQQQ password $password');
       final AppViews currAppView = await PlatformUtils.instance.getCurrentAppView();
-
+      print('QQQQ 1');
       // create isolate/worker to avoid hanging the UI
       final Map<String, dynamic> results = jsonDecode(
         await PlatformWorkerRunner.instance.runWorker(
@@ -71,6 +75,7 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
           },
         ),
       );
+      print('QQQQ 6');
 
       final Uint8List toplExtendedPrvKeyUint8List =
           uint8ListFromDynamic(results['toplExtendedPrvKeyUint8List']);

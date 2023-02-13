@@ -13,8 +13,12 @@ import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PasswordSection extends HookConsumerWidget {
+  static const passwordSectionKey = Key('passwordSectionKey');
+  static const newPasswordTextFieldKey = Key('newPasswordTextFieldKey');
+  static const confirmPasswordTextFieldKey = Key('confirmPasswordTextFieldKey');
+  static const termsOfAgreementCheckboxKey = Key('termsOfAgreementCheckboxKey');
   const PasswordSection({
-    Key? key,
+    Key key = passwordSectionKey,
   }) : super(key: key);
 
   @override
@@ -52,15 +56,18 @@ class PasswordSection extends HookConsumerWidget {
         _NewPasswordSection(
           textEditingController: _newPasswordController,
           atLeast8Chars: passwordState.atLeast8Chars,
+          textFieldKey: newPasswordTextFieldKey,
         ),
         SizedBox(height: adaptHeight(0.02)),
         _ConfirmPasswordSection(
           textEditingController: _confirmPasswordController,
           passwordsMatch: passwordState.passwordsMatch,
+          textFieldKey: confirmPasswordTextFieldKey,
         ),
         SizedBox(height: adaptHeight(0.02)),
         _TermsOfAgreementSection(
           termsOfUseChecked: passwordState.termsOfUseChecked,
+          checkboxKey: termsOfAgreementCheckboxKey,
           updateTermsOfUseChecked: (val) {
             passwordNotifier.state = passwordState.copyWith(termsOfUseChecked: val);
           },
@@ -73,9 +80,11 @@ class PasswordSection extends HookConsumerWidget {
 class _NewPasswordSection extends StatelessWidget {
   final TextEditingController textEditingController;
   final bool atLeast8Chars;
+  final Key textFieldKey;
   const _NewPasswordSection({
     required this.textEditingController,
     required this.atLeast8Chars,
+    required this.textFieldKey,
     Key? key,
   }) : super(key: key);
 
@@ -98,6 +107,7 @@ class _NewPasswordSection extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: PasswordTextField(
+            key: textFieldKey,
             // focusNode: _newPasswordFocus,
             width: kIsWeb ? 350 : adaptWidth(0.9),
             fillColor: RibnColors.whiteButtonShadow,
@@ -138,10 +148,12 @@ class _NewPasswordSection extends StatelessWidget {
 class _ConfirmPasswordSection extends StatelessWidget {
   final TextEditingController textEditingController;
   final bool passwordsMatch;
+  final Key textFieldKey;
 
   const _ConfirmPasswordSection({
     required this.textEditingController,
     required this.passwordsMatch,
+    required this.textFieldKey,
     Key? key,
   }) : super(key: key);
 
@@ -164,6 +176,7 @@ class _ConfirmPasswordSection extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: PasswordTextField(
+            key: textFieldKey,
             // focusNode: _confirmPasswordFocus,
             width: kIsWeb ? 350 : adaptWidth(0.9),
             fillColor: RibnColors.whiteButtonShadow,
@@ -193,9 +206,11 @@ class _ConfirmPasswordSection extends StatelessWidget {
 class _TermsOfAgreementSection extends HookWidget {
   final bool termsOfUseChecked;
   final Function(bool) updateTermsOfUseChecked;
+  final Key checkboxKey;
   const _TermsOfAgreementSection({
     required this.termsOfUseChecked,
     required this.updateTermsOfUseChecked,
+    required this.checkboxKey,
     Key? key,
   }) : super(key: key);
 
@@ -203,6 +218,7 @@ class _TermsOfAgreementSection extends HookWidget {
   Widget build(BuildContext context) {
     final url = Uri.parse(Strings.termsOfUseUrl);
     return CheckboxWrappableText(
+      checkboxKey: checkboxKey,
       wrapText: false,
       borderColor: termsOfUseChecked ? const Color(0xff80FF00) : RibnColors.lightGreyTitle,
       value: termsOfUseChecked,

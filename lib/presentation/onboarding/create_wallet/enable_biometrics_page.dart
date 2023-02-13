@@ -27,7 +27,8 @@ import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/utils.dart';
 
 class EnableBiometrics extends HookConsumerWidget {
-  const EnableBiometrics({Key? key}) : super(key: key);
+  static const Key enableBiometricsKey = Key('enableBiometricsKey');
+  const EnableBiometrics({Key key = enableBiometricsKey}) : super(key: key);
 
   Future<void> runBiometrics(
       WidgetRef ref, BuildContext context, ValueNotifier<bool> authorized) async {

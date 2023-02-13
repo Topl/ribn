@@ -5,7 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/main.dart';
+import 'package:ribn/providers/packages/local_authentication_provider.dart';
 
+import 'mocks/local_authentication_mocks.dart';
 import 'mocks/store_mocks.dart';
 
 class TestAssetBundle extends CachingAssetBundle {
@@ -37,6 +39,7 @@ Future<Widget> essentialTestProviderWidget({
   MockStore? mockStore,
 }) async {
   overrides = [
+    localAuthenticationProvider.overrideWithValue(() => getMockLocalAuthentication()),
     ...overrides,
   ];
   WidgetsFlutterBinding.ensureInitialized();

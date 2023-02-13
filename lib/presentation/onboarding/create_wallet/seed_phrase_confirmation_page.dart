@@ -26,6 +26,9 @@ class SeedPhraseConfirmationPage extends HookConsumerWidget {
   static const Key seedPhraseConfirmationPageKey = Key('seedPhraseConfirmationPageKey');
   static const Key seedPhraseConfirmationConfirmationButtonKey =
       Key('seedPhraseConfirmationConfirmationButtonKey');
+
+  static Key confirmationTextFieldKey(int index) => Key('confirmationTextFieldKey$index');
+
   SeedPhraseConfirmationPage({Key key = seedPhraseConfirmationPageKey}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
@@ -115,12 +118,14 @@ class _SeedPhraseConfirmationGrid extends StatelessWidget {
     for (int i = 0; i < confirmIdxs.length; i++) {
       mobileRows.add(
         ConfirmationTextField(
+          textFieldKey: SeedPhraseConfirmationPage.confirmationTextFieldKey(i),
           idx: confirmIdxs[i],
           word: mnemonicWordsList[confirmIdxs[i]],
         ),
       );
       webRowChildren.add(
         ConfirmationTextField(
+          textFieldKey: SeedPhraseConfirmationPage.confirmationTextFieldKey(i),
           idx: confirmIdxs[i],
           word: mnemonicWordsList[confirmIdxs[i]],
         ),
@@ -155,9 +160,11 @@ class _SeedPhraseConfirmationGrid extends StatelessWidget {
 class ConfirmationTextField extends HookWidget {
   final int idx;
   final String word;
+  final Key textFieldKey;
   const ConfirmationTextField({
     required this.idx,
     required this.word,
+    required this.textFieldKey,
     Key? key,
   }) : super(key: key);
 
@@ -182,6 +189,7 @@ class ConfirmationTextField extends HookWidget {
             ),
             const SizedBox(height: 5),
             CustomTextField(
+              key: textFieldKey,
               controller: textController,
               hintText: Strings.typeSomething,
               inputFormatters: [LowerCaseTextFormatter()],

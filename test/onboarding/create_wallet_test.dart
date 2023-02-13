@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:ribn/models/onboarding_state.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/create_password_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/getting_started_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_confirmation_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_display_page.dart';
@@ -7,10 +9,14 @@ import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_generatin
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_info_checklist_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_instructions_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/select_action_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/wallet_created_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/wallet_info_checklist_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
+import 'package:ribn/providers/packages/entropy_provider.dart';
 
 import '../essential_test_provider_widget.dart';
 import '../mocks/store_mocks.dart';
+import '../utils/onboarding_utils.dart';
 
 void main() {
   testWidgets('Test Successful Create Wallet Flow', (WidgetTester tester) async {
@@ -18,7 +24,11 @@ void main() {
     tester.binding.window.physicalSizeTestValue = Size(10000, 10000);
     await tester.pumpWidget(
       await essentialTestProviderWidget(
-        overrides: [],
+        overrides: [
+          entropyFuncProvider.overrideWith((ref) {
+            return (_) => OnboardingState.test().mnemonic;
+          })
+        ],
         mockStore: getStoreMocks(isNewUser: true),
       ),
     );
@@ -73,8 +83,38 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byKey(SeedPhraseConfirmationPage.seedPhraseConfirmationPageKey), findsOneWidget);
+
+    await fillOutSeedPhraseConfirmation(tester: tester);
+
     await tester
         .tap(find.byKey(SeedPhraseConfirmationPage.seedPhraseConfirmationConfirmationButtonKey));
     await tester.pumpAndSettle();
+
+    expect(find.byKey(CreatePasswordPage.createPasswordPageKey), findsOneWidget);
+
+    await fillOutCreatePassword(tester: tester);
+    await tester.pumpAndSettle();
+
+    await clickCreatePasswordConfirm(tester);
+
+    expect(find.byKey(WalletInfoChecklistPage.walletInfoChecklistPageKey), findsOneWidget);
+
+    await tester.tap(find.byKey(WalletInfoChecklistPage.savedMyWalletPasswordSafelyKey));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(WalletInfoChecklistPage.toplCannotRecoverForMeKey));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(WalletInfoChecklistPage.spAndPasswordUnrecoverableKey));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(WalletInfoChecklistPage.walletInfoChecklistConfirmationButtonKey));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(WalletCreatedPage.walletCreatedPageKey), findsOneWidget);
+
+    await tester.ensureVisible(find.byKey(WalletCreatedPage.walletCreatedConfirmationButtonKey));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(WalletCreatedPage.walletCreatedConfirmationButtonKey));
+    await tester.pumpAndSettle();
+
+    await pendingTimersFix(tester);
   });
 }

@@ -9,6 +9,7 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/presentation/onboarding/widgets/password_section.dart';
 import 'package:ribn/providers/onboarding_provider.dart';
 import 'package:ribn/providers/password_provider.dart';
+import 'package:ribn/utils/navigation_utils.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 
 // Project imports:
@@ -24,7 +25,11 @@ import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart
 import 'package:ribn/utils.dart';
 
 class CreatePasswordPage extends HookConsumerWidget {
-  CreatePasswordPage({Key? key}) : super(key: key);
+  static const Key createPasswordPageKey = Key('createPasswordPageKey');
+  static const Key createPasswordConfirmationButtonKey = Key('createPasswordConfirmationButtonKey');
+  CreatePasswordPage({
+    Key key = createPasswordPageKey,
+  }) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
 
@@ -87,6 +92,7 @@ class CreatePasswordPage extends HookConsumerWidget {
                   ),
                   ConfirmationButton(
                     text: Strings.done,
+                    key: createPasswordConfirmationButtonKey,
                     disabled: !passwordState.atLeast8Chars ||
                         !passwordState.passwordsMatch ||
                         !passwordState.termsOfUseChecked,
@@ -94,7 +100,7 @@ class CreatePasswordPage extends HookConsumerWidget {
                       context.loaderOverlay.show();
                       await onboardingNotifier.createPassword(password: passwordState.password);
                       context.loaderOverlay.hide();
-                      navigateToRoute(context, Routes.walletInfoChecklist);
+                      navigateToRoute(route: Routes.walletInfoChecklist);
                     },
                   ),
                 ],

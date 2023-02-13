@@ -2,6 +2,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:ribn/utils/navigation_utils.dart';
 
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
@@ -22,7 +23,9 @@ import 'package:ribn/utils.dart';
 
 /// This page is displayed when user successfully creates their wallet.
 class WalletCreatedPage extends HookWidget {
-  const WalletCreatedPage({Key? key}) : super(key: key);
+  static const Key walletCreatedPageKey = Key('walletCreatedPageKey');
+  static const Key walletCreatedConfirmationButtonKey = Key('walletCreatedConfirmationButtonKey');
+  const WalletCreatedPage({Key key = walletCreatedPageKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -106,11 +109,13 @@ class WalletCreatedPage extends HookWidget {
               SizedBox(height: adaptHeight(0.01)),
               renderIfMobile(const MobileOnboardingProgressBar(currStep: 3)),
               ConfirmationButton(
+                key: walletCreatedConfirmationButtonKey,
                 text: Strings.done,
                 onPressed: () {
                   if (kIsWeb) {
-                    navigateToRoute(context, Routes.extensionInfo);
+                    navigateToRoute(route: Routes.extensionInfo);
                   } else {
+                    print('QQQQ done!');
                     Keys.navigatorKey.currentState
                         ?.pushNamedAndRemoveUntil(Routes.home, (_) => false);
                   }

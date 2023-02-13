@@ -22,4 +22,10 @@ class MockStore extends Mock implements Store<AppState> {
 
   @override
   Stream<AppState> get onChange => Stream.value(AppState.test());
+
+  @override
+  dispatch(action) {
+    print('QQQQ dispatch $action');
+    return '';
+  }
 }
