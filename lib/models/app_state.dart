@@ -13,14 +13,12 @@ import 'package:ribn/platform/platform.dart';
 
 @immutable
 class AppState {
-  // final OnboardingState onboardingState;
   final LoginState loginState;
   final KeychainState keychainState;
   final UserDetailsState userDetailsState;
   final InternalMessage? internalMessage;
   final String appVersion;
   AppState({
-    // required this.onboardingState,
     required this.loginState,
     required this.keychainState,
     required this.userDetailsState,
@@ -30,7 +28,6 @@ class AppState {
 
   factory AppState.initial() {
     return AppState(
-      // onboardingState: OnboardingState.initial(),
       loginState: LoginState.initial(),
       keychainState: KeychainState.initial(),
       userDetailsState: UserDetailsState.initial(),
@@ -69,7 +66,6 @@ class AppState {
     if (identical(this, other)) return true;
 
     return other is AppState &&
-        // other.onboardingState == onboardingState &&
         other.loginState == loginState &&
         other.keychainState == keychainState &&
         other.userDetailsState == userDetailsState &&
@@ -79,13 +75,11 @@ class AppState {
 
   @override
   int get hashCode {
-    return
-        // onboardingState.hashCode ^
-        loginState.hashCode ^
-            keychainState.hashCode ^
-            userDetailsState.hashCode ^
-            internalMessage.hashCode ^
-            appVersion.hashCode;
+    return loginState.hashCode ^
+        keychainState.hashCode ^
+        userDetailsState.hashCode ^
+        internalMessage.hashCode ^
+        appVersion.hashCode;
   }
 
   AppState copyWith({
@@ -97,7 +91,6 @@ class AppState {
     String? appVersion,
   }) {
     return AppState(
-      // onboardingState: onboardingState ?? this.onboardingState,
       loginState: loginState ?? this.loginState,
       keychainState: keychainState ?? this.keychainState,
       userDetailsState: userDetailsState ?? this.userDetailsState,
@@ -117,7 +110,6 @@ class AppState {
 
   factory AppState.fromMap(Map<String, dynamic> map) {
     return AppState(
-      // onboardingState: OnboardingState.initial(),
       loginState: LoginState.fromMap(map['loginState']),
       keychainState: KeychainState.fromMap(map['keychainState']),
       userDetailsState: UserDetailsState.fromMap(map['userDetailsState']),
