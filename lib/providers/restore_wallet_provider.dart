@@ -3,11 +3,13 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ribn/actions/restore_wallet_actions.dart';
+import 'package:ribn/constants/keys.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/platform/mobile/utils.dart';
 import 'package:ribn/platform/mobile/worker_runner.dart';
-import 'package:ribn/providers/store_provider.dart';
+import 'package:ribn/providers/app_state_provider.dart';
+import 'package:ribn/providers/keychain_provider.dart';
 import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/repositories/onboarding_repository.dart';
 import 'package:ribn/utils.dart';
@@ -40,13 +42,13 @@ class RestoreWalletNotifier extends StateNotifier<void> {
           },
         ),
       );
+      await _restoreFlow(
+        toplExtendedPrivateKey: uint8ListFromDynamic(results['toplExtendedPrvKeyUint8List']),
+        keyStoreJson: results['keyStoreJson'],
+      );
+      const String navigateToRoute = kIsWeb ? Routes.extensionInfo : Routes.home;
 
-      ref.read(storeProvider).dispatch(
-            SuccessfullyRestoredWalletAction(
-              keyStoreJson: results['keyStoreJson'],
-              toplExtendedPrivateKey: uint8ListFromDynamic(results['toplExtendedPrvKeyUint8List']),
-            ),
-          );
+      Keys.navigatorKey.currentState?.pushNamedAndRemoveUntil(navigateToRoute, (route) => false);
     } catch (e) {
       handleApiError(errorMessage: e.toString());
     }
@@ -64,14 +66,26 @@ class RestoreWalletNotifier extends StateNotifier<void> {
         'password': password,
       });
       completer.complete(true);
-      ref.read(storeProvider).dispatch(
-            SuccessfullyRestoredWalletAction(
-              keyStoreJson: toplKeyStoreJson,
-              toplExtendedPrivateKey: toplExtendedPrvKeyUint8List,
-            ),
-          );
+      await _restoreFlow(
+        keyStoreJson: toplKeyStoreJson,
+        toplExtendedPrivateKey: toplExtendedPrvKeyUint8List,
+      );
     } catch (e) {
       completer.complete(false);
     }
+  }
+
+  Future<void> _restoreFlow({
+    required toplExtendedPrivateKey,
+    required keyStoreJson,
+  }) async {
+    await ref.read(appStateProvider.notifier).resetAppState();
+
+    await ref.read(keychainProvider.notifier).initializeHdWallet(
+          toplExtendedPrivateKey: toplExtendedPrivateKey,
+          keyStoreJson: keyStoreJson,
+        );
+
+    await ref.read(appStateProvider.notifier).persistAppState();
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ribn/models/onboarding_state.dart';
+import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/create_password_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/getting_started_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_confirmation_page.dart';
@@ -99,7 +100,10 @@ void main() {
     expect(find.byKey(CreatePasswordPage.createPasswordPageKey), findsOneWidget);
     await fillOutCreatePassword(tester: tester);
     await tester.pumpAndSettle();
-    await clickCreatePasswordConfirm(tester);
+    await clickCreatePasswordConfirm(
+      tester: tester,
+      buttonKey: CreatePasswordPage.createPasswordConfirmationButtonKey,
+    );
 
     /// Wallet Info Checklist  Section
     expect(find.byKey(WalletInfoChecklistPage.walletInfoChecklistPageKey), findsOneWidget);
@@ -118,6 +122,9 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(WalletCreatedPage.walletCreatedConfirmationButtonKey));
     await tester.pumpAndSettle();
+
+    /// Make it to wallet balance screen
+    expect(find.byKey(HomePage.homePageKey), findsOneWidget);
 
     await pendingTimersFix(tester);
   });

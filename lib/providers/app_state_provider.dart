@@ -15,4 +15,9 @@ class AppStateNotifier extends StateNotifier<void> {
     final store = ref.read(storeProvider);
     await store.dispatch(PersistAppState());
   }
+
+  Future<void> resetAppState() async {
+    final store = ref.read(storeProvider);
+    await store.dispatch(ResetAppStateAction());
+  }
 }

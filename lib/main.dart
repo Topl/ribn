@@ -33,7 +33,7 @@ import 'package:ribn/router/root_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Redux.initStore(initTestStore: !kDebugMode ? true : false);
+  await Redux.initStore(initTestStore: kDebugMode ? true : false);
   final AppViews currentAppView = await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
   // Open app in new tab if user needs onboarding
@@ -83,8 +83,6 @@ class RibnApp extends StatelessWidget {
 }
 
 String getInitialRoute(Store<AppState> store) {
-  print('QQQQ needsOnboarding ${store.state.needsOnboarding()}');
-  print('QQQQ needsLogin ${store.state.needsLogin()}');
   if (store.state.needsOnboarding()) {
     return Routes.welcome;
   } else if (store.state.needsLogin()) {

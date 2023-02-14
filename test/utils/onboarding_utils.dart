@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ribn/models/onboarding_state.dart';
-import 'package:ribn/presentation/onboarding/create_wallet/create_password_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_confirmation_page.dart';
+import 'package:ribn/presentation/onboarding/restore_wallet/restore_wallet_page.dart';
 import 'package:ribn/presentation/onboarding/widgets/password_section.dart';
 
 import '../constants/onboarding_constants.dart';
@@ -55,11 +56,27 @@ Future<void> fillOutCreatePassword({
   await tester.pumpAndSettle();
 }
 
-Future<void> clickCreatePasswordConfirm(WidgetTester tester) async {
+Future<void> clickCreatePasswordConfirm({
+  required WidgetTester tester,
+  required Key buttonKey,
+}) async {
   await customRunAsync(tester, test: () async {
-    await tester.tap(find.byKey(CreatePasswordPage.createPasswordConfirmationButtonKey));
+    await tester.tap(find.byKey(buttonKey));
     await Future.delayed(Duration(milliseconds: 200));
     await pumpTester(tester, duration: 10, loops: 1000);
     await Future.delayed(Duration(milliseconds: 200));
   });
+}
+
+Future<void> fillOutRestoreWalletMnemonic({
+  required WidgetTester tester,
+  String? mnemonic,
+}) async {
+  if (mnemonic == null) {
+    mnemonic = OnboardingState.test().mnemonic;
+  }
+  expect(find.byKey(RestoreWalletPage.restoreWalletPageKey), findsOneWidget);
+
+  await tester.enterText(find.byKey(RestoreWalletPage.mnemonicTextFieldKey), mnemonic);
+  await tester.pumpAndSettle();
 }

@@ -7,7 +7,6 @@ MockStore getStoreMocks({
   bool isNewUser = false,
 }) {
   final _mockStore = MockStore(isNewUser);
-
   return _mockStore;
 }
 
@@ -25,7 +24,6 @@ class MockStore extends Mock implements Store<AppState> {
 
   @override
   dispatch(action) {
-    print('QQQQ dispatch $action');
     return '';
   }
 }

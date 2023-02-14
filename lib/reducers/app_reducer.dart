@@ -12,7 +12,6 @@ AppState appReducer(AppState state, dynamic action) {
     return AppState.initial();
   } else {
     return AppState(
-      // onboardingState: onboardingReducer(state.onboardingState, action),
       loginState: loginReducer(state.loginState, action),
       keychainState: keychainReducer(state.keychainState, action),
       userDetailsState: userDetailsReducer(state.userDetailsState, action),

@@ -8,7 +8,6 @@ import 'package:rxdart/rxdart.dart';
 // Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
-import 'package:ribn/actions/restore_wallet_actions.dart';
 import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
@@ -21,9 +20,6 @@ Epic<AppState> createEpicMiddleware(MiscRepository miscRepo) => combineEpics<App
       TypedEpic<AppState, ApiErrorAction>(_onApiError()),
       TypedEpic<AppState, PersistAppState>(_onPersistAppState(miscRepo)),
       TypedEpic<AppState, NavigateToRoute>(_onNavigateToRoute()),
-      TypedEpic<AppState, SuccessfullyRestoredWalletAction>(
-        _onSuccessfullyRestoredWallet(miscRepo),
-      ),
     ]);
 
 /// A list of all the actions that should trigger appState persistence
@@ -106,32 +102,5 @@ Stream<dynamic> Function(Stream<NavigateToRoute>, EpicStore<AppState>) _onNaviga
         return const Stream.empty();
       },
     );
-  };
-}
-
-/// Handles [SuccessfullyRestoredWalletAction] by dispatching actions to reset the current app state,
-/// initialize the hd wallet, and navigate to the home page.
-///
-/// [navigateToRoute] is selected based on whether the app is open in extension view or full page, i.e.
-/// user is restoring wallet during onboarding (fullpage- iew) vs from the login page (extension view).
-Stream<dynamic> Function(
-  Stream<SuccessfullyRestoredWalletAction>,
-  EpicStore<AppState>,
-) _onSuccessfullyRestoredWallet(
-  MiscRepository miscRepo,
-) {
-  return (actions, store) {
-    return actions.switchMap((action) {
-      const String navigateToRoute = kIsWeb ? Routes.extensionInfo : Routes.home;
-      return Stream.fromIterable([
-        const ResetAppStateAction(),
-        InitializeHDWalletAction(
-          keyStoreJson: action.keyStoreJson,
-          toplExtendedPrivateKey: action.toplExtendedPrivateKey,
-        ),
-        PersistAppState(),
-        Keys.navigatorKey.currentState?.pushNamedAndRemoveUntil(navigateToRoute, (route) => false),
-      ]);
-    });
   };
 }

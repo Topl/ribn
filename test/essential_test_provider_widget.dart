@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/main.dart';
 import 'package:ribn/providers/packages/local_authentication_provider.dart';
+import 'package:ribn/providers/store_provider.dart';
 
 import 'mocks/local_authentication_mocks.dart';
 import 'mocks/store_mocks.dart';
@@ -38,8 +39,10 @@ Future<Widget> essentialTestProviderWidget({
   List<Override> overrides = const [],
   MockStore? mockStore,
 }) async {
+  if (mockStore == null) mockStore = getStoreMocks();
   overrides = [
     localAuthenticationProvider.overrideWithValue(() => getMockLocalAuthentication()),
+    storeProvider.overrideWith((ref) => mockStore!),
     ...overrides,
   ];
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,7 +54,7 @@ Future<Widget> essentialTestProviderWidget({
       debugShowCheckedModeBanner: false,
       home: DefaultAssetBundle(
         bundle: TestAssetBundle(),
-        child: RibnApp(mockStore ?? getStoreMocks()),
+        child: RibnApp(mockStore),
       ),
     ),
   );

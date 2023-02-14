@@ -18,16 +18,16 @@ import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
 /// This page is used in the 'restore wallet' flow when initiated from the login page,
 /// hence the widget name is prefixed with 'Login'.
 class RestoreWalletPage extends HookWidget {
-  const RestoreWalletPage({Key? key}) : super(key: key);
+  static const Key restoreWalletPageKey = Key('restoreWalletPageKey');
+  static const Key restoreWalletConfirmationButtonKey = Key('restoreWalletConfirmationButtonKey');
+  static const Key mnemonicTextFieldKey = Key('mnemonicTextFieldKey');
+
+  const RestoreWalletPage({Key key = restoreWalletPageKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     /// Controller for the seed phrase text field.
-    /// QQQQ change back
-    final TextEditingController controller = useTextEditingController(
-      text:
-          'vote initial ship clean pencil genre struggle say hidden later quit scissors sentence illness leaf',
-    );
+    final TextEditingController controller = useTextEditingController();
 
     /// Seed phrase entered by the user.
     final seedPhrase = useState(controller.text);
@@ -77,6 +77,7 @@ class RestoreWalletPage extends HookWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: CustomTextField(
+                      textFieldKey: mnemonicTextFieldKey,
                       width: 500,
                       height: 70,
                       controller: controller,
@@ -94,6 +95,7 @@ class RestoreWalletPage extends HookWidget {
             renderIfMobile(const OnboardingProgressBar(numSteps: 2, currStep: 0)),
             const SizedBox(height: 20),
             ConfirmationButton(
+              key: restoreWalletConfirmationButtonKey,
               text: Strings.next,
               onPressed: () => onNextPressed(
                 seedPhrase,

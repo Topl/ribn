@@ -86,15 +86,15 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
                         margin: EdgeInsets.only(
                           left: 15,
                           right: 15,
-                          top: 15,
-                          bottom: 20,
+                          top: 10,
+                          bottom: 25,
                         ),
                         child: _buildGrid(seedPhraseWordsList),
                       ),
                       kIsWeb
                           ? const SizedBox()
                           : Positioned(
-                              bottom: 10,
+                              bottom: 0,
                               right: 10,
                               child: _buildButton(
                                 Strings.copy,

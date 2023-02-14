@@ -82,3 +82,8 @@ arm_mac_hard_clean:
 file_test:
 	@reset
 	@flutter test test/onboarding/create_wallet_test.dart
+
+test_coverage:
+	@flutter test --coverage
+	@genhtml coverage/lcov.info -o coverage/html
+	@open coverage/html/index.html
