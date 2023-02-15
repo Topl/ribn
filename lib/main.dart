@@ -26,6 +26,7 @@ import 'package:ribn/presentation/external_signing_page.dart';
 import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
+import 'package:ribn/presentation/onboarding/widgets/opt_in_tracker_page.dart';
 import 'package:ribn/presentation/transaction_history/service_locator/locator.dart';
 import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/redux.dart';
@@ -158,7 +159,9 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
     default:
       return [
         MaterialPageRoute(
-          builder: (context) => const WelcomePage(),
+          // QQQQ reset
+          builder: (context) => const OptInTracker(),
+          // builder: (context) => const WelcomePage(),
           settings: const RouteSettings(name: Routes.welcome),
         )
       ];

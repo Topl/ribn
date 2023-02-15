@@ -18,7 +18,6 @@ import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/create_password_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/enable_biometrics_page.dart';
-import 'package:ribn/presentation/onboarding/create_wallet/getting_started_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_confirmation_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_display_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_generating_page.dart';
@@ -27,12 +26,12 @@ import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_instructi
 import 'package:ribn/presentation/onboarding/create_wallet/select_action_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/wallet_created_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/wallet_info_checklist_page.dart';
-import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
 import 'package:ribn/presentation/onboarding/extension_info_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/create_new_wallet_password_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/enter_wallet_password_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/restore_wallet_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/restore_with_topl_key_page.dart';
+import 'package:ribn/presentation/onboarding/widgets/opt_in_tracker_page.dart';
 import 'package:ribn/presentation/settings/settings_page.dart';
 import 'package:ribn/presentation/transaction_history/transaction_history_details_page/transaction_history_details_page.dart';
 import 'package:ribn/presentation/transaction_history/transaction_history_page.dart';
@@ -52,10 +51,12 @@ class RootRouter {
     switch (settings.name) {
       case Routes.welcome:
         {
-          if (kIsWeb) {
-            return pageRouteNotAnimated(const WelcomePage(), settings);
-          }
-          return pageRoute(const WelcomePage(), settings);
+          // QQQQ reset
+          return pageRoute(const OptInTracker(), settings);
+          // if (kIsWeb) {
+          //   return pageRouteNotAnimated(const WelcomePage(), settings);
+          // }
+          // return pageRoute(const WelcomePage(), settings);
         }
       case Routes.selectAction:
         {
@@ -66,10 +67,12 @@ class RootRouter {
         }
       case Routes.gettingStarted:
         {
-          if (kIsWeb) {
-            return pageRouteNotAnimated(const GettingStartedPage(), settings);
-          }
-          return pageRoute(const GettingStartedPage(), settings);
+          // QQQQ reset
+          return pageRoute(const OptInTracker(), settings);
+          // if (kIsWeb) {
+          //   return pageRouteNotAnimated(const GettingStartedPage(), settings);
+          // }
+          // return pageRoute(const GettingStartedPage(), settings);
         }
       case Routes.seedPhraseInfoChecklist:
         {

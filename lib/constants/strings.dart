@@ -315,4 +315,5 @@ Ribn Wallet does not control the functionality of biometrics and does not have a
       "This data is aggregated and is therefore anonymous for the purposes of General Data Protection Regulation (EU) 2016/679. For more information in relation to our privacy practices, please see our";
   static const readMore = "Read more";
   static const helpUsImprove = "Help us improve Ribn";
+  static const privacyPolicyLink = "Privacy Policy here.";
 }
