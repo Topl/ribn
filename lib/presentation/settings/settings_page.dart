@@ -1,15 +1,12 @@
 // Flutter imports:
-// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 // Project imports:
 import 'package:ribn/constants/strings.dart';
-// import 'package:ribn/containers/settings_container.dart';
 import 'package:ribn/presentation/settings/sections/biometrics_section.dart';
 import 'package:ribn/presentation/settings/sections/danger_container_section.dart';
 import 'package:ribn/presentation/settings/sections/delete_wallet_section.dart';
 import 'package:ribn/presentation/settings/sections/disconnect_dapps_section.dart';
-// import 'package:ribn/presentation/settings/sections/export_topl_main_key_section.dart';
 import 'package:ribn/presentation/settings/sections/links_section.dart';
 import 'package:ribn/presentation/settings/sections/ribn_version_section.dart';
 import 'package:ribn/providers/settings_page_provider.dart';
@@ -65,8 +62,8 @@ class SettingsListItems extends ConsumerWidget {
                       data: (data) => data
                           ? BiometricsSection(
                               isBiometricsEnabled:
-                                  // ref.watch(biometricsEnabledProvider)
-                                  false)
+                                  ref.watch(biometricsEnabledProvider)
+                                  )
                           : const SizedBox(),
                       error: (_, __) => Container(),
                       loading: () => Container()),
