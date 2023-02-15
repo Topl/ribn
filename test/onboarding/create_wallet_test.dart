@@ -26,9 +26,7 @@ void main() {
     await tester.pumpWidget(
       await essentialTestProviderWidget(
         overrides: [
-          entropyFuncProvider.overrideWith((ref) {
-            return (_) => OnboardingState.test().mnemonic;
-          })
+          entropyFuncProvider.overrideWith((ref) => (_) => OnboardingState.test().mnemonic)
         ],
         mockStore: getStoreMocks(isNewUser: true),
       ),
