@@ -15,7 +15,7 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/molecules/loading_spinner.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
-import '../../providers/biometrics_provider.dart';
+import '../../providers/biometrics_provider_alt.dart';
 
 /// The settings page of the application.
 class SettingsPage extends ConsumerWidget {

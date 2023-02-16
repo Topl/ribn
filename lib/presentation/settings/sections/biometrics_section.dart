@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/providers/biometrics_provider.dart';
+import 'package:ribn/providers/biometrics_provider_alt.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_toggle.dart';
 

@@ -18,7 +18,13 @@ final biometricsEnabledProvider =
 final biometricsProvider =
     ChangeNotifierProvider<Biometrics>((ref) => Biometrics());
 
-class Biometrics with ChangeNotifier {
+final localAuthProvider = Provider<LocalAuthentication>((ref)=> LocalAuthentication());
+
+
+final x = StateNotifierProvider<Biometrics>((ref) => Biometrics());
+
+
+class Biometrics {
   // Use getter to prevent setting this value outside of this class
   bool? _isEnabled;
   bool? get isEnabled => _isEnabled;
