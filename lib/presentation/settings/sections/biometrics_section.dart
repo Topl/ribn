@@ -1,71 +1,51 @@
 // Dart imports:
 import 'dart:io' show Platform;
-import 'dart:io';
-
-// Flutter imports:
-import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:app_settings/app_settings.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:local_auth/local_auth.dart';
+// Flutter imports:
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/strings.dart';
+import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_toggle.dart';
 
-// Project imports:
-import 'package:ribn/actions/user_details_actions.dart';
-import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/strings.dart';
-import 'package:ribn/models/app_state.dart';
-import 'package:ribn/utils.dart';
-
 /// The section allows for users to toggle biometrics authentication on/off.
-class BiometricsSection extends StatefulWidget {
-  /// True if biometrics authentication is enabled
-  final bool isBiometricsEnabled;
-
-  const BiometricsSection({
-    required this.isBiometricsEnabled,
+class BiometricsSection extends ConsumerWidget {
+  BiometricsSection({
+    required bool this.isBiometricsEnabled,
     Key? key,
   }) : super(key: key);
 
-  @override
-  State<BiometricsSection> createState() => _BiometricsSectionState();
-}
+  /// True if biometrics authentication is enabled
+  final bool isBiometricsEnabled;
 
-class _BiometricsSectionState extends State<BiometricsSection> {
-  final LocalAuthentication _localAuthentication = LocalAuthentication();
-
-  /// True if biometrics authentication is completed successfully
-  bool _authorized = false;
-
-  Future<void> runBiometrics(value) async {
+  Future<void> runBiometrics(
+      BuildContext context, WidgetRef ref, bool value) async {
+    final biometrics = ref.read(biometricsProvider);
     bool authenticated = false;
-    await isBiometricsAuthenticationEnrolled(_localAuthentication);
+
+    /*** TODO original code didn't do anything with this value, unsure of it's function or why it's here
+     *  Schedule for removal?
+     */
+    await biometrics.isBiometricsAuthenticationEnrolled();
 
     try {
-      authenticated = await authenticateWithBiometrics(_localAuthentication);
+      authenticated = await biometrics.authenticateWithBiometrics();
     } catch (e) {
-      if (Platform.isAndroid) await _showMyDialog();
+      // TODO: Figure out why only android is being handled in this case, mustafa did mention that IOS wasn't working, but my tests seem to indicate otherwise
+      if (Platform.isAndroid) await _showMyDialog(context);
       return;
     }
 
-    if (!mounted || !authenticated) {
-      return;
-    }
+    if (!authenticated) return;
 
-    setState(() {
-      _authorized = authenticated ? true : false;
-    });
-
-    StoreProvider.of<AppState>(context).dispatch(
-      UpdateBiometricsAction(
-        isBiometricsEnabled: value,
-      ),
-    );
+    biometrics.toggleBiometrics();
   }
 
-  Future<void> _showMyDialog() async {
+  Future<void> _showMyDialog(BuildContext context) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -98,7 +78,7 @@ class _BiometricsSectionState extends State<BiometricsSection> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -131,11 +111,9 @@ class _BiometricsSectionState extends State<BiometricsSection> {
           scale: 0.7,
           child: CustomToggle(
             onChanged: (value) {
-              runBiometrics(value).then(
-                (value) => {if (_authorized) setState(() {})},
-              );
+              runBiometrics(context, ref, value);
             },
-            value: widget.isBiometricsEnabled,
+            value: isBiometricsEnabled,
           ),
         ),
       ],

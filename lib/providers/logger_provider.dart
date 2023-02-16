@@ -11,3 +11,11 @@ final Logger Function() transactionLogger = () {
 
   return container.read(loggerProvider)(kTransactionLogger);
 };
+
+
+final Logger Function(String loggerName) logger  = (loggerName) {
+  // Allows to get riverpod state without ref
+  final container = ProviderContainer();
+
+  return container.read(loggerProvider)(loggerName);
+};

@@ -84,4 +84,13 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   /// Mobile-only
   @override
   Future<void> saveKeyInSecureStorage(String key) => throw UnimplementedError();
+
+
+  /// Mobile-only
+  @override
+  Future<String> getKVInSecureStorage(String key) => throw UnimplementedError();
+
+  /// Mobile-only
+  @override
+  Future<void> saveKVInSecureStorage(String key, String value) => throw UnimplementedError();
 }

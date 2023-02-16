@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:local_auth/local_auth.dart';
 // import 'package:local_auth/local_auth.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/models/app_state.dart';
@@ -16,21 +15,8 @@ import 'package:ribn/providers/utility_provider.dart';
 
 import '../actions/misc_actions.dart';
 import '../presentation/settings/sections/delete_wallet_confirmation_dialog.dart';
-import '../utils.dart';
 
-// Todo add proper biometrics detection
-final biometricsSupportedProvider =
-    FutureProvider.autoDispose<bool>((ref) async {
-  // If is web, return false by default
-  if (kIsWeb) return false;
 
-  return await isBiometricsAuthenticationSupported(LocalAuthentication());
-});
-
-final biometricsEnabledProvider = Provider<bool>((ref) {
-  final store = ref.read(storeProvider);
-  return store.state.userDetailsState.isBiometricsEnabled;
-});
 
 final canDisconnectDAppsProvider =
     FutureProvider.autoDispose<bool>((ref) async {
@@ -107,9 +93,7 @@ class SettingsViewModel {
     );
   }
 
-  static toggleBiometrics(bool enabled) {
-    //stub
-  }
+
 
   static _onDeletePressed(BuildContext context, Store<AppState> store) async {
     await showDialog(

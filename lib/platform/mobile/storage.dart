@@ -11,11 +11,14 @@ import 'package:ribn/platform/interfaces.dart';
 
 class PlatformLocalStorage implements IPlatformLocalStorage {
   PlatformLocalStorage._internal();
+
   static PlatformLocalStorage? _instance;
+
   factory PlatformLocalStorage() {
     _instance ??= PlatformLocalStorage._internal();
     return _instance!;
   }
+
   static PlatformLocalStorage get instance => PlatformLocalStorage();
 
   /// Allows securely storing credentials on mobile.
@@ -85,4 +88,25 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   @override
   Future<void> saveKeyInSessionStorage(String key) =>
       throw UnimplementedError();
+
+  @override
+  Future<String?> getKVInSecureStorage(String key) async {
+    try {
+      return await secureStorage.read(key: key);
+    } catch (e) {
+      if (!Keys.isTestingEnvironment) {
+        rethrow;
+      }
+    }
+    return null;
+  }
+
+  @override
+  Future<void> saveKVInSecureStorage(String key, String value) async {
+    try {
+      await secureStorage.write(key: key, value: value);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
