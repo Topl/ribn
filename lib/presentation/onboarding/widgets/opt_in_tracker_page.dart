@@ -3,19 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/keys.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
+import 'package:ribn/providers/analytics_provider.dart';
+import 'package:ribn/utils/url_utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class OptInTracker extends HookConsumerWidget {
   static const Key optInTrackerKey = Key('optInTrackerKey');
   const OptInTracker({Key key = optInTrackerKey}) : super(key: key);
 
+  _handleNoThanks() {
+    Keys.navigatorKey.currentState?.pushNamed(Routes.selectAction);
+  }
+
+  _handleIAgree(AnalyticsNotifier analyticsNotifier) async {
+    await analyticsNotifier.optIn();
+    Keys.navigatorKey.currentState?.pushNamed(Routes.selectAction);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final AnalyticsNotifier analyticsNotifier = ref.watch(analyticsProvider.notifier);
     return Scaffold(
       body: OnboardingContainer(
         child: Column(
@@ -34,7 +47,10 @@ class OptInTracker extends HookConsumerWidget {
                 ],
               ),
             ),
-            _BottomButtons(),
+            _BottomButtons(
+              iAgreePressed: () => _handleIAgree(analyticsNotifier),
+              noThanksPressed: _handleNoThanks,
+            ),
           ],
         ),
       ),
@@ -212,11 +228,11 @@ class _BulletPoints extends StatelessWidget {
   }
 }
 
-class _ReadMoreSection extends HookWidget {
+class _ReadMoreSection extends HookConsumerWidget {
   const _ReadMoreSection({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final showReadMore = useState(false);
     return Column(
       children: [
@@ -251,8 +267,7 @@ class _ReadMoreSection extends HookWidget {
                   style: RibnToolkitTextStyles.linkText,
                   recognizer: new TapGestureRecognizer()
                     ..onTap = () async {
-                      await launchUrl(Uri.parse('https://legal.topl.co/Privacy_Policy'));
-                      print('QQQQ tap');
+                      await launchPrivacyPolicyUrl(ref);
                     },
                 ),
               ],

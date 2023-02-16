@@ -26,6 +26,7 @@ import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_instructi
 import 'package:ribn/presentation/onboarding/create_wallet/select_action_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/wallet_created_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/wallet_info_checklist_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
 import 'package:ribn/presentation/onboarding/extension_info_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/create_new_wallet_password_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/enter_wallet_password_page.dart';
@@ -51,12 +52,17 @@ class RootRouter {
     switch (settings.name) {
       case Routes.welcome:
         {
-          // QQQQ reset
+          if (kIsWeb) {
+            return pageRouteNotAnimated(const WelcomePage(), settings);
+          }
+          return pageRoute(const WelcomePage(), settings);
+        }
+      case Routes.optIn:
+        {
+          if (kIsWeb) {
+            return pageRouteNotAnimated(const OptInTracker(), settings);
+          }
           return pageRoute(const OptInTracker(), settings);
-          // if (kIsWeb) {
-          //   return pageRouteNotAnimated(const WelcomePage(), settings);
-          // }
-          // return pageRoute(const WelcomePage(), settings);
         }
       case Routes.selectAction:
         {

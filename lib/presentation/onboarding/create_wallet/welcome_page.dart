@@ -65,7 +65,7 @@ class WelcomePage extends StatelessWidget {
                   key: welcomePageConfirmationButtonKey,
                   text: Strings.getStarted,
                   onPressed: () {
-                    Keys.navigatorKey.currentState?.pushNamed(Routes.selectAction);
+                    Keys.navigatorKey.currentState?.pushNamed(Routes.optIn);
                   },
                 ),
               ],
