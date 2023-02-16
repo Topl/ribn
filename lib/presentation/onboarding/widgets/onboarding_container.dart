@@ -20,7 +20,7 @@ class OnboardingContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double topPadding = kIsWeb ? 50 : MediaQuery.of(context).size.height * 0.12;
+    final double topPadding = kIsWeb ? 50 : MediaQuery.of(context).size.height * 0.10;
     return Container(
       height: double.infinity,
       width: double.infinity,

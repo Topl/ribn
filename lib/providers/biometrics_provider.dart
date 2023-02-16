@@ -2,13 +2,24 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/providers/store_provider.dart';
 
-final biometricsProvider = StateNotifierProvider<BiometricsNotifier, void>((ref) {
+class BiometricsClass {
+  final authorized;
+  final isEnabled;
+
+  BiometricsClass([
+    this.authorized = false,
+    this.isEnabled = false,
+  ]);
+}
+
+final biometricsProvider =
+    StateNotifierProvider<BiometricsNotifier, AsyncValue<BiometricsClass>>((ref) {
   return BiometricsNotifier(ref);
 });
 
-class BiometricsNotifier extends StateNotifier<void> {
+class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsClass>> {
   final Ref ref;
-  BiometricsNotifier(this.ref) : super(null);
+  BiometricsNotifier(this.ref) : super(AsyncValue.loading());
 
   updateBiometrics(bool isBiometricsEnabled) {
     final store = ref.read(storeProvider);
@@ -18,5 +29,13 @@ class BiometricsNotifier extends StateNotifier<void> {
         isBiometricsEnabled: isBiometricsEnabled,
       ),
     );
+  }
+
+  Future<void> testUpdate() async {
+    state = AsyncValue.loading();
+
+    // Do you thing here
+
+    state = AsyncValue.data(BiometricsClass());
   }
 }

@@ -43,12 +43,18 @@ class OptInTracker extends HookConsumerWidget {
 }
 
 class _BottomButtons extends StatelessWidget {
-  const _BottomButtons({Key? key}) : super(key: key);
+  final void Function() noThanksPressed;
+  final void Function() iAgreePressed;
+  const _BottomButtons({
+    required this.iAgreePressed,
+    required this.noThanksPressed,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 75,
+      height: 100,
       padding: EdgeInsets.only(bottom: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -56,32 +62,32 @@ class _BottomButtons extends StatelessWidget {
         children: [
           LargeButton(
             buttonWidth: 135,
-            buttonHeight: 35,
+            buttonHeight: 40,
             backgroundColor: Colors.transparent,
             borderColor: RibnColors.greyOutline,
-            onPressed: () {},
+            onPressed: noThanksPressed,
             buttonChild: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'No thanks',
-                  style: RibnToolkitTextStyles.h4.copyWith(color: Colors.white),
+                  Strings.noThanks,
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
                 ),
               ],
             ),
           ),
           LargeButton(
             buttonWidth: 135,
-            buttonHeight: 35,
+            buttonHeight: 40,
             backgroundColor: RibnColors.primary,
             dropShadowColor: RibnColors.whiteButtonShadow,
-            onPressed: () {},
+            onPressed: iAgreePressed,
             buttonChild: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'I agree',
-                  style: RibnToolkitTextStyles.h4.copyWith(color: Colors.white),
+                  Strings.iAgree,
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
                 ),
               ],
             ),

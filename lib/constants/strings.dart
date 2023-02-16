@@ -316,4 +316,6 @@ Ribn Wallet does not control the functionality of biometrics and does not have a
   static const readMore = "Read more";
   static const helpUsImprove = "Help us improve Ribn";
   static const privacyPolicyLink = "Privacy Policy here.";
+  static const noThanks = "No thanks";
+  static const iAgree = "I agree";
 }
