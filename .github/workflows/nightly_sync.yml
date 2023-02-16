@@ -11,30 +11,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: 'dev'
-
-      - name: Get release version
-        run: |
-          git pull
-          version=$(awk '/version:/ {match($0, /version:/); print substr($0, RSTART+9, RLENGTH + 12);}' pubspec.yaml)
-          nversion="n$version-$(date +%y%m%d)"
-
-      - uses: actions/checkout@v3
-        with:
           ref: 'nightly'
 
-      - name: checkout and rebase
+      - name: checkout, merge, tag and push
         run: |
           git pull
-          echo $nversion
-          echo "$nversion"
           git config --global user.email "${{ secrets.email }}"
           git config --global user.name "${{ secrets.username }}"
-          git merge origin/dev -m "$nversion" --allow-unrelated-histories
+          git merge origin/dev -m "placeholder" --allow-unrelated-histories
+          version=$(awk '/version:/ {match($0, /version:/); print substr($0, RSTART+9, RLENGTH + 12);}' pubspec.yaml)
+          nversion="n$version-$(date +%y%m%d)"
+          echo $nversion
+          echo "$nversion"
           git commit --amend -m "$nversion"
-
-      - name: Tag and Push Nightly Release
-        run: |
           git tag $nversion
           git push --atomic origin nightly $nversion
 
