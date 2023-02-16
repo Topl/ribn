@@ -81,7 +81,7 @@ arm_mac_hard_clean:
 
 file_test:
 	@reset
-	@flutter test test/onboarding/create_wallet_test.dart
+	@flutter test test/onboarding/opt_in_page_test.dart
 
 test_coverage:
 	@flutter test --coverage

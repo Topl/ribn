@@ -18,6 +18,7 @@ import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/create_password_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/enable_biometrics_page.dart';
+import 'package:ribn/presentation/onboarding/create_wallet/getting_started_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_confirmation_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_display_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_generating_page.dart';
@@ -73,12 +74,10 @@ class RootRouter {
         }
       case Routes.gettingStarted:
         {
-          // QQQQ reset
-          return pageRoute(const OptInTracker(), settings);
-          // if (kIsWeb) {
-          //   return pageRouteNotAnimated(const GettingStartedPage(), settings);
-          // }
-          // return pageRoute(const GettingStartedPage(), settings);
+          if (kIsWeb) {
+            return pageRouteNotAnimated(const GettingStartedPage(), settings);
+          }
+          return pageRoute(const GettingStartedPage(), settings);
         }
       case Routes.seedPhraseInfoChecklist:
         {

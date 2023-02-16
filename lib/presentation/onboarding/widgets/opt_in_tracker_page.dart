@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -15,6 +16,11 @@ import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 class OptInTracker extends HookConsumerWidget {
   static const Key optInTrackerKey = Key('optInTrackerKey');
+  static const Key noThanksKey = Key('noThanksKey');
+  static const Key iAgreeKey = Key('iAgreeKey');
+  static const Key readMoreKey = Key('readMoreKey');
+  static const Key privacyPolicyKey = Key('privacyPolicyKey');
+
   const OptInTracker({Key key = optInTrackerKey}) : super(key: key);
 
   _handleNoThanks() {
@@ -33,18 +39,22 @@ class OptInTracker extends HookConsumerWidget {
       body: OnboardingContainer(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
-              child: ListView(
-                padding: EdgeInsets.only(bottom: 20),
-                children: [
-                  _Header(),
-                  _TopParagraph(),
-                  SizedBox(height: 10),
-                  _BulletPoints(),
-                  SizedBox(height: 10),
-                  _ReadMoreSection(),
-                ],
+              child: SizedBox(
+                width: 700,
+                child: ListView(
+                  padding: EdgeInsets.only(bottom: 20),
+                  children: [
+                    _Header(),
+                    _TopParagraph(),
+                    SizedBox(height: 10),
+                    _BulletPoints(),
+                    SizedBox(height: 10),
+                    _ReadMoreSection(),
+                  ],
+                ),
               ),
             ),
             _BottomButtons(
@@ -67,50 +77,58 @@ class _BottomButtons extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  List<Widget> _buttons() {
+    return [
+      LargeButton(
+        key: OptInTracker.noThanksKey,
+        buttonWidth: kIsWeb ? 220 : 135,
+        buttonHeight: 40,
+        backgroundColor: Colors.transparent,
+        borderColor: kIsWeb ? Colors.transparent : RibnColors.greyOutline,
+        dropShadowColor: kIsWeb ? Colors.transparent : RibnColors.primaryButtonShadow,
+        hoverColor: kIsWeb ? Colors.transparent : RibnColors.primaryButtonHover,
+        onPressed: noThanksPressed,
+        buttonChild: Text(
+          Strings.noThanks,
+          style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
+        ),
+      ),
+      LargeButton(
+        key: OptInTracker.iAgreeKey,
+        buttonWidth: kIsWeb ? 220 : 135,
+        buttonHeight: 40,
+        backgroundColor: RibnColors.primary,
+        dropShadowColor: RibnColors.whiteButtonShadow,
+        onPressed: iAgreePressed,
+        buttonChild: Text(
+          Strings.iAgree,
+          style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
+        ),
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      padding: EdgeInsets.only(bottom: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          LargeButton(
-            buttonWidth: 135,
-            buttonHeight: 40,
-            backgroundColor: Colors.transparent,
-            borderColor: RibnColors.greyOutline,
-            onPressed: noThanksPressed,
-            buttonChild: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  Strings.noThanks,
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
-                ),
-              ],
+    return kIsWeb
+        ? Container(
+            height: 120,
+            padding: EdgeInsets.only(bottom: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: _buttons().reversed.toList(),
             ),
-          ),
-          LargeButton(
-            buttonWidth: 135,
-            buttonHeight: 40,
-            backgroundColor: RibnColors.primary,
-            dropShadowColor: RibnColors.whiteButtonShadow,
-            onPressed: iAgreePressed,
-            buttonChild: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  Strings.iAgree,
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
-                ),
-              ],
+          )
+        : Container(
+            height: 100,
+            padding: EdgeInsets.only(bottom: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: _buttons(),
             ),
-          ),
-        ],
-      ),
-    );
+          );
   }
 }
 
@@ -125,16 +143,17 @@ class _Header extends StatelessWidget {
       ),
       height: 200,
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            width: 200,
+            width: kIsWeb ? MediaQuery.of(context).size.width : 200,
             child: Text(
               Strings.helpUsImprove,
               style: RibnToolkitTextStyles.onboardingH1,
               softWrap: true,
               textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
             ),
           ),
           Container(
@@ -251,6 +270,7 @@ class _ReadMoreSection extends HookConsumerWidget {
               padding: EdgeInsets.zero,
               iconSize: 30,
               color: Colors.white,
+              constraints: BoxConstraints(),
             ),
           ],
         ),
