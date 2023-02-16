@@ -24,6 +24,11 @@ app.*.map.json
 .history
 .svn/
 
+# Auto generated files
+*.g.dart 
+*.freezed.dart
+*.mocks.dart
+
 
 # Android Studio will place build artifacts here
 /android/app/debug
