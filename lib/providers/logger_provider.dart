@@ -2,12 +2,23 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:ribn/constants/loggers.dart';
 
-final loggerProvider =
-    Provider<Logger Function(String)>((ref) => (String loggerName) => Logger(loggerName));
+final loggerPackageProvider = Provider<Logger Function(String)>((ref) {
+  return (String loggerClass) => Logger(loggerClass);
+});
 
-final Logger Function() transactionLogger = () {
-  // Allows to get riverpod state without ref
-  final container = ProviderContainer();
+final loggerProvider = Provider<LoggerNotifier>((ref) {
+  return LoggerNotifier(ref);
+});
 
-  return container.read(loggerProvider)(kTransactionLogger);
-};
+class LoggerNotifier {
+  final Ref ref;
+  LoggerNotifier(this.ref);
+
+  void logError({
+    required LoggerClass loggerClass,
+    required String message,
+  }) {
+    final Logger logger = ref.read(loggerPackageProvider)(loggerClass.string);
+    logger.severe(message);
+  }
+}
