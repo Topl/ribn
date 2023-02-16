@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:ribn/utils/extensions.dart';
 import 'package:ribn_toolkit/constants/assets.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
@@ -26,7 +27,6 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
-import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/asset_info.dart';
 import 'package:ribn/widgets/custom_divider.dart';
 import 'package:ribn/widgets/fee_info.dart';
@@ -296,7 +296,7 @@ class TxReviewPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
-              formatAddrString(transferDetails.recipient),
+              transferDetails.recipient.formatAddressString(),
               style: defaultTextStyle,
             ),
           ),

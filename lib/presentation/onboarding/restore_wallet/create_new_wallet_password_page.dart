@@ -22,7 +22,7 @@ import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/warning_section.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/utils.dart';
 
 /// Page for creating a new wallet password, when restoring wallet with a [seedPhrase].
 class NewWalletPasswordPage extends StatefulWidget {

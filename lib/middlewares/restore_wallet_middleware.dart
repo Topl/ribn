@@ -13,7 +13,7 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/repositories/onboarding_repository.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/utils.dart';
 
 /// Creates a list of middlewares to handle logic around the 'Restore Wallet' flow.
 List<Middleware<AppState>> createRestorewalletMiddleware(

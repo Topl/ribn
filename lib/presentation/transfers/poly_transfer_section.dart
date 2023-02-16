@@ -21,7 +21,7 @@ import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/utils.dart';
 import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/fee_info.dart';
 

@@ -23,7 +23,7 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
-import 'package:ribn/utils.dart';
+
 
 class EnableBiometrics extends StatefulWidget {
   const EnableBiometrics({Key? key}) : super(key: key);

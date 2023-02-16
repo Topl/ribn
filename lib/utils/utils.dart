@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:brambldart/utils.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:local_auth/local_auth.dart';
+import 'package:ribn/utils/extensions.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
@@ -26,21 +26,7 @@ import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/widgets/custom_divider.dart';
 
-/// Formats an address string to only dispaly its first and last 10 characters.
-String formatAddrString(String addr, {int charsToDisplay = 10}) {
-  const numDots = 3;
-  final String dotsString = List<String>.filled(numDots, '.').join();
-  final String leftSubstring = addr.substring(0, charsToDisplay);
-  final String rightSubstring = addr.substring(addr.length - charsToDisplay);
-  return '$leftSubstring$dotsString$rightSubstring';
-}
 
-String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
-
-/// Formats [unit] to only display the first part of the string.
-String formatAssetUnit(String? unit) {
-  return unit?.split(' ').first ?? 'Select Unit';
-}
 
 /// Validates the [address] passed in by the user.
 ///
@@ -114,7 +100,7 @@ Future<void> showReceivingAddress() async {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  formatAddrString(ribnAddress.toplAddress.toBase58()),
+                  ribnAddress.toplAddress.toBase58().formatAddressString(),
                   style: const TextStyle(
                     fontFamily: 'DM Sans',
                     fontWeight: FontWeight.w400,

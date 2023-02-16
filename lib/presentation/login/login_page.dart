@@ -19,7 +19,7 @@ import 'package:ribn/containers/login_container.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';

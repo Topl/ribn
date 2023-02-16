@@ -20,7 +20,7 @@ import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/mobile_onboarding_progress_bar.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/utils.dart';
 
 class SeedPhraseDisplayPage extends StatelessWidget {
   const SeedPhraseDisplayPage({Key? key}) : super(key: key);

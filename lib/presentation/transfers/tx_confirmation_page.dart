@@ -1,14 +1,5 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-
-// Package imports:
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
@@ -16,7 +7,14 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/transfer_details.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/extensions.dart';
+// Package imports:
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// The transaction confirmation page.
 ///
@@ -181,7 +179,7 @@ class TxConfirmationPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Transaction ID: ${formatAddrString(transferDetails.transactionId!, charsToDisplay: 4)}',
+          'Transaction ID: ${transferDetails.transactionId!.formatAddressString(charsToDisplay: 4)}',
           style: RibnToolkitTextStyles.h4.copyWith(
             fontWeight: FontWeight.w400,
             color: RibnColors.lightGreyTitle,
