@@ -263,6 +263,7 @@ class _ReadMoreSection extends HookConsumerWidget {
               style: RibnToolkitTextStyles.onboardingH3,
             ),
             IconButton(
+              key: OptInTracker.readMoreKey,
               onPressed: () {
                 showReadMore.value = !showReadMore.value;
               },
