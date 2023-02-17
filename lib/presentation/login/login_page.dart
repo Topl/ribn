@@ -6,9 +6,9 @@ import 'package:bip_topl/bip_topl.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:local_auth/local_auth.dart';
 // Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/constants/assets.dart';
@@ -16,9 +16,11 @@ import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/login_container.dart';
-import 'package:ribn/models/app_state.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
+import 'package:ribn/providers/biometrics_provider.dart';
+import 'package:ribn/providers/logger_provider.dart';
+import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
@@ -31,93 +33,86 @@ import 'package:url_launcher/url_launcher.dart';
 /// Builds the login page.
 ///
 /// Prompts the user to unlock their wallet by entering their wallet-locking password.
-class LoginPage extends StatefulWidget {
-  const LoginPage({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
+class LoginPage extends HookConsumerWidget {
   final double _baseWidth = 310;
-  final TextEditingController _textEditingController = TextEditingController();
-  final LocalAuthentication _localAuthentication = LocalAuthentication();
 
-  /// True if login was attempted with an incorrect password.
-  bool _incorrectPasswordEntered = false;
-
-  /// True if authentication through biometrics produces an error
-  bool _biometricsError = false;
-
-  /// True if biometrics authentication is completed successfully
-  bool _authorized = false;
-
-  Future<void> _biometricsLogin() async {
+  Future<bool> _biometricsLogin(
+      WidgetRef ref, ValueNotifier<bool> biometricsError) async {
     bool authenticated = false;
     try {
-      authenticated = await authenticateWithBiometrics(_localAuthentication);
-      final String toplKey = (await PlatformLocalStorage.instance.getKeyFromSecureStorage())!;
+      authenticated = await ref
+          .read(biometricsProvider.notifier)
+          .authenticateWithBiometrics();
+
+      final String toplKey =
+          (await PlatformLocalStorage.instance.getKeyFromSecureStorage())!;
       if (authenticated) {
-        StoreProvider.of<AppState>(context).dispatch(
-          InitializeHDWalletAction(
-            toplExtendedPrivateKey: Base58Encoder.instance.decode(toplKey),
-          ),
-        );
+        ref.read(storeProvider).dispatch(
+              InitializeHDWalletAction(
+                toplExtendedPrivateKey: Base58Encoder.instance.decode(toplKey),
+              ),
+            );
       }
     } catch (e) {
-      setState(() {
-        _biometricsError = true;
-      });
-      return;
-    }
-    if (!mounted) {
-      return;
-    }
+      ref.read(loggerProvider).log(
+          logLevel: LogLevel.Severe,
+          loggerClass: LoggerClass.Authentication,
+          message: 'Biometrics authentication failed',
+          error: e,
+          stackTrace: StackTrace.current);
 
-    setState(() {
-      _authorized = authenticated;
-    });
+      biometricsError.value = true;
+      return false;
+    }
+    return authenticated;
   }
 
-  void _checkBiometrics(LoginViewModel vm) {
-    if (vm.isBiometricsEnabled) {
-      _biometricsLogin().then(
-        (value) =>
-            {if (_authorized) Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)},
-      );
-    }
+  void _checkBiometrics(
+      WidgetRef ref, ValueNotifier<bool> biometricsError) async {
+    ref.read(biometricsProvider).whenData((value) => {
+          if (value.isEnabled)
+            {
+              _biometricsLogin(ref, biometricsError).then(
+                (authorized) => {
+                  if (authorized)
+                    Keys.navigatorKey.currentState
+                        ?.pushReplacementNamed(Routes.home)
+                },
+              )
+            }
+        });
   }
 
   @override
-  void dispose() {
-    _textEditingController.dispose();
-    super.dispose();
-  }
+  Widget build(BuildContext context, WidgetRef ref) {
+    /// True if login was attempted with an incorrect password.
+    final _incorrectPasswordEntered = useState(false);
 
-  @override
-  Widget build(BuildContext context) {
+    /// True if authentication through biometrics produces an error
+    final _biometricsError = useState(false);
+
+    final _textEditingController = useTextEditingController();
+
+    useEffect(() {
+      _checkBiometrics(ref, _biometricsError);
+    }, []);
+
     return LoginContainer(
-      onInitialBuild: _checkBiometrics,
+      onInitialBuild: (vm) => null,
       builder: (context, vm) {
         void attemptLogin() {
           context.loaderOverlay.show();
           vm.attemptLogin(
             password: _textEditingController.text,
             onIncorrectPasswordEntered: () {
-              setState(() {
-                _incorrectPasswordEntered = true;
-              });
+              _incorrectPasswordEntered.value = true;
               context.loaderOverlay.hide();
             },
           );
         }
 
         return Listener(
-          onPointerDown: (_) {
-            if (mounted) setState(() {});
-          },
+          onPointerDown: (_) {},
           child: LoaderOverlay(
             child: Scaffold(
               body: SingleChildScrollView(
@@ -126,8 +121,9 @@ class _LoginPageState extends State<LoginPage> {
                   containerWidth: MediaQuery.of(context).size.width,
                   waveAmplitude: 30,
                   containerChild: Column(
-                    mainAxisAlignment:
-                        kIsWeb ? MainAxisAlignment.start : MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: kIsWeb
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
@@ -176,7 +172,9 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ],
                       ),
-                      kIsWeb ? const SizedBox(height: 40) : const SizedBox(height: 25),
+                      kIsWeb
+                          ? const SizedBox(height: 40)
+                          : const SizedBox(height: 25),
                       LargeButton(
                         backgroundColor: RibnColors.primary,
                         dropShadowColor: RibnColors.whiteButtonShadow,
@@ -198,7 +196,7 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             _buildSupportLink(),
                             const SizedBox(height: 10),
-                            _incorrectPasswordEntered
+                            _incorrectPasswordEntered.value
                                 ? Text(
                                     'Incorrect Password',
                                     style: const TextStyle(
@@ -209,7 +207,7 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   )
                                 : const SizedBox(),
-                            _biometricsError
+                            _biometricsError.value
                                 ? Text(
                                     'There was an issue with Face ID, please try again',
                                     style: const TextStyle(
@@ -282,7 +280,8 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               TextSpan(
                 text: Strings.forgotPassword,
-                recognizer: TapGestureRecognizer()..onTap = () => onButtonPress(),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () => onButtonPress(),
               )
             ],
           ),

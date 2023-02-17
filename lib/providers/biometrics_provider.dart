@@ -1,42 +1,23 @@
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:ribn/models/state/biometrics_state.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/providers/packages/local_authentication_provider.dart';
 import 'package:ribn/utils/extensions.dart';
 
 import 'logger_provider.dart';
 
-class BiometricsState {
-  final bool isSupported;
-  final bool isEnabled;
-  final bool authorized;
 
-  BiometricsState(
-      {this.authorized = false,
-      this.isEnabled = false,
-      this.isSupported = false});
-
-  // CopyWith method
-  BiometricsState copyWith({
-    bool? isSupported,
-    bool? isEnabled,
-    bool? authorized,
-  }) {
-    return BiometricsState(
-      authorized: authorized ?? this.authorized,
-      isEnabled: isEnabled ?? this.isEnabled,
-      isSupported: isSupported ?? this.isSupported,
-    );
-  }
-}
-
+/// Provides biometrics state and functions
 final biometricsProvider =
     StateNotifierProvider<BiometricsNotifier, AsyncValue<BiometricsState>>(
         (ref) {
   final localAuthentication = ref.read(localAuthenticationProvider).call();
   return BiometricsNotifier(ref, localAuthentication);
 });
+
+
 
 class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
   final Ref ref;
@@ -62,13 +43,29 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
 
   final LocalAuthentication _auth;
 
+
+  /***
+   * Toggles [state.isEnabled] and resets [state.authorized]
+   * @requires [state.authorized] to be true
+   */
   Future<void> toggleBiometrics({bool? overrideValue}) async {
     final biometrics = state.value; // setup for type promotion
+    final logger = ref.read(loggerPackageProvider).call("Biometrics");
     if (biometrics == null) {
-      ProviderContainer().read(loggerPackageProvider).call("Biometrics").warning(
-          "Tried to modify biometrics state, before initialization was completed");
+      ref.read(loggerProvider).log(
+        logLevel: LogLevel.Warning,
+        loggerClass: LoggerClass.ApiError,
+        message: "Tried to modify biometrics state, before initialization was completed",
+      );
       state = AsyncError(
           Exception("Biometrics not initialized"), StackTrace.current);
+      return;
+    }
+
+    // guard clause for authorization
+    if (!biometrics.authorized) {
+      logger.warning(
+          "Tried to modify biometrics state without authorization");
       return;
     }
 
@@ -77,7 +74,9 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
 
     await PlatformLocalStorage.instance
         .saveKVInSecureStorage(_biometricsEnabledKey, isEnabled.toString());
-    state = AsyncValue.data(biometrics.copyWith(isEnabled: isEnabled));
+
+    // resets authorized value
+    state = AsyncValue.data(biometrics.copyWith(isEnabled: isEnabled, authorized: false));
   }
 
   void setAuthorization(bool value) {

@@ -10,8 +10,9 @@ Future<void> handleApiError({
 }) async {
   final ProviderContainer container = ProviderContainer();
 
-  container.read(loggerProvider).logError(
-        loggerClass: LoggerClass.apiError,
+  container.read(loggerProvider).log(
+        logLevel: LogLevel.Severe,
+        loggerClass: LoggerClass.ApiError,
         message: errorMessage,
       );
 

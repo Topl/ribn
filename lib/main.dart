@@ -10,7 +10,6 @@ import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:redux/redux.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 // Project imports:
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/keys.dart';
@@ -114,7 +113,7 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
     case Routes.login:
       return [
         MaterialPageRoute(
-          builder: (context) => const LoginPage(),
+          builder: (context) => LoginPage(),
           settings: const RouteSettings(name: Routes.login),
         )
       ];

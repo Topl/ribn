@@ -3,15 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-// Package imports:
-import 'package:local_auth/local_auth.dart';
-import 'package:ribn/providers/biometrics_provider.dart';
-import 'package:ribn/providers/packages/local_authentication_provider.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
-
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
@@ -22,21 +13,28 @@ import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/mobile_onboarding_progress_bar.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
+import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn/utils.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
 
 class WalletInfoChecklistPage extends HookConsumerWidget {
   static const walletInfoChecklistPageKey = Key('walletInfoChecklistPageKey');
-  const WalletInfoChecklistPage({Key key = walletInfoChecklistPageKey}) : super(key: key);
-  static const Key savedMyWalletPasswordSafelyKey = Key('savedMyWalletPasswordSafelyKey');
+
+  const WalletInfoChecklistPage({Key key = walletInfoChecklistPageKey})
+      : super(key: key);
+  static const Key savedMyWalletPasswordSafelyKey =
+      Key('savedMyWalletPasswordSafelyKey');
   static const Key toplCannotRecoverForMeKey = Key('toplCannotRecoverForMeKey');
-  static const Key spAndPasswordUnrecoverableKey = Key('spAndPasswordUnrecoverableKey');
+  static const Key spAndPasswordUnrecoverableKey =
+      Key('spAndPasswordUnrecoverableKey');
   static const Key walletInfoChecklistConfirmationButtonKey =
       Key('walletInfoChecklistConfirmationButtonKey');
 
-  Future<void> runBiometrics(isBioSupported, ref) async =>
-      isBioSupported.value = await ref
-          .read(biometricsProvider.notifier)
-          .isBiometricsAuthenticationSupported();
+  Future<void> runBiometrics(isBioSupported, ref) async => ref
+      .watch(biometricsProvider)
+      .whenData((value) => isBioSupported.value = value.isSupported);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -52,7 +50,8 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
 
     // Use value changed for the first check box.
     // If going from true to false, then uncheck the other 2 values
-    useValueChanged<bool, bool>(savedMyWalletPasswordSafely.value, (oldValue, __) {
+    useValueChanged<bool, bool>(savedMyWalletPasswordSafely.value,
+        (oldValue, __) {
       if (!savedMyWalletPasswordSafely.value && oldValue) {
         toplCannotRecoverForMe.value = false;
         spAndPasswordUnrecoverable.value = false;
@@ -90,7 +89,8 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
                 checked: savedMyWalletPasswordSafely.value,
                 activeText: true,
                 text: Strings.savedMyWalletPasswordSafely,
-                onChanged: (bool? val) => savedMyWalletPasswordSafely.value = val ?? false,
+                onChanged: (bool? val) =>
+                    savedMyWalletPasswordSafely.value = val ?? false,
               ),
               SizedBox(height: adaptHeight(0.03)),
               _buildCheckboxListTile(
@@ -109,7 +109,8 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
                 activeText: toplCannotRecoverForMe.value,
                 text: Strings.spAndPasswordUnrecoverable,
                 onChanged: toplCannotRecoverForMe.value
-                    ? (bool? val) => spAndPasswordUnrecoverable.value = val ?? false
+                    ? (bool? val) =>
+                        spAndPasswordUnrecoverable.value = val ?? false
                     : null,
                 renderTooltipIcon: true,
               ),
@@ -120,7 +121,9 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
                 text: Strings.iUnderstand,
                 onPressed: () {
                   Keys.navigatorKey.currentState?.pushNamed(
-                    isBioSupported.value ? Routes.onboardingEnableBiometrics : Routes.walletCreated,
+                    isBioSupported.value
+                        ? Routes.onboardingEnableBiometrics
+                        : Routes.walletCreated,
                   );
                 },
                 disabled: !spAndPasswordUnrecoverable.value,
