@@ -46,7 +46,7 @@ class EnableBiometrics extends HookConsumerWidget {
 
     if (authenticated) {
       authorized.value = authenticated;
-      ref.read(biometricsProvider.notifier).updateBiometrics(true);
+      ref.read(biometricsProvider.notifier).toggleBiometrics(overrideValue: true);
     }
   }
 

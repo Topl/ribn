@@ -1,10 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/providers/packages/local_authentication_provider.dart';
-import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/utils/extensions.dart';
 
 import 'logger_provider.dart';
@@ -64,17 +62,7 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
 
   final LocalAuthentication _auth;
 
-  updateBiometrics(bool isBiometricsEnabled) {
-    final store = ref.read(storeProvider);
-
-    store.dispatch(
-      UpdateBiometricsAction(
-        isBiometricsEnabled: isBiometricsEnabled,
-      ),
-    );
-  }
-
-  Future<void> toggleBiometrics() async {
+  Future<void> toggleBiometrics({bool? overrideValue}) async {
     final biometrics = state.value; // setup for type promotion
     if (biometrics == null) {
       ProviderContainer().read(loggerPackageProvider).call("Biometrics").warning(
@@ -84,7 +72,8 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
       return;
     }
 
-    final isEnabled = !biometrics.isEnabled;
+    // sets value to Override value, if not supplied default to toggle behaviour
+    final isEnabled = overrideValue ?? !biometrics.isEnabled;
 
     await PlatformLocalStorage.instance
         .saveKVInSecureStorage(_biometricsEnabledKey, isEnabled.toString());
