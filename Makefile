@@ -79,6 +79,13 @@ arm_mac_hard_clean:
 	arch -x86_64 pod install && \
 	cd ..
 
+nuclear_clean:
+	@echo "╠ Nuking pubcache completely, this might take a while...."
+	@flutter clean
+	@flutter pub cache repair
+	@flutter pub get
+
+
 file_test:
 	@reset
 	@flutter test test/onboarding/create_wallet_test.dart
