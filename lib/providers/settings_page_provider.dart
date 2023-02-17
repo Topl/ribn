@@ -12,7 +12,6 @@ import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/providers/utility_provider.dart';
 
 // import 'package:ribn/utils.dart';
-
 import '../actions/misc_actions.dart';
 import '../presentation/settings/sections/delete_wallet_confirmation_dialog.dart';
 
@@ -30,17 +29,17 @@ final canDisconnectDAppsProvider =
 });
 
 final settingsProvider =
-    StateNotifierProvider<SettingsNotifier, SettingsViewModel>(
+    StateNotifierProvider<SettingsNotifier, SettingState>(
         (ref) => SettingsNotifier(ref));
 
-class SettingsNotifier extends StateNotifier<SettingsViewModel> {
+class SettingsNotifier extends StateNotifier<SettingState> {
   final Ref ref;
 
   SettingsNotifier(this.ref)
-      : super(SettingsViewModel.fromStore(ref.read(storeProvider))) {}
+      : super(SettingState.fromStore(ref.read(storeProvider))) {}
 }
 
-class SettingsViewModel {
+class SettingState {
   /// Callback to download the Topl Main Key.
   final VoidCallback exportToplMainKey;
 
@@ -58,7 +57,7 @@ class SettingsViewModel {
 
   bool canDisconnect = false;
 
-  SettingsViewModel({
+  SettingState({
     required this.exportToplMainKey,
     required this.onDeletePressed,
     required this.onDisconnectPressed,
@@ -66,10 +65,10 @@ class SettingsViewModel {
     required this.isBiometricsEnabled,
   });
 
-  static SettingsViewModel fromStore(Store<AppState> store) {
+  static SettingState fromStore(Store<AppState> store) {
     final container = ProviderContainer();
 
-    return SettingsViewModel(
+    return SettingState(
       exportToplMainKey: () => store.dispatch(
         DownloadAsFileAction(
           'topl_main_key.json',
@@ -92,8 +91,6 @@ class SettingsViewModel {
       builder: (context) => DisconnectWalletConfirmationDialog(dApps: dApps),
     );
   }
-
-
 
   static _onDeletePressed(BuildContext context, Store<AppState> store) async {
     await showDialog(

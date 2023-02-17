@@ -5,8 +5,6 @@ import 'package:ribn/platform/platform.dart';
 import 'package:ribn/providers/logger_provider.dart';
 import 'package:ribn/utils/extensions.dart';
 
-import '../constants/loggers.dart';
-
 final _biometricsEnabledKey = "biometricsEnabled";
 
 final biometricsSupportedProvider = FutureProvider.autoDispose(
@@ -18,15 +16,15 @@ final biometricsEnabledProvider =
 final biometricsProvider =
     ChangeNotifierProvider<Biometrics>((ref) => Biometrics());
 
-final localAuthProvider = Provider<LocalAuthentication>((ref)=> LocalAuthentication());
+final localAuthProvider =
+    Provider<LocalAuthentication>((ref) => LocalAuthentication());
 
+// final x = StateNotifierProvider<Biometrics>((ref) => Biometrics());
 
-final x = StateNotifierProvider<Biometrics>((ref) => Biometrics());
-
-
-class Biometrics {
+class Biometrics extends ChangeNotifier {
   // Use getter to prevent setting this value outside of this class
   bool? _isEnabled;
+
   bool? get isEnabled => _isEnabled;
 
   LocalAuthentication _auth = LocalAuthentication();
@@ -38,12 +36,11 @@ class Biometrics {
   bool _authorized = false;
 
   bool get authorized => _authorized;
+
   set authorized(bool value) {
     _authorized = value;
     notifyListeners();
   }
-
-
 
   _init() async {
     _isEnabled = await isBiometricsSupported();
@@ -52,8 +49,9 @@ class Biometrics {
   Future<void> toggleBiometrics() async {
     final val = isEnabled; // setup for variable Null Promotion
     if (val == null) {
-      logger(kBiometricsLogger).warning(
+      ProviderContainer().read(loggerPackageProvider).call("Biometrics").warning(
           "Tried to modify biometrics state, before initialization was completed");
+
       return;
     }
 
