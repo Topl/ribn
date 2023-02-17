@@ -1,2 +1,7 @@
-const String kTransactionLogger = 'TransactionLogger';
-const String kBiometricsLogger = 'BiometricsLogger';
+enum LoggerClass {
+  transaction('transaction'),
+  apiError('apiError');
+
+  const LoggerClass(this.string);
+  final String string;
+}

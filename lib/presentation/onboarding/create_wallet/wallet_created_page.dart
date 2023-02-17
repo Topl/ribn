@@ -1,6 +1,8 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:ribn/utils/navigation_utils.dart';
 
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
@@ -20,24 +22,19 @@ import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart
 import 'package:ribn/utils.dart';
 
 /// This page is displayed when user successfully creates their wallet.
-class WalletCreatedPage extends StatefulWidget {
-  const WalletCreatedPage({Key? key}) : super(key: key);
+class WalletCreatedPage extends HookWidget {
+  static const Key walletCreatedPageKey = Key('walletCreatedPageKey');
+  static const Key walletCreatedConfirmationButtonKey = Key('walletCreatedConfirmationButtonKey');
+  const WalletCreatedPage({Key key = walletCreatedPageKey}) : super(key: key);
 
-  @override
-  State<WalletCreatedPage> createState() => _WalletCreatedPageState();
-}
-
-class _WalletCreatedPageState extends State<WalletCreatedPage> {
-  /// FAQs and their corresponding answeres
-  final Map<String, String> faqs = {
-    Strings.howCanIKeepMySeedPhraseSecure:
-        Strings.howCanIKeepMySeedPhraseSecureAns,
-    Strings.howIsASeedPhraseDifferent: Strings.howIsASeedPhraseDifferentAns,
-    Strings.howIsMySeedPhraseUnrecoverable:
-        Strings.howIsMySeedPhraseUnrecoverableAns,
-  };
   @override
   Widget build(BuildContext context) {
+    /// FAQs and their corresponding answeres
+    final ValueNotifier<Map<String, String>> faqs = useState({
+      Strings.howCanIKeepMySeedPhraseSecure: Strings.howCanIKeepMySeedPhraseSecureAns,
+      Strings.howIsASeedPhraseDifferent: Strings.howIsASeedPhraseDifferentAns,
+      Strings.howIsMySeedPhraseUnrecoverable: Strings.howIsMySeedPhraseUnrecoverableAns,
+    });
     return Scaffold(
       body: OnboardingContainer(
         child: SingleChildScrollView(
@@ -82,7 +79,7 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                       ),
                     ),
                     SizedBox(height: adaptHeight(0.01)),
-                    ...faqs.keys
+                    ...faqs.value.keys
                         .map(
                           (q) => Accordion(
                             header: Text(
@@ -93,7 +90,7 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
                               ),
                             ),
                             description: Text(
-                              faqs[q]!,
+                              faqs.value[q]!,
                               style: RibnToolkitTextStyles.h4.copyWith(
                                 color: Colors.white,
                                 fontSize: 18,
@@ -112,10 +109,11 @@ class _WalletCreatedPageState extends State<WalletCreatedPage> {
               SizedBox(height: adaptHeight(0.01)),
               renderIfMobile(const MobileOnboardingProgressBar(currStep: 3)),
               ConfirmationButton(
+                key: walletCreatedConfirmationButtonKey,
                 text: Strings.done,
                 onPressed: () {
                   if (kIsWeb) {
-                    navigateToRoute(context, Routes.extensionInfo);
+                    navigateToRoute(route: Routes.extensionInfo);
                   } else {
                     Keys.navigatorKey.currentState
                         ?.pushNamedAndRemoveUntil(Routes.home, (_) => false);

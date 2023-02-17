@@ -28,6 +28,7 @@ clean: ## Cleans the environment
 	@rm -rf pubspec.lock
 	@flutter clean
 	@flutter pub get
+
 fix_warnings: ## fix any warnings
 	@echo "╠ Attempting to fix warnings..."
 	@dart fix --dry-run
@@ -77,3 +78,12 @@ arm_mac_hard_clean:
 	sudo arch -x86_64 gem install ffi && \
 	arch -x86_64 pod install && \
 	cd ..
+
+file_test:
+	@reset
+	@flutter test test/onboarding/create_wallet_test.dart
+
+test_coverage:
+	@flutter test --coverage
+	@genhtml coverage/lcov.info -o coverage/html
+	@open coverage/html/index.html

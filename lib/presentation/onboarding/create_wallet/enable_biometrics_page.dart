@@ -7,62 +7,50 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:app_settings/app_settings.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:ribn/providers/biometrics_provider.dart';
+import 'package:ribn/providers/packages/local_authentication_provider.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
 // Project imports:
-import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/utils.dart';
 
-class EnableBiometrics extends StatefulWidget {
-  const EnableBiometrics({Key? key}) : super(key: key);
+class EnableBiometrics extends HookConsumerWidget {
+  static const Key enableBiometricsKey = Key('enableBiometricsKey');
+  const EnableBiometrics({Key key = enableBiometricsKey}) : super(key: key);
 
-  @override
-  State<EnableBiometrics> createState() => _EnableBiometricsState();
-}
+  Future<void> runBiometrics(
+      WidgetRef ref, BuildContext context, ValueNotifier<bool> authorized) async {
+    final LocalAuthentication _localAuthentication = ref.read(localAuthenticationProvider)();
 
-class _EnableBiometricsState extends State<EnableBiometrics> {
-  final LocalAuthentication _localAuthentication = LocalAuthentication();
-  bool _authorized = false;
-
-  Future<void> runBiometrics(auth) async {
     bool authenticated = false;
-    await isBiometricsAuthenticationEnrolled(auth);
+    await isBiometricsAuthenticationEnrolled(_localAuthentication);
 
     try {
-      authenticated = await authenticateWithBiometrics(auth);
+      authenticated = await authenticateWithBiometrics(_localAuthentication);
     } catch (e) {
-      if (Platform.isAndroid) await _showMyDialog();
+      if (Platform.isAndroid) await _showMyDialog(context);
       return;
     }
 
-    if (!mounted || !authenticated) {
-      return;
+    if (authenticated) {
+      authorized.value = authenticated;
+      ref.read(biometricsProvider.notifier).updateBiometrics(true);
     }
-
-    setState(() {
-      _authorized = authenticated ? true : false;
-    });
-
-    StoreProvider.of<AppState>(context).dispatch(
-      UpdateBiometricsAction(
-        isBiometricsEnabled: true,
-      ),
-    );
   }
 
-  Future<void> _showMyDialog() async {
+  Future<void> _showMyDialog(context) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -95,7 +83,9 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authorized = useState(false);
+
     return Scaffold(
       extendBody: true,
       body: OnboardingContainer(
@@ -106,8 +96,7 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
               children: [
                 CustomIconButton(
                   onPressed: () {
-                    Keys.navigatorKey.currentState
-                        ?.pushNamed(Routes.walletCreated);
+                    Keys.navigatorKey.currentState?.pushNamed(Routes.walletCreated);
                   },
                   icon: const Icon(
                     Icons.close,
@@ -126,9 +115,7 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
             Padding(
               padding: const EdgeInsets.only(top: 30.0, bottom: 45),
               child: Image.asset(
-                Platform.isIOS
-                    ? RibnAssets.iosBiometrics
-                    : RibnAssets.andriodBiometrics,
+                Platform.isIOS ? RibnAssets.iosBiometrics : RibnAssets.andriodBiometrics,
                 width: 111,
               ),
             ),
@@ -160,11 +147,10 @@ class _EnableBiometricsState extends State<EnableBiometrics> {
                 ),
               ),
               onPressed: () {
-                runBiometrics(_localAuthentication).then(
+                runBiometrics(ref, context, authorized).then(
                   (value) => {
-                    if (_authorized)
-                      Keys.navigatorKey.currentState
-                          ?.pushNamed(Routes.walletCreated)
+                    if (authorized.value)
+                      Keys.navigatorKey.currentState?.pushNamed(Routes.walletCreated)
                   },
                 );
               },
