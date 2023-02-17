@@ -104,6 +104,7 @@ class _LoginPageState extends State<LoginPage> {
         void attemptLogin() {
           context.loaderOverlay.show();
           vm.attemptLogin(
+            context: context,
             password: _textEditingController.text,
             onIncorrectPasswordEntered: () {
               setState(() {
