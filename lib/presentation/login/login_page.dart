@@ -102,6 +102,13 @@ class LoginPage extends HookConsumerWidget {
       builder: (context, vm) {
         void attemptLogin() {
           context.loaderOverlay.show();
+
+          //close keyboard
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+
           vm.attemptLogin(
             password: _textEditingController.text,
             onIncorrectPasswordEntered: () {

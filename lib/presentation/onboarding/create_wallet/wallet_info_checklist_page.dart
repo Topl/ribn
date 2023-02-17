@@ -32,7 +32,7 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
   static const Key walletInfoChecklistConfirmationButtonKey =
       Key('walletInfoChecklistConfirmationButtonKey');
 
-  Future<void> runBiometrics(isBioSupported, ref) async => ref
+  Future<void> runBiometrics(isBioSupported, ref) => ref
       .watch(biometricsProvider)
       .whenData((value) => isBioSupported.value = value.isSupported);
 
