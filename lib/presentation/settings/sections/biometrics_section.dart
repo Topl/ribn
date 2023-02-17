@@ -10,6 +10,7 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/state/biometrics_state.dart';
 import 'package:ribn/providers/biometrics_provider.dart';
+import 'package:ribn/providers/logger_provider.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_toggle.dart';
 
@@ -40,7 +41,15 @@ class BiometricsSection extends ConsumerWidget {
       return;
     }
 
-    if (!state.authorized) return;
+    if (!state.authorized) {
+      // TODO: add some kind of UX feature to let the user know this failed
+      ref.read(loggerProvider).log(
+        logLevel: LogLevel.Info,
+          loggerClass: LoggerClass.Authentication,
+          message: 'Biometrics Identity not recognized',
+      );
+      return;
+    }
 
     notifier.toggleBiometrics();
   }

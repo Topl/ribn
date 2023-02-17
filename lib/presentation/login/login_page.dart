@@ -70,18 +70,15 @@ class LoginPage extends HookConsumerWidget {
 
   void _checkBiometrics(
       WidgetRef ref, ValueNotifier<bool> biometricsError) async {
-    ref.read(biometricsProvider).whenData((value) => {
-          if (value.isEnabled)
-            {
-              _biometricsLogin(ref, biometricsError).then(
-                (authorized) => {
-                  if (authorized)
-                    Keys.navigatorKey.currentState
-                        ?.pushReplacementNamed(Routes.home)
-                },
-              )
-            }
-        });
+    ref.read(biometricsProvider).whenData((value) {
+      if (value.isEnabled)
+        _biometricsLogin(ref, biometricsError).then(
+          (authorized) => {
+            if (authorized)
+              Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)
+          },
+        );
+    });
   }
 
   @override
@@ -94,9 +91,13 @@ class LoginPage extends HookConsumerWidget {
 
     final _textEditingController = useTextEditingController();
 
+    final biometrics = ref.watch(biometricsProvider);
+
     useEffect(() {
-      _checkBiometrics(ref, _biometricsError);
-    }, []);
+      Future.delayed(Duration.zero, () {
+        _checkBiometrics(ref, _biometricsError);
+      });
+    }, [biometrics]);
 
     return LoginContainer(
       onInitialBuild: (vm) => null,
