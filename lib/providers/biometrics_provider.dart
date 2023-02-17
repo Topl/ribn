@@ -48,7 +48,7 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
   }
 
   _init() async {
-    final isSupported = await _isBiometricsAuthenticationSupported();
+    final isSupported = await isBiometricsAuthenticationSupported();
 
     if (!isSupported) {
       state = AsyncData(BiometricsState());
@@ -122,7 +122,7 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
         .toBooleanWithNullableDefault(false);
   }
 
-  Future<bool> _isBiometricsAuthenticationSupported() async {
+  Future<bool> isBiometricsAuthenticationSupported() async {
     // If is web, return false by default
     if (kIsWeb) return false;
 

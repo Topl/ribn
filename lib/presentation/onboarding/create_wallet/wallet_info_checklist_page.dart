@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Package imports:
 import 'package:local_auth/local_auth.dart';
+import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn/providers/packages/local_authentication_provider.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
@@ -32,13 +33,10 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
   static const Key walletInfoChecklistConfirmationButtonKey =
       Key('walletInfoChecklistConfirmationButtonKey');
 
-  Future<void> runBiometrics(isBioSupported, ref) async {
-    final LocalAuthentication _localAuthentication = ref.read(localAuthenticationProvider)();
-
-    final bool isBioAuthenticationSupported =
-        await isBiometricsAuthenticationSupported(_localAuthentication);
-    isBioSupported.value = isBioAuthenticationSupported;
-  }
+  Future<void> runBiometrics(isBioSupported, ref) async =>
+      isBioSupported.value = await ref
+          .read(biometricsProvider.notifier)
+          .isBiometricsAuthenticationSupported();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
