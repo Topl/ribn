@@ -8,41 +8,40 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/providers/biometrics_provider_alt.dart';
+import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_toggle.dart';
 
 /// The section allows for users to toggle biometrics authentication on/off.
 class BiometricsSection extends ConsumerWidget {
   BiometricsSection({
-    required bool this.isBiometricsEnabled,
+    required this.state,
     Key? key,
   }) : super(key: key);
 
   /// True if biometrics authentication is enabled
-  final bool isBiometricsEnabled;
+  final BiometricsState state;
 
   Future<void> runBiometrics(
       BuildContext context, WidgetRef ref, bool value) async {
-    final biometrics = ref.read(biometricsProvider);
-    bool authenticated = false;
+    final notifier = ref.read(biometricsProvider.notifier);
 
     /*** TODO original code didn't do anything with this value, unsure of it's function or why it's here
      *  Schedule for removal?
      */
-    await biometrics.isBiometricsAuthenticationEnrolled();
+    await notifier.isBiometricsAuthenticationEnrolled();
 
     try {
-      authenticated = await biometrics.authenticateWithBiometrics();
+      notifier.setAuthorization(await notifier.authenticateWithBiometrics());
     } catch (e) {
       // TODO: Figure out why only android is being handled in this case, mustafa did mention that IOS wasn't working, but my tests seem to indicate otherwise
       if (Platform.isAndroid) await _showMyDialog(context);
       return;
     }
 
-    if (!authenticated) return;
+    if (!state.authorized) return;
 
-    biometrics.toggleBiometrics();
+    notifier.toggleBiometrics();
   }
 
   Future<void> _showMyDialog(BuildContext context) async {
@@ -60,7 +59,7 @@ class BiometricsSection extends ConsumerWidget {
               ],
             ),
           ),
-          actions: <Widget>[
+          actions: [
             TextButton(
               child: const Text('Ok'),
               onPressed: () {
@@ -110,11 +109,10 @@ class BiometricsSection extends ConsumerWidget {
           alignment: Alignment.centerLeft,
           scale: 0.7,
           child: CustomToggle(
-            onChanged: (value) {
-              runBiometrics(context, ref, value);
-            },
-            value: isBiometricsEnabled,
-          ),
+              onChanged: (value) {
+                runBiometrics(context, ref, value);
+              },
+              value: state.isEnabled),
         ),
       ],
     );

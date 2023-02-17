@@ -9,13 +9,11 @@ import 'package:ribn/presentation/settings/sections/delete_wallet_section.dart';
 import 'package:ribn/presentation/settings/sections/disconnect_dapps_section.dart';
 import 'package:ribn/presentation/settings/sections/links_section.dart';
 import 'package:ribn/presentation/settings/sections/ribn_version_section.dart';
+import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn/providers/settings_page_provider.dart';
 import 'package:ribn/providers/utility_provider.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/widgets/molecules/loading_spinner.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
-
-import '../../providers/biometrics_provider_alt.dart';
 
 /// The settings page of the application.
 class SettingsPage extends ConsumerWidget {
@@ -45,12 +43,10 @@ class SettingsListItems extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isBiometricsSupported = ref.watch(biometricsSupportedProvider);
     final canDisconnectDApp = ref.watch(canDisconnectDAppsProvider);
     final settings = ref.watch(settingsProvider);
-    final biometrics = ref.watch(biometricsProvider);
     final appVersion = ref.read(appVersionProvider);
-
+    final biometrics = ref.watch(biometricsProvider);
 
     return Container(
         color: RibnColors.background,
@@ -63,9 +59,9 @@ class SettingsListItems extends ConsumerWidget {
                   divider,
                   const LinksSection(),
                   divider,
-                  isBiometricsSupported.when(
-                      data: (data) => data
-                          ? biometricsSection(biometrics)
+                  biometrics.when(
+                      data: (data) => data.isSupported
+                          ? BiometricsSection(state: data)
                           : const SizedBox(),
                       error: (_, __) => Container(),
                       loading: () => Container()),
@@ -87,14 +83,6 @@ class SettingsListItems extends ConsumerWidget {
                         onDeletePressed: settings.onDeletePressed),
                   ]),
                 ])));
-  }
-
-  biometricsSection(Biometrics biometrics) {
-    final isEnabled = biometrics.isEnabled;
-    if (isEnabled == null)
-      return Container(height: 20, width: 20, child: LoadingSpinner());
-
-    return BiometricsSection(isBiometricsEnabled: isEnabled);
   }
 
   final divider = const Divider(height: 32);

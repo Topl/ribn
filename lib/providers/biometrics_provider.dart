@@ -9,23 +9,23 @@ import 'package:ribn/utils/extensions.dart';
 
 import 'logger_provider.dart';
 
-class BiometricsClass {
+class BiometricsState {
   final bool isSupported;
   final bool isEnabled;
   final bool authorized;
 
-  BiometricsClass(
+  BiometricsState(
       {this.authorized = false,
       this.isEnabled = false,
       this.isSupported = false});
 
   // CopyWith method
-  BiometricsClass copyWith({
+  BiometricsState copyWith({
     bool? isSupported,
     bool? isEnabled,
     bool? authorized,
   }) {
-    return BiometricsClass(
+    return BiometricsState(
       authorized: authorized ?? this.authorized,
       isEnabled: isEnabled ?? this.isEnabled,
       isSupported: isSupported ?? this.isSupported,
@@ -34,13 +34,13 @@ class BiometricsClass {
 }
 
 final biometricsProvider =
-    StateNotifierProvider<BiometricsNotifier, AsyncValue<BiometricsClass>>(
+    StateNotifierProvider<BiometricsNotifier, AsyncValue<BiometricsState>>(
         (ref) {
   final localAuthentication = ref.read(localAuthenticationProvider).call();
   return BiometricsNotifier(ref, localAuthentication);
 });
 
-class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsClass>> {
+class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
   final Ref ref;
 
   static const _biometricsEnabledKey = "biometricsEnabled";
@@ -53,13 +53,13 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsClass>> {
     final isSupported = await _isBiometricsAuthenticationSupported();
 
     if (!isSupported) {
-      state = AsyncData(BiometricsClass());
+      state = AsyncData(BiometricsState());
       return;
     }
 
     final isEnabled = await _isBiometricsEnabled();
     state = AsyncData(
-        BiometricsClass(isSupported: isSupported, isEnabled: isEnabled));
+        BiometricsState(isSupported: isSupported, isEnabled: isEnabled));
   }
 
   final LocalAuthentication _auth;
@@ -89,6 +89,13 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsClass>> {
     await PlatformLocalStorage.instance
         .saveKVInSecureStorage(_biometricsEnabledKey, isEnabled.toString());
     state = AsyncValue.data(biometrics.copyWith(isEnabled: isEnabled));
+  }
+
+  void setAuthorization(bool value) {
+    final biometrics = state.value; // setup for type promotion
+    if (biometrics != null) {
+      state = AsyncValue.data(biometrics.copyWith(authorized: value));
+    }
   }
 
   Future<bool> isBiometricsAuthenticationEnrolled() async {
