@@ -1,7 +1,16 @@
 enum LoggerClass {
-  transaction('transaction'),
-  apiError('apiError');
+  Transaction('Transaction'),
+  ApiError('ApiError'),
+  Authentication('Authentication');
 
   const LoggerClass(this.string);
   final String string;
+}
+
+
+enum LogLevel {
+  Info,
+  Warning,
+  Severe,
+  Shout
 }
