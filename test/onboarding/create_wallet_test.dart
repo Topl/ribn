@@ -13,6 +13,7 @@ import 'package:ribn/presentation/onboarding/create_wallet/select_action_page.da
 import 'package:ribn/presentation/onboarding/create_wallet/wallet_created_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/wallet_info_checklist_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
+import 'package:ribn/presentation/onboarding/widgets/opt_in_tracker_page.dart';
 import 'package:ribn/providers/packages/entropy_provider.dart';
 
 import '../essential_test_provider_widget.dart';
@@ -35,6 +36,11 @@ void main() {
     /// Welcome Page Section
     expect(find.byKey(WelcomePage.welcomePageKey), findsOneWidget);
     await tester.tap(find.byKey(WelcomePage.welcomePageConfirmationButtonKey));
+    await tester.pumpAndSettle();
+
+    /// Opt In
+    expect(find.byKey(OptInTracker.optInTrackerKey), findsOneWidget);
+    await tester.tap(find.byKey(OptInTracker.noThanksKey));
     await tester.pumpAndSettle();
 
     /// Select Action

@@ -85,13 +85,15 @@ void main() {
     expect(clicked, false);
     expect(find.byKey(OptInTracker.optInTrackerKey), findsOneWidget);
     // Expect no privacy policy yet
-    final finder = find.byWidgetPredicate(
+    final textTap = find.byWidgetPredicate(
       (widget) => widget is RichText && tapTextSpan(widget, Strings.privacyPolicyLink),
     );
-    expect(find.text(Strings.privacyPolicyLink), findsNothing);
+    expect(textTap, findsNothing);
     await tester.tap(find.byKey(OptInTracker.readMoreKey));
     await tester.pumpAndSettle();
-    expect(find.text(Strings.privacyPolicyLink), findsOneWidget);
+    expect(textTap, findsOneWidget);
+    await tester.tap(textTap);
+    await tester.pumpAndSettle();
     expect(clicked, true);
   });
 }
