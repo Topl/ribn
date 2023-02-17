@@ -22,6 +22,7 @@ import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn/providers/logger_provider.dart';
 import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/utils.dart';
+import 'package:ribn/utils/input_utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
@@ -102,12 +103,7 @@ class LoginPage extends HookConsumerWidget {
       builder: (context, vm) {
         void attemptLogin() {
           context.loaderOverlay.show();
-
-          //close keyboard
-          FocusScopeNode currentFocus = FocusScope.of(context);
-          if (!currentFocus.hasPrimaryFocus) {
-            currentFocus.unfocus();
-          }
+          dismissKeyboard(context);
 
           vm.attemptLogin(
             password: _textEditingController.text,
