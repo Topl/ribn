@@ -6,11 +6,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/providers/password_provider.dart';
 import 'package:ribn/utils.dart';
+import 'package:ribn/utils/url_utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
 import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class PasswordSection extends HookConsumerWidget {
   static const passwordSectionKey = Key('passwordSectionKey');
@@ -199,7 +199,7 @@ class _ConfirmPasswordSection extends StatelessWidget {
   }
 }
 
-class _TermsOfAgreementSection extends HookWidget {
+class _TermsOfAgreementSection extends HookConsumerWidget {
   final bool termsOfUseChecked;
   final Function(bool) updateTermsOfUseChecked;
   final Key checkboxKey;
@@ -211,8 +211,7 @@ class _TermsOfAgreementSection extends HookWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final url = Uri.parse(Strings.termsOfUseUrl);
+  Widget build(BuildContext context, WidgetRef ref) {
     return CheckboxWrappableText(
       checkboxKey: checkboxKey,
       wrapText: false,
@@ -241,7 +240,7 @@ class _TermsOfAgreementSection extends HookWidget {
               ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () async {
-                  await launchUrl(url);
+                  await launchTermsOfUse(ref);
                 },
             ),
           ],
