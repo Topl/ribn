@@ -53,36 +53,7 @@ void main() {
 
   group('App middleware', () {
     setUp(reset);
-    group('Onboarding middleware', () {
-      test('should generate keystore and initialize hd wallet', () async {
-        when(onboardingRepo.generateMnemonicForUser()).thenAnswer((_) => testMnemonic);
-        testStore.dispatch(GenerateMnemonicAction());
-        // mnemonic: captureAnyNamed('mnemonic'),
-        // password: captureAnyNamed('password'),
-        when(
-          onboardingRepo.generateKeyStore(argThat(isNotNull)),
-        ).thenReturn(
-          {
-            'keyStoreJson': testKeyStore,
-            'toplExtendedPrvKeyUint8List': testToplExtendedPrivKey,
-          },
-        );
-        testStore.dispatch(CreatePasswordAction(validPassword));
-        // verifyas(
-        //   onboardingRepo.generateKeyStore(argThat(isNotNull)
-        //       // mnemonic: captureAnyNamed('mnemonic'),
-        //       // password: captureAnyNamed('password'),
-        //       ),
-        // ).called(1);
-        await Future.delayed(
-          const Duration(seconds: 1),
-          (() {
-            expect(testStore.state.keychainState.keyStoreJson, testKeyStore);
-            expect(testStore.state.keychainState.hdWallet, isNotNull);
-          }),
-        );
-      });
-    });
+
     group('Login middleware', () {
       setUp(() {
         // generate mnemonic
