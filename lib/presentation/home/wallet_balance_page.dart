@@ -139,10 +139,6 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
               WidgetSpan(
                 child: GestureDetector(
                   onTap: () async => await launchUrl(Uri.parse(tooltipUrl)),
-                  // Temporary add redirect to DApp flow
-                  //    onTap: () => Keys.navigatorKey.currentState?.pushNamed(
-                  //      Routes.loadingDApp,
-                  //    ),
                   child: Row(
                     children: [
                       Text(
