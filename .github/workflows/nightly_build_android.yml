@@ -1,4 +1,4 @@
-name: nightly_build_android
+name: Nightly Build Android
 
 on:
   push:
@@ -12,7 +12,6 @@ on:
 env:
   JAVA_VERSION: "17.x"
   FLUTTER_CHANNEL: "stable"
-  PROPERTIES_PATH: "./android/key.properties"
 
 jobs:
   build_android:
@@ -26,7 +25,12 @@ jobs:
           lfs: true
           ref: 'nightly'
 
-      # Setup the java environment required to build Android
+      - name: Get release version
+        run: |
+          version=$(awk '/version:/ {match($0, /version:/); print substr($0, RSTART+9, RLENGTH + 12);}' pubspec.yaml)
+          nversion="n$version-$(date +%y%m%d)"
+
+      # Setup the java environment required to build
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
@@ -49,7 +53,6 @@ jobs:
         env:
           ANDROID_KEYS_SECRET_PASSPHRASE: ${{ secrets.ANDROID_KEYS_SECRET_PASSPHRASE }}
 
-
       # Setup the flutter environment.
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -66,7 +69,7 @@ jobs:
         run: make gen
 
       - name: Build android app
-        run: flutter build appbundle --release
+        run: flutter build appbundle --release --build-number=${{github.run_number}} --dart-define=nightlyBuildVersion=$nversion
 
       - name: Upload android build
         uses: actions/upload-artifact@v3
@@ -81,3 +84,7 @@ jobs:
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
           groups: 'topl-dev'
           file: build/app/outputs/bundle/release/app-release.aab
+
+
+
+
