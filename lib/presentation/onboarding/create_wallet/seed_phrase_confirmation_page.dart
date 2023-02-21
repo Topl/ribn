@@ -37,6 +37,7 @@ class SeedPhraseConfirmationPage extends HookConsumerWidget {
 
     useEffect(() {
       return () {
+        // ignore: invalid_use_of_protected_member
         _formKey.currentState?.dispose();
       };
     });
