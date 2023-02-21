@@ -22,8 +22,8 @@ jobs:
           channel: 'stable'
       - name: Flutter version
         run: flutter --version
-      - name: Install Flutter dependencies
-        run: flutter pub get
+      - name: Install dependencies and generate files
+        run: make gen
       - name: Prepare iOS build
         run: flutter build ios --release --no-codesign
       - name: Update bundler
