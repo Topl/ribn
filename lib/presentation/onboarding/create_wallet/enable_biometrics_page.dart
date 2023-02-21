@@ -109,7 +109,7 @@ class EnableBiometrics extends HookConsumerWidget {
               Strings.enableBiometrics,
               style: RibnToolkitTextStyles.h1.copyWith(
                 color: RibnColors.lightGreyTitle,
-                fontSize: 28,
+                fontSize: 20,
               ),
             ),
             Padding(
