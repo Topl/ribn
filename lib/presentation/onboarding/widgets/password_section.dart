@@ -45,6 +45,8 @@ class PasswordSection extends HookConsumerWidget {
               _passwordState.copyWith(confirmPassword: _confirmPasswordController.text);
         },
       );
+
+      return () {};
     }, []);
 
     return Column(

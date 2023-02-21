@@ -51,12 +51,15 @@ class GettingStartedPage extends StatelessWidget {
                 ),
               ),
               kIsWeb ? const SizedBox(height: 150) : const Spacer(),
-              ConfirmationButton(
-                key: gettingStartedConfirmationButtonKey,
-                text: Strings.okLetsGo,
-                onPressed: () {
-                  Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseInfoChecklist);
-                },
+              Padding(
+                padding: EdgeInsets.only(bottom: 50),
+                child: ConfirmationButton(
+                  key: gettingStartedConfirmationButtonKey,
+                  text: Strings.okLetsGo,
+                  onPressed: () {
+                    Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseInfoChecklist);
+                  },
+                ),
               ),
             ],
           ),

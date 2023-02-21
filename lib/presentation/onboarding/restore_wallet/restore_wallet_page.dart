@@ -40,6 +40,8 @@ class RestoreWalletPage extends HookWidget {
         seedPhrase.value = controller.text;
         invalidSeedPhraseEntered.value = false;
       });
+
+      return () {};
     }, []);
     return Scaffold(
       extendBody: true,
@@ -94,13 +96,16 @@ class RestoreWalletPage extends HookWidget {
             adaptableSpacer(),
             renderIfMobile(const OnboardingProgressBar(numSteps: 2, currStep: 0)),
             const SizedBox(height: 20),
-            ConfirmationButton(
-              key: restoreWalletConfirmationButtonKey,
-              text: Strings.next,
-              onPressed: () => onNextPressed(
-                seedPhrase,
-                context,
-                invalidSeedPhraseEntered,
+            Padding(
+              padding: EdgeInsets.only(bottom: 30),
+              child: ConfirmationButton(
+                key: restoreWalletConfirmationButtonKey,
+                text: Strings.next,
+                onPressed: () => onNextPressed(
+                  seedPhrase,
+                  context,
+                  invalidSeedPhraseEntered,
+                ),
               ),
             ),
           ],
