@@ -195,12 +195,4 @@ final emptyStateBody = RichText(
     ],
   ),
 );
-final emptyStateNoAssetsBody = RichText(
-  text: TextSpan(
-    style: RibnToolkitTextStyles.h4
-        .copyWith(fontSize: kIsWeb ? 12 : 14, color: RibnColors.defaultText),
-    children: <TextSpan>[
-      TextSpan(text: Strings.emptyStateBody),
-    ],
-  ),
-);
+
