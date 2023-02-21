@@ -83,14 +83,17 @@ class SeedPhraseConfirmationPage extends HookConsumerWidget {
                     child: OnboardingProgressBar(numSteps: 4, currStep: 1),
                   ),
                 ),
-                ConfirmationButton(
-                  key: seedPhraseConfirmationConfirmationButtonKey,
-                  text: Strings.done,
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      Keys.navigatorKey.currentState?.pushNamed(Routes.createPassword);
-                    }
-                  },
+                Padding(
+                  padding: EdgeInsets.only(bottom: 30),
+                  child: ConfirmationButton(
+                    key: seedPhraseConfirmationConfirmationButtonKey,
+                    text: Strings.done,
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        Keys.navigatorKey.currentState?.pushNamed(Routes.createPassword);
+                      }
+                    },
+                  ),
                 ),
               ],
             ),
