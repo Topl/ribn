@@ -55,8 +55,8 @@ class Rules {
       BaseOptions(
         baseUrl: NetworkUtils.networkUrls[networkId]!,
         contentType: 'application/json',
-        connectTimeout: Duration(milliseconds: 5000),
-        receiveTimeout: Duration(milliseconds: 3000),
+        connectTimeout: Duration(seconds: 5000),
+        receiveTimeout: Duration(seconds: 3000),
       ),
     );
     return BramblClient(

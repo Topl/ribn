@@ -17,7 +17,9 @@ import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 
 class GettingStartedPage extends StatelessWidget {
-  const GettingStartedPage({Key? key}) : super(key: key);
+  static const Key gettingStartedPageKey = Key('gettingStartedPageKey');
+  static const Key gettingStartedConfirmationButtonKey = Key('gettingStartedConfirmationButtonKey');
+  const GettingStartedPage({Key key = gettingStartedPageKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +51,15 @@ class GettingStartedPage extends StatelessWidget {
                 ),
               ),
               kIsWeb ? const SizedBox(height: 150) : const Spacer(),
-              ConfirmationButton(
-                text: Strings.okLetsGo,
-                onPressed: () {
-                  Keys.navigatorKey.currentState
-                      ?.pushNamed(Routes.seedPhraseInfoChecklist);
-                },
+              Padding(
+                padding: EdgeInsets.only(bottom: 50),
+                child: ConfirmationButton(
+                  key: gettingStartedConfirmationButtonKey,
+                  text: Strings.okLetsGo,
+                  onPressed: () {
+                    Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseInfoChecklist);
+                  },
+                ),
               ),
             ],
           ),

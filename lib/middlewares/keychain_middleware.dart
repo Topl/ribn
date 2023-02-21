@@ -108,8 +108,7 @@ void Function(
           for (Balance bal in balances) bal.address: bal
         };
         // addresses with updated balances
-        final List<RibnAddress> addressesWithUpdatedBalances =
-            action.network.addresses.map(
+        final List<RibnAddress> addressesWithUpdatedBalances = action.network.addresses.map(
           (addr) {
             return addr.copyWith(
               balance: addrBalanceMap[addr.toplAddress.toBase58()],
