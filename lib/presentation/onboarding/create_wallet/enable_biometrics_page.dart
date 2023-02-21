@@ -109,7 +109,7 @@ class EnableBiometrics extends HookConsumerWidget {
               Strings.enableBiometrics,
               style: RibnToolkitTextStyles.h1.copyWith(
                 color: RibnColors.lightGreyTitle,
-                fontSize: 20,
+                fontSize: 28,
               ),
             ),
             Padding(
@@ -134,9 +134,6 @@ class EnableBiometrics extends HookConsumerWidget {
         transparentBackground: true,
         children: Column(
           children: [
-            const SizedBox(
-              height: 15,
-            ),
             LargeButton(
               buttonHeight: 50,
               buttonWidth: double.infinity,
