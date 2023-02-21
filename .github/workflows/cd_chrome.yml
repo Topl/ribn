@@ -41,8 +41,8 @@ jobs:
       - name: Flutter version
         run: flutter --version
 
-      - name: Install Flutter dependencies
-        run: flutter pub get
+      - name: Install dependencies and generate files
+        run: make gen
 
       - name: Build the Flutter Chrome extension
         run: flutter build web --web-renderer html --csp --release

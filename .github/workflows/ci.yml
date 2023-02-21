@@ -29,8 +29,8 @@ jobs:
       - name: Flutter version
         run: flutter --version
 
-      - name: Install dependencies
-        run: flutter pub get
+      - name: Install dependencies and generate files
+        run: make gen
 
       - name: Analyze code
         run: flutter analyze
@@ -46,8 +46,8 @@ jobs:
         with:
           channel: ${{env.FLUTTER_CHANNEL}}
           cache: true
-      - name: Install dependencies
-        run: flutter pub get
+      - name: Install dependencies and generate files
+        run: make gen
       - name: Run tests
         run: flutter test --dart-define=FLUTTER_TEST=true
 
@@ -98,8 +98,8 @@ jobs:
         with:
           channel: ${{env.FLUTTER_CHANNEL}}
           cache: true
-      - name: Install Flutter dependencies
-        run: flutter pub get
+      - name: Install dependencies and generate files
+        run: make gen
       - name: Decrypt Android keys
         run: sh ./.github/scripts/decrypt_android_secrets.sh
         env:
@@ -123,8 +123,8 @@ jobs:
         with:
           channel: ${{env.FLUTTER_CHANNEL}}
           cache: true
-      - name: Install Flutter dependencies
-        run: flutter pub get
+      - name: Install dependencies and generate files
+        run: make gen
       - name: Build ios app
         run: flutter build ios --release --no-codesign
 
@@ -155,8 +155,8 @@ jobs:
           channel: ${{env.FLUTTER_CHANNEL}}
           cache: true
 
-      - name: Install Flutter dependencies
-        run: flutter pub get
+      - name: Install dependencies and generate files
+        run: make gen
 
       - name: Build the Flutter Chrome extension
         run: flutter build web --web-renderer html --csp --release
