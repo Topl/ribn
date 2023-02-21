@@ -24,6 +24,11 @@ jobs:
           lfs: true
           ref: 'nightly'
 
+      - name: Get release version
+        run: |
+          version=$(awk '/version:/ {match($0, /version:/); print substr($0, RSTART+9, RLENGTH + 12);}' pubspec.yaml)
+          nversion="n$version-$(date +%y%m%d)"
+
       # Setup the flutter environment.
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -40,7 +45,33 @@ jobs:
         run: make gen
 
       - name: Build iOS app
-        run: flutter build ipa --release --no-codesign --build-number=${{ github.run_number }} --dart-define=nightlyBuildVersion=$nversion
+        run: flutter build ipa --release --no-codesign --build-number=${{github.run_number}} --dart-define=nightlyBuildVersion=$nversion
+
+      - name: Save iOS output
+        id: nightly_ios_pass
+        uses: actions/cache/save@v3
+        with:
+          path: ios-build/Runner.ipa
+          key: nightly_ios_pass_${{github.run_number}}
+
+
+  upload_ios:
+    needs: build_ios
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout Nightly
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+          ref: 'nightly'
+
+      - name: Restore cached iOS output
+        id: nightly_ios_pass
+        uses: actions/cache/restore@v3
+        with:
+          path: ios-build/Runner.ipa
+          key: nightly_ios_pass_${{github.run_number}}
 
       - name: upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
