@@ -30,7 +30,10 @@ import 'package:ribn/utils.dart';
 ///
 /// Displays poly balance section and the assets list view.
 class WalletBalancePage extends StatefulWidget {
-  const WalletBalancePage({Key? key}) : super(key: key);
+  static const Key walletBalancePageKey = Key('walletBalancePageKey');
+  const WalletBalancePage({
+    Key key = walletBalancePageKey,
+  }) : super(key: key);
 
   @override
   State<WalletBalancePage> createState() => _WalletBalancePageState();

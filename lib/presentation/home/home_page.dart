@@ -15,7 +15,8 @@ import 'package:ribn/widgets/ribn_app_bar_wapper.dart';
 ///
 /// Builds the [RibnAppBar], [BottomAppBar], and allows navigation to the 3 main pages.
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  static const Key homePageKey = Key('homePageKey');
+  const HomePage({Key key = homePageKey}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();

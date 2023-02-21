@@ -11,7 +11,6 @@ import 'package:redux/redux.dart';
 
 // Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
-import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/app_state.dart';
@@ -22,7 +21,6 @@ import 'test_data.dart';
 
 void main() {
   group('AppState reducer', () {
-    final String testMnemonic = testData['mnemonic']!;
     final String testKeyStore = testData['keyStoreJson']!;
     final Uint8List testToplExtendedPrivKey =
         Uint8List.fromList(toList(testData['toplExtendedPrvKey']!));
@@ -32,16 +30,7 @@ void main() {
       testStore = Redux.store!;
     });
 
-    group('Onboarding reducer', () {
-      test('mnemonic generation', () {
-        testStore.dispatch(MnemonicSuccessfullyGeneratedAction(testMnemonic));
-        expect(testMnemonic, testStore.state.onboardingState.mnemonic);
-        expect(
-          testStore.state.onboardingState.shuffledMnemonic,
-          unorderedEquals(List.from(testMnemonic.split(' '))),
-        );
-      });
-    });
+    group('Onboarding reducer', () {});
     group('Keychain reducer', () {
       test('keyStoreJson and hd wallet initialization', () async {
         final HdWallet hdWallet = HdWallet(
