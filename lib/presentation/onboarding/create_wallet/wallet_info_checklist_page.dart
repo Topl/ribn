@@ -50,11 +50,12 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
 
     useEffect(() {
       runBiometrics(isBioSupported, ref);
+      return () {};
     }, []);
 
     // Use value changed for the first check box.
     // If going from true to false, then uncheck the other 2 values
-    useValueChanged<bool, bool>(savedMyWalletPasswordSafely.value, (oldValue, __) {
+    useValueChanged<bool, void>(savedMyWalletPasswordSafely.value, (oldValue, __) {
       if (!savedMyWalletPasswordSafely.value && oldValue) {
         toplCannotRecoverForMe.value = false;
         spAndPasswordUnrecoverable.value = false;
@@ -63,7 +64,7 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
 
     // Use value changed for the second check box.
     // If going from true to false, then uncheck the last box too
-    useValueChanged<bool, bool>(toplCannotRecoverForMe.value, (oldValue, __) {
+    useValueChanged<bool, void>(toplCannotRecoverForMe.value, (oldValue, __) {
       if (!toplCannotRecoverForMe.value && oldValue) {
         spAndPasswordUnrecoverable.value = false;
       }

@@ -40,6 +40,8 @@ class RestoreWalletPage extends HookWidget {
         seedPhrase.value = controller.text;
         invalidSeedPhraseEntered.value = false;
       });
+
+      return () {};
     }, []);
     return Scaffold(
       extendBody: true,

@@ -1,5 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:redux/redux.dart';
 import 'package:ribn/actions/user_details_actions.dart';
+import 'package:ribn/models/app_state.dart';
 import 'package:ribn/providers/store_provider.dart';
 
 class BiometricsClass {
@@ -22,7 +24,7 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsClass>> {
   BiometricsNotifier(this.ref) : super(AsyncValue.loading());
 
   updateBiometrics(bool isBiometricsEnabled) {
-    final store = ref.read(storeProvider);
+    final Store<AppState> store = ref.read(storeProvider);
 
     store.dispatch(
       UpdateBiometricsAction(
