@@ -71,8 +71,7 @@ class LoginPage extends HookConsumerWidget {
     ref.read(biometricsProvider).whenData((value) {
       if (value.isEnabled)
         _biometricsLogin(ref, biometricsError).then(
-          (authorized) =>
-              {if (authorized) Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)},
+          (authorized) => {if (authorized) Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)},
         );
     });
   }
@@ -122,8 +121,7 @@ class LoginPage extends HookConsumerWidget {
                   containerWidth: MediaQuery.of(context).size.width,
                   waveAmplitude: 30,
                   containerChild: Column(
-                    mainAxisAlignment:
-                        kIsWeb ? MainAxisAlignment.start : MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: kIsWeb ? MainAxisAlignment.start : MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(

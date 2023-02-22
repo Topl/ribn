@@ -26,24 +26,30 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
   static const Key savedMyWalletPasswordSafelyKey = Key('savedMyWalletPasswordSafelyKey');
   static const Key toplCannotRecoverForMeKey = Key('toplCannotRecoverForMeKey');
   static const Key spAndPasswordUnrecoverableKey = Key('spAndPasswordUnrecoverableKey');
-  static const Key walletInfoChecklistConfirmationButtonKey =
-      Key('walletInfoChecklistConfirmationButtonKey');
+  static const Key walletInfoChecklistConfirmationButtonKey = Key('walletInfoChecklistConfirmationButtonKey');
 
   Future<void> runBiometrics(isBioSupported, ref) =>
       ref.watch(biometricsProvider).whenData((value) => isBioSupported.value = value.isSupported);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isBioSupported = useState(false);
-
     final savedMyWalletPasswordSafely = useState(false);
     final toplCannotRecoverForMe = useState(false);
     final spAndPasswordUnrecoverable = useState(false);
 
+    final isBioSupported = useState(false);
+    final biometrics = ref.watch(biometricsProvider);
+
     useEffect(() {
-      runBiometrics(isBioSupported, ref);
-      return () {};
-    }, []);
+      Future.delayed(Duration.zero, () {
+        ref.read(biometricsProvider).whenData((value) {
+          if (value.isSupported) {
+            isBioSupported.value = true;
+          }
+        });
+      });
+      return null;
+    }, [biometrics]);
 
     // Use value changed for the first check box.
     // If going from true to false, then uncheck the other 2 values
