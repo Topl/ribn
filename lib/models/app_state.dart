@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/models/keychain_state.dart';
 import 'package:ribn/models/onboarding_state.dart';
-import 'package:ribn/models/state/login_state.dart';
 import 'package:ribn/models/user_details_state.dart';
 
 @immutable
@@ -61,7 +60,6 @@ class AppState {
 
   AppState copyWith({
     OnboardingState? onboardingState,
-    LoginState? loginState,
     KeychainState? keychainState,
     UserDetailsState? userDetailsState,
     InternalMessage? internalMessage,

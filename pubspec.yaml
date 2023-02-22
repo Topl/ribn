@@ -70,7 +70,8 @@ dependencies:
     git:
       url: https://github.com/Topl/BramblDart
       ref: TSDK-133
-      # TODO Remove the ref once Selby's branch above has been merged into main
+      # Remove the ref once Selby's branch above has been merged into main
+
 
 
 dev_dependencies:
