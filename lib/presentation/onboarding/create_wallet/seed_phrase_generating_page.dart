@@ -1,20 +1,19 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 // Package imports:
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/animated_circle_step_loader.dart';
 
 // Project imports:
-import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
@@ -22,46 +21,41 @@ import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart
 import 'package:ribn/utils.dart';
 
 /// This page shows a loading animation to indicate seed phrase generation.
-class SeedPhraseGeneratingPage extends StatefulWidget {
-  const SeedPhraseGeneratingPage({Key? key}) : super(key: key);
+class SeedPhraseGeneratingPage extends HookConsumerWidget {
+  static const Key seedPhraseGeneratingPageKey = Key('seedPhraseGeneratingPageKey');
+  static const Key seedPhraseGeneratingConfirmationButtonKey =
+      Key('seedPhraseGeneratingConfirmationButtonKey');
+  const SeedPhraseGeneratingPage({Key key = seedPhraseGeneratingPageKey}) : super(key: key);
 
-  @override
-  _SeedPhraseGeneratingPageState createState() => _SeedPhraseGeneratingPageState();
-}
-
-class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
   /// True if animated loader needs to be shown.
-  bool seedPhraseGenerating = true;
 
   final double descriptionBoxWidth = kIsWeb ? 640 : 350;
 
   @override
-  Widget build(BuildContext context) {
-    return StoreConnector<AppState, AppState>(
-      converter: (store) => store.state,
-      onInit: (store) => store.dispatch(GenerateMnemonicAction()),
-      builder: (context, vm) {
-        return Scaffold(
-          body: OnboardingContainer(
-            showBackButton: seedPhraseGenerating ? false : true,
-            child: SingleChildScrollView(
-              clipBehavior: Clip.none,
-              child: Center(
-                child: Column(
-                  children: seedPhraseGenerating
-                      ? seedPhraseGeneratingSection()
-                      : seedPhraseGeneratedSection(),
-                ),
-              ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final seedPhraseGenerating = useState(true);
+
+    return Scaffold(
+      body: OnboardingContainer(
+        showBackButton: seedPhraseGenerating.value ? false : true,
+        child: SingleChildScrollView(
+          clipBehavior: Clip.none,
+          child: Center(
+            child: Column(
+              children: seedPhraseGenerating.value
+                  ? seedPhraseGeneratingSection(() {
+                      seedPhraseGenerating.value = false;
+                    })
+                  : seedPhraseGeneratedSection(),
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
   /// List of widgets displayed when seed phrase is being generated.
-  List<Widget> seedPhraseGeneratingSection() {
+  List<Widget> seedPhraseGeneratingSection(Function showStepLoader) {
     return [
       AnimatedCircleStepLoader(
         stepLabels: const {
@@ -72,9 +66,7 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
           4: Strings.seedPhraseGenerating,
         },
         showStepLoader: () {
-          setState(() {
-            seedPhraseGenerating = false;
-          });
+          showStepLoader();
         },
         activeCircleColor: RibnColors.primary,
         inactiveCircleColor: RibnColors.inactive,
@@ -118,6 +110,7 @@ class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
       ),
       SizedBox(height: adaptHeight(0.1)),
       ConfirmationButton(
+        key: seedPhraseGeneratingConfirmationButtonKey,
         text: Strings.cont,
         onPressed: () {
           Keys.navigatorKey.currentState?.pushNamed(Routes.displaySeedphrase);

@@ -19,13 +19,17 @@ import 'package:ribn/utils.dart';
 
 /// This page allows the user to select between creating a new wallet or importing an existing wallet.
 class SelectActionPage extends StatelessWidget {
-  const SelectActionPage({Key? key}) : super(key: key);
+  static const selectActionPageKey = Key('selectActionPageKey');
+  static const createWalletActionButtonKey = Key('createWalletActionButtonKey');
+  static const importWalletActionButtonKey = Key('importWalletActionButtonKey');
+  const SelectActionPage({Key key = selectActionPageKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> actionButtons = [
       Expanded(
         child: OnboardingActionButton(
+          key: createWalletActionButtonKey,
           backgroundColor: RibnColors.primary,
           icon: Image.asset(RibnAssets.createWalletPng),
           title: Strings.createWallet,
@@ -38,6 +42,7 @@ class SelectActionPage extends StatelessWidget {
       kIsWeb ? const SizedBox(width: 100, height: 50) : const SizedBox(height: 25),
       Expanded(
         child: OnboardingActionButton(
+          key: importWalletActionButtonKey,
           backgroundColor: RibnColors.primary,
           icon: Image.asset(RibnAssets.importWalletPng),
           description: Strings.importWalletUsingSeedPhrase,

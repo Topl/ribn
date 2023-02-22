@@ -27,7 +27,10 @@ import 'package:url_launcher/url_launcher.dart';
 ///
 /// Displays poly balance section and the assets list view.
 class WalletBalancePage extends StatefulWidget {
-  const WalletBalancePage({Key? key}) : super(key: key);
+  static const Key walletBalancePageKey = Key('walletBalancePageKey');
+  const WalletBalancePage({
+    Key key = walletBalancePageKey,
+  }) : super(key: key);
 
   @override
   State<WalletBalancePage> createState() => _WalletBalancePageState();
@@ -227,7 +230,9 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     if (vm.assets.isEmpty) {
       return EmptyStateScreen(
         icon: RibnAssets.walletWithBorder,
-        title: Strings.noAssetsInWallet,
+        title: vm.assets.isEmpty && vm.polyBalance == 0
+            ? Strings.noAssetsAndBalanceInWallet
+            : Strings.noAssetsInWallet,
         body: emptyStateBody,
         buttonOneText: 'Share',
         buttonOneAction: () async => await showReceivingAddress(),
