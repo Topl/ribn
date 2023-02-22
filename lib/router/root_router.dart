@@ -150,8 +150,8 @@ class RootRouter {
         }
       case Routes.login:
         {
-          if (kIsWeb) return pageRouteNotAnimated(LoginPage(), settings);
-          return pageRoute(LoginPage(), settings);
+          if (kIsWeb) return pageRouteNotAnimated(const LoginPage(), settings);
+          return pageRoute(const LoginPage(), settings);
         }
       case Routes.walletCreated:
         {
