@@ -61,12 +61,15 @@ class WelcomePage extends StatelessWidget {
                   ),
                 ),
                 adaptableSpacer(),
-                ConfirmationButton(
-                  key: welcomePageConfirmationButtonKey,
-                  text: Strings.getStarted,
-                  onPressed: () {
-                    Keys.navigatorKey.currentState?.pushNamed(Routes.selectAction);
-                  },
+                Padding(
+                  padding: EdgeInsets.only(bottom: 50),
+                  child: ConfirmationButton(
+                    key: welcomePageConfirmationButtonKey,
+                    text: Strings.getStarted,
+                    onPressed: () {
+                      Keys.navigatorKey.currentState?.pushNamed(Routes.selectAction);
+                    },
+                  ),
                 ),
               ],
             ),

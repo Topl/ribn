@@ -28,8 +28,8 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
   OnboardingNotifier(this.ref) : super(_generateOnboardingState(ref)) {}
 
   static OnboardingState _generateOnboardingState(ref) {
-    final mnemonic = _generateMnemonic(ref);
-    final splitMnemonic = mnemonic.split(' ').toList();
+    final String mnemonic = _generateMnemonic(ref);
+    final List<String> splitMnemonic = mnemonic.split(' ').toList();
     return OnboardingState(
       mnemonic: mnemonic,
       shuffledMnemonic: splitMnemonic,
@@ -39,12 +39,12 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
   static String _generateMnemonic(Ref ref) {
     final Random random = ref.read(randomProvider)();
 
-    final entropy = ref.read(entropyProvider)(random);
+    final Entropy entropy = ref.read(entropyProvider)(random);
     return ref.read(entropyFuncProvider)(entropy);
   }
 
   regenerateMnemonic() {
-    final onboardingState = _generateOnboardingState(ref);
+    final OnboardingState onboardingState = _generateOnboardingState(ref);
     state = state.copyWith(
       mnemonic: onboardingState.mnemonic,
       shuffledMnemonic: onboardingState.shuffledMnemonic,

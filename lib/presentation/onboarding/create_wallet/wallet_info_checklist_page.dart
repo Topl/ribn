@@ -22,19 +22,15 @@ import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
 class WalletInfoChecklistPage extends HookConsumerWidget {
   static const walletInfoChecklistPageKey = Key('walletInfoChecklistPageKey');
 
-  const WalletInfoChecklistPage({Key key = walletInfoChecklistPageKey})
-      : super(key: key);
-  static const Key savedMyWalletPasswordSafelyKey =
-      Key('savedMyWalletPasswordSafelyKey');
+  const WalletInfoChecklistPage({Key key = walletInfoChecklistPageKey}) : super(key: key);
+  static const Key savedMyWalletPasswordSafelyKey = Key('savedMyWalletPasswordSafelyKey');
   static const Key toplCannotRecoverForMeKey = Key('toplCannotRecoverForMeKey');
-  static const Key spAndPasswordUnrecoverableKey =
-      Key('spAndPasswordUnrecoverableKey');
+  static const Key spAndPasswordUnrecoverableKey = Key('spAndPasswordUnrecoverableKey');
   static const Key walletInfoChecklistConfirmationButtonKey =
       Key('walletInfoChecklistConfirmationButtonKey');
 
-  Future<void> runBiometrics(isBioSupported, ref) => ref
-      .watch(biometricsProvider)
-      .whenData((value) => isBioSupported.value = value.isSupported);
+  Future<void> runBiometrics(isBioSupported, ref) =>
+      ref.watch(biometricsProvider).whenData((value) => isBioSupported.value = value.isSupported);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -46,12 +42,12 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
 
     useEffect(() {
       runBiometrics(isBioSupported, ref);
+      return () {};
     }, []);
 
     // Use value changed for the first check box.
     // If going from true to false, then uncheck the other 2 values
-    useValueChanged<bool, bool>(savedMyWalletPasswordSafely.value,
-        (oldValue, __) {
+    useValueChanged<bool, void>(savedMyWalletPasswordSafely.value, (oldValue, __) {
       if (!savedMyWalletPasswordSafely.value && oldValue) {
         toplCannotRecoverForMe.value = false;
         spAndPasswordUnrecoverable.value = false;
@@ -60,7 +56,7 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
 
     // Use value changed for the second check box.
     // If going from true to false, then uncheck the last box too
-    useValueChanged<bool, bool>(toplCannotRecoverForMe.value, (oldValue, __) {
+    useValueChanged<bool, void>(toplCannotRecoverForMe.value, (oldValue, __) {
       if (!toplCannotRecoverForMe.value && oldValue) {
         spAndPasswordUnrecoverable.value = false;
       }
@@ -89,8 +85,7 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
                 checked: savedMyWalletPasswordSafely.value,
                 activeText: true,
                 text: Strings.savedMyWalletPasswordSafely,
-                onChanged: (bool? val) =>
-                    savedMyWalletPasswordSafely.value = val ?? false,
+                onChanged: (bool? val) => savedMyWalletPasswordSafely.value = val ?? false,
               ),
               SizedBox(height: adaptHeight(0.03)),
               _buildCheckboxListTile(
@@ -109,8 +104,7 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
                 activeText: toplCannotRecoverForMe.value,
                 text: Strings.spAndPasswordUnrecoverable,
                 onChanged: toplCannotRecoverForMe.value
-                    ? (bool? val) =>
-                        spAndPasswordUnrecoverable.value = val ?? false
+                    ? (bool? val) => spAndPasswordUnrecoverable.value = val ?? false
                     : null,
                 renderTooltipIcon: true,
               ),
@@ -121,9 +115,7 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
                 text: Strings.iUnderstand,
                 onPressed: () {
                   Keys.navigatorKey.currentState?.pushNamed(
-                    isBioSupported.value
-                        ? Routes.onboardingEnableBiometrics
-                        : Routes.walletCreated,
+                    isBioSupported.value ? Routes.onboardingEnableBiometrics : Routes.walletCreated,
                   );
                 },
                 disabled: !spAndPasswordUnrecoverable.value,

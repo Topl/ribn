@@ -144,12 +144,15 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
                   renderIfMobile(
                     const MobileOnboardingProgressBar(currStep: 0),
                   ),
-                  ConfirmationButton(
-                    key: seedPhraseDisplayConfirmationButtonKey,
-                    text: Strings.done,
-                    onPressed: () {
-                      Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseConfirm);
-                    },
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 30),
+                    child: ConfirmationButton(
+                      key: seedPhraseDisplayConfirmationButtonKey,
+                      text: Strings.done,
+                      onPressed: () {
+                        Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseConfirm);
+                      },
+                    ),
                   ),
                 ],
               ),

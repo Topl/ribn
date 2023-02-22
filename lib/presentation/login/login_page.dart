@@ -107,6 +107,7 @@ class LoginPage extends HookConsumerWidget {
           dismissKeyboard(context);
 
           vm.attemptLogin(
+            context: context,
             password: _textEditingController.text,
             onIncorrectPasswordEntered: () {
               _incorrectPasswordEntered.value = true;
