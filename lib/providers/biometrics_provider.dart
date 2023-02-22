@@ -15,7 +15,7 @@ import 'logger_provider.dart';
 /// Provides biometrics state and functions
 final biometricsProvider =
     StateNotifierProvider<BiometricsNotifier, AsyncValue<BiometricsState>>((ref) {
-  final localAuthentication = ref.read(localAuthenticationProvider).call();
+  final localAuthentication = ref.read(localAuthenticationProvider)();
   return BiometricsNotifier(ref, localAuthentication);
 });
 
@@ -58,7 +58,7 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
    */
   Future<void> toggleBiometrics({bool? overrideValue}) async {
     final biometrics = state.value; // setup for type promotion
-    final logger = ref.read(loggerPackageProvider).call("Biometrics");
+    final logger = ref.read(loggerPackageProvider)("Biometrics");
     if (biometrics == null) {
       ref.read(loggerProvider).log(
             logLevel: LogLevel.Warning,
