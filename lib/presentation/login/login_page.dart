@@ -15,11 +15,12 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/containers/login_container.dart';
+import 'package:ribn/models/state/login_state.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn/providers/logger_provider.dart';
+import 'package:ribn/providers/login_provider.dart';
 import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/utils/input_utils.dart';
@@ -76,6 +77,21 @@ class LoginPage extends HookConsumerWidget {
     });
   }
 
+  void attemptLogin(
+      BuildContext context, LoginState state, TextEditingController controller, ValueNotifier<bool> PasswordEntered) {
+    context.loaderOverlay.show();
+    dismissKeyboard(context);
+
+    state.attemptLogin(
+      context: context,
+      password: controller.text,
+      onIncorrectPasswordEntered: () {
+        PasswordEntered.value = true;
+        context.loaderOverlay.hide();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     /// True if login was attempted with an incorrect password.
@@ -87,144 +103,128 @@ class LoginPage extends HookConsumerWidget {
     final _textEditingController = useTextEditingController();
 
     final biometrics = ref.watch(biometricsProvider);
+    final login = ref.watch(loginProvider);
 
     useEffect(() {
       Future.delayed(Duration.zero, () {
         _checkBiometrics(ref, _biometricsError);
       });
+      return null;
     }, [biometrics]);
 
-    return LoginContainer(
-      onInitialBuild: (vm) => null,
-      builder: (context, vm) {
-        void attemptLogin() {
-          context.loaderOverlay.show();
-          dismissKeyboard(context);
-
-          vm.attemptLogin(
-            context: context,
-            password: _textEditingController.text,
-            onIncorrectPasswordEntered: () {
-              _incorrectPasswordEntered.value = true;
-              context.loaderOverlay.hide();
-            },
-          );
-        }
-
-        return Listener(
-          onPointerDown: (_) {},
-          child: LoaderOverlay(
-            child: Scaffold(
-              body: SingleChildScrollView(
-                child: WaveContainer(
-                  containerHeight: MediaQuery.of(context).size.height,
-                  containerWidth: MediaQuery.of(context).size.width,
-                  waveAmplitude: 30,
-                  containerChild: Column(
-                    mainAxisAlignment: kIsWeb ? MainAxisAlignment.start : MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+    return Listener(
+      onPointerDown: (_) {},
+      child: LoaderOverlay(
+        child: Scaffold(
+          body: SingleChildScrollView(
+            child: WaveContainer(
+              containerHeight: MediaQuery.of(context).size.height,
+              containerWidth: MediaQuery.of(context).size.width,
+              waveAmplitude: 30,
+              containerChild: Column(
+                mainAxisAlignment: kIsWeb ? MainAxisAlignment.start : MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
                     children: [
-                      Column(
-                        children: [
-                          SizedBox(height: deviceTopPadding()),
-                          renderIfWeb(const SizedBox(height: 40)),
-                          Image.asset(
-                            RibnAssets.newRibnLogo,
-                            width: kIsWeb ? 102 : 138,
-                          ),
-                          Text(
-                            Strings.ribnWallet,
-                            style: RibnToolkitTextStyles.h1.copyWith(
-                              color: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          Center(
-                            child: SizedBox(
-                              width: kIsWeb ? _baseWidth - 70 : _baseWidth,
-                              child: Center(
-                                child: Text(
-                                  Strings.intro,
-                                  style: RibnToolkitTextStyles.h3.copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w300,
-                                    height: 1.7,
-                                    fontSize: kIsWeb ? 13 : 14,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      SizedBox(height: deviceTopPadding()),
                       renderIfWeb(const SizedBox(height: 40)),
-                      Column(
-                        children: [
-                          _buildTextFieldLabel(),
-                          const SizedBox(height: 8),
-                          PasswordTextField(
-                            onSubmitted: attemptLogin,
-                            hintText: Strings.typeSomething,
-                            controller: _textEditingController,
-                          ),
-                        ],
+                      Image.asset(
+                        RibnAssets.newRibnLogo,
+                        width: kIsWeb ? 102 : 138,
                       ),
-                      kIsWeb ? const SizedBox(height: 40) : const SizedBox(height: 25),
-                      LargeButton(
-                        backgroundColor: RibnColors.primary,
-                        dropShadowColor: RibnColors.whiteButtonShadow,
-                        buttonChild: Text(
-                          Strings.unlock,
-                          style: RibnToolkitTextStyles.btnLarge.copyWith(
-                            color: Colors.white,
-                          ),
+                      Text(
+                        Strings.ribnWallet,
+                        style: RibnToolkitTextStyles.h1.copyWith(
+                          color: Colors.white,
                         ),
-                        onPressed: attemptLogin,
                       ),
-                      renderIfWeb(const SizedBox(height: 20)),
-                      _buildForgetPasswordLink(vm.restoreWallet),
-                      const SizedBox(height: 40),
-                      SizedBox(
-                        height: 50,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            _buildSupportLink(),
-                            const SizedBox(height: 10),
-                            _incorrectPasswordEntered.value
-                                ? Text(
-                                    'Incorrect Password',
-                                    style: const TextStyle(
-                                      color: Colors.red,
-                                    ).copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: kIsWeb ? 13 : 14,
-                                    ),
-                                  )
-                                : const SizedBox(),
-                            _biometricsError.value
-                                ? Text(
-                                    'There was an issue with Face ID, please try again',
-                                    style: const TextStyle(
-                                      color: Colors.red,
-                                    ).copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: kIsWeb ? 13 : 14,
-                                    ),
-                                  )
-                                : const SizedBox()
-                          ],
+                      const SizedBox(height: 5),
+                      Center(
+                        child: SizedBox(
+                          width: kIsWeb ? _baseWidth - 70 : _baseWidth,
+                          child: Center(
+                            child: Text(
+                              Strings.intro,
+                              style: RibnToolkitTextStyles.h3.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                                height: 1.7,
+                                fontSize: kIsWeb ? 13 : 14,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                ),
+                  renderIfWeb(const SizedBox(height: 40)),
+                  Column(
+                    children: [
+                      _buildTextFieldLabel(),
+                      const SizedBox(height: 8),
+                      PasswordTextField(
+                        onSubmitted: () =>
+                            attemptLogin(context, login, _textEditingController, _incorrectPasswordEntered),
+                        hintText: Strings.typeSomething,
+                        controller: _textEditingController,
+                      ),
+                    ],
+                  ),
+                  kIsWeb ? const SizedBox(height: 40) : const SizedBox(height: 25),
+                  LargeButton(
+                    backgroundColor: RibnColors.primary,
+                    dropShadowColor: RibnColors.whiteButtonShadow,
+                    buttonChild: Text(
+                      Strings.unlock,
+                      style: RibnToolkitTextStyles.btnLarge.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                    onPressed: () => attemptLogin(context, login, _textEditingController, _incorrectPasswordEntered),
+                  ),
+                  renderIfWeb(const SizedBox(height: 20)),
+                  _buildForgetPasswordLink(login.restoreWallet),
+                  const SizedBox(height: 40),
+                  SizedBox(
+                    height: 50,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        _buildSupportLink(),
+                        const SizedBox(height: 10),
+                        _incorrectPasswordEntered.value
+                            ? Text(
+                                'Incorrect Password',
+                                style: const TextStyle(
+                                  color: Colors.red,
+                                ).copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: kIsWeb ? 13 : 14,
+                                ),
+                              )
+                            : const SizedBox(),
+                        _biometricsError.value
+                            ? Text(
+                                'There was an issue with Face ID, please try again',
+                                style: const TextStyle(
+                                  color: Colors.red,
+                                ).copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: kIsWeb ? 13 : 14,
+                                ),
+                              )
+                            : const SizedBox()
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
