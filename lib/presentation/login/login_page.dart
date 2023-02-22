@@ -35,18 +35,17 @@ import 'package:url_launcher/url_launcher.dart';
 ///
 /// Prompts the user to unlock their wallet by entering their wallet-locking password.
 class LoginPage extends HookConsumerWidget {
+  const LoginPage({
+    Key? key,
+  }) : super(key: key);
   final double _baseWidth = 310;
 
-  Future<bool> _biometricsLogin(
-      WidgetRef ref, ValueNotifier<bool> biometricsError) async {
+  Future<bool> _biometricsLogin(WidgetRef ref, ValueNotifier<bool> biometricsError) async {
     bool authenticated = false;
     try {
-      authenticated = await ref
-          .read(biometricsProvider.notifier)
-          .authenticateWithBiometrics();
+      authenticated = await ref.read(biometricsProvider.notifier).authenticateWithBiometrics();
 
-      final String toplKey =
-          (await PlatformLocalStorage.instance.getKeyFromSecureStorage())!;
+      final String toplKey = (await PlatformLocalStorage.instance.getKeyFromSecureStorage())!;
       if (authenticated) {
         ref.read(storeProvider).dispatch(
               InitializeHDWalletAction(
@@ -68,15 +67,12 @@ class LoginPage extends HookConsumerWidget {
     return authenticated;
   }
 
-  void _checkBiometrics(
-      WidgetRef ref, ValueNotifier<bool> biometricsError) async {
+  void _checkBiometrics(WidgetRef ref, ValueNotifier<bool> biometricsError) async {
     ref.read(biometricsProvider).whenData((value) {
       if (value.isEnabled)
         _biometricsLogin(ref, biometricsError).then(
-          (authorized) => {
-            if (authorized)
-              Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)
-          },
+          (authorized) =>
+              {if (authorized) Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)},
         );
     });
   }
@@ -126,9 +122,8 @@ class LoginPage extends HookConsumerWidget {
                   containerWidth: MediaQuery.of(context).size.width,
                   waveAmplitude: 30,
                   containerChild: Column(
-                    mainAxisAlignment: kIsWeb
-                        ? MainAxisAlignment.start
-                        : MainAxisAlignment.spaceAround,
+                    mainAxisAlignment:
+                        kIsWeb ? MainAxisAlignment.start : MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
@@ -177,9 +172,7 @@ class LoginPage extends HookConsumerWidget {
                           ),
                         ],
                       ),
-                      kIsWeb
-                          ? const SizedBox(height: 40)
-                          : const SizedBox(height: 25),
+                      kIsWeb ? const SizedBox(height: 40) : const SizedBox(height: 25),
                       LargeButton(
                         backgroundColor: RibnColors.primary,
                         dropShadowColor: RibnColors.whiteButtonShadow,
@@ -285,8 +278,7 @@ class LoginPage extends HookConsumerWidget {
             children: [
               TextSpan(
                 text: Strings.forgotPassword,
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () => onButtonPress(),
+                recognizer: TapGestureRecognizer()..onTap = () => onButtonPress(),
               )
             ],
           ),

@@ -113,7 +113,7 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
     case Routes.login:
       return [
         MaterialPageRoute(
-          builder: (context) => LoginPage(),
+          builder: (context) => const LoginPage(),
           settings: const RouteSettings(name: Routes.login),
         )
       ];
