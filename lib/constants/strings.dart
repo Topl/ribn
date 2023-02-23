@@ -319,9 +319,11 @@ Ribn Wallet does not control the functionality of biometrics and does not have a
   static const String noActivityToReview =
       'You currently have no wallet activity to review.';
   static const String noAssetsInWallet =
-      'You currently have no assets in your wallet';
+      'You currently have no assets in your wallet.';
+  static const String noAssetsAndBalanceInWallet =
+      'Want to add more assets to your wallet? ';
   static const String emptyStateBody =
-      'Here’s how you can get started:\n • Mint a new asset to a wallet address\n • Share your address to receive assets';
+      'Get started by sharing your address to receive assets to your wallet.';
   static const String connect = 'Connect';
   static const String connectDApp =
       ' allowing this site to see my Ribn address, and suggest transactions to approve.';
