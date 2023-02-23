@@ -67,7 +67,7 @@ dependencies:
   ribn_toolkit:
     git:
       url: https://github.com/Topl/ribn-toolkit
-      ref: RIBN-678
+      ref: main
   brambldart:
     git:
       url: https://github.com/Topl/BramblDart
