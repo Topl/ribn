@@ -2,11 +2,18 @@ import 'dart:io';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:ribn/models/images/ribn_file_model.dart';
+import 'package:ribn/models/jira/jira_createissue_response_model.dart';
+import 'package:ribn/models/jira/jira_description_model.dart';
+import 'package:ribn/models/jira/jira_fields_model.dart';
+import 'package:ribn/models/jira/jira_issue_assignee_model.dart';
+import 'package:ribn/models/jira/jira_issue_model.dart';
+import 'package:ribn/models/jira/jira_project_model.dart';
+import 'package:ribn/presentation/feedback/utils/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/atoms/dropdowns/ribn_dropdown.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
@@ -15,17 +22,8 @@ import 'package:ribn_toolkit/widgets/atoms/text/ribn_font12_text_widget.dart';
 import 'package:ribn_toolkit/widgets/atoms/text/ribn_font13_text_widget.dart';
 import 'package:ribn_toolkit/widgets/atoms/text/ribn_font19_text_widget.dart';
 import 'package:ribn_toolkit/widgets/input/ribn_text_field_with_title.dart';
-import 'package:ribn_toolkit/widgets/molecules/messages/ribn_message_screen.dart';
 import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
-import 'package:ribn/models/images/ribn_file_model.dart';
-import 'package:ribn/models/jira/jira_createissue_response_model.dart';
-import 'package:ribn/models/jira/jira_description_model.dart';
-import 'package:ribn/models/jira/jira_fields_model.dart';
-import 'package:ribn/models/jira/jira_issue_assignee_model.dart';
-import 'package:ribn/models/jira/jira_issue_model.dart';
-import 'package:ribn/models/jira/jira_project_model.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants/assets.dart';
 import '../../../constants/environment_config.dart';
@@ -367,7 +365,7 @@ class _RibnFeedbackFormState extends State<RibnFeedbackForm> {
                                                           children: [
                                                             Padding(
                                                               child: RibnFont12TextWidget(
-                                                                  text: _formatFileName(
+                                                                  text: formatFileName(
                                                                       _imageFileList[
                                                                               index]
                                                                           .name),
@@ -522,152 +520,12 @@ class _RibnFeedbackFormState extends State<RibnFeedbackForm> {
                                           _isLoading = false;
                                         });
                                         if (response.success) {
-                                          Navigator.push(
-                                              context,
-                                              new MaterialPageRoute(
-                                                  builder:
-                                                      (_) => RibnMessageScreen(
-                                                            title:
-                                                                'Thank you for your feedback',
-                                                            topMessage:
-                                                                'Our Ribn team will review your feedback and do our best to resolve your current issue or consider your feature request in future updates.',
-                                                            bottomMessage:
-                                                                RichText(
-                                                              text: TextSpan(
-                                                                style: const TextStyle(
-                                                                    fontFamily:
-                                                                        'DM Sans',
-                                                                    fontSize:
-                                                                        13),
-                                                                children: <
-                                                                    TextSpan>[
-                                                                  const TextSpan(
-                                                                      text:
-                                                                          'Thank you again for your support. We appreciate your help in making our services better. '
-                                                                          'Feel free to also visit our ',
-                                                                      style: TextStyle(
-                                                                          fontFamily:
-                                                                              'DM Sans',
-                                                                          fontSize:
-                                                                              13,
-                                                                          color:
-                                                                              RibnColors.whiteColor)),
-                                                                  TextSpan(
-                                                                      text:
-                                                                          ' Discord channel ',
-                                                                      style: const TextStyle(
-                                                                          fontFamily:
-                                                                              'DM Sans',
-                                                                          fontSize:
-                                                                              13,
-                                                                          color: RibnColors
-                                                                              .secondary),
-                                                                      recognizer:
-                                                                          TapGestureRecognizer()
-                                                                            ..onTap =
-                                                                                () async {
-                                                                              await launchUrl(Uri.parse('https://discord.com/invite/SjYVTBnsQR'));
-                                                                            }),
-                                                                  const TextSpan(
-                                                                      text:
-                                                                          'for help with general questions.',
-                                                                      style: TextStyle(
-                                                                          fontFamily:
-                                                                              'DM Sans',
-                                                                          fontSize:
-                                                                              13,
-                                                                          color:
-                                                                              RibnColors.whiteColor))
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            isError: false,
-                                                            width: 350,
-                                                            height: 800,
-                                                            buttonTitleColor:
-                                                                RibnColors
-                                                                    .whiteColor,
-                                                            buttonTitle: 'Done',
-                                                            onTap: () {
-                                                              Keys.navigatorKey
-                                                                  .currentState
-                                                                  ?.pushNamed(
-                                                                      Routes
-                                                                          .home);
-                                                            },
-                                                          )));
+                                          Keys.navigatorKey.currentState
+                                              ?.pushNamed(
+                                                  Routes.feedbackSuccess);
                                         } else {
-                                          Navigator.push(
-                                              context,
-                                              new MaterialPageRoute(
-                                                  builder: (_) =>
-                                                      RibnMessageScreen(
-                                                          title:
-                                                              'Something went wrong',
-                                                          topMessage:
-                                                              'Sorry, it looks like you are having trouble submitting your feedback or reporting a bug. Ribn wallet requires a stable internet connection to function properly. ',
-                                                          bottomMessage:
-                                                              RichText(
-                                                            text: TextSpan(
-                                                              style: const TextStyle(
-                                                                  fontFamily:
-                                                                      'DM Sans',
-                                                                  fontSize: 13),
-                                                              children: <
-                                                                  TextSpan>[
-                                                                const TextSpan(
-                                                                    text:
-                                                                        'If you continue to experience issues, you can reach out to us through our',
-                                                                    style: TextStyle(
-                                                                        fontFamily:
-                                                                            'DM Sans',
-                                                                        fontSize:
-                                                                            13,
-                                                                        color: RibnColors
-                                                                            .whiteColor)),
-                                                                TextSpan(
-                                                                    text:
-                                                                        ' Discord channel ',
-                                                                    style: const TextStyle(
-                                                                        fontFamily:
-                                                                            'DM Sans',
-                                                                        fontSize:
-                                                                            13,
-                                                                        color: RibnColors
-                                                                            .secondary),
-                                                                    recognizer:
-                                                                        TapGestureRecognizer()
-                                                                          ..onTap =
-                                                                              () async {
-                                                                            await launchUrl(Uri.parse('https://discord.com/invite/SjYVTBnsQR'));
-                                                                          }),
-                                                                const TextSpan(
-                                                                    text:
-                                                                        'for assistance. Thank you for your patience and understanding.',
-                                                                    style: TextStyle(
-                                                                        fontFamily:
-                                                                            'DM Sans',
-                                                                        fontSize:
-                                                                            13,
-                                                                        color: RibnColors
-                                                                            .whiteColor))
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          isError: true,
-                                                          width: 350,
-                                                          height: 800,
-                                                          buttonTitleColor:
-                                                              RibnColors
-                                                                  .whiteColor,
-                                                          buttonTitle: 'Done',
-                                                          onTap: () {
-                                                            Keys.navigatorKey
-                                                                .currentState
-                                                                ?.pushNamed(
-                                                                    Routes
-                                                                        .home);
-                                                          })));
+                                          Keys.navigatorKey.currentState
+                                              ?.pushNamed(Routes.feedbackError);
                                         }
                                       }
                                     : null,
@@ -714,12 +572,4 @@ class _RibnFeedbackFormState extends State<RibnFeedbackForm> {
       }
     });
   }
-}
-
-_formatFileName(String fileName, {charsToDisplay = 6}) {
-  const numDots = 3;
-  final String dotsString = List<String>.filled(numDots, '.').join();
-  final String leftSubstring = fileName.substring(0, charsToDisplay);
-  final String rightSubstring = fileName.substring(fileName.length - 3);
-  return '$leftSubstring$dotsString$rightSubstring';
 }
