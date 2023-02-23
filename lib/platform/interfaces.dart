@@ -33,6 +33,9 @@ abstract class IPlatformUtils {
 
   /// Web only
   Future<T> convertToFuture<T>(Object jsPromise);
+
+  /// Web only
+  Future<void> openLinkInChromeTab(String url);
 }
 
 abstract class IWallet {

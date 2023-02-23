@@ -23,6 +23,7 @@ external void createSessionAlarm();
 external Future<void> deleteAllowList();
 external Future<List<String>> retrieveAllowList();
 external Future<void> logToConsole(dynamic item);
+external Future<void> openLinkInNewTab(dynamic item);
 
 class PlatformUtils implements IPlatformUtils {
   PlatformUtils._internal();
@@ -77,5 +78,11 @@ class PlatformUtils implements IPlatformUtils {
   @override
   Future<T> convertToFuture<T>(Object jsPromise) {
     return promiseToFuture(jsPromise);
+  }
+
+  @override
+  Future<void> openLinkInChromeTab(String url) async {
+    // TODO: implement openLinkInNewTab
+    await openLinkInNewTab(url);
   }
 }

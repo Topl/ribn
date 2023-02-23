@@ -1,6 +1,13 @@
 /// All the strings that are being used throughout the app.
 class Strings {
   Strings._();
+  static const String submitForm = "Submit";
+  static const String uploadImage = "Upload screenshot";
+  static const String description = "Description";
+  static const String ribnSupportDescriptionHint =
+      "Write 50-500 characters about your experience, whether it was great or has room for improvement. You can also report technical bugs or request new features.";
+  static const String iWouldLiketTo = 'Select an option';
+  static const String feedbackForm = 'How can we help?';
   static const String copyToClipboard = 'Copy to clipboard';
   static const String copy = 'Copy';
   static const String activity = 'Activity';

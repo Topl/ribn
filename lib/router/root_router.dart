@@ -3,6 +3,7 @@ import 'dart:convert';
 
 // Flutter imports:
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 // Project imports:
 import 'package:ribn/constants/routes.dart';
@@ -14,6 +15,7 @@ import 'package:ribn/presentation/authorize_and_sign/loading_dapp.dart';
 import 'package:ribn/presentation/authorize_and_sign/review_and_sign.dart';
 import 'package:ribn/presentation/enable_page.dart';
 import 'package:ribn/presentation/external_signing_page.dart';
+import 'package:ribn/presentation/feedback/ribn_feedback_form.dart';
 import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/create_password_page.dart';
@@ -40,8 +42,13 @@ import 'package:ribn/presentation/transfers/asset_transfer_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
 import 'package:ribn/presentation/transfers/tx_confirmation_page.dart';
 import 'package:ribn/presentation/transfers/tx_review_page.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
 // Package imports:
 import 'package:ribn_toolkit/models/transactions/ribn_activity_details_model.dart';
+import 'package:ribn_toolkit/widgets/molecules/messages/ribn_message_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../constants/keys.dart';
 
 // import 'package:ribn/models/transaction_history_entry.dart';
 
@@ -232,7 +239,8 @@ class RootRouter {
         }
       case Routes.txReview:
         {
-          final TransferDetails transferDetails = settings.arguments as TransferDetails;
+          final TransferDetails transferDetails =
+              settings.arguments as TransferDetails;
 
           if (kIsWeb) {
             return pageRouteNotAnimated(
@@ -247,7 +255,8 @@ class RootRouter {
         }
       case Routes.txConfirmation:
         {
-          final TransferDetails transferDetails = settings.arguments as TransferDetails;
+          final TransferDetails transferDetails =
+              settings.arguments as TransferDetails;
           if (kIsWeb) {
             return pageRouteNotAnimated(
               TxConfirmationPage(transferDetails: transferDetails),
@@ -271,7 +280,8 @@ class RootRouter {
         }
       case Routes.txHistoryDetails:
         final Map transactionDetailsMap = settings.arguments as Map;
-        final RibnActivityDetailsModel transactionDetails = RibnActivityDetailsModel.fromJson(
+        final RibnActivityDetailsModel transactionDetails =
+            RibnActivityDetailsModel.fromJson(
           jsonEncode(transactionDetailsMap),
         );
         {
@@ -309,7 +319,8 @@ class RootRouter {
         }
       case Routes.enable:
         {
-          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
+          final InternalMessage pendingRequest =
+              settings.arguments as InternalMessage;
           if (kIsWeb) {
             return pageRouteNotAnimated(EnablePage(pendingRequest), settings);
           }
@@ -317,7 +328,8 @@ class RootRouter {
         }
       case Routes.externalSigning:
         {
-          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
+          final InternalMessage pendingRequest =
+              settings.arguments as InternalMessage;
           if (kIsWeb) {
             return pageRouteNotAnimated(
               ExternalSigningPage(pendingRequest),
@@ -328,17 +340,20 @@ class RootRouter {
         }
       case Routes.error:
         {
-          final String errorMessage = (settings.arguments ?? 'Unknown error occurred') as String;
+          final String errorMessage =
+              (settings.arguments ?? 'Unknown error occurred') as String;
           return errorRoute(errorMsg: errorMessage);
         }
       case Routes.connectDApp:
         {
-          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
+          final InternalMessage pendingRequest =
+              settings.arguments as InternalMessage;
           return pageRouteNotAnimated(ConnectDApp(pendingRequest), settings);
         }
       case Routes.reviewAndSignDApp:
         {
-          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
+          final InternalMessage pendingRequest =
+              settings.arguments as InternalMessage;
           if (kIsWeb) {
             return pageRouteNotAnimated(
               ReviewAndSignDApp(pendingRequest),
@@ -349,11 +364,132 @@ class RootRouter {
         }
       case Routes.loadingDApp:
         {
-          final InternalMessage response = settings.arguments as InternalMessage;
+          final InternalMessage response =
+              settings.arguments as InternalMessage;
           return pageRouteNotAnimated(
             LoadingDApp(response: response),
             settings,
           );
+        }
+      case Routes.feedbackSuccess:
+        {
+          final RibnMessageScreen page = RibnMessageScreen(
+            title: 'Thank you for your feedback',
+            topMessage:
+                'Our Ribn team will review your feedback and do our best to resolve your current issue or consider your feature request in future updates.',
+            bottomMessage: RichText(
+              text: TextSpan(
+                style: const TextStyle(fontFamily: 'DM Sans', fontSize: 13),
+                children: <TextSpan>[
+                  const TextSpan(
+                      text:
+                          'Thank you again for your support. We appreciate your help in making our services better. '
+                          'Feel free to also visit our ',
+                      style: TextStyle(
+                          fontFamily: 'DM Sans',
+                          fontSize: 13,
+                          color: RibnColors.whiteColor)),
+                  TextSpan(
+                      text: ' Discord channel ',
+                      style: const TextStyle(
+                          fontFamily: 'DM Sans',
+                          fontSize: 13,
+                          color: RibnColors.secondary),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () async {
+                          await launchUrl(Uri.parse(
+                              'https://discord.com/invite/SjYVTBnsQR'));
+                        }),
+                  const TextSpan(
+                      text: 'for help with general questions.',
+                      style: TextStyle(
+                          fontFamily: 'DM Sans',
+                          fontSize: 13,
+                          color: RibnColors.whiteColor))
+                ],
+              ),
+            ),
+            isError: false,
+            width: 350,
+            height: 800,
+            buttonTitleColor: RibnColors.whiteColor,
+            buttonTitle: 'Done',
+            onTap: () {
+              Keys.navigatorKey.currentState?.pushNamed(Routes.home);
+            },
+          );
+          if (kIsWeb) {
+            return pageRouteNotAnimated(
+              page,
+              settings,
+            );
+          }
+          return pageRoute(page, settings);
+        }
+      case Routes.feedbackError:
+        {
+          final RibnMessageScreen page = RibnMessageScreen(
+              title: 'Something went wrong',
+              topMessage:
+                  'Sorry, it looks like you are having trouble submitting your feedback or reporting a bug. Ribn wallet requires a stable internet connection to function properly. ',
+              bottomMessage: RichText(
+                text: TextSpan(
+                  style: const TextStyle(fontFamily: 'DM Sans', fontSize: 13),
+                  children: <TextSpan>[
+                    const TextSpan(
+                        text:
+                            'If you continue to experience issues, you can reach out to us through our',
+                        style: TextStyle(
+                            fontFamily: 'DM Sans',
+                            fontSize: 13,
+                            color: RibnColors.whiteColor)),
+                    TextSpan(
+                        text: ' Discord channel ',
+                        style: const TextStyle(
+                            fontFamily: 'DM Sans',
+                            fontSize: 13,
+                            color: RibnColors.secondary),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () async {
+                            await launchUrl(Uri.parse(
+                                'https://discord.com/invite/SjYVTBnsQR'));
+                          }),
+                    const TextSpan(
+                        text:
+                            'for assistance. Thank you for your patience and understanding.',
+                        style: TextStyle(
+                            fontFamily: 'DM Sans',
+                            fontSize: 13,
+                            color: RibnColors.whiteColor))
+                  ],
+                ),
+              ),
+              isError: true,
+              width: 350,
+              height: 800,
+              buttonTitleColor: RibnColors.whiteColor,
+              buttonTitle: 'Done',
+              onTap: () {
+                Keys.navigatorKey.currentState?.pushNamed(Routes.home);
+              });
+          if (kIsWeb) {
+            return pageRouteNotAnimated(
+              page,
+              settings,
+            );
+          }
+          return pageRoute(page, settings);
+        }
+      case Routes.feedback:
+        {
+          final RibnFeedbackForm page = RibnFeedbackForm();
+          if (kIsWeb) {
+            return pageRouteNotAnimated(
+              page,
+              settings,
+            );
+          }
+          return pageRoute(page, settings);
         }
       default:
         return errorRoute();

@@ -45,8 +45,7 @@ jobs:
         run: make gen
 
       - name: Build iOS app
-        run: flutter build ipa --release --no-codesign --build-number=${{github.run_number}} --dart-define=nightlyBuildVersion=$nversion
-
+        run: flutter build appbundle --release --build-number=${{github.run_number}} --dart-define=nightlyBuildVersion=$nversion --dart-define=ASSIGNEE_ID=${{secrets.ASSIGNEE_ID}} --dart-define=ISSUE_TYPE=${{secrets.ISSUE_TYPE}} --dart-define=JIRA_ATTACH_ISSUE_URL=${{secrets.JIRA_ATTACH_ISSUE_URL}} --dart-define=JIRA_CREATE_ISSUE_URL=${{secrets.JIRA_CREATE_ISSUE_URL}} --dart-define=JIRA_AUTH_TOKEN=${{secrets.JIRA_AUTH_TOKEN}} --dart-define=JIRA_EMAIL=${{secrets.JIRA_EMAIL}}  --dart-define=JIRA_PROJECT_KEY=${{secrets.JIRA_PROJECT_KEY}}
       - name: Save iOS output
         id: nightly_ios_pass
         uses: actions/cache/save@v3

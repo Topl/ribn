@@ -2,7 +2,13 @@ var ext_utils = {
 	logToConsole: (/** @type {any} */ dynamic) => {
 		console.log(dynamic);
 	},
-
+	/**
+	 * @param {string} urlToOpen the url to be used to open a new tab 
+	 * Opens URL on a new tab
+	 */
+	openLinkInNewTab: (urlToOpen) => {
+		chrome.tabs.create({ url: urlToOpen });
+	},
 	getALlowedString: () => {
 		return "";
 	},

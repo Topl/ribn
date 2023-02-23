@@ -62,4 +62,10 @@ class PlatformUtils implements IPlatformUtils {
   Future<T> convertToFuture<T>(Object jsPromise) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> openLinkInChromeTab(String url) {
+    // TODO: implement openLinkInNewTab
+    throw UnimplementedError();
+  }
 }
