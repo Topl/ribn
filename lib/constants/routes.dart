@@ -19,8 +19,6 @@ class Routes {
   static const displaySeedphrase = '/display-seed-phrase';
   static const walletInfoChecklist = '/wallet-info-checklist';
   static const walletCreated = '/wallet-created';
-  static const feedbackError = '/feedback-error';
-  static const feedbackSuccess = '/feedback-success';
 
   static const seedPhraseConfirm = '/seed-phrase-confirm';
   static const extensionInfo = '/extension-info';

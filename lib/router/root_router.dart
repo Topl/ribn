@@ -3,7 +3,6 @@ import 'dart:convert';
 
 // Flutter imports:
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 // Project imports:
 import 'package:ribn/constants/routes.dart';
@@ -41,13 +40,8 @@ import 'package:ribn/presentation/transfers/asset_transfer_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
 import 'package:ribn/presentation/transfers/tx_confirmation_page.dart';
 import 'package:ribn/presentation/transfers/tx_review_page.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
 // Package imports:
 import 'package:ribn_toolkit/models/transactions/ribn_activity_details_model.dart';
-import 'package:ribn_toolkit/widgets/molecules/messages/ribn_message_screen.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import '../constants/keys.dart';
 
 // import 'package:ribn/models/transaction_history_entry.dart';
 
@@ -369,115 +363,6 @@ class RootRouter {
             LoadingDApp(response: response),
             settings,
           );
-        }
-      case Routes.feedbackSuccess:
-        {
-          final RibnMessageScreen page = RibnMessageScreen(
-            title: 'Thank you for your feedback',
-            topMessage:
-                'Our Ribn team will review your feedback and do our best to resolve your current issue or consider your feature request in future updates.',
-            bottomMessage: RichText(
-              text: TextSpan(
-                style: const TextStyle(fontFamily: 'DM Sans', fontSize: 13),
-                children: <TextSpan>[
-                  const TextSpan(
-                      text:
-                          'Thank you again for your support. We appreciate your help in making our services better. '
-                          'Feel free to also visit our ',
-                      style: TextStyle(
-                          fontFamily: 'DM Sans',
-                          fontSize: 13,
-                          color: RibnColors.whiteColor)),
-                  TextSpan(
-                      text: ' Discord channel ',
-                      style: const TextStyle(
-                          fontFamily: 'DM Sans',
-                          fontSize: 13,
-                          color: RibnColors.secondary),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () async {
-                          await launchUrl(Uri.parse(
-                              'https://discord.com/invite/SjYVTBnsQR'));
-                        }),
-                  const TextSpan(
-                      text: 'for help with general questions.',
-                      style: TextStyle(
-                          fontFamily: 'DM Sans',
-                          fontSize: 13,
-                          color: RibnColors.whiteColor))
-                ],
-              ),
-            ),
-            isError: false,
-            width: 350,
-            height: 800,
-            buttonTitleColor: RibnColors.whiteColor,
-            buttonTitle: 'Done',
-            onTap: () {
-              Keys.navigatorKey.currentState?.pushNamed(Routes.home);
-            },
-          );
-          if (kIsWeb) {
-            return pageRouteNotAnimated(
-              page,
-              settings,
-            );
-          }
-          return pageRoute(page, settings);
-        }
-      case Routes.feedbackError:
-        {
-          final RibnMessageScreen page = RibnMessageScreen(
-              title: 'Something went wrong',
-              topMessage:
-                  'Sorry, it looks like you are having trouble submitting your feedback or reporting a bug. Ribn wallet requires a stable internet connection to function properly. ',
-              bottomMessage: RichText(
-                text: TextSpan(
-                  style: const TextStyle(fontFamily: 'DM Sans', fontSize: 13),
-                  children: <TextSpan>[
-                    const TextSpan(
-                        text:
-                            'If you continue to experience issues, you can reach out to us through our',
-                        style: TextStyle(
-                            fontFamily: 'DM Sans',
-                            fontSize: 13,
-                            color: RibnColors.whiteColor)),
-                    TextSpan(
-                        text: ' Discord channel ',
-                        style: const TextStyle(
-                            fontFamily: 'DM Sans',
-                            fontSize: 13,
-                            color: RibnColors.secondary),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () async {
-                            await launchUrl(Uri.parse(
-                                'https://discord.com/invite/SjYVTBnsQR'));
-                          }),
-                    const TextSpan(
-                        text:
-                            'for assistance. Thank you for your patience and understanding.',
-                        style: TextStyle(
-                            fontFamily: 'DM Sans',
-                            fontSize: 13,
-                            color: RibnColors.whiteColor))
-                  ],
-                ),
-              ),
-              isError: true,
-              width: 350,
-              height: 800,
-              buttonTitleColor: RibnColors.whiteColor,
-              buttonTitle: 'Done',
-              onTap: () {
-                Keys.navigatorKey.currentState?.pushNamed(Routes.home);
-              });
-          if (kIsWeb) {
-            return pageRouteNotAnimated(
-              page,
-              settings,
-            );
-          }
-          return pageRoute(page, settings);
         }
       default:
         return errorRoute();
