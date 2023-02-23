@@ -6,7 +6,6 @@ import 'package:redux_epics/redux_epics.dart';
 import 'package:ribn/middlewares/epic_middleware.dart';
 import 'package:ribn/middlewares/internal_message_middleware.dart';
 import 'package:ribn/middlewares/keychain_middleware.dart';
-import 'package:ribn/middlewares/login_middleware.dart';
 import 'package:ribn/middlewares/misc_middleware.dart';
 import 'package:ribn/middlewares/transaction_middleware.dart';
 import 'package:ribn/models/app_state.dart';
@@ -26,7 +25,7 @@ List<Middleware<AppState>> createAppMiddleware({
 }) {
   return [
     // ...(createOnboardingMiddleware(onboardingRepo)),
-    ...(createLoginMiddleware(loginRepo)),
+    // ...(createLoginMiddleware(loginRepo)),
     ...(createKeychainMiddleware(keychainRepo)),
     ...(createTransactionMiddleware(transactionRepo, keychainRepo)),
     ...(createInternalMessageMiddleware(miscRepo)),

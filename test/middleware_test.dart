@@ -10,11 +10,11 @@ import 'package:redux/redux.dart';
 
 // Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
-import 'package:ribn/actions/login_actions.dart';
 import 'package:ribn/actions/onboarding_actions.dart';
 import 'package:ribn/constants/test_data.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
+import 'package:ribn/providers/login_provider.dart';
 import 'package:ribn/redux.dart';
 import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/repositories/onboarding_repository.dart';
