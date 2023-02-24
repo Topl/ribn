@@ -1,6 +1,13 @@
 /// All the strings that are being used throughout the app.
 class Strings {
   Strings._();
+  static const String submitForm = "Submit";
+  static const String uploadImage = "Upload screenshot";
+  static const String description = "Description";
+  static const String ribnSupportDescriptionHint =
+      "Write 50-500 characters about your experience, whether it was great or has room for improvement. You can also report technical bugs or request new features.";
+  static const String iWouldLiketTo = 'Select an option';
+  static const String feedbackForm = 'How can we help?';
   static const String copyToClipboard = 'Copy to clipboard';
   static const String copy = 'Copy';
   static const String activity = 'Activity';
@@ -296,9 +303,10 @@ Ribn Wallet does not control the functionality of biometrics and does not have a
   static const String recentActivity = 'Recent Activity';
   static const String transactionDetails = 'Activity details';
   static const String noActivityToReview = 'You currently have no wallet activity to review.';
-  static const String noAssetsInWallet = 'You currently have no assets in your wallet';
+  static const String noAssetsInWallet = 'You currently have no assets in your wallet.';
+  static const String noAssetsAndBalanceInWallet = 'Want to add more assets to your wallet? ';
   static const String emptyStateBody =
-      'Here’s how you can get started:\n • Mint a new asset to a wallet address\n • Share your address to receive assets';
+      'Get started by sharing your address to receive assets to your wallet.';
   static const String connect = 'Connect';
   static const String connectDApp =
       ' allowing this site to see my Ribn address, and suggest transactions to approve.';

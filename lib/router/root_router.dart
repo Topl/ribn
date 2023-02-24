@@ -240,7 +240,8 @@ class RootRouter {
         }
       case Routes.txReview:
         {
-          final TransferDetails transferDetails = settings.arguments as TransferDetails;
+          final TransferDetails transferDetails =
+              settings.arguments as TransferDetails;
 
           if (kIsWeb) {
             return pageRouteNotAnimated(
@@ -255,7 +256,8 @@ class RootRouter {
         }
       case Routes.txConfirmation:
         {
-          final TransferDetails transferDetails = settings.arguments as TransferDetails;
+          final TransferDetails transferDetails =
+              settings.arguments as TransferDetails;
           if (kIsWeb) {
             return pageRouteNotAnimated(
               TxConfirmationPage(transferDetails: transferDetails),
@@ -279,7 +281,8 @@ class RootRouter {
         }
       case Routes.txHistoryDetails:
         final Map transactionDetailsMap = settings.arguments as Map;
-        final RibnActivityDetailsModel transactionDetails = RibnActivityDetailsModel.fromJson(
+        final RibnActivityDetailsModel transactionDetails =
+            RibnActivityDetailsModel.fromJson(
           jsonEncode(transactionDetailsMap),
         );
         {
@@ -317,7 +320,8 @@ class RootRouter {
         }
       case Routes.enable:
         {
-          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
+          final InternalMessage pendingRequest =
+              settings.arguments as InternalMessage;
           if (kIsWeb) {
             return pageRouteNotAnimated(EnablePage(pendingRequest), settings);
           }
@@ -325,7 +329,8 @@ class RootRouter {
         }
       case Routes.externalSigning:
         {
-          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
+          final InternalMessage pendingRequest =
+              settings.arguments as InternalMessage;
           if (kIsWeb) {
             return pageRouteNotAnimated(
               ExternalSigningPage(pendingRequest),
@@ -336,17 +341,20 @@ class RootRouter {
         }
       case Routes.error:
         {
-          final String errorMessage = (settings.arguments ?? 'Unknown error occurred') as String;
+          final String errorMessage =
+              (settings.arguments ?? 'Unknown error occurred') as String;
           return errorRoute(errorMsg: errorMessage);
         }
       case Routes.connectDApp:
         {
-          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
+          final InternalMessage pendingRequest =
+              settings.arguments as InternalMessage;
           return pageRouteNotAnimated(ConnectDApp(pendingRequest), settings);
         }
       case Routes.reviewAndSignDApp:
         {
-          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
+          final InternalMessage pendingRequest =
+              settings.arguments as InternalMessage;
           if (kIsWeb) {
             return pageRouteNotAnimated(
               ReviewAndSignDApp(pendingRequest),
@@ -357,7 +365,8 @@ class RootRouter {
         }
       case Routes.loadingDApp:
         {
-          final InternalMessage response = settings.arguments as InternalMessage;
+          final InternalMessage response =
+              settings.arguments as InternalMessage;
           return pageRouteNotAnimated(
             LoadingDApp(response: response),
             settings,
