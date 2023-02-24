@@ -11,6 +11,7 @@ import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/models/ribn_network.dart';
 import 'package:ribn/models/transfer_details.dart';
+import 'package:ribn/providers/internal_message_provider.dart';
 import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/repositories/keychain_repository.dart';
 import 'package:ribn/repositories/transaction_repository.dart';
@@ -145,7 +146,7 @@ class TransactionNotifier extends StateNotifier<void> {
           id: pendingRequest.id,
           origin: pendingRequest.origin,
         );
-        next(SendInternalMsgAction(response));
+        ref.read(internalMessageProvider.notifier).sendInternalMessage(message: response);
       } else {
         final List<Credentials> credentials = keychainRepo.getCredentials(
           store.state.keychainState.hdWallet!,
@@ -167,7 +168,7 @@ class TransactionNotifier extends StateNotifier<void> {
           origin: pendingRequest.origin,
         );
 
-        next(SendInternalMsgAction(response));
+        ref.read(internalMessageProvider.notifier).sendInternalMessage(message: response);
       }
     } catch (e) {
       final InternalMessage response = InternalMessage(
@@ -178,7 +179,7 @@ class TransactionNotifier extends StateNotifier<void> {
         id: pendingRequest.id,
         origin: pendingRequest.origin,
       );
-      next(SendInternalMsgAction(response));
+      ref.read(internalMessageProvider.notifier).sendInternalMessage(message: response);
     }
   }
 }

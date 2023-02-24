@@ -11,9 +11,9 @@ class InternalMessageNotifier extends StateNotifier<void> {
   InternalMessageNotifier(this.ref) : super(null);
 
   void sendInternalMessage({
-    required InternalMessage msg,
+    required InternalMessage message,
   }) {
     MiscRepository miscRepo = MiscRepository();
-    miscRepo.sendInternalMessage(msg);
+    miscRepo.sendInternalMessage(message);
   }
 }
