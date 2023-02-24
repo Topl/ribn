@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final analyticsProvider = StateNotifierProvider<AnalyticsNotifier, void>((ref) {
+final StateNotifierProvider<AnalyticsNotifier, void> analyticsProvider =
+    StateNotifierProvider<AnalyticsNotifier, void>((ref) {
   return AnalyticsNotifier();
 });
 
