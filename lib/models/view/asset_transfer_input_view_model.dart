@@ -4,24 +4,22 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/models/ribn_network.dart';
 
-part 'mint_input_view_model.freezed.dart';
+part 'asset_transfer_input_view_model.freezed.dart';
 
 @freezed
-class MintInputViewModel with _$MintInputViewModel {
+class AssetTransferInputViewModel with _$AssetTransferInputViewModel {
   // Added constructor. Must not have any parameter
   // const PolyTransferInputViewModel._();
 
-  const factory MintInputViewModel({
-    /// Handler for initiating mint asset tx.
+  const factory AssetTransferInputViewModel({
+    /// Handler for initiating tx.
     required Future<void> Function({
-      required String assetShortName,
-      required String amount,
       required String recipient,
+      required String amount,
       required String note,
-      bool mintingToMyWallet,
-      bool mintingNewAsset,
+      required AssetCode assetCode,
       AssetDetails? assetDetails,
-      required Function(bool success) onRawTxCreated,
+      required void Function(bool success) onRawTxCreated,
     })
         initiateTx,
 
@@ -31,21 +29,24 @@ class MintInputViewModel with _$MintInputViewModel {
     /// Current network id.
     required RibnNetwork currentNetwork,
 
-    /// The list of assets previously issued/minted by this wallet.
+    /// All assets owned by this wallet.
     required List<AssetAmount> assets,
 
     /// Locally stored asset details.
     required Map<String, AssetDetails> assetDetails,
-  }) = _MintInputViewModel;
+
+    /// Gets total balance in wallet for a particular asset.
+    required num Function(String?) getAssetBalance,
+  }) = _AssetTransferInputViewModel;
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is MintInputViewModel &&
-        other.networkFee == networkFee &&
+    return other is AssetTransferInputViewModel &&
         listEquals(other.assets, assets) &&
-        other.currentNetwork == currentNetwork &&
-        mapEquals(other.assetDetails, assetDetails);
+        other.networkFee == networkFee &&
+        mapEquals(other.assetDetails, assetDetails) &&
+        other.currentNetwork == currentNetwork;
   }
 }
