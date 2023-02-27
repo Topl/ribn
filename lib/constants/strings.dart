@@ -275,7 +275,7 @@ Write down the each word in the exact order it is presented.''';
   static const String myRibnWalletAddress = 'My Ribn Wallet Address';
   static const String copyAddress = 'Copy address';
   static const String privacyPolicyUrl = 'https://legal.topl.co/Privacy_Policy';
-  static const String termsOfUseUrl = 'https://legal.topl.co/Ribn_License_Agreement';
+  static const String termsOfUseUrl = 'https://legal.topl.co/Ribn_Terms_of_Use';
   static const String loginPasswordInfo =
       'Your Wallet Password can lock and unlock your\n wallet on a device where it is already stored.';
   static const String refillCurrentPolyBalance =
