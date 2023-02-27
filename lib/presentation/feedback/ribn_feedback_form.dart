@@ -1,6 +1,5 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -112,6 +111,7 @@ class RibnFeedbackForm extends HookWidget {
                             child: Padding(
                               padding: EdgeInsets.only(top: 10),
                               child: RibnTextFieldWithTitle(
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
                                 inputFormatters: [],
                                 hintColor: RibnColors.greyedOut.withOpacity(0.5),
                                 controller: _emailController,
@@ -120,7 +120,8 @@ class RibnFeedbackForm extends HookWidget {
                                 titleColor: RibnColors.defaultText,
                                 titleFontWeight: FontWeight.w400,
                                 validator: (String? text) {
-                                  if (EmailValidator.validate(_emailController.text)) {
+                                  print('QQQQ validation email $text');
+                                  if (!EmailValidator.validate(_emailController.text)) {
                                     return '';
                                   }
                                   return null;
@@ -146,18 +147,18 @@ class RibnFeedbackForm extends HookWidget {
                                     controller: _descriptionController,
                                     noteLength: _descriptionController.text.length,
                                     validator: (String? text) {
-                                      if (_descriptionController.text.length >= 50) {
+                                      print('QQQQ validating note $text');
+                                      if (_descriptionController.text.length < 50) {
                                         return '';
                                       }
                                       return null;
                                     },
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
                                     tooltipIcon: Image.asset(
                                       RibnAssets.greyHelpBubble,
                                       width: 18,
                                       // QQQQ check
-                                      // color: !_descriptionValid
-                                      //     ? RibnColors.redColor
-                                      //     : RibnColors.defaultText,
+                                      color: RibnColors.redColor,
                                     ),
                                   ))
                             ],
@@ -192,44 +193,51 @@ class RibnFeedbackForm extends HookWidget {
                             ],
                           ),
                           Padding(
-                              padding: EdgeInsets.only(top: 10, bottom: 20),
-                              child: Container(
-                                height: 200,
-                                width: 350,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: _imageFileList.value.length > 4
-                                          ? RibnColors.redColor
-                                          : RibnColors.greyedOut.withOpacity(0.5),
-                                    ),
-                                    borderRadius: BorderRadius.all(Radius.circular(4))),
-                                child: _imageFileList.value.isEmpty
-                                    ? Center(
-                                        child: RibnFont10TextWidget(
-                                          text: 'No Images uploaded',
-                                          textAlign: TextAlign.center,
-                                          textColor: RibnColors.greyedOut,
-                                          fontWeight: FontWeight.w300,
-                                        ),
-                                      )
-                                    : Align(
-                                        alignment: FractionalOffset.topCenter,
-                                        child: ListView.builder(
-                                            padding: EdgeInsets.zero,
-                                            itemCount: _imageFileList.value.length,
-                                            itemBuilder: (context, index) {
-                                              return RibnFeedbackFileCard(
-                                                file: _imageFileList.value[index],
-                                                fileSize: _imageSizes.value[index],
-                                                onPressed: () {
-                                                  print('QQQQ test this');
-                                                  _imageFileList.value.removeAt(index);
-                                                  _imageSizes.value.removeAt(index);
-                                                },
-                                              );
-                                            }),
+                            padding: EdgeInsets.only(top: 10, bottom: 20),
+                            child: Container(
+                              height: 200,
+                              width: 350,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: _imageFileList.value.length > 4
+                                        ? RibnColors.redColor
+                                        : RibnColors.greyedOut.withOpacity(0.5),
+                                  ),
+                                  borderRadius: BorderRadius.all(Radius.circular(4))),
+                              child: _imageFileList.value.isEmpty
+                                  ? Center(
+                                      child: RibnFont10TextWidget(
+                                        text: 'No Images uploaded',
+                                        textAlign: TextAlign.center,
+                                        textColor: RibnColors.greyedOut,
+                                        fontWeight: FontWeight.w300,
                                       ),
-                              )),
+                                    )
+                                  : Align(
+                                      alignment: FractionalOffset.topCenter,
+                                      child: ListView.builder(
+                                          padding: EdgeInsets.zero,
+                                          itemCount: _imageFileList.value.length,
+                                          itemBuilder: (context, index) {
+                                            return RibnFeedbackFileCard(
+                                              file: _imageFileList.value[index],
+                                              fileSize: _imageSizes.value[index],
+                                              onPressed: () {
+                                                final _modifiedImageFileList = [
+                                                  ..._imageFileList.value
+                                                ];
+                                                _modifiedImageFileList.removeAt(index);
+                                                _imageFileList.value = _modifiedImageFileList;
+
+                                                final _modifiedImageSizes = [..._imageSizes.value];
+                                                _modifiedImageSizes.removeAt(index);
+                                                _imageSizes.value = _modifiedImageSizes;
+                                              },
+                                            );
+                                          }),
+                                    ),
+                            ),
+                          ),
                           if (_imageFileList.value.length > 4)
                             Padding(
                               padding: EdgeInsets.only(bottom: 25, top: 0),
