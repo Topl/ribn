@@ -9,6 +9,7 @@ class Routes {
 
   /// Routes used throughout the application.
   static const welcome = '/welcome';
+  static const optIn = '/opt-in';
   static const selectAction = '/select-action';
   static const gettingStarted = '/getting-started';
   static const seedPhraseInfoChecklist = '/seedphrase-checklist';
@@ -30,14 +31,10 @@ class Routes {
   static const restoreWalletNewPassword = '/restore-wallet/new-password';
   static const enterWalletPassword = '/restore-wallet/topl-key/enter-password';
   static const loginRestoreWalletWithToplKey = '/login/restore-wallet/topl-key';
-  static const loginRestoreWalletEnterPassword =
-      '/login/restore-wallet/enter-password';
-  static const onboardingRestoreWalletWithMnemonic =
-      '/onboarding/restore-wallet/mnemonic';
-  static const onboardingRestoreWalletWithToplKey =
-      '/onboarding/restore-wallet/topl-key';
-  static const onboardingRestoreWalletEnterPassword =
-      '/onboarding/restore-wallet/enter-password';
+  static const loginRestoreWalletEnterPassword = '/login/restore-wallet/enter-password';
+  static const onboardingRestoreWalletWithMnemonic = '/onboarding/restore-wallet/mnemonic';
+  static const onboardingRestoreWalletWithToplKey = '/onboarding/restore-wallet/topl-key';
+  static const onboardingRestoreWalletEnterPassword = '/onboarding/restore-wallet/enter-password';
   static const onboardingEnableBiometrics = '/onboarding/enable-biometrics';
   static const assetsTransferInput = '/asset-transfer';
   static const polyTransferInput = '/poly-transfer-input';

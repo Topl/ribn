@@ -35,6 +35,7 @@ import 'package:ribn/presentation/onboarding/restore_wallet/create_new_wallet_pa
 import 'package:ribn/presentation/onboarding/restore_wallet/enter_wallet_password_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/restore_wallet_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/restore_with_topl_key_page.dart';
+import 'package:ribn/presentation/onboarding/widgets/opt_in_tracker_page.dart';
 import 'package:ribn/presentation/settings/settings_page.dart';
 import 'package:ribn/presentation/transaction_history/transaction_history_details_page/transaction_history_details_page.dart';
 import 'package:ribn/presentation/transaction_history/transaction_history_page.dart';
@@ -63,6 +64,13 @@ class RootRouter {
             return pageRouteNotAnimated(const WelcomePage(), settings);
           }
           return pageRoute(const WelcomePage(), settings);
+        }
+      case Routes.optIn:
+        {
+          if (kIsWeb) {
+            return pageRouteNotAnimated(const OptInTracker(), settings);
+          }
+          return pageRoute(const OptInTracker(), settings);
         }
       case Routes.selectAction:
         {

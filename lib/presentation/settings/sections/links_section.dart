@@ -1,17 +1,18 @@
 // Flutter imports:
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/utils/url_utils.dart';
 
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
 import 'package:ribn/constants/strings.dart';
 
 /// The section for displaying helpful links.
-class LinksSection extends StatelessWidget {
+class LinksSection extends HookConsumerWidget {
   const LinksSection({Key? key}) : super(key: key);
   final TextStyle linkStyle = const TextStyle(
     fontSize: 10.5,
@@ -21,10 +22,7 @@ class LinksSection extends StatelessWidget {
   );
 
   @override
-  Widget build(BuildContext context) {
-    final Uri url1 = Uri.parse(Strings.privacyPolicyUrl);
-    final Uri url2 = Uri.parse(Strings.termsOfUseUrl);
-
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -37,7 +35,7 @@ class LinksSection extends StatelessWidget {
           text: TextSpan(
             text: Strings.privacyPolicy,
             recognizer: TapGestureRecognizer()
-              ..onTap = () async => await launchUrl(url1),
+              ..onTap = () async => await launchPrivacyPolicyUrl(ref),
             style: linkStyle,
           ),
         ),
@@ -45,8 +43,7 @@ class LinksSection extends StatelessWidget {
         RichText(
           text: TextSpan(
             text: Strings.termsOfUse,
-            recognizer: TapGestureRecognizer()
-              ..onTap = () async => await launchUrl(url2),
+            recognizer: TapGestureRecognizer()..onTap = () async => await launchTermsOfUse(ref),
             style: linkStyle,
           ),
         ),

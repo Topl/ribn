@@ -107,7 +107,6 @@ unlinked_spec.ds
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
 **/ios/Podfile.lock
-**/ios**//project.pbxproj
 
 # macOS
 **/Flutter/ephemeral/
