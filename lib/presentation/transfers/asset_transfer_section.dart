@@ -94,7 +94,7 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
     return WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.updateButton(
         BottomReviewAction(
-          maxHeight: kIsWeb ? 120 : 143,
+          maxHeight: kIsWeb ? 120 : 150,
           children: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
