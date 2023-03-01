@@ -1,16 +1,17 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 // Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:ribn/models/view/poly_transfer_class.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
 import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 
@@ -26,11 +27,19 @@ import 'package:ribn/utils.dart';
 import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/fee_info.dart';
 
+final polyTransferProvider = StateProvider.autoDispose<PolyTransferClass>((ref) {
+  return PolyTransferClass(
+    amount: 0,
+    note: '',
+    recipientAddress: '',
+  );
+});
+
 /// The input page that allows initiating poly transfer transaction.
 ///
 /// Builds the necessary input fields needed for a poly transfer.
 // ignore: must_be_immutable
-class PolyTransferSection extends HookWidget {
+class PolyTransferSection extends HookConsumerWidget {
   PolyTransferInputViewModel vm;
   final Function updateButton;
 
@@ -55,11 +64,7 @@ class PolyTransferSection extends HookWidget {
   // }
 
   // TODO, Update this so that it's not causing a render in another widget
-  void renderBottomButton({
-    required TextEditingController amountController,
-    required TextEditingController noteController,
-    required String recipientAddress,
-  }) {
+  void renderBottomButton() {
     return WidgetsBinding.instance.addPostFrameCallback((_) {
       updateButton(
         BottomReviewAction(
@@ -72,9 +77,6 @@ class PolyTransferSection extends HookWidget {
               FeeInfo(fee: vm.networkFee),
               _ReviewButton(
                 vm: vm,
-                amountController: amountController,
-                noteController: noteController,
-                recipientAddress: recipientAddress,
               ),
             ],
           ),
@@ -84,26 +86,18 @@ class PolyTransferSection extends HookWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController _noteController = useTextEditingController();
-    final TextEditingController _amountController = useTextEditingController();
-    final TextEditingController _recipientController = useTextEditingController();
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Have to keep watch here otherwise the controller will dispose
+    // ignore: unused_local_variable
+    final polyTransfer = ref.watch(polyTransferProvider);
+    final _recipientController = useTextEditingController();
+    final _noteController = useTextEditingController();
 
-    /// Assigned the valid recipient address
     final _validRecipientAddress = useState('');
 
     useEffect(() {
-      renderBottomButton(
-        amountController: _amountController,
-        noteController: _noteController,
-        recipientAddress: _validRecipientAddress.value,
-      );
+      renderBottomButton();
     }, []);
-
-    /// True if amount is valid.
-    // ignore: prefer_final_fields
-    // QQQQ probably delete
-    // final _validAmount = useState(false);
 
     return Column(
       children: [
@@ -119,7 +113,6 @@ class PolyTransferSection extends HookWidget {
                 // field for entering amount of polys needed for transfer
                 _AmountField(
                   vm: vm,
-                  amountController: _amountController,
                 ),
                 // field for displaying the sender addresss
                 const FromAddressField(),
@@ -128,30 +121,20 @@ class PolyTransferSection extends HookWidget {
                   controller: _recipientController,
                   validRecipientAddress: _validRecipientAddress.value,
                   // validate the address entered on text change
-                  onChanged: (text) => validateRecipientAddress(
-                    networkName: vm.currentNetwork.networkName,
-                    address: _recipientController.text,
-                    handleResult: (bool result) {
-                      if (result) {
-                        _validRecipientAddress.value = _recipientController.text;
-                        _recipientController.text = '';
-                      } else {
-                        _validRecipientAddress.value = '';
-                      }
-                    },
-                  ),
-                  onBackspacePressed: () {
-                    if (_validRecipientAddress.value.isNotEmpty) {
-                      _recipientController.text = _validRecipientAddress.value;
-                      _recipientController
-                        ..text =
-                            _recipientController.text.substring(0, _recipientController.text.length)
-                        ..selection = TextSelection.collapsed(
-                          offset: _recipientController.text.length,
-                        );
-                    }
-                    _validRecipientAddress.value = '';
+                  onChanged: (text) {
+                    ref.read(polyTransferProvider.notifier).state =
+                        ref.read(polyTransferProvider).copyWith(recipientAddress: text);
+                    validateRecipientAddress(
+                      networkName: vm.currentNetwork.networkName,
+                      address: _recipientController.text,
+                      handleResult: (bool result) {
+                        if (result) {
+                          _validRecipientAddress.value = _recipientController.text;
+                        }
+                      },
+                    );
                   },
+                  onBackspacePressed: () {},
                   icon: SvgPicture.asset(RibnAssets.recipientFingerprint),
                   alternativeDisplayChild: const AddressDisplayContainer(
                     text: Strings.yourRibnWalletAddress,
@@ -167,6 +150,10 @@ class PolyTransferSection extends HookWidget {
                     RibnAssets.greyHelpBubble,
                     width: 18,
                   ),
+                  onChanged: (String note) {
+                    ref.read(polyTransferProvider.notifier).state =
+                        ref.read(polyTransferProvider).copyWith(note: note);
+                  },
                 ),
               ],
             ),
@@ -213,67 +200,48 @@ class _PolyDisplay extends StatelessWidget {
 }
 
 /// Builds the TextField for entering amount needed for the transfer.
-class _AmountField extends StatelessWidget {
-  final TextEditingController amountController;
+class _AmountField extends HookConsumerWidget {
   final PolyTransferInputViewModel vm;
   const _AmountField({
     required this.vm,
-    required this.amountController,
     Key? key,
   }) : super(key: key);
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final amountController = useTextEditingController();
     print('QQQQ vm ${vm.maxTransferrableAmount}');
+    final int amount = ref.watch(polyTransferProvider.select((value) => value.amount));
+    print('QQQQ amountController ${amount}');
 
-    bool _validAmount = TransferUtils.validateAmount(
-      amountController.value.text,
-      vm.maxTransferrableAmount,
-    );
-
-    return CustomInputField(
-      itemLabel: Strings.amount,
-      item: CustomTextField(
-        width: 310,
-        height: 36,
-        controller: amountController,
-        hintText: Strings.amountHint,
-        keyboardType: TextInputType.number,
-        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        hasError: !_validAmount,
-
-        // QQQQ probably remove
-        // onChanged: (String amount) {
-        //   _validAmount = TransferUtils.validateAmount(
-        //     amount,
-        //     vm.maxTransferrableAmount,
-        //   );
-        // },
-      ),
+    return AssetAmountField(
+      controller: amountController,
+      maxTransferrableAmount: vm.maxTransferrableAmount,
+      selectedUnit: 'POLY',
+      onChanged: (String amount) {
+        ref.read(polyTransferProvider.notifier).state =
+            ref.read(polyTransferProvider).copyWith(amount: int.parse(amount));
+      },
     );
   }
 }
 
-class _ReviewButton extends StatelessWidget {
-  final TextEditingController amountController;
+class _ReviewButton extends HookConsumerWidget {
   final PolyTransferInputViewModel vm;
-  final String recipientAddress;
-  final TextEditingController noteController;
   const _ReviewButton({
     required this.vm,
-    required this.amountController,
-    required this.recipientAddress,
-    required this.noteController,
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final polyTransfer = ref.watch(polyTransferProvider);
+
     bool _validAmount = TransferUtils.validateAmount(
-      amountController.value.text,
+      polyTransfer.amount,
       vm.maxTransferrableAmount,
     );
     final bool enteredValidInputs =
-        recipientAddress.isNotEmpty && amountController.text.isNotEmpty && _validAmount;
+        polyTransfer.recipientAddress.isNotEmpty && polyTransfer.amount > 0 && _validAmount;
 
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 10),
@@ -290,9 +258,9 @@ class _ReviewButton extends StatelessWidget {
               ? () {
                   context.loaderOverlay.show();
                   vm.initiateTx(
-                    amount: amountController.text,
-                    recipient: recipientAddress,
-                    note: noteController.text,
+                    amount: polyTransfer.amount.toString(),
+                    recipient: polyTransfer.recipientAddress,
+                    note: polyTransfer.note,
                     onRawTxCreated: (bool success) async {
                       context.loaderOverlay.hide();
                       // Display error dialog if failed to create raw tx

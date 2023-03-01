@@ -51,6 +51,7 @@ void validateRecipientAddress({
   Map<String, dynamic> result = {};
   try {
     result = validateAddressByNetwork(networkName, address);
+    print('QQQQ result $result');
   } catch (e) {
     result['success'] = false;
   }
@@ -195,4 +196,3 @@ final emptyStateBody = RichText(
     ],
   ),
 );
-
