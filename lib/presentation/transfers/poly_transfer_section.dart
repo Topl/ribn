@@ -42,19 +42,24 @@ class PolyTransferSection extends HookWidget {
 
   final GlobalKey _formKey = GlobalKey<FormState>();
 
-  @override
-  void initState() {
-    // initialize listeners for each of the TextEditingControllers
-    renderBottomButton();
-  }
+  // @override
+  // void initState() {
+  //   // initialize listeners for each of the TextEditingControllers
+  //   renderBottomButton();
+  // }
 
-  initListener(TextEditingController controller) {
-    controller.addListener(() {
-      renderBottomButton();
-    });
-  }
+  // initListener(TextEditingController controller) {
+  //   controller.addListener(() {
+  //     renderBottomButton();
+  //   });
+  // }
 
-  void renderBottomButton() {
+  // TODO, Update this so that it's not causing a render in another widget
+  void renderBottomButton({
+    required TextEditingController amountController,
+    required TextEditingController noteController,
+    required String recipientAddress,
+  }) {
     return WidgetsBinding.instance.addPostFrameCallback((_) {
       updateButton(
         BottomReviewAction(
@@ -67,6 +72,9 @@ class PolyTransferSection extends HookWidget {
               FeeInfo(fee: vm.networkFee),
               _ReviewButton(
                 vm: vm,
+                amountController: amountController,
+                noteController: noteController,
+                recipientAddress: recipientAddress,
               ),
             ],
           ),
@@ -83,6 +91,14 @@ class PolyTransferSection extends HookWidget {
 
     /// Assigned the valid recipient address
     final _validRecipientAddress = useState('');
+
+    useEffect(() {
+      renderBottomButton(
+        amountController: _amountController,
+        noteController: _noteController,
+        recipientAddress: _validRecipientAddress.value,
+      );
+    }, []);
 
     /// True if amount is valid.
     // ignore: prefer_final_fields
@@ -152,7 +168,6 @@ class PolyTransferSection extends HookWidget {
                     width: 18,
                   ),
                 ),
-                _BottomButton(),
               ],
             ),
           ),
@@ -238,12 +253,12 @@ class _AmountField extends StatelessWidget {
   }
 }
 
-class _BottomButton extends StatelessWidget {
+class _ReviewButton extends StatelessWidget {
   final TextEditingController amountController;
   final PolyTransferInputViewModel vm;
   final String recipientAddress;
   final TextEditingController noteController;
-  const _BottomButton({
+  const _ReviewButton({
     required this.vm,
     required this.amountController,
     required this.recipientAddress,
@@ -253,6 +268,10 @@ class _BottomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool _validAmount = TransferUtils.validateAmount(
+      amountController.value.text,
+      vm.maxTransferrableAmount,
+    );
     final bool enteredValidInputs =
         recipientAddress.isNotEmpty && amountController.text.isNotEmpty && _validAmount;
 
