@@ -51,18 +51,6 @@ class PolyTransferSection extends HookConsumerWidget {
 
   final GlobalKey _formKey = GlobalKey<FormState>();
 
-  // @override
-  // void initState() {
-  //   // initialize listeners for each of the TextEditingControllers
-  //   renderBottomButton();
-  // }
-
-  // initListener(TextEditingController controller) {
-  //   controller.addListener(() {
-  //     renderBottomButton();
-  //   });
-  // }
-
   // TODO, Update this so that it's not causing a render in another widget
   void renderBottomButton() {
     return WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -224,9 +212,6 @@ class _AmountField extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final amountController = useTextEditingController();
     final maxPolys = vm.maxTransferrableAmount;
-    print('QQQQ vm ${vm.maxTransferrableAmount}');
-    final int amount = ref.watch(polyTransferProvider.select((value) => value.amount));
-    print('QQQQ amountController ${amount}');
 
     return AssetAmountField(
       controller: amountController,
