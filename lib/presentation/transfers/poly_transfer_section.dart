@@ -130,11 +130,25 @@ class PolyTransferSection extends HookConsumerWidget {
                       handleResult: (bool result) {
                         if (result) {
                           _validRecipientAddress.value = _recipientController.text;
+                          _recipientController.text = '';
+                        } else {
+                          _validRecipientAddress.value = '';
                         }
                       },
                     );
                   },
-                  onBackspacePressed: () {},
+                  onBackspacePressed: () {
+                    if (_validRecipientAddress.value.isNotEmpty) {
+                      _recipientController.text = _validRecipientAddress.value;
+                      _recipientController
+                        ..text =
+                            _recipientController.text.substring(0, _recipientController.text.length)
+                        ..selection = TextSelection.collapsed(
+                          offset: _recipientController.text.length,
+                        );
+                    }
+                    _validRecipientAddress.value = '';
+                  },
                   icon: SvgPicture.asset(RibnAssets.recipientFingerprint),
                   alternativeDisplayChild: const AddressDisplayContainer(
                     text: Strings.yourRibnWalletAddress,
@@ -209,13 +223,15 @@ class _AmountField extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final amountController = useTextEditingController();
+    final maxPolys = vm.maxTransferrableAmount;
     print('QQQQ vm ${vm.maxTransferrableAmount}');
     final int amount = ref.watch(polyTransferProvider.select((value) => value.amount));
     print('QQQQ amountController ${amount}');
 
     return AssetAmountField(
       controller: amountController,
-      maxTransferrableAmount: vm.maxTransferrableAmount,
+      maxTransferrableAmount: maxPolys,
+      errorString: Strings.overMaxPolys(maxPolys.toInt()),
       selectedUnit: 'POLY',
       onChanged: (String amount) {
         ref.read(polyTransferProvider.notifier).state =
