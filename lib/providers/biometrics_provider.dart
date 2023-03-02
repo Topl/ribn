@@ -1,20 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/models/state/biometrics_state.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/providers/packages/local_authentication_provider.dart';
 import 'package:ribn/utils/extensions.dart';
-import 'package:redux/redux.dart';
-import 'package:ribn/models/app_state.dart';
-import 'package:ribn/providers/store_provider.dart';
 
 import 'logger_provider.dart';
 
 /// Provides biometrics state and functions
-final biometricsProvider =
-    StateNotifierProvider<BiometricsNotifier, AsyncValue<BiometricsState>>((ref) {
+final biometricsProvider = StateNotifierProvider<BiometricsNotifier, AsyncValue<BiometricsState>>((ref) {
   final localAuthentication = ref.read(localAuthenticationProvider)();
   return BiometricsNotifier(ref, localAuthentication);
 });
@@ -26,31 +21,22 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
     _init();
   }
 
-  _init() async {
-    final isSupported = await isBiometricsAuthenticationSupported();
+  Future<bool> _init() async {
+    final isSupported = await _isBiometricsAuthenticationSupported();
 
     if (!isSupported) {
       state = AsyncData(BiometricsState());
-      return;
+      return false;
     }
 
-    final isEnabled = await _isBiometricsEnabled();
+    final isEnabled = await isBiometricsEnabled();
     state = AsyncData(BiometricsState(isSupported: isSupported, isEnabled: isEnabled));
+    return true;
   }
 
   final LocalAuthentication _auth;
 
   static const _biometricsEnabledKey = "biometricsEnabled";
-
-  updateBiometrics(bool isBiometricsEnabled) {
-    final Store<AppState> store = ref.read(storeProvider);
-
-    store.dispatch(
-      UpdateBiometricsAction(
-        isBiometricsEnabled: isBiometricsEnabled,
-      ),
-    );
-  }
 
   /***
    * Toggles [state.isEnabled] and resets [state.authorized]
@@ -78,8 +64,7 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
     // sets value to Override value, if not supplied default to toggle behaviour
     final isEnabled = overrideValue ?? !biometrics.isEnabled;
 
-    await PlatformLocalStorage.instance
-        .saveKVInSecureStorage(_biometricsEnabledKey, isEnabled.toString());
+    await PlatformLocalStorage.instance.saveKVInSecureStorage(_biometricsEnabledKey, isEnabled.toString());
 
     // resets authorized value
     state = AsyncValue.data(biometrics.copyWith(isEnabled: isEnabled, authorized: false));
@@ -118,12 +103,7 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
     return enrolledBiometrics.contains(BiometricType.fingerprint) && enrolledBiometrics.isNotEmpty;
   }
 
-  Future<bool> _isBiometricsEnabled() async {
-    return (await PlatformLocalStorage.instance.getKVInSecureStorage(_biometricsEnabledKey))
-        .toBooleanWithNullableDefault(false);
-  }
-
-  Future<bool> isBiometricsAuthenticationSupported() async {
+  Future<bool> _isBiometricsAuthenticationSupported() async {
     // If is web, return false by default
     if (kIsWeb) return false;
 
@@ -131,5 +111,10 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
     final bool isDeviceSupported = await _auth.isDeviceSupported();
 
     return canCheckBiometrics && isDeviceSupported;
+  }
+
+  static Future<bool> isBiometricsEnabled() async {
+    return (await PlatformLocalStorage.instance.getKVInSecureStorage(_biometricsEnabledKey))
+        .toBooleanWithNullableDefault(false);
   }
 }

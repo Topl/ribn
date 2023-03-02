@@ -9,7 +9,6 @@ import 'package:ribn/presentation/settings/sections/delete_wallet_section.dart';
 import 'package:ribn/presentation/settings/sections/disconnect_dapps_section.dart';
 import 'package:ribn/presentation/settings/sections/links_section.dart';
 import 'package:ribn/presentation/settings/sections/ribn_version_section.dart';
-import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn/providers/settings_page_provider.dart';
 import 'package:ribn/providers/utility_provider.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
@@ -46,43 +45,31 @@ class SettingsListItems extends ConsumerWidget {
     final canDisconnectDApp = ref.watch(canDisconnectDAppsProvider);
     final settings = ref.watch(settingsProvider);
     final appVersion = ref.read(appVersionProvider);
-    final biometrics = ref.watch(biometricsProvider);
 
     return Container(
         color: RibnColors.background,
         child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  RibnVersionSection(appVersion: appVersion),
-                  divider,
-                  const LinksSection(),
-                  divider,
-                  biometrics.when(
-                      data: (data) => data.isSupported
-                          ? BiometricsSection(state: data)
-                          : const SizedBox(),
-                      error: (_, __) => Container(),
-                      loading: () => Container()),
-                  divider,
-                  DangerContainerSection(children: [
-                    //Disconnect DApps
-                    canDisconnectDApp.when(
-                        data: (data) => data
-                            ? DisconnectDAppsSection(
-                                onDisconnectPressed:
-                                    settings.onDisconnectPressed,
-                                canDisconnect: data)
-                            : Container(),
-                        error: (_, __) => Container(),
-                        loading: () => Container()),
-                    SizedBox(height: 10),
-                    //Delete Wallet Section
-                    DeleteWalletSection(
-                        onDeletePressed: settings.onDeletePressed),
-                  ]),
-                ])));
+            child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+              RibnVersionSection(appVersion: appVersion),
+              divider,
+              const LinksSection(),
+              divider,
+              BiometricsSection(),
+              divider,
+              DangerContainerSection(children: [
+                //Disconnect DApps
+                canDisconnectDApp.when(
+                    data: (data) => data
+                        ? DisconnectDAppsSection(onDisconnectPressed: settings.onDisconnectPressed, canDisconnect: data)
+                        : Container(),
+                    error: (_, __) => Container(),
+                    loading: () => Container()),
+                SizedBox(height: 10),
+                //Delete Wallet Section
+                DeleteWalletSection(onDeletePressed: settings.onDeletePressed),
+              ]),
+            ])));
   }
 
   final divider = const Divider(height: 32);
