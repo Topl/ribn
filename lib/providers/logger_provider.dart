@@ -15,7 +15,12 @@ final loggerProvider = Provider<LoggerNotifier>((ref) {
 class LoggerNotifier {
   final Ref ref;
 
-  LoggerNotifier(this.ref);
+  LoggerNotifier(this.ref) {
+    Logger.root.level = Level.ALL; // defaults to Level.INFO
+    Logger.root.onRecord.listen((record) {
+      print('${record.level.name}: ${record.time}: ${record.message}');
+    });
+  }
 
   void log({
     required LogLevel logLevel,
@@ -27,7 +32,9 @@ class LoggerNotifier {
     final Logger logger = ref.read(loggerPackageProvider)(loggerClass.string);
     switch (logLevel) {
       case LogLevel.Info:
+        print(1);
         logger.info(message, error, stackTrace);
+        print(2);
         break;
       case LogLevel.Warning:
         logger.warning(message, error, stackTrace);
