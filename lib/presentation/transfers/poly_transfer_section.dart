@@ -32,6 +32,7 @@ final polyTransferProvider = StateProvider.autoDispose<PolyTransferClass>((ref) 
     amount: 0,
     note: '',
     recipientAddress: '',
+    validRecipientAddress: '',
   );
 });
 
@@ -81,7 +82,8 @@ class PolyTransferSection extends HookConsumerWidget {
     final _recipientController = useTextEditingController();
     final _noteController = useTextEditingController();
 
-    final _validRecipientAddress = useState('');
+    final String _validRecipientAddress =
+        ref.watch(polyTransferProvider.select((value) => value.validRecipientAddress));
 
     useEffect(() {
       renderBottomButton();
@@ -107,7 +109,7 @@ class PolyTransferSection extends HookConsumerWidget {
                 // field for entering the recipient address
                 RecipientField(
                   controller: _recipientController,
-                  validRecipientAddress: _validRecipientAddress.value,
+                  validRecipientAddress: _validRecipientAddress,
                   // validate the address entered on text change
                   onChanged: (text) {
                     ref.read(polyTransferProvider.notifier).state =
@@ -117,17 +119,20 @@ class PolyTransferSection extends HookConsumerWidget {
                       address: _recipientController.text,
                       handleResult: (bool result) {
                         if (result) {
-                          _validRecipientAddress.value = _recipientController.text;
+                          ref.read(polyTransferProvider.notifier).state = ref
+                              .read(polyTransferProvider)
+                              .copyWith(validRecipientAddress: _recipientController.text);
                           _recipientController.text = '';
                         } else {
-                          _validRecipientAddress.value = '';
+                          ref.read(polyTransferProvider.notifier).state =
+                              ref.read(polyTransferProvider).copyWith(validRecipientAddress: '');
                         }
                       },
                     );
                   },
                   onBackspacePressed: () {
-                    if (_validRecipientAddress.value.isNotEmpty) {
-                      _recipientController.text = _validRecipientAddress.value;
+                    if (_validRecipientAddress.isNotEmpty) {
+                      _recipientController.text = _validRecipientAddress;
                       _recipientController
                         ..text =
                             _recipientController.text.substring(0, _recipientController.text.length)
@@ -135,7 +140,8 @@ class PolyTransferSection extends HookConsumerWidget {
                           offset: _recipientController.text.length,
                         );
                     }
-                    _validRecipientAddress.value = '';
+                    ref.read(polyTransferProvider.notifier).state =
+                        ref.read(polyTransferProvider).copyWith(validRecipientAddress: '');
                   },
                   icon: SvgPicture.asset(RibnAssets.recipientFingerprint),
                   alternativeDisplayChild: const AddressDisplayContainer(
@@ -242,7 +248,7 @@ class _ReviewButton extends HookConsumerWidget {
       vm.maxTransferrableAmount,
     );
     final bool enteredValidInputs =
-        polyTransfer.recipientAddress.isNotEmpty && polyTransfer.amount > 0 && _validAmount;
+        polyTransfer.validRecipientAddress.isNotEmpty && polyTransfer.amount > 0 && _validAmount;
 
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 10),

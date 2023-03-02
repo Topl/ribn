@@ -8,5 +8,6 @@ class PolyTransferClass with _$PolyTransferClass {
     required int amount,
     required String note,
     required String recipientAddress,
+    required String validRecipientAddress,
   }) = _PolyTransferClass;
 }
