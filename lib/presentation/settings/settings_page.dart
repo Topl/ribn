@@ -11,6 +11,7 @@ import 'package:ribn/presentation/settings/sections/links_section.dart';
 import 'package:ribn/presentation/settings/sections/ribn_version_section.dart';
 import 'package:ribn/providers/settings_page_provider.dart';
 import 'package:ribn/providers/utility_provider.dart';
+import 'package:ribn/utils/extensions.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
@@ -48,15 +49,13 @@ class SettingsListItems extends ConsumerWidget {
 
     return Container(
         color: RibnColors.background,
-        child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
               RibnVersionSection(appVersion: appVersion),
-              divider,
               const LinksSection(),
-              divider,
               BiometricsSection(),
-              divider,
               DangerContainerSection(children: [
                 //Disconnect DApps
                 canDisconnectDApp.when(
@@ -69,8 +68,6 @@ class SettingsListItems extends ConsumerWidget {
                 //Delete Wallet Section
                 DeleteWalletSection(onDeletePressed: settings.onDeletePressed),
               ]),
-            ])));
+            ].separator(element: const Divider(height: 32)).toList()));
   }
-
-  final divider = const Divider(height: 32);
 }

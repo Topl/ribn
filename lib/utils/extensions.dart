@@ -33,3 +33,21 @@ extension ContextExtensions on BuildContext {
   double get clientWidth => MediaQuery.of(this).size.width;
   double get clientHeight => MediaQuery.of(this).size.height;
 }
+
+
+extension IterableWidgetExtension on Iterable<Widget> {
+  /**
+   * Returns a new lazy [Iterable] with [element] inserted between each element of this [Iterable].
+   * uses Generator language feature [https://dart.dev/guides/language/language-tour#generators]
+   */
+  Iterable<Widget> separator({required Widget element}) sync* {
+    final iterator = this.iterator;
+    if (iterator.moveNext()) {
+      yield iterator.current;
+      while (iterator.moveNext()) {
+        yield element;
+        yield iterator.current;
+      }
+    }
+  }
+}
