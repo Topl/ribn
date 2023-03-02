@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 extension StringExtensions on String {
   bool toBoolean() {
     return (this.toLowerCase() == "true" || this.toLowerCase() == "1")
@@ -24,4 +26,10 @@ extension NullableStringExtension on String? {
             ? false
             : throw UnsupportedError("Cannot convert $this to boolean"));
   }
+}
+
+
+extension ContextExtensions on BuildContext {
+  double get clientWidth => MediaQuery.of(this).size.width;
+  double get clientHeight => MediaQuery.of(this).size.height;
 }
