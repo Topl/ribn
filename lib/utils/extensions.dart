@@ -20,20 +20,15 @@ extension NullableStringExtension on String? {
       return defaultValue;
     }
 
-    return (val.toLowerCase() == "true" || val.toLowerCase() == "1")
-        ? true
-        : (val.toLowerCase() == "false" || val.toLowerCase() == "0"
-            ? false
-            : throw UnsupportedError("Cannot convert $this to boolean"));
+    return val.toBoolean();
   }
 }
 
-
 extension ContextExtensions on BuildContext {
   double get clientWidth => MediaQuery.of(this).size.width;
+
   double get clientHeight => MediaQuery.of(this).size.height;
 }
-
 
 extension IterableWidgetExtension on Iterable<Widget> {
   /**
