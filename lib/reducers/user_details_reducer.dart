@@ -11,9 +11,6 @@ final userDetailsReducer = combineReducers<UserDetailsState>(
     TypedReducer<UserDetailsState, UpdateAssetDetailsAction>(
       _updateAssetDetails,
     ),
-    TypedReducer<UserDetailsState, UpdateBiometricsAction>(
-      _updateBiometricsAction,
-    ),
   ],
 );
 
@@ -37,12 +34,3 @@ UserDetailsState _updateAssetDetails(
   );
 }
 
-/// Handles [UpdateBiometricsAction] and updates [isBiometricsEnabled] that is stored locally
-UserDetailsState _updateBiometricsAction(
-  UserDetailsState userDetails,
-  UpdateBiometricsAction action,
-) {
-  return userDetails.copyWith(
-    isBiometricsEnabled: action.isBiometricsEnabled,
-  );
-}
