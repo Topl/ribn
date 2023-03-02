@@ -16,7 +16,7 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/presentation/login/widgets/password_section.dart';
-import 'package:ribn/presentation/login/widgets/support_link.dart';
+import 'package:ribn/presentation/login/widgets/support_link_section.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn/providers/logger_provider.dart';
@@ -182,7 +182,7 @@ class LoginPage extends HookConsumerWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          SupportLink(baseWidth: _baseWidth),
+                          SupportLinkSection(baseWidth: _baseWidth),
                           const SizedBox(height: 10),
                           _incorrectPasswordEntered.value
                               ? Text(

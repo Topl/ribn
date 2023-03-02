@@ -7,8 +7,8 @@ import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Widget to redirect user to the support email.
-class SupportLink extends StatelessWidget {
-  const SupportLink({Key? key, required this.baseWidth}) : super(key: key);
+class SupportLinkSection extends StatelessWidget {
+  const SupportLinkSection({Key? key, required this.baseWidth}) : super(key: key);
 
   final double baseWidth;
 

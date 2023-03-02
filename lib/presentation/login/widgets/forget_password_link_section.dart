@@ -7,8 +7,8 @@ import 'package:ribn_toolkit/constants/styles.dart';
 
 
 /// Widget to redirect user to the restore wallet flow.
-class ForgetPasswordLink extends StatelessWidget {
-  const ForgetPasswordLink({Key? key, required this.baseWidth, required this.onButtonPress}) : super(key: key);
+class ForgetPasswordLinkSection extends StatelessWidget {
+  const ForgetPasswordLinkSection({Key? key, required this.baseWidth, required this.onButtonPress}) : super(key: key);
 
   final double baseWidth;
   final VoidCallback onButtonPress;
