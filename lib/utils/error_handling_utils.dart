@@ -1,5 +1,4 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ribn/constants/loggers.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/providers/logger_provider.dart';
 import 'package:ribn/utils/navigation_utils.dart';
