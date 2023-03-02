@@ -32,9 +32,7 @@ class LoggerNotifier {
     final Logger logger = ref.read(loggerPackageProvider)(loggerClass.string);
     switch (logLevel) {
       case LogLevel.Info:
-        print(1);
         logger.info(message, error, stackTrace);
-        print(2);
         break;
       case LogLevel.Warning:
         logger.warning(message, error, stackTrace);
