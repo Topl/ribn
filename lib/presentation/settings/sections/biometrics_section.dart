@@ -88,10 +88,6 @@ class BiometricsSection extends ConsumerWidget {
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    data.toString(),
-                    style: RibnToolkitTextStyles.extH2,
-                  ),
                   Row(
                     children: [
                       const Text(
