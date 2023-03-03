@@ -24,7 +24,7 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   /// Allows securely storing credentials on mobile.
   /// Uses keychain for iOS; AES encryption and KeyStore for android
   /// Ref: https://pub.dev/packages/flutter_secure_storage
-  final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
+  final FlutterSecureStorage secureStorage = const FlutterSecureStorage(aOptions: AndroidOptions(encryptedSharedPreferences: true));
 
   @override
   Future<String> getState() async {

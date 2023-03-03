@@ -38,18 +38,13 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
     final spAndPasswordUnrecoverable = useState(false);
 
     final isBioSupported = useState(false);
-    final biometrics = ref.watch(biometricsProvider);
 
     useEffect(() {
-      Future.delayed(Duration.zero, () {
-        ref.read(biometricsProvider).whenData((value) {
-          if (value.isSupported) {
-            isBioSupported.value = true;
-          }
-        });
+      BiometricsNotifier.isBiometricsEnabled().then((value) {
+        isBioSupported.value = value;
       });
       return null;
-    }, [biometrics]);
+    }, []);
 
     // Use value changed for the first check box.
     // If going from true to false, then uncheck the other 2 values
