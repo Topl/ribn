@@ -8,8 +8,10 @@ import 'package:ribn/presentation/onboarding/restore_wallet/create_new_wallet_pa
 import 'package:ribn/presentation/onboarding/restore_wallet/restore_wallet_page.dart';
 import 'package:ribn/presentation/onboarding/widgets/opt_in_tracker_page.dart';
 import 'package:ribn/providers/packages/entropy_provider.dart';
+import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 
 import '../essential_test_provider_widget.dart';
+import '../mocks/flutter_secure_storage_mocks.dart';
 import '../mocks/store_mocks.dart';
 import '../utils/onboarding_utils.dart';
 
@@ -24,6 +26,9 @@ void main() {
         overrides: [
           entropyFuncProvider.overrideWith((ref) {
             return (_) => OnboardingState.test().mnemonic;
+          }),
+          flutterSecureStorageProvider.overrideWith((ref) {
+            return () => getMockFlutterSecureStorage();
           }),
         ],
         mockStore: _mockStore,

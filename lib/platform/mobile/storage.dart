@@ -3,11 +3,12 @@ import 'dart:io';
 
 // Package imports:
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
-
 // Project imports:
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/platform/interfaces.dart';
+import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 
 class PlatformLocalStorage implements IPlatformLocalStorage {
   PlatformLocalStorage._internal();
@@ -24,7 +25,7 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   /// Allows securely storing credentials on mobile.
   /// Uses keychain for iOS; AES encryption and KeyStore for android
   /// Ref: https://pub.dev/packages/flutter_secure_storage
-  final FlutterSecureStorage secureStorage = const FlutterSecureStorage(aOptions: AndroidOptions(encryptedSharedPreferences: true));
+  final FlutterSecureStorage secureStorage = ProviderContainer().read(flutterSecureStorageProvider)();
 
   @override
   Future<String> getState() async {
@@ -86,8 +87,7 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
 
   /// Web-only
   @override
-  Future<void> saveKeyInSessionStorage(String key) =>
-      throw UnimplementedError();
+  Future<void> saveKeyInSessionStorage(String key) => throw UnimplementedError();
 
   @override
   Future<String?> getKVInSecureStorage(String key) async {
