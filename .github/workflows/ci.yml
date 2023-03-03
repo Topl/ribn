@@ -70,7 +70,7 @@ jobs:
       - uses: stelynx/dart-full-coverage@v1.1.1
         with:
           package: ribn
-          ignore: "*_state.dart, do_not_import_me.dart, js_workers\*, platform_web\*"
+          ignore: "*_state.dart, do_not_import_me.dart, js_workers/* , platform_web/*"
 
       - name: Install dependencies and generated files
         run: make gen
