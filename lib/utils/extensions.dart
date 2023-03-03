@@ -2,11 +2,9 @@ import 'package:flutter/cupertino.dart';
 
 extension StringExtensions on String {
   bool toBoolean() {
-    return (this.toLowerCase() == "true" || this.toLowerCase() == "1")
-        ? true
-        : (this.toLowerCase() == "false" || this.toLowerCase() == "0"
-            ? false
-            : throw UnsupportedError("Cannot convert $this to boolean"));
+    return (this.toLowerCase() == "true" || this.toLowerCase() == "1") ? true
+        : (this.toLowerCase() == "false" || this.toLowerCase() == "0" ? false
+            : throw UnsupportedError("Cannot convert $this [${this.runtimeType}] to boolean"));
   }
 }
 
@@ -16,10 +14,9 @@ extension NullableStringExtension on String? {
     final String? val = this;
 
     // if not null [val] is promoted to String
-    if (val == null) {
+    if (val == null || val.isEmpty || val == "") {
       return defaultValue;
     }
-    print('QQQQ val $val');
 
     return val.toBoolean();
   }
