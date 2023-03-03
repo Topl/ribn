@@ -81,8 +81,9 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
         );
         PlatformUtils.instance.createLoginSessionAlarm();
       } else if (currAppView == AppViews.mobile) {
-        await PlatformLocalStorage.instance.saveKeyInSecureStorage(
+        await saveKeyInSecureStorageWithRef(
           Base58Encoder.instance.encode(toplExtendedPrvKeyUint8List),
+          ref,
         );
       }
 

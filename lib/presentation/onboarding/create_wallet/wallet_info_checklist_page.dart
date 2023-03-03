@@ -26,7 +26,8 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
   static const Key savedMyWalletPasswordSafelyKey = Key('savedMyWalletPasswordSafelyKey');
   static const Key toplCannotRecoverForMeKey = Key('toplCannotRecoverForMeKey');
   static const Key spAndPasswordUnrecoverableKey = Key('spAndPasswordUnrecoverableKey');
-  static const Key walletInfoChecklistConfirmationButtonKey = Key('walletInfoChecklistConfirmationButtonKey');
+  static const Key walletInfoChecklistConfirmationButtonKey =
+      Key('walletInfoChecklistConfirmationButtonKey');
 
   Future<void> runBiometrics(isBioSupported, ref) =>
       ref.watch(biometricsProvider).whenData((value) => isBioSupported.value = value.isSupported);
@@ -40,7 +41,7 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
     final isBioSupported = useState(false);
 
     useEffect(() {
-      BiometricsNotifier.isBiometricsEnabled().then((value) {
+      BiometricsNotifier.isBiometricsEnabled(ref).then((value) {
         isBioSupported.value = value;
       });
       return null;

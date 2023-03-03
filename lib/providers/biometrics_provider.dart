@@ -9,7 +9,8 @@ import 'package:ribn/utils/extensions.dart';
 import 'logger_provider.dart';
 
 /// Provides biometrics state and functions
-final biometricsProvider = StateNotifierProvider<BiometricsNotifier, AsyncValue<BiometricsState>>((ref) {
+final biometricsProvider =
+    StateNotifierProvider<BiometricsNotifier, AsyncValue<BiometricsState>>((ref) {
   final localAuthentication = ref.read(localAuthenticationProvider)();
   return BiometricsNotifier(ref, localAuthentication);
 });
@@ -29,7 +30,7 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
       return false;
     }
 
-    final isEnabled = await isBiometricsEnabled();
+    final isEnabled = await isBiometricsEnabled(ref);
     state = AsyncData(BiometricsState(isSupported: isSupported, isEnabled: isEnabled));
     return true;
   }
@@ -64,7 +65,11 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
     // sets value to Override value, if not supplied default to toggle behaviour
     final isEnabled = overrideValue ?? !biometrics.isEnabled;
 
-    await PlatformLocalStorage.instance.saveKVInSecureStorage(_biometricsEnabledKey, isEnabled.toString());
+    await saveKVInSecureStorageWithRef(
+      _biometricsEnabledKey,
+      isEnabled.toString(),
+      ref,
+    );
 
     // resets authorized value
     state = AsyncValue.data(biometrics.copyWith(isEnabled: isEnabled, authorized: false));
@@ -113,8 +118,8 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
     return canCheckBiometrics && isDeviceSupported;
   }
 
-  static Future<bool> isBiometricsEnabled() async {
-    return (await PlatformLocalStorage.instance.getKVInSecureStorage(_biometricsEnabledKey))
+  static Future<bool> isBiometricsEnabled(ref) async {
+    return (await getKVInSecureStorageWithRef(_biometricsEnabledKey, ref))
         .toBooleanWithNullableDefault(false);
   }
 }

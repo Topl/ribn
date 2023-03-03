@@ -19,6 +19,7 @@ extension NullableStringExtension on String? {
     if (val == null) {
       return defaultValue;
     }
+    print('QQQQ val $val');
 
     return val.toBoolean();
   }

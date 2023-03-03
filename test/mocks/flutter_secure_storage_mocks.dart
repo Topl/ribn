@@ -8,8 +8,11 @@ import 'flutter_secure_storage_mocks.mocks.dart';
 MockFlutterSecureStorage getMockFlutterSecureStorage() {
   final MockFlutterSecureStorage _mock = MockFlutterSecureStorage();
 
-  when(_mock.write(key: anyNamed('key'), value: anyNamed('value'), aOptions: anyNamed('aOptions')))
-      .thenAnswer((realInvocation) async => () {});
+  when(_mock.write(key: anyNamed('key'), value: anyNamed('value')))
+      .thenAnswer((realInvocation) async {
+    print('QQQQ here 1');
+    return;
+  });
   when(_mock.read(key: anyNamed('key'))).thenAnswer((realInvocation) async => "");
 
   return _mock;

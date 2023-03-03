@@ -12,7 +12,6 @@ import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 
 class PlatformLocalStorage implements IPlatformLocalStorage {
   PlatformLocalStorage._internal();
-
   static PlatformLocalStorage? _instance;
 
   factory PlatformLocalStorage() {
@@ -25,7 +24,8 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   /// Allows securely storing credentials on mobile.
   /// Uses keychain for iOS; AES encryption and KeyStore for android
   /// Ref: https://pub.dev/packages/flutter_secure_storage
-  final FlutterSecureStorage secureStorage = ProviderContainer().read(flutterSecureStorageProvider)();
+  final FlutterSecureStorage secureStorage =
+      ProviderContainer().read(flutterSecureStorageProvider)();
 
   @override
   Future<String> getState() async {
@@ -109,4 +109,48 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
       rethrow;
     }
   }
+}
+
+Future<void> saveKeyInSecureStorageWithRef(String key, ref) async {
+  try {
+    final FlutterSecureStorage secureStorage = ref.read(flutterSecureStorageProvider)();
+    await secureStorage.write(key: 'toplKey', value: key);
+  } catch (e) {
+    if (!Keys.isTestingEnvironment) {
+      rethrow;
+    }
+  }
+}
+
+Future<void> saveKVInSecureStorageWithRef(String key, String value, ref) async {
+  try {
+    final FlutterSecureStorage secureStorage = ref.read(flutterSecureStorageProvider)();
+    await secureStorage.write(key: key, value: value);
+  } catch (e) {
+    rethrow;
+  }
+}
+
+Future<String?> getKVInSecureStorageWithRef(String key, ref) async {
+  try {
+    final FlutterSecureStorage secureStorage = ref.read(flutterSecureStorageProvider)();
+    return await secureStorage.read(key: key);
+  } catch (e) {
+    if (!Keys.isTestingEnvironment) {
+      rethrow;
+    }
+  }
+  return null;
+}
+
+Future<String?>? getKeyFromSecureStorageWithRef(ref) {
+  try {
+    final FlutterSecureStorage secureStorage = ref.read(flutterSecureStorageProvider)();
+    return secureStorage.read(key: 'toplKey');
+  } catch (e) {
+    if (!Keys.isTestingEnvironment) {
+      rethrow;
+    }
+  }
+  return null;
 }

@@ -88,7 +88,7 @@ nuclear_clean:
 
 file_test:
 	@reset
-	@flutter test test/middleware_test.dart
+	@flutter test test/onboarding/create_wallet_test.dart
 
 test_coverage:
 	@flutter test --coverage
