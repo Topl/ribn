@@ -18,6 +18,7 @@ import 'package:ribn/models/state/login_state.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn/providers/logger_provider.dart';
+import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/repositories/misc_repository.dart';
@@ -66,9 +67,9 @@ class LoginNotifier extends StateNotifier<LoginState> {
         );
         PlatformUtils.instance.createLoginSessionAlarm();
       } else if (currAppView == AppViews.mobile) {
-        await saveKeyInSecureStorageWithRef(
+        await PlatformLocalStorage.instance.saveKeyInSecureStorage(
           Base58Encoder.instance.encode(toplExtendedPrvKeyUint8List),
-          ref,
+            override: ref.read(flutterSecureStorageProvider)()
         );
       }
 

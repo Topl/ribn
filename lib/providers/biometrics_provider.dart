@@ -3,14 +3,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:ribn/models/state/biometrics_state.dart';
 import 'package:ribn/platform/platform.dart';
+import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 import 'package:ribn/providers/packages/local_authentication_provider.dart';
 import 'package:ribn/utils/extensions.dart';
 
 import 'logger_provider.dart';
 
 /// Provides biometrics state and functions
-final biometricsProvider =
-    StateNotifierProvider<BiometricsNotifier, AsyncValue<BiometricsState>>((ref) {
+final biometricsProvider = StateNotifierProvider<BiometricsNotifier, AsyncValue<BiometricsState>>((ref) {
   final localAuthentication = ref.read(localAuthenticationProvider)();
   return BiometricsNotifier(ref, localAuthentication);
 });
@@ -65,11 +65,8 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
     // sets value to Override value, if not supplied default to toggle behaviour
     final isEnabled = overrideValue ?? !biometrics.isEnabled;
 
-    await saveKVInSecureStorageWithRef(
-      _biometricsEnabledKey,
-      isEnabled.toString(),
-      ref,
-    );
+    await PlatformLocalStorage.instance.saveKVInSecureStorage(_biometricsEnabledKey, isEnabled.toString(),
+        override: ref.read(flutterSecureStorageProvider)());
 
     // resets authorized value
     state = AsyncValue.data(biometrics.copyWith(isEnabled: isEnabled, authorized: false));
@@ -119,7 +116,8 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
   }
 
   static Future<bool> isBiometricsEnabled(ref) async {
-    return (await getKVInSecureStorageWithRef(_biometricsEnabledKey, ref))
+    return (await PlatformLocalStorage.instance
+            .getKVInSecureStorage(_biometricsEnabledKey, override: ref.read(flutterSecureStorageProvider)()))
         .toBooleanWithNullableDefault(false);
   }
 }

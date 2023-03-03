@@ -12,6 +12,7 @@ import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 
 class PlatformLocalStorage implements IPlatformLocalStorage {
   PlatformLocalStorage._internal();
+
   static PlatformLocalStorage? _instance;
 
   factory PlatformLocalStorage() {
@@ -24,8 +25,7 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   /// Allows securely storing credentials on mobile.
   /// Uses keychain for iOS; AES encryption and KeyStore for android
   /// Ref: https://pub.dev/packages/flutter_secure_storage
-  final FlutterSecureStorage secureStorage =
-      ProviderContainer().read(flutterSecureStorageProvider)();
+  final FlutterSecureStorage secureStorage = ProviderContainer().read(flutterSecureStorageProvider)();
 
   @override
   Future<String> getState() async {
@@ -45,26 +45,26 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
 
   /// Mobile-only: Gets toplKey from encrypted device storage.
   @override
-  Future<String?>? getKeyFromSecureStorage() {
+  Future<String?>? getKeyFromSecureStorage({FlutterSecureStorage? override}) async {
     try {
-      return secureStorage.read(key: 'toplKey');
+      return (override != null)
+          ? await override.read(key: 'toplKey')
+          : await secureStorage.read(key: 'toplKey');
     } catch (e) {
-      if (!Keys.isTestingEnvironment) {
-        rethrow;
-      }
+      if (!Keys.isTestingEnvironment) rethrow;
     }
     return null;
   }
 
   /// Mobile-only: Saves [key] in encrypted device storage.
   @override
-  Future<void> saveKeyInSecureStorage(String key) async {
+  Future<void> saveKeyInSecureStorage(String key, {FlutterSecureStorage? override}) async {
     try {
-      await secureStorage.write(key: 'toplKey', value: key);
+      return (override != null)
+          ? override.write(key: 'toplKey', value: key)
+          : await secureStorage.write(key: 'toplKey', value: key);
     } catch (e) {
-      if (!Keys.isTestingEnvironment) {
-        rethrow;
-      }
+      if (!Keys.isTestingEnvironment) rethrow;
     }
   }
 
@@ -90,67 +90,25 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   Future<void> saveKeyInSessionStorage(String key) => throw UnimplementedError();
 
   @override
-  Future<String?> getKVInSecureStorage(String key) async {
+  Future<String?> getKVInSecureStorage(String key, {FlutterSecureStorage? override}) async {
     try {
-      return await secureStorage.read(key: key);
+      return (override != null)
+          ? await override.read(key: key)
+          : await secureStorage.read(key: key);
     } catch (e) {
-      if (!Keys.isTestingEnvironment) {
-        rethrow;
-      }
+      if (!Keys.isTestingEnvironment) rethrow;
     }
     return null;
   }
 
   @override
-  Future<void> saveKVInSecureStorage(String key, String value) async {
+  Future<void> saveKVInSecureStorage(String key, String value, {FlutterSecureStorage? override}) async {
     try {
-      await secureStorage.write(key: key, value: value);
+      return (override != null)
+          ? await override.write(key: key, value: value)
+          : await secureStorage.write(key: key, value: value);
     } catch (e) {
       rethrow;
     }
   }
-}
-
-Future<void> saveKeyInSecureStorageWithRef(String key, ref) async {
-  try {
-    final FlutterSecureStorage secureStorage = ref.read(flutterSecureStorageProvider)();
-    await secureStorage.write(key: 'toplKey', value: key);
-  } catch (e) {
-    if (!Keys.isTestingEnvironment) {
-      rethrow;
-    }
-  }
-}
-
-Future<void> saveKVInSecureStorageWithRef(String key, String value, ref) async {
-  try {
-    final FlutterSecureStorage secureStorage = ref.read(flutterSecureStorageProvider)();
-    await secureStorage.write(key: key, value: value);
-  } catch (e) {
-    rethrow;
-  }
-}
-
-Future<String?> getKVInSecureStorageWithRef(String key, ref) async {
-  try {
-    final FlutterSecureStorage secureStorage = ref.read(flutterSecureStorageProvider)();
-    return await secureStorage.read(key: key);
-  } catch (e) {
-    if (!Keys.isTestingEnvironment) {
-      rethrow;
-    }
-  }
-  return null;
-}
-
-Future<String?>? getKeyFromSecureStorageWithRef(ref) {
-  try {
-    final FlutterSecureStorage secureStorage = ref.read(flutterSecureStorageProvider)();
-    return secureStorage.read(key: 'toplKey');
-  } catch (e) {
-    if (!Keys.isTestingEnvironment) {
-      rethrow;
-    }
-  }
-  return null;
 }

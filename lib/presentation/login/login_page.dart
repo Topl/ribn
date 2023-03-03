@@ -21,6 +21,7 @@ import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn/providers/logger_provider.dart';
 import 'package:ribn/providers/login_provider.dart';
+import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/utils.dart';
 import 'package:ribn/utils/extensions.dart';
@@ -44,7 +45,8 @@ class LoginPage extends HookConsumerWidget {
     try {
       authenticated = await ref.read(biometricsProvider.notifier).authenticateWithBiometrics();
 
-      final String toplKey = (await getKeyFromSecureStorageWithRef(ref))!;
+      final String toplKey = (await PlatformLocalStorage.instance
+          .getKeyFromSecureStorage(override: ref.read(flutterSecureStorageProvider)()))!;
       if (authenticated) {
         ref.read(storeProvider).dispatch(
               InitializeHDWalletAction(
@@ -70,14 +72,13 @@ class LoginPage extends HookConsumerWidget {
     ref.read(biometricsProvider).whenData((value) {
       if (value.isEnabled)
         _biometricsLogin(ref, biometricsError).then(
-          (authorized) =>
-              {if (authorized) Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)},
+          (authorized) => {if (authorized) Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)},
         );
     });
   }
 
-  void attemptLogin(WidgetRef ref, BuildContext context, TextEditingController controller,
-      ValueNotifier<bool> PasswordEntered) {
+  void attemptLogin(
+      WidgetRef ref, BuildContext context, TextEditingController controller, ValueNotifier<bool> PasswordEntered) {
     context.loaderOverlay.show();
     dismissKeyboard(context);
 
@@ -120,8 +121,7 @@ class LoginPage extends HookConsumerWidget {
                 containerWidth: context.clientWidth,
                 waveAmplitude: 30,
                 containerChild: Column(
-                  mainAxisAlignment:
-                      kIsWeb ? MainAxisAlignment.start : MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: kIsWeb ? MainAxisAlignment.start : MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Column(
@@ -162,8 +162,7 @@ class LoginPage extends HookConsumerWidget {
                     PasswordSection(
                       baseWidth: _baseWidth,
                       controller: _textEditingController,
-                      onSubmitted: () => attemptLogin(
-                          ref, context, _textEditingController, _incorrectPasswordEntered),
+                      onSubmitted: () => attemptLogin(ref, context, _textEditingController, _incorrectPasswordEntered),
                     ),
                     kIsWeb ? const SizedBox(height: 40) : const SizedBox(height: 25),
                     LargeButton(
@@ -175,8 +174,7 @@ class LoginPage extends HookConsumerWidget {
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: () => attemptLogin(
-                          ref, context, _textEditingController, _incorrectPasswordEntered),
+                      onPressed: () => attemptLogin(ref, context, _textEditingController, _incorrectPasswordEntered),
                     ),
                     renderIfWeb(const SizedBox(height: 20)),
                     // ForgetPasswordLink(baseWidth: _baseWidth, onButtonPress: loginNotifier.restoreWallet),
