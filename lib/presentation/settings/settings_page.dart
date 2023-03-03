@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 // Project imports:
@@ -7,8 +8,10 @@ import 'package:ribn/presentation/settings/sections/biometrics_section.dart';
 import 'package:ribn/presentation/settings/sections/danger_container_section.dart';
 import 'package:ribn/presentation/settings/sections/delete_wallet_section.dart';
 import 'package:ribn/presentation/settings/sections/disconnect_dapps_section.dart';
+import 'package:ribn/presentation/settings/sections/export_topl_main_key_section.dart';
 import 'package:ribn/presentation/settings/sections/links_section.dart';
 import 'package:ribn/presentation/settings/sections/ribn_version_section.dart';
+import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn/providers/settings_page_provider.dart';
 import 'package:ribn/providers/utility_provider.dart';
 import 'package:ribn/utils/extensions.dart';
@@ -46,6 +49,7 @@ class SettingsListItems extends ConsumerWidget {
     final canDisconnectDApp = ref.watch(canDisconnectDAppsProvider);
     final settings = ref.watch(settingsProvider);
     final appVersion = ref.read(appVersionProvider);
+    final biometrics = ref.watch(biometricsProvider);
 
     return Container(
         color: RibnColors.background,
@@ -55,7 +59,8 @@ class SettingsListItems extends ConsumerWidget {
             children: [
               RibnVersionSection(appVersion: appVersion),
               const LinksSection(),
-              BiometricsSection(),
+              if (kIsWeb) ExportToplMainKeySection(onExportPressed: settings.exportToplMainKey),
+              if (biometrics.value?.isSupported ?? false) BiometricsSection(),
               DangerContainerSection(children: [
                 //Disconnect DApps
                 canDisconnectDApp.when(

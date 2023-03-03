@@ -11,7 +11,6 @@ import 'package:ribn/presentation/settings/sections/disconnect_wallet_confirmati
 import 'package:ribn/providers/utility_provider.dart';
 
 
-
 class SettingState {
   /// Callback to download the Topl Main Key.
   final VoidCallback exportToplMainKey;
