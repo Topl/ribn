@@ -22,20 +22,12 @@ class JiraFieldsModel {
       required this.attachments});
 
   JiraFieldsModel.fromJson(Map<String, dynamic> json) {
-    assignee = json['assignee'] != null
-        ? new JiraAssigneeModel.fromJson(json['assignee'])
-        : null;
+    assignee = json['assignee'] != null ? new JiraAssigneeModel.fromJson(json['assignee']) : null;
     labels = json['labels'].cast<String>();
     summary = json['summary'];
-    issuetype = json['issuetype'] != null
-        ? new JiraAssigneeModel.fromJson(json['issuetype'])
-        : null;
-    project = json['project'] != null
-        ? new JiraProjectModel.fromJson(json['project'])
-        : null;
-    description = json['description'] != null
-        ? new JiraDescriptionModel.fromJson(json['description'])
-        : null;
+    issuetype = json['issuetype'] != null ? new JiraAssigneeModel.fromJson(json['issuetype']) : null;
+    project = json['project'] != null ? new JiraProjectModel.fromJson(json['project']) : null;
+    description = json['description'] != null ? new JiraDescriptionModel.fromJson(json['description']) : null;
     attachments = [];
   }
 

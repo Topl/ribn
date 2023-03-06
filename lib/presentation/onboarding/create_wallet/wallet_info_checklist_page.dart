@@ -29,14 +29,12 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
   static const Key savedMyWalletPasswordSafelyKey = Key('savedMyWalletPasswordSafelyKey');
   static const Key toplCannotRecoverForMeKey = Key('toplCannotRecoverForMeKey');
   static const Key spAndPasswordUnrecoverableKey = Key('spAndPasswordUnrecoverableKey');
-  static const Key walletInfoChecklistConfirmationButtonKey =
-      Key('walletInfoChecklistConfirmationButtonKey');
+  static const Key walletInfoChecklistConfirmationButtonKey = Key('walletInfoChecklistConfirmationButtonKey');
 
   Future<void> runBiometrics(isBioSupported, ref) async {
     final LocalAuthentication _localAuthentication = ref.read(localAuthenticationProvider)();
 
-    final bool isBioAuthenticationSupported =
-        await isBiometricsAuthenticationSupported(_localAuthentication);
+    final bool isBioAuthenticationSupported = await isBiometricsAuthenticationSupported(_localAuthentication);
     isBioSupported.value = isBioAuthenticationSupported;
   }
 

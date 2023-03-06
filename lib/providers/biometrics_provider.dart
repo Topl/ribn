@@ -14,8 +14,7 @@ class BiometricsClass {
   ]);
 }
 
-final biometricsProvider =
-    StateNotifierProvider<BiometricsNotifier, AsyncValue<BiometricsClass>>((ref) {
+final biometricsProvider = StateNotifierProvider<BiometricsNotifier, AsyncValue<BiometricsClass>>((ref) {
   return BiometricsNotifier(ref);
 });
 

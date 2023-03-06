@@ -6,9 +6,7 @@ class JiraIssueModel {
   JiraIssueModel({this.fields});
 
   JiraIssueModel.fromJson(Map<String, dynamic> json) {
-    fields = json['fields'] != null
-        ? new JiraFieldsModel.fromJson(json['fields'])
-        : null;
+    fields = json['fields'] != null ? new JiraFieldsModel.fromJson(json['fields']) : null;
   }
 
   Map<String, dynamic> toJson() {

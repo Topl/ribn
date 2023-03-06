@@ -44,8 +44,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   loadDApps() async {
-    final List<String> dApps =
-        await PlatformUtils.instance.convertToFuture(PlatformUtils.instance.getDAppList());
+    final List<String> dApps = await PlatformUtils.instance.convertToFuture(PlatformUtils.instance.getDAppList());
     await PlatformUtils.instance.consoleLog(dApps.toString());
 
     setState(() {
@@ -56,8 +55,7 @@ class _SettingsPageState extends State<SettingsPage> {
   runBiometrics() async {
     final LocalAuthentication localAuthentication = LocalAuthentication();
 
-    final bool isBioAuthenticationSupported =
-        await isBiometricsAuthenticationSupported(localAuthentication);
+    final bool isBioAuthenticationSupported = await isBiometricsAuthenticationSupported(localAuthentication);
 
     setState(() {
       isBioSupported = isBioAuthenticationSupported ? true : false;
@@ -114,9 +112,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   )
                 : const SizedBox(),
             isBioSupported ? _buildDivider() : const SizedBox(),
-            isBioSupported
-                ? BiometricsSection(isBiometricsEnabled: vm.isBiometricsEnabled)
-                : const SizedBox(),
+            isBioSupported ? BiometricsSection(isBiometricsEnabled: vm.isBiometricsEnabled) : const SizedBox(),
             _buildDivider(),
             DeleteWalletSection(
               onDeletePressed: vm.onDeletePressed,

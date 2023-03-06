@@ -34,8 +34,7 @@ void main() {
     expect(find.byKey(SelectActionPage.selectActionPageKey), findsOneWidget);
   });
 
-  testWidgets('Clicking I Agree Brings you to the next page and inits analytics',
-      (WidgetTester tester) async {
+  testWidgets('Clicking I Agree Brings you to the next page and inits analytics', (WidgetTester tester) async {
     tester.binding.window.physicalSizeTestValue = Size(10000, 10000);
     await tester.pumpWidget(
       await essentialTestProviderWidget(

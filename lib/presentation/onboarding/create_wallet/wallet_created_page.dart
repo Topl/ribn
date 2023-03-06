@@ -115,8 +115,7 @@ class WalletCreatedPage extends HookWidget {
                   if (kIsWeb) {
                     navigateToRoute(route: Routes.extensionInfo);
                   } else {
-                    Keys.navigatorKey.currentState
-                        ?.pushNamedAndRemoveUntil(Routes.home, (_) => false);
+                    Keys.navigatorKey.currentState?.pushNamedAndRemoveUntil(Routes.home, (_) => false);
                   }
                 },
               ),

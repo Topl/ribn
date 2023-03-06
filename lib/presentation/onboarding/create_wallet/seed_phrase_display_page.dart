@@ -27,8 +27,7 @@ import 'package:ribn/utils.dart';
 class SeedPhraseDisplayPage extends HookConsumerWidget {
   static const Key copyKey = Key('copyKey');
   static const Key seedPhraseDisplayPageKey = Key('seedPhraseDisplayPageKey');
-  static const Key seedPhraseDisplayConfirmationButtonKey =
-      Key('seedPhraseDisplayConfirmationButtonKey');
+  static const Key seedPhraseDisplayConfirmationButtonKey = Key('seedPhraseDisplayConfirmationButtonKey');
   const SeedPhraseDisplayPage({Key key = seedPhraseDisplayPageKey}) : super(key: key);
 
   @override
@@ -202,8 +201,7 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
             width: 25,
             child: Text(
               '${idx + 1}. ',
-              style: RibnToolkitTextStyles.h3
-                  .copyWith(color: const Color(0xff00FFC5), letterSpacing: 0.5),
+              style: RibnToolkitTextStyles.h3.copyWith(color: const Color(0xff00FFC5), letterSpacing: 0.5),
             ),
           ),
           Expanded(
@@ -224,8 +222,7 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
     required double width,
     required double height,
   }) {
-    final String icon =
-        buttonText == Strings.download ? RibnAssets.downloadPng : RibnAssets.contentCopyPng;
+    final String icon = buttonText == Strings.download ? RibnAssets.downloadPng : RibnAssets.contentCopyPng;
     return TextButton(
       key: copyKey,
       onPressed: onPressed,

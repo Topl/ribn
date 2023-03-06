@@ -83,6 +83,5 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
 
   /// Web-only
   @override
-  Future<void> saveKeyInSessionStorage(String key) =>
-      throw UnimplementedError();
+  Future<void> saveKeyInSessionStorage(String key) => throw UnimplementedError();
 }

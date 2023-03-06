@@ -65,7 +65,6 @@ class EnablePage extends StatelessWidget {
         },
       );
     }
-    StoreProvider.of<AppState>(context)
-        .dispatch(SendInternalMsgAction(response));
+    StoreProvider.of<AppState>(context).dispatch(SendInternalMsgAction(response));
   }
 }

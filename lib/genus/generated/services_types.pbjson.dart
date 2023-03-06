@@ -20,5 +20,5 @@ const Paging$json = const {
 };
 
 /// Descriptor for `Paging`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List pagingDescriptor = $convert.base64Decode(
-    'CgZQYWdpbmcSHwoLcGFnZV9udW1iZXIYASABKA1SCnBhZ2VOdW1iZXISGwoJcGFnZV9zaXplGAIgASgNUghwYWdlU2l6ZQ==');
+final $typed_data.Uint8List pagingDescriptor = $convert
+    .base64Decode('CgZQYWdpbmcSHwoLcGFnZV9udW1iZXIYASABKA1SCnBhZ2VOdW1iZXISGwoJcGFnZV9zaXplGAIgASgNUghwYWdlU2l6ZQ==');
