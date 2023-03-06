@@ -36,8 +36,7 @@ class InternalMessage {
         sender: sender ?? this.sender,
         id: id ?? this.id,
         origin: origin ?? this.origin,
-        additionalNavigation:
-            additionalNavigation ?? this.additionalNavigation);
+        additionalNavigation: additionalNavigation ?? this.additionalNavigation);
   }
 
   static const String defaultSender = 'ribn';
@@ -56,7 +55,6 @@ class InternalMessage {
 
   factory InternalMessage.fromMap(Map<String, dynamic> map) {
     return InternalMessage(
-<<<<<<< HEAD
         method: map['method'] as String,
         data: map['data'] != null
             ? Map<String, dynamic>.from(map['data'] as Map<String, dynamic>)
@@ -66,17 +64,6 @@ class InternalMessage {
         id: map['id'] as String,
         origin: map['origin'] as String,
         additionalNavigation: map['additionalNavigation'] as String);
-=======
-      method: map['method'] as String,
-      data: map['data'] != null
-          ? Map<String, dynamic>.from(map['data'] as Map<String, dynamic>)
-          : null,
-      target: map['target'] as String,
-      sender: map['sender'] as String,
-      id: map['id'] as String,
-      origin: map['origin'] as String,
-    );
->>>>>>> rc-0.4
   }
 
   String toJson() => json.encode(toMap());

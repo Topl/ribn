@@ -1,22 +1,13 @@
 // Flutter imports:
 
-<<<<<<< HEAD
 // Package imports:
 import 'package:brambldart/brambldart.dart';
-=======
->>>>>>> rc-0.4
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-<<<<<<< HEAD
-=======
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
-
->>>>>>> rc-0.4
 // Project imports:
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
@@ -27,6 +18,8 @@ import 'package:ribn/presentation/asset_details/asset_detail_items/asset_code_de
 import 'package:ribn/presentation/asset_details/asset_detail_items/asset_code_short_details.dart';
 import 'package:ribn/presentation/asset_details/asset_detail_items/token_metadata_details.dart';
 import 'package:ribn/widgets/custom_divider.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
 import 'asset_detail_items/issuer_address_details.dart';
 
@@ -75,8 +68,7 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
   ///
   /// When the user wants to edit an item on the page, [editSectionOverlay] is assigned the appropriate widget and displayed
   /// on the page. See [_buildEditSectionOverlay].
-  OverlayEntry editSectionOverlay =
-      OverlayEntry(builder: (context) => const SizedBox());
+  OverlayEntry editSectionOverlay = OverlayEntry(builder: (context) => const SizedBox());
 
   /// True if the asset unit section is being edited.
   bool editingAssetUnit = false;
@@ -112,8 +104,7 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, AssetDetails?>(
       // Get access to AssetDetails for this asset from the store
-      converter: (store) =>
-          store.state.userDetailsState.assetDetails[widget.assetCode],
+      converter: (store) => store.state.userDetailsState.assetDetails[widget.assetCode],
       builder: (context, assetDetails) {
         print(assetDetails);
         return Listener(
@@ -131,7 +122,6 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
                     hideBackArrow: true,
                   ),
                   const SizedBox(height: 40),
-<<<<<<< HEAD
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 15,
@@ -193,79 +183,6 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
                           ),
                         ],
                       ),
-=======
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
-                    width: 309,
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(11.6)),
-                      color: RibnColors.whiteBackground,
-                      border: Border.all(color: RibnColors.lightGrey, width: 1),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: RibnColors.greyShadow,
-                          spreadRadius: 0,
-                          blurRadius: 37.5,
-                          offset: Offset(0, -6),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        // asset short name display
-                        AssetCodeShortDetails(
-                          assetShortName: widget.assetShorName,
-                        ),
-                        _buildDivider(),
-                        // asset amount/quantity display
-                        AssetAmountDetails(assetQuantity: widget.assetQuantity),
-                        _buildDivider(),
-                        // asset unit display - can be edited
-                        AssetUnitDetails(
-                          key: assetUnitKey,
-                          currUnit: assetDetails?.unit,
-                          editingSectionOpened: editingAssetUnit,
-                          onEditPressed: () => _onEditPressed(
-                            key: assetUnitKey,
-                            assetDetails: assetDetails,
-                          ),
-                        ),
-                        _buildDivider(),
-                        // asset long name display - can be edited
-                        AssetLongNameDetails(
-                          key: assetLongNameKey,
-                          currLongName: assetDetails?.longName,
-                          editingSectionOpened: editingAssetLongName,
-                          onEditPressed: () => _onEditPressed(
-                            key: assetLongNameKey,
-                            assetDetails: assetDetails,
-                          ),
-                        ),
-                        _buildDivider(),
-                        // asset icon display - can be edited
-                        AssetIconDetails(
-                          key: assetIconKey,
-                          currIcon: assetDetails?.icon,
-                          editingSectionOpened: editingAssetIcon,
-                          onEditPressed: () => _onEditPressed(
-                            key: assetIconKey,
-                            assetDetails: assetDetails,
-                          ),
-                        ),
-                        _buildDivider(),
-                        // asset issuer address display
-                        IssuerAddressDetails(
-                          issuerAddress: widget.issuerAddress,
-                        ),
-                        _buildDivider(),
-                        // asset code display
-                        AssetCodeDetails(assetCode: widget.assetCode),
-                      ],
->>>>>>> rc-0.4
                     ),
                   ),
                 ],
@@ -281,7 +198,6 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
   ///
   /// Uses the [key] provided to get the correct widget position and
   /// updates [editSectionOverlay] with the [editSection] provided.
-<<<<<<< HEAD
   // void _buildEditSectionOverlay({
   //   required GlobalKey key,
   //   required Widget editSection,
@@ -301,27 +217,6 @@ class _AssetDetailsPageState extends State<AssetDetailsPage> with RouteAware {
   //   );
   //   Overlay.of(context)!.insert(editSectionOverlay);
   // }
-=======
-  void _buildEditSectionOverlay({
-    required GlobalKey key,
-    required Widget editSection,
-  }) async {
-    final RenderBox renderbox =
-        key.currentContext!.findRenderObject() as RenderBox;
-    final Offset offset = renderbox.localToGlobal(Offset.zero);
-    resetOverlays();
-    editSectionOverlay = OverlayEntry(
-      builder: (context) {
-        return Positioned(
-          left: offset.dx - 20,
-          top: offset.dy + 22,
-          child: editSection,
-        );
-      },
-    );
-    Overlay.of(context)!.insert(editSectionOverlay);
-  }
->>>>>>> rc-0.4
 
   /// Removes any overlay from the screen and resets
   /// indicators for editing.

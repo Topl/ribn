@@ -86,9 +86,7 @@ class RibnNetwork {
   }
 
   int getNextInternalAddressIndex() {
-    return addresses
-            .lastIndexWhere((addr) => addr.changeIndex == Rules.internalIdx) +
-        1;
+    return addresses.lastIndexWhere((addr) => addr.changeIndex == Rules.internalIdx) + 1;
   }
 
   /// Returns a list of all the assets owned by [myWalletAddress]
@@ -124,12 +122,7 @@ class RibnNetwork {
     return getAllAssetsInWallet()
         .where(
           (AssetAmount asset) =>
-<<<<<<< HEAD
               asset.assetCode.issuer.toBase58() == myWalletAddress?.toplAddress.toBase58(),
-=======
-              asset.assetCode.issuer.toBase58() ==
-              myWalletAddress?.toplAddress.toBase58(),
->>>>>>> rc-0.4
         )
         .toList();
   }
@@ -179,8 +172,7 @@ class RibnNetwork {
 
   String toJson() => json.encode(toMap());
 
-  factory RibnNetwork.fromJson(String source) =>
-      RibnNetwork.fromMap(json.decode(source));
+  factory RibnNetwork.fromJson(String source) => RibnNetwork.fromMap(json.decode(source));
 
   @override
   String toString() {

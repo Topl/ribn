@@ -3,11 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
-<<<<<<< HEAD
 import 'package:ribn_toolkit/widgets/organisms/ribn_bottom_app_bar_v2.dart';
-=======
-import 'package:ribn_toolkit/widgets/organisms/ribn_bottom_app_bar.dart';
->>>>>>> rc-0.4
 
 // Project imports:
 import 'package:ribn/constants/assets.dart';

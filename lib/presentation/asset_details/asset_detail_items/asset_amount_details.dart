@@ -1,10 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:ribn/presentation/asset_details/asset_detail_items/asset_column.dart';
-=======
-
->>>>>>> rc-0.4
 // Package imports:
 import 'package:ribn_toolkit/constants/styles.dart';
 

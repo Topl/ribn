@@ -1,10 +1,7 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-=======
->>>>>>> rc-0.4
 
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
@@ -82,8 +79,7 @@ class SeedPhraseInstructionsPage extends HookConsumerWidget {
                   key: seedPhraseInstructionsConfirmationButtonKey,
                   text: Strings.iUnderstand,
                   onPressed: () {
-                    Keys.navigatorKey.currentState
-                        ?.pushNamed(Routes.generateSeedPhrase);
+                    Keys.navigatorKey.currentState?.pushNamed(Routes.generateSeedPhrase);
                   },
                 )
               ],
@@ -127,8 +123,7 @@ class SeedPhraseInstructionsPage extends HookConsumerWidget {
                 width: kIsWeb ? 500 : 295,
                 child: Text(
                   text,
-                  textHeightBehavior:
-                      const TextHeightBehavior(applyHeightToFirstAscent: false),
+                  textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
                   style: RibnToolkitTextStyles.h3.copyWith(
                     color: RibnColors.lightGreyTitle,
                     fontSize: 18,

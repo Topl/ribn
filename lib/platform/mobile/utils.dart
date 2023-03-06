@@ -1,8 +1,5 @@
 // Project imports:
-<<<<<<< HEAD
 import 'package:flutter/cupertino.dart';
-=======
->>>>>>> rc-0.4
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/platform/interfaces.dart';
 

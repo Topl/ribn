@@ -1,10 +1,7 @@
 // Flutter imports:
 
-<<<<<<< HEAD
 // Package imports:
 import 'package:bip_topl/bip_topl.dart';
-=======
->>>>>>> rc-0.4
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -15,17 +12,6 @@ import 'package:bip_topl/bip_topl.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:local_auth/local_auth.dart';
-<<<<<<< HEAD
-=======
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
-import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
-import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
-import 'package:url_launcher/url_launcher.dart';
-
->>>>>>> rc-0.4
 // Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/constants/assets.dart';
@@ -37,6 +23,13 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/utils.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
+import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// Builds the login page.
 ///
@@ -68,8 +61,7 @@ class _LoginPageState extends State<LoginPage> {
     bool authenticated = false;
     try {
       authenticated = await authenticateWithBiometrics(_localAuthentication);
-      final String toplKey =
-          (await PlatformLocalStorage.instance.getKeyFromSecureStorage())!;
+      final String toplKey = (await PlatformLocalStorage.instance.getKeyFromSecureStorage())!;
       if (authenticated) {
         StoreProvider.of<AppState>(context).dispatch(
           InitializeHDWalletAction(
@@ -95,15 +87,8 @@ class _LoginPageState extends State<LoginPage> {
   void _checkBiometrics(LoginViewModel vm) {
     if (vm.isBiometricsEnabled) {
       _biometricsLogin().then(
-<<<<<<< HEAD
         (value) =>
             {if (_authorized) Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)},
-=======
-        (value) => {
-          if (_authorized)
-            Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)
-        },
->>>>>>> rc-0.4
       );
     }
   }
@@ -145,14 +130,8 @@ class _LoginPageState extends State<LoginPage> {
                   containerWidth: MediaQuery.of(context).size.width,
                   waveAmplitude: 30,
                   containerChild: Column(
-<<<<<<< HEAD
                     mainAxisAlignment:
                         kIsWeb ? MainAxisAlignment.start : MainAxisAlignment.spaceAround,
-=======
-                    mainAxisAlignment: kIsWeb
-                        ? MainAxisAlignment.start
-                        : MainAxisAlignment.spaceAround,
->>>>>>> rc-0.4
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
@@ -201,9 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ],
                       ),
-                      kIsWeb
-                          ? const SizedBox(height: 40)
-                          : const SizedBox(height: 25),
+                      kIsWeb ? const SizedBox(height: 40) : const SizedBox(height: 25),
                       LargeButton(
                         backgroundColor: RibnColors.primary,
                         dropShadowColor: RibnColors.whiteButtonShadow,
@@ -309,8 +286,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               TextSpan(
                 text: Strings.forgotPassword,
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () => onButtonPress(),
+                recognizer: TapGestureRecognizer()..onTap = () => onButtonPress(),
               )
             ],
           ),

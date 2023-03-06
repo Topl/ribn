@@ -1,39 +1,21 @@
-<<<<<<< HEAD
 // Dart imports:
-=======
-// Flutter imports:
-
-// Flutter imports:
-import 'package:flutter/material.dart';
->>>>>>> rc-0.4
 
 // Package imports:
 import 'package:brambldart/model.dart';
 import 'package:brambldart/utils.dart';
-<<<<<<< HEAD
 // Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
-=======
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:intl/intl.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/status_chip.dart';
-
->>>>>>> rc-0.4
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/utils.dart';
-<<<<<<< HEAD
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/molecules/ribn_activity_tile.dart';
 
 import '../../../constants/routes.dart';
-=======
->>>>>>> rc-0.4
 
 class TransactionDataRow extends StatefulWidget {
   final List<AssetAmount> assets;
@@ -186,111 +168,9 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
             Navigator.pushNamed(
               context,
               Routes.txHistoryDetails,
-<<<<<<< HEAD
               arguments: details,
             );
           },
-=======
-              arguments: {
-                'isPolyTransaction': false,
-                'transactionType': renderSentReceivedMintedText(),
-                'timestamp': formattedDateAlternate,
-                'assetDetails': assetDetails,
-                'icon': renderAssetIcon(assetDetails?.icon),
-                'shortName': filteredAsset.isNotEmpty
-                    ? filteredAsset[0]
-                        .assetCode
-                        .shortName
-                        .show
-                        .replaceAll('\x00', '')
-                    : 'Unknown',
-                'transactionStatus': transactionStatus,
-                'transactionAmount':
-                    '${transactionAmountForAssetTransfer()} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
-                'fee': fee,
-                'myRibnWalletAddress': widget.myRibnWalletAddress,
-                'transactionSenderAddress': transactionSenderAddress,
-                'note': note,
-                'securityRoot': securityRoot,
-                'blockId': blockId,
-                'blockHeight': blockNumber,
-                'transactionId': transactionId,
-                'networkId': widget.networkId,
-              },
-            );
-          },
-          child: Container(
-            color: Colors.white,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8,
-              vertical: 15,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      height: 40,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          SizedBox(
-                            width: 25,
-                            height: 25,
-                            child: renderAssetIcon(assetDetails?.icon),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 12),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  '${transactionAmountForAssetTransfer()} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
-                                  style: RibnToolkitTextStyles.extH3
-                                      .copyWith(fontSize: 14),
-                                ),
-                                Text(
-                                  filteredAsset.isNotEmpty
-                                      ? filteredAsset[0]
-                                          .assetCode
-                                          .shortName
-                                          .show
-                                          .replaceAll('\x00', '')
-                                      : 'Unknown',
-                                  style: RibnToolkitTextStyles
-                                      .assetLongNameStyle
-                                      .copyWith(fontSize: 11),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 40,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          StatusChip(status: transactionStatus),
-                          Text(
-                            '${renderSentReceivedMintedText()} on $formattedDate',
-                            style: RibnToolkitTextStyles.assetLongNameStyle
-                                .copyWith(fontSize: 11),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
->>>>>>> rc-0.4
         );
       },
     );

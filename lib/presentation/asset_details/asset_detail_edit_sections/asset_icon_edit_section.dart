@@ -1,6 +1,5 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-<<<<<<< HEAD:lib/presentation/asset_details/asset_detail_edit_sections/asset_icon_edit_section.dart
 // Package imports:
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -8,12 +7,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/models/app_state.dart';
-=======
-
-// Package imports:
-import 'package:flutter_portal/flutter_portal.dart';
-import 'package:flutter_redux/flutter_redux.dart';
->>>>>>> rc-0.4:lib/presentation/asset_details/asset_detail_edit_sections.dart/asset_icon_edit_section.dart
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
@@ -75,8 +68,7 @@ class _AssetIconEditSectionState extends State<AssetIconEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Save',
-                  style: RibnToolkitTextStyles.btnMedium
-                      .copyWith(color: Colors.white),
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
                 ),
                 backgroundColor: RibnColors.primary,
                 onPressed: () {
@@ -95,8 +87,8 @@ class _AssetIconEditSectionState extends State<AssetIconEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Cancel',
-                  style: RibnToolkitTextStyles.btnMedium
-                      .copyWith(color: RibnColors.ghostButtonText),
+                  style:
+                      RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.ghostButtonText),
                 ),
                 backgroundColor: Colors.transparent,
                 hoverColor: Colors.transparent,

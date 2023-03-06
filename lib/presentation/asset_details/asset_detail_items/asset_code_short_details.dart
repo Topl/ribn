@@ -1,13 +1,9 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/asset_details/asset_detail_items/asset_column.dart';
-=======
-
->>>>>>> rc-0.4
 // Package imports:
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';

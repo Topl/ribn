@@ -3,17 +3,9 @@ import 'dart:async';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-=======
-
-// Package imports:
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
-
->>>>>>> rc-0.4
 // Project imports:
 import 'package:ribn/actions/login_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
@@ -46,17 +38,10 @@ class LoginContainer extends StatelessWidget {
 
 class LoginViewModel {
   /// Handler for when there is an attempt to login using [password].
-<<<<<<< HEAD
   final Function(
       {required String password,
       required VoidCallback onIncorrectPasswordEntered,
       required BuildContext context}) attemptLogin;
-=======
-  final Function({
-    required String password,
-    required VoidCallback onIncorrectPasswordEntered,
-  }) attemptLogin;
->>>>>>> rc-0.4
 
   /// Handler for when there is attempt to restore wallet from the login page.
   final VoidCallback restoreWallet;
@@ -72,10 +57,7 @@ class LoginViewModel {
   static LoginViewModel fromStore(Store<AppState> store) {
     return LoginViewModel(
       attemptLogin: ({
-<<<<<<< HEAD
         required BuildContext context,
-=======
->>>>>>> rc-0.4
         required String password,
         required VoidCallback onIncorrectPasswordEntered,
       }) async {
@@ -83,13 +65,12 @@ class LoginViewModel {
         store.dispatch(AttemptLoginAction(password, loginCompleter));
         await loginCompleter.future.then((bool loginSuccess) async {
           if (loginSuccess) {
-            if (store.state.internalMessage?.additionalNavigation ==
-                    Routes.connectDApp &&
+            if (store.state.internalMessage?.additionalNavigation == Routes.connectDApp &&
                 store.state.internalMessage != null) {
-              await MiscRepository().persistAppState(
-                  StoreProvider.of<AppState>(context).state.toJson());
-              Keys.navigatorKey.currentState?.pushNamed(Routes.connectDApp,
-                  arguments: store.state.internalMessage);
+              await MiscRepository()
+                  .persistAppState(StoreProvider.of<AppState>(context).state.toJson());
+              Keys.navigatorKey.currentState
+                  ?.pushNamed(Routes.connectDApp, arguments: store.state.internalMessage);
             } else {
               Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home);
             }
@@ -98,8 +79,7 @@ class LoginViewModel {
           }
         });
       },
-      restoreWallet: () =>
-          store.dispatch(NavigateToRoute(Routes.restoreWallet)),
+      restoreWallet: () => store.dispatch(NavigateToRoute(Routes.restoreWallet)),
       isBiometricsEnabled: store.state.userDetailsState.isBiometricsEnabled,
     );
   }

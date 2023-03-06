@@ -2,10 +2,6 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-<<<<<<< HEAD
-=======
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
->>>>>>> rc-0.4
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
@@ -78,16 +74,16 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
                         Strings.sendAssets,
-                        style: RibnToolkitTextStyles.btnMedium
-                            .copyWith(color: RibnColors.defaultText),
+                        style:
+                            RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
                       ),
                     ),
                     1: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
                         Strings.sendNativeCoins,
-                        style: RibnToolkitTextStyles.btnMedium
-                            .copyWith(color: RibnColors.defaultText),
+                        style:
+                            RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
                       ),
                     ),
                   },
@@ -98,15 +94,13 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
                   ? AssetTransferInputContainer(
                       builder: (context, vm) => AssetTransferSection(
                         vm: vm,
-                        updateButton: (val) =>
-                            setState(() => bottomButton = val),
+                        updateButton: (val) => setState(() => bottomButton = val),
                       ),
                     )
                   : PolyTransferInputContainer(
                       builder: (context, vm) => PolyTransferSection(
                         vm: vm,
-                        updateButton: (val) =>
-                            setState(() => bottomButton = val),
+                        updateButton: (val) => setState(() => bottomButton = val),
                       ),
                     ),
               const SizedBox(height: 18),

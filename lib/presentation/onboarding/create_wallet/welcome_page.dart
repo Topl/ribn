@@ -61,7 +61,6 @@ class WelcomePage extends StatelessWidget {
                   ),
                 ),
                 adaptableSpacer(),
-<<<<<<< HEAD
                 Padding(
                   padding: EdgeInsets.only(bottom: 50),
                   child: ConfirmationButton(
@@ -71,14 +70,6 @@ class WelcomePage extends StatelessWidget {
                       Keys.navigatorKey.currentState?.pushNamed(Routes.optIn);
                     },
                   ),
-=======
-                ConfirmationButton(
-                  text: Strings.getStarted,
-                  onPressed: () {
-                    Keys.navigatorKey.currentState
-                        ?.pushNamed(Routes.selectAction);
-                  },
->>>>>>> rc-0.4
                 ),
               ],
             ),

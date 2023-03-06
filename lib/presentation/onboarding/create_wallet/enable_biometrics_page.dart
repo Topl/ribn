@@ -7,34 +7,15 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:app_settings/app_settings.dart';
-<<<<<<< HEAD
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn/providers/packages/local_authentication_provider.dart';
-=======
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:local_auth/local_auth.dart';
->>>>>>> rc-0.4
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-<<<<<<< HEAD
-=======
-
-// Project imports:
-import 'package:ribn/actions/user_details_actions.dart';
-import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/keys.dart';
-import 'package:ribn/constants/routes.dart';
-import 'package:ribn/constants/strings.dart';
-import 'package:ribn/models/app_state.dart';
-import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
-import 'package:ribn/presentation/transfers/bottom_review_action.dart';
-import 'package:ribn/utils.dart';
->>>>>>> rc-0.4
 
 // Project imports:
 import 'package:ribn/constants/assets.dart';
@@ -115,8 +96,7 @@ class EnableBiometrics extends HookConsumerWidget {
               children: [
                 CustomIconButton(
                   onPressed: () {
-                    Keys.navigatorKey.currentState
-                        ?.pushNamed(Routes.walletCreated);
+                    Keys.navigatorKey.currentState?.pushNamed(Routes.walletCreated);
                   },
                   icon: const Icon(
                     Icons.close,
@@ -135,9 +115,7 @@ class EnableBiometrics extends HookConsumerWidget {
             Padding(
               padding: const EdgeInsets.only(top: 30.0, bottom: 45),
               child: Image.asset(
-                Platform.isIOS
-                    ? RibnAssets.iosBiometrics
-                    : RibnAssets.andriodBiometrics,
+                Platform.isIOS ? RibnAssets.iosBiometrics : RibnAssets.andriodBiometrics,
                 width: 111,
               ),
             ),
@@ -166,18 +144,10 @@ class EnableBiometrics extends HookConsumerWidget {
                 ),
               ),
               onPressed: () {
-<<<<<<< HEAD
                 runBiometrics(ref, context, authorized).then(
                   (value) => {
                     if (authorized.value)
                       Keys.navigatorKey.currentState?.pushNamed(Routes.walletCreated)
-=======
-                runBiometrics(_localAuthentication).then(
-                  (value) => {
-                    if (_authorized)
-                      Keys.navigatorKey.currentState
-                          ?.pushNamed(Routes.walletCreated)
->>>>>>> rc-0.4
                   },
                 );
               },

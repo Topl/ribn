@@ -9,10 +9,6 @@ import 'dart:js_util';
 
 // Package imports:
 import 'package:js/js.dart';
-<<<<<<< HEAD
-=======
-
->>>>>>> rc-0.4
 // Project imports:
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/platform/interfaces.dart';
@@ -41,8 +37,7 @@ class PlatformUtils implements IPlatformUtils {
   String getCurrentAppVersion() => getAppVersion();
 
   @override
-  void downloadFile(String fileName, String text) =>
-      downloadAsFile(fileName, text);
+  void downloadFile(String fileName, String text) => downloadAsFile(fileName, text);
 
   @override
   void deleteActiveWallet() => deleteWallet();

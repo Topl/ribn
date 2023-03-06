@@ -3,22 +3,13 @@ import 'dart:async';
 import 'dart:convert';
 
 // Flutter imports:
-<<<<<<< HEAD
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-=======
-import 'package:flutter/material.dart';
-
->>>>>>> rc-0.4
 // Package imports:
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:redux/redux.dart';
-<<<<<<< HEAD
-=======
-
->>>>>>> rc-0.4
 // Project imports:
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/keys.dart';
@@ -106,17 +97,9 @@ String getInitialRoute(Store<AppState> store) {
   //v2
   else if (store.state.internalMessage?.method == InternalMethods.authorize) {
     return Routes.connectDApp;
-<<<<<<< HEAD
   } else if (store.state.internalMessage?.method == InternalMethods.getBalance) {
     return Routes.reviewAndSignDApp;
   } else if (store.state.internalMessage?.method == InternalMethods.signTransaction) {
-=======
-  } else if (store.state.internalMessage?.method ==
-      InternalMethods.getBalance) {
-    return Routes.reviewAndSignDApp;
-  } else if (store.state.internalMessage?.method ==
-      InternalMethods.signTransaction) {
->>>>>>> rc-0.4
     return Routes.reviewAndSignDApp;
   }
 

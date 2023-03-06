@@ -1,24 +1,9 @@
 // Flutter imports:
 
-<<<<<<< HEAD
 // Package imports:
 import 'package:brambldart/brambldart.dart';
 // Flutter imports:
 import 'package:flutter/material.dart';
-=======
-// Flutter imports:
-import 'package:flutter/material.dart';
-
-// Package imports:
-import 'package:brambldart/brambldart.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/molecules/asset_card.dart';
-import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
-import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
-
->>>>>>> rc-0.4
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
@@ -28,7 +13,6 @@ import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/error_section.dart';
 import 'package:ribn/presentation/home/wallet_balance_shimmer.dart';
 import 'package:ribn/utils.dart';
-<<<<<<< HEAD
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
@@ -36,8 +20,6 @@ import 'package:ribn_toolkit/widgets/molecules/asset_card.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
 import 'package:url_launcher/url_launcher.dart';
-=======
->>>>>>> rc-0.4
 
 // import 'package:url_launcher/url_launcher.dart';
 
@@ -94,43 +76,40 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       onWillChange: (prevVm, currVm) {
         // refresh balances on network toggle or when new addresses are generated
         final bool shouldRefresh = currVm.walletExists &&
-            (prevVm?.currentNetwork.networkName !=
-                    currVm.currentNetwork.networkName ||
+            (prevVm?.currentNetwork.networkName != currVm.currentNetwork.networkName ||
                 prevVm?.currentNetwork.lastCheckedTimestamp !=
                     currVm.currentNetwork.lastCheckedTimestamp ||
-                prevVm?.currentNetwork.addresses.length !=
-                    currVm.currentNetwork.addresses.length);
+                prevVm?.currentNetwork.addresses.length != currVm.currentNetwork.addresses.length);
         if (shouldRefresh) refreshBalances(currVm);
       },
-      builder: (BuildContext context, WalletBalanceViewModel vm) =>
-          _failedToFetchBalances
-              ? Center(
-                  child: ErrorSection(
-                    onTryAgain: () => refreshBalances(vm),
-                  ),
-                )
-              : RefreshIndicator(
-                  backgroundColor: RibnColors.primary,
-                  color: RibnColors.secondaryDark,
-                  onRefresh: () async {
-                    return refreshBalances(vm);
+      builder: (BuildContext context, WalletBalanceViewModel vm) => _failedToFetchBalances
+          ? Center(
+              child: ErrorSection(
+                onTryAgain: () => refreshBalances(vm),
+              ),
+            )
+          : RefreshIndicator(
+              backgroundColor: RibnColors.primary,
+              color: RibnColors.secondaryDark,
+              onRefresh: () async {
+                return refreshBalances(vm);
+              },
+              child: SingleChildScrollView(
+                child: Listener(
+                  onPointerDown: (_) {
+                    if (mounted) setState(() {});
                   },
-                  child: SingleChildScrollView(
-                    child: Listener(
-                      onPointerDown: (_) {
-                        if (mounted) setState(() {});
-                      },
-                      child: Column(
-                        children: _fetchingBalances
-                            ? [const WalletBalanceShimmer()]
-                            : [
-                                _buildPolyContainer(vm),
-                                _buildAssetsListView(vm),
-                              ],
-                      ),
-                    ),
+                  child: Column(
+                    children: _fetchingBalances
+                        ? [const WalletBalanceShimmer()]
+                        : [
+                            _buildPolyContainer(vm),
+                            _buildAssetsListView(vm),
+                          ],
                   ),
                 ),
+              ),
+            ),
     );
   }
 
@@ -153,9 +132,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
             style: RibnToolkitTextStyles.toolTipTextStyle,
             children: [
               TextSpan(
-                text: hasPolys
-                    ? Strings.refillCurrentPolyBalance
-                    : Strings.refillEmptyPolyBalance,
+                text: hasPolys ? Strings.refillCurrentPolyBalance : Strings.refillEmptyPolyBalance,
               ),
               WidgetSpan(
                 child: GestureDetector(
@@ -307,24 +284,12 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     required Function(AssetAmount) viewAssetDetails,
   }) {
     final String assetIcon = assetDetails?.icon ?? RibnAssets.undefinedIcon;
-<<<<<<< HEAD
-=======
-    final String assetUnit = assetDetails?.unit != null
-        ? formatAssetUnit(assetDetails!.unit)
-        : 'Unit';
-    final String assetLongName = assetDetails?.longName ?? '';
-    final bool isMissingAssetDetails = assetIcon == RibnAssets.undefinedIcon ||
-        assetUnit == 'Unit' ||
-        assetLongName.isEmpty;
->>>>>>> rc-0.4
 
-    final String assetUnit = assetDetails?.unit != null
-        ? formatAssetUnit(assetDetails!.unit)
-        : 'Unit';
+    final String assetUnit =
+        assetDetails?.unit != null ? formatAssetUnit(assetDetails!.unit) : 'Unit';
     final String assetLongName = assetDetails?.longName ?? '';
-    final bool isMissingAssetDetails = assetIcon == RibnAssets.undefinedIcon ||
-        assetUnit == 'Unit' ||
-        assetLongName.isEmpty;
+    final bool isMissingAssetDetails =
+        assetIcon == RibnAssets.undefinedIcon || assetUnit == 'Unit' || assetLongName.isEmpty;
 
     bool isNft = false;
     return AssetCard(

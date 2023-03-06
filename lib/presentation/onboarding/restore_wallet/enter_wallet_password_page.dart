@@ -3,26 +3,16 @@ import 'dart:async';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/providers/restore_wallet_provider.dart';
 
 // Package imports:
-=======
-
-// Package imports:
-import 'package:flutter_redux/flutter_redux.dart';
->>>>>>> rc-0.4
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 
 // Project imports:
-<<<<<<< HEAD
-=======
-import 'package:ribn/actions/restore_wallet_actions.dart';
->>>>>>> rc-0.4
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
@@ -39,15 +29,6 @@ class EnterWalletPasswordPage extends HookConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-<<<<<<< HEAD
-=======
-  @override
-  _EnterWalletPasswordPageState createState() =>
-      _EnterWalletPasswordPageState();
-}
-
-class _EnterWalletPasswordPageState extends State<EnterWalletPasswordPage> {
->>>>>>> rc-0.4
   final double maxWidth = 734;
 
   @override

@@ -39,7 +39,6 @@ class SelectActionPage extends StatelessWidget {
           },
         ),
       ),
-<<<<<<< HEAD
       kIsWeb ? const SizedBox(width: 100, height: 50) : const SizedBox(height: 25),
       Expanded(
         child: OnboardingActionButton(
@@ -52,19 +51,6 @@ class SelectActionPage extends StatelessWidget {
             Keys.navigatorKey.currentState?.pushNamed(Routes.restoreWallet);
           },
         ),
-=======
-      kIsWeb
-          ? const SizedBox(width: 100, height: 50)
-          : const SizedBox(height: 50),
-      OnboardingActionButton(
-        backgroundColor: RibnColors.primary,
-        icon: Image.asset(RibnAssets.importWalletPng),
-        description: Strings.importWalletUsingSeedPhrase,
-        title: Strings.importWallet,
-        onPressed: () {
-          Keys.navigatorKey.currentState?.pushNamed(Routes.restoreWallet);
-        },
->>>>>>> rc-0.4
       )
     ];
 
@@ -82,7 +68,6 @@ class SelectActionPage extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: RibnToolkitTextStyles.onboardingH1,
                 ),
-<<<<<<< HEAD
               ),
               SizedBox(height: adaptHeight(0.05)),
               // display actionbuttons in row or column depending on platform
@@ -105,19 +90,6 @@ class SelectActionPage extends StatelessWidget {
                     ),
               SizedBox(height: adaptHeight(0.05)),
             ],
-=======
-                SizedBox(height: adaptHeight(0.1)),
-                // display actionbuttons in row or column depending on platform
-                kIsWeb
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: actionButtons,
-                      )
-                    : Column(children: actionButtons),
-                SizedBox(height: adaptHeight(0.1)),
-              ],
-            ),
->>>>>>> rc-0.4
           ),
         ),
       ),
