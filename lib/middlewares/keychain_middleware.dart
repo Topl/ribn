@@ -90,23 +90,30 @@ void Function(
   KeychainRepository keychainRepo,
 ) {
   return (store, action, next) async {
+    print('QQQQ refresh 1');
     try {
       // get addresses in the wallet
       final List<ToplAddress> currentAddresses =
           action.network.addresses.map((addr) => addr.toplAddress).toList();
+      print('QQQQ refresh 2');
       // if no address in the wallet, generate a new address
       if (currentAddresses.isEmpty) {
+        print('QQQQ refresh 3');
         store.dispatch(GenerateAddressAction(0, network: action.network));
+        print('QQQQ refresh 4');
       } else {
+        print('QQQQ refresh 5a');
         // get balances for all addresses under the current network
         final List<Balance> balances = await keychainRepo.getBalances(
           store.state.keychainState.currentNetwork.client!,
           currentAddresses,
         );
+        print('QQQQ refresh 5');
         // map addresses and balances
         final Map<String, Balance> addrBalanceMap = {
           for (Balance bal in balances) bal.address: bal
         };
+        print('QQQQ refresh 6');
         // addresses with updated balances
         final List<RibnAddress> addressesWithUpdatedBalances = action.network.addresses.map(
           (addr) {
@@ -120,6 +127,7 @@ void Function(
         action.completer.complete(true);
       }
     } catch (e) {
+      print('QQQQ error $e');
       action.completer.complete(false);
     }
   };

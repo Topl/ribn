@@ -51,6 +51,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
   ///
   /// Updates [_fetchingBalances] and [_failedToFetchBalances] to indicate that balances are being fetched.
   void refreshBalances(WalletBalanceViewModel vm) {
+    print('QQQQ refreshing balances ');
     setState(() {
       _fetchingBalances = true;
       _failedToFetchBalances = false;
@@ -76,43 +77,40 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       onWillChange: (prevVm, currVm) {
         // refresh balances on network toggle or when new addresses are generated
         final bool shouldRefresh = currVm.walletExists &&
-            (prevVm?.currentNetwork.networkName !=
-                    currVm.currentNetwork.networkName ||
+            (prevVm?.currentNetwork.networkName != currVm.currentNetwork.networkName ||
                 prevVm?.currentNetwork.lastCheckedTimestamp !=
                     currVm.currentNetwork.lastCheckedTimestamp ||
-                prevVm?.currentNetwork.addresses.length !=
-                    currVm.currentNetwork.addresses.length);
+                prevVm?.currentNetwork.addresses.length != currVm.currentNetwork.addresses.length);
         if (shouldRefresh) refreshBalances(currVm);
       },
-      builder: (BuildContext context, WalletBalanceViewModel vm) =>
-          _failedToFetchBalances
-              ? Center(
-                  child: ErrorSection(
-                    onTryAgain: () => refreshBalances(vm),
-                  ),
-                )
-              : RefreshIndicator(
-                  backgroundColor: RibnColors.primary,
-                  color: RibnColors.secondaryDark,
-                  onRefresh: () async {
-                    return refreshBalances(vm);
+      builder: (BuildContext context, WalletBalanceViewModel vm) => _failedToFetchBalances
+          ? Center(
+              child: ErrorSection(
+                onTryAgain: () => refreshBalances(vm),
+              ),
+            )
+          : RefreshIndicator(
+              backgroundColor: RibnColors.primary,
+              color: RibnColors.secondaryDark,
+              onRefresh: () async {
+                return refreshBalances(vm);
+              },
+              child: SingleChildScrollView(
+                child: Listener(
+                  onPointerDown: (_) {
+                    if (mounted) setState(() {});
                   },
-                  child: SingleChildScrollView(
-                    child: Listener(
-                      onPointerDown: (_) {
-                        if (mounted) setState(() {});
-                      },
-                      child: Column(
-                        children: _fetchingBalances
-                            ? [const WalletBalanceShimmer()]
-                            : [
-                                _buildPolyContainer(vm),
-                                _buildAssetsListView(vm),
-                              ],
-                      ),
-                    ),
+                  child: Column(
+                    children: _fetchingBalances
+                        ? [const WalletBalanceShimmer()]
+                        : [
+                            _buildPolyContainer(vm),
+                            _buildAssetsListView(vm),
+                          ],
                   ),
                 ),
+              ),
+            ),
     );
   }
 
@@ -135,9 +133,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
             style: RibnToolkitTextStyles.toolTipTextStyle,
             children: [
               TextSpan(
-                text: hasPolys
-                    ? Strings.refillCurrentPolyBalance
-                    : Strings.refillEmptyPolyBalance,
+                text: hasPolys ? Strings.refillCurrentPolyBalance : Strings.refillEmptyPolyBalance,
               ),
               WidgetSpan(
                 child: GestureDetector(
@@ -290,13 +286,11 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
   }) {
     final String assetIcon = assetDetails?.icon ?? RibnAssets.undefinedIcon;
 
-    final String assetUnit = assetDetails?.unit != null
-        ? formatAssetUnit(assetDetails!.unit)
-        : 'Unit';
+    final String assetUnit =
+        assetDetails?.unit != null ? formatAssetUnit(assetDetails!.unit) : 'Unit';
     final String assetLongName = assetDetails?.longName ?? '';
-    final bool isMissingAssetDetails = assetIcon == RibnAssets.undefinedIcon ||
-        assetUnit == 'Unit' ||
-        assetLongName.isEmpty;
+    final bool isMissingAssetDetails =
+        assetIcon == RibnAssets.undefinedIcon || assetUnit == 'Unit' || assetLongName.isEmpty;
 
     bool isNft = false;
     return AssetCard(
