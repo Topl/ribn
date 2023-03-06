@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
+<<<<<<< HEAD
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ribn/presentation/onboarding/widgets/password_section.dart';
@@ -12,12 +13,29 @@ import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
 
 // Project imports:
+=======
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
+import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
+import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+// Project imports:
+import 'package:ribn/actions/restore_wallet_actions.dart';
+>>>>>>> rc-0.4
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/warning_section.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
+<<<<<<< HEAD
+=======
+import 'package:ribn/utils.dart';
+>>>>>>> rc-0.4
 
 /// Page for creating a new wallet password, when restoring wallet with a [seedPhrase].
 class NewWalletPasswordPage extends HookConsumerWidget {
@@ -34,9 +52,63 @@ class NewWalletPasswordPage extends HookConsumerWidget {
   }) : super(key: key);
 
   @override
+<<<<<<< HEAD
   Widget build(BuildContext context, WidgetRef ref) {
     final passwordState = ref.watch(passwordProvider);
     final restoreWalletNotifer = ref.watch(restoreWalletProvider.notifier);
+=======
+  _NewWalletPasswordPageState createState() => _NewWalletPasswordPageState();
+}
+
+class _NewWalletPasswordPageState extends State<NewWalletPasswordPage> {
+  /// Controllers for password textfields.
+  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+
+  /// True if the password entered is at least 8 characters.
+  bool _atLeast8Chars = false;
+
+  /// True if both passwords match.
+  bool _passwordsMatch = false;
+
+  /// Map to keep track of any textfield errors.
+  Map<TextEditingController, bool> hasErrors = {};
+
+  bool _termsOfUseChecked = false;
+
+  @override
+  void initState() {
+    // Initialize listeners for each controller.
+    [_newPasswordController, _confirmPasswordController]
+        .toList()
+        .forEach((controller) {
+      controller.addListener(() {
+        setState(() {
+          hasErrors[controller] = false;
+          _atLeast8Chars = _newPasswordController.text.length >= 8;
+          _passwordsMatch =
+              _newPasswordController.text == _confirmPasswordController.text;
+        });
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // Dispose listeners for each controller.
+    [_newPasswordController, _confirmPasswordController]
+        .toList()
+        .forEach((controller) {
+      controller.dispose();
+    });
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+>>>>>>> rc-0.4
     return LoaderOverlay(
       child: Scaffold(
         extendBody: true,
@@ -75,9 +147,15 @@ class NewWalletPasswordPage extends HookConsumerWidget {
                 ConfirmationButton(
                   key: newWalletPasswordConfirmationButtonKey,
                   text: Strings.done,
+<<<<<<< HEAD
                   disabled: !passwordState.atLeast8Chars ||
                       !passwordState.passwordsMatch ||
                       !passwordState.termsOfUseChecked,
+=======
+                  disabled: !_atLeast8Chars ||
+                      !_passwordsMatch ||
+                      !_termsOfUseChecked,
+>>>>>>> rc-0.4
                   onPressed: () {
                     context.loaderOverlay.show();
                     restoreWalletNotifer.restoreWalletWithMnemonic(
@@ -93,4 +171,146 @@ class NewWalletPasswordPage extends HookConsumerWidget {
       ),
     );
   }
+<<<<<<< HEAD
+=======
+
+  Widget _buildNewPasswordSection() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            Strings.newWalletPassword,
+            textAlign: TextAlign.left,
+            style: RibnToolkitTextStyles.h3.copyWith(
+              fontWeight: FontWeight.bold,
+              color: RibnColors.lightGreyTitle,
+            ),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: PasswordTextField(
+            width: kIsWeb ? 350 : adaptWidth(0.9),
+            fillColor: RibnColors.whiteButtonShadow,
+            controller: _newPasswordController,
+            hintText: '',
+            obscurePassword: true,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            Strings.atLeast8Chars,
+            textAlign: TextAlign.left,
+            style: RibnToolkitTextStyles.h3.copyWith(
+              color: !_atLeast8Chars && _newPasswordController.text.isNotEmpty
+                  ? Colors.red
+                  : Colors.white,
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            Strings.passwordExample,
+            textAlign: TextAlign.left,
+            style: RibnToolkitTextStyles.h3.copyWith(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  _buildConfirmPasswordSection() {
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            Strings.confirmWalletPassword,
+            textAlign: TextAlign.left,
+            style: RibnToolkitTextStyles.h3.copyWith(
+              fontWeight: FontWeight.bold,
+              color: RibnColors.lightGreyTitle,
+            ),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: PasswordTextField(
+            width: kIsWeb ? 350 : adaptWidth(0.9),
+            fillColor: RibnColors.whiteButtonShadow,
+            controller: _confirmPasswordController,
+            hintText: '',
+            obscurePassword: true,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            Strings.passwordsMustMatch,
+            textAlign: TextAlign.left,
+            style: RibnToolkitTextStyles.h3.copyWith(
+              color:
+                  !_passwordsMatch && _confirmPasswordController.text.isNotEmpty
+                      ? Colors.red
+                      : Colors.white,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTermsOfAgreementCheck() {
+    final url = Uri.parse(Strings.termsOfUseUrl);
+    return CheckboxWrappableText(
+      wrapText: false,
+      borderColor: _termsOfUseChecked
+          ? const Color(0xff80FF00)
+          : RibnColors.lightGreyTitle,
+      value: _termsOfUseChecked,
+      onChanged: (bool? checked) {
+        setState(() {
+          _termsOfUseChecked = checked ?? false;
+        });
+      },
+      label: RichText(
+        maxLines: 2,
+        key: GlobalKey(),
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: Strings.readAndAgreedToU,
+              style: RibnToolkitTextStyles.h3.copyWith(
+                color: RibnColors.lightGreyTitle,
+                fontSize: 15,
+              ),
+            ),
+            TextSpan(
+              text: Strings.termsOfUse,
+              style: RibnToolkitTextStyles.h3.copyWith(
+                color: const Color(0xff00FFC5),
+                fontSize: 15,
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () async {
+                  await launchUrl(url);
+                },
+            ),
+          ],
+        ),
+      ),
+      activeText: true,
+    );
+  }
+>>>>>>> rc-0.4
 }

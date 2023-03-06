@@ -1,17 +1,43 @@
+<<<<<<< HEAD
 import 'package:bip_topl/bip_topl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+=======
+// Flutter imports:
+
+// Flutter imports:
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:bip_topl/bip_topl.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/atoms/peekaboo_button.dart';
+import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
+
+// Project imports:
+import 'package:ribn/actions/misc_actions.dart';
+import 'package:ribn/constants/keys.dart';
+>>>>>>> rc-0.4
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
+<<<<<<< HEAD
 import 'package:ribn/utils/navigation_utils.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
+=======
+>>>>>>> rc-0.4
 
 /// This page allows the user to enter a known mnemonic / seed phrase in order to restore a wallet.
 ///
@@ -87,14 +113,25 @@ class RestoreWalletPage extends HookWidget {
                       hasError: invalidSeedPhraseEntered.value,
                     ),
                   ),
+<<<<<<< HEAD
 
                   /// Hidden for RIBN-557
                   // kIsWeb ? Align(alignment: Alignment.centerLeft, child: _buildAdvancedOption()) : const SizedBox(),
+=======
+                  kIsWeb
+                      ? Align(
+                          alignment: Alignment.centerLeft,
+                          child: _buildAdvancedOption(),
+                        )
+                      : const SizedBox(),
+>>>>>>> rc-0.4
                 ],
               ),
             ),
             adaptableSpacer(),
-            renderIfMobile(const OnboardingProgressBar(numSteps: 2, currStep: 0)),
+            renderIfMobile(
+              const OnboardingProgressBar(numSteps: 2, currStep: 0),
+            ),
             const SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.only(bottom: 30),
@@ -133,6 +170,7 @@ class RestoreWalletPage extends HookWidget {
     }
   }
 
+<<<<<<< HEAD
   /// Hidden for RIBN-557
   // Widget _buildAdvancedOption() {
   //   return Padding(
@@ -169,4 +207,41 @@ class RestoreWalletPage extends HookWidget {
   //     ),
   //   );
   // }
+=======
+  Widget _buildAdvancedOption() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 5.0),
+      child: SizedBox(
+        width: maxWidth,
+        child: PeekabooButton(
+          buttonText: Text(
+            Strings.advancedOption,
+            style: RibnToolkitTextStyles.smallBody
+                .copyWith(fontSize: 15, color: RibnColors.whiteBackground),
+          ),
+          buttonChild: Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: RichText(
+              text: TextSpan(
+                style: RibnToolkitTextStyles.body1Bold
+                    .copyWith(color: RibnColors.whiteBackground),
+                children: [
+                  const TextSpan(text: 'Use '),
+                  TextSpan(
+                    text: 'Topl main key file',
+                    style: RibnToolkitTextStyles.body1Bold
+                        .copyWith(color: RibnColors.secondaryDark),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () => Keys.navigatorKey.currentState
+                          ?.pushNamed(Routes.restoreWithToplKey),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+>>>>>>> rc-0.4
 }

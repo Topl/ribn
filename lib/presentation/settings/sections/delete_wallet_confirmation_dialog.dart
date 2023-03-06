@@ -27,10 +27,12 @@ class DeleteWalletConfirmationDialog extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _DeleteWalletConfirmationDialogState createState() => _DeleteWalletConfirmationDialogState();
+  _DeleteWalletConfirmationDialogState createState() =>
+      _DeleteWalletConfirmationDialogState();
 }
 
-class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmationDialog> {
+class _DeleteWalletConfirmationDialogState
+    extends State<DeleteWalletConfirmationDialog> {
   final TextEditingController _passwordController = TextEditingController();
 
   /// True if incorrect password was entered.

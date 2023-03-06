@@ -53,11 +53,57 @@ void main() {
 
   group('App middleware', () {
     setUp(reset);
+<<<<<<< HEAD
 
+=======
+    group('Onboarding middleware', () {
+      test('should generate mnemonic', () {
+        when(onboardingRepo.generateMnemonicForUser())
+            .thenAnswer((_) => testMnemonic);
+        testStore.dispatch(GenerateMnemonicAction());
+        verify(onboardingRepo.generateMnemonicForUser()).called(1);
+        expect(testStore.state.onboardingState.mnemonic, testMnemonic);
+        expect(
+          testStore.state.onboardingState.shuffledMnemonic,
+          unorderedEquals(testMnemonic.split(' ')),
+        );
+      });
+      test('should generate keystore and initialize hd wallet', () async {
+        when(onboardingRepo.generateMnemonicForUser())
+            .thenAnswer((_) => testMnemonic);
+        testStore.dispatch(GenerateMnemonicAction());
+        // mnemonic: captureAnyNamed('mnemonic'),
+        // password: captureAnyNamed('password'),
+        when(
+          onboardingRepo.generateKeyStore(argThat(isNotNull)),
+        ).thenReturn(
+          {
+            'keyStoreJson': testKeyStore,
+            'toplExtendedPrvKeyUint8List': testToplExtendedPrivKey,
+          },
+        );
+        testStore.dispatch(CreatePasswordAction(validPassword));
+        // verifyas(
+        //   onboardingRepo.generateKeyStore(argThat(isNotNull)
+        //       // mnemonic: captureAnyNamed('mnemonic'),
+        //       // password: captureAnyNamed('password'),
+        //       ),
+        // ).called(1);
+        await Future.delayed(
+          const Duration(seconds: 1),
+          (() {
+            expect(testStore.state.keychainState.keyStoreJson, testKeyStore);
+            expect(testStore.state.keychainState.hdWallet, isNotNull);
+          }),
+        );
+      });
+    });
+>>>>>>> rc-0.4
     group('Login middleware', () {
       setUp(() {
         // generate mnemonic
-        when(onboardingRepo.generateMnemonicForUser()).thenAnswer((_) => testMnemonic);
+        when(onboardingRepo.generateMnemonicForUser())
+            .thenAnswer((_) => testMnemonic);
         testStore.dispatch(GenerateMnemonicAction());
         // generate keystore
         when(
@@ -103,14 +149,23 @@ void main() {
     group('Keychain middleware', () {
       setUp(() {
         // generate mnemonic
-        when(onboardingRepo.generateMnemonicForUser()).thenAnswer((_) => testMnemonic);
+        when(onboardingRepo.generateMnemonicForUser())
+            .thenAnswer((_) => testMnemonic);
         testStore.dispatch(GenerateMnemonicAction());
         // generate keystore
+<<<<<<< HEAD
         when(onboardingRepo.generateKeyStore(argThat(isNotNull))).thenReturn(
             {'keyStoreJson': testKeyStore, 'toplExtendedPrvKeyUint8List': testToplExtendedPrivKey});
+=======
+        when(onboardingRepo.generateKeyStore(argThat(isNotNull))).thenReturn({
+          'keyStoreJson': testKeyStore,
+          'toplExtendedPrvKeyUint8List': testToplExtendedPrivKey
+        });
+>>>>>>> rc-0.4
         testStore.dispatch(CreatePasswordAction(validPassword));
         // login
-        when(loginRepo.decryptKeyStore(captureAny)).thenReturn(testToplExtendedPrivKey);
+        when(loginRepo.decryptKeyStore(captureAny))
+            .thenReturn(testToplExtendedPrivKey);
       });
       test('Should refresh balances', () async {
         const testPolys = 10000;
@@ -156,7 +211,8 @@ void main() {
         );
         await expectLater(completer.future, completion(true));
         expect(
-          testStore.state.keychainState.currentNetwork.addresses.first.balance.polys,
+          testStore
+              .state.keychainState.currentNetwork.addresses.first.balance.polys,
           PolyAmount.inNanopoly(quantity: testPolys),
         );
       });

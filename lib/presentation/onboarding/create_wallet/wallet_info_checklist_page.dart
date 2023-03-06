@@ -1,12 +1,18 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Package imports:
 import 'package:local_auth/local_auth.dart';
 import 'package:ribn/providers/packages/local_authentication_provider.dart';
+=======
+
+// Package imports:
+import 'package:local_auth/local_auth.dart';
+>>>>>>> rc-0.4
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
@@ -32,8 +38,15 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
   static const Key walletInfoChecklistConfirmationButtonKey =
       Key('walletInfoChecklistConfirmationButtonKey');
 
+<<<<<<< HEAD
   Future<void> runBiometrics(isBioSupported, ref) async {
     final LocalAuthentication _localAuthentication = ref.read(localAuthenticationProvider)();
+=======
+  @override
+  State<WalletInfoChecklistPage> createState() =>
+      _WalletInfoChecklistPageState();
+}
+>>>>>>> rc-0.4
 
     final bool isBioAuthenticationSupported =
         await isBiometricsAuthenticationSupported(_localAuthentication);
@@ -44,9 +57,14 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isBioSupported = useState(false);
 
+<<<<<<< HEAD
     final savedMyWalletPasswordSafely = useState(false);
     final toplCannotRecoverForMe = useState(false);
     final spAndPasswordUnrecoverable = useState(false);
+=======
+    final bool isBioAuthenticationSupported =
+        await isBiometricsAuthenticationSupported(_localAuthentication);
+>>>>>>> rc-0.4
 
     useEffect(() {
       runBiometrics(isBioSupported, ref);
@@ -93,6 +111,7 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
                 checked: savedMyWalletPasswordSafely.value,
                 activeText: true,
                 text: Strings.savedMyWalletPasswordSafely,
+<<<<<<< HEAD
                 onChanged: (bool? val) => savedMyWalletPasswordSafely.value = val ?? false,
               ),
               SizedBox(height: adaptHeight(0.03)),
@@ -103,6 +122,22 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
                 text: Strings.toplCannotRecoverForMe,
                 onChanged: savedMyWalletPasswordSafely.value
                     ? (bool? val) => toplCannotRecoverForMe.value = val ?? false
+=======
+                onChanged: (bool? val) => onChecked(
+                  val ?? false,
+                  Strings.savedMyWalletPasswordSafely,
+                ),
+              ),
+              SizedBox(height: adaptHeight(0.03)),
+              _buildCheckboxListTile(
+                checked: checkboxesState[Strings.toplCannotRecoverForMe]!,
+                activeText:
+                    checkboxesState[Strings.savedMyWalletPasswordSafely]!,
+                text: Strings.toplCannotRecoverForMe,
+                onChanged: checkboxesState[Strings.savedMyWalletPasswordSafely]!
+                    ? (bool? val) =>
+                        onChecked(val ?? false, Strings.toplCannotRecoverForMe)
+>>>>>>> rc-0.4
                     : null,
               ),
               SizedBox(height: adaptHeight(0.03)),
@@ -111,8 +146,16 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
                 checked: spAndPasswordUnrecoverable.value,
                 activeText: toplCannotRecoverForMe.value,
                 text: Strings.spAndPasswordUnrecoverable,
+<<<<<<< HEAD
                 onChanged: toplCannotRecoverForMe.value
                     ? (bool? val) => spAndPasswordUnrecoverable.value = val ?? false
+=======
+                onChanged: checkboxesState[Strings.toplCannotRecoverForMe]!
+                    ? (bool? val) => onChecked(
+                          val ?? false,
+                          Strings.spAndPasswordUnrecoverable,
+                        )
+>>>>>>> rc-0.4
                     : null,
                 renderTooltipIcon: true,
               ),
@@ -123,7 +166,13 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
                 text: Strings.iUnderstand,
                 onPressed: () {
                   Keys.navigatorKey.currentState?.pushNamed(
+<<<<<<< HEAD
                     isBioSupported.value ? Routes.onboardingEnableBiometrics : Routes.walletCreated,
+=======
+                    isBioSupported
+                        ? Routes.onboardingEnableBiometrics
+                        : Routes.walletCreated,
+>>>>>>> rc-0.4
                   );
                 },
                 disabled: !spAndPasswordUnrecoverable.value,

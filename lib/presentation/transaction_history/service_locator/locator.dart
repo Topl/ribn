@@ -1,4 +1,9 @@
 /// @dev File contains function that setups any singletons required within the app
+<<<<<<< HEAD
+=======
+
+// Package imports:
+>>>>>>> rc-0.4
 import 'package:get_it/get_it.dart';
 import 'package:redux/redux.dart';
 

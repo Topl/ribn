@@ -3,9 +3,17 @@ import 'dart:async';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+=======
+
+// Package imports:
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
+
+>>>>>>> rc-0.4
 // Project imports:
 import 'package:ribn/actions/login_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
@@ -38,10 +46,17 @@ class LoginContainer extends StatelessWidget {
 
 class LoginViewModel {
   /// Handler for when there is an attempt to login using [password].
+<<<<<<< HEAD
   final Function(
       {required String password,
       required VoidCallback onIncorrectPasswordEntered,
       required BuildContext context}) attemptLogin;
+=======
+  final Function({
+    required String password,
+    required VoidCallback onIncorrectPasswordEntered,
+  }) attemptLogin;
+>>>>>>> rc-0.4
 
   /// Handler for when there is attempt to restore wallet from the login page.
   final VoidCallback restoreWallet;
@@ -57,7 +72,10 @@ class LoginViewModel {
   static LoginViewModel fromStore(Store<AppState> store) {
     return LoginViewModel(
       attemptLogin: ({
+<<<<<<< HEAD
         required BuildContext context,
+=======
+>>>>>>> rc-0.4
         required String password,
         required VoidCallback onIncorrectPasswordEntered,
       }) async {

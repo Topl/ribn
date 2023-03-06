@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 // Dart imports:
 import 'dart:convert';
 
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+=======
+// Flutter imports:
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+>>>>>>> rc-0.4
 // Project imports:
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/internal_message.dart';
@@ -46,6 +53,8 @@ import 'package:ribn_toolkit/models/transactions/ribn_activity_details_model.dar
 
 // import 'package:ribn/models/transaction_history_entry.dart';
 
+// import 'package:ribn/models/transaction_history_entry.dart';
+
 class RootRouter {
   Route<MaterialPageRoute> generateRoutes(
     RouteSettings settings,
@@ -83,7 +92,11 @@ class RootRouter {
         {
           if (kIsWeb) {
             return pageRouteNotAnimated(
+<<<<<<< HEAD
               SeedPhraseInfoChecklistPage(),
+=======
+              const SeedPhraseInfoChecklistPage(),
+>>>>>>> rc-0.4
               settings,
             );
           }
@@ -126,11 +139,19 @@ class RootRouter {
         {
           if (kIsWeb) {
             return pageRouteNotAnimated(
+<<<<<<< HEAD
               SeedPhraseConfirmationPage(),
               settings,
             );
           }
           return pageRoute(SeedPhraseConfirmationPage(), settings);
+=======
+              const SeedPhraseConfirmationPage(),
+              settings,
+            );
+          }
+          return pageRoute(const SeedPhraseConfirmationPage(), settings);
+>>>>>>> rc-0.4
         }
       case Routes.walletInfoChecklist:
         {
@@ -145,9 +166,15 @@ class RootRouter {
       case Routes.createPassword:
         {
           if (kIsWeb) {
+<<<<<<< HEAD
             return pageRouteNotAnimated(CreatePasswordPage(), settings);
           }
           return pageRoute(CreatePasswordPage(), settings);
+=======
+            return pageRouteNotAnimated(const CreatePasswordPage(), settings);
+          }
+          return pageRoute(const CreatePasswordPage(), settings);
+>>>>>>> rc-0.4
         }
       case Routes.extensionInfo:
         {

@@ -1,8 +1,11 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ribn/utils/navigation_utils.dart';
+=======
+>>>>>>> rc-0.4
 
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
@@ -28,6 +31,22 @@ class WalletCreatedPage extends HookWidget {
   const WalletCreatedPage({Key key = walletCreatedPageKey}) : super(key: key);
 
   @override
+<<<<<<< HEAD
+=======
+  State<WalletCreatedPage> createState() => _WalletCreatedPageState();
+}
+
+class _WalletCreatedPageState extends State<WalletCreatedPage> {
+  /// FAQs and their corresponding answeres
+  final Map<String, String> faqs = {
+    Strings.howCanIKeepMySeedPhraseSecure:
+        Strings.howCanIKeepMySeedPhraseSecureAns,
+    Strings.howIsASeedPhraseDifferent: Strings.howIsASeedPhraseDifferentAns,
+    Strings.howIsMySeedPhraseUnrecoverable:
+        Strings.howIsMySeedPhraseUnrecoverableAns,
+  };
+  @override
+>>>>>>> rc-0.4
   Widget build(BuildContext context) {
     /// FAQs and their corresponding answeres
     final ValueNotifier<Map<String, String>> faqs = useState({

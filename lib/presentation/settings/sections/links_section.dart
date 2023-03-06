@@ -1,12 +1,18 @@
 // Flutter imports:
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/utils/url_utils.dart';
+=======
+>>>>>>> rc-0.4
 
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
+
+// Project imports:
+import 'package:ribn/constants/strings.dart';
 
 // Project imports:
 import 'package:ribn/constants/strings.dart';
@@ -35,7 +41,11 @@ class LinksSection extends HookConsumerWidget {
           text: TextSpan(
             text: Strings.privacyPolicy,
             recognizer: TapGestureRecognizer()
+<<<<<<< HEAD
               ..onTap = () async => await launchPrivacyPolicyUrl(ref),
+=======
+              ..onTap = () async => await launchUrl(url1),
+>>>>>>> rc-0.4
             style: linkStyle,
           ),
         ),
@@ -43,7 +53,12 @@ class LinksSection extends HookConsumerWidget {
         RichText(
           text: TextSpan(
             text: Strings.termsOfUse,
+<<<<<<< HEAD
             recognizer: TapGestureRecognizer()..onTap = () async => await launchTermsOfUse(ref),
+=======
+            recognizer: TapGestureRecognizer()
+              ..onTap = () async => await launchUrl(url2),
+>>>>>>> rc-0.4
             style: linkStyle,
           ),
         ),

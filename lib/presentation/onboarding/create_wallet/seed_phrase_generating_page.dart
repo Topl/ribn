@@ -1,15 +1,25 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+=======
+
+// Package imports:
+import 'package:flutter_redux/flutter_redux.dart';
+>>>>>>> rc-0.4
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/animated_circle_step_loader.dart';
 
 // Project imports:
+<<<<<<< HEAD
+=======
+import 'package:ribn/actions/onboarding_actions.dart';
+>>>>>>> rc-0.4
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
@@ -27,11 +37,21 @@ class SeedPhraseGeneratingPage extends HookConsumerWidget {
       Key('seedPhraseGeneratingConfirmationButtonKey');
   const SeedPhraseGeneratingPage({Key key = seedPhraseGeneratingPageKey}) : super(key: key);
 
+<<<<<<< HEAD
+=======
+  @override
+  _SeedPhraseGeneratingPageState createState() =>
+      _SeedPhraseGeneratingPageState();
+}
+
+class _SeedPhraseGeneratingPageState extends State<SeedPhraseGeneratingPage> {
+>>>>>>> rc-0.4
   /// True if animated loader needs to be shown.
 
   final double descriptionBoxWidth = kIsWeb ? 640 : 350;
 
   @override
+<<<<<<< HEAD
   Widget build(BuildContext context, WidgetRef ref) {
     final seedPhraseGenerating = useState(true);
 
@@ -47,6 +67,24 @@ class SeedPhraseGeneratingPage extends HookConsumerWidget {
                       seedPhraseGenerating.value = false;
                     })
                   : seedPhraseGeneratedSection(),
+=======
+  Widget build(BuildContext context) {
+    return StoreConnector<AppState, AppState>(
+      converter: (store) => store.state,
+      onInit: (store) => store.dispatch(GenerateMnemonicAction()),
+      builder: (context, vm) {
+        return Scaffold(
+          body: OnboardingContainer(
+            child: SingleChildScrollView(
+              clipBehavior: Clip.none,
+              child: Center(
+                child: Column(
+                  children: seedPhraseGenerating
+                      ? seedPhraseGeneratingSection()
+                      : seedPhraseGeneratedSection(),
+                ),
+              ),
+>>>>>>> rc-0.4
             ),
           ),
         ),

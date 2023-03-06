@@ -5,8 +5,11 @@ import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
+<<<<<<< HEAD
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/providers/onboarding_provider.dart';
+=======
+>>>>>>> rc-0.4
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 
@@ -39,6 +42,7 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
     final bool isXsHeight = height < 667.0 ? true : false;
     final bool isXsScreenSize = isXsWidth && isXsHeight ? true : false;
 
+<<<<<<< HEAD
     final onboardingState = ref.watch(onboardingProvider);
 
     final seedPhrase = onboardingState.mnemonic;
@@ -105,10 +109,94 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
                                 },
                                 width: 19,
                                 height: 15,
+=======
+        final List<String> seedPhraseWordsList = seedPhrase.split(' ').toList();
+        return Scaffold(
+          body: OnboardingContainer(
+            isXsScreenSize: isXsScreenSize,
+            child: SingleChildScrollView(
+              clipBehavior: Clip.none,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  kIsWeb
+                      ? const WebOnboardingAppBar(currStep: 0)
+                      : const SizedBox(),
+                  SizedBox(
+                    child: Text(
+                      Strings.writeDownSeedPhrase,
+                      style: RibnToolkitTextStyles.onboardingH1
+                          .copyWith(letterSpacing: 0.5),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Image.asset(RibnAssets.penPaperPng, width: 70),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: kIsWeb ? 40 : adaptHeight(0.03),
+                    ),
+                    child: const Text(
+                      Strings.writeDownSeedPhraseInExactOrder,
+                      style: RibnToolkitTextStyles.onboardingH3,
+                    ),
+                  ),
+                  Container(
+                    height: kIsWeb
+                        ? 280
+                        : adaptHeight(isXsScreenSize ? 0.58 : 0.41),
+                    width: kIsWeb ? 674 : adaptWidth(isXsScreenSize ? 1 : 0.9),
+                    decoration: BoxDecoration(
+                      color: RibnColors.greyText.withOpacity(0.24),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Column(
+                      children: [
+                        _buildGrid(seedPhraseWordsList),
+                        const Spacer(),
+                        kIsWeb
+                            ? const SizedBox()
+                            : Padding(
+                                padding: const EdgeInsets.only(right: 20),
+                                child: Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: _buildButton(
+                                    Strings.copy,
+                                    onPressed: () => Clipboard.setData(
+                                      ClipboardData(text: seedPhrase),
+                                    ),
+                                    width: 19,
+                                    height: 15,
+                                  ),
+                                ),
+                              ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 674,
+                    child: kIsWeb
+                        ? Align(
+                            alignment: Alignment.bottomRight,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: _buildButton(
+                                Strings.download,
+                                onPressed: () =>
+                                    StoreProvider.of<AppState>(context)
+                                        .dispatch(
+                                  DownloadAsFileAction(
+                                    Strings.seedPhraseFileName,
+                                    seedPhrase,
+                                  ),
+                                ),
+                                width: 30,
+                                height: 23,
+>>>>>>> rc-0.4
                               ),
                             ),
                     ],
                   ),
+<<<<<<< HEAD
                 ),
               ),
             ),
@@ -153,6 +241,18 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
                         Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseConfirm);
                       },
                     ),
+=======
+                  SizedBox(height: adaptHeight(0.1)),
+                  renderIfMobile(
+                    const MobileOnboardingProgressBar(currStep: 0),
+                  ),
+                  ConfirmationButton(
+                    text: Strings.done,
+                    onPressed: () {
+                      Keys.navigatorKey.currentState
+                          ?.pushNamed(Routes.seedPhraseConfirm);
+                    },
+>>>>>>> rc-0.4
                   ),
                 ],
               ),
@@ -224,8 +324,14 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
     required double width,
     required double height,
   }) {
+<<<<<<< HEAD
     final String icon =
         buttonText == Strings.download ? RibnAssets.downloadPng : RibnAssets.contentCopyPng;
+=======
+    final String icon = buttonText == Strings.download
+        ? RibnAssets.downloadPng
+        : RibnAssets.contentCopyPng;
+>>>>>>> rc-0.4
     return TextButton(
       key: copyKey,
       onPressed: onPressed,

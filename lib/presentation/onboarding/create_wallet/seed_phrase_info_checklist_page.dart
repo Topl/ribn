@@ -1,7 +1,10 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter_hooks/flutter_hooks.dart';
+=======
+>>>>>>> rc-0.4
 
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
@@ -27,7 +30,22 @@ class SeedPhraseInfoChecklistPage extends HookWidget {
   static const Key neverShareMySeedPhraseKey = Key('neverShareMySeedPhraseKey');
   static const Key walletRecoveryUsingSeedPhraseKey = Key('walletRecoveryUsingSeedPhraseKey');
 
+<<<<<<< HEAD
   const SeedPhraseInfoChecklistPage({Key key = seedPhraseInfoChecklistPageKey}) : super(key: key);
+=======
+  @override
+  State<SeedPhraseInfoChecklistPage> createState() =>
+      _SeedPhraseInfoChecklistPageState();
+}
+
+class _SeedPhraseInfoChecklistPageState
+    extends State<SeedPhraseInfoChecklistPage> {
+  /// Checkboxes and their corresponding checked value
+  final Map<String, bool> checkboxesState = {
+    Strings.neverShareMySeedPhrase: false,
+    Strings.walletRecoveryUsingSeedPhrase: false,
+  };
+>>>>>>> rc-0.4
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +74,7 @@ class SeedPhraseInfoChecklistPage extends HookWidget {
                   checked: neverShareMySeedPhrase.value,
                   activeText: true,
                   text: Strings.neverShareMySeedPhrase,
+<<<<<<< HEAD
                   onChanged: (bool? val) => neverShareMySeedPhrase.value = val ?? false,
                   checkboxKey: neverShareMySeedPhraseKey,
                 ),
@@ -66,6 +85,22 @@ class SeedPhraseInfoChecklistPage extends HookWidget {
                   text: Strings.walletRecoveryUsingSeedPhrase,
                   onChanged: neverShareMySeedPhrase.value
                       ? (bool? val) => walletRecoveryUsingSeedPhrase.value = val ?? false
+=======
+                  onChanged: (bool? val) =>
+                      onChecked(val ?? false, Strings.neverShareMySeedPhrase),
+                ),
+                const SizedBox(height: 40),
+                _buildCheckboxListTile(
+                  checked:
+                      checkboxesState[Strings.walletRecoveryUsingSeedPhrase]!,
+                  activeText: checkboxesState[Strings.neverShareMySeedPhrase]!,
+                  text: Strings.walletRecoveryUsingSeedPhrase,
+                  onChanged: checkboxesState[Strings.neverShareMySeedPhrase]!
+                      ? (bool? val) => onChecked(
+                            val ?? false,
+                            Strings.walletRecoveryUsingSeedPhrase,
+                          )
+>>>>>>> rc-0.4
                       : null,
                   checkboxKey: walletRecoveryUsingSeedPhraseKey,
                 ),
@@ -74,7 +109,8 @@ class SeedPhraseInfoChecklistPage extends HookWidget {
                   key: seedPhraseInfoChecklistConfirmationButtonKey,
                   text: Strings.iUnderstand,
                   onPressed: () {
-                    Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseInstructions);
+                    Keys.navigatorKey.currentState
+                        ?.pushNamed(Routes.seedPhraseInstructions);
                   },
                   disabled: !walletRecoveryUsingSeedPhrase.value || !neverShareMySeedPhrase.value,
                 )

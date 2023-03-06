@@ -96,7 +96,8 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Save',
-                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
+                  style: RibnToolkitTextStyles.btnMedium
+                      .copyWith(color: Colors.white),
                 ),
                 backgroundColor: RibnColors.primary,
                 onPressed: () {
@@ -115,8 +116,13 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Cancel',
+<<<<<<< HEAD:lib/presentation/asset_details/asset_detail_edit_sections/asset_unit_edit_section.dart
                   style:
                       RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.ghostButtonText),
+=======
+                  style: RibnToolkitTextStyles.btnMedium
+                      .copyWith(color: RibnColors.ghostButtonText),
+>>>>>>> rc-0.4:lib/presentation/asset_details/asset_detail_edit_sections.dart/asset_unit_edit_section.dart
                 ),
                 backgroundColor: Colors.transparent,
                 hoverColor: Colors.transparent,

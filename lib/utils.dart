@@ -1,15 +1,32 @@
 // Dart imports:
 import 'dart:ui';
 
+<<<<<<< HEAD
 // Package imports:
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:brambldart/utils.dart';
+=======
+>>>>>>> rc-0.4
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:barcode_widget/barcode_widget.dart';
+import 'package:brambldart/utils.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:local_auth/local_auth.dart';
+<<<<<<< HEAD
 // Project imports:
+=======
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
+
+// Project imports:
+import 'package:ribn/actions/misc_actions.dart';
+>>>>>>> rc-0.4
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/rules.dart';
@@ -18,10 +35,6 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/widgets/custom_divider.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
-import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
 
 /// Formats an address string to only dispaly its first and last 10 characters.
 String formatAddrString(String addr, {int charsToDisplay = 10}) {
@@ -195,4 +208,7 @@ final emptyStateBody = RichText(
     ],
   ),
 );
+<<<<<<< HEAD
 
+=======
+>>>>>>> rc-0.4

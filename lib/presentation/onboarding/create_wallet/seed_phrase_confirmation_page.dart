@@ -2,9 +2,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+<<<<<<< HEAD
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/providers/onboarding_provider.dart';
+=======
+>>>>>>> rc-0.4
 
 // Package imports:
 import 'package:ribn_toolkit/constants/styles.dart';
@@ -27,6 +30,7 @@ class SeedPhraseConfirmationPage extends HookConsumerWidget {
   static const Key seedPhraseConfirmationConfirmationButtonKey =
       Key('seedPhraseConfirmationConfirmationButtonKey');
 
+<<<<<<< HEAD
   static Key confirmationTextFieldKey(int index) => Key('confirmationTextFieldKey$index');
 
   SeedPhraseConfirmationPage({Key key = seedPhraseConfirmationPageKey}) : super(key: key);
@@ -71,6 +75,66 @@ class SeedPhraseConfirmationPage extends HookConsumerWidget {
                   child: const Text(
                     Strings.ensureYourWordsAreCorrect,
                     style: RibnToolkitTextStyles.onboardingH3,
+=======
+  @override
+  State<SeedPhraseConfirmationPage> createState() =>
+      _SeedPhraseConfirmationPageState();
+}
+
+class _SeedPhraseConfirmationPageState
+    extends State<SeedPhraseConfirmationPage> {
+  final Map<int, TextEditingController> idxControllerMap = {};
+  final Map<TextEditingController, bool> controllerErrorMap = {};
+
+  @override
+  Widget build(BuildContext context) {
+    return SeedPhraseConfirmationContainer(
+      onInit: (store) {
+        // populate [controllers] and [hasErrors] maps
+        store.state.onboardingState.mobileConfirmIdxs.toList().forEach((idx) {
+          final TextEditingController controller = TextEditingController();
+          idxControllerMap[idx] = controller;
+          controllerErrorMap[controller] = false;
+        });
+      },
+      builder: (context, vm) {
+        return Scaffold(
+          body: OnboardingContainer(
+            child: SingleChildScrollView(
+              clipBehavior: Clip.none,
+              child: Column(
+                children: [
+                  renderIfWeb(const WebOnboardingAppBar(currStep: 1)),
+                  SizedBox(
+                    child: Text(
+                      Strings.writeDownSeedPhrase,
+                      style: RibnToolkitTextStyles.onboardingH1
+                          .copyWith(letterSpacing: 0.5),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Image.asset(RibnAssets.penPaperPng, width: 70),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: adaptHeight(0.04),
+                      bottom: adaptHeight(0.02),
+                    ),
+                    child: const Text(
+                      Strings.ensureYourWordsAreCorrect,
+                      style: RibnToolkitTextStyles.onboardingH3,
+                    ),
+                  ),
+                  _buildSeedphraseConfirmationGrid(
+                    vm.confirmeIdxs,
+                    vm.mnemonicWordsList,
+                  ),
+                  const SizedBox(height: 40),
+                  renderIfMobile(
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 20.0),
+                      child: OnboardingProgressBar(numSteps: 4, currStep: 1),
+                    ),
+>>>>>>> rc-0.4
                   ),
                 ),
                 _SeedPhraseConfirmationGrid(
@@ -90,8 +154,21 @@ class SeedPhraseConfirmationPage extends HookConsumerWidget {
                     key: seedPhraseConfirmationConfirmationButtonKey,
                     text: Strings.done,
                     onPressed: () {
+<<<<<<< HEAD
                       if (_formKey.currentState!.validate()) {
                         Keys.navigatorKey.currentState?.pushNamed(Routes.createPassword);
+=======
+                      // Update errors if text entered does not match mnemonic word at specified idx
+                      idxControllerMap.forEach((idx, controller) {
+                        final bool wordsMatch =
+                            controller.text.trim() == vm.mnemonicWordsList[idx];
+                        controllerErrorMap[controller] = !wordsMatch;
+                      });
+                      setState(() {});
+                      if (!controllerErrorMap.values.contains(true)) {
+                        Keys.navigatorKey.currentState
+                            ?.pushNamed(Routes.createPassword);
+>>>>>>> rc-0.4
                       }
                     },
                   ),
@@ -105,6 +182,7 @@ class SeedPhraseConfirmationPage extends HookConsumerWidget {
   }
 }
 
+<<<<<<< HEAD
 class _SeedPhraseConfirmationGrid extends StatelessWidget {
   final List<int> confirmIdxs;
   final List<String> mnemonicWordsList;
@@ -116,11 +194,18 @@ class _SeedPhraseConfirmationGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+=======
+  Widget _buildSeedphraseConfirmationGrid(
+    List<int> confirmIdxs,
+    List mnemonicWordsList,
+  ) {
+>>>>>>> rc-0.4
     final List<Widget> mobileRows = [];
     List<Widget> webRowChildren = [];
     final List<List<Widget>> webRows = [];
     for (int i = 0; i < confirmIdxs.length; i++) {
       mobileRows.add(
+<<<<<<< HEAD
         ConfirmationTextField(
           textFieldKey: SeedPhraseConfirmationPage.confirmationTextFieldKey(i),
           idx: confirmIdxs[i],
@@ -132,6 +217,17 @@ class _SeedPhraseConfirmationGrid extends StatelessWidget {
           textFieldKey: SeedPhraseConfirmationPage.confirmationTextFieldKey(i),
           idx: confirmIdxs[i],
           word: mnemonicWordsList[confirmIdxs[i]],
+=======
+        _buildConfirmationTextField(
+          confirmIdxs[i],
+          mnemonicWordsList[confirmIdxs[i]],
+        ),
+      );
+      webRowChildren.add(
+        _buildConfirmationTextField(
+          confirmIdxs[i],
+          mnemonicWordsList[confirmIdxs[i]],
+>>>>>>> rc-0.4
         ),
       );
       if ((i + 1) % 2 == 0) {
@@ -177,7 +273,8 @@ class ConfirmationTextField extends HookWidget {
     final textController = useTextEditingController();
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: kIsWeb ? 20 : 0),
+      padding:
+          const EdgeInsets.symmetric(vertical: 5, horizontal: kIsWeb ? 20 : 0),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Column(

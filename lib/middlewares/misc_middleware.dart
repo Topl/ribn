@@ -49,7 +49,8 @@ void Function(
         PlatformUtils.instance.closeWindow();
       } else {
         await PlatformLocalStorage.instance.clearSecureStorage();
-        await Keys.navigatorKey.currentState?.pushNamedAndRemoveUntil(Routes.welcome, (_) => false);
+        await Keys.navigatorKey.currentState
+            ?.pushNamedAndRemoveUntil(Routes.welcome, (_) => false);
       }
     } catch (e) {
       // Complete with false to indicate error, i.e. incorrect password was entered

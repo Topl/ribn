@@ -1,9 +1,18 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+=======
+
+// Package imports:
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
+>>>>>>> rc-0.4
 // Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
@@ -11,7 +20,6 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class RibnAppBarContainer extends StatelessWidget {
   const RibnAppBarContainer({
