@@ -61,8 +61,7 @@ class WarningSection extends StatelessWidget {
                 Strings.restoreWalletWarning,
                 style: kIsWeb
                     ? RibnToolkitTextStyles.onboardingH3
-                    : RibnToolkitTextStyles.smallBody
-                        .copyWith(fontSize: 15, color: Colors.white),
+                    : RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15, color: Colors.white),
               ),
             ),
           ),

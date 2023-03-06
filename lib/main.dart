@@ -118,10 +118,7 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
         )
       ];
     case Routes.home:
-      return [
-        MaterialPageRoute(
-            builder: (context) => const HomePage(), settings: RouteSettings(name: Routes.home))
-      ];
+      return [MaterialPageRoute(builder: (context) => const HomePage(), settings: RouteSettings(name: Routes.home))];
     case Routes.enable:
       return [
         MaterialPageRoute(

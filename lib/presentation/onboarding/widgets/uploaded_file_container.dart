@@ -45,8 +45,7 @@ class UploadedFileContainer extends StatelessWidget {
                 const SizedBox(width: 8),
                 Text(
                   uploadedFileName,
-                  style:
-                      RibnToolkitTextStyles.onboardingH3.copyWith(fontSize: 15),
+                  style: RibnToolkitTextStyles.onboardingH3.copyWith(fontSize: 15),
                 ),
                 const Spacer(),
                 Image.asset(RibnAssets.checkCircleIcon, width: 20),

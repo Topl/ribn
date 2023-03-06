@@ -48,8 +48,7 @@ class AssetLongNameDetails extends StatelessWidget {
                 : HoverIconButton(
                     buttonText: Text(
                       'Edit',
-                      style: RibnToolkitTextStyles.dropdownButtonStyle
-                          .copyWith(color: RibnColors.primary),
+                      style: RibnToolkitTextStyles.dropdownButtonStyle.copyWith(color: RibnColors.primary),
                     ),
                     buttonIcon: Image.asset(RibnAssets.editIcon),
                     onPressed: onEditPressed,
