@@ -23,8 +23,7 @@ UserDetailsState _updateAssetDetails(
   UserDetailsState userDetails,
   UpdateAssetDetailsAction action,
 ) {
-  final AssetDetails? currAssetDetails =
-      userDetails.assetDetails[action.assetCode];
+  final AssetDetails? currAssetDetails = userDetails.assetDetails[action.assetCode];
   return userDetails.copyWith(
     assetDetails: {
       ...userDetails.assetDetails,

@@ -38,9 +38,7 @@ void Function(
       final HdWallet hdWallet = store.state.keychainState.hdWallet!;
       final Map<String, List<RibnAddress>> networkAddresses = {};
       store.state.keychainState.networks.forEach((networkName, network) {
-        networkAddresses[networkName] = [
-          keychainRepo.generateAddress(hdWallet, networkId: network.networkId)
-        ];
+        networkAddresses[networkName] = [keychainRepo.generateAddress(hdWallet, networkId: network.networkId)];
       });
       next(UpdateNetworksWithAddressesAction(networkAddresses));
     } catch (e) {
@@ -93,9 +91,7 @@ void Function(
     print('QQQQ refresh 1');
     try {
       // get addresses in the wallet
-      final List<ToplAddress> currentAddresses =
-          action.network.addresses.map((addr) => addr.toplAddress).toList();
-      print('QQQQ refresh 2');
+      final List<ToplAddress> currentAddresses = action.network.addresses.map((addr) => addr.toplAddress).toList();
       // if no address in the wallet, generate a new address
       if (currentAddresses.isEmpty) {
         print('QQQQ refresh 3');
@@ -110,10 +106,7 @@ void Function(
         );
         print('QQQQ refresh 5');
         // map addresses and balances
-        final Map<String, Balance> addrBalanceMap = {
-          for (Balance bal in balances) bal.address: bal
-        };
-        print('QQQQ refresh 6');
+        final Map<String, Balance> addrBalanceMap = {for (Balance bal in balances) bal.address: bal};
         // addresses with updated balances
         final List<RibnAddress> addressesWithUpdatedBalances = action.network.addresses.map(
           (addr) {

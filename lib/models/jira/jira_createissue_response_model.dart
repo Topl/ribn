@@ -4,8 +4,7 @@ class JiraCreateIssueResponseModel {
   String? self;
   bool success = false;
 
-  JiraCreateIssueResponseModel(
-      {this.id, this.key, this.self, this.success = false});
+  JiraCreateIssueResponseModel({this.id, this.key, this.self, this.success = false});
 
   JiraCreateIssueResponseModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];

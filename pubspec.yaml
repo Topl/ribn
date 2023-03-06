@@ -68,9 +68,10 @@ dependencies:
       url: https://github.com/Topl/ribn-toolkit
       ref: main
   brambldart:
-    git:
-      url: https://github.com/Topl/BramblDart
-      ref: TSDK-133
+    path: ../BramblDart
+    # git:
+    #   url: https://github.com/Topl/BramblDart
+    #   ref: TSDK-133
       # Remove the ref once Selby's branch above has been merged into main
   shimmer_animation: ^2.1.0+1
   url_strategy: ^0.2.0

@@ -101,29 +101,9 @@ final $typed_data.Uint8List blockSortingDescriptor = $convert.base64Decode(
 const QueryBlocksReq$json = const {
   '1': 'QueryBlocksReq',
   '2': const [
-    const {
-      '1': 'filter',
-      '3': 1,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.BlockFilter',
-      '10': 'filter'
-    },
-    const {
-      '1': 'sorting',
-      '3': 2,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.services.BlockSorting',
-      '10': 'sorting'
-    },
-    const {
-      '1': 'confirmation_depth',
-      '3': 3,
-      '4': 1,
-      '5': 13,
-      '10': 'confirmationDepth'
-    },
+    const {'1': 'filter', '3': 1, '4': 1, '5': 11, '6': '.co.topl.genus.BlockFilter', '10': 'filter'},
+    const {'1': 'sorting', '3': 2, '4': 1, '5': 11, '6': '.co.topl.genus.services.BlockSorting', '10': 'sorting'},
+    const {'1': 'confirmation_depth', '3': 3, '4': 1, '5': 13, '10': 'confirmationDepth'},
     const {
       '1': 'paging_options',
       '3': 4,
@@ -171,14 +151,7 @@ const QueryBlocksRes$json = const {
 const QueryBlocksRes_Success$json = const {
   '1': 'Success',
   '2': const [
-    const {
-      '1': 'blocks',
-      '3': 1,
-      '4': 3,
-      '5': 11,
-      '6': '.co.topl.genus.Block',
-      '10': 'blocks'
-    },
+    const {'1': 'blocks', '3': 1, '4': 3, '5': 11, '6': '.co.topl.genus.Block', '10': 'blocks'},
   ],
 };
 
@@ -186,30 +159,9 @@ const QueryBlocksRes_Success$json = const {
 const QueryBlocksRes_Failure$json = const {
   '1': 'Failure',
   '2': const [
-    const {
-      '1': 'data_store_connection_error',
-      '3': 1,
-      '4': 1,
-      '5': 9,
-      '9': 0,
-      '10': 'dataStoreConnectionError'
-    },
-    const {
-      '1': 'query_timeout',
-      '3': 2,
-      '4': 1,
-      '5': 9,
-      '9': 0,
-      '10': 'queryTimeout'
-    },
-    const {
-      '1': 'invalid_query',
-      '3': 3,
-      '4': 1,
-      '5': 9,
-      '9': 0,
-      '10': 'invalidQuery'
-    },
+    const {'1': 'data_store_connection_error', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'dataStoreConnectionError'},
+    const {'1': 'query_timeout', '3': 2, '4': 1, '5': 9, '9': 0, '10': 'queryTimeout'},
+    const {'1': 'invalid_query', '3': 3, '4': 1, '5': 9, '9': 0, '10': 'invalidQuery'},
   ],
   '8': const [
     const {'1': 'reason'},
@@ -223,29 +175,9 @@ final $typed_data.Uint8List queryBlocksResDescriptor = $convert.base64Decode(
 const BlocksQueryStreamReq$json = const {
   '1': 'BlocksQueryStreamReq',
   '2': const [
-    const {
-      '1': 'filter',
-      '3': 1,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.BlockFilter',
-      '10': 'filter'
-    },
-    const {
-      '1': 'sorting',
-      '3': 2,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.services.BlockSorting',
-      '10': 'sorting'
-    },
-    const {
-      '1': 'confirmation_depth',
-      '3': 3,
-      '4': 1,
-      '5': 13,
-      '10': 'confirmationDepth'
-    },
+    const {'1': 'filter', '3': 1, '4': 1, '5': 11, '6': '.co.topl.genus.BlockFilter', '10': 'filter'},
+    const {'1': 'sorting', '3': 2, '4': 1, '5': 11, '6': '.co.topl.genus.services.BlockSorting', '10': 'sorting'},
+    const {'1': 'confirmation_depth', '3': 3, '4': 1, '5': 13, '10': 'confirmationDepth'},
   ],
 };
 
@@ -256,15 +188,7 @@ final $typed_data.Uint8List blocksQueryStreamReqDescriptor = $convert.base64Deco
 const BlocksQueryStreamRes$json = const {
   '1': 'BlocksQueryStreamRes',
   '2': const [
-    const {
-      '1': 'block',
-      '3': 1,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.Block',
-      '9': 0,
-      '10': 'block'
-    },
+    const {'1': 'block', '3': 1, '4': 1, '5': 11, '6': '.co.topl.genus.Block', '9': 0, '10': 'block'},
     const {
       '1': 'failure',
       '3': 2,
@@ -285,22 +209,8 @@ const BlocksQueryStreamRes$json = const {
 const BlocksQueryStreamRes_Failure$json = const {
   '1': 'Failure',
   '2': const [
-    const {
-      '1': 'data_store_connection_error',
-      '3': 1,
-      '4': 1,
-      '5': 9,
-      '9': 0,
-      '10': 'dataStoreConnectionError'
-    },
-    const {
-      '1': 'invalid_query',
-      '3': 2,
-      '4': 1,
-      '5': 9,
-      '9': 0,
-      '10': 'invalidQuery'
-    },
+    const {'1': 'data_store_connection_error', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'dataStoreConnectionError'},
+    const {'1': 'invalid_query', '3': 2, '4': 1, '5': 9, '9': 0, '10': 'invalidQuery'},
   ],
   '8': const [
     const {'1': 'reason'},

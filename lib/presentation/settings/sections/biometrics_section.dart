@@ -111,9 +111,7 @@ class _BiometricsSectionState extends State<BiometricsSection> {
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Image.asset(
-                Platform.isIOS
-                    ? RibnAssets.iosBiometricsOutline
-                    : RibnAssets.andriodBiometricsOutline,
+                Platform.isIOS ? RibnAssets.iosBiometricsOutline : RibnAssets.andriodBiometricsOutline,
                 width: 40,
               ),
             ),

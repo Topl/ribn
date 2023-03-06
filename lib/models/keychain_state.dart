@@ -109,10 +109,7 @@ class KeychainState {
 
   @override
   int get hashCode {
-    return keyStoreJson.hashCode ^
-        hdWallet.hashCode ^
-        networks.hashCode ^
-        currentNetworkName.hashCode;
+    return keyStoreJson.hashCode ^ hdWallet.hashCode ^ networks.hashCode ^ currentNetworkName.hashCode;
   }
 
   KeychainState copyWith({

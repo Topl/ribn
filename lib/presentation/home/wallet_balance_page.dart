@@ -78,8 +78,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
         // refresh balances on network toggle or when new addresses are generated
         final bool shouldRefresh = currVm.walletExists &&
             (prevVm?.currentNetwork.networkName != currVm.currentNetwork.networkName ||
-                prevVm?.currentNetwork.lastCheckedTimestamp !=
-                    currVm.currentNetwork.lastCheckedTimestamp ||
+                prevVm?.currentNetwork.lastCheckedTimestamp != currVm.currentNetwork.lastCheckedTimestamp ||
                 prevVm?.currentNetwork.addresses.length != currVm.currentNetwork.addresses.length);
         if (shouldRefresh) refreshBalances(currVm);
       },
@@ -226,9 +225,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     if (vm.assets.isEmpty) {
       return EmptyStateScreen(
         icon: RibnAssets.walletWithBorder,
-        title: vm.assets.isEmpty && vm.polyBalance == 0
-            ? Strings.noAssetsAndBalanceInWallet
-            : Strings.noAssetsInWallet,
+        title: vm.assets.isEmpty && vm.polyBalance == 0 ? Strings.noAssetsAndBalanceInWallet : Strings.noAssetsInWallet,
         body: emptyStateBody,
         buttonOneText: 'Share',
         buttonOneAction: () async => await showReceivingAddress(),
@@ -286,8 +283,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
   }) {
     final String assetIcon = assetDetails?.icon ?? RibnAssets.undefinedIcon;
 
-    final String assetUnit =
-        assetDetails?.unit != null ? formatAssetUnit(assetDetails!.unit) : 'Unit';
+    final String assetUnit = assetDetails?.unit != null ? formatAssetUnit(assetDetails!.unit) : 'Unit';
     final String assetLongName = assetDetails?.longName ?? '';
     final bool isMissingAssetDetails =
         assetIcon == RibnAssets.undefinedIcon || assetUnit == 'Unit' || assetLongName.isEmpty;
