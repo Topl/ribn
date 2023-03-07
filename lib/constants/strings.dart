@@ -308,4 +308,6 @@ Ribn Wallet does not control the functionality of biometrics and does not have a
   static const privacyPolicyLink = "Privacy Policy here.";
   static const noThanks = "No thanks";
   static const iAgree = "I agree";
+  static overMaxPolys(int maxPolys) =>
+      'The amount you entered exceeds\nyour wallet balance of Polys.\nPlease enter a an amount \nless then $maxPolys!';
 }
