@@ -65,13 +65,10 @@ class LoginViewModel {
         store.dispatch(AttemptLoginAction(password, loginCompleter));
         await loginCompleter.future.then((bool loginSuccess) async {
           if (loginSuccess) {
-            if (store.state.internalMessage?.additionalNavigation ==
-                    Routes.connectDApp &&
+            if (store.state.internalMessage?.additionalNavigation == Routes.connectDApp &&
                 store.state.internalMessage != null) {
-              await MiscRepository().persistAppState(
-                  StoreProvider.of<AppState>(context).state.toJson());
-              Keys.navigatorKey.currentState?.pushNamed(Routes.connectDApp,
-                  arguments: store.state.internalMessage);
+              await MiscRepository().persistAppState(StoreProvider.of<AppState>(context).state.toJson());
+              Keys.navigatorKey.currentState?.pushNamed(Routes.connectDApp, arguments: store.state.internalMessage);
             } else {
               Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home);
             }
@@ -80,8 +77,7 @@ class LoginViewModel {
           }
         });
       },
-      restoreWallet: () =>
-          store.dispatch(NavigateToRoute(Routes.restoreWallet)),
+      restoreWallet: () => store.dispatch(NavigateToRoute(Routes.restoreWallet)),
       isBiometricsEnabled: store.state.userDetailsState.isBiometricsEnabled,
     );
   }

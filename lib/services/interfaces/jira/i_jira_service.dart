@@ -5,6 +5,5 @@ import '../../../models/jira/jira_createissue_response_model.dart';
 
 abstract class JiraServiceBase {
   Future<JiraCreateIssueResponseModel> createJiraIssue(JiraIssueModel model);
-  Future<bool> uploadJiraIssueAttachments(
-      List<RibnFileModel> files, String jiraIssueID);
+  Future<bool> uploadJiraIssueAttachments(List<RibnFileModel> files, String jiraIssueID);
 }

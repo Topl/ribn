@@ -13,7 +13,5 @@ abstract class HTTPServiceBase {
     Map<String, String> headers,
   });
   Future<http.Response> post(String url,
-      {Map<String, dynamic> params,
-      Map<String, String> headers,
-      List<RibnFileModel> files});
+      {Map<String, dynamic> params, Map<String, String> headers, List<RibnFileModel> files});
 }

@@ -49,11 +49,9 @@ class JiraHTTPService extends HTTPServiceBase {
     headers = defaultHeaders;
     http.Response response;
     if (files.isNotEmpty) {
-      http.MultipartRequest request =
-          http.MultipartRequest('POST', Uri.parse(url));
+      http.MultipartRequest request = http.MultipartRequest('POST', Uri.parse(url));
       for (int i = 0; i < files.length; i++) {
-        request.files
-            .add(await http.MultipartFile.fromPath('file', files[i].filePath));
+        request.files.add(await http.MultipartFile.fromPath('file', files[i].filePath));
       }
       request.headers.addAll(defaultHeadersAttachments);
       final http.StreamedResponse streamedResponse = await request.send();

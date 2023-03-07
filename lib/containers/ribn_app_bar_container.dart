@@ -59,9 +59,7 @@ class RibnAppBarViewModel {
   });
   static RibnAppBarViewModel fromStore(Store<AppState> store) {
     return RibnAppBarViewModel(
-      networks: store.state.keychainState.allNetworks
-          .map((e) => e.networkName)
-          .toList(),
+      networks: store.state.keychainState.allNetworks.map((e) => e.networkName).toList(),
       currentNetworkName: store.state.keychainState.currentNetworkName,
       updateNetwork: (String network) {
         store.dispatch(UpdateCurrentNetworkAction(network));
@@ -76,8 +74,7 @@ class RibnAppBarViewModel {
           case Strings.support:
             {
               if (kIsWeb) {
-                await launchUrl(
-                    Uri.parse("https://forms.gle/jtNTtD7kxGoo1ePJA"));
+                await launchUrl(Uri.parse("https://forms.gle/jtNTtD7kxGoo1ePJA"));
               } else {
                 Keys.navigatorKey.currentState?.pushNamed(Routes.feedback);
               }
@@ -104,9 +101,6 @@ class RibnAppBarViewModel {
 
   @override
   int get hashCode {
-    return networks.hashCode ^
-        currentNetworkName.hashCode ^
-        updateNetwork.hashCode ^
-        selectSettingsOption.hashCode;
+    return networks.hashCode ^ currentNetworkName.hashCode ^ updateNetwork.hashCode ^ selectSettingsOption.hashCode;
   }
 }

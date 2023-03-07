@@ -13,29 +13,23 @@ class JiraService extends JiraServiceBase {
   final String _jiraCreateIssueUrl = EnvironmentConfig.JIRA_CREATE_ISSUE_URL;
   final String _jiraAttachIssueUrl = EnvironmentConfig.JIRA_ATTACH_ISSUE_URL;
   @override
-  Future<JiraCreateIssueResponseModel> createJiraIssue(
-      JiraIssueModel model) async {
-    final http.Response response =
-        await _httpService.post(_jiraCreateIssueUrl, params: model.toJson());
+  Future<JiraCreateIssueResponseModel> createJiraIssue(JiraIssueModel model) async {
+    final http.Response response = await _httpService.post(_jiraCreateIssueUrl, params: model.toJson());
     print("_jiraCreateIssueUrl: ${response.body}\n${model.toJson()} ");
 
-    JiraCreateIssueResponseModel responseModel =
-        JiraCreateIssueResponseModel.fromJson(json.decode(response.body));
+    JiraCreateIssueResponseModel responseModel = JiraCreateIssueResponseModel.fromJson(json.decode(response.body));
     if (model.fields?.attachments != null) {
-      await uploadJiraIssueAttachments(
-          model.fields?.attachments, responseModel.id!);
+      await uploadJiraIssueAttachments(model.fields?.attachments, responseModel.id!);
     }
     responseModel.success = response.statusCode == 201;
     return responseModel;
   }
 
   @override
-  Future<bool> uploadJiraIssueAttachments(
-      List<RibnFileModel>? files, String jiraIssueID) async {
+  Future<bool> uploadJiraIssueAttachments(List<RibnFileModel>? files, String jiraIssueID) async {
     List<RibnFileModel> tempFiles = files != null ? files : [];
     if (tempFiles.isEmpty) return false;
-    final http.Response response = await _httpService
-        .post(_buildAttachIssueURL(jiraIssueID), files: tempFiles);
+    final http.Response response = await _httpService.post(_buildAttachIssueURL(jiraIssueID), files: tempFiles);
     return response.statusCode == 200;
   }
 

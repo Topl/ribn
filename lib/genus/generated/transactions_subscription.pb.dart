@@ -18,36 +18,26 @@ import 'types.pb.dart' as $6;
 
 class CreateTxsSubscriptionReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'CreateTxsSubscriptionReq',
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateTxsSubscriptionReq',
     package: const $pb.PackageName(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'co.topl.genus.services',
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
     ),
     createEmptyInstance: create,
   )
     ..aOM<$4.TransactionFilter>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'filter',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter',
       subBuilder: $4.TransactionFilter.create,
     )
     ..a<$fixnum.Int64>(
       2,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'startHeight',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'startHeight',
       $pb.PbFieldType.OU6,
       defaultOrMaker: $fixnum.Int64.ZERO,
     )
     ..a<$core.int>(
       3,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'confirmationDepth',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'confirmationDepth',
       $pb.PbFieldType.OU3,
     )
     ..hasRequiredFields = false;
@@ -75,34 +65,30 @@ class CreateTxsSubscriptionReq extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory CreateTxsSubscriptionReq.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory CreateTxsSubscriptionReq.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
     'Will be removed in next major version',
   )
-  CreateTxsSubscriptionReq clone() =>
-      CreateTxsSubscriptionReq()..mergeFromMessage(this);
+  CreateTxsSubscriptionReq clone() => CreateTxsSubscriptionReq()..mergeFromMessage(this);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
     'Will be removed in next major version',
   )
-  CreateTxsSubscriptionReq copyWith(
-          void Function(CreateTxsSubscriptionReq) updates) =>
+  CreateTxsSubscriptionReq copyWith(void Function(CreateTxsSubscriptionReq) updates) =>
       super.copyWith((message) => updates(message as CreateTxsSubscriptionReq))
           as CreateTxsSubscriptionReq; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static CreateTxsSubscriptionReq create() => CreateTxsSubscriptionReq._();
   CreateTxsSubscriptionReq createEmptyInstance() => create();
-  static $pb.PbList<CreateTxsSubscriptionReq> createRepeated() =>
-      $pb.PbList<CreateTxsSubscriptionReq>();
+  static $pb.PbList<CreateTxsSubscriptionReq> createRepeated() => $pb.PbList<CreateTxsSubscriptionReq>();
   @$core.pragma('dart2js:noInline')
-  static CreateTxsSubscriptionReq getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<CreateTxsSubscriptionReq>(create);
+  static CreateTxsSubscriptionReq getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateTxsSubscriptionReq>(create);
   static CreateTxsSubscriptionReq? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -144,41 +130,24 @@ class CreateTxsSubscriptionReq extends $pb.GeneratedMessage {
   void clearConfirmationDepth() => clearField(3);
 }
 
-enum TxsSubscriptionRes_Failure_Reason {
-  invalidRequest,
-  dataConnectionError,
-  notSet
-}
+enum TxsSubscriptionRes_Failure_Reason { invalidRequest, dataConnectionError, notSet }
 
 class TxsSubscriptionRes_Failure extends $pb.GeneratedMessage {
-  static const $core.Map<$core.int, TxsSubscriptionRes_Failure_Reason>
-      _TxsSubscriptionRes_Failure_ReasonByTag = {
+  static const $core.Map<$core.int, TxsSubscriptionRes_Failure_Reason> _TxsSubscriptionRes_Failure_ReasonByTag = {
     1: TxsSubscriptionRes_Failure_Reason.invalidRequest,
     2: TxsSubscriptionRes_Failure_Reason.dataConnectionError,
     0: TxsSubscriptionRes_Failure_Reason.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'TxsSubscriptionRes.Failure',
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TxsSubscriptionRes.Failure',
     package: const $pb.PackageName(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'co.topl.genus.services',
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
     ),
     createEmptyInstance: create,
   )
     ..oo(0, [1, 2])
-    ..aOS(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'invalidRequest')
-    ..aOS(
-        2,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'dataConnectionError')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'invalidRequest')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dataConnectionError')
     ..hasRequiredFields = false;
 
   TxsSubscriptionRes_Failure._() : super();
@@ -210,31 +179,26 @@ class TxsSubscriptionRes_Failure extends $pb.GeneratedMessage {
     'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
     'Will be removed in next major version',
   )
-  TxsSubscriptionRes_Failure clone() =>
-      TxsSubscriptionRes_Failure()..mergeFromMessage(this);
+  TxsSubscriptionRes_Failure clone() => TxsSubscriptionRes_Failure()..mergeFromMessage(this);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
     'Will be removed in next major version',
   )
-  TxsSubscriptionRes_Failure copyWith(
-          void Function(TxsSubscriptionRes_Failure) updates) =>
-      super.copyWith(
-              (message) => updates(message as TxsSubscriptionRes_Failure))
+  TxsSubscriptionRes_Failure copyWith(void Function(TxsSubscriptionRes_Failure) updates) =>
+      super.copyWith((message) => updates(message as TxsSubscriptionRes_Failure))
           as TxsSubscriptionRes_Failure; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static TxsSubscriptionRes_Failure create() => TxsSubscriptionRes_Failure._();
   TxsSubscriptionRes_Failure createEmptyInstance() => create();
-  static $pb.PbList<TxsSubscriptionRes_Failure> createRepeated() =>
-      $pb.PbList<TxsSubscriptionRes_Failure>();
+  static $pb.PbList<TxsSubscriptionRes_Failure> createRepeated() => $pb.PbList<TxsSubscriptionRes_Failure>();
   @$core.pragma('dart2js:noInline')
-  static TxsSubscriptionRes_Failure getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<TxsSubscriptionRes_Failure>(create);
+  static TxsSubscriptionRes_Failure getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TxsSubscriptionRes_Failure>(create);
   static TxsSubscriptionRes_Failure? _defaultInstance;
 
-  TxsSubscriptionRes_Failure_Reason whichReason() =>
-      _TxsSubscriptionRes_Failure_ReasonByTag[$_whichOneof(0)]!;
+  TxsSubscriptionRes_Failure_Reason whichReason() => _TxsSubscriptionRes_Failure_ReasonByTag[$_whichOneof(0)]!;
   void clearReason() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
@@ -265,36 +229,27 @@ class TxsSubscriptionRes_Failure extends $pb.GeneratedMessage {
 enum TxsSubscriptionRes_Result { success, failure, notSet }
 
 class TxsSubscriptionRes extends $pb.GeneratedMessage {
-  static const $core.Map<$core.int, TxsSubscriptionRes_Result>
-      _TxsSubscriptionRes_ResultByTag = {
+  static const $core.Map<$core.int, TxsSubscriptionRes_Result> _TxsSubscriptionRes_ResultByTag = {
     1: TxsSubscriptionRes_Result.success,
     2: TxsSubscriptionRes_Result.failure,
     0: TxsSubscriptionRes_Result.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'TxsSubscriptionRes',
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TxsSubscriptionRes',
     package: const $pb.PackageName(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'co.topl.genus.services',
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
     ),
     createEmptyInstance: create,
   )
     ..oo(0, [1, 2])
     ..aOM<$6.Transaction>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'success',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success',
       subBuilder: $6.Transaction.create,
     )
     ..aOM<TxsSubscriptionRes_Failure>(
       2,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'failure',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'failure',
       subBuilder: TxsSubscriptionRes_Failure.create,
     )
     ..hasRequiredFields = false;
@@ -318,8 +273,7 @@ class TxsSubscriptionRes extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory TxsSubscriptionRes.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TxsSubscriptionRes.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -339,15 +293,13 @@ class TxsSubscriptionRes extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static TxsSubscriptionRes create() => TxsSubscriptionRes._();
   TxsSubscriptionRes createEmptyInstance() => create();
-  static $pb.PbList<TxsSubscriptionRes> createRepeated() =>
-      $pb.PbList<TxsSubscriptionRes>();
+  static $pb.PbList<TxsSubscriptionRes> createRepeated() => $pb.PbList<TxsSubscriptionRes>();
   @$core.pragma('dart2js:noInline')
-  static TxsSubscriptionRes getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<TxsSubscriptionRes>(create);
+  static TxsSubscriptionRes getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TxsSubscriptionRes>(create);
   static TxsSubscriptionRes? _defaultInstance;
 
-  TxsSubscriptionRes_Result whichResult() =>
-      _TxsSubscriptionRes_ResultByTag[$_whichOneof(0)]!;
+  TxsSubscriptionRes_Result whichResult() => _TxsSubscriptionRes_ResultByTag[$_whichOneof(0)]!;
   void clearResult() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)

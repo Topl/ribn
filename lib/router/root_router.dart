@@ -247,8 +247,7 @@ class RootRouter {
         }
       case Routes.txReview:
         {
-          final TransferDetails transferDetails =
-              settings.arguments as TransferDetails;
+          final TransferDetails transferDetails = settings.arguments as TransferDetails;
 
           if (kIsWeb) {
             return pageRouteNotAnimated(
@@ -263,8 +262,7 @@ class RootRouter {
         }
       case Routes.txConfirmation:
         {
-          final TransferDetails transferDetails =
-              settings.arguments as TransferDetails;
+          final TransferDetails transferDetails = settings.arguments as TransferDetails;
           if (kIsWeb) {
             return pageRouteNotAnimated(
               TxConfirmationPage(transferDetails: transferDetails),
@@ -288,8 +286,7 @@ class RootRouter {
         }
       case Routes.txHistoryDetails:
         final Map transactionDetailsMap = settings.arguments as Map;
-        final RibnActivityDetailsModel transactionDetails =
-            RibnActivityDetailsModel.fromJson(
+        final RibnActivityDetailsModel transactionDetails = RibnActivityDetailsModel.fromJson(
           jsonEncode(transactionDetailsMap),
         );
         {
@@ -300,8 +297,7 @@ class RootRouter {
         }
       case Routes.assetDetails:
         {
-          final Map<String, dynamic> assetDetailsPageArgs =
-              settings.arguments as Map<String, dynamic>;
+          final Map<String, dynamic> assetDetailsPageArgs = settings.arguments as Map<String, dynamic>;
           if (kIsWeb) {
             return pageRouteNotAnimated(
               AssetDetailsPage(asset: assetDetailsPageArgs['assetAmount']!),
@@ -327,8 +323,7 @@ class RootRouter {
         }
       case Routes.enable:
         {
-          final InternalMessage pendingRequest =
-              settings.arguments as InternalMessage;
+          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
           if (kIsWeb) {
             return pageRouteNotAnimated(EnablePage(pendingRequest), settings);
           }
@@ -336,8 +331,7 @@ class RootRouter {
         }
       case Routes.externalSigning:
         {
-          final InternalMessage pendingRequest =
-              settings.arguments as InternalMessage;
+          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
           if (kIsWeb) {
             return pageRouteNotAnimated(
               ExternalSigningPage(pendingRequest),
@@ -348,20 +342,17 @@ class RootRouter {
         }
       case Routes.error:
         {
-          final String errorMessage =
-              (settings.arguments ?? 'Unknown error occurred') as String;
+          final String errorMessage = (settings.arguments ?? 'Unknown error occurred') as String;
           return errorRoute(errorMsg: errorMessage);
         }
       case Routes.connectDApp:
         {
-          final InternalMessage pendingRequest =
-              settings.arguments as InternalMessage;
+          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
           return pageRouteNotAnimated(ConnectDApp(pendingRequest), settings);
         }
       case Routes.reviewAndSignDApp:
         {
-          final InternalMessage pendingRequest =
-              settings.arguments as InternalMessage;
+          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
           if (kIsWeb) {
             return pageRouteNotAnimated(
               ReviewAndSignDApp(pendingRequest),
@@ -372,8 +363,7 @@ class RootRouter {
         }
       case Routes.loadingDApp:
         {
-          final InternalMessage response =
-              settings.arguments as InternalMessage;
+          final InternalMessage response = settings.arguments as InternalMessage;
           return pageRouteNotAnimated(
             LoadingDApp(response: response),
             settings,
@@ -390,30 +380,19 @@ class RootRouter {
                 style: const TextStyle(fontFamily: 'DM Sans', fontSize: 13),
                 children: <TextSpan>[
                   const TextSpan(
-                      text:
-                          'Thank you again for your support. We appreciate your help in making our services better. '
+                      text: 'Thank you again for your support. We appreciate your help in making our services better. '
                           'Feel free to also visit our ',
-                      style: TextStyle(
-                          fontFamily: 'DM Sans',
-                          fontSize: 13,
-                          color: RibnColors.whiteColor)),
+                      style: TextStyle(fontFamily: 'DM Sans', fontSize: 13, color: RibnColors.whiteColor)),
                   TextSpan(
                       text: ' Discord channel ',
-                      style: const TextStyle(
-                          fontFamily: 'DM Sans',
-                          fontSize: 13,
-                          color: RibnColors.secondary),
+                      style: const TextStyle(fontFamily: 'DM Sans', fontSize: 13, color: RibnColors.secondary),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () async {
-                          await launchUrl(Uri.parse(
-                              'https://discord.com/invite/SjYVTBnsQR'));
+                          await launchUrl(Uri.parse('https://discord.com/invite/SjYVTBnsQR'));
                         }),
                   const TextSpan(
                       text: 'for help with general questions.',
-                      style: TextStyle(
-                          fontFamily: 'DM Sans',
-                          fontSize: 13,
-                          color: RibnColors.whiteColor))
+                      style: TextStyle(fontFamily: 'DM Sans', fontSize: 13, color: RibnColors.whiteColor))
                 ],
               ),
             ),
@@ -445,30 +424,18 @@ class RootRouter {
                   style: const TextStyle(fontFamily: 'DM Sans', fontSize: 13),
                   children: <TextSpan>[
                     const TextSpan(
-                        text:
-                            'If you continue to experience issues, you can reach out to us through our',
-                        style: TextStyle(
-                            fontFamily: 'DM Sans',
-                            fontSize: 13,
-                            color: RibnColors.whiteColor)),
+                        text: 'If you continue to experience issues, you can reach out to us through our',
+                        style: TextStyle(fontFamily: 'DM Sans', fontSize: 13, color: RibnColors.whiteColor)),
                     TextSpan(
                         text: ' Discord channel ',
-                        style: const TextStyle(
-                            fontFamily: 'DM Sans',
-                            fontSize: 13,
-                            color: RibnColors.secondary),
+                        style: const TextStyle(fontFamily: 'DM Sans', fontSize: 13, color: RibnColors.secondary),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () async {
-                            await launchUrl(Uri.parse(
-                                'https://discord.com/invite/SjYVTBnsQR'));
+                            await launchUrl(Uri.parse('https://discord.com/invite/SjYVTBnsQR'));
                           }),
                     const TextSpan(
-                        text:
-                            'for assistance. Thank you for your patience and understanding.',
-                        style: TextStyle(
-                            fontFamily: 'DM Sans',
-                            fontSize: 13,
-                            color: RibnColors.whiteColor))
+                        text: 'for assistance. Thank you for your patience and understanding.',
+                        style: TextStyle(fontFamily: 'DM Sans', fontSize: 13, color: RibnColors.whiteColor))
                   ],
                 ),
               ),

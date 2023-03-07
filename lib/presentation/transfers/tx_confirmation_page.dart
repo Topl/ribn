@@ -112,15 +112,13 @@ class TxConfirmationPage extends StatelessWidget {
   ///
   /// Different for minting asset and asset/poly transfer.
   Widget _buildsPageTitle() {
-    final String text =
-        mintedAsset ? Strings.assetIsBeingMinted : Strings.txWasBroadcasted;
+    final String text = mintedAsset ? Strings.assetIsBeingMinted : Strings.txWasBroadcasted;
 
     return SizedBox(
       width: 220,
       child: Text(
         text,
-        style:
-            RibnToolkitTextStyles.h2.copyWith(color: RibnColors.lightGreyTitle),
+        style: RibnToolkitTextStyles.h2.copyWith(color: RibnColors.lightGreyTitle),
         textAlign: TextAlign.center,
       ),
     );
@@ -128,8 +126,7 @@ class TxConfirmationPage extends StatelessWidget {
 
   /// Displays information about the tx that was broadcasted.
   Widget _buildTxInfo() {
-    final String txInfo = transferDetails.transferType ==
-            TransferType.polyTransfer
+    final String txInfo = transferDetails.transferType == TransferType.polyTransfer
         ? '${transferDetails.amount} ${'POLY'}'
         : '${transferDetails.amount} of ${transferDetails.assetCode!.shortName.show}';
 

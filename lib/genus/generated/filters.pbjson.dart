@@ -19,8 +19,8 @@ const StringSelection$json = const {
 };
 
 /// Descriptor for `StringSelection`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List stringSelectionDescriptor = $convert
-    .base64Decode('Cg9TdHJpbmdTZWxlY3Rpb24SFgoGdmFsdWVzGAEgAygJUgZ2YWx1ZXM=');
+final $typed_data.Uint8List stringSelectionDescriptor =
+    $convert.base64Decode('Cg9TdHJpbmdTZWxlY3Rpb24SFgoGdmFsdWVzGAEgAygJUgZ2YWx1ZXM=');
 @$core.Deprecated('Use numberRangeDescriptor instead')
 const NumberRange$json = const {
   '1': 'NumberRange',
@@ -34,8 +34,8 @@ const NumberRange$json = const {
 };
 
 /// Descriptor for `NumberRange`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List numberRangeDescriptor = $convert.base64Decode(
-    'CgtOdW1iZXJSYW5nZRISCgNtaW4YASABKARIAFIDbWluEhIKA21heBgCIAEoBEgAUgNtYXhCDQoLZmlsdGVyX3R5cGU=');
+final $typed_data.Uint8List numberRangeDescriptor = $convert
+    .base64Decode('CgtOdW1iZXJSYW5nZRISCgNtaW4YASABKARIAFIDbWluEhIKA21heBgCIAEoBEgAUgNtYXhCDQoLZmlsdGVyX3R5cGU=');
 @$core.Deprecated('Use numberSelectionDescriptor instead')
 const NumberSelection$json = const {
   '1': 'NumberSelection',
@@ -45,8 +45,8 @@ const NumberSelection$json = const {
 };
 
 /// Descriptor for `NumberSelection`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List numberSelectionDescriptor = $convert
-    .base64Decode('Cg9OdW1iZXJTZWxlY3Rpb24SFgoGdmFsdWVzGAEgAygEUgZ2YWx1ZXM=');
+final $typed_data.Uint8List numberSelectionDescriptor =
+    $convert.base64Decode('Cg9OdW1iZXJTZWxlY3Rpb24SFgoGdmFsdWVzGAEgAygEUgZ2YWx1ZXM=');
 @$core.Deprecated('Use booleanSelectionDescriptor instead')
 const BooleanSelection$json = const {
   '1': 'BooleanSelection',
@@ -56,8 +56,8 @@ const BooleanSelection$json = const {
 };
 
 /// Descriptor for `BooleanSelection`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List booleanSelectionDescriptor = $convert
-    .base64Decode('ChBCb29sZWFuU2VsZWN0aW9uEhQKBXZhbHVlGAEgASgIUgV2YWx1ZQ==');
+final $typed_data.Uint8List booleanSelectionDescriptor =
+    $convert.base64Decode('ChBCb29sZWFuU2VsZWN0aW9uEhQKBXZhbHVlGAEgASgIUgV2YWx1ZQ==');
 @$core.Deprecated('Use tokenValueFilterDescriptor instead')
 const TokenValueFilter$json = const {
   '1': 'TokenValueFilter',
@@ -192,15 +192,7 @@ const TransactionFilter$json = const {
       '9': 0,
       '10': 'boxesToRemoveSelection'
     },
-    const {
-      '1': 'fee_range',
-      '3': 11,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.NumberRange',
-      '9': 0,
-      '10': 'feeRange'
-    },
+    const {'1': 'fee_range', '3': 11, '4': 1, '5': 11, '6': '.co.topl.genus.NumberRange', '9': 0, '10': 'feeRange'},
     const {
       '1': 'proposition_selection',
       '3': 12,
@@ -237,15 +229,7 @@ const TransactionFilter$json = const {
       '9': 0,
       '10': 'and'
     },
-    const {
-      '1': 'or',
-      '3': 16,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.TransactionFilter.OrFilter',
-      '9': 0,
-      '10': 'or'
-    },
+    const {'1': 'or', '3': 16, '4': 1, '5': 11, '6': '.co.topl.genus.TransactionFilter.OrFilter', '9': 0, '10': 'or'},
     const {
       '1': 'not',
       '3': 17,
@@ -280,14 +264,7 @@ const TransactionFilter$json = const {
 const TransactionFilter_AndFilter$json = const {
   '1': 'AndFilter',
   '2': const [
-    const {
-      '1': 'filters',
-      '3': 1,
-      '4': 3,
-      '5': 11,
-      '6': '.co.topl.genus.TransactionFilter',
-      '10': 'filters'
-    },
+    const {'1': 'filters', '3': 1, '4': 3, '5': 11, '6': '.co.topl.genus.TransactionFilter', '10': 'filters'},
   ],
 };
 
@@ -295,14 +272,7 @@ const TransactionFilter_AndFilter$json = const {
 const TransactionFilter_OrFilter$json = const {
   '1': 'OrFilter',
   '2': const [
-    const {
-      '1': 'filters',
-      '3': 1,
-      '4': 3,
-      '5': 11,
-      '6': '.co.topl.genus.TransactionFilter',
-      '10': 'filters'
-    },
+    const {'1': 'filters', '3': 1, '4': 3, '5': 11, '6': '.co.topl.genus.TransactionFilter', '10': 'filters'},
   ],
 };
 
@@ -310,14 +280,7 @@ const TransactionFilter_OrFilter$json = const {
 const TransactionFilter_NotFilter$json = const {
   '1': 'NotFilter',
   '2': const [
-    const {
-      '1': 'filter',
-      '3': 1,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.TransactionFilter',
-      '10': 'filter'
-    },
+    const {'1': 'filter', '3': 1, '4': 1, '5': 11, '6': '.co.topl.genus.TransactionFilter', '10': 'filter'},
   ],
 };
 
@@ -423,42 +386,10 @@ const BlockFilter$json = const {
       '9': 0,
       '10': 'numTransactionRange'
     },
-    const {
-      '1': 'and',
-      '3': 15,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.BlockFilter.AndFilter',
-      '9': 0,
-      '10': 'and'
-    },
-    const {
-      '1': 'or',
-      '3': 16,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.BlockFilter.OrFilter',
-      '9': 0,
-      '10': 'or'
-    },
-    const {
-      '1': 'not',
-      '3': 17,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.BlockFilter.NotFilter',
-      '9': 0,
-      '10': 'not'
-    },
-    const {
-      '1': 'all',
-      '3': 18,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.BlockFilter.AllFilter',
-      '9': 0,
-      '10': 'all'
-    },
+    const {'1': 'and', '3': 15, '4': 1, '5': 11, '6': '.co.topl.genus.BlockFilter.AndFilter', '9': 0, '10': 'and'},
+    const {'1': 'or', '3': 16, '4': 1, '5': 11, '6': '.co.topl.genus.BlockFilter.OrFilter', '9': 0, '10': 'or'},
+    const {'1': 'not', '3': 17, '4': 1, '5': 11, '6': '.co.topl.genus.BlockFilter.NotFilter', '9': 0, '10': 'not'},
+    const {'1': 'all', '3': 18, '4': 1, '5': 11, '6': '.co.topl.genus.BlockFilter.AllFilter', '9': 0, '10': 'all'},
   ],
   '3': const [
     BlockFilter_AndFilter$json,
@@ -475,14 +406,7 @@ const BlockFilter$json = const {
 const BlockFilter_AndFilter$json = const {
   '1': 'AndFilter',
   '2': const [
-    const {
-      '1': 'filters',
-      '3': 1,
-      '4': 3,
-      '5': 11,
-      '6': '.co.topl.genus.BlockFilter',
-      '10': 'filters'
-    },
+    const {'1': 'filters', '3': 1, '4': 3, '5': 11, '6': '.co.topl.genus.BlockFilter', '10': 'filters'},
   ],
 };
 
@@ -490,14 +414,7 @@ const BlockFilter_AndFilter$json = const {
 const BlockFilter_OrFilter$json = const {
   '1': 'OrFilter',
   '2': const [
-    const {
-      '1': 'filters',
-      '3': 1,
-      '4': 3,
-      '5': 11,
-      '6': '.co.topl.genus.BlockFilter',
-      '10': 'filters'
-    },
+    const {'1': 'filters', '3': 1, '4': 3, '5': 11, '6': '.co.topl.genus.BlockFilter', '10': 'filters'},
   ],
 };
 
@@ -505,14 +422,7 @@ const BlockFilter_OrFilter$json = const {
 const BlockFilter_NotFilter$json = const {
   '1': 'NotFilter',
   '2': const [
-    const {
-      '1': 'filter',
-      '3': 1,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.BlockFilter',
-      '10': 'filter'
-    },
+    const {'1': 'filter', '3': 1, '4': 1, '5': 11, '6': '.co.topl.genus.BlockFilter', '10': 'filter'},
   ],
 };
 

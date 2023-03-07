@@ -12,8 +12,7 @@ class RibnFeedbackFileCard extends StatelessWidget {
   final XFile file;
   final String fileSize;
   final void Function()? onPressed;
-  RibnFeedbackFileCard(
-      {required this.file, required this.fileSize, this.onPressed});
+  RibnFeedbackFileCard({required this.file, required this.fileSize, this.onPressed});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -44,8 +43,7 @@ class RibnFeedbackFileCard extends StatelessWidget {
               ),
               Padding(
                 child: RibnFont12TextWidget(
-                    text:
-                        "${(int.parse(fileSize) / (1024 * 1024)).toStringAsFixed(4)} Mb",
+                    text: "${(int.parse(fileSize) / (1024 * 1024)).toStringAsFixed(4)} Mb",
                     textAlign: TextAlign.justify,
                     textColor: RibnColors.defaultText,
                     fontWeight: FontWeight.normal),

@@ -56,10 +56,7 @@ class RibnFeedbackForm extends HookWidget {
     final ValueNotifier<String?> _selectedTitle = useState(null);
 
     final List<String> _issueLabels = <String>["Ribnform"];
-    List<String> _dropDownItems = [
-      "Report Bugs or major incident",
-      "Product improvements/suggestions"
-    ];
+    List<String> _dropDownItems = ["Report Bugs or major incident", "Product improvements/suggestions"];
     final ValueNotifier<bool> _isLoading = useState(false);
 
     // TODO: implement build
@@ -173,21 +170,14 @@ class RibnFeedbackForm extends HookWidget {
                                     onTap: _imageFileList.value.length > 4
                                         ? null
                                         : () async {
-                                            List<XFile> tempImages = await _imagePicker
-                                                .pickMultiImage(requestFullMetadata: true);
+                                            List<XFile> tempImages =
+                                                await _imagePicker.pickMultiImage(requestFullMetadata: true);
                                             List<String> tempImagesSizes = [];
                                             for (int i = 0; i < tempImages.length; i++) {
-                                              tempImagesSizes.add((await tempImages[i].length())
-                                                  .toStringAsFixed(0));
+                                              tempImagesSizes.add((await tempImages[i].length()).toStringAsFixed(0));
                                             }
-                                            _imageFileList.value = [
-                                              ..._imageFileList.value,
-                                              ...tempImages
-                                            ];
-                                            _imageSizes.value = [
-                                              ..._imageSizes.value,
-                                              ...tempImagesSizes
-                                            ];
+                                            _imageFileList.value = [..._imageFileList.value, ...tempImages];
+                                            _imageSizes.value = [..._imageSizes.value, ...tempImagesSizes];
                                           },
                                   ))
                             ],
@@ -223,9 +213,7 @@ class RibnFeedbackForm extends HookWidget {
                                               file: _imageFileList.value[index],
                                               fileSize: _imageSizes.value[index],
                                               onPressed: () {
-                                                final _modifiedImageFileList = [
-                                                  ..._imageFileList.value
-                                                ];
+                                                final _modifiedImageFileList = [..._imageFileList.value];
                                                 _modifiedImageFileList.removeAt(index);
                                                 _imageFileList.value = _modifiedImageFileList;
 
@@ -277,8 +265,7 @@ class RibnFeedbackForm extends HookWidget {
                                     List<RibnFileModel> files = [];
                                     _isLoading.value = true;
                                     _imageFileList.value.forEach((XFile file) {
-                                      files.add(
-                                          new RibnFileModel(filePath: file.path, fileType: ""));
+                                      files.add(new RibnFileModel(filePath: file.path, fileType: ""));
                                     });
                                     final JiraCreateIssueResponseModel response =
                                         await _jiraService.createJiraIssue(new JiraIssueModel(
@@ -288,26 +275,20 @@ class RibnFeedbackForm extends HookWidget {
                                                 summary: _selectedTitle.value,
                                                 issuetype: new JiraAssigneeModel(id: _issueType),
                                                 project: new JiraProjectModel(key: _projectKey),
-                                                description: JiraDescriptionModel(
-                                                    content: <JiraContentModel>[
-                                                      new JiraContentModel(
-                                                          content: <JiraContentTypeModel>[
-                                                            JiraContentTypeModel(
-                                                                text:
-                                                                    'User email: ${_emailController.text}\n\n'),
-                                                            JiraContentTypeModel(
-                                                                text:
-                                                                    'Description\n${_descriptionController.text}')
-                                                          ])
-                                                    ]),
+                                                description: JiraDescriptionModel(content: <JiraContentModel>[
+                                                  new JiraContentModel(content: <JiraContentTypeModel>[
+                                                    JiraContentTypeModel(
+                                                        text: 'User email: ${_emailController.text}\n\n'),
+                                                    JiraContentTypeModel(
+                                                        text: 'Description\n${_descriptionController.text}')
+                                                  ])
+                                                ]),
                                                 attachments: files)));
                                     _isLoading.value = false;
                                     if (response.success) {
-                                      Keys.navigatorKey.currentState
-                                          ?.pushNamed(Routes.feedbackSuccess);
+                                      Keys.navigatorKey.currentState?.pushNamed(Routes.feedbackSuccess);
                                     } else {
-                                      Keys.navigatorKey.currentState
-                                          ?.pushNamed(Routes.feedbackError);
+                                      Keys.navigatorKey.currentState?.pushNamed(Routes.feedbackError);
                                     }
                                   },
                                 ),

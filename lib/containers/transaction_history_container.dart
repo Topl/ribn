@@ -85,8 +85,7 @@ class TransactionHistoryViewmodel {
           ) ??
           false;
       // simple recipient or asset recipient
-      final walletAddrInRecipients =
-          tx.to.any((recipient) => recipient.toJson()[0] == walletAddress);
+      final walletAddrInRecipients = tx.to.any((recipient) => recipient.toJson()[0] == walletAddress);
       return walletAddrInSenders || walletAddrInRecipients;
     }).toList();
     final List<TransactionReceipt> formattedTxs = [];
@@ -136,8 +135,7 @@ class TransactionHistoryViewmodel {
       try {
         final outputs = formatRecipients(element['outputs'] as List);
         final newBoxes = formatNewBoxes(element['newBoxes']);
-        final inputs =
-            (element['inputs'] as List).map((input) => [input['address'], input['nonce']]).toList();
+        final inputs = (element['inputs'] as List).map((input) => [input['address'], input['nonce']]).toList();
         if (inputs.isEmpty) continue;
         // get tx per recipient
         outputs.toList().forEach((output) {

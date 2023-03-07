@@ -31,8 +31,8 @@ const SimpleValue$json = const {
 };
 
 /// Descriptor for `SimpleValue`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List simpleValueDescriptor = $convert
-    .base64Decode('CgtTaW1wbGVWYWx1ZRIaCghxdWFudGl0eRgBIAEoCVIIcXVhbnRpdHk=');
+final $typed_data.Uint8List simpleValueDescriptor =
+    $convert.base64Decode('CgtTaW1wbGVWYWx1ZRIaCghxdWFudGl0eRgBIAEoCVIIcXVhbnRpdHk=');
 @$core.Deprecated('Use assetValueDescriptor instead')
 const AssetValue$json = const {
   '1': 'AssetValue',
@@ -51,24 +51,8 @@ final $typed_data.Uint8List assetValueDescriptor = $convert.base64Decode(
 const TokenValue$json = const {
   '1': 'TokenValue',
   '2': const [
-    const {
-      '1': 'simple',
-      '3': 1,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.SimpleValue',
-      '9': 0,
-      '10': 'simple'
-    },
-    const {
-      '1': 'asset',
-      '3': 2,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.AssetValue',
-      '9': 0,
-      '10': 'asset'
-    },
+    const {'1': 'simple', '3': 1, '4': 1, '5': 11, '6': '.co.topl.genus.SimpleValue', '9': 0, '10': 'simple'},
+    const {'1': 'asset', '3': 2, '4': 1, '5': 11, '6': '.co.topl.genus.AssetValue', '9': 0, '10': 'asset'},
   ],
   '8': const [
     const {'1': 'value'},
@@ -86,14 +70,7 @@ const TokenBox$json = const {
     const {'1': 'id', '3': 2, '4': 1, '5': 9, '10': 'id'},
     const {'1': 'nonce', '3': 3, '4': 1, '5': 9, '10': 'nonce'},
     const {'1': 'evidence', '3': 4, '4': 1, '5': 9, '10': 'evidence'},
-    const {
-      '1': 'value',
-      '3': 5,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.TokenValue',
-      '10': 'value'
-    },
+    const {'1': 'value', '3': 5, '4': 1, '5': 11, '6': '.co.topl.genus.TokenValue', '10': 'value'},
   ],
 };
 
@@ -110,21 +87,14 @@ const InputBox$json = const {
 };
 
 /// Descriptor for `InputBox`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List inputBoxDescriptor = $convert.base64Decode(
-    'CghJbnB1dEJveBIYCgdhZGRyZXNzGAEgASgJUgdhZGRyZXNzEhQKBW5vbmNlGAIgASgJUgVub25jZQ==');
+final $typed_data.Uint8List inputBoxDescriptor =
+    $convert.base64Decode('CghJbnB1dEJveBIYCgdhZGRyZXNzGAEgASgJUgdhZGRyZXNzEhQKBW5vbmNlGAIgASgJUgVub25jZQ==');
 @$core.Deprecated('Use outputBoxDescriptor instead')
 const OutputBox$json = const {
   '1': 'OutputBox',
   '2': const [
     const {'1': 'address', '3': 1, '4': 1, '5': 9, '10': 'address'},
-    const {
-      '1': 'value',
-      '3': 2,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.TokenValue',
-      '10': 'value'
-    },
+    const {'1': 'value', '3': 2, '4': 1, '5': 11, '6': '.co.topl.genus.TokenValue', '10': 'value'},
   ],
 };
 
@@ -148,56 +118,16 @@ const Transaction$json = const {
   '2': const [
     const {'1': 'tx_type', '3': 1, '4': 1, '5': 9, '10': 'txType'},
     const {'1': 'timestamp', '3': 2, '4': 1, '5': 9, '10': 'timestamp'},
-    const {
-      '1': 'signatures',
-      '3': 3,
-      '4': 3,
-      '5': 11,
-      '6': '.co.topl.genus.Attestation',
-      '10': 'signatures'
-    },
-    const {
-      '1': 'new_boxes',
-      '3': 4,
-      '4': 3,
-      '5': 11,
-      '6': '.co.topl.genus.TokenBox',
-      '10': 'newBoxes'
-    },
+    const {'1': 'signatures', '3': 3, '4': 3, '5': 11, '6': '.co.topl.genus.Attestation', '10': 'signatures'},
+    const {'1': 'new_boxes', '3': 4, '4': 3, '5': 11, '6': '.co.topl.genus.TokenBox', '10': 'newBoxes'},
     const {'1': 'data', '3': 5, '4': 1, '5': 9, '10': 'data'},
-    const {
-      '1': 'inputs',
-      '3': 6,
-      '4': 3,
-      '5': 11,
-      '6': '.co.topl.genus.InputBox',
-      '10': 'inputs'
-    },
+    const {'1': 'inputs', '3': 6, '4': 3, '5': 11, '6': '.co.topl.genus.InputBox', '10': 'inputs'},
     const {'1': 'minting', '3': 7, '4': 1, '5': 8, '10': 'minting'},
     const {'1': 'tx_id', '3': 8, '4': 1, '5': 9, '10': 'txId'},
-    const {
-      '1': 'boxes_to_remove',
-      '3': 9,
-      '4': 3,
-      '5': 9,
-      '10': 'boxesToRemove'
-    },
+    const {'1': 'boxes_to_remove', '3': 9, '4': 3, '5': 9, '10': 'boxesToRemove'},
     const {'1': 'fee', '3': 10, '4': 1, '5': 9, '10': 'fee'},
-    const {
-      '1': 'outputs',
-      '3': 11,
-      '4': 3,
-      '5': 11,
-      '6': '.co.topl.genus.OutputBox',
-      '10': 'outputs'
-    },
-    const {
-      '1': 'proposition_type',
-      '3': 12,
-      '4': 1,
-      '5': 9,
-      '10': 'propositionType'
-    },
+    const {'1': 'outputs', '3': 11, '4': 3, '5': 11, '6': '.co.topl.genus.OutputBox', '10': 'outputs'},
+    const {'1': 'proposition_type', '3': 12, '4': 1, '5': 9, '10': 'propositionType'},
     const {'1': 'block_id', '3': 13, '4': 1, '5': 9, '10': 'blockId'},
     const {'1': 'block_height', '3': 14, '4': 1, '5': 4, '10': 'blockHeight'},
   ],
@@ -213,14 +143,7 @@ const Block$json = const {
     const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
     const {'1': 'parent_id', '3': 2, '4': 1, '5': 9, '10': 'parentId'},
     const {'1': 'timestamp', '3': 3, '4': 1, '5': 9, '10': 'timestamp'},
-    const {
-      '1': 'generator',
-      '3': 4,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.TokenBox',
-      '10': 'generator'
-    },
+    const {'1': 'generator', '3': 4, '4': 1, '5': 11, '6': '.co.topl.genus.TokenBox', '10': 'generator'},
     const {'1': 'public_key', '3': 5, '4': 1, '5': 9, '10': 'publicKey'},
     const {'1': 'signature', '3': 6, '4': 1, '5': 9, '10': 'signature'},
     const {'1': 'height', '3': 7, '4': 1, '5': 4, '10': 'height'},
@@ -228,13 +151,7 @@ const Block$json = const {
     const {'1': 'tx_root', '3': 9, '4': 1, '5': 9, '10': 'txRoot'},
     const {'1': 'bloom_filter', '3': 10, '4': 1, '5': 9, '10': 'bloomFilter'},
     const {'1': 'version', '3': 11, '4': 1, '5': 13, '10': 'version'},
-    const {
-      '1': 'num_transactions',
-      '3': 12,
-      '4': 1,
-      '5': 13,
-      '10': 'numTransactions'
-    },
+    const {'1': 'num_transactions', '3': 12, '4': 1, '5': 13, '10': 'numTransactions'},
   ],
 };
 
