@@ -37,8 +37,7 @@ class PlatformUtils implements IPlatformUtils {
   String getCurrentAppVersion() => getAppVersion();
 
   @override
-  void downloadFile(String fileName, String text) =>
-      downloadAsFile(fileName, text);
+  void downloadFile(String fileName, String text) => downloadAsFile(fileName, text);
 
   @override
   void deleteActiveWallet() => deleteWallet();

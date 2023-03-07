@@ -27,14 +27,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     const WalletBalancePage(),
     const TxHistoryPage(),
   ];
-  final List<Image> _pageIcons = [
-    Image.asset(RibnAssets.walletGrey),
-    Image.asset(RibnAssets.clockGrey)
-  ];
-  final List<Image> _activePageIcons = [
-    Image.asset(RibnAssets.walletBlue),
-    Image.asset(RibnAssets.clockBlue)
-  ];
+  final List<Image> _pageIcons = [Image.asset(RibnAssets.walletGrey), Image.asset(RibnAssets.clockGrey)];
+  final List<Image> _activePageIcons = [Image.asset(RibnAssets.walletBlue), Image.asset(RibnAssets.clockBlue)];
   int _currPage = 0;
 
   @override

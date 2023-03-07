@@ -61,36 +61,31 @@ void main() {
     /// Seed phrase info checklist
     expect(find.byKey(SeedPhraseInfoChecklistPage.seedPhraseInfoChecklistPageKey), findsOneWidget);
     // Try to tap confirm button and make sure the page does not change
-    await tester
-        .tap(find.byKey(SeedPhraseInfoChecklistPage.seedPhraseInfoChecklistConfirmationButtonKey));
+    await tester.tap(find.byKey(SeedPhraseInfoChecklistPage.seedPhraseInfoChecklistConfirmationButtonKey));
     await tester.pumpAndSettle();
     expect(find.byKey(SeedPhraseInfoChecklistPage.seedPhraseInfoChecklistPageKey), findsOneWidget);
 
     // Now try and tap the first checkbox and attempt to move pages, should stay on same page
     await tester.tap(find.byKey(SeedPhraseInfoChecklistPage.neverShareMySeedPhraseKey));
     await tester.pumpAndSettle();
-    await tester
-        .tap(find.byKey(SeedPhraseInfoChecklistPage.seedPhraseInfoChecklistConfirmationButtonKey));
+    await tester.tap(find.byKey(SeedPhraseInfoChecklistPage.seedPhraseInfoChecklistConfirmationButtonKey));
     await tester.pumpAndSettle();
     expect(find.byKey(SeedPhraseInfoChecklistPage.seedPhraseInfoChecklistPageKey), findsOneWidget);
 
     // Now tap the second checkbox and page should move to next page
     await tester.tap(find.byKey(SeedPhraseInfoChecklistPage.walletRecoveryUsingSeedPhraseKey));
     await tester.pumpAndSettle();
-    await tester
-        .tap(find.byKey(SeedPhraseInfoChecklistPage.seedPhraseInfoChecklistConfirmationButtonKey));
+    await tester.tap(find.byKey(SeedPhraseInfoChecklistPage.seedPhraseInfoChecklistConfirmationButtonKey));
     await tester.pumpAndSettle();
     expect(find.byKey(SeedPhraseInstructionsPage.seedPhraseInstructionsPageKey), findsOneWidget);
-    await tester
-        .tap(find.byKey(SeedPhraseInstructionsPage.seedPhraseInstructionsConfirmationButtonKey));
+    await tester.tap(find.byKey(SeedPhraseInstructionsPage.seedPhraseInstructionsConfirmationButtonKey));
     await tester.pumpAndSettle();
 
     /// Seed phrase generation
     expect(find.byKey(SeedPhraseGeneratingPage.seedPhraseGeneratingPageKey), findsOneWidget);
     // The seed generation page has a set time delay and this will make time pass so that the confirm button will appear
     await pumpTester(tester, duration: 1, loops: 10);
-    await tester
-        .tap(find.byKey(SeedPhraseGeneratingPage.seedPhraseGeneratingConfirmationButtonKey));
+    await tester.tap(find.byKey(SeedPhraseGeneratingPage.seedPhraseGeneratingConfirmationButtonKey));
     await tester.pumpAndSettle();
 
     /// Seed phrase Display
@@ -101,8 +96,7 @@ void main() {
     /// Seed phrase confirmation section
     expect(find.byKey(SeedPhraseConfirmationPage.seedPhraseConfirmationPageKey), findsOneWidget);
     await fillOutSeedPhraseConfirmation(tester: tester);
-    await tester
-        .tap(find.byKey(SeedPhraseConfirmationPage.seedPhraseConfirmationConfirmationButtonKey));
+    await tester.tap(find.byKey(SeedPhraseConfirmationPage.seedPhraseConfirmationConfirmationButtonKey));
     await tester.pumpAndSettle();
 
     /// Create Password section

@@ -28,20 +28,18 @@ void initialize() {
   // JavaScript code may now call `functionName()` or `window.functionName()`.
 }
 
-String _getBalance() =>
-    StoreProvider.of<AppState>(Keys.navigatorKey.currentContext!)
-        .state
-        .keychainState
-        .currentNetwork
-        .getPolysInWallet()
-        .toString();
+String _getBalance() => StoreProvider.of<AppState>(Keys.navigatorKey.currentContext!)
+    .state
+    .keychainState
+    .currentNetwork
+    .getPolysInWallet()
+    .toString();
 
-String _getAddress() =>
-    StoreProvider.of<AppState>(Keys.navigatorKey.currentContext!)
-        .state
-        .keychainState
-        .currentNetwork
-        .addresses
-        .first
-        .toplAddress
-        .toBase58();
+String _getAddress() => StoreProvider.of<AppState>(Keys.navigatorKey.currentContext!)
+    .state
+    .keychainState
+    .currentNetwork
+    .addresses
+    .first
+    .toplAddress
+    .toBase58();

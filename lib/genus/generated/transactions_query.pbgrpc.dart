@@ -23,8 +23,7 @@ class TransactionsQueryClient extends $grpc.Client {
     ($0.QueryTxsReq value) => value.writeToBuffer(),
     ($core.List<$core.int> value) => $0.QueryTxsRes.fromBuffer(value),
   );
-  static final _$queryStreamed =
-      $grpc.ClientMethod<$0.TxsQueryStreamReq, $0.TxsQueryStreamRes>(
+  static final _$queryStreamed = $grpc.ClientMethod<$0.TxsQueryStreamReq, $0.TxsQueryStreamRes>(
     '/co.topl.genus.services.TransactionsQuery/QueryStreamed',
     ($0.TxsQueryStreamReq value) => value.writeToBuffer(),
     ($core.List<$core.int> value) => $0.TxsQueryStreamRes.fromBuffer(value),

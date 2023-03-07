@@ -71,8 +71,7 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
         ),
       );
 
-      final Uint8List toplExtendedPrvKeyUint8List =
-          uint8ListFromDynamic(results['toplExtendedPrvKeyUint8List']);
+      final Uint8List toplExtendedPrvKeyUint8List = uint8ListFromDynamic(results['toplExtendedPrvKeyUint8List']);
 
       // if extension: key is temporarily stored in `chrome.storage.session` & session alarm created
       // if mobile: key is persisted securely in secure storage

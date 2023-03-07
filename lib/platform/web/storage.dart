@@ -31,8 +31,7 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   static PlatformLocalStorage get instance => PlatformLocalStorage();
 
   @override
-  Future<void> saveState(String data) =>
-      promiseToFuture(persistToLocalStorage(data));
+  Future<void> saveState(String data) => promiseToFuture(persistToLocalStorage(data));
 
   @override
   Future<String> getState() => promiseToFuture(getFromLocalStorage());
@@ -54,8 +53,7 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   @override
   Future<String?> getKeyFromSessionStorage() async {
     try {
-      final Map<String, dynamic> sessionStorage =
-          jsonDecode(await promiseToFuture(getFromSessionStorage()));
+      final Map<String, dynamic> sessionStorage = jsonDecode(await promiseToFuture(getFromSessionStorage()));
       return sessionStorage['toplKey'];
     } catch (e) {
       if (!Keys.isTestingEnvironment) {

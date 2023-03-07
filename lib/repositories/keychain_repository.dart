@@ -31,8 +31,7 @@ class KeychainRepository {
       change: change,
       address: addr,
     );
-    final ToplAddress toplAddress =
-        hdWallet.toBaseAddress(spend: keyPair.publicKey!, networkId: networkId);
+    final ToplAddress toplAddress = hdWallet.toBaseAddress(spend: keyPair.publicKey!, networkId: networkId);
     final String keyPath = getKeyPath(purpose, coinType, account, change, addr);
     final RibnAddress newAddress = RibnAddress(
       toplAddress: toplAddress,
@@ -54,19 +53,11 @@ class KeychainRepository {
     int address,
   ) {
     String keyPath = 'm/';
-    keyPath += isHardened(purpose)
-        ? "${purpose - Rules.hardenedOffset}'/"
-        : '$purpose/';
-    keyPath += isHardened(coinType)
-        ? "${coinType - Rules.hardenedOffset}'/"
-        : '$coinType/';
-    keyPath += isHardened(account)
-        ? "${account - Rules.hardenedOffset}'/"
-        : '$account/';
-    keyPath +=
-        isHardened(change) ? "${change - Rules.hardenedOffset}'/" : '$change/';
-    keyPath +=
-        isHardened(address) ? "${address - Rules.hardenedOffset}'" : '$address';
+    keyPath += isHardened(purpose) ? "${purpose - Rules.hardenedOffset}'/" : '$purpose/';
+    keyPath += isHardened(coinType) ? "${coinType - Rules.hardenedOffset}'/" : '$coinType/';
+    keyPath += isHardened(account) ? "${account - Rules.hardenedOffset}'/" : '$account/';
+    keyPath += isHardened(change) ? "${change - Rules.hardenedOffset}'/" : '$change/';
+    keyPath += isHardened(address) ? "${address - Rules.hardenedOffset}'" : '$address';
     return keyPath;
   }
 

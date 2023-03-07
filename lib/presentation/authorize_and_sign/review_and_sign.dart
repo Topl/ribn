@@ -44,7 +44,7 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
   late final String walletAddress;
   late final RawTx transaction;
   bool isExpanded = false;
-  
+
   ScrollController _scrollController = ScrollController();
 
   final TextStyle defaultTextStyle = const TextStyle(
@@ -58,14 +58,8 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
     transactionDetails = widget.request.data!['rawTx'];
     transaction = RawTx.fromJson(widget.request.data!['rawTx']);
 
-    walletAddress = StoreProvider.of<AppState>(context)
-        .state
-        .keychainState
-        .currentNetwork
-        .addresses
-        .first
-        .toplAddress
-        .toBase58();
+    walletAddress =
+        StoreProvider.of<AppState>(context).state.keychainState.currentNetwork.addresses.first.toplAddress.toBase58();
     super.initState();
   }
 
@@ -87,8 +81,7 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                 curve: Curves.easeInOut,
                 duration: const Duration(seconds: 1),
                 clipBehavior: Clip.hardEdge,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 width: 360,
                 height: isExpanded ? 388 : 228,
                 decoration: BoxDecoration(
@@ -130,14 +123,9 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return TransactionRowDetails(
-                          quantity: transactionDetails['to'][index][1]
-                              ['quantity'],
-                          wasReceivedToMyWallet: transactionDetails['to'][index]
-                                  [0] ==
-                              walletAddress,
-                          isPolyTransfer: transactionDetails['to'][index][1]
-                                  ['type'] ==
-                              'Simple',
+                          quantity: transactionDetails['to'][index][1]['quantity'],
+                          wasReceivedToMyWallet: transactionDetails['to'][index][0] == walletAddress,
+                          isPolyTransfer: transactionDetails['to'][index][1]['type'] == 'Simple',
                         );
                       },
                     ),
@@ -184,8 +172,7 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                               thumbColor: RibnColors.primary,
                               thickness: 10,
                               child: ScrollConfiguration(
-                                behavior: ScrollConfiguration.of(context)
-                                    .copyWith(scrollbars: false),
+                                behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
                                 child: ListView.builder(
                                   controller: _scrollController,
                                   shrinkWrap: true,
@@ -214,12 +201,10 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
                               height: 27.0,
                               decoration: const BoxDecoration(
                                 color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
+                                borderRadius: BorderRadius.all(Radius.circular(20)),
                               ),
                               child: CustomCopyButton(
-                                textToBeCopied:
-                                    getPrettyJson(widget.request.data),
+                                textToBeCopied: getPrettyJson(widget.request.data),
                                 bubbleText: 'Copied!',
                                 icon: Image.asset(
                                   RibnAssets.copyIconAlternate,
@@ -291,8 +276,7 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
           },
         );
 
-        StoreProvider.of<AppState>(context)
-            .dispatch(SendInternalMsgAction(response));
+        StoreProvider.of<AppState>(context).dispatch(SendInternalMsgAction(response));
       },
     );
   }

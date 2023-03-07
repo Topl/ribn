@@ -42,11 +42,7 @@ const TransactionSorting$json = const {
       '10': 'timestamp'
     },
   ],
-  '3': const [
-    TransactionSorting_Height$json,
-    TransactionSorting_Fee$json,
-    TransactionSorting_Timestamp$json
-  ],
+  '3': const [TransactionSorting_Height$json, TransactionSorting_Fee$json, TransactionSorting_Timestamp$json],
   '8': const [
     const {'1': 'sort_by'},
   ],
@@ -83,29 +79,9 @@ final $typed_data.Uint8List transactionSortingDescriptor = $convert.base64Decode
 const QueryTxsReq$json = const {
   '1': 'QueryTxsReq',
   '2': const [
-    const {
-      '1': 'filter',
-      '3': 1,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.TransactionFilter',
-      '10': 'filter'
-    },
-    const {
-      '1': 'sorting',
-      '3': 2,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.services.TransactionSorting',
-      '10': 'sorting'
-    },
-    const {
-      '1': 'confirmation_depth',
-      '3': 3,
-      '4': 1,
-      '5': 13,
-      '10': 'confirmationDepth'
-    },
+    const {'1': 'filter', '3': 1, '4': 1, '5': 11, '6': '.co.topl.genus.TransactionFilter', '10': 'filter'},
+    const {'1': 'sorting', '3': 2, '4': 1, '5': 11, '6': '.co.topl.genus.services.TransactionSorting', '10': 'sorting'},
+    const {'1': 'confirmation_depth', '3': 3, '4': 1, '5': 13, '10': 'confirmationDepth'},
     const {
       '1': 'paging_options',
       '3': 4,
@@ -153,14 +129,7 @@ const QueryTxsRes$json = const {
 const QueryTxsRes_Success$json = const {
   '1': 'Success',
   '2': const [
-    const {
-      '1': 'transactions',
-      '3': 1,
-      '4': 3,
-      '5': 11,
-      '6': '.co.topl.genus.Transaction',
-      '10': 'transactions'
-    },
+    const {'1': 'transactions', '3': 1, '4': 3, '5': 11, '6': '.co.topl.genus.Transaction', '10': 'transactions'},
   ],
 };
 
@@ -168,30 +137,9 @@ const QueryTxsRes_Success$json = const {
 const QueryTxsRes_Failure$json = const {
   '1': 'Failure',
   '2': const [
-    const {
-      '1': 'data_store_connection_error',
-      '3': 1,
-      '4': 1,
-      '5': 9,
-      '9': 0,
-      '10': 'dataStoreConnectionError'
-    },
-    const {
-      '1': 'query_timeout',
-      '3': 2,
-      '4': 1,
-      '5': 9,
-      '9': 0,
-      '10': 'queryTimeout'
-    },
-    const {
-      '1': 'invalid_query',
-      '3': 3,
-      '4': 1,
-      '5': 9,
-      '9': 0,
-      '10': 'invalidQuery'
-    },
+    const {'1': 'data_store_connection_error', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'dataStoreConnectionError'},
+    const {'1': 'query_timeout', '3': 2, '4': 1, '5': 9, '9': 0, '10': 'queryTimeout'},
+    const {'1': 'invalid_query', '3': 3, '4': 1, '5': 9, '9': 0, '10': 'invalidQuery'},
   ],
   '8': const [
     const {'1': 'reason'},
@@ -205,29 +153,9 @@ final $typed_data.Uint8List queryTxsResDescriptor = $convert.base64Decode(
 const TxsQueryStreamReq$json = const {
   '1': 'TxsQueryStreamReq',
   '2': const [
-    const {
-      '1': 'filter',
-      '3': 1,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.TransactionFilter',
-      '10': 'filter'
-    },
-    const {
-      '1': 'sorting',
-      '3': 4,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.services.TransactionSorting',
-      '10': 'sorting'
-    },
-    const {
-      '1': 'confirmation_depth',
-      '3': 2,
-      '4': 1,
-      '5': 13,
-      '10': 'confirmationDepth'
-    },
+    const {'1': 'filter', '3': 1, '4': 1, '5': 11, '6': '.co.topl.genus.TransactionFilter', '10': 'filter'},
+    const {'1': 'sorting', '3': 4, '4': 1, '5': 11, '6': '.co.topl.genus.services.TransactionSorting', '10': 'sorting'},
+    const {'1': 'confirmation_depth', '3': 2, '4': 1, '5': 13, '10': 'confirmationDepth'},
   ],
 };
 
@@ -238,15 +166,7 @@ final $typed_data.Uint8List txsQueryStreamReqDescriptor = $convert.base64Decode(
 const TxsQueryStreamRes$json = const {
   '1': 'TxsQueryStreamRes',
   '2': const [
-    const {
-      '1': 'tx',
-      '3': 1,
-      '4': 1,
-      '5': 11,
-      '6': '.co.topl.genus.Transaction',
-      '9': 0,
-      '10': 'tx'
-    },
+    const {'1': 'tx', '3': 1, '4': 1, '5': 11, '6': '.co.topl.genus.Transaction', '9': 0, '10': 'tx'},
     const {
       '1': 'failure',
       '3': 2,
@@ -267,22 +187,8 @@ const TxsQueryStreamRes$json = const {
 const TxsQueryStreamRes_Failure$json = const {
   '1': 'Failure',
   '2': const [
-    const {
-      '1': 'data_store_connection_error',
-      '3': 1,
-      '4': 1,
-      '5': 9,
-      '9': 0,
-      '10': 'dataStoreConnectionError'
-    },
-    const {
-      '1': 'invalid_query',
-      '3': 2,
-      '4': 1,
-      '5': 9,
-      '9': 0,
-      '10': 'invalidQuery'
-    },
+    const {'1': 'data_store_connection_error', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'dataStoreConnectionError'},
+    const {'1': 'invalid_query', '3': 2, '4': 1, '5': 9, '9': 0, '10': 'invalidQuery'},
   ],
   '8': const [
     const {'1': 'reason'},

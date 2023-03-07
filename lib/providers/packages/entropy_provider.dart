@@ -7,6 +7,5 @@ final entropyProvider = Provider<Entropy Function(dynamic)>((ref) {
 });
 
 final entropyFuncProvider = Provider<String Function(dynamic)>((ref) {
-  return (entropy) =>
-      entropyToMnemonic(HexCoder.instance.encode(entropy.bytes), language: 'english');
+  return (entropy) => entropyToMnemonic(HexCoder.instance.encode(entropy.bytes), language: 'english');
 });
