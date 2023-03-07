@@ -119,9 +119,8 @@ class PolyTransferSection extends HookConsumerWidget {
                       address: _recipientController.text,
                       handleResult: (bool result) {
                         if (result) {
-                          ref.read(polyTransferProvider.notifier).state = ref
-                              .read(polyTransferProvider)
-                              .copyWith(validRecipientAddress: _recipientController.text);
+                          ref.read(polyTransferProvider.notifier).state =
+                              ref.read(polyTransferProvider).copyWith(validRecipientAddress: _recipientController.text);
                           _recipientController.text = '';
                         } else {
                           ref.read(polyTransferProvider.notifier).state =
@@ -134,8 +133,7 @@ class PolyTransferSection extends HookConsumerWidget {
                     if (_validRecipientAddress.isNotEmpty) {
                       _recipientController.text = _validRecipientAddress;
                       _recipientController
-                        ..text =
-                            _recipientController.text.substring(0, _recipientController.text.length)
+                        ..text = _recipientController.text.substring(0, _recipientController.text.length)
                         ..selection = TextSelection.collapsed(
                           offset: _recipientController.text.length,
                         );
@@ -159,8 +157,7 @@ class PolyTransferSection extends HookConsumerWidget {
                     width: 18,
                   ),
                   onChanged: (String note) {
-                    ref.read(polyTransferProvider.notifier).state =
-                        ref.read(polyTransferProvider).copyWith(note: note);
+                    ref.read(polyTransferProvider.notifier).state = ref.read(polyTransferProvider).copyWith(note: note);
                   },
                 ),
               ],

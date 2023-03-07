@@ -74,16 +74,14 @@ class _AssetTransferPageState extends State<AssetTransferPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
                         Strings.sendAssets,
-                        style:
-                            RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                        style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
                       ),
                     ),
                     1: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
                         Strings.sendNativeCoins,
-                        style:
-                            RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
+                        style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
                       ),
                     ),
                   },

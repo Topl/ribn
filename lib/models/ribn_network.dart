@@ -121,8 +121,7 @@ class RibnNetwork {
   List<AssetAmount> getAssetsIssuedByWallet() {
     return getAllAssetsInWallet()
         .where(
-          (AssetAmount asset) =>
-              asset.assetCode.issuer.toBase58() == myWalletAddress?.toplAddress.toBase58(),
+          (AssetAmount asset) => asset.assetCode.issuer.toBase58() == myWalletAddress?.toplAddress.toBase58(),
         )
         .toList();
   }

@@ -35,14 +35,11 @@ void Function(
 ) {
   return (store, action, next) async {
     try {
-      final AppViews currAppView =
-          await PlatformUtils.instance.getCurrentAppView();
+      final AppViews currAppView = await PlatformUtils.instance.getCurrentAppView();
       // create isolate/worker to avoid hanging the UI
       final List result = jsonDecode(
         await PlatformWorkerRunner.instance.runWorker(
-          workerScript: currAppView == AppViews.webDebug
-              ? '/web/workers/login_worker.js'
-              : '/workers/login_worker.js',
+          workerScript: currAppView == AppViews.webDebug ? '/web/workers/login_worker.js' : '/workers/login_worker.js',
           function: loginRepository.decryptKeyStore,
           params: {
             'keyStoreJson': store.state.keychainState.keyStoreJson,
@@ -50,12 +47,10 @@ void Function(
           },
         ),
       );
-      final Uint8List toplExtendedPrvKeyUint8List =
-          uint8ListFromDynamic(result);
+      final Uint8List toplExtendedPrvKeyUint8List = uint8ListFromDynamic(result);
       // if extension: key is temporarily stored in `chrome.storage.session` & session alarm created
       // if mobile: key is persisted securely in secure storage
-      if (currAppView == AppViews.extension ||
-          currAppView == AppViews.extensionTab) {
+      if (currAppView == AppViews.extension || currAppView == AppViews.extensionTab) {
         await PlatformLocalStorage.instance.saveKeyInSessionStorage(
           Base58Encoder.instance.encode(toplExtendedPrvKeyUint8List),
         );

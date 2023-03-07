@@ -24,10 +24,8 @@ class TransactionRepository {
     switch (transferDetails.transferType) {
       case TransferType.polyTransfer:
         {
-          final List<ToplAddress> senders =
-              transferDetails.senders.map((e) => e.toplAddress).toList();
-          final ToplAddress recipient =
-              ToplAddress.fromBase58(transferDetails.recipient);
+          final List<ToplAddress> senders = transferDetails.senders.map((e) => e.toplAddress).toList();
+          final ToplAddress recipient = ToplAddress.fromBase58(transferDetails.recipient);
           final PolyTransaction polyTransaction = PolyTransaction(
             recipients: [
               SimpleRecipient(
@@ -48,10 +46,8 @@ class TransactionRepository {
         }
       case TransferType.assetTransfer:
         {
-          final List<ToplAddress> senders =
-              transferDetails.senders.map((e) => e.toplAddress).toList();
-          final ToplAddress recipient =
-              ToplAddress.fromBase58(transferDetails.recipient);
+          final List<ToplAddress> senders = transferDetails.senders.map((e) => e.toplAddress).toList();
+          final ToplAddress recipient = ToplAddress.fromBase58(transferDetails.recipient);
           final AssetValue assetValue = AssetValue(
             transferDetails.amount,
             transferDetails.assetCode!,
@@ -79,8 +75,7 @@ class TransactionRepository {
       case (TransferType.remintingAsset):
         {
           final ToplAddress issuer = transferDetails.assetCode!.issuer;
-          final ToplAddress recipient =
-              ToplAddress.fromBase58(transferDetails.recipient);
+          final ToplAddress recipient = ToplAddress.fromBase58(transferDetails.recipient);
           final AssetValue assetValue = AssetValue(
             transferDetails.amount,
             transferDetails.assetCode!,

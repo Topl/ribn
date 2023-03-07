@@ -41,8 +41,7 @@ class PasswordSection extends HookConsumerWidget {
       _confirmPasswordController.addListener(
         () {
           final _passwordState = ref.read(passwordProvider);
-          passwordNotifier.state =
-              _passwordState.copyWith(confirmPassword: _confirmPasswordController.text);
+          passwordNotifier.state = _passwordState.copyWith(confirmPassword: _confirmPasswordController.text);
         },
       );
 
@@ -122,9 +121,7 @@ class _NewPasswordSection extends StatelessWidget {
             Strings.atLeast8Chars,
             textAlign: TextAlign.left,
             style: RibnToolkitTextStyles.h3.copyWith(
-              color: !atLeast8Chars && textEditingController.text.isNotEmpty
-                  ? Colors.red
-                  : Colors.white,
+              color: !atLeast8Chars && textEditingController.text.isNotEmpty ? Colors.red : Colors.white,
             ),
           ),
         ),
@@ -190,9 +187,7 @@ class _ConfirmPasswordSection extends StatelessWidget {
             Strings.passwordsMustMatch,
             textAlign: TextAlign.left,
             style: RibnToolkitTextStyles.h3.copyWith(
-              color: !passwordsMatch && textEditingController.value.text.isNotEmpty
-                  ? Colors.red
-                  : Colors.white,
+              color: !passwordsMatch && textEditingController.value.text.isNotEmpty ? Colors.red : Colors.white,
             ),
           ),
         ),

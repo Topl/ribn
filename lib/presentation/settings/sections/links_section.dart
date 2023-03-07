@@ -34,8 +34,7 @@ class LinksSection extends HookConsumerWidget {
         RichText(
           text: TextSpan(
             text: Strings.privacyPolicy,
-            recognizer: TapGestureRecognizer()
-              ..onTap = () async => await launchPrivacyPolicyUrl(ref),
+            recognizer: TapGestureRecognizer()..onTap = () async => await launchPrivacyPolicyUrl(ref),
             style: linkStyle,
           ),
         ),

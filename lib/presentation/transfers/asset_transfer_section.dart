@@ -136,11 +136,9 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
                   AssetSelectionField(
                     formattedSelectedAsset: {
                       'assetCode': _selectedAsset?.assetCode.toString(),
-                      'longName':
-                          widget.vm.assetDetails[_selectedAsset?.assetCode.toString()]?.longName,
+                      'longName': widget.vm.assetDetails[_selectedAsset?.assetCode.toString()]?.longName,
                       'shortName': _selectedAsset?.assetCode.shortName.show,
-                      'assetIcon':
-                          widget.vm.assetDetails[_selectedAsset?.assetCode.toString()]?.icon,
+                      'assetIcon': widget.vm.assetDetails[_selectedAsset?.assetCode.toString()]?.icon,
                     },
                     formattedAsset: (asset) {
                       return {
@@ -180,8 +178,7 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
                         );
                       });
                     },
-                    selectedUnit:
-                        widget.vm.assetDetails[_selectedAsset?.assetCode.toString()]?.unit,
+                    selectedUnit: widget.vm.assetDetails[_selectedAsset?.assetCode.toString()]?.unit,
                     controller: _amountController,
                     allowEditingUnit: false,
                     onUnitSelected: (String amount) {
@@ -198,8 +195,7 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
                       RibnAssets.chevronDownDark,
                       width: 24,
                     ),
-                    maxTransferrableAmount:
-                        widget.vm.getAssetBalance(_selectedAsset?.assetCode.toString()),
+                    maxTransferrableAmount: widget.vm.getAssetBalance(_selectedAsset?.assetCode.toString()),
                   ),
                   // Displays the sender address.
                   const FromAddressField(),
@@ -236,8 +232,7 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
                         if (_validRecipientAddress.isNotEmpty) {
                           _recipientController.text = _validRecipientAddress;
                           _recipientController
-                            ..text = _recipientController.text
-                                .substring(0, _recipientController.text.length)
+                            ..text = _recipientController.text.substring(0, _recipientController.text.length)
                             ..selection = TextSelection.collapsed(
                               offset: _recipientController.text.length,
                             );
