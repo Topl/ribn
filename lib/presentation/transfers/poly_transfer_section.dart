@@ -87,6 +87,7 @@ class PolyTransferSection extends HookConsumerWidget {
 
     useEffect(() {
       renderBottomButton();
+      return null;
     }, []);
 
     return Column(
