@@ -79,6 +79,7 @@ class PolyTransferSection extends HookConsumerWidget {
     // Have to keep watch here otherwise the controller will dispose
     // ignore: unused_local_variable
     final polyTransfer = ref.watch(polyTransferProvider);
+    final polyTransferNotifier = ref.watch(polyTransferProvider.notifier);
     final _recipientController = useTextEditingController();
     final _noteController = useTextEditingController();
 
@@ -113,19 +114,17 @@ class PolyTransferSection extends HookConsumerWidget {
                   validRecipientAddress: _validRecipientAddress,
                   // validate the address entered on text change
                   onChanged: (text) {
-                    ref.read(polyTransferProvider.notifier).state =
-                        ref.read(polyTransferProvider).copyWith(recipientAddress: text);
+                    polyTransferNotifier.state = polyTransfer.copyWith(recipientAddress: text);
                     validateRecipientAddress(
                       networkName: vm.currentNetwork.networkName,
                       address: _recipientController.text,
                       handleResult: (bool result) {
                         if (result) {
-                          ref.read(polyTransferProvider.notifier).state =
-                              ref.read(polyTransferProvider).copyWith(validRecipientAddress: _recipientController.text);
+                          polyTransferNotifier.state =
+                              polyTransfer.copyWith(validRecipientAddress: _recipientController.text);
                           _recipientController.text = '';
                         } else {
-                          ref.read(polyTransferProvider.notifier).state =
-                              ref.read(polyTransferProvider).copyWith(validRecipientAddress: '');
+                          polyTransferNotifier.state = polyTransfer.copyWith(validRecipientAddress: '');
                         }
                       },
                     );
@@ -139,8 +138,7 @@ class PolyTransferSection extends HookConsumerWidget {
                           offset: _recipientController.text.length,
                         );
                     }
-                    ref.read(polyTransferProvider.notifier).state =
-                        ref.read(polyTransferProvider).copyWith(validRecipientAddress: '');
+                    polyTransferNotifier.state = polyTransfer.copyWith(validRecipientAddress: '');
                   },
                   icon: SvgPicture.asset(RibnAssets.recipientFingerprint),
                   alternativeDisplayChild: const AddressDisplayContainer(
@@ -158,7 +156,7 @@ class PolyTransferSection extends HookConsumerWidget {
                     width: 18,
                   ),
                   onChanged: (String note) {
-                    ref.read(polyTransferProvider.notifier).state = ref.read(polyTransferProvider).copyWith(note: note);
+                    polyTransferNotifier.state = polyTransfer.copyWith(note: note);
                   },
                 ),
               ],
