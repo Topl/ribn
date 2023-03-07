@@ -74,7 +74,7 @@ class RibnFeedbackForm extends HookWidget {
                   const CustomPageTextTitle(
                     title: Strings.feedbackForm,
                     hideBackArrow: true,
-                    hideCloseCross: true,
+                    hideCloseCross: false,
                   ),
                   Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
