@@ -160,7 +160,6 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     }
 
     final bool isValhall = vm.currentNetwork.networkName == NetworkUtils.valhalla;
-    print('QQQQ isValhall $isValhall');
     return WaveContainer(
       containerHeight: 183,
       containerWidth: double.infinity,

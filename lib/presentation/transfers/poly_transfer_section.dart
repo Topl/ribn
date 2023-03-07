@@ -7,6 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/models/view/poly_transfer_class.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
@@ -101,7 +102,9 @@ class PolyTransferSection extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // UI to indicate poly transfer
-                _PolyDisplay(),
+                _PolyDisplay(
+                  vm: vm,
+                ),
                 // field for entering amount of polys needed for transfer
                 _AmountField(
                   vm: vm,
@@ -170,10 +173,15 @@ class PolyTransferSection extends HookConsumerWidget {
 
 /// Builds the UI for indicating poly transfer.
 class _PolyDisplay extends StatelessWidget {
-  const _PolyDisplay({Key? key}) : super(key: key);
+  final PolyTransferInputViewModel vm;
+  const _PolyDisplay({
+    required this.vm,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final bool isValhalla = vm.currentNetwork.networkName == NetworkUtils.valhalla;
     return CustomInputField(
       itemLabel: Strings.sending,
       item: Container(
@@ -195,7 +203,7 @@ class _PolyDisplay extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 7.0),
               child: Image.asset(RibnAssets.polysIcon),
             ),
-            const Text('POLY'),
+            Text('${isValhalla ? 'nanoPOLY' : 'POLY'}'),
           ],
         ),
       ),
