@@ -45,9 +45,9 @@ gen: ## Generates the assets
 
 format: ## Formats the code
 	@echo "╠ Formatting the code"
-	@dart format lib .
+	@dart format lib . -l 120
 	@flutter pub run import_sorter:main
-	@dart format .
+	@dart format . -l 120
 
 lint: ## Lints the code
 	@echo "╠ Verifying code..."
