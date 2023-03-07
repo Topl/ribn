@@ -11,11 +11,6 @@ import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
-// Project imports:
-import 'package:ribn/actions/user_details_actions.dart';
-import 'package:ribn/constants/ui_constants.dart';
-import 'package:ribn/models/app_state.dart';
-
 /// The section for editing asset icon.
 ///
 /// The asset icon can be selected from a dropdown consisting of [UIConstants.assetIconsList].

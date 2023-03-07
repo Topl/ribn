@@ -8,10 +8,6 @@ import 'package:ribn/presentation/asset_details/asset_detail_items/asset_column.
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 
-// Project imports:
-import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/strings.dart';
-
 /// One of the asset details displayed on [AssetDetailsPage].
 ///
 /// Displays the asset short name.

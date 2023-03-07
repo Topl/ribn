@@ -6,7 +6,6 @@ import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:brambldart/brambldart.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 // Project imports:
 import 'package:ribn/constants/routes.dart';

@@ -11,9 +11,6 @@ import 'package:ribn_toolkit/constants/styles.dart';
 // Project imports:
 import 'package:ribn/constants/strings.dart';
 
-// Project imports:
-import 'package:ribn/constants/strings.dart';
-
 /// The section for displaying helpful links.
 class LinksSection extends HookConsumerWidget {
   const LinksSection({Key? key}) : super(key: key);
