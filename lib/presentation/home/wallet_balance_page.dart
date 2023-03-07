@@ -6,6 +6,7 @@ import 'package:brambldart/brambldart.dart';
 import 'package:flutter/material.dart';
 // Project imports:
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/wallet_balance_container.dart';
 import 'package:ribn/models/asset_details.dart';
@@ -158,6 +159,8 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       );
     }
 
+    final bool isValhall = vm.currentNetwork.networkName == NetworkUtils.valhalla;
+    print('QQQQ isValhall $isValhall');
     return WaveContainer(
       containerHeight: 183,
       containerWidth: double.infinity,
@@ -176,7 +179,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '${vm.polyBalance} POLY',
+                          '${vm.polyBalance} ${isValhall ? 'nanoPOLY' : 'POLY'}',
                           style: RibnToolkitTextStyles.h2.copyWith(
                             color: const Color(0xFFE5E5E5),
                             letterSpacing: 1.42,
