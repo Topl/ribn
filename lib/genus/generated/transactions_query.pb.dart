@@ -18,21 +18,13 @@ import 'types.pb.dart' as $6;
 
 class TransactionSorting_Height extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'TransactionSorting.Height',
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TransactionSorting.Height',
     package: const $pb.PackageName(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'co.topl.genus.services',
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
     ),
     createEmptyInstance: create,
   )
-    ..aOB(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'descending')
+    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'descending')
     ..hasRequiredFields = false;
 
   TransactionSorting_Height._() : super();
@@ -50,34 +42,30 @@ class TransactionSorting_Height extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory TransactionSorting_Height.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TransactionSorting_Height.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
     'Will be removed in next major version',
   )
-  TransactionSorting_Height clone() =>
-      TransactionSorting_Height()..mergeFromMessage(this);
+  TransactionSorting_Height clone() => TransactionSorting_Height()..mergeFromMessage(this);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
     'Will be removed in next major version',
   )
-  TransactionSorting_Height copyWith(
-          void Function(TransactionSorting_Height) updates) =>
+  TransactionSorting_Height copyWith(void Function(TransactionSorting_Height) updates) =>
       super.copyWith((message) => updates(message as TransactionSorting_Height))
           as TransactionSorting_Height; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static TransactionSorting_Height create() => TransactionSorting_Height._();
   TransactionSorting_Height createEmptyInstance() => create();
-  static $pb.PbList<TransactionSorting_Height> createRepeated() =>
-      $pb.PbList<TransactionSorting_Height>();
+  static $pb.PbList<TransactionSorting_Height> createRepeated() => $pb.PbList<TransactionSorting_Height>();
   @$core.pragma('dart2js:noInline')
-  static TransactionSorting_Height getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<TransactionSorting_Height>(create);
+  static TransactionSorting_Height getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TransactionSorting_Height>(create);
   static TransactionSorting_Height? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -95,21 +83,13 @@ class TransactionSorting_Height extends $pb.GeneratedMessage {
 
 class TransactionSorting_Fee extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'TransactionSorting.Fee',
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TransactionSorting.Fee',
     package: const $pb.PackageName(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'co.topl.genus.services',
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
     ),
     createEmptyInstance: create,
   )
-    ..aOB(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'descending')
+    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'descending')
     ..hasRequiredFields = false;
 
   TransactionSorting_Fee._() : super();
@@ -127,34 +107,30 @@ class TransactionSorting_Fee extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory TransactionSorting_Fee.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TransactionSorting_Fee.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
     'Will be removed in next major version',
   )
-  TransactionSorting_Fee clone() =>
-      TransactionSorting_Fee()..mergeFromMessage(this);
+  TransactionSorting_Fee clone() => TransactionSorting_Fee()..mergeFromMessage(this);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
     'Will be removed in next major version',
   )
-  TransactionSorting_Fee copyWith(
-          void Function(TransactionSorting_Fee) updates) =>
+  TransactionSorting_Fee copyWith(void Function(TransactionSorting_Fee) updates) =>
       super.copyWith((message) => updates(message as TransactionSorting_Fee))
           as TransactionSorting_Fee; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static TransactionSorting_Fee create() => TransactionSorting_Fee._();
   TransactionSorting_Fee createEmptyInstance() => create();
-  static $pb.PbList<TransactionSorting_Fee> createRepeated() =>
-      $pb.PbList<TransactionSorting_Fee>();
+  static $pb.PbList<TransactionSorting_Fee> createRepeated() => $pb.PbList<TransactionSorting_Fee>();
   @$core.pragma('dart2js:noInline')
-  static TransactionSorting_Fee getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<TransactionSorting_Fee>(create);
+  static TransactionSorting_Fee getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TransactionSorting_Fee>(create);
   static TransactionSorting_Fee? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -172,21 +148,13 @@ class TransactionSorting_Fee extends $pb.GeneratedMessage {
 
 class TransactionSorting_Timestamp extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'TransactionSorting.Timestamp',
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TransactionSorting.Timestamp',
     package: const $pb.PackageName(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'co.topl.genus.services',
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
     ),
     createEmptyInstance: create,
   )
-    ..aOB(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'descending')
+    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'descending')
     ..hasRequiredFields = false;
 
   TransactionSorting_Timestamp._() : super();
@@ -214,28 +182,23 @@ class TransactionSorting_Timestamp extends $pb.GeneratedMessage {
     'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
     'Will be removed in next major version',
   )
-  TransactionSorting_Timestamp clone() =>
-      TransactionSorting_Timestamp()..mergeFromMessage(this);
+  TransactionSorting_Timestamp clone() => TransactionSorting_Timestamp()..mergeFromMessage(this);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
     'Will be removed in next major version',
   )
-  TransactionSorting_Timestamp copyWith(
-          void Function(TransactionSorting_Timestamp) updates) =>
-      super.copyWith(
-              (message) => updates(message as TransactionSorting_Timestamp))
+  TransactionSorting_Timestamp copyWith(void Function(TransactionSorting_Timestamp) updates) =>
+      super.copyWith((message) => updates(message as TransactionSorting_Timestamp))
           as TransactionSorting_Timestamp; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static TransactionSorting_Timestamp create() =>
-      TransactionSorting_Timestamp._();
+  static TransactionSorting_Timestamp create() => TransactionSorting_Timestamp._();
   TransactionSorting_Timestamp createEmptyInstance() => create();
-  static $pb.PbList<TransactionSorting_Timestamp> createRepeated() =>
-      $pb.PbList<TransactionSorting_Timestamp>();
+  static $pb.PbList<TransactionSorting_Timestamp> createRepeated() => $pb.PbList<TransactionSorting_Timestamp>();
   @$core.pragma('dart2js:noInline')
-  static TransactionSorting_Timestamp getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<TransactionSorting_Timestamp>(create);
+  static TransactionSorting_Timestamp getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TransactionSorting_Timestamp>(create);
   static TransactionSorting_Timestamp? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -254,44 +217,33 @@ class TransactionSorting_Timestamp extends $pb.GeneratedMessage {
 enum TransactionSorting_SortBy { height, fee, timestamp, notSet }
 
 class TransactionSorting extends $pb.GeneratedMessage {
-  static const $core.Map<$core.int, TransactionSorting_SortBy>
-      _TransactionSorting_SortByByTag = {
+  static const $core.Map<$core.int, TransactionSorting_SortBy> _TransactionSorting_SortByByTag = {
     1: TransactionSorting_SortBy.height,
     2: TransactionSorting_SortBy.fee,
     3: TransactionSorting_SortBy.timestamp,
     0: TransactionSorting_SortBy.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'TransactionSorting',
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TransactionSorting',
     package: const $pb.PackageName(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'co.topl.genus.services',
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
     ),
     createEmptyInstance: create,
   )
     ..oo(0, [1, 2, 3])
     ..aOM<TransactionSorting_Height>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'height',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'height',
       subBuilder: TransactionSorting_Height.create,
     )
     ..aOM<TransactionSorting_Fee>(
       2,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'fee',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fee',
       subBuilder: TransactionSorting_Fee.create,
     )
     ..aOM<TransactionSorting_Timestamp>(
       3,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'timestamp',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp',
       subBuilder: TransactionSorting_Timestamp.create,
     )
     ..hasRequiredFields = false;
@@ -319,8 +271,7 @@ class TransactionSorting extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory TransactionSorting.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TransactionSorting.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -340,15 +291,13 @@ class TransactionSorting extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static TransactionSorting create() => TransactionSorting._();
   TransactionSorting createEmptyInstance() => create();
-  static $pb.PbList<TransactionSorting> createRepeated() =>
-      $pb.PbList<TransactionSorting>();
+  static $pb.PbList<TransactionSorting> createRepeated() => $pb.PbList<TransactionSorting>();
   @$core.pragma('dart2js:noInline')
-  static TransactionSorting getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<TransactionSorting>(create);
+  static TransactionSorting getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TransactionSorting>(create);
   static TransactionSorting? _defaultInstance;
 
-  TransactionSorting_SortBy whichSortBy() =>
-      _TransactionSorting_SortByByTag[$_whichOneof(0)]!;
+  TransactionSorting_SortBy whichSortBy() => _TransactionSorting_SortByByTag[$_whichOneof(0)]!;
   void clearSortBy() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
@@ -396,42 +345,30 @@ class TransactionSorting extends $pb.GeneratedMessage {
 
 class QueryTxsReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'QueryTxsReq',
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryTxsReq',
     package: const $pb.PackageName(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'co.topl.genus.services',
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
     ),
     createEmptyInstance: create,
   )
     ..aOM<$4.TransactionFilter>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'filter',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter',
       subBuilder: $4.TransactionFilter.create,
     )
     ..aOM<TransactionSorting>(
       2,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'sorting',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sorting',
       subBuilder: TransactionSorting.create,
     )
     ..a<$core.int>(
       3,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'confirmationDepth',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'confirmationDepth',
       $pb.PbFieldType.OU3,
     )
     ..aOM<$5.Paging>(
       4,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'pagingOptions',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pagingOptions',
       subBuilder: $5.Paging.create,
     )
     ..hasRequiredFields = false;
@@ -458,11 +395,9 @@ class QueryTxsReq extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory QueryTxsReq.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory QueryTxsReq.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
-  factory QueryTxsReq.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory QueryTxsReq.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -476,16 +411,14 @@ class QueryTxsReq extends $pb.GeneratedMessage {
     'Will be removed in next major version',
   )
   QueryTxsReq copyWith(void Function(QueryTxsReq) updates) =>
-      super.copyWith((message) => updates(message as QueryTxsReq))
-          as QueryTxsReq; // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as QueryTxsReq)) as QueryTxsReq; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryTxsReq create() => QueryTxsReq._();
   QueryTxsReq createEmptyInstance() => create();
   static $pb.PbList<QueryTxsReq> createRepeated() => $pb.PbList<QueryTxsReq>();
   @$core.pragma('dart2js:noInline')
-  static QueryTxsReq getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<QueryTxsReq>(create);
+  static QueryTxsReq getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryTxsReq>(create);
   static QueryTxsReq? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -545,21 +478,15 @@ class QueryTxsReq extends $pb.GeneratedMessage {
 
 class QueryTxsRes_Success extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'QueryTxsRes.Success',
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryTxsRes.Success',
     package: const $pb.PackageName(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'co.topl.genus.services',
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
     ),
     createEmptyInstance: create,
   )
     ..pc<$6.Transaction>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'transactions',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'transactions',
       $pb.PbFieldType.PM,
       subBuilder: $6.Transaction.create,
     )
@@ -580,8 +507,7 @@ class QueryTxsRes_Success extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory QueryTxsRes_Success.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory QueryTxsRes_Success.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -601,59 +527,36 @@ class QueryTxsRes_Success extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static QueryTxsRes_Success create() => QueryTxsRes_Success._();
   QueryTxsRes_Success createEmptyInstance() => create();
-  static $pb.PbList<QueryTxsRes_Success> createRepeated() =>
-      $pb.PbList<QueryTxsRes_Success>();
+  static $pb.PbList<QueryTxsRes_Success> createRepeated() => $pb.PbList<QueryTxsRes_Success>();
   @$core.pragma('dart2js:noInline')
-  static QueryTxsRes_Success getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<QueryTxsRes_Success>(create);
+  static QueryTxsRes_Success getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryTxsRes_Success>(create);
   static QueryTxsRes_Success? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<$6.Transaction> get transactions => $_getList(0);
 }
 
-enum QueryTxsRes_Failure_Reason {
-  dataStoreConnectionError,
-  queryTimeout,
-  invalidQuery,
-  notSet
-}
+enum QueryTxsRes_Failure_Reason { dataStoreConnectionError, queryTimeout, invalidQuery, notSet }
 
 class QueryTxsRes_Failure extends $pb.GeneratedMessage {
-  static const $core.Map<$core.int, QueryTxsRes_Failure_Reason>
-      _QueryTxsRes_Failure_ReasonByTag = {
+  static const $core.Map<$core.int, QueryTxsRes_Failure_Reason> _QueryTxsRes_Failure_ReasonByTag = {
     1: QueryTxsRes_Failure_Reason.dataStoreConnectionError,
     2: QueryTxsRes_Failure_Reason.queryTimeout,
     3: QueryTxsRes_Failure_Reason.invalidQuery,
     0: QueryTxsRes_Failure_Reason.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'QueryTxsRes.Failure',
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryTxsRes.Failure',
     package: const $pb.PackageName(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'co.topl.genus.services',
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
     ),
     createEmptyInstance: create,
   )
     ..oo(0, [1, 2, 3])
-    ..aOS(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'dataStoreConnectionError')
-    ..aOS(
-        2,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'queryTimeout')
-    ..aOS(
-        3,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'invalidQuery')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dataStoreConnectionError')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'queryTimeout')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'invalidQuery')
     ..hasRequiredFields = false;
 
   QueryTxsRes_Failure._() : super();
@@ -679,8 +582,7 @@ class QueryTxsRes_Failure extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory QueryTxsRes_Failure.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory QueryTxsRes_Failure.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -700,15 +602,13 @@ class QueryTxsRes_Failure extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static QueryTxsRes_Failure create() => QueryTxsRes_Failure._();
   QueryTxsRes_Failure createEmptyInstance() => create();
-  static $pb.PbList<QueryTxsRes_Failure> createRepeated() =>
-      $pb.PbList<QueryTxsRes_Failure>();
+  static $pb.PbList<QueryTxsRes_Failure> createRepeated() => $pb.PbList<QueryTxsRes_Failure>();
   @$core.pragma('dart2js:noInline')
-  static QueryTxsRes_Failure getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<QueryTxsRes_Failure>(create);
+  static QueryTxsRes_Failure getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryTxsRes_Failure>(create);
   static QueryTxsRes_Failure? _defaultInstance;
 
-  QueryTxsRes_Failure_Reason whichReason() =>
-      _QueryTxsRes_Failure_ReasonByTag[$_whichOneof(0)]!;
+  QueryTxsRes_Failure_Reason whichReason() => _QueryTxsRes_Failure_ReasonByTag[$_whichOneof(0)]!;
   void clearReason() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
@@ -751,36 +651,27 @@ class QueryTxsRes_Failure extends $pb.GeneratedMessage {
 enum QueryTxsRes_Result { success, failure, notSet }
 
 class QueryTxsRes extends $pb.GeneratedMessage {
-  static const $core.Map<$core.int, QueryTxsRes_Result>
-      _QueryTxsRes_ResultByTag = {
+  static const $core.Map<$core.int, QueryTxsRes_Result> _QueryTxsRes_ResultByTag = {
     1: QueryTxsRes_Result.success,
     2: QueryTxsRes_Result.failure,
     0: QueryTxsRes_Result.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'QueryTxsRes',
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'QueryTxsRes',
     package: const $pb.PackageName(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'co.topl.genus.services',
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
     ),
     createEmptyInstance: create,
   )
     ..oo(0, [1, 2])
     ..aOM<QueryTxsRes_Success>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'success',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success',
       subBuilder: QueryTxsRes_Success.create,
     )
     ..aOM<QueryTxsRes_Failure>(
       2,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'failure',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'failure',
       subBuilder: QueryTxsRes_Failure.create,
     )
     ..hasRequiredFields = false;
@@ -799,11 +690,9 @@ class QueryTxsRes extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory QueryTxsRes.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory QueryTxsRes.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
-  factory QueryTxsRes.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory QueryTxsRes.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -817,20 +706,17 @@ class QueryTxsRes extends $pb.GeneratedMessage {
     'Will be removed in next major version',
   )
   QueryTxsRes copyWith(void Function(QueryTxsRes) updates) =>
-      super.copyWith((message) => updates(message as QueryTxsRes))
-          as QueryTxsRes; // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as QueryTxsRes)) as QueryTxsRes; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static QueryTxsRes create() => QueryTxsRes._();
   QueryTxsRes createEmptyInstance() => create();
   static $pb.PbList<QueryTxsRes> createRepeated() => $pb.PbList<QueryTxsRes>();
   @$core.pragma('dart2js:noInline')
-  static QueryTxsRes getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<QueryTxsRes>(create);
+  static QueryTxsRes getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<QueryTxsRes>(create);
   static QueryTxsRes? _defaultInstance;
 
-  QueryTxsRes_Result whichResult() =>
-      _QueryTxsRes_ResultByTag[$_whichOneof(0)]!;
+  QueryTxsRes_Result whichResult() => _QueryTxsRes_ResultByTag[$_whichOneof(0)]!;
   void clearResult() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
@@ -864,35 +750,25 @@ class QueryTxsRes extends $pb.GeneratedMessage {
 
 class TxsQueryStreamReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'TxsQueryStreamReq',
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TxsQueryStreamReq',
     package: const $pb.PackageName(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'co.topl.genus.services',
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
     ),
     createEmptyInstance: create,
   )
     ..aOM<$4.TransactionFilter>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'filter',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filter',
       subBuilder: $4.TransactionFilter.create,
     )
     ..a<$core.int>(
       2,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'confirmationDepth',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'confirmationDepth',
       $pb.PbFieldType.OU3,
     )
     ..aOM<TransactionSorting>(
       4,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'sorting',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sorting',
       subBuilder: TransactionSorting.create,
     )
     ..hasRequiredFields = false;
@@ -920,8 +796,7 @@ class TxsQueryStreamReq extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory TxsQueryStreamReq.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TxsQueryStreamReq.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -941,11 +816,10 @@ class TxsQueryStreamReq extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static TxsQueryStreamReq create() => TxsQueryStreamReq._();
   TxsQueryStreamReq createEmptyInstance() => create();
-  static $pb.PbList<TxsQueryStreamReq> createRepeated() =>
-      $pb.PbList<TxsQueryStreamReq>();
+  static $pb.PbList<TxsQueryStreamReq> createRepeated() => $pb.PbList<TxsQueryStreamReq>();
   @$core.pragma('dart2js:noInline')
-  static TxsQueryStreamReq getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<TxsQueryStreamReq>(create);
+  static TxsQueryStreamReq getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TxsQueryStreamReq>(create);
   static TxsQueryStreamReq? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -989,41 +863,24 @@ class TxsQueryStreamReq extends $pb.GeneratedMessage {
   TransactionSorting ensureSorting() => $_ensure(2);
 }
 
-enum TxsQueryStreamRes_Failure_Reason {
-  dataStoreConnectionError,
-  invalidQuery,
-  notSet
-}
+enum TxsQueryStreamRes_Failure_Reason { dataStoreConnectionError, invalidQuery, notSet }
 
 class TxsQueryStreamRes_Failure extends $pb.GeneratedMessage {
-  static const $core.Map<$core.int, TxsQueryStreamRes_Failure_Reason>
-      _TxsQueryStreamRes_Failure_ReasonByTag = {
+  static const $core.Map<$core.int, TxsQueryStreamRes_Failure_Reason> _TxsQueryStreamRes_Failure_ReasonByTag = {
     1: TxsQueryStreamRes_Failure_Reason.dataStoreConnectionError,
     2: TxsQueryStreamRes_Failure_Reason.invalidQuery,
     0: TxsQueryStreamRes_Failure_Reason.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'TxsQueryStreamRes.Failure',
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TxsQueryStreamRes.Failure',
     package: const $pb.PackageName(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'co.topl.genus.services',
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
     ),
     createEmptyInstance: create,
   )
     ..oo(0, [1, 2])
-    ..aOS(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'dataStoreConnectionError')
-    ..aOS(
-        2,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'invalidQuery')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dataStoreConnectionError')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'invalidQuery')
     ..hasRequiredFields = false;
 
   TxsQueryStreamRes_Failure._() : super();
@@ -1045,38 +902,33 @@ class TxsQueryStreamRes_Failure extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory TxsQueryStreamRes_Failure.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TxsQueryStreamRes_Failure.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
     'Will be removed in next major version',
   )
-  TxsQueryStreamRes_Failure clone() =>
-      TxsQueryStreamRes_Failure()..mergeFromMessage(this);
+  TxsQueryStreamRes_Failure clone() => TxsQueryStreamRes_Failure()..mergeFromMessage(this);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
     'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
     'Will be removed in next major version',
   )
-  TxsQueryStreamRes_Failure copyWith(
-          void Function(TxsQueryStreamRes_Failure) updates) =>
+  TxsQueryStreamRes_Failure copyWith(void Function(TxsQueryStreamRes_Failure) updates) =>
       super.copyWith((message) => updates(message as TxsQueryStreamRes_Failure))
           as TxsQueryStreamRes_Failure; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static TxsQueryStreamRes_Failure create() => TxsQueryStreamRes_Failure._();
   TxsQueryStreamRes_Failure createEmptyInstance() => create();
-  static $pb.PbList<TxsQueryStreamRes_Failure> createRepeated() =>
-      $pb.PbList<TxsQueryStreamRes_Failure>();
+  static $pb.PbList<TxsQueryStreamRes_Failure> createRepeated() => $pb.PbList<TxsQueryStreamRes_Failure>();
   @$core.pragma('dart2js:noInline')
-  static TxsQueryStreamRes_Failure getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<TxsQueryStreamRes_Failure>(create);
+  static TxsQueryStreamRes_Failure getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TxsQueryStreamRes_Failure>(create);
   static TxsQueryStreamRes_Failure? _defaultInstance;
 
-  TxsQueryStreamRes_Failure_Reason whichReason() =>
-      _TxsQueryStreamRes_Failure_ReasonByTag[$_whichOneof(0)]!;
+  TxsQueryStreamRes_Failure_Reason whichReason() => _TxsQueryStreamRes_Failure_ReasonByTag[$_whichOneof(0)]!;
   void clearReason() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
@@ -1107,20 +959,15 @@ class TxsQueryStreamRes_Failure extends $pb.GeneratedMessage {
 enum TxsQueryStreamRes_Result { tx, failure, notSet }
 
 class TxsQueryStreamRes extends $pb.GeneratedMessage {
-  static const $core.Map<$core.int, TxsQueryStreamRes_Result>
-      _TxsQueryStreamRes_ResultByTag = {
+  static const $core.Map<$core.int, TxsQueryStreamRes_Result> _TxsQueryStreamRes_ResultByTag = {
     1: TxsQueryStreamRes_Result.tx,
     2: TxsQueryStreamRes_Result.failure,
     0: TxsQueryStreamRes_Result.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'TxsQueryStreamRes',
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TxsQueryStreamRes',
     package: const $pb.PackageName(
-      const $core.bool.fromEnvironment('protobuf.omit_message_names')
-          ? ''
-          : 'co.topl.genus.services',
+      const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus.services',
     ),
     createEmptyInstance: create,
   )
@@ -1132,9 +979,7 @@ class TxsQueryStreamRes extends $pb.GeneratedMessage {
     )
     ..aOM<TxsQueryStreamRes_Failure>(
       2,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'failure',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'failure',
       subBuilder: TxsQueryStreamRes_Failure.create,
     )
     ..hasRequiredFields = false;
@@ -1158,8 +1003,7 @@ class TxsQueryStreamRes extends $pb.GeneratedMessage {
     $pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY,
   ]) =>
       create()..mergeFromBuffer(i, r);
-  factory TxsQueryStreamRes.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TxsQueryStreamRes.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -1179,15 +1023,13 @@ class TxsQueryStreamRes extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static TxsQueryStreamRes create() => TxsQueryStreamRes._();
   TxsQueryStreamRes createEmptyInstance() => create();
-  static $pb.PbList<TxsQueryStreamRes> createRepeated() =>
-      $pb.PbList<TxsQueryStreamRes>();
+  static $pb.PbList<TxsQueryStreamRes> createRepeated() => $pb.PbList<TxsQueryStreamRes>();
   @$core.pragma('dart2js:noInline')
-  static TxsQueryStreamRes getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<TxsQueryStreamRes>(create);
+  static TxsQueryStreamRes getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TxsQueryStreamRes>(create);
   static TxsQueryStreamRes? _defaultInstance;
 
-  TxsQueryStreamRes_Result whichResult() =>
-      _TxsQueryStreamRes_ResultByTag[$_whichOneof(0)]!;
+  TxsQueryStreamRes_Result whichResult() => _TxsQueryStreamRes_ResultByTag[$_whichOneof(0)]!;
   void clearResult() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)

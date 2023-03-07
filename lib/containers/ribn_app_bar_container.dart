@@ -94,9 +94,6 @@ class RibnAppBarViewModel {
 
   @override
   int get hashCode {
-    return networks.hashCode ^
-        currentNetworkName.hashCode ^
-        updateNetwork.hashCode ^
-        selectSettingsOption.hashCode;
+    return networks.hashCode ^ currentNetworkName.hashCode ^ updateNetwork.hashCode ^ selectSettingsOption.hashCode;
   }
 }

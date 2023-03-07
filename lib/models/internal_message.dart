@@ -56,9 +56,7 @@ class InternalMessage {
   factory InternalMessage.fromMap(Map<String, dynamic> map) {
     return InternalMessage(
         method: map['method'] as String,
-        data: map['data'] != null
-            ? Map<String, dynamic>.from(map['data'] as Map<String, dynamic>)
-            : null,
+        data: map['data'] != null ? Map<String, dynamic>.from(map['data'] as Map<String, dynamic>) : null,
         target: map['target'] as String,
         sender: map['sender'] as String,
         id: map['id'] as String,
@@ -91,12 +89,7 @@ class InternalMessage {
 
   @override
   int get hashCode {
-    return method.hashCode ^
-        data.hashCode ^
-        target.hashCode ^
-        sender.hashCode ^
-        id.hashCode ^
-        origin.hashCode;
+    return method.hashCode ^ data.hashCode ^ target.hashCode ^ sender.hashCode ^ id.hashCode ^ origin.hashCode;
   }
 }
 

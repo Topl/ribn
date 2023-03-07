@@ -90,14 +90,12 @@ class SettingsViewModel {
         );
       },
       onDisconnectPressed: (BuildContext context) async {
-        final dApps = await PlatformUtils.instance
-            .convertToFuture(PlatformUtils.instance.getDAppList());
+        final dApps = await PlatformUtils.instance.convertToFuture(PlatformUtils.instance.getDAppList());
         // await PlatformUtils.instance.consoleLog(dApps);
         // final bool disconnectResult =
         await showDialog(
           context: context,
-          builder: (context) =>
-              DisconnectWalletConfirmationDialog(dApps: dApps),
+          builder: (context) => DisconnectWalletConfirmationDialog(dApps: dApps),
         );
       },
       appVersion: store.state.appVersion,
@@ -117,9 +115,6 @@ class SettingsViewModel {
 
   @override
   int get hashCode {
-    return exportToplMainKey.hashCode ^
-        onDeletePressed.hashCode ^
-        appVersion.hashCode ^
-        isBiometricsEnabled.hashCode;
+    return exportToplMainKey.hashCode ^ onDeletePressed.hashCode ^ appVersion.hashCode ^ isBiometricsEnabled.hashCode;
   }
 }

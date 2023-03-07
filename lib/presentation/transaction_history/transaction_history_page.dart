@@ -72,8 +72,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     int networkId,
     TransactionHistoryViewmodel vm,
   ) async {
-    final List<TransactionReceipt> response =
-        filterOutChangeUTxO(await vm.getTransactions(pageNum: pageNum));
+    final List<TransactionReceipt> response = filterOutChangeUTxO(await vm.getTransactions(pageNum: pageNum));
 
     // Filters transactions by sent or received
     if (filterSelectedItem != 'Transaction types') {
@@ -89,9 +88,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
           filteredTransactions.add(transaction);
         }
 
-        if (filterSelectedItem == 'Received' &&
-            transactionReceiverAddress == myRibnAddress &&
-            !wasMinted) {
+        if (filterSelectedItem == 'Received' && transactionReceiverAddress == myRibnAddress && !wasMinted) {
           filteredTransactions.add(transaction);
         }
 
@@ -194,10 +191,9 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                         : filteredTransactions.length,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
-                                      final TransactionReceipt transaction =
-                                          filterSelectedItem == startingFilterValue
-                                              ? snapshot.data[index]
-                                              : filteredTransactions[index];
+                                      final TransactionReceipt transaction = filterSelectedItem == startingFilterValue
+                                          ? snapshot.data[index]
+                                          : filteredTransactions[index];
 
                                       return TransactionDataRow(
                                         transactionReceipt: transaction,

@@ -99,8 +99,7 @@ Future<bool> isBiometricsTypeFingerprint(LocalAuthentication auth) async {
 }
 
 /// Adapt to screen height based on [scaleFactor].
-double adaptHeight(double scaleFactor) =>
-    MediaQueryData.fromWindow(window).size.height * scaleFactor;
+double adaptHeight(double scaleFactor) => MediaQueryData.fromWindow(window).size.height * scaleFactor;
 
 /// Adapt to screen width based on [scaleFactor].
 double adaptWidth(double scaleFactor) => MediaQueryData.fromWindow(window).size.width * scaleFactor;
@@ -192,8 +191,7 @@ Future<void> showReceivingAddress() async {
 
 final emptyStateBody = RichText(
   text: TextSpan(
-    style: RibnToolkitTextStyles.h4
-        .copyWith(fontSize: kIsWeb ? 12 : 14, color: RibnColors.defaultText),
+    style: RibnToolkitTextStyles.h4.copyWith(fontSize: kIsWeb ? 12 : 14, color: RibnColors.defaultText),
     children: <TextSpan>[
       TextSpan(text: Strings.emptyStateBody),
     ],

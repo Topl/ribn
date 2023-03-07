@@ -33,8 +33,7 @@ void main() {
   final String invalidPassword = testData['invalidPassword']!;
   final String testKeyStore = testData['keyStoreJson']!;
   final RibnAddress testAddress = testData['address'];
-  final Uint8List testToplExtendedPrivKey =
-      Uint8List.fromList(toList(testData['toplExtendedPrvKey']!));
+  final Uint8List testToplExtendedPrivKey = Uint8List.fromList(toList(testData['toplExtendedPrvKey']!));
 
   late Store<AppState> testStore;
 
@@ -105,8 +104,8 @@ void main() {
         when(onboardingRepo.generateMnemonicForUser()).thenAnswer((_) => testMnemonic);
         testStore.dispatch(GenerateMnemonicAction());
         // generate keystore
-        when(onboardingRepo.generateKeyStore(argThat(isNotNull))).thenReturn(
-            {'keyStoreJson': testKeyStore, 'toplExtendedPrvKeyUint8List': testToplExtendedPrivKey});
+        when(onboardingRepo.generateKeyStore(argThat(isNotNull)))
+            .thenReturn({'keyStoreJson': testKeyStore, 'toplExtendedPrvKeyUint8List': testToplExtendedPrivKey});
         testStore.dispatch(CreatePasswordAction(validPassword));
         // login
         when(loginRepo.decryptKeyStore(captureAny)).thenReturn(testToplExtendedPrivKey);

@@ -30,8 +30,7 @@ class EnableBiometrics extends HookConsumerWidget {
   static const Key enableBiometricsKey = Key('enableBiometricsKey');
   const EnableBiometrics({Key key = enableBiometricsKey}) : super(key: key);
 
-  Future<void> runBiometrics(
-      WidgetRef ref, BuildContext context, ValueNotifier<bool> authorized) async {
+  Future<void> runBiometrics(WidgetRef ref, BuildContext context, ValueNotifier<bool> authorized) async {
     final LocalAuthentication _localAuthentication = ref.read(localAuthenticationProvider)();
 
     bool authenticated = false;
@@ -145,10 +144,7 @@ class EnableBiometrics extends HookConsumerWidget {
               ),
               onPressed: () {
                 runBiometrics(ref, context, authorized).then(
-                  (value) => {
-                    if (authorized.value)
-                      Keys.navigatorKey.currentState?.pushNamed(Routes.walletCreated)
-                  },
+                  (value) => {if (authorized.value) Keys.navigatorKey.currentState?.pushNamed(Routes.walletCreated)},
                 );
               },
               backgroundColor: RibnColors.primary,

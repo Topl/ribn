@@ -24,8 +24,7 @@ import 'package:ribn/utils.dart';
 
 class SeedPhraseConfirmationPage extends HookConsumerWidget {
   static const Key seedPhraseConfirmationPageKey = Key('seedPhraseConfirmationPageKey');
-  static const Key seedPhraseConfirmationConfirmationButtonKey =
-      Key('seedPhraseConfirmationConfirmationButtonKey');
+  static const Key seedPhraseConfirmationConfirmationButtonKey = Key('seedPhraseConfirmationConfirmationButtonKey');
 
   static Key confirmationTextFieldKey(int index) => Key('confirmationTextFieldKey$index');
 

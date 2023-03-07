@@ -87,8 +87,7 @@ class _LoginPageState extends State<LoginPage> {
   void _checkBiometrics(LoginViewModel vm) {
     if (vm.isBiometricsEnabled) {
       _biometricsLogin().then(
-        (value) =>
-            {if (_authorized) Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)},
+        (value) => {if (_authorized) Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home)},
       );
     }
   }
@@ -130,8 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                   containerWidth: MediaQuery.of(context).size.width,
                   waveAmplitude: 30,
                   containerChild: Column(
-                    mainAxisAlignment:
-                        kIsWeb ? MainAxisAlignment.start : MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: kIsWeb ? MainAxisAlignment.start : MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(

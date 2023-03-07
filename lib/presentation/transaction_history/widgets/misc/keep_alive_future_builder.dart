@@ -13,8 +13,7 @@ class KeepAliveFutureBuilder extends StatefulWidget {
   _KeepAliveFutureBuilderState createState() => _KeepAliveFutureBuilderState();
 }
 
-class _KeepAliveFutureBuilderState extends State<KeepAliveFutureBuilder>
-    with AutomaticKeepAliveClientMixin {
+class _KeepAliveFutureBuilderState extends State<KeepAliveFutureBuilder> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);

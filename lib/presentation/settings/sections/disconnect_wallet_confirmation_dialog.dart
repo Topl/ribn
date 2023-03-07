@@ -13,19 +13,15 @@ import 'package:ribn/platform/platform.dart';
 
 /// The confirmation dialog that is displayed before disconnecting the wallet.
 class DisconnectWalletConfirmationDialog extends StatefulWidget {
-  const DisconnectWalletConfirmationDialog({Key? key, required this.dApps})
-      : super(key: key);
+  const DisconnectWalletConfirmationDialog({Key? key, required this.dApps}) : super(key: key);
 
   final List<String> dApps;
 
   @override
-  _DisconnectWalletConfirmationDialogState createState() =>
-      _DisconnectWalletConfirmationDialogState();
+  _DisconnectWalletConfirmationDialogState createState() => _DisconnectWalletConfirmationDialogState();
 }
 
-class _DisconnectWalletConfirmationDialogState
-    extends State<DisconnectWalletConfirmationDialog> {
-
+class _DisconnectWalletConfirmationDialogState extends State<DisconnectWalletConfirmationDialog> {
   ScrollController _scrollController = ScrollController();
 
   @override
@@ -63,8 +59,7 @@ class _DisconnectWalletConfirmationDialogState
               thumbColor: RibnColors.primary,
               thickness: 10,
               child: ScrollConfiguration(
-                behavior:
-                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
                 child: ListView.builder(
                   controller: _scrollController,
                   shrinkWrap: true,
@@ -101,8 +96,7 @@ class _DisconnectWalletConfirmationDialogState
               ),
               onPressed: () async {
                 // Disconnect action to go here
-                await PlatformUtils.instance
-                    .convertToFuture(PlatformUtils.instance.clearDAppList());
+                await PlatformUtils.instance.convertToFuture(PlatformUtils.instance.clearDAppList());
                 Navigator.of(context, rootNavigator: true).pop(true);
               },
               buttonWidth: 285,

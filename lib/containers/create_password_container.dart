@@ -16,8 +16,7 @@ class CreatePasswordContainer extends StatelessWidget {
     required this.onDidChange,
   }) : super(key: key);
   final ViewModelBuilder<CreatePasswordViewModel> builder;
-  final Function(CreatePasswordViewModel?, CreatePasswordViewModel)?
-      onDidChange;
+  final Function(CreatePasswordViewModel?, CreatePasswordViewModel)? onDidChange;
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +41,8 @@ class CreatePasswordViewModel {
   });
   static CreatePasswordViewModel fromStore(Store<AppState> store) {
     return CreatePasswordViewModel(
-      attemptCreatePassword: (String password) =>
-          store.dispatch(CreatePasswordAction(password)),
-      passwordSuccessfullyCreated:
-          store.state.keychainState.keyStoreJson != null,
+      attemptCreatePassword: (String password) => store.dispatch(CreatePasswordAction(password)),
+      passwordSuccessfullyCreated: store.state.keychainState.keyStoreJson != null,
       keyStoreJson: store.state.keychainState.keyStoreJson,
     );
   }
@@ -60,6 +57,5 @@ class CreatePasswordViewModel {
   }
 
   @override
-  int get hashCode =>
-      passwordSuccessfullyCreated.hashCode & keyStoreJson.hashCode;
+  int get hashCode => passwordSuccessfullyCreated.hashCode & keyStoreJson.hashCode;
 }

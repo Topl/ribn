@@ -22,8 +22,7 @@ import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart
 /// Page for creating a new wallet password, when restoring wallet with a [seedPhrase].
 class NewWalletPasswordPage extends HookConsumerWidget {
   static const Key newWalletPasswordPageKey = Key('newWalletPasswordPageKey');
-  static const Key newWalletPasswordConfirmationButtonKey =
-      Key('newWalletPasswordConfirmationButtonKey');
+  static const Key newWalletPasswordConfirmationButtonKey = Key('newWalletPasswordConfirmationButtonKey');
 
   /// The seed phrase being used for wallet restoration.
   final String seedPhrase;
@@ -75,9 +74,8 @@ class NewWalletPasswordPage extends HookConsumerWidget {
                 ConfirmationButton(
                   key: newWalletPasswordConfirmationButtonKey,
                   text: Strings.done,
-                  disabled: !passwordState.atLeast8Chars ||
-                      !passwordState.passwordsMatch ||
-                      !passwordState.termsOfUseChecked,
+                  disabled:
+                      !passwordState.atLeast8Chars || !passwordState.passwordsMatch || !passwordState.termsOfUseChecked,
                   onPressed: () {
                     context.loaderOverlay.show();
                     restoreWalletNotifer.restoreWalletWithMnemonic(

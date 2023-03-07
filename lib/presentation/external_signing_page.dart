@@ -41,8 +41,7 @@ class _ExternalSigningPageState extends State<ExternalSigningPage> {
             color: Colors.blue,
             child: const Text(Strings.sign),
             onPressed: () {
-              StoreProvider.of<AppState>(context)
-                  .dispatch(SignExternalTxAction(widget.request));
+              StoreProvider.of<AppState>(context).dispatch(SignExternalTxAction(widget.request));
             },
           ),
         ],

@@ -67,10 +67,8 @@ class LoginViewModel {
           if (loginSuccess) {
             if (store.state.internalMessage?.additionalNavigation == Routes.connectDApp &&
                 store.state.internalMessage != null) {
-              await MiscRepository()
-                  .persistAppState(StoreProvider.of<AppState>(context).state.toJson());
-              Keys.navigatorKey.currentState
-                  ?.pushNamed(Routes.connectDApp, arguments: store.state.internalMessage);
+              await MiscRepository().persistAppState(StoreProvider.of<AppState>(context).state.toJson());
+              Keys.navigatorKey.currentState?.pushNamed(Routes.connectDApp, arguments: store.state.internalMessage);
             } else {
               Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home);
             }

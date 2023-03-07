@@ -60,8 +60,7 @@ class KeychainState {
     return {
       'keyStoreJson': keyStoreJson,
       'currentNetworkName': currentNetworkName,
-      'networks': networks
-          .map((String key, RibnNetwork value) => MapEntry(key, value.toMap())),
+      'networks': networks.map((String key, RibnNetwork value) => MapEntry(key, value.toMap())),
     };
   }
 
@@ -90,8 +89,7 @@ class KeychainState {
 
   String toJson() => json.encode(toMap());
 
-  factory KeychainState.fromJson(String source) =>
-      KeychainState.fromMap(json.decode(source));
+  factory KeychainState.fromJson(String source) => KeychainState.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -111,10 +109,7 @@ class KeychainState {
 
   @override
   int get hashCode {
-    return keyStoreJson.hashCode ^
-        hdWallet.hashCode ^
-        networks.hashCode ^
-        currentNetworkName.hashCode;
+    return keyStoreJson.hashCode ^ hdWallet.hashCode ^ networks.hashCode ^ currentNetworkName.hashCode;
   }
 
   KeychainState copyWith({

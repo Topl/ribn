@@ -36,10 +36,8 @@ class Rules {
     NetworkUtils.valhallaId: 'https://staging.valhalla.annulus.topl.services/#/transaction/',
     NetworkUtils.privateId: 'https://staging.valhalla.annulus.topl.services/#/transaction/',
   };
-  static String txHistoryUrl(String addr, int networkId) =>
-      '${txHistoryUrls[networkId]!}/v1/address/history/$addr';
-  static String txDetailsUrl(String txId, int networkId) =>
-      '${txDetailsRedirectUrls[networkId]!}$txId';
+  static String txHistoryUrl(String addr, int networkId) => '${txHistoryUrls[networkId]!}/v1/address/history/$addr';
+  static String txDetailsUrl(String txId, int networkId) => '${txDetailsRedirectUrls[networkId]!}$txId';
   static const transferTypes = [Strings.polyTransfer, Strings.assetTransfer, Strings.minting];
   static BramblClient getBramblCient(int networkId) {
     final Dio httpClient = Dio(

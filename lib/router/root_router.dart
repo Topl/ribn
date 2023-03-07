@@ -292,8 +292,7 @@ class RootRouter {
         }
       case Routes.assetDetails:
         {
-          final Map<String, dynamic> assetDetailsPageArgs =
-              settings.arguments as Map<String, dynamic>;
+          final Map<String, dynamic> assetDetailsPageArgs = settings.arguments as Map<String, dynamic>;
           if (kIsWeb) {
             return pageRouteNotAnimated(
               AssetDetailsPage(asset: assetDetailsPageArgs['assetAmount']!),

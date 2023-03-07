@@ -22,8 +22,7 @@ import 'package:ribn/utils.dart';
 /// Builds checks to ensure that the user understands the importance of the seed phrase.
 class SeedPhraseInfoChecklistPage extends HookWidget {
   static const Key seedPhraseInfoChecklistPageKey = Key('seedPhraseInfoChecklistPageKey');
-  static const Key seedPhraseInfoChecklistConfirmationButtonKey =
-      Key('seedPhraseInfoChecklistConfirmationButtonKey');
+  static const Key seedPhraseInfoChecklistConfirmationButtonKey = Key('seedPhraseInfoChecklistConfirmationButtonKey');
   static const Key neverShareMySeedPhraseKey = Key('neverShareMySeedPhraseKey');
   static const Key walletRecoveryUsingSeedPhraseKey = Key('walletRecoveryUsingSeedPhraseKey');
 
