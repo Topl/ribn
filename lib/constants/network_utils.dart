@@ -8,7 +8,7 @@ class NetworkUtils {
   static const String toplNet = 'toplnet';
   static const String valhalla = 'valhalla';
   static const String private = 'private';
-  static const String privateIP = '35.226.176.100';
+  static const String privateIP = '104.197.222.150';
   static int toplNetId = constants.networkRegistry[toplNet]!;
   static int valhallaId = constants.networkRegistry[valhalla]!;
   static int privateId = constants.networkRegistry[private]!;
