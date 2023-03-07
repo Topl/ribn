@@ -1,4 +1,7 @@
+// Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+// Project imports:
 import 'package:ribn/constants/environment_config.dart';
 import 'package:ribn/models/file.dart';
 import 'package:ribn/platform/platform.dart';
@@ -19,8 +22,6 @@ final appVersionProvider = Provider<String>((ref) {
   return "Nightly Build ${EnvironmentConfig.nightlyBuildVersion}";
 });
 
-
 final downloadFileProvider = Provider.autoDispose.family<void, File>((ref, File) {
   return PlatformUtils.instance.downloadFile(File.fileName, File.text);
 });
-

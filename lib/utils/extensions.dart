@@ -1,9 +1,12 @@
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 
 extension StringExtensions on String {
   bool toBoolean() {
-    return (this.toLowerCase() == "true" || this.toLowerCase() == "1") ? true
-        : (this.toLowerCase() == "false" || this.toLowerCase() == "0" ? false
+    return (this.toLowerCase() == "true" || this.toLowerCase() == "1")
+        ? true
+        : (this.toLowerCase() == "false" || this.toLowerCase() == "0"
+            ? false
             : throw UnsupportedError("Cannot convert $this [${this.runtimeType}] to boolean"));
   }
 }

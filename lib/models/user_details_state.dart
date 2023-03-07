@@ -30,9 +30,7 @@ class UserDetailsState {
     Map<String, AssetDetails>? assetDetails,
     bool? isBiometricsEnabled,
   }) {
-    return UserDetailsState(
-      assetDetails: assetDetails ?? this.assetDetails
-    );
+    return UserDetailsState(assetDetails: assetDetails ?? this.assetDetails);
   }
 
   Map<String, dynamic> toMap() {

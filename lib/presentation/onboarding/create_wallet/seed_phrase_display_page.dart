@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ribn/providers/onboarding_provider.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 
@@ -19,9 +18,9 @@ import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/mobile_onboarding_progress_bar.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
-import 'package:ribn/utils.dart';
-
+import 'package:ribn/providers/onboarding_provider.dart';
 import 'package:ribn/providers/utility_provider.dart';
+import 'package:ribn/utils.dart';
 
 class SeedPhraseDisplayPage extends HookConsumerWidget {
   static const Key copyKey = Key('copyKey');
@@ -119,7 +118,8 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
                         padding: const EdgeInsets.only(top: 8.0),
                         child: _buildButton(
                           Strings.download,
-                          onPressed: () => ref.read(downloadFileProvider(File(fileName: Strings.seedPhraseFileName,text:  seedPhrase))),
+                          onPressed: () => ref
+                              .read(downloadFileProvider(File(fileName: Strings.seedPhraseFileName, text: seedPhrase))),
                           width: 30,
                           height: 23,
                         ),

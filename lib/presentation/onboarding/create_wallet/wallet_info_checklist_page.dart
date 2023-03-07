@@ -1,8 +1,14 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
+
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
@@ -15,9 +21,6 @@ import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn/utils.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
 
 class WalletInfoChecklistPage extends HookConsumerWidget {
   static const walletInfoChecklistPageKey = Key('walletInfoChecklistPageKey');
@@ -26,8 +29,7 @@ class WalletInfoChecklistPage extends HookConsumerWidget {
   static const Key savedMyWalletPasswordSafelyKey = Key('savedMyWalletPasswordSafelyKey');
   static const Key toplCannotRecoverForMeKey = Key('toplCannotRecoverForMeKey');
   static const Key spAndPasswordUnrecoverableKey = Key('spAndPasswordUnrecoverableKey');
-  static const Key walletInfoChecklistConfirmationButtonKey =
-      Key('walletInfoChecklistConfirmationButtonKey');
+  static const Key walletInfoChecklistConfirmationButtonKey = Key('walletInfoChecklistConfirmationButtonKey');
 
   Future<void> runBiometrics(isBioSupported, ref) =>
       ref.watch(biometricsProvider).whenData((value) => isBioSupported.value = value.isSupported);

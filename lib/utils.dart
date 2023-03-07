@@ -1,13 +1,18 @@
 // Dart imports:
 import 'dart:ui';
 
-// Package imports:
-import 'package:barcode_widget/barcode_widget.dart';
-import 'package:brambldart/utils.dart';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:barcode_widget/barcode_widget.dart';
+import 'package:brambldart/utils.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
 
 // Project imports:
 import 'package:ribn/constants/assets.dart';
@@ -18,10 +23,6 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/widgets/custom_divider.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
-import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
 
 /// Formats an address string to only dispaly its first and last 10 characters.
 String formatAddrString(String addr, {int charsToDisplay = 10}) {
@@ -61,8 +62,7 @@ void validateRecipientAddress({
 double adaptHeight(double scaleFactor) => MediaQueryData.fromWindow(window).size.height * scaleFactor;
 
 /// Adapt to screen width based on [scaleFactor].
-double adaptWidth(double scaleFactor) =>
-    MediaQueryData.fromWindow(window).size.width * scaleFactor;
+double adaptWidth(double scaleFactor) => MediaQueryData.fromWindow(window).size.width * scaleFactor;
 
 double deviceTopPadding() => MediaQueryData.fromWindow(window).padding.top;
 
@@ -83,8 +83,7 @@ Future<void> showReceivingAddress() async {
     context: Keys.navigatorKey.currentContext!,
     builder: (context) {
       return StoreConnector<AppState, RibnAddress>(
-        converter: (store) =>
-            store.state.keychainState.currentNetwork.addresses.first,
+        converter: (store) => store.state.keychainState.currentNetwork.addresses.first,
         builder: (context, ribnAddress) {
           return CustomModal.renderCustomModal(
             context: Keys.navigatorKey.currentContext!,

@@ -1,5 +1,7 @@
-// Project imports:
+// Package imports:
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+// Project imports:
 import 'package:ribn/constants/rules.dart';
 
 abstract class IPlatformUtils {

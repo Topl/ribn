@@ -32,4 +32,3 @@ UserDetailsState _updateAssetDetails(
     },
   );
 }
-

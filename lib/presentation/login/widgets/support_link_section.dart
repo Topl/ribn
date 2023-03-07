@@ -1,10 +1,15 @@
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:ribn/constants/strings.dart';
+
+// Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+// Project imports:
+import 'package:ribn/constants/strings.dart';
 
 /// Widget to redirect user to the support email.
 class SupportLinkSection extends StatelessWidget {

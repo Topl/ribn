@@ -2,12 +2,17 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:bip_topl/bip_topl.dart';
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+
+// Package imports:
+import 'package:bip_topl/bip_topl.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:redux/src/store.dart';
+
+// Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/keys.dart';
@@ -35,8 +40,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
 
   LoginNotifier(this.ref, this.store) : super(LoginState()) {
     // check if biometrics is enabled
-    BiometricsNotifier.isBiometricsEnabled(ref)
-        .then((value) => state = state.copyWith(isBiometricsEnabled: value));
+    BiometricsNotifier.isBiometricsEnabled(ref).then((value) => state = state.copyWith(isBiometricsEnabled: value));
   }
 
   // Verifies that the wallet password is correct by attempting to decrypt the keystore.
@@ -47,9 +51,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
       // create isolate/worker to avoid hanging the UI
       final List result = jsonDecode(
         await PlatformWorkerRunner.instance.runWorker(
-          workerScript: currAppView == AppViews.webDebug
-              ? '/web/workers/login_worker.js'
-              : '/workers/login_worker.js',
+          workerScript: currAppView == AppViews.webDebug ? '/web/workers/login_worker.js' : '/workers/login_worker.js',
           function: LoginRepository().decryptKeyStore,
           params: {
             'keyStoreJson': store.state.keychainState.keyStoreJson,
@@ -68,19 +70,17 @@ class LoginNotifier extends StateNotifier<LoginState> {
         PlatformUtils.instance.createLoginSessionAlarm();
       } else if (currAppView == AppViews.mobile) {
         await PlatformLocalStorage.instance.saveKeyInSecureStorage(
-          Base58Encoder.instance.encode(toplExtendedPrvKeyUint8List),
-            override: ref.read(flutterSecureStorageProvider)()
-        );
+            Base58Encoder.instance.encode(toplExtendedPrvKeyUint8List),
+            override: ref.read(flutterSecureStorageProvider)());
       }
 
       _onLogin(toplExtendedPrvKeyUint8List);
 
       action.completer.complete(true);
     } catch (e) {
-      ref.read(loggerProvider).log(
-          logLevel: LogLevel.Severe,
-          loggerClass: LoggerClass.Authentication,
-          message: e.toString());
+      ref
+          .read(loggerProvider)
+          .log(logLevel: LogLevel.Severe, loggerClass: LoggerClass.Authentication, message: e.toString());
       action.completer.complete(false);
     }
   }
@@ -114,8 +114,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
       if (store.state.internalMessage?.additionalNavigation == Routes.connectDApp &&
           store.state.internalMessage != null) {
         await MiscRepository().persistAppState(StoreProvider.of<AppState>(context).state.toJson());
-        Keys.navigatorKey.currentState
-            ?.pushNamed(Routes.connectDApp, arguments: store.state.internalMessage);
+        Keys.navigatorKey.currentState?.pushNamed(Routes.connectDApp, arguments: store.state.internalMessage);
       } else {
         Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home);
       }

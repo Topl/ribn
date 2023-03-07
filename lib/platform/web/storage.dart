@@ -84,12 +84,12 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   @override
   Future<void> saveKeyInSecureStorage(String key, {FlutterSecureStorage? override}) => throw UnimplementedError();
 
-
   /// Mobile-only
   @override
   Future<String> getKVInSecureStorage(String key, {FlutterSecureStorage? override}) => throw UnimplementedError();
 
   /// Mobile-only
   @override
-  Future<void> saveKVInSecureStorage(String key, String value, {FlutterSecureStorage? override}) => throw UnimplementedError();
+  Future<void> saveKVInSecureStorage(String key, String value, {FlutterSecureStorage? override}) =>
+      throw UnimplementedError();
 }

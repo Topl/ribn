@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
+
 // Project imports:
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/platform/interfaces.dart';
@@ -47,9 +48,7 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   @override
   Future<String?>? getKeyFromSecureStorage({FlutterSecureStorage? override}) async {
     try {
-      return (override != null)
-          ? await override.read(key: 'toplKey')
-          : await secureStorage.read(key: 'toplKey');
+      return (override != null) ? await override.read(key: 'toplKey') : await secureStorage.read(key: 'toplKey');
     } catch (e) {
       if (!Keys.isTestingEnvironment) rethrow;
     }
@@ -92,9 +91,7 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   @override
   Future<String?> getKVInSecureStorage(String key, {FlutterSecureStorage? override}) async {
     try {
-      return (override != null)
-          ? await override.read(key: key)
-          : await secureStorage.read(key: key);
+      return (override != null) ? await override.read(key: key) : await secureStorage.read(key: key);
     } catch (e) {
       if (!Keys.isTestingEnvironment) rethrow;
     }

@@ -1,12 +1,18 @@
+// Dart imports:
 import 'dart:async';
 
+// Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+// Project imports:
 import 'package:ribn/platform/platform.dart';
-import 'package:ribn/providers/app_state_provider.dart';import 'package:ribn/providers/store_provider.dart';
+import 'package:ribn/providers/app_state_provider.dart';
+import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/providers/utility_provider.dart';
 import 'package:ribn/repositories/login_repository.dart';
-
 import '../constants/keys.dart';
 import '../constants/routes.dart';
 

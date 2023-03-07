@@ -1,12 +1,16 @@
+// Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:local_auth/local_auth.dart';
+
+// Project imports:
 import 'package:ribn/models/state/biometrics_state.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 import 'package:ribn/providers/packages/local_authentication_provider.dart';
 import 'package:ribn/utils/extensions.dart';
-
 import 'logger_provider.dart';
 
 /// Provides biometrics state and functions

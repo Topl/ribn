@@ -1,17 +1,20 @@
 // Dart imports:
 import 'dart:io' show Platform;
 
-// Package imports:
-import 'package:app_settings/app_settings.dart';
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:app_settings/app_settings.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_toggle.dart';
+
+// Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn/providers/logger_provider.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_toggle.dart';
 
 /// The section allows for users to toggle biometrics authentication on/off.
 class BiometricsSection extends ConsumerWidget {
