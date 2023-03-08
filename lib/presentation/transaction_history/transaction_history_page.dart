@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:brambldart/brambldart.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:ribn/utils/transaction_utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_dropdown_title.dart';
 
@@ -18,6 +17,7 @@ import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/transaction_history/dashed_list_separator/dashed_list_separator.dart';
 import 'package:ribn/presentation/transaction_history/transaction_data_row/transaction_data_row.dart';
 import 'package:ribn/utils.dart';
+import 'package:ribn/utils/transaction_utils.dart';
 
 class TxHistoryPage extends StatefulWidget {
   final Future<String>? blockHeight;

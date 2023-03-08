@@ -1,3 +1,6 @@
+// Package imports:
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 // Project imports:
 import 'package:ribn/constants/rules.dart';
 
@@ -64,19 +67,31 @@ abstract class IPlatformLocalStorage {
   /// Get locally stored data.
   Future<String> getState();
 
+  /// Mobile-only
+  ///
+  /// Save any [key] in secure storage for future retrievals.
+  ///
+  /// [key] should be a unique string value
+  Future<void> saveKVInSecureStorage(String key, String value, {FlutterSecureStorage? override});
+
+  /// Mobile-only
+  ///
+  ///  Get specified key, if it exists, from FlutterSecureStorage.
+  Future<String?> getKVInSecureStorage(String key, {FlutterSecureStorage? override});
+
   /// Web-only
   ///
-  ///  Save [key] in chrome's session storage.
+  ///  Save Topl [key] in chrome's session storage.
   ///
-  /// [key] should be the Base58Encoded Topl Main Key.
+  /// Topl [key] should be the Base58Encoded Topl Main Key.
   Future<void> saveKeyInSessionStorage(String key);
 
   /// Mobile-only
   ///
-  /// Save [key] in seucre storage for future retrievals.
+  /// Save [key] in secure storage for future retrievals.
   ///
   /// [key] should be the Base58Encoded Topl Main Key.
-  Future<void> saveKeyInSecureStorage(String key);
+  Future<void> saveKeyInSecureStorage(String key, {FlutterSecureStorage? override});
 
   /// Web-only
   ///
@@ -88,7 +103,7 @@ abstract class IPlatformLocalStorage {
   /// Mobile-only
   ///
   ///  Get key, if it exists, from FlutterSecureStorage.
-  Future<String?>? getKeyFromSecureStorage();
+  Future<String?>? getKeyFromSecureStorage({FlutterSecureStorage? override});
 
   /// Web-only
   Future<void> clearSessionStorage();

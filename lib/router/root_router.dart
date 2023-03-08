@@ -5,6 +5,10 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:ribn_toolkit/models/transactions/ribn_activity_details_model.dart';
+
 // Project imports:
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/internal_message.dart';

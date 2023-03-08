@@ -1,10 +1,11 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 
+// Package imports:
+import 'package:freezed_annotation/freezed_annotation.dart';
+
 // Project imports:
 import 'package:ribn/constants/test_data.dart';
-
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'onboarding_state.freezed.dart';
 part 'onboarding_state.g.dart';

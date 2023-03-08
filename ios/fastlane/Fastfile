@@ -117,7 +117,7 @@ platform :ios do
         firebase_app_distribution(
             app: "TODO_CHANGE",
             groups: 'topl',
-            release_notes: "Lots of amazing new features to test out!",
+            release_notes: "Speedy recent transactions",
             ipa_path: '../build/ios/ipa/Ribn.ipa',
             service_credentials_file: '../service_account_key.json',
         )

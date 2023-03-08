@@ -1,14 +1,16 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
+
 // Project imports:
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/widgets/address_display_container.dart';
-// Package imports:
-import 'package:ribn_toolkit/constants/assets.dart';
 
 /// Custom display for the sender's address.
 ///

@@ -32,11 +32,13 @@ class TransferUtils {
   }
 
   /// Returns true if [amount] is valid.
-  static bool validateAmount(String amount, maxAmount) {
+  static bool validateAmount(int amount, maxAmount) {
     try {
-      return int.parse(amount) <= maxAmount;
+      return amount <= maxAmount;
     } catch (e) {
       return false;
     }
   }
+
+  /// Gets a valid address from
 }

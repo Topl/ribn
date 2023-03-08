@@ -1,6 +1,15 @@
-import 'package:bip_topl/bip_topl.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:bip_topl/bip_topl.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
+
+// Project imports:
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
@@ -8,10 +17,6 @@ import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils/navigation_utils.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
 
 /// This page allows the user to enter a known mnemonic / seed phrase in order to restore a wallet.
 ///
@@ -94,7 +99,9 @@ class RestoreWalletPage extends HookWidget {
               ),
             ),
             adaptableSpacer(),
-            renderIfMobile(const OnboardingProgressBar(numSteps: 2, currStep: 0)),
+            renderIfMobile(
+              const OnboardingProgressBar(numSteps: 2, currStep: 0),
+            ),
             const SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.only(bottom: 30),

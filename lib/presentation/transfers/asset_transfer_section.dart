@@ -94,7 +94,7 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
     return WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.updateButton(
         BottomReviewAction(
-          maxHeight: kIsWeb ? 120 : 143,
+          maxHeight: kIsWeb ? 120 : 150,
           children: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -153,7 +153,7 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
                       setState(() {
                         _selectedAsset = asset!;
                         _validAmount = TransferUtils.validateAmount(
-                          _amountController.text,
+                          int.parse(_amountController.text),
                           widget.vm.getAssetBalance(asset.assetCode.toString()),
                         );
                       });
@@ -171,7 +171,7 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
                     onChanged: (String amount) {
                       setState(() {
                         _validAmount = TransferUtils.validateAmount(
-                          amount,
+                          int.parse(amount),
                           widget.vm.getAssetBalance(
                             _selectedAsset?.assetCode.toString(),
                           ),
@@ -184,7 +184,7 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
                     onUnitSelected: (String amount) {
                       setState(() {
                         _validAmount = TransferUtils.validateAmount(
-                          amount,
+                          int.parse(amount),
                           widget.vm.getAssetBalance(
                             _selectedAsset?.assetCode.toString(),
                           ),

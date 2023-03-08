@@ -1,7 +1,10 @@
+// Package imports:
+import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/mockito.dart';
 import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:ribn/models/app_state.dart';
-import 'package:mockito/mockito.dart' as _i1;
 
 MockStore getStoreMocks({
   bool isNewUser = false,

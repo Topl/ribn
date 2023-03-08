@@ -1,11 +1,15 @@
 // import 'dart:math';
 
+// Dart imports:
 import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 
+// Package imports:
 import 'package:bip_topl/bip_topl.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+// Project imports:
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/onboarding_state.dart';
 import 'package:ribn/platform/mobile/storage.dart';
@@ -14,6 +18,7 @@ import 'package:ribn/platform/mobile/worker_runner.dart';
 import 'package:ribn/providers/app_state_provider.dart';
 import 'package:ribn/providers/keychain_provider.dart';
 import 'package:ribn/providers/packages/entropy_provider.dart';
+import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 import 'package:ribn/providers/packages/random_provider.dart';
 import 'package:ribn/repositories/onboarding_repository.dart';
 import 'package:ribn/utils.dart';
@@ -81,8 +86,8 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
         PlatformUtils.instance.createLoginSessionAlarm();
       } else if (currAppView == AppViews.mobile) {
         await PlatformLocalStorage.instance.saveKeyInSecureStorage(
-          Base58Encoder.instance.encode(toplExtendedPrvKeyUint8List),
-        );
+            Base58Encoder.instance.encode(toplExtendedPrvKeyUint8List),
+            override: ref.read(flutterSecureStorageProvider)());
       }
 
       await ref.read(keychainProvider.notifier).initializeHdWallet(

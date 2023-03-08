@@ -1,4 +1,7 @@
 class EnvironmentConfig {
+  static const nightlyBuildVersion = String.fromEnvironment('nightlyBuildVersion', defaultValue: "");
+
+  // KEYS
   static const ASSIGNEE_ID = String.fromEnvironment('ASSIGNEE_ID', defaultValue: "");
   static const ISSUE_TYPE = String.fromEnvironment('ISSUE_TYPE', defaultValue: "");
   static const JIRA_ATTACH_ISSUE_URL = String.fromEnvironment('JIRA_ATTACH_ISSUE_URL', defaultValue: "");

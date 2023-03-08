@@ -1,15 +1,15 @@
 // Flutter imports:
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ribn/utils/url_utils.dart';
 
 // Package imports:
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 
 // Project imports:
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/utils/url_utils.dart';
 
 /// The section for displaying helpful links.
 class LinksSection extends HookConsumerWidget {

@@ -1,12 +1,10 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Package imports:
-import 'package:local_auth/local_auth.dart';
-import 'package:ribn/providers/packages/local_authentication_provider.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
@@ -21,34 +19,34 @@ import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/mobile_onboarding_progress_bar.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
+import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn/utils.dart';
 
 class WalletInfoChecklistPage extends HookConsumerWidget {
   static const walletInfoChecklistPageKey = Key('walletInfoChecklistPageKey');
+
   const WalletInfoChecklistPage({Key key = walletInfoChecklistPageKey}) : super(key: key);
   static const Key savedMyWalletPasswordSafelyKey = Key('savedMyWalletPasswordSafelyKey');
   static const Key toplCannotRecoverForMeKey = Key('toplCannotRecoverForMeKey');
   static const Key spAndPasswordUnrecoverableKey = Key('spAndPasswordUnrecoverableKey');
   static const Key walletInfoChecklistConfirmationButtonKey = Key('walletInfoChecklistConfirmationButtonKey');
 
-  Future<void> runBiometrics(isBioSupported, ref) async {
-    final LocalAuthentication _localAuthentication = ref.read(localAuthenticationProvider)();
-
-    final bool isBioAuthenticationSupported = await isBiometricsAuthenticationSupported(_localAuthentication);
-    isBioSupported.value = isBioAuthenticationSupported;
-  }
+  Future<void> runBiometrics(isBioSupported, ref) =>
+      ref.watch(biometricsProvider).whenData((value) => isBioSupported.value = value.isSupported);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isBioSupported = useState(false);
-
     final savedMyWalletPasswordSafely = useState(false);
     final toplCannotRecoverForMe = useState(false);
     final spAndPasswordUnrecoverable = useState(false);
 
+    final isBioSupported = useState(false);
+
     useEffect(() {
-      runBiometrics(isBioSupported, ref);
-      return () {};
+      BiometricsNotifier.isBiometricsEnabled(ref).then((value) {
+        isBioSupported.value = value;
+      });
+      return null;
     }, []);
 
     // Use value changed for the first check box.

@@ -15,17 +15,14 @@ import 'package:ribn/models/asset_details.dart';
 class UserDetailsState {
   /// Holds custom asset details that are locally stored.
   final Map<String, AssetDetails> assetDetails;
-  final bool isBiometricsEnabled;
 
   UserDetailsState({
     required this.assetDetails,
-    required this.isBiometricsEnabled,
   });
 
   factory UserDetailsState.initial() {
     return UserDetailsState(
       assetDetails: {},
-      isBiometricsEnabled: false,
     );
   }
 
@@ -33,16 +30,12 @@ class UserDetailsState {
     Map<String, AssetDetails>? assetDetails,
     bool? isBiometricsEnabled,
   }) {
-    return UserDetailsState(
-      assetDetails: assetDetails ?? this.assetDetails,
-      isBiometricsEnabled: isBiometricsEnabled ?? this.isBiometricsEnabled,
-    );
+    return UserDetailsState(assetDetails: assetDetails ?? this.assetDetails);
   }
 
   Map<String, dynamic> toMap() {
     return {
       'assetDetails': assetDetails.map((key, value) => MapEntry(key, value.toMap())),
-      'isBiometricsEnabled': isBiometricsEnabled,
     };
   }
 
@@ -56,7 +49,6 @@ class UserDetailsState {
           ),
         ),
       ),
-      isBiometricsEnabled: map['isBiometricsEnabled'],
     );
   }
 
@@ -65,15 +57,15 @@ class UserDetailsState {
   factory UserDetailsState.fromJson(String source) => UserDetailsState.fromMap(json.decode(source));
 
   @override
-  String toString() => 'UserDetailsState(assetDetails: $assetDetails, isBiometricsEnabled: $isBiometricsEnabled)';
+  String toString() => 'UserDetailsState(assetDetails: $assetDetails)';
 
   @override
   bool operator ==(covariant UserDetailsState other) {
     if (identical(this, other)) return true;
 
-    return mapEquals(other.assetDetails, assetDetails) && other.isBiometricsEnabled == isBiometricsEnabled;
+    return mapEquals(other.assetDetails, assetDetails);
   }
 
   @override
-  int get hashCode => assetDetails.hashCode ^ isBiometricsEnabled.hashCode;
+  int get hashCode => assetDetails.hashCode;
 }
