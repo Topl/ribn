@@ -26,7 +26,7 @@ List<TransactionReceipt> filterOutChangeUTxO(List<TransactionReceipt> txs) {
           );
       return false;
     }
-    // Get teh receivers address
+    // Get the receivers address
     final String? transactionReceiverAddress = tx.to.first?.toJson()?[0].toString();
 
     // If there is no receiver, filter out and log issue
