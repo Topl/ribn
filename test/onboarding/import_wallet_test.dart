@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
+
+// Project imports:
 import 'package:ribn/models/onboarding_state.dart';
 import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/select_action_page.dart';
@@ -8,7 +13,6 @@ import 'package:ribn/presentation/onboarding/restore_wallet/create_new_wallet_pa
 import 'package:ribn/presentation/onboarding/restore_wallet/restore_wallet_page.dart';
 import 'package:ribn/presentation/onboarding/widgets/opt_in_tracker_page.dart';
 import 'package:ribn/providers/packages/entropy_provider.dart';
-
 import '../essential_test_provider_widget.dart';
 import '../mocks/store_mocks.dart';
 import '../utils/onboarding_utils.dart';

@@ -1,5 +1,5 @@
+// Project imports:
 import 'package:ribn/models/jira/jira_project_model.dart';
-
 import '../images/ribn_file_model.dart';
 import 'jira_description_model.dart';
 import 'jira_issue_assignee_model.dart';

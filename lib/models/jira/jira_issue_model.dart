@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:ribn/models/jira/jira_fields_model.dart';
 
 class JiraIssueModel {

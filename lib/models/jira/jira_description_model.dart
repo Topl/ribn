@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:ribn/models/jira/jira_content_model.dart';
 
 class JiraDescriptionModel {
