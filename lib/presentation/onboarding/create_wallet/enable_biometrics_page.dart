@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:local_auth/local_auth.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
@@ -23,21 +22,20 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/providers/biometrics_provider.dart';
-import 'package:ribn/providers/packages/local_authentication_provider.dart';
-import 'package:ribn/utils.dart';
 
 class EnableBiometrics extends HookConsumerWidget {
   static const Key enableBiometricsKey = Key('enableBiometricsKey');
+
   const EnableBiometrics({Key key = enableBiometricsKey}) : super(key: key);
 
   Future<void> runBiometrics(WidgetRef ref, BuildContext context, ValueNotifier<bool> authorized) async {
-    final LocalAuthentication _localAuthentication = ref.read(localAuthenticationProvider)();
+    final notifier = ref.read(biometricsProvider.notifier);
 
     bool authenticated = false;
-    await isBiometricsAuthenticationEnrolled(_localAuthentication);
+    await notifier.isBiometricsAuthenticationEnrolled();
 
     try {
-      authenticated = await authenticateWithBiometrics(_localAuthentication);
+      authenticated = await notifier.authenticateWithBiometrics();
     } catch (e) {
       if (Platform.isAndroid) await _showMyDialog(context);
       return;
@@ -45,7 +43,7 @@ class EnableBiometrics extends HookConsumerWidget {
 
     if (authenticated) {
       authorized.value = authenticated;
-      ref.read(biometricsProvider.notifier).updateBiometrics(true);
+      ref.read(biometricsProvider.notifier).toggleBiometrics(overrideValue: true);
     }
   }
 

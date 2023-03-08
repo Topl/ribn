@@ -4,24 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // Package imports:
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 
 // Project imports:
-import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/mobile_onboarding_progress_bar.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/providers/onboarding_provider.dart';
+import 'package:ribn/providers/utility_provider.dart';
 import 'package:ribn/utils.dart';
 
 class SeedPhraseDisplayPage extends HookConsumerWidget {
@@ -120,12 +118,8 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
                         padding: const EdgeInsets.only(top: 8.0),
                         child: _buildButton(
                           Strings.download,
-                          onPressed: () => StoreProvider.of<AppState>(context).dispatch(
-                            DownloadAsFileAction(
-                              Strings.seedPhraseFileName,
-                              seedPhrase,
-                            ),
-                          ),
+                          onPressed: () => ref
+                              .read(downloadFileProvider(File(fileName: Strings.seedPhraseFileName, text: seedPhrase))),
                           width: 30,
                           height: 23,
                         ),

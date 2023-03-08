@@ -20,7 +20,9 @@ import 'package:ribn/presentation/onboarding/create_wallet/wallet_info_checklist
 import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
 import 'package:ribn/presentation/onboarding/widgets/opt_in_tracker_page.dart';
 import 'package:ribn/providers/packages/entropy_provider.dart';
+import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 import '../essential_test_provider_widget.dart';
+import '../mocks/flutter_secure_storage_mocks.dart';
 import '../mocks/store_mocks.dart';
 import '../utils/onboarding_utils.dart';
 
@@ -30,7 +32,12 @@ void main() {
     tester.binding.window.physicalSizeTestValue = Size(10000, 10000);
     await tester.pumpWidget(
       await essentialTestProviderWidget(
-        overrides: [entropyFuncProvider.overrideWith((ref) => (_) => OnboardingState.test().mnemonic)],
+        overrides: [
+          entropyFuncProvider.overrideWith((ref) => (_) => OnboardingState.test().mnemonic),
+          flutterSecureStorageProvider.overrideWith((ref) {
+            return () => getMockFlutterSecureStorage();
+          }),
+        ],
         mockStore: getStoreMocks(isNewUser: true),
       ),
     );
