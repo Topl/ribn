@@ -1,8 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:ribn/presentation/asset_details/asset_detail_items/asset_column.dart';
+
 // Package imports:
 import 'package:ribn_toolkit/constants/styles.dart';
+
+// Project imports:
+import 'package:ribn/presentation/asset_details/asset_detail_items/asset_column.dart';
 
 /// One of the asset details displayed on [AssetDetailsPage].
 ///

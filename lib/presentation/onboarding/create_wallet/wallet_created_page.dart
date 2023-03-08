@@ -1,10 +1,9 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:ribn/utils/navigation_utils.dart';
 
 // Package imports:
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/accordion.dart';
@@ -20,6 +19,7 @@ import 'package:ribn/presentation/onboarding/widgets/mobile_onboarding_progress_
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/utils.dart';
+import 'package:ribn/utils/navigation_utils.dart';
 
 /// This page is displayed when user successfully creates their wallet.
 class WalletCreatedPage extends HookWidget {

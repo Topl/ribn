@@ -3,16 +3,17 @@ import 'dart:async';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+
 // Project imports:
 import 'package:ribn/actions/login_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
-
 import '../repositories/misc_repository.dart';
 
 /// Intended to wrap the [LoginPage] and provide it with the the [LoginViewModel].

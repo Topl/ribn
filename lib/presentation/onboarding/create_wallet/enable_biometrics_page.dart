@@ -10,8 +10,6 @@ import 'package:app_settings/app_settings.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:ribn/providers/biometrics_provider.dart';
-import 'package:ribn/providers/packages/local_authentication_provider.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_icon_button.dart';
@@ -24,6 +22,8 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
+import 'package:ribn/providers/biometrics_provider.dart';
+import 'package:ribn/providers/packages/local_authentication_provider.dart';
 import 'package:ribn/utils.dart';
 
 class EnableBiometrics extends HookConsumerWidget {
