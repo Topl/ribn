@@ -48,6 +48,8 @@ import 'package:ribn/presentation/transfers/tx_review_page.dart';
 
 // import 'package:ribn/models/transaction_history_entry.dart';
 
+// import 'package:ribn/models/transaction_history_entry.dart';
+
 class RootRouter {
   Route<MaterialPageRoute> generateRoutes(
     RouteSettings settings,

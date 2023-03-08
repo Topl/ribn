@@ -8,6 +8,8 @@ import 'package:ribn_toolkit/widgets/molecules/ribn_activity_details.dart';
 
 // Project imports:
 
+// Project imports:
+
 class TxHistoryDetailsPage extends StatefulWidget {
   final RibnActivityDetailsModel ribnActivityDetailsModel;
 
