@@ -21,6 +21,7 @@ import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/platform/platform.dart';
+import 'package:ribn/presentation/login/widgets/forget_password_link_section.dart';
 import 'package:ribn/presentation/login/widgets/password_section.dart';
 import 'package:ribn/presentation/login/widgets/support_link_section.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
@@ -106,6 +107,8 @@ class LoginPage extends HookConsumerWidget {
 
     final biometrics = ref.watch(biometricsProvider);
 
+    final notifier = ref.read(loginProvider.notifier);
+
     useEffect(() {
       Future.delayed(Duration.zero, () {
         _checkBiometrics(ref, _biometricsError);
@@ -179,7 +182,7 @@ class LoginPage extends HookConsumerWidget {
                       onPressed: () => attemptLogin(ref, context, _textEditingController, _incorrectPasswordEntered),
                     ),
                     renderIfWeb(const SizedBox(height: 20)),
-                    // ForgetPasswordLink(baseWidth: _baseWidth, onButtonPress: loginNotifier.restoreWallet),
+                    ForgetPasswordLinkSection(baseWidth: _baseWidth, onButtonPress: notifier.restoreWallet),
                     const SizedBox(height: 40),
                     SizedBox(
                       height: 50,
