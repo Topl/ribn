@@ -103,12 +103,6 @@ class InternalMethods {
   /// Used to return a response from the popup to the background script.
   static String get returnResponse => 'returnResponse';
 
-  /// Used to enable/allowlist urls.
-  static String get enable => 'enable';
-
-  /// Used to sign tx through Ribn.
-  static String get signTx => 'signTx';
-
   /// Used to obtain wallet balance through Ribn.
   static String get getBalance => 'getBalance';
 

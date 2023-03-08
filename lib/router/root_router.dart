@@ -16,8 +16,6 @@ import 'package:ribn/presentation/asset_details/asset_details_page.dart';
 import 'package:ribn/presentation/authorize_and_sign/connect_dapp.dart';
 import 'package:ribn/presentation/authorize_and_sign/loading_dapp.dart';
 import 'package:ribn/presentation/authorize_and_sign/review_and_sign.dart';
-import 'package:ribn/presentation/enable_page.dart';
-import 'package:ribn/presentation/external_signing_page.dart';
 import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/create_password_page.dart';
@@ -317,25 +315,6 @@ class RootRouter {
             return pageRouteNotAnimated(const SettingsPage(), settings);
           }
           return pageRoute(const SettingsPage(), settings);
-        }
-      case Routes.enable:
-        {
-          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
-          if (kIsWeb) {
-            return pageRouteNotAnimated(EnablePage(pendingRequest), settings);
-          }
-          return pageRoute(EnablePage(pendingRequest), settings);
-        }
-      case Routes.externalSigning:
-        {
-          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
-          if (kIsWeb) {
-            return pageRouteNotAnimated(
-              ExternalSigningPage(pendingRequest),
-              settings,
-            );
-          }
-          return pageRoute(ExternalSigningPage(pendingRequest), settings);
         }
       case Routes.error:
         {

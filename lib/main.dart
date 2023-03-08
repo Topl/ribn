@@ -131,7 +131,6 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
           settings: const RouteSettings(name: Routes.reviewAndSignDApp),
         )
       ];
-
     case Routes.welcome:
     default:
       return [
@@ -153,10 +152,12 @@ Future<void> initBgConnection(Store<AppState> store) async {
     Messenger.instance.connect();
     Messenger.instance.initMsgListener((String msgFromBgScript) {
       final InternalMessage pendingRequest = InternalMessage.fromJson(msgFromBgScript);
+
       store.dispatch(ReceivedInternalMsgAction(pendingRequest));
       completer.complete();
     });
     Messenger.instance.sendMsg(jsonEncode({'method': InternalMethods.checkPendingRequest}));
+
   } catch (e) {
     ProviderContainer().read(loggerProvider).log(
           logLevel: LogLevel.Severe,
