@@ -3,15 +3,12 @@ import 'dart:async';
 import 'dart:convert';
 
 // Flutter imports:
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:redux/redux.dart';
-
 // Project imports:
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/keys.dart';
@@ -22,19 +19,19 @@ import 'package:ribn/models/internal_message.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/presentation/authorize_and_sign/connect_dapp.dart';
 import 'package:ribn/presentation/authorize_and_sign/review_and_sign.dart';
-import 'package:ribn/presentation/enable_page.dart';
-import 'package:ribn/presentation/external_signing_page.dart';
 import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
 import 'package:ribn/presentation/transaction_history/service_locator/locator.dart';
+import 'package:ribn/providers/logger_provider.dart';
 import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/redux.dart';
 import 'package:ribn/router/root_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Redux.initStore(initTestStore: kDebugMode ? true : false);
+  // await Redux.initStore(initTestStore: kDebugMode ? true : false);
+  await Redux.initStore(initTestStore: true);
   final AppViews currentAppView = await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
   // Open app in new tab if user needs onboarding
@@ -62,6 +59,7 @@ void main() async {
 class RibnApp extends StatelessWidget {
   final Store<AppState> store;
   final RootRouter rootRouter = RootRouter();
+
   RibnApp(this.store, {Key? key}) : super(key: key);
 
   @override
@@ -88,10 +86,6 @@ String getInitialRoute(Store<AppState> store) {
     return Routes.welcome;
   } else if (store.state.needsLogin()) {
     return Routes.login;
-  } else if (store.state.internalMessage?.method == InternalMethods.enable) {
-    return Routes.enable;
-  } else if (store.state.internalMessage?.method == InternalMethods.signTx) {
-    return Routes.externalSigning;
   }
 
   //v2
@@ -121,20 +115,6 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
       ];
     case Routes.home:
       return [MaterialPageRoute(builder: (context) => const HomePage(), settings: RouteSettings(name: Routes.home))];
-    case Routes.enable:
-      return [
-        MaterialPageRoute(
-          builder: (context) => EnablePage(store.state.internalMessage!),
-          settings: const RouteSettings(name: Routes.enable),
-        )
-      ];
-    case Routes.externalSigning:
-      return [
-        MaterialPageRoute(
-          builder: (context) => ExternalSigningPage(store.state.internalMessage!),
-          settings: const RouteSettings(name: Routes.externalSigning),
-        )
-      ];
 
     //v2
     case Routes.connectDApp:
@@ -178,6 +158,13 @@ Future<void> initBgConnection(Store<AppState> store) async {
     });
     Messenger.instance.sendMsg(jsonEncode({'method': InternalMethods.checkPendingRequest}));
   } catch (e) {
+    ProviderContainer().read(loggerProvider).log(
+          logLevel: LogLevel.Severe,
+          loggerClass: LoggerClass.DApp,
+          stackTrace: StackTrace.current,
+          message: 'Error initializing background connection: $e',
+        );
+
     completer.complete();
     PlatformUtils.instance.closeWindow();
   }

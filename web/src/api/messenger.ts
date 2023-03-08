@@ -98,7 +98,7 @@ class ContentMessenger {
                 method: API_METHODS.isEnabled,
             });
             const isOriginAllowed = (isEnabledResponse.data as Record<string, any>)["enabled"];
-            const permissionRequired = ![API_METHODS.enable, API_METHODS.isEnabled, API_METHODS.authorize].includes(request.method);
+            const permissionRequired = ![API_METHODS.isEnabled, API_METHODS.authorize].includes(request.method);
 
             if (request.method == API_METHODS.isEnabled) {
                 window.postMessage(isEnabledResponse);
@@ -126,35 +126,6 @@ class BackgroundMessenger {
 
     /** Responders for all the API methods available to web-pages.*/
     public responders = {
-        signTx: async (request: InternalMessage, sendResponse: (response?: InternalMessage) => void) => {
-            createPopup()
-                .then((tab: chrome.tabs.Tab) => this.handlePopupConnection(request, tab))
-                .then((result) => {
-                    sendResponse(result);
-                });
-        },
-        enable: (request: InternalMessage, sendResponse: (response?: InternalMessage) => void) => {
-            ExtensionStorage.isOriginAllowed(request.origin as string).then((isAllowed) => {
-                if (!isAllowed) {
-                    createPopup()
-                        .then((tab) => this.handlePopupConnection(request, tab))
-                        .then(async (result) => {
-                            if (result.data && result.data["enabled"] == true) {
-                                await ExtensionStorage.addToAllowList(request.origin as string);
-                            }
-                            sendResponse(result);
-                        });
-                } else {
-                    sendResponse({
-                        ...request,
-                        sender: SENDERS.ribn,
-                        data: {
-                            enabled: isAllowed,
-                        },
-                    });
-                }
-            });
-        },
         isEnabled: (request: InternalMessage, sendResponse: (response?: InternalMessage) => void) => {
             ExtensionStorage.isOriginAllowed(request.origin as string).then((isAllowed) => {
                 sendResponse({
@@ -203,7 +174,7 @@ class BackgroundMessenger {
                 ...request,
                 sender: SENDERS.ribn,
                 data: {
-                    //                     message: window.randomFunctionName(),
+//                     message: window.randomFunctionName(),
                     message: "",
                 }
             });
@@ -291,14 +262,6 @@ class BackgroundMessenger {
                 },
             });
             switch (request.method) {
-                case API_METHODS.signTx: {
-                    this.responders.signTx(request, sendResponse);
-                    break;
-                }
-                case API_METHODS.enable: {
-                    this.responders.enable(request, sendResponse);
-                    break;
-                }
                 case API_METHODS.isEnabled: {
                     this.responders.isEnabled(request, sendResponse);
                     break;
