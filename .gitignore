@@ -2,6 +2,7 @@ node_modules/
 dist/
 mock/
 pubspec.lock
+.env
 
 # Ignore secrets
 key.properties
