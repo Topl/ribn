@@ -1,6 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ribn/models/images/ribn_file_model.dart';
@@ -30,11 +31,11 @@ import '../../../models/jira/jira_content_model.dart';
 import '../../../models/jira/jira_content_type_model.dart';
 import '../../../services/jira/jira_service.dart';
 
-class RibnFeedbackForm extends HookWidget {
+class RibnFeedbackForm extends HookConsumerWidget {
   final _formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     useEffect(() {
       return () {
         // ignore: invalid_use_of_protected_member
@@ -48,7 +49,7 @@ class RibnFeedbackForm extends HookWidget {
     final TextEditingController _emailController = useTextEditingController();
     final TextEditingController _descriptionController = useTextEditingController();
 
-    JiraService _jiraService = JiraService();
+    final JiraService _jiraService = ref.read(jiraServiceProvider);
     final String _assigneeID = EnvironmentConfig.ASSIGNEE_ID;
     final String _issueType = EnvironmentConfig.ISSUE_TYPE;
     final String _projectKey = EnvironmentConfig.PROJECT_KEY;
@@ -261,29 +262,35 @@ class RibnFeedbackForm extends HookWidget {
                               onPressed: () async {
                                 List<RibnFileModel> files = [];
                                 context.loaderOverlay.show();
-                                _imageFileList.value.forEach((XFile file) {
-                                  files.add(new RibnFileModel(filePath: file.path, fileType: ""));
-                                });
-                                final JiraCreateIssueResponseModel response =
-                                    await _jiraService.createJiraIssue(new JiraIssueModel(
-                                        fields: new JiraFieldsModel(
-                                            assignee: new JiraAssigneeModel(id: _assigneeID),
-                                            labels: _issueLabels,
-                                            summary: _selectedTitle.value,
-                                            issuetype: new JiraAssigneeModel(id: _issueType),
-                                            project: new JiraProjectModel(key: _projectKey),
-                                            description: JiraDescriptionModel(content: <JiraContentModel>[
-                                              new JiraContentModel(content: <JiraContentTypeModel>[
-                                                JiraContentTypeModel(text: 'User email: ${_emailController.text}\n\n'),
-                                                JiraContentTypeModel(
-                                                    text: 'Description\n${_descriptionController.text}')
-                                              ])
-                                            ]),
-                                            attachments: files)));
-                                context.loaderOverlay.hide();
-                                if (response.success) {
-                                  Keys.navigatorKey.currentState?.pushNamed(Routes.feedbackSuccess);
-                                } else {
+                                try {
+                                  _imageFileList.value.forEach((XFile file) {
+                                    files.add(new RibnFileModel(filePath: file.path, fileType: ""));
+                                  });
+                                  final JiraCreateIssueResponseModel response =
+                                      await _jiraService.createJiraIssue(new JiraIssueModel(
+                                          fields: new JiraFieldsModel(
+                                              assignee: new JiraAssigneeModel(id: _assigneeID),
+                                              labels: _issueLabels,
+                                              summary: _selectedTitle.value,
+                                              issuetype: new JiraAssigneeModel(id: _issueType),
+                                              project: new JiraProjectModel(key: _projectKey),
+                                              description: JiraDescriptionModel(content: <JiraContentModel>[
+                                                new JiraContentModel(content: <JiraContentTypeModel>[
+                                                  JiraContentTypeModel(
+                                                      text: 'User email: ${_emailController.text}\n\n'),
+                                                  JiraContentTypeModel(
+                                                      text: 'Description\n${_descriptionController.text}')
+                                                ])
+                                              ]),
+                                              attachments: files)));
+                                  context.loaderOverlay.hide();
+                                  if (response.success) {
+                                    Keys.navigatorKey.currentState?.pushNamed(Routes.feedbackSuccess);
+                                  } else {
+                                    Keys.navigatorKey.currentState?.pushNamed(Routes.feedbackError);
+                                  }
+                                } catch (e) {
+                                  print('QQQQ error $e');
                                   Keys.navigatorKey.currentState?.pushNamed(Routes.feedbackError);
                                 }
                               },
