@@ -52,7 +52,6 @@ void main() {
 
   group('App middleware', () {
     setUp(reset);
-
     group('Login middleware', () {
       setUp(() {
         // generate mnemonic

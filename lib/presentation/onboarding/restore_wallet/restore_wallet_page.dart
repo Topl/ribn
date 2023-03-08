@@ -94,7 +94,9 @@ class RestoreWalletPage extends HookWidget {
               ),
             ),
             adaptableSpacer(),
-            renderIfMobile(const OnboardingProgressBar(numSteps: 2, currStep: 0)),
+            renderIfMobile(
+              const OnboardingProgressBar(numSteps: 2, currStep: 0),
+            ),
             const SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.only(bottom: 30),

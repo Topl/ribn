@@ -46,6 +46,8 @@ import 'package:ribn_toolkit/models/transactions/ribn_activity_details_model.dar
 
 // import 'package:ribn/models/transaction_history_entry.dart';
 
+// import 'package:ribn/models/transaction_history_entry.dart';
+
 class RootRouter {
   Route<MaterialPageRoute> generateRoutes(
     RouteSettings settings,
