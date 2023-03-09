@@ -1,14 +1,19 @@
 // Dart imports:
 import 'dart:ui';
 
-// Package imports:
-import 'package:barcode_widget/barcode_widget.dart';
-import 'package:brambldart/utils.dart';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:barcode_widget/barcode_widget.dart';
+import 'package:brambldart/utils.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:local_auth/local_auth.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
+
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
@@ -18,10 +23,6 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/widgets/custom_divider.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
-import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
 
 /// Formats an address string to only dispaly its first and last 10 characters.
 String formatAddrString(String addr, {int charsToDisplay = 10}) {
@@ -55,43 +56,6 @@ void validateRecipientAddress({
     result['success'] = false;
   }
   handleResult(result['success']);
-}
-
-Future<bool> isBiometricsAuthenticationSupported(
-  LocalAuthentication auth,
-) async {
-  final bool canCheckBiometrics = await auth.canCheckBiometrics;
-  final bool isDeviceSupported = await auth.isDeviceSupported();
-
-  return canCheckBiometrics && isDeviceSupported;
-}
-
-Future<bool> isBiometricsAuthenticationEnrolled(
-  LocalAuthentication auth,
-) async {
-  final bool canCheckBiometrics = await auth.canCheckBiometrics;
-  final bool isDeviceSupported = await auth.isDeviceSupported();
-  final List enrolledBiometrics = await auth.getAvailableBiometrics();
-
-  return canCheckBiometrics && isDeviceSupported && enrolledBiometrics.isNotEmpty;
-}
-
-Future<bool> authenticateWithBiometrics(LocalAuthentication auth) async {
-  return await auth.authenticate(
-    localizedReason: 'To authenticate with biometrics',
-    options: const AuthenticationOptions(
-      stickyAuth: true,
-      biometricOnly: true,
-      sensitiveTransaction: true,
-      useErrorDialogs: true,
-    ),
-  );
-}
-
-Future<bool> isBiometricsTypeFingerprint(LocalAuthentication auth) async {
-  final List enrolledBiometrics = await auth.getAvailableBiometrics();
-
-  return enrolledBiometrics.contains(BiometricType.fingerprint) && enrolledBiometrics.isNotEmpty;
 }
 
 /// Adapt to screen height based on [scaleFactor].

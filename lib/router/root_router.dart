@@ -4,6 +4,10 @@ import 'dart:convert';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:ribn_toolkit/models/transactions/ribn_activity_details_model.dart';
+
 // Project imports:
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/internal_message.dart';
@@ -41,8 +45,8 @@ import 'package:ribn/presentation/transfers/asset_transfer_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
 import 'package:ribn/presentation/transfers/tx_confirmation_page.dart';
 import 'package:ribn/presentation/transfers/tx_review_page.dart';
-// Package imports:
-import 'package:ribn_toolkit/models/transactions/ribn_activity_details_model.dart';
+
+// import 'package:ribn/models/transaction_history_entry.dart';
 
 // import 'package:ribn/models/transaction_history_entry.dart';
 

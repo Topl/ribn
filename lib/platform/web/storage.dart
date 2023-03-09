@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:convert';
 
 // Package imports:
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:js/js.dart';
 import 'package:js/js_util.dart';
 
@@ -77,9 +78,18 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
 
   /// Mobile-only
   @override
-  Future<String?> getKeyFromSecureStorage() => throw UnimplementedError();
+  Future<String?> getKeyFromSecureStorage({FlutterSecureStorage? override}) => throw UnimplementedError();
 
   /// Mobile-only
   @override
-  Future<void> saveKeyInSecureStorage(String key) => throw UnimplementedError();
+  Future<void> saveKeyInSecureStorage(String key, {FlutterSecureStorage? override}) => throw UnimplementedError();
+
+  /// Mobile-only
+  @override
+  Future<String> getKVInSecureStorage(String key, {FlutterSecureStorage? override}) => throw UnimplementedError();
+
+  /// Mobile-only
+  @override
+  Future<void> saveKVInSecureStorage(String key, String value, {FlutterSecureStorage? override}) =>
+      throw UnimplementedError();
 }

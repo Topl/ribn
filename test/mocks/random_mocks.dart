@@ -1,8 +1,11 @@
+// Dart imports:
 import 'dart:math';
 
+// Package imports:
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
 import 'random_mocks.mocks.dart';
 
 @GenerateMocks([Random])

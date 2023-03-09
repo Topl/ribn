@@ -83,6 +83,12 @@ file_test:
 	@reset
 	@flutter test test/middleware_test.dart
 
+nuclear_clean:
+	@echo "╠ Nuking pubcache completely, this might take a while...."
+	@flutter clean
+	@flutter pub cache repair
+	@flutter pub get
+
 test_coverage:
 	@flutter test --coverage
 	@genhtml coverage/lcov.info -o coverage/html

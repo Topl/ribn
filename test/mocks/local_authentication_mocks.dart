@@ -1,7 +1,9 @@
+// Package imports:
 import 'package:local_auth/local_auth.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
 import 'local_authentication_mocks.mocks.dart';
 
 @GenerateMocks([LocalAuthentication])

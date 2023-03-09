@@ -70,13 +70,14 @@ jobs:
       - uses: stelynx/dart-full-coverage@v1.1.1
         with:
           package: ribn
-          ignore: "*_state.dart, do_not_import_me.dart"
+          ignore: "*_state.dart, do_not_import_me.dart, js_workers/* , platform_web/*"
 
       - name: Install dependencies and generated files
         run: make gen
 
       - name: Run tests
-        run: flutter test --coverage .
+        run: flutter test --platform chrome --coverage .
+
 
       - uses: codecov/codecov-action@v1.0.2
         with:
