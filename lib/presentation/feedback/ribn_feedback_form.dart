@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ribn/models/images/ribn_file_model.dart';
-import 'package:ribn/models/jira/jira_createissue_response_model.dart';
+import 'package:ribn/models/jira/jira_create_issue_response_model.dart';
 import 'package:ribn/models/jira/jira_description_model.dart';
 import 'package:ribn/models/jira/jira_fields_model.dart';
 import 'package:ribn/models/jira/jira_issue_assignee_model.dart';

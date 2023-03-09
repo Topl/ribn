@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:ribn/constants/environment_config.dart';
 import 'package:ribn/models/images/ribn_file_model.dart';
-import 'package:ribn/models/jira/jira_createissue_response_model.dart';
+import 'package:ribn/models/jira/jira_create_issue_response_model.dart';
 import 'package:ribn/models/jira/jira_issue_model.dart';
-import 'package:ribn/services/http/http_service.dart';
+import 'package:ribn/services/http/jira_http_service.dart';
 
 final jiraServiceProvider = Provider<JiraService>((ref) {
   return JiraService();

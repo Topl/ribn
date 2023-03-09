@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:ribn/providers/packages/http_provider.dart';
 import 'package:ribn/services/interfaces/http/i_http_service.dart';
 
 import '../../constants/environment_config.dart';
@@ -11,6 +13,10 @@ import '../../models/images/ribn_file_model.dart';
  * @dev File contains implementation of the JIRA service for creating feedback/bug issues
  */
 class JiraHTTPService extends HTTPServiceBase {
+  final Ref ref;
+
+  JiraHTTPService(this.ref) : super(ref);
+
   static const Map<String, dynamic> defaultParams = {};
   static Map<String, String> defaultHeaders = {
     'Authorization':
@@ -33,6 +39,7 @@ class JiraHTTPService extends HTTPServiceBase {
     Map<String, String>? headers,
   }) async {
     headers = defaultHeaders;
+    ref.read(httpProvider).get(url, headers: headers);
     final http.Request request = await http.Request('GET', Uri.parse(url));
     request.body = json.encode(params);
     request.headers.addAll(headers);
