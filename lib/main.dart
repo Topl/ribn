@@ -34,6 +34,7 @@ void main() async {
   await Redux.initStore(initTestStore: true);
   final AppViews currentAppView = await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
+  print('QQQQ currentAppView: $currentAppView');
   // Open app in new tab if user needs onboarding
   if (currentAppView == AppViews.extension && needsOnboarding) {
     await PlatformUtils.instance.openInNewTab();
@@ -42,6 +43,8 @@ void main() async {
     await initBgConnection(Redux.store!);
     // Wallet().setJSCallbackFunction(_test());
     // initialize();
+  } else if (currentAppView == AppViews.webDebug) {
+    await initBgConnection(Redux.store!);
   }
   setupLocator(
     Redux.store!,
@@ -56,26 +59,32 @@ void main() async {
   );
 }
 
-class RibnApp extends StatelessWidget {
+class RibnApp extends HookConsumerWidget {
   final Store<AppState> store;
   final RootRouter rootRouter = RootRouter();
 
   RibnApp(this.store, {Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return StoreProvider<AppState>(
-      store: store,
-      child: Portal(
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Ribn',
-          navigatorObservers: [Routes.routeObserver],
-          onGenerateRoute: rootRouter.generateRoutes,
-          onGenerateInitialRoutes: (initialRoute) => onGenerateInitialRoute(initialRoute, store),
-          initialRoute: getInitialRoute(store),
-          navigatorKey: Keys.navigatorKey,
-        ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Container(
+      child: Column(
+        children: [
+          StoreProvider<AppState>(
+            store: store,
+            child: Portal(
+              child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Ribn',
+                navigatorObservers: [Routes.routeObserver],
+                onGenerateRoute: rootRouter.generateRoutes,
+                onGenerateInitialRoutes: (initialRoute) => onGenerateInitialRoute(initialRoute, store),
+                initialRoute: getInitialRoute(store),
+                navigatorKey: Keys.navigatorKey,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -94,6 +103,7 @@ String getInitialRoute(Store<AppState> store) {
   } else if (store.state.internalMessage?.method == InternalMethods.getBalance) {
     return Routes.reviewAndSignDApp;
   } else if (store.state.internalMessage?.method == InternalMethods.signTransaction) {
+    print('QQQQ signTransaction');
     return Routes.reviewAndSignDApp;
   }
 
@@ -149,16 +159,20 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
 Future<void> initBgConnection(Store<AppState> store) async {
   final Completer<void> completer = Completer<void>();
   try {
+    print('QQQQ initBGConnection 1');
     Messenger.instance.connect();
+    print('QQQQ initBGConnection 2');
     Messenger.instance.initMsgListener((String msgFromBgScript) {
+      print('QQQQ msgFromBgScript: $msgFromBgScript');
       final InternalMessage pendingRequest = InternalMessage.fromJson(msgFromBgScript);
 
       store.dispatch(ReceivedInternalMsgAction(pendingRequest));
       completer.complete();
     });
+    print('QQQQ initBGConnection 3');
     Messenger.instance.sendMsg(jsonEncode({'method': InternalMethods.checkPendingRequest}));
-
   } catch (e) {
+    print('QQQQ initBGConnection error: $e');
     ProviderContainer().read(loggerProvider).log(
           logLevel: LogLevel.Severe,
           loggerClass: LoggerClass.DApp,

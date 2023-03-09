@@ -22,10 +22,16 @@ class Messenger implements IMessenger {
   static Messenger get instance => Messenger();
 
   @override
-  void connect() => openConnection();
+  void connect() {
+    print('QQQQ connect 1');
+    return openConnection();
+  }
 
   @override
-  void initMsgListener(Function msgHandler) => addPortMessageListener(allowInterop(msgHandler));
+  void initMsgListener(Function msgHandler) {
+    print('QQQQ initMsgListener 1');
+    return addPortMessageListener(allowInterop(msgHandler));
+  }
 
   @override
   void sendMsg(String msg) => sendPortMessage(msg);

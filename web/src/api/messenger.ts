@@ -10,6 +10,7 @@ export const Messenger = {
      * Attaches a listener to listen for response from the content-script.
      */
     forwardToContentScript: ({ method, data }: APIRequest): Promise<InternalMessage> => {
+        console.log("QQQQ 1");
         return new Promise((resolve, reject) => {
             const requestId: string = Math.random().toString(36).substr(2);
             // listen for message-events from the content-script
@@ -66,6 +67,8 @@ class ContentMessenger {
      */
     public initListeners = () => {
         chrome.runtime.onMessage.addListener((message: InternalMessage) => {
+            console.log("QQQQ 2");
+
             if (
                 typeof message !== "object" ||
                 message === null ||
@@ -139,6 +142,7 @@ class BackgroundMessenger {
         },
         //v2
         authorize: (request: InternalMessage, sendResponse: (response?: InternalMessage) => void) => {
+            console.log('QQQQ authorize');
             ExtensionStorage.isOriginAllowed(request.origin as string).then((isAllowed) => {
                 if (!isAllowed) {
                     request.additionalNavigation = "/connect-dapp"
@@ -174,7 +178,7 @@ class BackgroundMessenger {
                 ...request,
                 sender: SENDERS.ribn,
                 data: {
-//                     message: window.randomFunctionName(),
+                    //                     message: window.randomFunctionName(),
                     message: "",
                 }
             });
