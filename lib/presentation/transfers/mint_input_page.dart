@@ -276,7 +276,10 @@ class _MintInputPageState extends State<MintInputPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // fee info for the tx
-                  FeeInfo(fee: vm.networkFee),
+                  FeeInfo(
+                    fee: vm.networkFee,
+                    currentNetworkName: vm.currentNetwork.networkName,
+                  ),
                   _buildReviewButton(vm),
                 ],
               ),

@@ -65,7 +65,10 @@ class PolyTransferSection extends HookConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // fee info for the tx
-              FeeInfo(fee: vm.networkFee),
+              FeeInfo(
+                fee: vm.networkFee,
+                currentNetworkName: vm.currentNetwork.networkName,
+              ),
               _ReviewButton(
                 vm: vm,
               ),

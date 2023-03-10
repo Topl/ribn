@@ -230,7 +230,9 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FeeInfo(fee: int.parse(transactionDetails['fee'])),
+            FeeInfo(
+              fee: int.parse(transactionDetails['fee']),
+            ),
             const SizedBox(height: 15),
             kIsWeb
                 ? Row(

@@ -161,7 +161,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       );
     }
 
-    final bool isValhall = vm.currentNetwork.networkName == NetworkUtils.valhalla;
+    final bool isValhalla = vm.currentNetwork.networkName == NetworkUtils.valhalla;
     return WaveContainer(
       containerHeight: 183,
       containerWidth: double.infinity,
@@ -180,7 +180,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '${vm.polyBalance} ${isValhall ? 'nanoPOLY' : 'POLY'}',
+                          '${vm.polyBalance} ${isValhalla ? 'nanoPOLY' : 'POLY'}',
                           style: RibnToolkitTextStyles.h2.copyWith(
                             color: const Color(0xFFE5E5E5),
                             letterSpacing: 1.42,
