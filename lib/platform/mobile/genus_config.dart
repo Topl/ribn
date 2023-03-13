@@ -15,7 +15,6 @@ class PlatformGenusConfig {
   );
 
   static ClientChannel getNetworkConfig (String genusIP) => ClientChannel(
-    // NetworkUtils.privateIP,
     genusIP,
     port: 8089,
     options: const ChannelOptions(

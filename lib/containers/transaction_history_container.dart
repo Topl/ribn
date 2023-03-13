@@ -1,16 +1,15 @@
 // Flutter imports:
 
+// Package imports:
+import 'package:brambldart/brambldart.dart';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-// Package imports:
-import 'package:brambldart/brambldart.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:grpc/grpc.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:redux/redux.dart';
 import 'package:ribn/constants/network_utils.dart';
-
 // Project imports:
 import 'package:ribn/genus/generated/filters.pb.dart';
 import 'package:ribn/genus/generated/services_types.pb.dart';
@@ -18,6 +17,7 @@ import 'package:ribn/genus/generated/transactions_query.pbgrpc.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_network.dart';
 import 'package:ribn/platform/platform.dart';
+import 'package:ribn/providers/logger_provider.dart';
 
 /// Intended to wrap the [TransactionHistoryPage] and provide it with the the [TransactionHistoryViewmodel].
 class TransactionHistoryContainer extends StatelessWidget {
@@ -114,12 +114,10 @@ class TransactionHistoryViewmodel {
 
   static Future<List<TransactionReceipt>> getGenusTxs({
     required String walletAddress,
-    int pageNumber = 0, required RibnNetwork currentNetwork,
+    int pageNumber = 0,
+    required RibnNetwork currentNetwork,
   }) async {
-
-
     ClientChannel channel = _getClientChannel(currentNetwork);
-
 
     final txQueryClient = TransactionsQueryClient(channel);
     final txQueryResult = await txQueryClient.query(
@@ -136,6 +134,7 @@ class TransactionHistoryViewmodel {
         confirmationDepth: 1,
       ),
     );
+
     final Map<String, dynamic> txResultJson = txQueryResult.toProto3Json() as Map<String, dynamic>;
     final List<TransactionReceipt> txs = [];
     for (var element in (txResultJson['success']['transactions'] as List)) {
@@ -244,8 +243,18 @@ class TransactionHistoryViewmodel {
   }
 
   static ClientChannel _getClientChannel(RibnNetwork currentNetwork) {
-    final network = NetworkConfig.fromNetwork(Networks.values.byName(currentNetwork.networkName));
-    return PlatformGenusConfig.getNetworkConfig(network.genusIP);
+    try {
+      final network = NetworkConfig.fromNetwork(Networks.values.byName(currentNetwork.networkName));
+      return PlatformGenusConfig.getNetworkConfig(network.genusIP);
+    } catch (e) {
+      ProviderContainer().read(loggerProvider).log(
+            logLevel: LogLevel.Warning,
+            loggerClass: LoggerClass.ApiError,
+            message: "Error parsing clientChannel from Network config",
+            stackTrace: StackTrace.current,
+            error: e,
+          );
+      throw(e);
+    }
   }
-
 }

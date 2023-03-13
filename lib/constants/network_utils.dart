@@ -5,7 +5,7 @@ import 'package:brambldart/utils.dart' as constants;
 
 enum Networks {
   valhalla("valhalla"),
-  toplNet("toplnet"),
+  toplnet("toplnet"),
   private("private");
 
   const Networks(this.name);
@@ -52,10 +52,15 @@ class NetworkUtils {
   };
 
   static Map<int, String> genusIPs = {
-    valhallaId: "34.72.160.177",
-    toplNetId: "",
+    // valhallaId: "34.72.160.177",
+    valhallaId: "35.224.14.0",
+    // valhallaId: "http:/valhalla.genus.topl.tech",
+    toplNetId: "34.171.109.202",
+    // toplNetId: "http://toplnet.genus.topl.tech/",
     privateId: "104.197.222.150"
   };
+
+  // http://toplnet.genus.topl.tech/
 }
 
 
