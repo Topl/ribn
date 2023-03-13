@@ -6,6 +6,12 @@ import 'package:ribn/constants/network_utils.dart';
 
 class PlatformGenusConfig {
   static GrpcWebClientChannel channel = GrpcWebClientChannel.xhr(
+    // Uri.parse('http://${NetworkUtils.privateIP}:8099'),
     Uri.parse('http://${NetworkUtils.privateIP}:8099'),
+  );
+
+  static GrpcWebClientChannel getNetworkConfig (String genusIP) => GrpcWebClientChannel.xhr(
+  // Uri.parse('http://${NetworkUtils.privateIP}:8099'),
+  Uri.parse('http://$genusIP:8099'),
   );
 }

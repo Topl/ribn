@@ -7,13 +7,16 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:grpc/grpc.dart';
 import 'package:redux/redux.dart';
+import 'package:ribn/constants/network_utils.dart';
 
 // Project imports:
 import 'package:ribn/genus/generated/filters.pb.dart';
 import 'package:ribn/genus/generated/services_types.pb.dart';
 import 'package:ribn/genus/generated/transactions_query.pbgrpc.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:ribn/models/ribn_network.dart';
 import 'package:ribn/platform/platform.dart';
 
 /// Intended to wrap the [TransactionHistoryPage] and provide it with the the [TransactionHistoryViewmodel].
@@ -68,7 +71,7 @@ class TransactionHistoryViewmodel {
           client: currNetwork.client!,
           walletAddress: myWalletAddress,
         );
-        final genusTxs = await getGenusTxs(walletAddress: myWalletAddress);
+        final genusTxs = await getGenusTxs(walletAddress: myWalletAddress, currentNetwork: currNetwork);
         return [...mempoolTxs, ...genusTxs];
       },
     );
@@ -111,9 +114,14 @@ class TransactionHistoryViewmodel {
 
   static Future<List<TransactionReceipt>> getGenusTxs({
     required String walletAddress,
-    int pageNumber = 0,
+    int pageNumber = 0, required RibnNetwork currentNetwork,
   }) async {
-    final txQueryClient = TransactionsQueryClient(PlatformGenusConfig.channel);
+
+
+    ClientChannel channel = _getClientChannel(currentNetwork);
+
+
+    final txQueryClient = TransactionsQueryClient(channel);
     final txQueryResult = await txQueryClient.query(
       QueryTxsReq(
         filter: TransactionFilter(
@@ -234,4 +242,10 @@ class TransactionHistoryViewmodel {
         blockHeight.hashCode ^
         getTransactions.hashCode;
   }
+
+  static ClientChannel _getClientChannel(RibnNetwork currentNetwork) {
+    final network = NetworkConfig.fromNetwork(Networks.values.byName(currentNetwork.networkName));
+    return PlatformGenusConfig.getNetworkConfig(network.genusIP);
+  }
+
 }
