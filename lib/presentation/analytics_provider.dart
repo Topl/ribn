@@ -1,35 +1,32 @@
 import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/models/state/analytics_state.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/providers/logger_provider.dart';
 import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 import 'package:ribn/utils/extensions.dart';
 
-final analyticsProvider = Provider<Analytics>((ref) {
-  return Analytics(ref);
+final analyticsProvider = StateNotifierProvider<AnalyticsNotifier, AsyncValue<AnalyticsState>>((ref) {
+  return AnalyticsNotifier(ref);
 });
 
-class Analytics {
-  ProviderRef<Analytics> ref;
-
-  // Allows you to listen to Analytics being initialized and listen for it's final value
-  Completer<bool> enabled = Completer();
+class AnalyticsNotifier extends StateNotifier<AsyncValue<AnalyticsState>> {
+  final Ref ref;
 
   // Load no analytics tracking as default
   AnalyticsService _service = voidAnalyticsService();
 
-  Analytics(this.ref) {
+  AnalyticsNotifier(this.ref) : super(AsyncLoading()) {
     _isAnalyticsEnabled().then((isEnabled) {
+      state = AsyncData(AnalyticsState(isEnabled: isEnabled));
       if (isEnabled) {
         _service = FirebaseAnalyticsService();
       }
-      enabled.complete(isEnabled);
     });
   }
 
   void log(String name, Map<String, dynamic> parameters) => _service.logEvent(name, parameters);
-
 
   static const _analyticsEnabledKey = "biometricsEnabled";
 
@@ -39,28 +36,40 @@ class Analytics {
    */
   Future toggleAnalytics({bool? overrideValue}) async {
     final logger = ref.read(loggerProvider);
-    enabled.future.then((value) async {
-      final isEnabled = overrideValue ?? !value;
 
-      await PlatformLocalStorage.instance.saveKVInSecureStorage(_analyticsEnabledKey, (isEnabled).toString(),
-          override: ref.read(flutterSecureStorageProvider)());
+    final analytics = state.value; // setup for type promotion
+    if (analytics == null) {
+      logger.log(
+        logLevel: LogLevel.Warning,
+        loggerClass: LoggerClass.Analytics,
+        message: "Tried to modify analytics state, before initialization was completed",
+      );
+      state = AsyncError(Exception("Biometrics not initialized"), StackTrace.current);
+      return;
+    }
 
-      if (isEnabled) {
-        _service = FirebaseAnalyticsService();
-        logger.log(
-          logLevel: LogLevel.Info,
-          loggerClass: LoggerClass.Analytics,
-          message: "Analytics enabled",
-        );
-      } else {
-        _service = voidAnalyticsService();
-        logger.log(
-          logLevel: LogLevel.Info,
-          loggerClass: LoggerClass.Analytics,
-          message: "Analytics disabled",
-        );
-      }
-    });
+    final isEnabled = overrideValue ?? !analytics.isEnabled;
+
+    await PlatformLocalStorage.instance.saveKVInSecureStorage(_analyticsEnabledKey, (isEnabled).toString(),
+        override: ref.read(flutterSecureStorageProvider)());
+
+    if (isEnabled) {
+      _service = FirebaseAnalyticsService();
+      logger.log(
+        logLevel: LogLevel.Info,
+        loggerClass: LoggerClass.Analytics,
+        message: "Analytics enabled",
+      );
+    } else {
+      _service = voidAnalyticsService();
+      logger.log(
+        logLevel: LogLevel.Info,
+        loggerClass: LoggerClass.Analytics,
+        message: "Analytics disabled",
+      );
+    }
+
+    state = AsyncValue.data(analytics.copyWith(isEnabled: isEnabled));
   }
 
   Future<bool> _isAnalyticsEnabled() async {
