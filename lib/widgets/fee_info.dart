@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ribn/constants/network_utils.dart';
 
 // Package imports:
@@ -10,7 +11,7 @@ import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn/constants/strings.dart';
 
 /// A widget that displays the fee info during the transfer flows in Ribn.
-class FeeInfo extends StatelessWidget {
+class FeeInfo extends HookWidget {
   final String currentNetworkName;
   const FeeInfo({
     required this.fee,
@@ -22,6 +23,11 @@ class FeeInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isValhalla = currentNetworkName == NetworkUtils.valhalla;
+    final bool isMainnet = currentNetworkName == NetworkUtils.toplNet;
+
+    final feeState = useState(isMainnet ? fee / 1000000000 : fee);
+    final unitState = useState(isValhalla ? 'nanoPOLY' : 'POLY');
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -35,7 +41,7 @@ class FeeInfo extends StatelessWidget {
         Row(
           children: [
             Text(
-              '$fee ${isValhalla ? 'nanoPOLY' : 'POLY'}',
+              '${feeState.value} ${unitState.value}',
               style: const TextStyle(
                 fontFamily: 'DM Sans',
                 fontSize: 11,
