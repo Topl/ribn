@@ -91,8 +91,6 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
   void disposeController(TextEditingController controller) => controller.dispose();
 
   void renderBottomButton() {
-    print('QQQQ 1 vm: ${widget.vm.networkFee}');
-    print('QQQQ 1 vm: ${widget.vm.currentNetwork.networkName}');
     return WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.updateButton(
         BottomReviewAction(

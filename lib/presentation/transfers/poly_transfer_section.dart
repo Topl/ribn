@@ -56,8 +56,6 @@ class PolyTransferSection extends HookConsumerWidget {
 
   // TODO, Update this so that it's not causing a render in another widget
   void renderBottomButton() {
-    print('QQQQ vm: ${vm.toString()}');
-
     return WidgetsBinding.instance.addPostFrameCallback((_) {
       updateButton(
         BottomReviewAction(
