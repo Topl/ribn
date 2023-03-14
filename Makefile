@@ -28,6 +28,7 @@ clean: ## Cleans the environment
 	@rm -rf pubspec.lock
 	@flutter clean
 	@flutter pub get
+
 fix_warnings: ## fix any warnings
 	@echo "╠ Attempting to fix warnings..."
 	@dart fix --dry-run
@@ -44,9 +45,9 @@ gen: ## Generates the assets
 
 format: ## Formats the code
 	@echo "╠ Formatting the code"
-	@dart format lib .
+	@dart format lib . -l 120
 	@flutter pub run import_sorter:main
-	@dart format .
+	@dart format . -l 120
 
 lint: ## Lints the code
 	@echo "╠ Verifying code..."
@@ -77,3 +78,18 @@ arm_mac_hard_clean:
 	sudo arch -x86_64 gem install ffi && \
 	arch -x86_64 pod install && \
 	cd ..
+
+file_test:
+	@reset
+	@flutter test test/middleware_test.dart
+
+nuclear_clean:
+	@echo "╠ Nuking pubcache completely, this might take a while...."
+	@flutter clean
+	@flutter pub cache repair
+	@flutter pub get
+
+test_coverage:
+	@flutter test --coverage
+	@genhtml coverage/lcov.info -o coverage/html
+	@open coverage/html/index.html

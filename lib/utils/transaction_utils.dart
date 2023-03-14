@@ -1,4 +1,8 @@
+// Package imports:
 import 'package:brambldart/brambldart.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+// Project imports:
 import 'package:ribn/providers/logger_provider.dart';
 
 /// This filters out Change UTxOs
@@ -11,17 +15,27 @@ List<TransactionReceipt> filterOutChangeUTxO(List<TransactionReceipt> txs) {
     // Get the senders address
     final Sender? transactionSenderAddress = tx.from?[0];
 
+    final ProviderContainer container = ProviderContainer();
+
     // If there is no sender, filter out and log issue
     if (transactionSenderAddress == null) {
-      transactionLogger().severe('Transaction does not have a sender');
+      container.read(loggerProvider).log(
+            logLevel: LogLevel.Severe,
+            loggerClass: LoggerClass.Transaction,
+            message: 'Transaction does not have a sender',
+          );
       return false;
     }
-    // Get teh recievers address
+    // Get the receivers address
     final String? transactionReceiverAddress = tx.to.first?.toJson()?[0].toString();
 
     // If there is no receiver, filter out and log issue
     if (transactionReceiverAddress == null) {
-      transactionLogger().severe('Transaction does not have a receiver');
+      container.read(loggerProvider).log(
+            logLevel: LogLevel.Severe,
+            loggerClass: LoggerClass.Transaction,
+            message: 'Transaction does not have a receiver',
+          );
       return false;
     }
 

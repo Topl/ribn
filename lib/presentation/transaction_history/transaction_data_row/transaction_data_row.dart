@@ -9,13 +9,12 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
 // Project imports:
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/utils/extensions.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/molecules/ribn_activity_tile.dart';
-
-import '../../../constants/routes.dart';
 
 class TransactionDataRow extends StatefulWidget {
   final List<AssetAmount> assets;
@@ -68,8 +67,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
     final DateFormat dateFormatAlternate = DateFormat('MM-dd-yyyy');
     final String formattedDate = dateFormat.format(date);
     final String formattedDateAlternate = dateFormatAlternate.format(date);
-    final String transactionReceiverAddress =
-        widget.transactionReceipt.to.first.toJson()[0].toString();
+    final String transactionReceiverAddress = widget.transactionReceipt.to.first.toJson()[0].toString();
     final String transactionQuantity = isPolyTransaction
         ? widget.transactionReceipt.to.first.toJson()[1]
         : widget.transactionReceipt.to.first.toJson()[1]['quantity'];
@@ -77,28 +75,22 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
 
     final String fee = '${widget.transactionReceipt.fee!.quantity} nanoPOLYs';
     final Latin1Data? note = widget.transactionReceipt.data;
-    final String securityRoot =
-        isPolyTransaction ? '' : widget.transactionReceipt.to.first.toJson()[1]['securityRoot'];
-    final String assetCode = isPolyTransaction
-        ? ''
-        : widget.transactionReceipt.to.first.toJson()[1]['assetCode'].toString();
+    final String securityRoot = isPolyTransaction ? '' : widget.transactionReceipt.to.first.toJson()[1]['securityRoot'];
+    final String assetCode =
+        isPolyTransaction ? '' : widget.transactionReceipt.to.first.toJson()[1]['assetCode'].toString();
     final ModifierId? blockId = widget.transactionReceipt.blockId;
     final BlockNum? blockNumber = widget.transactionReceipt.blockNumber;
     final ModifierId transactionId = widget.transactionReceipt.id;
     final String renderPlusOrMinusPolyTransfer =
         transactionReceiverAddress == widget.myRibnWalletAddress && isPolyTransaction ? '+' : '-';
-    final String transactionAmountForPolyTransfer =
-        '$renderPlusOrMinusPolyTransfer$transactionQuantity';
+    final String transactionAmountForPolyTransfer = '$renderPlusOrMinusPolyTransfer$transactionQuantity';
 
     String? transactionAmountForAssetTransfer() {
-      if (transactionReceiverAddress == widget.myRibnWalletAddress &&
-          !transactionQuantity.contains('-')) {
+      if (transactionReceiverAddress == widget.myRibnWalletAddress && !transactionQuantity.contains('-')) {
         return '+$transactionQuantity';
-      } else if (transactionReceiverAddress == widget.myRibnWalletAddress &&
-          transactionQuantity.contains('-')) {
+      } else if (transactionReceiverAddress == widget.myRibnWalletAddress && transactionQuantity.contains('-')) {
         return transactionQuantity;
-      } else if (transactionReceiverAddress != widget.myRibnWalletAddress &&
-          transactionQuantity.contains('-')) {
+      } else if (transactionReceiverAddress != widget.myRibnWalletAddress && transactionQuantity.contains('-')) {
         return transactionQuantity;
       } else if (transactionReceiverAddress != widget.myRibnWalletAddress &&
           widget.transactionReceipt.minting == true) {
@@ -108,8 +100,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
     }
 
     String? renderSentReceivedMintedText() {
-      if (transactionReceiverAddress == widget.myRibnWalletAddress &&
-          !transactionQuantity.contains('-')) {
+      if (transactionReceiverAddress == widget.myRibnWalletAddress && !transactionQuantity.contains('-')) {
         return 'Received';
       }
       return 'Sent';
@@ -128,8 +119,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
         return RibnActivityTile(
           tileColor: RibnColors.whiteColor,
           assetIcon: isPolyTransaction ? renderPolyIcon() : renderAssetIcon(assetDetails?.icon),
-          assetBalance:
-              '${transactionAmountForAssetTransfer()} ${(assetDetails?.unit ?? 'Unit').formatAssetUnit()}',
+          assetBalance: '${transactionAmountForAssetTransfer()} ${(assetDetails?.unit ?? 'Unit').formatAssetUnit()}',
           assetShortName: isPolyTransaction
               ? 'POLY'
               : filteredAsset.isNotEmpty
@@ -142,9 +132,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
               'isPolyTransaction': isPolyTransaction,
               'transactionType': renderSentReceivedMintedText(),
               'timestamp': formattedDateAlternate,
-              'assetDetails': isPolyTransaction
-                  ? {}
-                  : assetDetails ?? {'unit': transactionAmountForAssetTransfer()},
+              'assetDetails': isPolyTransaction ? {} : assetDetails ?? {'unit': transactionAmountForAssetTransfer()},
               'icon': isPolyTransaction ? renderPolyIcon() : renderAssetIcon(assetDetails?.icon),
               'shortName': isPolyTransaction
                   ? 'POLY'

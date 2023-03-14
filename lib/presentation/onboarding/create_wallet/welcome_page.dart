@@ -17,7 +17,11 @@ import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 
 /// The initial welcome page displayed during onboarding on mobile.
 class WelcomePage extends StatelessWidget {
-  const WelcomePage({Key? key}) : super(key: key);
+  static const welcomePageKey = Key('welcomePageKey');
+  static const welcomePageConfirmationButtonKey = Key('welcomePageConfirmationButtonKey');
+  const WelcomePage({
+    Key key = welcomePageKey,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +61,15 @@ class WelcomePage extends StatelessWidget {
                   ),
                 ),
                 adaptableSpacer(),
-                ConfirmationButton(
-                  text: Strings.getStarted,
-                  onPressed: () {
-                    Keys.navigatorKey.currentState
-                        ?.pushNamed(Routes.selectAction);
-                  },
+                Padding(
+                  padding: EdgeInsets.only(bottom: 50),
+                  child: ConfirmationButton(
+                    key: welcomePageConfirmationButtonKey,
+                    text: Strings.getStarted,
+                    onPressed: () {
+                      Keys.navigatorKey.currentState?.pushNamed(Routes.optIn);
+                    },
+                  ),
                 ),
               ],
             ),

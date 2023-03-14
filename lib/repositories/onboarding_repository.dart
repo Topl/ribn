@@ -24,10 +24,8 @@ class OnboardingRespository {
     const Base58Encoder base58Encoder = Base58Encoder.instance;
     final String mnemonic = generateMnemonic(random);
     final Bip32KeyPair toplExtendedKeyPair = deriveToplExtendedKeys(mnemonic);
-    final Uint8List toplExtendedPrvKeyUint8List =
-        Uint8List.fromList(toplExtendedKeyPair.privateKey!);
-    final String base58EncodedToplExtendedPrvKey =
-        base58Encoder.encode(toplExtendedPrvKeyUint8List);
+    final Uint8List toplExtendedPrvKeyUint8List = Uint8List.fromList(toplExtendedKeyPair.privateKey!);
+    final String base58EncodedToplExtendedPrvKey = base58Encoder.encode(toplExtendedPrvKeyUint8List);
     final KeyStore keyStore = KeyStore.createNew(
       base58EncodedToplExtendedPrvKey,
       password,
@@ -52,18 +50,16 @@ class OnboardingRespository {
   Map<String, dynamic> generateKeyStore(Map<String, dynamic> params) {
     const Base58Encoder base58Encoder = Base58Encoder.instance;
     final Random random = Random.secure();
-    final Bip32KeyPair toplExtendedKeyPair =
-        deriveToplExtendedKeys(params['mnemonic']);
-    final Uint8List toplExtendedPrvKeyUint8List =
-        Uint8List.fromList(toplExtendedKeyPair.privateKey!);
-    final String base58EncodedToplExtendedPrvKey =
-        base58Encoder.encode(toplExtendedPrvKeyUint8List);
+    final Bip32KeyPair toplExtendedKeyPair = deriveToplExtendedKeys(params['mnemonic']);
+    final Uint8List toplExtendedPrvKeyUint8List = Uint8List.fromList(toplExtendedKeyPair.privateKey!);
+    final String base58EncodedToplExtendedPrvKey = base58Encoder.encode(toplExtendedPrvKeyUint8List);
     final KeyStore keyStore = KeyStore.createNew(
       base58EncodedToplExtendedPrvKey,
       params['password'],
       random,
       scryptN: Rules.scryptN,
     );
+
     final String keyStoreJson = keyStore.toJson();
     return {
       'keyStoreJson': keyStoreJson,

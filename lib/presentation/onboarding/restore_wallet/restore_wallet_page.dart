@@ -1,55 +1,53 @@
-import 'package:bip_topl/bip_topl.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:ribn/actions/misc_actions.dart';
-import 'package:ribn/constants/routes.dart';
-import 'package:ribn/constants/strings.dart';
-import 'package:ribn/models/app_state.dart';
-import 'package:ribn/presentation/onboarding/utils.dart';
-import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
-import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
-import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
+
+// Package imports:
+import 'package:bip_topl/bip_topl.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_text_field.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
 
+// Project imports:
+import 'package:ribn/constants/routes.dart';
+import 'package:ribn/constants/strings.dart';
+import 'package:ribn/presentation/onboarding/utils.dart';
+import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
+import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
+import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
+import 'package:ribn/utils/navigation_utils.dart';
+
 /// This page allows the user to enter a known mnemonic / seed phrase in order to restore a wallet.
 ///
 /// This page is used in the 'restore wallet' flow when initiated from the login page,
 /// hence the widget name is prefixed with 'Login'.
-class RestoreWalletPage extends StatefulWidget {
-  const RestoreWalletPage({Key? key}) : super(key: key);
+class RestoreWalletPage extends HookWidget {
+  static const Key restoreWalletPageKey = Key('restoreWalletPageKey');
+  static const Key restoreWalletConfirmationButtonKey = Key('restoreWalletConfirmationButtonKey');
+  static const Key mnemonicTextFieldKey = Key('mnemonicTextFieldKey');
 
-  @override
-  _RestoreWalletPageState createState() => _RestoreWalletPageState();
-}
-
-class _RestoreWalletPageState extends State<RestoreWalletPage> {
-  final double maxWidth = 309;
-
-  /// Controller for the seed phrase text field.
-  final TextEditingController controller = TextEditingController();
-
-  /// Seed phrase entered by the user.
-  String seedPhrase = '';
-
-  /// True if an invalid seed phrase is entered.
-  bool invalidSeedPhraseEntered = false;
-
-  @override
-  void initState() {
-    controller.addListener(() {
-      setState(() {
-        seedPhrase = controller.text;
-        invalidSeedPhraseEntered = false;
-      });
-    });
-    super.initState();
-  }
+  const RestoreWalletPage({Key key = restoreWalletPageKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    /// Controller for the seed phrase text field.
+    final TextEditingController controller = useTextEditingController();
+
+    /// Seed phrase entered by the user.
+    final seedPhrase = useState(controller.text);
+
+    /// True if an invalid seed phrase is entered.
+    final invalidSeedPhraseEntered = useState(false);
+
+    useEffect(() {
+      controller.addListener(() {
+        seedPhrase.value = controller.text;
+        invalidSeedPhraseEntered.value = false;
+      });
+
+      return () {};
+    }, []);
     return Scaffold(
       extendBody: true,
       body: OnboardingContainer(
@@ -86,11 +84,12 @@ class _RestoreWalletPageState extends State<RestoreWalletPage> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: CustomTextField(
+                      textFieldKey: mnemonicTextFieldKey,
                       width: 500,
                       height: 70,
                       controller: controller,
                       hintText: Strings.hintSeedPhrase,
-                      hasError: invalidSeedPhraseEntered,
+                      hasError: invalidSeedPhraseEntered.value,
                     ),
                   ),
 
@@ -101,11 +100,20 @@ class _RestoreWalletPageState extends State<RestoreWalletPage> {
             ),
             adaptableSpacer(),
             renderIfMobile(
-                const OnboardingProgressBar(numSteps: 2, currStep: 0)),
+              const OnboardingProgressBar(numSteps: 2, currStep: 0),
+            ),
             const SizedBox(height: 20),
-            ConfirmationButton(
-              text: Strings.next,
-              onPressed: onNextPressed,
+            Padding(
+              padding: EdgeInsets.only(bottom: 30),
+              child: ConfirmationButton(
+                key: restoreWalletConfirmationButtonKey,
+                text: Strings.next,
+                onPressed: () => onNextPressed(
+                  seedPhrase,
+                  context,
+                  invalidSeedPhraseEntered,
+                ),
+              ),
             ),
           ],
         ),
@@ -116,19 +124,19 @@ class _RestoreWalletPageState extends State<RestoreWalletPage> {
   /// Handler for when [LargeButton] is pressed.
   ///
   /// Validates the seedphrase entered and if valid, navigates to the next page, i.e. [Routes.restoreWalletNewPassword].
-  void onNextPressed() {
-    final bool isSeedPhraseValid = validateMnemonic(seedPhrase, 'english');
+  void onNextPressed(
+    ValueNotifier<String> seedPhrase,
+    BuildContext context,
+    ValueNotifier<bool> invalidSeedPhraseEntered,
+  ) {
+    final bool isSeedPhraseValid = validateMnemonic(seedPhrase.value, 'english');
     if (isSeedPhraseValid) {
-      StoreProvider.of<AppState>(context).dispatch(
-        NavigateToRoute(
-          Routes.restoreWalletNewPassword,
-          arguments: seedPhrase,
-        ),
+      navigateToRoute(
+        route: Routes.restoreWalletNewPassword,
+        arguments: seedPhrase.value,
       );
     } else {
-      setState(() {
-        invalidSeedPhraseEntered = true;
-      });
+      invalidSeedPhraseEntered.value = true;
     }
   }
 

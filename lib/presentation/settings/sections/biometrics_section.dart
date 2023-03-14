@@ -1,48 +1,51 @@
 // Dart imports:
 import 'dart:io' show Platform;
 
-// Package imports:
-import 'package:app_settings/app_settings.dart';
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:app_settings/app_settings.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_toggle.dart';
+
+// Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/providers/biometrics_provider.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_toggle.dart';
+import 'package:ribn/providers/logger_provider.dart';
 
 /// The section allows for users to toggle biometrics authentication on/off.
 class BiometricsSection extends ConsumerWidget {
   BiometricsSection({
-    required bool this.isBiometricsEnabled,
     Key? key,
   }) : super(key: key);
 
-  /// True if biometrics authentication is enabled
-  final bool isBiometricsEnabled;
+  Future<void> runBiometrics(BuildContext context, WidgetRef ref, bool value) async {
+    final notifier = ref.read(biometricsProvider.notifier);
 
-  Future<void> runBiometrics(
-      BuildContext context, WidgetRef ref, bool value) async {
-    final biometrics = ref.read(biometricsProvider);
-    bool authenticated = false;
-
-    /*** TODO original code didn't do anything with this value, unsure of it's function or why it's here
-     *  Schedule for removal?
-     */
-    await biometrics.isBiometricsAuthenticationEnrolled();
+    if (!await notifier.isBiometricsAuthenticationEnrolled()) return;
 
     try {
-      authenticated = await biometrics.authenticateWithBiometrics();
+      final authorized = await notifier.authenticateWithBiometrics();
+      notifier.setAuthorization(authorized);
+
+      if (!authorized) {
+        // TODO: add some kind of UX feature to let the user know this failed
+
+        ref.read(loggerProvider).log(
+              logLevel: LogLevel.Info,
+              loggerClass: LoggerClass.Authentication,
+              message: 'Biometrics Identity not recognized',
+            );
+        return;
+      }
+      notifier.toggleBiometrics();
     } catch (e) {
-      // TODO: Figure out why only android is being handled in this case, mustafa did mention that IOS wasn't working, but my tests seem to indicate otherwise
       if (Platform.isAndroid) await _showMyDialog(context);
       return;
     }
-
-    if (!authenticated) return;
-
-    biometrics.toggleBiometrics();
   }
 
   Future<void> _showMyDialog(BuildContext context) async {
@@ -60,7 +63,7 @@ class BiometricsSection extends ConsumerWidget {
               ],
             ),
           ),
-          actions: <Widget>[
+          actions: [
             TextButton(
               child: const Text('Ok'),
               onPressed: () {
@@ -79,44 +82,48 @@ class BiometricsSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            const Text(
-              Strings.enableBiometrics,
-              style: RibnToolkitTextStyles.extH3,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Image.asset(
-                Platform.isIOS
-                    ? RibnAssets.iosBiometricsOutline
-                    : RibnAssets.andriodBiometricsOutline,
-                width: 40,
-              ),
-            ),
-          ],
-        ),
-        const Padding(
-          padding: EdgeInsets.only(top: 6, bottom: 8),
-          child: Text(
-            Strings.enableBiometricsDescription,
-            style: RibnToolkitTextStyles.settingsSmallText,
-          ),
-        ),
-        Transform.scale(
-          alignment: Alignment.centerLeft,
-          scale: 0.7,
-          child: CustomToggle(
-            onChanged: (value) {
-              runBiometrics(context, ref, value);
-            },
-            value: isBiometricsEnabled,
-          ),
-        ),
-      ],
-    );
+    final biometrics = ref.watch(biometricsProvider);
+
+    return biometrics.when(
+        error: (_, __) => Container(),
+        loading: () => Container(),
+        data: (data) => data.isSupported
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Text(
+                        Strings.enableBiometrics,
+                        style: RibnToolkitTextStyles.extH3,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Image.asset(
+                          Platform.isIOS ? RibnAssets.iosBiometricsOutline : RibnAssets.andriodBiometricsOutline,
+                          width: 40,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 6, bottom: 8),
+                    child: Text(
+                      Strings.enableBiometricsDescription,
+                      style: RibnToolkitTextStyles.settingsSmallText,
+                    ),
+                  ),
+                  Transform.scale(
+                    alignment: Alignment.centerLeft,
+                    scale: 0.7,
+                    child: CustomToggle(
+                        onChanged: (value) {
+                          runBiometrics(context, ref, value);
+                        },
+                        value: data.isEnabled),
+                  ),
+                ],
+              )
+            : const SizedBox());
   }
 }

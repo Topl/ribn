@@ -2,6 +2,7 @@ node_modules/
 dist/
 mock/
 pubspec.lock
+.env
 
 # Ignore secrets
 key.properties
@@ -23,6 +24,11 @@ app.*.map.json
 .buildlog/
 .history
 .svn/
+
+# Auto generated files
+*.g.dart 
+*.freezed.dart
+*.mocks.dart
 
 
 # Android Studio will place build artifacts here
@@ -102,6 +108,7 @@ unlinked_spec.ds
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
 **/ios/Podfile.lock
+**/ios/fastlane/report.xml
 
 # macOS
 **/Flutter/ephemeral/

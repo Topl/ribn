@@ -30,8 +30,7 @@ class _LoadingDAppState extends State<LoadingDApp> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 10), () {
-      StoreProvider.of<AppState>(context)
-          .dispatch(SignExternalTxAction(widget.response));
+      StoreProvider.of<AppState>(context).dispatch(SignExternalTxAction(widget.response));
       Navigator.of(context).pop();
     });
   }

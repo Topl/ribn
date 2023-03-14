@@ -1,60 +1,86 @@
+// Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:local_auth/local_auth.dart';
+
+// Project imports:
+import 'package:ribn/models/state/biometrics_state.dart';
 import 'package:ribn/platform/platform.dart';
-import 'package:ribn/providers/logger_provider.dart';
+import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
+import 'package:ribn/providers/packages/local_authentication_provider.dart';
 import 'package:ribn/utils/extensions.dart';
+import 'logger_provider.dart';
 
-import '../constants/loggers.dart';
+/// Provides biometrics state and functions
+final biometricsProvider = StateNotifierProvider<BiometricsNotifier, AsyncValue<BiometricsState>>((ref) {
+  final localAuthentication = ref.read(localAuthenticationProvider)();
+  return BiometricsNotifier(ref, localAuthentication);
+});
 
-final _biometricsEnabledKey = "biometricsEnabled";
+class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
+  final Ref ref;
 
-final biometricsSupportedProvider = FutureProvider.autoDispose(
-    (ref) async => await Biometrics.isBiometricsSupported());
-
-final biometricsEnabledProvider =
-    FutureProvider<bool>((ref) async => await Biometrics.isBiometricsEnabled());
-
-final biometricsProvider =
-    ChangeNotifierProvider<Biometrics>((ref) => Biometrics());
-
-class Biometrics with ChangeNotifier {
-  // Use getter to prevent setting this value outside of this class
-  bool? _isEnabled;
-  bool? get isEnabled => _isEnabled;
-
-  LocalAuthentication _auth = LocalAuthentication();
-
-  Biometrics() {
+  BiometricsNotifier(this.ref, this._auth) : super(AsyncLoading()) {
     _init();
   }
 
-  bool _authorized = false;
+  Future<bool> _init() async {
+    final isSupported = await _isBiometricsAuthenticationSupported();
 
-  bool get authorized => _authorized;
-  set authorized(bool value) {
-    _authorized = value;
-    notifyListeners();
+    if (!isSupported) {
+      state = AsyncData(BiometricsState());
+      return false;
+    }
+
+    final isEnabled = await isBiometricsEnabled(ref);
+    state = AsyncData(BiometricsState(isSupported: isSupported, isEnabled: isEnabled));
+    return true;
   }
 
+  final LocalAuthentication _auth;
 
+  static const _biometricsEnabledKey = "biometricsEnabled";
 
-  _init() async {
-    _isEnabled = await isBiometricsSupported();
-  }
-
-  Future<void> toggleBiometrics() async {
-    final val = isEnabled; // setup for variable Null Promotion
-    if (val == null) {
-      logger(kBiometricsLogger).warning(
-          "Tried to modify biometrics state, before initialization was completed");
+  /***
+   * Toggles [state.isEnabled] and resets [state.authorized]
+   * @requires [state.authorized] to be true
+   */
+  Future<void> toggleBiometrics({bool? overrideValue}) async {
+    final biometrics = state.value; // setup for type promotion
+    final logger = ref.read(loggerPackageProvider)("Biometrics");
+    if (biometrics == null) {
+      ref.read(loggerProvider).log(
+            logLevel: LogLevel.Warning,
+            loggerClass: LoggerClass.ApiError,
+            message: "Tried to modify biometrics state, before initialization was completed",
+          );
+      state = AsyncError(Exception("Biometrics not initialized"), StackTrace.current);
       return;
     }
 
-    _isEnabled = !val;
-    await PlatformLocalStorage.instance
-        .saveKVInSecureStorage(_biometricsEnabledKey, isEnabled.toString());
-    notifyListeners();
+    // guard clause for authorization
+    if (!biometrics.authorized) {
+      logger.warning("Tried to modify biometrics state without authorization");
+      return;
+    }
+
+    // sets value to Override value, if not supplied default to toggle behaviour
+    final isEnabled = overrideValue ?? !biometrics.isEnabled;
+
+    await PlatformLocalStorage.instance.saveKVInSecureStorage(_biometricsEnabledKey, isEnabled.toString(),
+        override: ref.read(flutterSecureStorageProvider)());
+
+    // resets authorized value
+    state = AsyncValue.data(biometrics.copyWith(isEnabled: isEnabled, authorized: false));
+  }
+
+  void setAuthorization(bool value) {
+    final biometrics = state.value; // setup for type promotion
+    if (biometrics != null) {
+      state = AsyncValue.data(biometrics.copyWith(authorized: value));
+    }
   }
 
   Future<bool> isBiometricsAuthenticationEnrolled() async {
@@ -62,9 +88,7 @@ class Biometrics with ChangeNotifier {
     final bool isDeviceSupported = await _auth.isDeviceSupported();
     final List enrolledBiometrics = await _auth.getAvailableBiometrics();
 
-    return canCheckBiometrics &&
-        isDeviceSupported &&
-        enrolledBiometrics.isNotEmpty;
+    return canCheckBiometrics && isDeviceSupported && enrolledBiometrics.isNotEmpty;
   }
 
   Future<bool> authenticateWithBiometrics() async {
@@ -82,31 +106,22 @@ class Biometrics with ChangeNotifier {
   Future<bool> isBiometricsTypeFingerprint() async {
     final List enrolledBiometrics = await _auth.getAvailableBiometrics();
 
-    return enrolledBiometrics.contains(BiometricType.fingerprint) &&
-        enrolledBiometrics.isNotEmpty;
+    return enrolledBiometrics.contains(BiometricType.fingerprint) && enrolledBiometrics.isNotEmpty;
   }
 
-// static members
-
-  static Future<bool> isBiometricsSupported() async {
+  Future<bool> _isBiometricsAuthenticationSupported() async {
     // If is web, return false by default
     if (kIsWeb) return false;
 
-    return await _isBiometricsAuthenticationSupported();
-  }
-
-  static Future<bool> isBiometricsEnabled() async {
-    return (await PlatformLocalStorage.instance
-            .getKVInSecureStorage("biometricsEnabled"))
-        .toBooleanWithNullableDefault(false);
-  }
-
-  static Future<bool> _isBiometricsAuthenticationSupported() async {
-    final auth = LocalAuthentication();
-
-    final bool canCheckBiometrics = await auth.canCheckBiometrics;
-    final bool isDeviceSupported = await auth.isDeviceSupported();
+    final bool canCheckBiometrics = await _auth.canCheckBiometrics;
+    final bool isDeviceSupported = await _auth.isDeviceSupported();
 
     return canCheckBiometrics && isDeviceSupported;
+  }
+
+  static Future<bool> isBiometricsEnabled(ref) async {
+    return (await PlatformLocalStorage.instance
+            .getKVInSecureStorage(_biometricsEnabledKey, override: ref.read(flutterSecureStorageProvider)()))
+        .toBooleanWithNullableDefault(false);
   }
 }

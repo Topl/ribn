@@ -28,23 +28,19 @@ Future<List<TransactionReceipt>> fetchTransactionHistory(
   String filterSelectedItem,
   List<TransactionReceipt> filteredTransactions,
 ) async {
-  final List<TransactionReceipt> response =
-      await transactionHistoryViewmodel.getTransactions(pageNum: currentPage);
+  final List<TransactionReceipt> response = await transactionHistoryViewmodel.getTransactions(pageNum: currentPage);
   // Filters transactions by sent or received
   if (filterSelectedItem != 'Transaction types') {
     final List<TransactionReceipt> transactions = response;
     for (var transaction in transactions) {
-      final String transactionReceiverAddress =
-          transaction.to.first.toJson()[0].toString();
+      final String transactionReceiverAddress = transaction.to.first.toJson()[0].toString();
       final Sender transactionSenderAddress = transaction.from![0];
       final myRibnAddress = toplAddress.toBase58();
       final wasMinted = transaction.minting == true;
       if (filterSelectedItem == 'All') {
         filteredTransactions.add(transaction);
       }
-      if (filterSelectedItem == 'Received' &&
-          transactionReceiverAddress == myRibnAddress &&
-          !wasMinted) {
+      if (filterSelectedItem == 'Received' && transactionReceiverAddress == myRibnAddress && !wasMinted) {
         filteredTransactions.add(transaction);
       }
       if (filterSelectedItem == 'Sent' &&

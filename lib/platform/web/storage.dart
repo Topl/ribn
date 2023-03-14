@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:convert';
 
 // Package imports:
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:js/js.dart';
 import 'package:js/js_util.dart';
 
@@ -30,8 +31,7 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   static PlatformLocalStorage get instance => PlatformLocalStorage();
 
   @override
-  Future<void> saveState(String data) =>
-      promiseToFuture(persistToLocalStorage(data));
+  Future<void> saveState(String data) => promiseToFuture(persistToLocalStorage(data));
 
   @override
   Future<String> getState() => promiseToFuture(getFromLocalStorage());
@@ -53,8 +53,7 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   @override
   Future<String?> getKeyFromSessionStorage() async {
     try {
-      final Map<String, dynamic> sessionStorage =
-          jsonDecode(await promiseToFuture(getFromSessionStorage()));
+      final Map<String, dynamic> sessionStorage = jsonDecode(await promiseToFuture(getFromSessionStorage()));
       return sessionStorage['toplKey'];
     } catch (e) {
       if (!Keys.isTestingEnvironment) {
@@ -79,18 +78,18 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
 
   /// Mobile-only
   @override
-  Future<String?> getKeyFromSecureStorage() => throw UnimplementedError();
+  Future<String?> getKeyFromSecureStorage({FlutterSecureStorage? override}) => throw UnimplementedError();
 
   /// Mobile-only
   @override
-  Future<void> saveKeyInSecureStorage(String key) => throw UnimplementedError();
-
-
-  /// Mobile-only
-  @override
-  Future<String> getKVInSecureStorage(String key) => throw UnimplementedError();
+  Future<void> saveKeyInSecureStorage(String key, {FlutterSecureStorage? override}) => throw UnimplementedError();
 
   /// Mobile-only
   @override
-  Future<void> saveKVInSecureStorage(String key, String value) => throw UnimplementedError();
+  Future<String> getKVInSecureStorage(String key, {FlutterSecureStorage? override}) => throw UnimplementedError();
+
+  /// Mobile-only
+  @override
+  Future<void> saveKVInSecureStorage(String key, String value, {FlutterSecureStorage? override}) =>
+      throw UnimplementedError();
 }

@@ -14,25 +14,13 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 class Attestation extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'Attestation',
-    package: const $pb.PackageName(
-        const $core.bool.fromEnvironment('protobuf.omit_message_names')
-            ? ''
-            : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Attestation',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
     createEmptyInstance: create,
   )
-    ..aOS(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'publicKey')
-    ..aOS(
-        2,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'signature')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'publicKey')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'signature')
     ..hasRequiredFields = false;
 
   Attestation._() : super();
@@ -49,11 +37,9 @@ class Attestation extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory Attestation.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory Attestation.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
-  factory Attestation.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory Attestation.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -67,16 +53,14 @@ class Attestation extends $pb.GeneratedMessage {
     'Will be removed in next major version',
   )
   Attestation copyWith(void Function(Attestation) updates) =>
-      super.copyWith((message) => updates(message as Attestation))
-          as Attestation; // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as Attestation)) as Attestation; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Attestation create() => Attestation._();
   Attestation createEmptyInstance() => create();
   static $pb.PbList<Attestation> createRepeated() => $pb.PbList<Attestation>();
   @$core.pragma('dart2js:noInline')
-  static Attestation getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<Attestation>(create);
+  static Attestation getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Attestation>(create);
   static Attestation? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -106,20 +90,12 @@ class Attestation extends $pb.GeneratedMessage {
 
 class SimpleValue extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'SimpleValue',
-    package: const $pb.PackageName(
-        const $core.bool.fromEnvironment('protobuf.omit_message_names')
-            ? ''
-            : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SimpleValue',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
     createEmptyInstance: create,
   )
-    ..aOS(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'quantity')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'quantity')
     ..hasRequiredFields = false;
 
   SimpleValue._() : super();
@@ -132,11 +108,9 @@ class SimpleValue extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory SimpleValue.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory SimpleValue.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
-  factory SimpleValue.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory SimpleValue.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -150,16 +124,14 @@ class SimpleValue extends $pb.GeneratedMessage {
     'Will be removed in next major version',
   )
   SimpleValue copyWith(void Function(SimpleValue) updates) =>
-      super.copyWith((message) => updates(message as SimpleValue))
-          as SimpleValue; // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as SimpleValue)) as SimpleValue; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static SimpleValue create() => SimpleValue._();
   SimpleValue createEmptyInstance() => create();
   static $pb.PbList<SimpleValue> createRepeated() => $pb.PbList<SimpleValue>();
   @$core.pragma('dart2js:noInline')
-  static SimpleValue getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<SimpleValue>(create);
+  static SimpleValue getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SimpleValue>(create);
   static SimpleValue? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -177,35 +149,15 @@ class SimpleValue extends $pb.GeneratedMessage {
 
 class AssetValue extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'AssetValue',
-    package: const $pb.PackageName(
-        const $core.bool.fromEnvironment('protobuf.omit_message_names')
-            ? ''
-            : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AssetValue',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
     createEmptyInstance: create,
   )
-    ..aOS(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'code')
-    ..aOS(
-        2,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'quantity')
-    ..aOS(
-        3,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'securityRoot')
-    ..aOS(
-        4,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'metadata')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'quantity')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'securityRoot')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'metadata')
     ..hasRequiredFields = false;
 
   AssetValue._() : super();
@@ -230,11 +182,9 @@ class AssetValue extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory AssetValue.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory AssetValue.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
-  factory AssetValue.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory AssetValue.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -248,16 +198,14 @@ class AssetValue extends $pb.GeneratedMessage {
     'Will be removed in next major version',
   )
   AssetValue copyWith(void Function(AssetValue) updates) =>
-      super.copyWith((message) => updates(message as AssetValue))
-          as AssetValue; // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as AssetValue)) as AssetValue; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static AssetValue create() => AssetValue._();
   AssetValue createEmptyInstance() => create();
   static $pb.PbList<AssetValue> createRepeated() => $pb.PbList<AssetValue>();
   @$core.pragma('dart2js:noInline')
-  static AssetValue getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<AssetValue>(create);
+  static AssetValue getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AssetValue>(create);
   static AssetValue? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -318,28 +266,20 @@ class TokenValue extends $pb.GeneratedMessage {
     0: TokenValue_Value.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'TokenValue',
-    package: const $pb.PackageName(
-        const $core.bool.fromEnvironment('protobuf.omit_message_names')
-            ? ''
-            : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TokenValue',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
     createEmptyInstance: create,
   )
     ..oo(0, [1, 2])
     ..aOM<SimpleValue>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'simple',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'simple',
       subBuilder: SimpleValue.create,
     )
     ..aOM<AssetValue>(
       2,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'asset',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'asset',
       subBuilder: AssetValue.create,
     )
     ..hasRequiredFields = false;
@@ -358,11 +298,9 @@ class TokenValue extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory TokenValue.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TokenValue.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
-  factory TokenValue.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TokenValue.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -376,16 +314,14 @@ class TokenValue extends $pb.GeneratedMessage {
     'Will be removed in next major version',
   )
   TokenValue copyWith(void Function(TokenValue) updates) =>
-      super.copyWith((message) => updates(message as TokenValue))
-          as TokenValue; // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as TokenValue)) as TokenValue; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static TokenValue create() => TokenValue._();
   TokenValue createEmptyInstance() => create();
   static $pb.PbList<TokenValue> createRepeated() => $pb.PbList<TokenValue>();
   @$core.pragma('dart2js:noInline')
-  static TokenValue getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<TokenValue>(create);
+  static TokenValue getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TokenValue>(create);
   static TokenValue? _defaultInstance;
 
   TokenValue_Value whichValue() => _TokenValue_ValueByTag[$_whichOneof(0)]!;
@@ -422,40 +358,18 @@ class TokenValue extends $pb.GeneratedMessage {
 
 class TokenBox extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'TokenBox',
-    package: const $pb.PackageName(
-        const $core.bool.fromEnvironment('protobuf.omit_message_names')
-            ? ''
-            : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TokenBox',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
     createEmptyInstance: create,
   )
-    ..aOS(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'boxType')
-    ..aOS(
-        2,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'id')
-    ..aOS(
-        3,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'nonce')
-    ..aOS(
-        4,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'evidence')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'boxType')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nonce')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'evidence')
     ..aOM<TokenValue>(
       5,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'value',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'value',
       subBuilder: TokenValue.create,
     )
     ..hasRequiredFields = false;
@@ -486,8 +400,7 @@ class TokenBox extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory TokenBox.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory TokenBox.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
   factory TokenBox.fromJson(
     $core.String i, [
@@ -506,16 +419,14 @@ class TokenBox extends $pb.GeneratedMessage {
     'Will be removed in next major version',
   )
   TokenBox copyWith(void Function(TokenBox) updates) =>
-      super.copyWith((message) => updates(message as TokenBox))
-          as TokenBox; // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as TokenBox)) as TokenBox; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static TokenBox create() => TokenBox._();
   TokenBox createEmptyInstance() => create();
   static $pb.PbList<TokenBox> createRepeated() => $pb.PbList<TokenBox>();
   @$core.pragma('dart2js:noInline')
-  static TokenBox getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TokenBox>(create);
+  static TokenBox getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TokenBox>(create);
   static TokenBox? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -583,25 +494,13 @@ class TokenBox extends $pb.GeneratedMessage {
 
 class InputBox extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'InputBox',
-    package: const $pb.PackageName(
-        const $core.bool.fromEnvironment('protobuf.omit_message_names')
-            ? ''
-            : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'InputBox',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
     createEmptyInstance: create,
   )
-    ..aOS(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'address')
-    ..aOS(
-        2,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'nonce')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'address')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nonce')
     ..hasRequiredFields = false;
 
   InputBox._() : super();
@@ -618,11 +517,9 @@ class InputBox extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory InputBox.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory InputBox.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
-  factory InputBox.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory InputBox.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -636,16 +533,14 @@ class InputBox extends $pb.GeneratedMessage {
     'Will be removed in next major version',
   )
   InputBox copyWith(void Function(InputBox) updates) =>
-      super.copyWith((message) => updates(message as InputBox))
-          as InputBox; // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as InputBox)) as InputBox; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static InputBox create() => InputBox._();
   InputBox createEmptyInstance() => create();
   static $pb.PbList<InputBox> createRepeated() => $pb.PbList<InputBox>();
   @$core.pragma('dart2js:noInline')
-  static InputBox getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<InputBox>(create);
+  static InputBox getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<InputBox>(create);
   static InputBox? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -675,25 +570,15 @@ class InputBox extends $pb.GeneratedMessage {
 
 class OutputBox extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'OutputBox',
-    package: const $pb.PackageName(
-        const $core.bool.fromEnvironment('protobuf.omit_message_names')
-            ? ''
-            : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'OutputBox',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
     createEmptyInstance: create,
   )
-    ..aOS(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'address')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'address')
     ..aOM<TokenValue>(
       2,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'value',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'value',
       subBuilder: TokenValue.create,
     )
     ..hasRequiredFields = false;
@@ -712,11 +597,9 @@ class OutputBox extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory OutputBox.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory OutputBox.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
-  factory OutputBox.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory OutputBox.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -730,16 +613,14 @@ class OutputBox extends $pb.GeneratedMessage {
     'Will be removed in next major version',
   )
   OutputBox copyWith(void Function(OutputBox) updates) =>
-      super.copyWith((message) => updates(message as OutputBox))
-          as OutputBox; // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as OutputBox)) as OutputBox; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static OutputBox create() => OutputBox._();
   OutputBox createEmptyInstance() => create();
   static $pb.PbList<OutputBox> createRepeated() => $pb.PbList<OutputBox>();
   @$core.pragma('dart2js:noInline')
-  static OutputBox getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<OutputBox>(create);
+  static OutputBox getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<OutputBox>(create);
   static OutputBox? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -771,20 +652,14 @@ class OutputBox extends $pb.GeneratedMessage {
 
 class BlockHeight extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'BlockHeight',
-    package: const $pb.PackageName(
-        const $core.bool.fromEnvironment('protobuf.omit_message_names')
-            ? ''
-            : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BlockHeight',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
     createEmptyInstance: create,
   )
     ..a<$fixnum.Int64>(
       1,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'value',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'value',
       $pb.PbFieldType.OU6,
       defaultOrMaker: $fixnum.Int64.ZERO,
     )
@@ -800,11 +675,9 @@ class BlockHeight extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory BlockHeight.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BlockHeight.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
-  factory BlockHeight.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory BlockHeight.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -818,16 +691,14 @@ class BlockHeight extends $pb.GeneratedMessage {
     'Will be removed in next major version',
   )
   BlockHeight copyWith(void Function(BlockHeight) updates) =>
-      super.copyWith((message) => updates(message as BlockHeight))
-          as BlockHeight; // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as BlockHeight)) as BlockHeight; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static BlockHeight create() => BlockHeight._();
   BlockHeight createEmptyInstance() => create();
   static $pb.PbList<BlockHeight> createRepeated() => $pb.PbList<BlockHeight>();
   @$core.pragma('dart2js:noInline')
-  static BlockHeight getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<BlockHeight>(create);
+  static BlockHeight getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<BlockHeight>(create);
   static BlockHeight? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -845,97 +716,47 @@ class BlockHeight extends $pb.GeneratedMessage {
 
 class Transaction extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'Transaction',
-    package: const $pb.PackageName(
-        const $core.bool.fromEnvironment('protobuf.omit_message_names')
-            ? ''
-            : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Transaction',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
     createEmptyInstance: create,
   )
-    ..aOS(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'txType')
-    ..aOS(
-        2,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'timestamp')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'txType')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp')
     ..pc<Attestation>(
       3,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'signatures',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'signatures',
       $pb.PbFieldType.PM,
       subBuilder: Attestation.create,
     )
     ..pc<TokenBox>(
       4,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'newBoxes',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'newBoxes',
       $pb.PbFieldType.PM,
       subBuilder: TokenBox.create,
     )
-    ..aOS(
-        5,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'data')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'data')
     ..pc<InputBox>(
       6,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'inputs',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'inputs',
       $pb.PbFieldType.PM,
       subBuilder: InputBox.create,
     )
-    ..aOB(
-        7,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'minting')
-    ..aOS(
-        8,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'txId')
-    ..pPS(
-        9,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'boxesToRemove')
-    ..aOS(
-        10,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'fee')
+    ..aOB(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'minting')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'txId')
+    ..pPS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'boxesToRemove')
+    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fee')
     ..pc<OutputBox>(
       11,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'outputs',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'outputs',
       $pb.PbFieldType.PM,
       subBuilder: OutputBox.create,
     )
-    ..aOS(
-        12,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'propositionType')
-    ..aOS(
-        13,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'blockId')
+    ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'propositionType')
+    ..aOS(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blockId')
     ..a<$fixnum.Int64>(
       14,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'blockHeight',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blockHeight',
       $pb.PbFieldType.OU6,
       defaultOrMaker: $fixnum.Int64.ZERO,
     )
@@ -1003,11 +824,9 @@ class Transaction extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory Transaction.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory Transaction.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
-  factory Transaction.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory Transaction.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -1021,16 +840,14 @@ class Transaction extends $pb.GeneratedMessage {
     'Will be removed in next major version',
   )
   Transaction copyWith(void Function(Transaction) updates) =>
-      super.copyWith((message) => updates(message as Transaction))
-          as Transaction; // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as Transaction)) as Transaction; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Transaction create() => Transaction._();
   Transaction createEmptyInstance() => create();
   static $pb.PbList<Transaction> createRepeated() => $pb.PbList<Transaction>();
   @$core.pragma('dart2js:noInline')
-  static Transaction getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<Transaction>(create);
+  static Transaction getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Transaction>(create);
   static Transaction? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -1159,82 +976,38 @@ class Transaction extends $pb.GeneratedMessage {
 
 class Block extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-    const $core.bool.fromEnvironment('protobuf.omit_message_names')
-        ? ''
-        : 'Block',
-    package: const $pb.PackageName(
-        const $core.bool.fromEnvironment('protobuf.omit_message_names')
-            ? ''
-            : 'co.topl.genus'),
+    const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Block',
+    package:
+        const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'co.topl.genus'),
     createEmptyInstance: create,
   )
-    ..aOS(
-        1,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'id')
-    ..aOS(
-        2,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'parentId')
-    ..aOS(
-        3,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'timestamp')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'parentId')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp')
     ..aOM<TokenBox>(
       4,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'generator',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'generator',
       subBuilder: TokenBox.create,
     )
-    ..aOS(
-        5,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'publicKey')
-    ..aOS(
-        6,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'signature')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'publicKey')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'signature')
     ..a<$fixnum.Int64>(
       7,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'height',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'height',
       $pb.PbFieldType.OU6,
       defaultOrMaker: $fixnum.Int64.ZERO,
     )
-    ..aOS(
-        8,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'difficulty')
-    ..aOS(
-        9,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'txRoot')
-    ..aOS(
-        10,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names')
-            ? ''
-            : 'bloomFilter')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'difficulty')
+    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'txRoot')
+    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'bloomFilter')
     ..a<$core.int>(
       11,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'version',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'version',
       $pb.PbFieldType.OU3,
     )
     ..a<$core.int>(
       12,
-      const $core.bool.fromEnvironment('protobuf.omit_field_names')
-          ? ''
-          : 'numTransactions',
+      const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'numTransactions',
       $pb.PbFieldType.OU3,
     )
     ..hasRequiredFields = false;
@@ -1293,11 +1066,9 @@ class Block extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory Block.fromBuffer($core.List<$core.int> i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory Block.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
-  factory Block.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+  factory Block.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
   @$core.Deprecated(
     'Using this can add significant overhead to your binary. '
@@ -1311,16 +1082,14 @@ class Block extends $pb.GeneratedMessage {
     'Will be removed in next major version',
   )
   Block copyWith(void Function(Block) updates) =>
-      super.copyWith((message) => updates(message as Block))
-          as Block; // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as Block)) as Block; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Block create() => Block._();
   Block createEmptyInstance() => create();
   static $pb.PbList<Block> createRepeated() => $pb.PbList<Block>();
   @$core.pragma('dart2js:noInline')
-  static Block getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Block>(create);
+  static Block getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Block>(create);
   static Block? _defaultInstance;
 
   @$pb.TagNumber(1)

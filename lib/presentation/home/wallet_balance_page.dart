@@ -6,32 +6,33 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:brambldart/brambldart.dart';
 import 'package:ribn/utils/extensions.dart';
+import 'package:ribn/utils/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_card.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/keys.dart';
-import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/wallet_balance_container.dart';
 import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/error_section.dart';
 import 'package:ribn/presentation/home/wallet_balance_shimmer.dart';
-import 'package:ribn/utils/utils.dart';
 
-// import 'package:url_launcher/url_launcher.dart';
 
 /// One of the 3 main pages on the home screen.
 ///
 /// Displays poly balance section and the assets list view.
 class WalletBalancePage extends StatefulWidget {
-  const WalletBalancePage({Key? key}) : super(key: key);
+  static const Key walletBalancePageKey = Key('walletBalancePageKey');
+  const WalletBalancePage({
+    Key key = walletBalancePageKey,
+  }) : super(key: key);
 
   @override
   State<WalletBalancePage> createState() => _WalletBalancePageState();
@@ -78,8 +79,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
         // refresh balances on network toggle or when new addresses are generated
         final bool shouldRefresh = currVm.walletExists &&
             (prevVm?.currentNetwork.networkName != currVm.currentNetwork.networkName ||
-                prevVm?.currentNetwork.lastCheckedTimestamp !=
-                    currVm.currentNetwork.lastCheckedTimestamp ||
+                prevVm?.currentNetwork.lastCheckedTimestamp != currVm.currentNetwork.lastCheckedTimestamp ||
                 prevVm?.currentNetwork.addresses.length != currVm.currentNetwork.addresses.length);
         if (shouldRefresh) refreshBalances(currVm);
       },
@@ -137,11 +137,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
               ),
               WidgetSpan(
                 child: GestureDetector(
-                  // onTap: () async => await launchUrl(url),
-                  // Temporary add redirect to DApp flow
-                  onTap: () => Keys.navigatorKey.currentState?.pushNamed(
-                    Routes.loadingDApp,
-                  ),
+                  onTap: () async => await launchUrl(Uri.parse(tooltipUrl)),
                   child: Row(
                     children: [
                       Text(
@@ -230,7 +226,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     if (vm.assets.isEmpty) {
       return EmptyStateScreen(
         icon: RibnAssets.walletWithBorder,
-        title: Strings.noAssetsInWallet,
+        title: vm.assets.isEmpty && vm.polyBalance == 0 ? Strings.noAssetsAndBalanceInWallet : Strings.noAssetsInWallet,
         body: emptyStateBody,
         buttonOneText: 'Share',
         buttonOneAction: () async => await showReceivingAddress(),
@@ -288,8 +284,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
   }) {
     final String assetIcon = assetDetails?.icon ?? RibnAssets.undefinedIcon;
 
-    final String assetUnit =
-        assetDetails?.unit != null ? assetDetails!.unit.formatAssetUnit() : 'Unit';
+    final String assetUnit = assetDetails?.unit != null ? (assetDetails!.unit).formatAssetUnit() : 'Unit';
     final String assetLongName = assetDetails?.longName ?? '';
     final bool isMissingAssetDetails =
         assetIcon == RibnAssets.undefinedIcon || assetUnit == 'Unit' || assetLongName.isEmpty;

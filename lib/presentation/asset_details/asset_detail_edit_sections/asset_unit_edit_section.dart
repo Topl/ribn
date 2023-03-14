@@ -70,7 +70,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
             dropDownAlignment: Alignment.topCenter,
             visible: dropdownOpened,
             onDismissed: () {
-              Overlay.of(context)!.setState(() {
+              Overlay.of(context).setState(() {
                 dropdownOpened = false;
               });
             },
@@ -92,8 +92,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Save',
-                  style: RibnToolkitTextStyles.btnMedium
-                      .copyWith(color: Colors.white),
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
                 ),
                 backgroundColor: RibnColors.primary,
                 onPressed: () {
@@ -112,8 +111,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Cancel',
-                  style: RibnToolkitTextStyles.btnMedium
-                      .copyWith(color: RibnColors.ghostButtonText),
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.ghostButtonText),
                 ),
                 backgroundColor: Colors.transparent,
                 hoverColor: Colors.transparent,
@@ -161,7 +159,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
                       setState(() {
                         dropdownOpened = false;
                       });
-                      Overlay.of(context)!.setState(() {
+                      Overlay.of(context).setState(() {
                         selectedUnit = unit;
                         dropdownOpened = false;
                       });

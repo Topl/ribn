@@ -1,15 +1,10 @@
 // Flutter imports:
 
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:brambldart/brambldart.dart';
+// Flutter imports:
+import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:ribn/utils/transaction_utils.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/widgets/organisms/custom_page_dropdown_title.dart';
-
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
@@ -17,7 +12,10 @@ import 'package:ribn/containers/transaction_history_container.dart';
 import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/transaction_history/dashed_list_separator/dashed_list_separator.dart';
 import 'package:ribn/presentation/transaction_history/transaction_data_row/transaction_data_row.dart';
+import 'package:ribn/utils/transaction_utils.dart';
 import 'package:ribn/utils/utils.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/widgets/organisms/custom_page_dropdown_title.dart';
 
 class TxHistoryPage extends StatefulWidget {
   final Future<String>? blockHeight;
@@ -72,8 +70,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     int networkId,
     TransactionHistoryViewmodel vm,
   ) async {
-    final List<TransactionReceipt> response =
-        filterOutChangeUTxO(await vm.getTransactions(pageNum: pageNum));
+    final List<TransactionReceipt> response = filterOutChangeUTxO(await vm.getTransactions(pageNum: pageNum));
 
     // Filters transactions by sent or received
     if (filterSelectedItem != 'Transaction types') {
@@ -89,9 +86,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
           filteredTransactions.add(transaction);
         }
 
-        if (filterSelectedItem == 'Received' &&
-            transactionReceiverAddress == myRibnAddress &&
-            !wasMinted) {
+        if (filterSelectedItem == 'Received' && transactionReceiverAddress == myRibnAddress && !wasMinted) {
           filteredTransactions.add(transaction);
         }
 
@@ -194,10 +189,9 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                         : filteredTransactions.length,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
-                                      final TransactionReceipt transaction =
-                                          filterSelectedItem == startingFilterValue
-                                              ? snapshot.data[index]
-                                              : filteredTransactions[index];
+                                      final TransactionReceipt transaction = filterSelectedItem == startingFilterValue
+                                          ? snapshot.data[index]
+                                          : filteredTransactions[index];
 
                                       return TransactionDataRow(
                                         transactionReceipt: transaction,

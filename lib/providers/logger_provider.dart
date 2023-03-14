@@ -1,21 +1,51 @@
+// Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
+
+// Project imports:
 import 'package:ribn/constants/loggers.dart';
 
-final loggerProvider =
-    Provider<Logger Function(String)>((ref) => (String loggerName) => Logger(loggerName));
+export 'package:ribn/constants/loggers.dart'; // export so dependent files can use the enums
 
-final Logger Function() transactionLogger = () {
-  // Allows to get riverpod state without ref
-  final container = ProviderContainer();
+final loggerPackageProvider = Provider<Logger Function(String)>((ref) {
+  return (String loggerClass) => Logger(loggerClass);
+});
 
-  return container.read(loggerProvider)(kTransactionLogger);
-};
+final loggerProvider = Provider<LoggerNotifier>((ref) {
+  return LoggerNotifier(ref);
+});
 
+class LoggerNotifier {
+  final Ref ref;
 
-final Logger Function(String loggerName) logger  = (loggerName) {
-  // Allows to get riverpod state without ref
-  final container = ProviderContainer();
+  LoggerNotifier(this.ref) {
+    Logger.root.level = Level.ALL; // defaults to Level.INFO
+    Logger.root.onRecord.listen((record) {
+      print('${record.level.name}: ${record.time}: ${record.message}');
+    });
+  }
 
-  return container.read(loggerProvider)(loggerName);
-};
+  void log({
+    required LogLevel logLevel,
+    required LoggerClass loggerClass,
+    required String message,
+    Object? error,
+    StackTrace? stackTrace,
+  }) {
+    final Logger logger = ref.read(loggerPackageProvider)(loggerClass.string);
+    switch (logLevel) {
+      case LogLevel.Info:
+        logger.info(message, error, stackTrace);
+        break;
+      case LogLevel.Warning:
+        logger.warning(message, error, stackTrace);
+        break;
+      case LogLevel.Severe:
+        logger.severe(message, error, stackTrace);
+        break;
+      case LogLevel.Shout:
+        logger.shout(message, error, stackTrace);
+        break;
+    }
+  }
+}

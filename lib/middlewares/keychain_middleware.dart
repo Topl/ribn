@@ -38,9 +38,7 @@ void Function(
       final HdWallet hdWallet = store.state.keychainState.hdWallet!;
       final Map<String, List<RibnAddress>> networkAddresses = {};
       store.state.keychainState.networks.forEach((networkName, network) {
-        networkAddresses[networkName] = [
-          keychainRepo.generateAddress(hdWallet, networkId: network.networkId)
-        ];
+        networkAddresses[networkName] = [keychainRepo.generateAddress(hdWallet, networkId: network.networkId)];
       });
       next(UpdateNetworksWithAddressesAction(networkAddresses));
     } catch (e) {
@@ -92,8 +90,7 @@ void Function(
   return (store, action, next) async {
     try {
       // get addresses in the wallet
-      final List<ToplAddress> currentAddresses =
-          action.network.addresses.map((addr) => addr.toplAddress).toList();
+      final List<ToplAddress> currentAddresses = action.network.addresses.map((addr) => addr.toplAddress).toList();
       // if no address in the wallet, generate a new address
       if (currentAddresses.isEmpty) {
         store.dispatch(GenerateAddressAction(0, network: action.network));
@@ -104,12 +101,9 @@ void Function(
           currentAddresses,
         );
         // map addresses and balances
-        final Map<String, Balance> addrBalanceMap = {
-          for (Balance bal in balances) bal.address: bal
-        };
+        final Map<String, Balance> addrBalanceMap = {for (Balance bal in balances) bal.address: bal};
         // addresses with updated balances
-        final List<RibnAddress> addressesWithUpdatedBalances =
-            action.network.addresses.map(
+        final List<RibnAddress> addressesWithUpdatedBalances = action.network.addresses.map(
           (addr) {
             return addr.copyWith(
               balance: addrBalanceMap[addr.toplAddress.toBase58()],
