@@ -1,10 +1,12 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:ribn/presentation/basic/custom_back_button.dart';
 
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
+
+// Project imports:
+import 'package:ribn/presentation/basic/custom_back_button.dart';
 
 class OnboardingContainer extends StatelessWidget {
   final Widget child;
@@ -20,7 +22,7 @@ class OnboardingContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double topPadding = kIsWeb ? 50 : MediaQuery.of(context).size.height * 0.12;
+    final double topPadding = kIsWeb ? 50 : MediaQuery.of(context).size.height * 0.10;
     return Container(
       height: double.infinity,
       width: double.infinity,

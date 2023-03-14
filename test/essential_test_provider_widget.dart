@@ -1,13 +1,18 @@
+// Dart imports:
 import 'dart:convert';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+// Project imports:
 import 'package:ribn/main.dart';
 import 'package:ribn/providers/packages/local_authentication_provider.dart';
 import 'package:ribn/providers/store_provider.dart';
-
 import 'mocks/local_authentication_mocks.dart';
 import 'mocks/store_mocks.dart';
 
@@ -15,7 +20,6 @@ class TestAssetBundle extends CachingAssetBundle {
   @override
   Future<String> loadString(String key, {bool cache = true}) async {
     final ByteData data = await load(key);
-    if (data == null) throw FlutterError('Unable to load asset');
     return utf8.decode(data.buffer.asUint8List());
   }
 

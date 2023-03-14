@@ -18,14 +18,12 @@ import 'blocks_query.pb.dart' as $1;
 export 'blocks_query.pb.dart';
 
 class BlocksQueryClient extends $grpc.Client {
-  static final _$query =
-      $grpc.ClientMethod<$1.QueryBlocksReq, $1.QueryBlocksRes>(
+  static final _$query = $grpc.ClientMethod<$1.QueryBlocksReq, $1.QueryBlocksRes>(
     '/co.topl.genus.services.BlocksQuery/Query',
     ($1.QueryBlocksReq value) => value.writeToBuffer(),
     ($core.List<$core.int> value) => $1.QueryBlocksRes.fromBuffer(value),
   );
-  static final _$queryStream =
-      $grpc.ClientMethod<$1.BlocksQueryStreamReq, $1.BlocksQueryStreamRes>(
+  static final _$queryStream = $grpc.ClientMethod<$1.BlocksQueryStreamReq, $1.BlocksQueryStreamRes>(
     '/co.topl.genus.services.BlocksQuery/QueryStream',
     ($1.BlocksQueryStreamReq value) => value.writeToBuffer(),
     ($core.List<$core.int> value) => $1.BlocksQueryStreamRes.fromBuffer(value),
@@ -76,8 +74,7 @@ abstract class BlocksQueryServiceBase extends $grpc.Service {
         queryStream_Pre,
         false,
         true,
-        ($core.List<$core.int> value) =>
-            $1.BlocksQueryStreamReq.fromBuffer(value),
+        ($core.List<$core.int> value) => $1.BlocksQueryStreamReq.fromBuffer(value),
         ($1.BlocksQueryStreamRes value) => value.writeToBuffer(),
       ),
     );

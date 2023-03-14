@@ -1,11 +1,15 @@
 // import 'dart:math';
 
+// Dart imports:
 import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 
+// Package imports:
 import 'package:bip_topl/bip_topl.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+// Project imports:
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/onboarding_state.dart';
 import 'package:ribn/platform/mobile/storage.dart';
@@ -14,6 +18,7 @@ import 'package:ribn/platform/mobile/worker_runner.dart';
 import 'package:ribn/providers/app_state_provider.dart';
 import 'package:ribn/providers/keychain_provider.dart';
 import 'package:ribn/providers/packages/entropy_provider.dart';
+import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 import 'package:ribn/providers/packages/random_provider.dart';
 import 'package:ribn/repositories/onboarding_repository.dart';
 import 'package:ribn/utils.dart';
@@ -28,8 +33,8 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
   OnboardingNotifier(this.ref) : super(_generateOnboardingState(ref)) {}
 
   static OnboardingState _generateOnboardingState(ref) {
-    final mnemonic = _generateMnemonic(ref);
-    final splitMnemonic = mnemonic.split(' ').toList();
+    final String mnemonic = _generateMnemonic(ref);
+    final List<String> splitMnemonic = mnemonic.split(' ').toList();
     return OnboardingState(
       mnemonic: mnemonic,
       shuffledMnemonic: splitMnemonic,
@@ -39,12 +44,12 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
   static String _generateMnemonic(Ref ref) {
     final Random random = ref.read(randomProvider)();
 
-    final entropy = ref.read(entropyProvider)(random);
+    final Entropy entropy = ref.read(entropyProvider)(random);
     return ref.read(entropyFuncProvider)(entropy);
   }
 
   regenerateMnemonic() {
-    final onboardingState = _generateOnboardingState(ref);
+    final OnboardingState onboardingState = _generateOnboardingState(ref);
     state = state.copyWith(
       mnemonic: onboardingState.mnemonic,
       shuffledMnemonic: onboardingState.shuffledMnemonic,
@@ -70,8 +75,7 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
         ),
       );
 
-      final Uint8List toplExtendedPrvKeyUint8List =
-          uint8ListFromDynamic(results['toplExtendedPrvKeyUint8List']);
+      final Uint8List toplExtendedPrvKeyUint8List = uint8ListFromDynamic(results['toplExtendedPrvKeyUint8List']);
 
       // if extension: key is temporarily stored in `chrome.storage.session` & session alarm created
       // if mobile: key is persisted securely in secure storage
@@ -82,8 +86,8 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
         PlatformUtils.instance.createLoginSessionAlarm();
       } else if (currAppView == AppViews.mobile) {
         await PlatformLocalStorage.instance.saveKeyInSecureStorage(
-          Base58Encoder.instance.encode(toplExtendedPrvKeyUint8List),
-        );
+            Base58Encoder.instance.encode(toplExtendedPrvKeyUint8List),
+            override: ref.read(flutterSecureStorageProvider)());
       }
 
       await ref.read(keychainProvider.notifier).initializeHdWallet(

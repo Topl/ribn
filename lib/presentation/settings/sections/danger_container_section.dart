@@ -9,11 +9,10 @@ import 'package:ribn/constants/strings.dart';
 
 /// The section on the settings page that allows user to delete their wallet.
 class DangerContainerSection extends StatelessWidget {
-
   final List<Widget> children;
 
   const DangerContainerSection({
-      required this.children,
+    required this.children,
     Key? key,
   }) : super(key: key);
 
@@ -36,7 +35,9 @@ class DangerContainerSection extends StatelessWidget {
           Strings.actionNotReversible,
           style: RibnToolkitTextStyles.settingsSmallText,
         ),
-        const SizedBox(height: 10,),
+        const SizedBox(
+          height: 10,
+        ),
         ...children
       ],
     );

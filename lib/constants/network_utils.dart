@@ -8,15 +8,13 @@ class NetworkUtils {
   static const String toplNet = 'toplnet';
   static const String valhalla = 'valhalla';
   static const String private = 'private';
-  static const String privateIP = '35.226.176.100';
+  static const String privateIP = '104.197.222.150';
   static int toplNetId = constants.networkRegistry[toplNet]!;
   static int valhallaId = constants.networkRegistry[valhalla]!;
   static int privateId = constants.networkRegistry[private]!;
   static Map<int, PolyAmount> networkFees = {
-    valhallaId:
-        PolyAmount.fromUnitAndValue(PolyUnit.nanopoly, constants.valhallaFee),
-    toplNetId:
-        PolyAmount.fromUnitAndValue(PolyUnit.nanopoly, constants.toplnetFee),
+    valhallaId: PolyAmount.fromUnitAndValue(PolyUnit.nanopoly, constants.valhallaFee),
+    toplNetId: PolyAmount.fromUnitAndValue(PolyUnit.nanopoly, constants.toplnetFee),
     privateId: PolyAmount.zero(),
   };
   static const String projectId = '60ff001754b7c75558146daf';

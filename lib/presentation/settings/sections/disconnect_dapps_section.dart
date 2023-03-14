@@ -44,26 +44,22 @@ class DisconnectDAppsSection extends StatelessWidget {
               padding: const EdgeInsets.only(top: 8.0),
               child: Container(
                 constraints: BoxConstraints(maxWidth: 30, maxHeight: 22),
-                  child:
-                  LargeButton(
-                    buttonChild: Text(
-                      Strings.disconnect,
-                      style: RibnToolkitTextStyles.btnLarge.copyWith(
-                        color: RibnColors.primary
-                            .withOpacity(canDisconnect == true ? 1.0 : 0.3),
-                        fontSize: 10,
-                      ),
+                child: LargeButton(
+                  buttonChild: Text(
+                    Strings.disconnect,
+                    style: RibnToolkitTextStyles.btnLarge.copyWith(
+                      color: RibnColors.primary.withOpacity(canDisconnect == true ? 1.0 : 0.3),
+                      fontSize: 10,
                     ),
-                    backgroundColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    dropShadowColor: Colors.transparent,
-                    borderColor: RibnColors.primary
-                        .withOpacity(canDisconnect == true ? 1.0 : 0.3),
-                    onPressed: () =>
-                    canDisconnect ? onDisconnectPressed(context) : null,
                   ),
+                  backgroundColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  dropShadowColor: Colors.transparent,
+                  borderColor: RibnColors.primary.withOpacity(canDisconnect == true ? 1.0 : 0.3),
+                  onPressed: () => canDisconnect ? onDisconnectPressed(context) : null,
                 ),
               ),
+            ),
           ],
         ),
       ),

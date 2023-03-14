@@ -1,9 +1,9 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Package imports:
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 
@@ -21,8 +21,7 @@ import 'package:ribn/utils.dart';
 /// This page shows intructions on how to keep the seed phrase secure.
 class SeedPhraseInstructionsPage extends HookConsumerWidget {
   static const Key seedPhraseInstructionsPageKey = Key('SeedPhraseInstructionsPageKey');
-  static const Key seedPhraseInstructionsConfirmationButtonKey =
-      Key('seedPhraseInstructionsConfirmationButtonKey');
+  static const Key seedPhraseInstructionsConfirmationButtonKey = Key('seedPhraseInstructionsConfirmationButtonKey');
   const SeedPhraseInstructionsPage({Key key = seedPhraseInstructionsPageKey}) : super(key: key);
 
   @override

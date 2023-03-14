@@ -1,3 +1,4 @@
+// Package imports:
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'biometrics_state.freezed.dart';
@@ -12,7 +13,4 @@ class BiometricsState with _$BiometricsState {
     @Default(false) bool isEnabled,
     @Default(false) bool authorized,
   }) = _BiometricsState;
-
-
 }
-

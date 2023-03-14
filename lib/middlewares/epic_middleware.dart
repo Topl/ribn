@@ -28,7 +28,6 @@ const List<dynamic> persistenceTriggers = [
   UpdateCurrentNetworkAction,
   UpdateBalancesAction,
   UpdateAssetDetailsAction,
-  UpdateBiometricsAction,
 ];
 
 /// If an action that exists in the list [persistenceTriggers] is received, this epic emits the [PersistAppState] action.
@@ -67,8 +66,7 @@ Stream<dynamic> Function(Stream<ApiErrorAction>, EpicStore<AppState>) _onApiErro
 /// Handles [PersistAppState] action.
 ///
 /// Persists the current [AppState] to local storage.
-Stream<dynamic> Function(Stream<PersistAppState>, EpicStore<AppState>) _onPersistAppState(
-    MiscRepository miscRepo) {
+Stream<dynamic> Function(Stream<PersistAppState>, EpicStore<AppState>) _onPersistAppState(MiscRepository miscRepo) {
   return (actions, store) {
     return actions.whereType<PersistAppState>().switchMap(
       (action) {

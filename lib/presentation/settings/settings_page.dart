@@ -1,26 +1,38 @@
+// Dart imports:
+import 'dart:async';
+
 // Flutter imports:
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-// Project imports:
-import 'package:ribn/constants/strings.dart';
-import 'package:ribn/presentation/settings/sections/biometrics_section.dart';
-import 'package:ribn/presentation/settings/sections/danger_container_section.dart';
-import 'package:ribn/presentation/settings/sections/delete_wallet_section.dart';
-import 'package:ribn/presentation/settings/sections/disconnect_dapps_section.dart';
-import 'package:ribn/presentation/settings/sections/links_section.dart';
-import 'package:ribn/presentation/settings/sections/ribn_version_section.dart';
-import 'package:ribn/providers/biometrics_provider.dart';
-import 'package:ribn/providers/settings_page_provider.dart';
-import 'package:ribn/providers/utility_provider.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
+// Project imports:
+import 'package:ribn/constants/strings.dart';
+import 'package:ribn/platform/platform.dart';
+import 'package:ribn/presentation/settings/sections/biometrics_section.dart';
+import 'package:ribn/presentation/settings/sections/danger_container_section.dart';
+import 'package:ribn/presentation/settings/sections/delete_wallet_confirmation_dialog.dart';
+import 'package:ribn/presentation/settings/sections/delete_wallet_section.dart';
+import 'package:ribn/presentation/settings/sections/disconnect_dapps_section.dart';
+import 'package:ribn/presentation/settings/sections/disconnect_wallet_confirmation_dialog.dart';
+import 'package:ribn/presentation/settings/sections/export_topl_main_key_section.dart';
+import 'package:ribn/presentation/settings/sections/links_section.dart';
+import 'package:ribn/presentation/settings/sections/ribn_version_section.dart';
+import 'package:ribn/providers/biometrics_provider.dart';
+import 'package:ribn/providers/settings_provider.dart';
+import 'package:ribn/providers/utility_provider.dart';
+import 'package:ribn/utils/extensions.dart';
+
 /// The settings page of the application.
-class SettingsPage extends ConsumerWidget {
+class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -44,46 +56,62 @@ class SettingsListItems extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final canDisconnectDApp = ref.watch(canDisconnectDAppsProvider);
-    final settings = ref.watch(settingsProvider);
-    final appVersion = ref.read(appVersionProvider);
     final biometrics = ref.watch(biometricsProvider);
+    final appVersion = ref.watch(appVersionProvider);
+
+    final settings = ref.read(settingsProvider);
 
     return Container(
         color: RibnColors.background,
-        child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  RibnVersionSection(appVersion: appVersion),
-                  divider,
-                  const LinksSection(),
-                  divider,
-                  biometrics.when(
-                      data: (data) => data.isSupported
-                          ? BiometricsSection(state: data)
-                          : const SizedBox(),
-                      error: (_, __) => Container(),
-                      loading: () => Container()),
-                  divider,
-                  DangerContainerSection(children: [
-                    //Disconnect DApps
-                    canDisconnectDApp.when(
-                        data: (data) => data
-                            ? DisconnectDAppsSection(
-                                onDisconnectPressed:
-                                    settings.onDisconnectPressed,
-                                canDisconnect: data)
-                            : Container(),
-                        error: (_, __) => Container(),
-                        loading: () => Container()),
-                    SizedBox(height: 10),
-                    //Delete Wallet Section
-                    DeleteWalletSection(
-                        onDeletePressed: settings.onDeletePressed),
-                  ]),
-                ])));
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              RibnVersionSection(appVersion: appVersion),
+              const LinksSection(),
+              if (kIsWeb) ExportToplMainKeySection(onExportPressed: settings.ExportToplMainKey),
+              if (biometrics.value?.isSupported ?? false) BiometricsSection(),
+              DangerContainerSection(children: [
+                //Disconnect DApps
+                canDisconnectDApp.when(
+                    data: (data) => data
+                        ? DisconnectDAppsSection(onDisconnectPressed: _onDisconnectPressed, canDisconnect: data)
+                        : Container(),
+                    error: (_, __) => Container(),
+                    loading: () => Container()),
+                SizedBox(height: 10),
+                //Delete Wallet Section
+                DeleteWalletSection(onDeletePressed: (_) => onDeletePressed(_, ref)),
+              ]),
+            ].separator(element: const Divider(height: 32)).toList()));
   }
 
-  final divider = const Divider(height: 32);
+  void onDeletePressed(BuildContext context, ref) async {
+    final settingsNotifier = ref.read(settingsProvider);
+
+    await showDialog(
+      context: context,
+      builder: (context) => DeleteWalletConfirmationDialog(
+        onConfirmDeletePressed: (
+          String password,
+          VoidCallback onIncorrectPasswordEntered,
+        ) async {
+          final Completer<bool> completer = Completer();
+          settingsNotifier.DeleteWallet(password, completer);
+          // onIncorrectPasswordEntered called if response returned is false
+          await completer.future.then((value) {
+            if (!value) onIncorrectPasswordEntered();
+          });
+        },
+      ),
+    );
+  }
+
+  static Future<void> _onDisconnectPressed(BuildContext context) async {
+    final dApps = await PlatformUtils.instance.convertToFuture(PlatformUtils.instance.getDAppList());
+    await showDialog(
+      context: context,
+      builder: (context) => DisconnectWalletConfirmationDialog(dApps: dApps),
+    );
+  }
 }

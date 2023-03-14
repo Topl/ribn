@@ -7,6 +7,11 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  JAVA_VERSION: "17.x"
+  FLUTTER_CHANNEL: "stable"
+
+
 jobs:
   flutter_analyze:
     name: "Analysis"
@@ -14,15 +19,19 @@ jobs:
     steps: 
       - name: Checkout code
         uses: actions/checkout@v3
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.3.10'
-          channel: 'stable'
+          channel: ${{env.FLUTTER_CHANNEL}}
+          cache: true
+
       - name: Flutter version
         run: flutter --version
-      - name: Install dependencies
-        run: flutter pub get
+
+      - name: Install dependencies and generate files
+        run: make gen
+
       - name: Analyze code
         run: flutter analyze
 
@@ -35,12 +44,46 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.3.10'
-          channel: 'stable'
-      - name: Install dependencies
-        run: flutter pub get
+          channel: ${{env.FLUTTER_CHANNEL}}
+          cache: true
+      - name: Install dependencies and generate files
+        run: make gen
       - name: Run tests
         run: flutter test --dart-define=FLUTTER_TEST=true
+
+  code_coverage:
+    name: "Codecov"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{env.FLUTTER_CHANNEL}}
+          cache: true
+
+      - name: Flutter version
+        run: flutter --version
+
+      - uses: stelynx/dart-full-coverage@v1.1.1
+        with:
+          package: ribn
+          ignore: "*_state.dart, do_not_import_me.dart, js_workers/* , platform_web/*"
+
+      - name: Install dependencies and generated files
+        run: make gen
+
+      - name: Run tests
+        run: flutter test --platform chrome --coverage .
+
+
+      - uses: codecov/codecov-action@v1.0.2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+
   android_build:
     name: "Build android app"
     runs-on: ubuntu-latest
@@ -50,14 +93,14 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
-          java-version: 17.0.x
+          java-version: ${{env.JAVA_VERSION}}
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.3.10'
-          channel: 'stable'
-      - name: Install Flutter dependencies
-        run: flutter pub get
+          channel: ${{env.FLUTTER_CHANNEL}}
+          cache: true
+      - name: Install dependencies and generate files
+        run: make gen
       - name: Decrypt Android keys
         run: sh ./.github/scripts/decrypt_android_secrets.sh
         env:
@@ -79,10 +122,10 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.3.10'
-          channel: 'stable'
-      - name: Install Flutter dependencies
-        run: flutter pub get
+          channel: ${{env.FLUTTER_CHANNEL}}
+          cache: true
+      - name: Install dependencies and generate files
+        run: make gen
       - name: Build ios app
         run: flutter build ios --release --no-codesign
 
@@ -95,28 +138,36 @@ jobs:
       - name: Read .nvmrc
         run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
         id: nvm
+
       - name: Use Node.js (.nvmrc)
         uses: actions/setup-node@v1
         with:
           node-version: "${{ steps.nvm.outputs.NVMRC }}"
+
       - name: Install NPM dependencies
         run: npm install
+
       - name: Build using Webpack
         run: npm run build
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.3.10'
-          channel: 'stable'
-      - name: Install Flutter dependencies
-        run: flutter pub get
+          channel: ${{env.FLUTTER_CHANNEL}}
+          cache: true
+
+      - name: Install dependencies and generate files
+        run: make gen
+
       - name: Build the Flutter Chrome extension
         run: flutter build web --web-renderer html --csp --release
+
       - name: Zip build
         uses: papeloto/action-zip@v1
         with:
           files: build/web/
           dest: ribn_chrome_ext.zip
+
       - name: Upload extension build
         uses: actions/upload-artifact@v3
         with:

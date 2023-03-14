@@ -4,31 +4,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // Package imports:
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ribn/providers/onboarding_provider.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 
 // Project imports:
-import 'package:ribn/actions/misc_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/models/app_state.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/mobile_onboarding_progress_bar.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
+import 'package:ribn/providers/onboarding_provider.dart';
+import 'package:ribn/providers/utility_provider.dart';
 import 'package:ribn/utils.dart';
 
 class SeedPhraseDisplayPage extends HookConsumerWidget {
   static const Key copyKey = Key('copyKey');
   static const Key seedPhraseDisplayPageKey = Key('seedPhraseDisplayPageKey');
-  static const Key seedPhraseDisplayConfirmationButtonKey =
-      Key('seedPhraseDisplayConfirmationButtonKey');
+  static const Key seedPhraseDisplayConfirmationButtonKey = Key('seedPhraseDisplayConfirmationButtonKey');
   const SeedPhraseDisplayPage({Key key = seedPhraseDisplayPageKey}) : super(key: key);
 
   @override
@@ -121,12 +118,8 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
                         padding: const EdgeInsets.only(top: 8.0),
                         child: _buildButton(
                           Strings.download,
-                          onPressed: () => StoreProvider.of<AppState>(context).dispatch(
-                            DownloadAsFileAction(
-                              Strings.seedPhraseFileName,
-                              seedPhrase,
-                            ),
-                          ),
+                          onPressed: () => ref
+                              .read(downloadFileProvider(File(fileName: Strings.seedPhraseFileName, text: seedPhrase))),
                           width: 30,
                           height: 23,
                         ),
@@ -144,12 +137,15 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
                   renderIfMobile(
                     const MobileOnboardingProgressBar(currStep: 0),
                   ),
-                  ConfirmationButton(
-                    key: seedPhraseDisplayConfirmationButtonKey,
-                    text: Strings.done,
-                    onPressed: () {
-                      Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseConfirm);
-                    },
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 30),
+                    child: ConfirmationButton(
+                      key: seedPhraseDisplayConfirmationButtonKey,
+                      text: Strings.done,
+                      onPressed: () {
+                        Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseConfirm);
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -199,8 +195,7 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
             width: 25,
             child: Text(
               '${idx + 1}. ',
-              style: RibnToolkitTextStyles.h3
-                  .copyWith(color: const Color(0xff00FFC5), letterSpacing: 0.5),
+              style: RibnToolkitTextStyles.h3.copyWith(color: const Color(0xff00FFC5), letterSpacing: 0.5),
             ),
           ),
           Expanded(
@@ -221,8 +216,7 @@ class SeedPhraseDisplayPage extends HookConsumerWidget {
     required double width,
     required double height,
   }) {
-    final String icon =
-        buttonText == Strings.download ? RibnAssets.downloadPng : RibnAssets.contentCopyPng;
+    final String icon = buttonText == Strings.download ? RibnAssets.downloadPng : RibnAssets.contentCopyPng;
     return TextButton(
       key: copyKey,
       onPressed: onPressed,

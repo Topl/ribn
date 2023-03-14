@@ -7,10 +7,4 @@ enum LoggerClass {
   final String string;
 }
 
-
-enum LogLevel {
-  Info,
-  Warning,
-  Severe,
-  Shout
-}
+enum LogLevel { Info, Warning, Severe, Shout }

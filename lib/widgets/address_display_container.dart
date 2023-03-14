@@ -23,16 +23,14 @@ class AddressDisplayContainer extends StatefulWidget {
   final double width;
 
   @override
-  State<AddressDisplayContainer> createState() =>
-      _AddressDisplayContainerState();
+  State<AddressDisplayContainer> createState() => _AddressDisplayContainerState();
 }
 
 class _AddressDisplayContainerState extends State<AddressDisplayContainer> {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, RibnAddress>(
-      converter: (store) =>
-          store.state.keychainState.currentNetwork.addresses.first,
+      converter: (store) => store.state.keychainState.currentNetwork.addresses.first,
       builder: (context, ribnAddress) => RoundedCopyTextField(
         text: widget.text,
         icon: SvgPicture.asset(widget.icon),

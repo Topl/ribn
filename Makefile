@@ -45,9 +45,9 @@ gen: ## Generates the assets
 
 format: ## Formats the code
 	@echo "╠ Formatting the code"
-	@dart format lib .
+	@dart format lib . -l 120
 	@flutter pub run import_sorter:main
-	@dart format .
+	@dart format . -l 120
 
 lint: ## Lints the code
 	@echo "╠ Verifying code..."
@@ -84,16 +84,15 @@ arm_mac_hard_clean:
 	arch -x86_64 pod install && \
 	cd ..
 
+file_test:
+	@reset
+	@flutter test test/middleware_test.dart
+
 nuclear_clean:
 	@echo "╠ Nuking pubcache completely, this might take a while...."
 	@flutter clean
 	@flutter pub cache repair
 	@flutter pub get
-
-
-file_test:
-	@reset
-	@flutter test test/onboarding/create_wallet_test.dart
 
 test_coverage:
 	@flutter test --coverage

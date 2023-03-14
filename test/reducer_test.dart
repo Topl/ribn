@@ -22,8 +22,7 @@ import 'test_data.dart';
 void main() {
   group('AppState reducer', () {
     final String testKeyStore = testData['keyStoreJson']!;
-    final Uint8List testToplExtendedPrivKey =
-        Uint8List.fromList(toList(testData['toplExtendedPrvKey']!));
+    final Uint8List testToplExtendedPrivKey = Uint8List.fromList(toList(testData['toplExtendedPrvKey']!));
     late Store<AppState> testStore;
     setUp(() async {
       await Redux.initStore(initTestStore: false);
@@ -61,9 +60,7 @@ void main() {
         );
         final Map<String, List<RibnAddress>> networkAddresses = {};
         testStore.state.keychainState.networks.forEach((networkName, network) {
-          networkAddresses[networkName] = [
-            keychainRepo.generateAddress(hdWallet, networkId: network.networkId)
-          ];
+          networkAddresses[networkName] = [keychainRepo.generateAddress(hdWallet, networkId: network.networkId)];
         });
         testStore.dispatch(UpdateNetworksWithAddressesAction(networkAddresses));
         testStore.state.keychainState.networks.forEach((networkName, network) {

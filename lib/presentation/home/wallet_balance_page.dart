@@ -11,11 +11,10 @@ import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 import 'package:ribn_toolkit/widgets/molecules/asset_card.dart';
 import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 import 'package:ribn_toolkit/widgets/molecules/wave_container.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/keys.dart';
-import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/wallet_balance_container.dart';
 import 'package:ribn/models/asset_details.dart';
@@ -80,8 +79,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
         // refresh balances on network toggle or when new addresses are generated
         final bool shouldRefresh = currVm.walletExists &&
             (prevVm?.currentNetwork.networkName != currVm.currentNetwork.networkName ||
-                prevVm?.currentNetwork.lastCheckedTimestamp !=
-                    currVm.currentNetwork.lastCheckedTimestamp ||
+                prevVm?.currentNetwork.lastCheckedTimestamp != currVm.currentNetwork.lastCheckedTimestamp ||
                 prevVm?.currentNetwork.addresses.length != currVm.currentNetwork.addresses.length);
         if (shouldRefresh) refreshBalances(currVm);
       },
@@ -139,11 +137,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
               ),
               WidgetSpan(
                 child: GestureDetector(
-                  // onTap: () async => await launchUrl(url),
-                  // Temporary add redirect to DApp flow
-                  onTap: () => Keys.navigatorKey.currentState?.pushNamed(
-                    Routes.loadingDApp,
-                  ),
+                  onTap: () async => await launchUrl(Uri.parse(tooltipUrl)),
                   child: Row(
                     children: [
                       Text(
@@ -232,7 +226,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
     if (vm.assets.isEmpty) {
       return EmptyStateScreen(
         icon: RibnAssets.walletWithBorder,
-        title: Strings.noAssetsInWallet,
+        title: vm.assets.isEmpty && vm.polyBalance == 0 ? Strings.noAssetsAndBalanceInWallet : Strings.noAssetsInWallet,
         body: emptyStateBody,
         buttonOneText: 'Share',
         buttonOneAction: () async => await showReceivingAddress(),
@@ -290,8 +284,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
   }) {
     final String assetIcon = assetDetails?.icon ?? RibnAssets.undefinedIcon;
 
-    final String assetUnit =
-        assetDetails?.unit != null ? formatAssetUnit(assetDetails!.unit) : 'Unit';
+    final String assetUnit = assetDetails?.unit != null ? formatAssetUnit(assetDetails!.unit) : 'Unit';
     final String assetLongName = assetDetails?.longName ?? '';
     final bool isMissingAssetDetails =
         assetIcon == RibnAssets.undefinedIcon || assetUnit == 'Unit' || assetLongName.isEmpty;

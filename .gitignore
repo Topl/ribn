@@ -2,6 +2,7 @@ node_modules/
 dist/
 mock/
 pubspec.lock
+.env
 
 # Ignore secrets
 key.properties
@@ -107,7 +108,7 @@ unlinked_spec.ds
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
 **/ios/Podfile.lock
-**/ios**//project.pbxproj
+**/ios/fastlane/report.xml
 
 # macOS
 **/Flutter/ephemeral/

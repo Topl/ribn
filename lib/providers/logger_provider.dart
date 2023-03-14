@@ -1,5 +1,8 @@
+// Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logging/logging.dart';
+
+// Project imports:
 import 'package:ribn/constants/loggers.dart';
 
 export 'package:ribn/constants/loggers.dart'; // export so dependent files can use the enums
@@ -15,7 +18,12 @@ final loggerProvider = Provider<LoggerNotifier>((ref) {
 class LoggerNotifier {
   final Ref ref;
 
-  LoggerNotifier(this.ref);
+  LoggerNotifier(this.ref) {
+    Logger.root.level = Level.ALL; // defaults to Level.INFO
+    Logger.root.onRecord.listen((record) {
+      print('${record.level.name}: ${record.time}: ${record.message}');
+    });
+  }
 
   void log({
     required LogLevel logLevel,

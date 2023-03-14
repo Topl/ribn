@@ -57,8 +57,7 @@ class _ConnectDAppState extends State<ConnectDApp> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 13),
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 width: 360,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(11.6)),
@@ -281,7 +280,6 @@ class _ConnectDAppState extends State<ConnectDApp> {
         },
       );
     }
-    StoreProvider.of<AppState>(context)
-        .dispatch(SendInternalMsgAction(response));
+    StoreProvider.of<AppState>(context).dispatch(SendInternalMsgAction(response));
   }
 }

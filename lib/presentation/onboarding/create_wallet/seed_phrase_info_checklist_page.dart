@@ -1,9 +1,9 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 // Package imports:
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
@@ -22,8 +22,7 @@ import 'package:ribn/utils.dart';
 /// Builds checks to ensure that the user understands the importance of the seed phrase.
 class SeedPhraseInfoChecklistPage extends HookWidget {
   static const Key seedPhraseInfoChecklistPageKey = Key('seedPhraseInfoChecklistPageKey');
-  static const Key seedPhraseInfoChecklistConfirmationButtonKey =
-      Key('seedPhraseInfoChecklistConfirmationButtonKey');
+  static const Key seedPhraseInfoChecklistConfirmationButtonKey = Key('seedPhraseInfoChecklistConfirmationButtonKey');
   static const Key neverShareMySeedPhraseKey = Key('neverShareMySeedPhraseKey');
   static const Key walletRecoveryUsingSeedPhraseKey = Key('walletRecoveryUsingSeedPhraseKey');
 
