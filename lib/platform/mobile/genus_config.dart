@@ -14,12 +14,11 @@ class PlatformGenusConfig {
     ),
   );
 
-  static ClientChannel getNetworkConfig (String genusIP) => ClientChannel(
-    genusIP,
-    port: 8089,
-    options: const ChannelOptions(
-      credentials: ChannelCredentials.insecure(),
-    ),
-  );
-
+  static ClientChannel getNetworkConfig(String genusIP) => ClientChannel(
+        genusIP,
+        port: 8089,
+        options: const ChannelOptions(
+          credentials: ChannelCredentials.insecure(),
+        ),
+      );
 }

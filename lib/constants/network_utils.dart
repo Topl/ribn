@@ -2,33 +2,26 @@
 import 'package:brambldart/brambldart.dart';
 import 'package:brambldart/utils.dart' as constants;
 
-
-
 /// Utils and constants that relate to Topl networks.
 class NetworkUtils {
   NetworkUtils._();
 
   static const String projectId = '60ff001754b7c75558146daf';
 
-
   // Network names
   static const String toplNet = 'toplnet';
   static const String valhalla = 'valhalla';
   static const String private = 'private';
-
 
   // Network IP's
   static const String privateIP = '104.197.222.150';
   static const String valhallaIP = '35.224.14.0';
   static const String toplnetIP = '34.171.109.202';
 
-
   // ID's used by RibnNetwork
   static int toplNetId = constants.networkRegistry[toplNet]!;
   static int valhallaId = constants.networkRegistry[valhalla]!;
   static int privateId = constants.networkRegistry[private]!;
-
-
 
   static Map<int, PolyAmount> networkFees = {
     valhallaId: PolyAmount.fromUnitAndValue(PolyUnit.nanopoly, constants.valhallaFee),
@@ -68,8 +61,6 @@ enum Networks {
 
   final String name;
 }
-
-
 
 class NetworkConfig {
   final String networkName;

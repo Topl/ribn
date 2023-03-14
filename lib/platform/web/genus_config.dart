@@ -10,8 +10,8 @@ class PlatformGenusConfig {
     Uri.parse('http://${NetworkUtils.privateIP}:8099'),
   );
 
-  static GrpcWebClientChannel getNetworkConfig (String genusIP) => GrpcWebClientChannel.xhr(
-  // Uri.parse('http://${NetworkUtils.privateIP}:8099'),
-  Uri.parse('http://$genusIP:8099'),
-  );
+  static GrpcWebClientChannel getNetworkConfig(String genusIP) => GrpcWebClientChannel.xhr(
+        // Uri.parse('http://${NetworkUtils.privateIP}:8099'),
+        Uri.parse('http://$genusIP:8099'),
+      );
 }
