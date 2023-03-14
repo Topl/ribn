@@ -1,9 +1,8 @@
-
-// Flutter imports:
+// Dart imports:
 import 'dart:typed_data';
 
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
-
 
 extension StringExtensions on String {
   bool toBoolean() {
@@ -24,8 +23,6 @@ extension StringExtensions on String {
   }
 
   String capitalize() => this[0].toUpperCase() + this.substring(1);
-
-
 }
 
 extension NullableStringExtension on String? {
@@ -68,10 +65,7 @@ extension IterableWidgetExtension on Iterable<Widget> {
       }
     }
   }
-
-
 }
-
 
 extension Unique<E, Id> on List<E> {
   List<E> unique([Id Function(E element)? id, bool inplace = true]) {
@@ -82,12 +76,8 @@ extension Unique<E, Id> on List<E> {
   }
 }
 
-
-
 extension dynamicExtensions on dynamic {
   Uint8List toUint8List() {
     return Uint8List.fromList((this as List).cast<int>());
   }
 }
-
-

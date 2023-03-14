@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:brambldart/brambldart.dart';
-import 'package:ribn/utils/extensions.dart';
-import 'package:ribn/utils/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
@@ -23,7 +21,8 @@ import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/error_section.dart';
 import 'package:ribn/presentation/home/wallet_balance_shimmer.dart';
-
+import 'package:ribn/utils/extensions.dart';
+import 'package:ribn/utils/utils.dart';
 
 /// One of the 3 main pages on the home screen.
 ///

@@ -1,9 +1,13 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
+
 // Project imports:
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
@@ -14,8 +18,6 @@ import 'package:ribn/presentation/onboarding/widgets/warning_section.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/providers/password_provider.dart';
 import 'package:ribn/providers/restore_wallet_provider.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/organisms/onboarding_progress_bar.dart';
 
 /// Page for creating a new wallet password, when restoring wallet with a [seedPhrase].
 class NewWalletPasswordPage extends HookConsumerWidget {

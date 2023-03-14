@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:ribn/utils/utils.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 
 // Project imports:
@@ -18,10 +17,10 @@ import 'package:ribn/presentation/onboarding/widgets/mobile_onboarding_progress_
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/password_section.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
-
 import 'package:ribn/providers/onboarding_provider.dart';
 import 'package:ribn/providers/password_provider.dart';
 import 'package:ribn/utils/navigation_utils.dart';
+import 'package:ribn/utils/utils.dart';
 
 // import 'package:ribn/constants/routes.dart';
 // import 'package:ribn/containers/create_password_container.dart';

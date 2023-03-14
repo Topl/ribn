@@ -21,7 +21,6 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
-
 import 'package:ribn/providers/biometrics_provider.dart';
 
 class EnableBiometrics extends HookConsumerWidget {

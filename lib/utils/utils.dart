@@ -1,13 +1,19 @@
 // Dart imports:
 import 'dart:ui';
 
-// Package imports:
-import 'package:barcode_widget/barcode_widget.dart';
-import 'package:brambldart/utils.dart';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:barcode_widget/barcode_widget.dart';
+import 'package:brambldart/utils.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
+
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/keys.dart';
@@ -18,10 +24,6 @@ import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/utils/extensions.dart';
 import 'package:ribn/widgets/custom_divider.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
-import 'package:ribn_toolkit/widgets/molecules/custom_modal.dart';
 
 /// Validates the [address] passed in by the user.
 ///
@@ -56,7 +58,6 @@ Future<bool> isAppOpenedInExtensionView() async {
 Future<bool> isAppOpenedInDebugView() async {
   return await PlatformUtils.instance.getCurrentAppView() == AppViews.webDebug;
 }
-
 
 Future<void> showReceivingAddress() async {
   await showDialog(

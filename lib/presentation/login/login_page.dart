@@ -9,7 +9,6 @@ import 'package:bip_topl/bip_topl.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:ribn/utils/utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
@@ -26,7 +25,6 @@ import 'package:ribn/presentation/login/widgets/forget_password_link_section.dar
 import 'package:ribn/presentation/login/widgets/password_section.dart';
 import 'package:ribn/presentation/login/widgets/support_link_section.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
-
 import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn/providers/logger_provider.dart';
 import 'package:ribn/providers/login_provider.dart';
@@ -34,6 +32,7 @@ import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/utils/extensions.dart';
 import 'package:ribn/utils/input_utils.dart';
+import 'package:ribn/utils/utils.dart';
 
 /// Builds the login page.
 ///
