@@ -44,7 +44,7 @@ void main() async {
     await initBgConnection(Redux.store!);
     // Wallet().setJSCallbackFunction(_test());
     // initialize();
-  }//@dev call this function to setup any singletons required by app
+  } //@dev call this function to setup any singletons required by app
   runApp(
     ProviderScope(
       child: RibnApp(Redux.store!),
