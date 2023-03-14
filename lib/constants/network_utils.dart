@@ -3,16 +3,6 @@ import 'package:brambldart/brambldart.dart';
 import 'package:brambldart/utils.dart' as constants;
 
 
-enum Networks {
-  valhalla("valhalla"),
-  toplnet("toplnet"),
-  private("private");
-
-  const Networks(this.name);
-
-  final String name;
-}
-
 
 /// Utils and constants that relate to Topl networks.
 class NetworkUtils {
@@ -21,15 +11,22 @@ class NetworkUtils {
   static const String projectId = '60ff001754b7c75558146daf';
 
 
+  // Network names
   static const String toplNet = 'toplnet';
   static const String valhalla = 'valhalla';
   static const String private = 'private';
+
+
+  // Network IP's
   static const String privateIP = '104.197.222.150';
-  static const String valhallaIP = '34.72.160.177';
+  static const String valhallaIP = '35.224.14.0';
+  static const String toplnetIP = '34.171.109.202';
+
+
+  // ID's used by RibnNetwork
   static int toplNetId = constants.networkRegistry[toplNet]!;
   static int valhallaId = constants.networkRegistry[valhalla]!;
   static int privateId = constants.networkRegistry[private]!;
-
 
 
 
@@ -48,20 +45,30 @@ class NetworkUtils {
   static Map<int, String> networkUrls = {
     valhallaId: 'https://vertx.topl.services/valhalla/$projectId',
     toplNetId: 'https://vertx.topl.services/mainnet/$projectId',
-    privateId: 'http://104.197.222.150:9085'
+    privateId: 'http://$privateIP:9085'
   };
 
   static Map<int, String> genusIPs = {
-    // valhallaId: "34.72.160.177",
-    valhallaId: "35.224.14.0",
+    valhallaId: valhallaIP,
     // valhallaId: "http:/valhalla.genus.topl.tech",
-    toplNetId: "34.171.109.202",
+    toplNetId: toplnetIP,
     // toplNetId: "http://toplnet.genus.topl.tech/",
-    privateId: "104.197.222.150"
+    privateId: privateIP,
   };
 
   // http://toplnet.genus.topl.tech/
 }
+
+enum Networks {
+  valhalla(NetworkUtils.valhalla),
+  toplnet(NetworkUtils.toplNet),
+  private(NetworkUtils.private);
+
+  const Networks(this.name);
+
+  final String name;
+}
+
 
 
 class NetworkConfig {
