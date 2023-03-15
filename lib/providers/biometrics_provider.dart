@@ -62,10 +62,10 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
     // guard clause for authorization
     if (!biometrics.authorized) {
       ref.read(loggerProvider).log(
-        logLevel: LogLevel.Warning,
-        loggerClass: LoggerClass.ApiError,
-        message: "Tried to modify biometrics state without authorization",
-      );
+            logLevel: LogLevel.Warning,
+            loggerClass: LoggerClass.ApiError,
+            message: "Tried to modify biometrics state without authorization",
+          );
       return;
     }
 
