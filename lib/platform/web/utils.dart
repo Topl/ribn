@@ -35,7 +35,7 @@ class PlatformUtils implements IPlatformUtils {
   static PlatformUtils get instance => PlatformUtils();
 
   @override
-  String getCurrentAppVersion() => getAppVersion();
+  Future<String> getCurrentAppVersion() async => await getAppVersion();
 
   @override
   void downloadFile(String fileName, String text) => downloadAsFile(fileName, text);

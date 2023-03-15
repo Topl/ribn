@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 
@@ -123,23 +122,23 @@ class _RestoreWithToplKeyPageState extends State<RestoreWithToplKeyPage> {
         ),
       ),
       onPressed: () async {
-        try {
-          final FilePickerResult? result = await FilePicker.platform.pickFiles();
-          if (result != null) {
-            final PlatformFile file = result.files.first;
-            // utf8.decode the file bytes to get the file content as a string
-            toplKey = utf8.decode(file.bytes!);
-            // validate that the file content can be json decoded
-            jsonDecode(toplKey);
-            // update the file name
-            uploadedFileName = file.name;
-            errorUploadingFile = false;
-          }
-        } catch (e) {
-          errorUploadingFile = true;
-          uploadedFileName = '';
-          toplKey = '';
-        }
+        // try {
+        //   final FilePickerResult? result = await FilePicker.platform.pickFiles();
+        //   if (result != null) {
+        //     final PlatformFile file = result.files.first;
+        //     // utf8.decode the file bytes to get the file content as a string
+        //     toplKey = utf8.decode(file.bytes!);
+        //     // validate that the file content can be json decoded
+        //     jsonDecode(toplKey);
+        //     // update the file name
+        //     uploadedFileName = file.name;
+        //     errorUploadingFile = false;
+        //   }
+        // } catch (e) {
+        //   errorUploadingFile = true;
+        //   uploadedFileName = '';
+        //   toplKey = '';
+        // }
         setState(() {});
       },
     );

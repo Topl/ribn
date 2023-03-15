@@ -9,7 +9,7 @@ import 'package:ribn/platform/platform.dart';
 // makes calling provider easier
 export 'package:ribn/models/file.dart';
 
-final appVersionProvider = Provider<String>((ref) {
+final appVersionProvider = FutureProvider<String>((ref) {
   if (EnvironmentConfig.nightlyBuildVersion == "") {
     try {
       return PlatformUtils.instance.getCurrentAppVersion();

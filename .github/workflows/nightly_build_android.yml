@@ -23,12 +23,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           lfs: true
-          ref: 'nightly'
-
-      - name: Get release version
-        run: |
-          version=$(awk '/version:/ {match($0, /version:/); print substr($0, RSTART+9, RLENGTH + 12);}' pubspec.yaml)
-          nversion="n$version-$(date +%y%m%d)"
+          ref: 'nightly-fix'
 
       # Setup the java environment required to build
       - name: Setup Java
@@ -72,7 +67,10 @@ jobs:
         run: echo $nversion
 
       - name: Build android app
-        run: flutter build appbundle --release --build-number=${{github.run_number}} --dart-define=nightlyBuildVersion=$nversion
+        run: |
+          version=$(awk '/version:/ {match($0, /version:/); print substr($0, RSTART+9, RLENGTH + 12);}' pubspec.yaml)
+          nversion="n$version-$(date +%y%m%d)"
+          flutter build appbundle --release --build-number=${{github.run_number}} --dart-define=nightlyBuildVersion=$nversion
 
       - name: Upload android build
         uses: actions/upload-artifact@v3

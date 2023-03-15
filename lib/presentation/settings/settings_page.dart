@@ -68,7 +68,10 @@ class SettingsListItems extends ConsumerWidget {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              RibnVersionSection(appVersion: appVersion),
+              appVersion.when(
+                  data: (data) => RibnVersionSection(appVersion: data),
+                  error: (_, __) => SizedBox(),
+                  loading: () => SizedBox()),
               const LinksSection(),
               AnalyticsSection(),
               if (kIsWeb) ExportToplMainKeySection(onExportPressed: settings.ExportToplMainKey),
@@ -78,9 +81,9 @@ class SettingsListItems extends ConsumerWidget {
                 canDisconnectDApp.when(
                     data: (data) => data
                         ? DisconnectDAppsSection(onDisconnectPressed: _onDisconnectPressed, canDisconnect: data)
-                        : Container(),
-                    error: (_, __) => Container(),
-                    loading: () => Container()),
+                        : SizedBox(),
+                    error: (_, __) => SizedBox(),
+                    loading: () => SizedBox()),
                 SizedBox(height: 10),
                 //Delete Wallet Section
                 DeleteWalletSection(onDeletePressed: (_) => onDeletePressed(_, ref)),

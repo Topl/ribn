@@ -6,7 +6,7 @@ import 'package:ribn/constants/rules.dart';
 
 abstract class IPlatformUtils {
   /// Returns the current application version.
-  String getCurrentAppVersion();
+  Future<String> getCurrentAppVersion();
 
   /// Download file with name [fileName] and content [content].
   void downloadFile(String fileName, String content);

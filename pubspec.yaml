@@ -54,13 +54,15 @@ dependencies:
   logging: ^1.1.1
   intl: ^0.18.0
   local_auth: ^2.0.0
-  file_picker: ^4.3.3
   path_provider: ^2.0.9
   flutter_secure_storage: ^7.0.1
   app_settings: ^4.1.8
   get_it: ^7.2.0
   image_picker: ^0.8.6+2
   email_validator: ^2.1.17
+  package_info_plus: ^3.0.3
+
+
   # Topl
   bip_topl: ^0.0.2
   ribn_toolkit:
