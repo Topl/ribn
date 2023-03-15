@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+// Project imports:
 import 'package:ribn/models/ribn_network.dart';
 import 'package:ribn/models/view/poly_transfer_class.dart';
 import 'package:ribn/utils.dart';
@@ -19,7 +24,6 @@ class PolyTransferNotifier extends StateNotifier<PolyTransferClass> {
           validRecipientAddress: '',
         ));
 
-
   // Updates recipient and validates it
   void validateRecipient(String recipient, RibnNetwork network, TextEditingController controller) {
     state = state.copyWith(recipientAddress: recipient);
@@ -36,9 +40,7 @@ class PolyTransferNotifier extends StateNotifier<PolyTransferClass> {
         }
       },
     );
-
   }
-
 
   void onRecipientBackspacePressed(TextEditingController controller) {
     final validRecipientAddress = state.validRecipientAddress;
@@ -55,7 +57,6 @@ class PolyTransferNotifier extends StateNotifier<PolyTransferClass> {
     state = state.copyWith(validRecipientAddress: '');
   }
 
-
   void updateNote(String note) {
     state = state.copyWith(note: note);
   }
@@ -63,5 +64,4 @@ class PolyTransferNotifier extends StateNotifier<PolyTransferClass> {
   void updateAmount(String amount) {
     state = state.copyWith(amount: int.parse(amount));
   }
-
 }

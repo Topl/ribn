@@ -1,11 +1,19 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
+import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
+import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
+
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
@@ -17,12 +25,6 @@ import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
 import 'package:ribn/providers/transactions/poly_transfer_provider.dart';
 import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/fee_info.dart';
-import 'package:ribn_toolkit/constants/colors.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:ribn_toolkit/widgets/molecules/asset_amount_field.dart';
-import 'package:ribn_toolkit/widgets/molecules/note_field.dart';
-import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 
 /// The input page that allows initiating poly transfer transaction.
 ///
@@ -102,7 +104,7 @@ class PolyTransferSection extends HookConsumerWidget {
                     polyTransferNotifier.validateRecipient(recipient, vm.currentNetwork, _recipientController);
                   },
                   onBackspacePressed: () {
-                   polyTransferNotifier.onRecipientBackspacePressed(_recipientController);
+                    polyTransferNotifier.onRecipientBackspacePressed(_recipientController);
                   },
                   icon: SvgPicture.asset(RibnAssets.recipientFingerprint),
                   alternativeDisplayChild: const AddressDisplayContainer(
