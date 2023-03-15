@@ -7,13 +7,13 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ribn/presentation/settings/sections/analytics_section.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
 // Project imports:
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/platform/platform.dart';
+import 'package:ribn/presentation/settings/sections/analytics_section.dart';
 import 'package:ribn/presentation/settings/sections/biometrics_section.dart';
 import 'package:ribn/presentation/settings/sections/danger_container_section.dart';
 import 'package:ribn/presentation/settings/sections/delete_wallet_confirmation_dialog.dart';

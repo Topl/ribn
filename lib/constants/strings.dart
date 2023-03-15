@@ -311,5 +311,6 @@ Ribn Wallet does not control the functionality of biometrics and does not have a
   static overMaxPolys(int maxPolys) =>
       'The amount you entered exceeds\nyour wallet balance of Polys.\nPlease enter a an amount \nless then $maxPolys!';
   static const String participateInAnalytics = "Participate in Ribn Analytics";
-  static const String participateInAnalyticsDescription = "Participate in Ribn analytics to help us \nimprove the Ribn wallet user experience.";
+  static const String participateInAnalyticsDescription =
+      "Participate in Ribn analytics to help us \nimprove the Ribn wallet user experience.";
 }
