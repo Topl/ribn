@@ -16,7 +16,7 @@ class NetworkUtils {
   // Network IP's
   static const String privateIP = '104.197.222.150';
   static const String valhallaIP = '35.224.14.0';
-  static const String toplnetIP = '34.171.109.202';
+  static const String toplnetIP = '34.172.5.205';
 
   // ID's used by RibnNetwork
   static int toplNetId = constants.networkRegistry[toplNet]!;
