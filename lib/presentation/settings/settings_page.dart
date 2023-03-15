@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/presentation/settings/sections/analytics_section.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
@@ -69,6 +70,7 @@ class SettingsListItems extends ConsumerWidget {
             children: [
               RibnVersionSection(appVersion: appVersion),
               const LinksSection(),
+              AnalyticsSection(),
               if (kIsWeb) ExportToplMainKeySection(onExportPressed: settings.ExportToplMainKey),
               if (biometrics.value?.isSupported ?? false) BiometricsSection(),
               DangerContainerSection(children: [

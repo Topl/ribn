@@ -49,7 +49,6 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
    */
   Future<void> toggleBiometrics({bool? overrideValue}) async {
     final biometrics = state.value; // setup for type promotion
-    final logger = ref.read(loggerPackageProvider)("Biometrics");
     if (biometrics == null) {
       ref.read(loggerProvider).log(
             logLevel: LogLevel.Warning,
@@ -62,7 +61,11 @@ class BiometricsNotifier extends StateNotifier<AsyncValue<BiometricsState>> {
 
     // guard clause for authorization
     if (!biometrics.authorized) {
-      logger.warning("Tried to modify biometrics state without authorization");
+      ref.read(loggerProvider).log(
+        logLevel: LogLevel.Warning,
+        loggerClass: LoggerClass.ApiError,
+        message: "Tried to modify biometrics state without authorization",
+      );
       return;
     }
 
