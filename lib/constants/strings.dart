@@ -285,7 +285,7 @@ Write down the each word in the exact order it is presented.''';
       '''Would you like to turn on biometrics for faster access to Ribn Wallet?\n 
 Ribn Wallet does not control the functionality of biometrics and does not have access to your biometrics information.''';
   static const String recentActivity = 'Recent Activity';
-  static const String transactionDetails = 'Activity details';
+  static const String transactionDetails = 'Transaction Details';
   static const String noActivityToReview = 'You currently have no wallet activity to review.';
   static const String noAssetsInWallet = 'You currently have no assets in your wallet.';
   static const String noAssetsAndBalanceInWallet = 'Want to add more assets to your wallet? ';
