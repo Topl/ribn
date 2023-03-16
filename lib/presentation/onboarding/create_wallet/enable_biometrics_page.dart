@@ -90,16 +90,11 @@ class EnableBiometrics extends HookConsumerWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                CustomIconButton(
-                  onPressed: () {
-                    Keys.navigatorKey.currentState?.pushNamed(Routes.walletCreated);
-                  },
-                  icon: const Icon(
-                    Icons.close,
-                    color: RibnColors.lightGreyTitle,
-                  ),
-                ),
+                  Container(
+                    height: 50,
+                  )
               ],
             ),
             Text(
