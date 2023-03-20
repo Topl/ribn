@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 // Project imports:
@@ -64,7 +65,7 @@ class RibnAppBarViewModel {
       updateNetwork: (String network) {
         store.dispatch(UpdateCurrentNetworkAction(network));
       },
-      selectSettingsOption: (String selectedOption) {
+      selectSettingsOption: (String selectedOption) async {
         switch (selectedOption) {
           case Strings.settings:
             {
@@ -73,7 +74,10 @@ class RibnAppBarViewModel {
             }
           case Strings.support:
             {
-              launchUrlString(Strings.supportEmailLink);
+              kIsWeb
+                  ? await launchUrl(Uri.parse("https://forms.gle/jtNTtD7kxGoo1ePJA"))
+                  : launchUrlString(Strings.supportEmailLink);
+
               break;
             }
           default:
