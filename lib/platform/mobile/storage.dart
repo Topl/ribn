@@ -82,11 +82,11 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
 
   /// Web-only
   @override
-  Future<String?> getKeyFromSessionStorage() => throw UnimplementedError();
+  Future<String?> getKeyFromSessionStorage({String? key}) => throw UnimplementedError();
 
   /// Web-only
   @override
-  Future<void> saveKeyInSessionStorage(String key) => throw UnimplementedError();
+  Future<void> saveKeyInSessionStorage(String value, {String? key}) => throw UnimplementedError();
 
   @override
   Future<String?> getKVInSecureStorage(String key, {FlutterSecureStorage? override}) async {

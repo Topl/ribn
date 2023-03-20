@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:ribn/utils/input_utils.dart';
 
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
@@ -100,12 +101,14 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
                 ),
               ),
               onPressed: () {
+                dismissKeyboard(context);
                 widget.onConfirmDeletePressed(
                   _passwordController.text,
                   () {
                     setState(() {
                       _incorrectPasswordError = true;
                     });
+
                   },
                 );
               },

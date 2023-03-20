@@ -85,8 +85,8 @@ class BiometricsSection extends ConsumerWidget {
     final biometrics = ref.watch(biometricsProvider);
 
     return biometrics.when(
-        error: (_, __) => Container(),
-        loading: () => Container(),
+        error: (_, __) => const SizedBox(),
+        loading: () => const SizedBox(),
         data: (data) => data.isSupported
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
