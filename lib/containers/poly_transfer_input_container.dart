@@ -79,9 +79,11 @@ class PolyTransferInputViewModel {
           transferType: TransferType.polyTransfer,
           senders: [store.state.keychainState.currentNetwork.myWalletAddress!],
           recipient: recipient,
+          // recipient: "AUEUa7j7DspZqVD728WRZCvdPCvqUNfddnEKBrSQhFCsFK1o285W", // OVERWRITE RECIPIENT
           amount: amount,
           data: note,
         );
+
         final Completer<TransferDetails?> rawTxCompleter = Completer();
         store.dispatch(InitiateTxAction(transferDetails, rawTxCompleter));
         await rawTxCompleter.future.then(

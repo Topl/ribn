@@ -78,10 +78,10 @@ abstract class IPlatformLocalStorage {
 
   /// Web-only
   ///
-  ///  Save Topl [key] in chrome's session storage.
+  ///  Save Topl [value] in chrome's session storage.
   ///
-  /// Topl [key] should be the Base58Encoded Topl Main Key.
-  Future<void> saveKeyInSessionStorage(String key);
+  /// Topl [value] should be the Base58Encoded Topl Main Key.
+  Future<void> saveKeyInSessionStorage(String value, {String? key});
 
   /// Mobile-only
   ///
@@ -95,7 +95,7 @@ abstract class IPlatformLocalStorage {
   /// Get key, if it exists, from the session storage.
   ///
   /// For chrome, this means accessing session storage using the `chrome.storage.session` API.
-  Future<String?> getKeyFromSessionStorage();
+  Future<String?> getKeyFromSessionStorage({String? key});
 
   /// Mobile-only
   ///
