@@ -2,8 +2,8 @@
 import 'dart:async';
 
 // Package imports:
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 // Project imports:
 import 'package:ribn/models/state/analytics_state.dart';
 import 'package:ribn/platform/platform.dart';
@@ -94,7 +94,41 @@ class voidAnalyticsService implements AnalyticsService {
 }
 
 class FirebaseAnalyticsService implements AnalyticsService {
-  void logEvent(String name, Map<String, dynamic> parameters) {
-    // do firebase thing
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  /***
+   * Logs an event to firebase analytics
+   * Use the AnalyticsEventBuilders to build the parameters
+   */
+  Future<void> logEvent(String name, Map<String, dynamic> parameters) async {
+    // log event to firebase
+    await FirebaseAnalytics.instance.logEvent(name: name, parameters: parameters);
+  }
+}
+
+enum AnalyticsEvents {
+  AbandonTransactionEvent("Abandon"), // Abandon Cart
+  SessionDurationEvent("Session Duration"),
+  TransactionEvent("Transaction"),
+
+  // dApp Events
+  DAppAuthenticatedEvent("DApp Authenticated"),
+  DAppAuthenticatedPermittedEvent("DApp Authenticated Permitted"),
+  DAppAuthenticationRejectedEvent("DApp Authentication Rejected"),
+  DAppSignTransactionEvent("Dapp Signed Transaction"), // Bounce Rate
+
+  UserInteractionEvents("User Interaction Event");
+
+  const AnalyticsEvents(this.name);
+
+  final String name;
+}
+
+class AnalyticsEventBuilders {
+  static Map<String, dynamic> buildAbandonTransactionEvent() {
+    return {
+      'event': AnalyticsEvents.AbandonTransactionEvent.toString(),
+      
+    };
   }
 }
