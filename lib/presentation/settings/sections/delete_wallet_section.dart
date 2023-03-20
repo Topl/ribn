@@ -44,7 +44,7 @@ class DeleteWalletSection extends StatelessWidget {
                   height: 22,
                   child: LargeButton(
                     buttonChild: Text(
-                      Strings.delete,
+                      Strings.remove,
                       style: RibnToolkitTextStyles.btnLarge.copyWith(
                         color: RibnColors.primary,
                         fontSize: 10,
