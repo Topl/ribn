@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:ribn/utils/error_handling_utils.dart';
 
 // Project imports:
 import 'package:ribn/constants/strings.dart';
@@ -40,9 +40,7 @@ class SupportLinkSection extends StatelessWidget {
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
-                    final Uri url = Uri.parse(Strings.supportEmailLink);
-
-                    await launchUrl(url);
+                    await handleContactSupport();
                   },
               )
             ],
