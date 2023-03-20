@@ -57,9 +57,6 @@ dependencies:
   path_provider: ^2.0.9
   flutter_secure_storage: ^7.0.1
   app_settings: ^4.1.8
-  get_it: ^7.2.0
-  image_picker: ^0.8.6+2
-  email_validator: ^2.1.17
   package_info_plus: ^3.0.3
 
 
@@ -73,8 +70,7 @@ dependencies:
     git:
       url: https://github.com/Topl/BramblDart
       ref: TSDK-133
-      # Remove the ref once Selby's branch above has been merged into main
-
+      # TODO Remove the ref once Selby's branch above has been merged into main
 
 
 dev_dependencies:
@@ -95,8 +91,9 @@ dev_dependencies:
   dependency_validator: ^3.2.2
 
 
-#  custom_lint: ^0.2.5
-#  riverpod_lint: ^1.0.1
+  #  custom_lint: ^0.2.5
+  #  riverpod_lint: ^1.0.1
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
