@@ -313,4 +313,5 @@ Ribn Wallet does not control the functionality of biometrics and does not have a
   static const String participateInAnalytics = "Participate in Ribn Analytics";
   static const String participateInAnalyticsDescription =
       "Participate in Ribn analytics to help us \nimprove the Ribn wallet user experience.";
+  static const String googleFormFeedbackUrl = "https://forms.gle/jtNTtD7kxGoo1ePJA";
 }

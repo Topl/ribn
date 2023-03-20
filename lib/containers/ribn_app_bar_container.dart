@@ -75,7 +75,7 @@ class RibnAppBarViewModel {
           case Strings.support:
             {
               kIsWeb
-                  ? await launchUrl(Uri.parse("https://forms.gle/jtNTtD7kxGoo1ePJA"))
+                  ? await launchUrl(Uri.parse(Strings.googleFormFeedbackUrl))
                   : launchUrlString(Strings.supportEmailLink);
 
               break;
