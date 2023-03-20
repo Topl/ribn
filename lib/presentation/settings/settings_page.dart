@@ -20,7 +20,6 @@ import 'package:ribn/presentation/settings/sections/delete_wallet_confirmation_d
 import 'package:ribn/presentation/settings/sections/delete_wallet_section.dart';
 import 'package:ribn/presentation/settings/sections/disconnect_dapps_section.dart';
 import 'package:ribn/presentation/settings/sections/disconnect_wallet_confirmation_dialog.dart';
-import 'package:ribn/presentation/settings/sections/export_topl_main_key_section.dart';
 import 'package:ribn/presentation/settings/sections/links_section.dart';
 import 'package:ribn/presentation/settings/sections/ribn_version_section.dart';
 import 'package:ribn/providers/biometrics_provider.dart';
@@ -60,8 +59,6 @@ class SettingsListItems extends ConsumerWidget {
     final biometrics = ref.watch(biometricsProvider);
     final appVersion = ref.watch(appVersionProvider);
 
-    final settings = ref.read(settingsProvider);
-
     return Container(
         color: RibnColors.background,
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
@@ -71,7 +68,6 @@ class SettingsListItems extends ConsumerWidget {
               RibnVersionSection(appVersion: appVersion),
               const LinksSection(),
               AnalyticsSection(),
-              if (kIsWeb) ExportToplMainKeySection(onExportPressed: settings.ExportToplMainKey),
               if (biometrics.value?.isSupported ?? false) BiometricsSection(),
               DangerContainerSection(children: [
                 //Disconnect DApps
