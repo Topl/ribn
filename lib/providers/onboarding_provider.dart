@@ -21,8 +21,8 @@ import 'package:ribn/providers/packages/entropy_provider.dart';
 import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 import 'package:ribn/providers/packages/random_provider.dart';
 import 'package:ribn/repositories/onboarding_repository.dart';
-import 'package:ribn/utils.dart';
 import 'package:ribn/utils/error_handling_utils.dart';
+import 'package:ribn/utils/extensions.dart';
 
 final onboardingProvider = StateNotifierProvider<OnboardingNotifier, OnboardingState>((ref) {
   return OnboardingNotifier(ref);
@@ -75,7 +75,8 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
         ),
       );
 
-      final Uint8List toplExtendedPrvKeyUint8List = uint8ListFromDynamic(results['toplExtendedPrvKeyUint8List']);
+      final Uint8List toplExtendedPrvKeyUint8List =
+          (results['toplExtendedPrvKeyUint8List'] as List<dynamic>).toUint8List();
 
       // if extension: key is temporarily stored in `chrome.storage.session` & session alarm created
       // if mobile: key is persisted securely in secure storage

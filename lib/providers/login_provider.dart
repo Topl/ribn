@@ -27,7 +27,7 @@ import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/repositories/misc_repository.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/extensions.dart';
 
 final loginProvider = StateNotifierProvider<LoginNotifier, LoginState>((ref) {
   final store = ref.read(storeProvider);
@@ -60,7 +60,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
         ),
       );
 
-      final Uint8List toplExtendedPrvKeyUint8List = uint8ListFromDynamic(result);
+      final Uint8List toplExtendedPrvKeyUint8List = result.toUint8List();
       // if extension: key is temporarily stored in `chrome.storage.session` & session alarm created
       // if mobile: key is persisted securely in secure storage
       if (currAppView == AppViews.extension || currAppView == AppViews.extensionTab) {

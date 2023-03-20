@@ -20,7 +20,7 @@ import 'package:ribn/presentation/onboarding/widgets/mobile_onboarding_progress_
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/providers/biometrics_provider.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/utils.dart';
 
 class WalletInfoChecklistPage extends HookConsumerWidget {
   static const walletInfoChecklistPageKey = Key('walletInfoChecklistPageKey');

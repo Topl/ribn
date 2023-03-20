@@ -18,8 +18,8 @@ import 'package:ribn/providers/app_state_provider.dart';
 import 'package:ribn/providers/keychain_provider.dart';
 import 'package:ribn/repositories/login_repository.dart';
 import 'package:ribn/repositories/onboarding_repository.dart';
-import 'package:ribn/utils.dart';
 import 'package:ribn/utils/error_handling_utils.dart';
+import 'package:ribn/utils/extensions.dart';
 
 final restoreWalletProvider = StateNotifierProvider<RestoreWalletNotifier, void>((ref) {
   return RestoreWalletNotifier(ref);
@@ -49,7 +49,7 @@ class RestoreWalletNotifier extends StateNotifier<void> {
         ),
       );
       await _restoreFlow(
-        toplExtendedPrivateKey: uint8ListFromDynamic(results['toplExtendedPrvKeyUint8List']),
+        toplExtendedPrivateKey: (results['toplExtendedPrvKeyUint8List'] as List<dynamic>).toUint8List(),
         keyStoreJson: results['keyStoreJson'],
       );
       const String navigateToRoute = kIsWeb ? Routes.extensionInfo : Routes.home;

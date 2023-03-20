@@ -1,6 +1,5 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:ribn/utils/input_utils.dart';
 
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
@@ -11,6 +10,7 @@ import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 
 // Project imports:
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/utils/input_utils.dart';
 
 /// The confimation dialog that is displayed before deleting the wallet.
 ///
@@ -108,7 +108,6 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
                     setState(() {
                       _incorrectPasswordError = true;
                     });
-
                   },
                 );
               },

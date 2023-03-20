@@ -22,23 +22,8 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/platform/platform.dart';
+import 'package:ribn/utils/extensions.dart';
 import 'package:ribn/widgets/custom_divider.dart';
-
-/// Formats an address string to only dispaly its first and last 10 characters.
-String formatAddrString(String addr, {int charsToDisplay = 10}) {
-  const numDots = 3;
-  final String dotsString = List<String>.filled(numDots, '.').join();
-  final String leftSubstring = addr.substring(0, charsToDisplay);
-  final String rightSubstring = addr.substring(addr.length - charsToDisplay);
-  return '$leftSubstring$dotsString$rightSubstring';
-}
-
-String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
-
-/// Formats [unit] to only display the first part of the string.
-String formatAssetUnit(String? unit) {
-  return unit?.split(' ').first ?? 'Select Unit';
-}
 
 /// Validates the [address] passed in by the user.
 ///
@@ -74,10 +59,6 @@ Future<bool> isAppOpenedInDebugView() async {
   return await PlatformUtils.instance.getCurrentAppView() == AppViews.webDebug;
 }
 
-Uint8List uint8ListFromDynamic(dynamic list) {
-  return Uint8List.fromList((list as List).cast<int>());
-}
-
 Future<void> showReceivingAddress() async {
   await showDialog(
     context: Keys.navigatorKey.currentContext!,
@@ -105,7 +86,7 @@ Future<void> showReceivingAddress() async {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  formatAddrString(ribnAddress.toplAddress.toBase58()),
+                  ribnAddress.toplAddress.toBase58().formatAddressString(),
                   style: const TextStyle(
                     fontFamily: 'DM Sans',
                     fontWeight: FontWeight.w400,
