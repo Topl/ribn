@@ -76,6 +76,7 @@ class RibnAppBarViewModel {
           case Strings.support:
             {
               if (kIsWeb) {
+                // QQQQ add to constants
                 await launchUrl(Uri.parse("https://forms.gle/jtNTtD7kxGoo1ePJA"));
               } else {
                 Keys.navigatorKey.currentState?.pushNamed(Routes.feedback);
