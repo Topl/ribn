@@ -1,3 +1,6 @@
+// Dart imports:
+import 'dart:typed_data';
+
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 
@@ -9,6 +12,17 @@ extension StringExtensions on String {
             ? false
             : throw UnsupportedError("Cannot convert $this [${this.runtimeType}] to boolean"));
   }
+
+  /// Formats an address string to only dispaly its first and last 10 characters.
+  String formatAddressString({int charsToDisplay = 10}) {
+    const numDots = 3;
+    final String dotsString = List<String>.filled(numDots, '.').join();
+    final String leftSubstring = this.substring(0, charsToDisplay);
+    final String rightSubstring = this.substring(this.length - charsToDisplay);
+    return '$leftSubstring$dotsString$rightSubstring';
+  }
+
+  String capitalize() => this[0].toUpperCase() + this.substring(1);
 }
 
 extension NullableStringExtension on String? {
@@ -22,6 +36,11 @@ extension NullableStringExtension on String? {
     }
 
     return val.toBoolean();
+  }
+
+  /// Formats [unit] to only display the first part of the string.
+  String formatAssetUnit() {
+    return this?.split(' ').first ?? 'Select Unit';
   }
 }
 
@@ -45,5 +64,20 @@ extension IterableWidgetExtension on Iterable<Widget> {
         yield iterator.current;
       }
     }
+  }
+}
+
+extension Unique<E, Id> on List<E> {
+  List<E> unique([Id Function(E element)? id, bool inplace = true]) {
+    final ids = <dynamic>{};
+    final list = inplace ? this : List<E>.from(this);
+    list.retainWhere((x) => ids.add(id != null ? id(x) : x as Id));
+    return list;
+  }
+}
+
+extension dynamicExtensions on dynamic {
+  Uint8List toUint8List() {
+    return Uint8List.fromList((this as List).cast<int>());
   }
 }

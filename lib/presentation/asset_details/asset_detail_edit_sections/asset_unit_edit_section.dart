@@ -13,7 +13,7 @@ import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/extensions.dart';
 
 /// The section for editing asset unit.
 ///
@@ -82,9 +82,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
             ),
             hintText: 'Select Unit',
             selectedItem: Text(
-              formatAssetUnit(
-                selectedUnit ?? widget.currentUnit,
-              ),
+              (selectedUnit ?? widget.currentUnit).formatAssetUnit(),
               style: RibnToolkitTextStyles.dropdownButtonStyle,
             ),
           ),

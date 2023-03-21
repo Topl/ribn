@@ -20,12 +20,13 @@ import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/providers/onboarding_provider.dart';
 import 'package:ribn/providers/utility_provider.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/utils.dart';
 
 class SeedPhraseDisplayPage extends HookConsumerWidget {
   static const Key copyKey = Key('copyKey');
   static const Key seedPhraseDisplayPageKey = Key('seedPhraseDisplayPageKey');
   static const Key seedPhraseDisplayConfirmationButtonKey = Key('seedPhraseDisplayConfirmationButtonKey');
+
   const SeedPhraseDisplayPage({Key key = seedPhraseDisplayPageKey}) : super(key: key);
 
   @override
