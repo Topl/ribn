@@ -8,7 +8,7 @@ import 'package:ribn_toolkit/widgets/atoms/custom_toggle.dart';
 
 // Project imports:
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/providers/analytics_provider.dart';
+import 'package:ribn/providers/analytics/analytics_provider.dart';
 
 class AnalyticsSection extends ConsumerWidget {
   const AnalyticsSection({

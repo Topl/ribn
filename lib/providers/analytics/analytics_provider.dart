@@ -1,9 +1,12 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:io' show Platform;
 
 // Package imports:
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 // Project imports:
 import 'package:ribn/models/state/analytics_state.dart';
 import 'package:ribn/platform/platform.dart';
@@ -78,7 +81,7 @@ class AnalyticsNotifier extends StateNotifier<AsyncValue<AnalyticsState>> {
 
   Future<bool> _isAnalyticsEnabled() async {
     return (await PlatformLocalStorage.instance
-            .getKVInSecureStorage(_analyticsEnabledKey, override: ref.read(flutterSecureStorageProvider)()))
+        .getKVInSecureStorage(_analyticsEnabledKey, override: ref.read(flutterSecureStorageProvider)()))
         .toBooleanWithNullableDefault(false);
   }
 }
@@ -128,7 +131,21 @@ class AnalyticsEventBuilders {
   static Map<String, dynamic> buildAbandonTransactionEvent() {
     return {
       'event': AnalyticsEvents.AbandonTransactionEvent.toString(),
-      
+      'timestamp': DateTime
+          .now()
+          .millisecondsSinceEpoch,
+      'platform': getPlatform(),
     };
   }
+
+
+  static String getPlatform() =>
+      kIsWeb ? "Web" :
+      Platform.isIOS ? "IOS" :
+      Platform.isAndroid ? "Android" :
+      Platform.isMacOS ? "MacOS" :
+      Platform.isWindows ? "Windows" :
+      Platform.isLinux ? "Linux" :
+      Platform.isFuchsia ? "Fuchsia" :
+      "Unknown";
 }
