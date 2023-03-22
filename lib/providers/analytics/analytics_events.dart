@@ -132,8 +132,7 @@ class AnalyticsEventBuilders {
       {required int startTime, required int endTime, int contractInteractions = 0}) {
     return AnalyticsEventData._(
         _event,
-        _optionsBuilder(walletAddress: true, userType: true, parameters: {
-          "userInteractions": _addUserinteractions(),
+        _optionsBuilder(walletAddress: true, userType: true, userInteractions: true, parameters: {
           "startTime": startTime,
           "endTime": endTime,
           "duration": endTime - startTime,
@@ -148,6 +147,7 @@ class AnalyticsEventBuilders {
           bool userType = false,
           bool network = false,
           bool screens = false,
+          bool userInteractions = false,
           Map<String, dynamic> parameters = const {}}) =>
       parameters
           .addIf(eventName, _addEventName())
@@ -155,7 +155,8 @@ class AnalyticsEventBuilders {
           .addIf(walletAddress, _addWalletAddress())
           .addIf(userType, _addUserType())
           .addIf(network, _addNetwork())
-          .addIf(screens, _addScreens());
+          .addIf(screens, _addScreens())
+          .addIf(userInteractions, _addUserInteractions());
 
   static Map<String, dynamic> _addDefaultMetrics({Map<String, dynamic> parameters = const {}}) => {
         'timestamp': DateTime.now().millisecondsSinceEpoch,
@@ -188,7 +189,7 @@ class AnalyticsEventBuilders {
         ...parameters,
       };
 
-  Map<String, dynamic> _addUserinteractions({Map<String, dynamic> parameters = const {}}) => {
+  Map<String, dynamic> _addUserInteractions({Map<String, dynamic> parameters = const {}}) => {
         'userInteractions': _ref.read(analyticsInteractionsProvider),
         ...parameters,
       };
