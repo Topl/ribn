@@ -25,7 +25,7 @@ class FeeInfo extends HookWidget {
     final bool isValhalla = currentNetworkName == NetworkUtils.valhalla;
     final bool isMainnet = currentNetworkName == NetworkUtils.toplNet;
 
-    final feeState = useState(isMainnet ? fee / 1000000000 : fee);
+    final feeState = useState(isMainnet ? fee ~/ 1000000000 : fee);
     final unitState = useState(isValhalla ? 'nanoPOLY' : 'POLY');
 
     return Column(
