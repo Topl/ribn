@@ -2,8 +2,12 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Project imports:
+import 'package:ribn/providers/analytics/analytics_interactions_provider.dart';
+import 'package:ribn/providers/analytics/analytics_user_type.dart';
+import 'package:ribn/providers/utility_provider.dart';
 import 'package:ribn/utils/extensions.dart';
 import 'package:ribn/utils/platform_utils.dart';
+import 'analytics_screen_tracker_provider.dart';
 
 enum AnalyticsEvents {
   AbandonTransactionEvent("Abandon"), // Abandon Cart
@@ -125,14 +129,11 @@ class AnalyticsEventBuilders {
           }));
 
   AnalyticsEventData buildUserInteractionEvent(
-      {required List<String> interactions,
-      required int startTime,
-      required int endTime,
-      int contractInteractions = 0}) {
+      {required int startTime, required int endTime, int contractInteractions = 0}) {
     return AnalyticsEventData._(
         _event,
         _optionsBuilder(walletAddress: true, userType: true, parameters: {
-          "userInteractions": interactions,
+          "userInteractions": _addUserinteractions(),
           "startTime": startTime,
           "endTime": endTime,
           "duration": endTime - startTime,
@@ -162,13 +163,13 @@ class AnalyticsEventBuilders {
         ...parameters,
       };
 
-  static Map<String, dynamic> _addWalletAddress({Map<String, dynamic> parameters = const {}}) => {
-        'walletAddress': 'TODO: PLACEHOLDER'.toHashSha256(),
+  Map<String, dynamic> _addWalletAddress({Map<String, dynamic> parameters = const {}}) => {
+        'walletAddress': _ref.read(currentWalletAddressProvider).toHashSha256(),
         ...parameters,
       };
 
-  static Map<String, dynamic> _addUserType({Map<String, dynamic> parameters = const {}}) => {
-        'userType': 'TODO: PLACEHOLDER',
+  Map<String, dynamic> _addUserType({Map<String, dynamic> parameters = const {}}) => {
+        'userType': _ref.read(analyticsUserTypeProvider).isUserNew(),
         ...parameters,
       };
 
@@ -178,12 +179,17 @@ class AnalyticsEventBuilders {
       };
 
   Map<String, dynamic> _addNetwork({Map<String, dynamic> parameters = const {}}) => {
-        'network': 'TODO: PLACEHOLDER', //TODO: setup way to get current network in readable format
+        'network': _ref.read(currentNetworkProvider),
         ...parameters,
       };
 
   Map<String, dynamic> _addScreens({Map<String, dynamic> parameters = const {}}) => {
-        'screens': 'TODO: PLACEHOLDER', //TODO: setup way to get current network in readable format
+        'screens': _ref.read(analyticsScreenTrackerProvider),
+        ...parameters,
+      };
+
+  Map<String, dynamic> _addUserinteractions({Map<String, dynamic> parameters = const {}}) => {
+        'userInteractions': _ref.read(analyticsInteractionsProvider),
         ...parameters,
       };
 }

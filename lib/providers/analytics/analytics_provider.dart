@@ -8,10 +8,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/models/state/analytics_state.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/providers/analytics/analytics_events.dart';
+import 'package:ribn/providers/analytics/analytics_screen_tracker_provider.dart';
 import 'package:ribn/providers/analytics/analytics_service.dart';
+import 'package:ribn/providers/analytics/analytics_user_type.dart';
 import 'package:ribn/providers/logger_provider.dart';
 import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 import 'package:ribn/utils/extensions.dart';
+import 'analytics_interactions_provider.dart';
 
 final analyticsProvider = StateNotifierProvider<AnalyticsNotifier, AsyncValue<AnalyticsState>>((ref) {
   return AnalyticsNotifier(ref);
@@ -21,20 +24,32 @@ class AnalyticsNotifier extends StateNotifier<AsyncValue<AnalyticsState>> {
   final Ref ref;
 
   // Load no analytics tracking as default
-  AnalyticsService _service = voidAnalyticsService();
+  AnalyticsService _service = VoidAnalyticsService();
 
   AnalyticsNotifier(this.ref) : super(AsyncLoading()) {
     _isAnalyticsEnabled().then((isEnabled) {
       state = AsyncData(AnalyticsState(isEnabled: isEnabled));
       if (isEnabled) {
+        // instantiate the following dependencies
+        ref.read(analyticsUserTypeProvider); //
+        ref.read(analyticsInteractionsProvider);
+        ref.read(analyticsScreenTrackerProvider);
+        ;
+
         _service = FirebaseAnalyticsService(ref);
       }
     });
   }
 
-  void log(String name, Map<String, dynamic> parameters) => _service.logCustomEvent(name, parameters);
+  void log(String name, Map<String, dynamic> parameters) {
+    if (_service is VoidAnalyticsService) return;
+    _service.logCustomEvent(name, parameters);
+  }
 
-  void logEventWithBuilder(AnalyticsEventData data) => _service.logEventWithBuilder(data);
+  void logEventWithBuilder(AnalyticsEventData data) {
+    if (_service is VoidAnalyticsService) return;
+    _service.logEventWithBuilder(data);
+  }
 
   static const _analyticsEnabledKey = "biometricsEnabled";
 
@@ -69,7 +84,7 @@ class AnalyticsNotifier extends StateNotifier<AsyncValue<AnalyticsState>> {
         message: "Analytics enabled",
       );
     } else {
-      _service = voidAnalyticsService();
+      _service = VoidAnalyticsService();
       logger.log(
         logLevel: LogLevel.Info,
         loggerClass: LoggerClass.Analytics,

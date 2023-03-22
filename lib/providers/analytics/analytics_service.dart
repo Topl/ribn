@@ -13,8 +13,8 @@ abstract class AnalyticsService {
   Future<void> logEventWithBuilder(AnalyticsEventData data);
 }
 
-class voidAnalyticsService implements AnalyticsService {
-  voidAnalyticsService();
+class VoidAnalyticsService implements AnalyticsService {
+  VoidAnalyticsService();
 
   void logCustomEvent(String name, Map<String, dynamic> parameters) {
     // do nothing
