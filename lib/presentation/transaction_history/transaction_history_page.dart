@@ -157,6 +157,8 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                               );
                             }
 
+                            var data = [...snapshot.data, ...snapshot.data];
+
                             return Padding(
                               padding: const EdgeInsets.only(top: 20, bottom: 20),
                               child: Container(
@@ -187,12 +189,12 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
                                     physics: const NeverScrollableScrollPhysics(),
                                     scrollDirection: Axis.vertical,
                                     itemCount: filterSelectedItem == startingFilterValue
-                                        ? snapshot.data?.length
+                                        ? data.length
                                         : filteredTransactions.length,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
                                       final TransactionReceipt transaction = filterSelectedItem == startingFilterValue
-                                          ? snapshot.data[index]
+                                          ? data[index]
                                           : filteredTransactions[index];
 
                                       return TransactionDataRow(
