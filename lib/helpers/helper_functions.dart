@@ -28,7 +28,7 @@ Future<List<TransactionReceipt>> fetchTransactionHistory(
   String filterSelectedItem,
   List<TransactionReceipt> filteredTransactions,
 ) async {
-  final List<TransactionReceipt> response = await transactionHistoryViewmodel.getTransactions(pageNum: currentPage);
+  final List<TransactionReceipt> response = await transactionHistoryViewmodel.getTransactions();
   // Filters transactions by sent or received
   if (filterSelectedItem != 'Transaction types') {
     final List<TransactionReceipt> transactions = response;

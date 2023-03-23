@@ -50,7 +50,7 @@ class TransactionHistoryViewmodel {
   final Future<String>? blockHeight;
 
   /// Gets transactions associated with my wallet address from the Mempool and Genus
-  final Future<List<TransactionReceipt>> Function({int pageNum}) getTransactions;
+  final Future<List<TransactionReceipt>> Function() getTransactions;
 
   TransactionHistoryViewmodel({
     required this.toplAddress,
@@ -67,7 +67,7 @@ class TransactionHistoryViewmodel {
       networkId: store.state.keychainState.currentNetwork.networkId,
       assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
       blockHeight: store.state.keychainState.currentNetwork.client!.getBlockNumber(),
-      getTransactions: ({int pageNum = 0}) async {
+      getTransactions: () async {
         final myWalletAddress = currNetwork.myWalletAddress!.toplAddress.toBase58();
         final mempoolTxs = await getMempoolTxs(
           client: currNetwork.client!,
