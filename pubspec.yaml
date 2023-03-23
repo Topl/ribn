@@ -62,10 +62,9 @@ dependencies:
   # Topl
   bip_topl: ^0.0.2
   ribn_toolkit:
-    path: ../ribn-toolkit
-    # git:
-    #   url: https://github.com/Topl/ribn-toolkit
-    #   ref: main
+    git:
+      url: https://github.com/Topl/ribn-toolkit
+      ref: main
   brambldart:
     git:
       url: https://github.com/Topl/BramblDart

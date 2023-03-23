@@ -128,7 +128,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
       final bool hasPolys = vm.polyBalance > 0;
       return CustomToolTip(
         borderColor: Border.all(color: const Color(0xffE9E9E9)),
-        offsetPositionLeftValue: 180,
+        offsetPositionLeftValue: 210,
         onOpen: (OverlayEntry overlayEntry) {
           ref.read(appBarToolTipOverlayEntryProvider.notifier).state = overlayEntry;
         },
