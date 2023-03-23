@@ -20,7 +20,7 @@ import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
 import 'package:ribn/providers/onboarding_provider.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/utils.dart';
 
 class SeedPhraseConfirmationPage extends HookConsumerWidget {
   static const Key seedPhraseConfirmationPageKey = Key('seedPhraseConfirmationPageKey');

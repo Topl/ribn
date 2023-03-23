@@ -21,9 +21,8 @@ import 'package:ribn/models/asset_details.dart';
 import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/error_section.dart';
 import 'package:ribn/presentation/home/wallet_balance_shimmer.dart';
-import 'package:ribn/utils.dart';
-
-// import 'package:url_launcher/url_launcher.dart';
+import 'package:ribn/utils/extensions.dart';
+import 'package:ribn/utils/utils.dart';
 
 /// One of the 3 main pages on the home screen.
 ///
@@ -284,7 +283,7 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
   }) {
     final String assetIcon = assetDetails?.icon ?? RibnAssets.undefinedIcon;
 
-    final String assetUnit = assetDetails?.unit != null ? formatAssetUnit(assetDetails!.unit) : 'Unit';
+    final String assetUnit = assetDetails?.unit != null ? (assetDetails!.unit).formatAssetUnit() : 'Unit';
     final String assetLongName = assetDetails?.longName ?? '';
     final bool isMissingAssetDetails =
         assetIcon == RibnAssets.undefinedIcon || assetUnit == 'Unit' || assetLongName.isEmpty;

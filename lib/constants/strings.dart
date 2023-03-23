@@ -153,16 +153,16 @@ Write down the each word in the exact order it is presented.''';
   static const String actionNotReversible = 'Careful, these actions are not reversible!';
   static const String removeWallet = 'Remove wallet from your device';
   static const String disconnectDApps = 'Disconnect DApps from Ribn';
-  static const String delete = 'Delete';
+  static const String remove = 'Remove';
   static const String disconnect = 'Disconnect';
-  static const String deleteRibnWallet = 'Delete Ribn Wallet';
+  static const String removeFromDevice = 'Remove from Device';
   static const String disconnectRibnWalletDApps = 'Disconnect all DApps from Ribn wallet?';
-  static const String deleteRibnWalletDesc =
-      'Enter your wallet password to delete this wallet.\n\nThis action is not reversible. Your Ribn wallet will be deleted from this device.';
+  static const String removeRibnWalletDesc =
+      'By proceeding, your Seed phrase and accounts will be removed from this device.\n\nKeep in mind, you can still access them on Topl blockchain. You can always add this back later by using your Seed phrase.';
   static const String disconnectRibnWalletDAppsDesc =
       'By disconnecting, Ribn wallet will remove authorization to the following DApps:';
   static const String noIChangedMyMind = 'NO, I CHANGED MY MIND!';
-  static const String yesIWantToDelete = 'YES, I WANT TO DELETE.';
+  static const String yesIWantToRemove = 'YES, I WANT TO REMOVE.';
   static const String yesIWantToDisconnect = 'YES, I WANT TO DISCONNECT.';
   static const String enterWalletPassword = 'Enter Wallet Password';
   static const String unlock = 'Unlock';
@@ -192,6 +192,7 @@ Write down the each word in the exact order it is presented.''';
   static const String typeSomething = 'Type something';
   static const String supportEmail = 'support@topl.me';
   static const String supportEmailLink = 'mailto:$supportEmail?subject=Ribn Support&body=';
+  static const String supportDocsURL = 'https://docs.google.com/forms/d/e/1FAIpQLSdq0ex4BRPkRMt7HLaI9vHZJJ757Prsw9Mtbk4MU5zttCH3vg/viewform';
   static const String sendAssets = 'Send assets';
   static const String sendNativeCoins = 'Send native coins';
   static const String yourRibnWalletAddress = 'Your Ribn Wallet address';

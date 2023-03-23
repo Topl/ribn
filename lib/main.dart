@@ -27,7 +27,6 @@ import 'package:ribn/presentation/external_signing_page.dart';
 import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
-import 'package:ribn/presentation/transaction_history/service_locator/locator.dart';
 import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/redux.dart';
 import 'package:ribn/router/root_router.dart';
@@ -45,10 +44,7 @@ void main() async {
     await initBgConnection(Redux.store!);
     // Wallet().setJSCallbackFunction(_test());
     // initialize();
-  }
-  setupLocator(
-    Redux.store!,
-  ); //@dev call this function to setup any singletons required by app
+  } //@dev call this function to setup any singletons required by app
   runApp(
     ProviderScope(
       child: RibnApp(Redux.store!),

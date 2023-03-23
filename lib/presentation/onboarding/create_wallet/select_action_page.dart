@@ -15,7 +15,7 @@ import 'package:ribn/constants/strings.dart';
 import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/utils.dart';
 
 /// This page allows the user to select between creating a new wallet or importing an existing wallet.
 class SelectActionPage extends StatelessWidget {

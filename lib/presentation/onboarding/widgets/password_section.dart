@@ -14,8 +14,8 @@ import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 // Project imports:
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/providers/password_provider.dart';
-import 'package:ribn/utils.dart';
 import 'package:ribn/utils/url_utils.dart';
+import 'package:ribn/utils/utils.dart';
 
 class PasswordSection extends HookConsumerWidget {
   static const passwordSectionKey = Key('passwordSectionKey');

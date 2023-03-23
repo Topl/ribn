@@ -16,8 +16,8 @@ import 'package:ribn/containers/transaction_history_container.dart';
 import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/transaction_history/dashed_list_separator/dashed_list_separator.dart';
 import 'package:ribn/presentation/transaction_history/transaction_data_row/transaction_data_row.dart';
-import 'package:ribn/utils.dart';
 import 'package:ribn/utils/transaction_utils.dart';
+import 'package:ribn/utils/utils.dart';
 
 class TxHistoryPage extends StatefulWidget {
   final Future<String>? blockHeight;

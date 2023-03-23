@@ -7,7 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 // Project imports:
 import 'package:ribn/models/ribn_network.dart';
 import 'package:ribn/models/view/poly_transfer_class.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/utils.dart';
 
 final polyTransferProvider = StateNotifierProvider.autoDispose<PolyTransferNotifier, PolyTransferClass>((ref) {
   return PolyTransferNotifier(ref);

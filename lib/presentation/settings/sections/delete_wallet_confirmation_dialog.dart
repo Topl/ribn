@@ -1,6 +1,5 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:ribn/utils/input_utils.dart';
 
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
@@ -11,6 +10,7 @@ import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 
 // Project imports:
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/utils/input_utils.dart';
 
 /// The confimation dialog that is displayed before deleting the wallet.
 ///
@@ -43,7 +43,7 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
   Widget build(BuildContext context) {
     return CustomModal.renderCustomModal(
       title: const Text(
-        Strings.deleteRibnWallet,
+        Strings.removeFromDevice,
         style: RibnToolkitTextStyles.extH2,
       ),
       context: context,
@@ -51,9 +51,9 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
         children: [
           SizedBox(
             width: 228,
-            height: 125,
+            height: 160,
             child: Text(
-              Strings.deleteRibnWalletDesc,
+              Strings.removeRibnWalletDesc,
               style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15),
             ),
           ),
@@ -95,7 +95,7 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
             // confirm delete
             LargeButton(
               buttonChild: Text(
-                Strings.yesIWantToDelete,
+                Strings.yesIWantToRemove,
                 style: RibnToolkitTextStyles.btnMedium.copyWith(
                   color: Colors.white,
                 ),
@@ -108,7 +108,6 @@ class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmatio
                     setState(() {
                       _incorrectPasswordError = true;
                     });
-
                   },
                 );
               },

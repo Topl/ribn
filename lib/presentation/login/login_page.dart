@@ -30,9 +30,9 @@ import 'package:ribn/providers/logger_provider.dart';
 import 'package:ribn/providers/login_provider.dart';
 import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 import 'package:ribn/providers/store_provider.dart';
-import 'package:ribn/utils.dart';
 import 'package:ribn/utils/extensions.dart';
 import 'package:ribn/utils/input_utils.dart';
+import 'package:ribn/utils/utils.dart';
 
 /// Builds the login page.
 ///
