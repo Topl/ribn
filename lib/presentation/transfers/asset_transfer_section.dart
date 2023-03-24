@@ -100,7 +100,10 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // fee info for the tx
-              FeeInfo(fee: widget.vm.networkFee),
+              FeeInfo(
+                fee: widget.vm.networkFee,
+                currentNetworkName: widget.vm.currentNetwork.networkName,
+              ),
               _buildReviewButton(widget.vm),
             ],
           ),

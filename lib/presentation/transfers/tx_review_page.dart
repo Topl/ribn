@@ -108,6 +108,8 @@ class TxReviewPage extends StatelessWidget {
                         width: 310,
                         child: FeeInfo(
                           fee: transferDetails.transactionReceipt!.fee!.getInNanopoly,
+                          currentNetworkName:
+                              StoreProvider.of<AppState>(context).state.keychainState.currentNetwork.networkName,
                         ),
                       ),
                     ),

@@ -42,6 +42,7 @@ class ReviewAndSignDApp extends StatefulWidget {
 class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
   late final Map transactionDetails;
   late final String walletAddress;
+  late final String currentNetworkName;
   late final RawTx transaction;
   bool isExpanded = false;
 
@@ -57,6 +58,8 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
   void initState() {
     transactionDetails = widget.request.data!['rawTx'];
     transaction = RawTx.fromJson(widget.request.data!['rawTx']);
+
+    currentNetworkName = StoreProvider.of<AppState>(context).state.keychainState.currentNetwork.networkName;
 
     walletAddress =
         StoreProvider.of<AppState>(context).state.keychainState.currentNetwork.addresses.first.toplAddress.toBase58();
@@ -230,7 +233,10 @@ class _ReviewAndSignDAppState extends State<ReviewAndSignDApp> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FeeInfo(fee: int.parse(transactionDetails['fee'])),
+            FeeInfo(
+              fee: int.parse(transactionDetails['fee']),
+              currentNetworkName: currentNetworkName,
+            ),
             const SizedBox(height: 15),
             kIsWeb
                 ? Row(
