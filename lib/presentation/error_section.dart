@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/utils/error_handling_utils.dart';
 
 /// A generic error section that is displayed in case of unexpected errors.
 class ErrorSection extends StatelessWidget {
@@ -71,7 +71,7 @@ class ErrorSection extends StatelessWidget {
           borderColor: const Color(0xff165867),
           backgroundColor: RibnColors.background,
           onPressed: () async {
-            await launchUrlString(Strings.supportEmailLink);
+            await handleContactSupport();
           },
           buttonChild: Text(
             Strings.contactSupport,

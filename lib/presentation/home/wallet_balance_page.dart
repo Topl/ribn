@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:brambldart/brambldart.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/providers/app_bar_provider.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
@@ -71,58 +73,65 @@ class _WalletBalancePageState extends State<WalletBalancePage> {
 
   @override
   Widget build(BuildContext context) {
-    return WalletBalanceContainer(
-      // refresh balances on initial build
-      onInitialBuild: refreshBalances,
-      onWillChange: (prevVm, currVm) {
-        // refresh balances on network toggle or when new addresses are generated
-        final bool shouldRefresh = currVm.walletExists &&
-            (prevVm?.currentNetwork.networkName != currVm.currentNetwork.networkName ||
-                prevVm?.currentNetwork.lastCheckedTimestamp != currVm.currentNetwork.lastCheckedTimestamp ||
-                prevVm?.currentNetwork.addresses.length != currVm.currentNetwork.addresses.length);
-        if (shouldRefresh) refreshBalances(currVm);
-      },
-      builder: (BuildContext context, WalletBalanceViewModel vm) => _failedToFetchBalances
-          ? Center(
-              child: ErrorSection(
-                onTryAgain: () => refreshBalances(vm),
-              ),
-            )
-          : RefreshIndicator(
-              backgroundColor: RibnColors.primary,
-              color: RibnColors.secondaryDark,
-              onRefresh: () async {
-                return refreshBalances(vm);
-              },
-              child: SingleChildScrollView(
-                child: Listener(
-                  onPointerDown: (_) {
-                    if (mounted) setState(() {});
+    return Consumer(
+      builder: (context, ref, child) {
+        return WalletBalanceContainer(
+          // refresh balances on initial build
+          onInitialBuild: refreshBalances,
+          onWillChange: (prevVm, currVm) {
+            // refresh balances on network toggle or when new addresses are generated
+            final bool shouldRefresh = currVm.walletExists &&
+                (prevVm?.currentNetwork.networkName != currVm.currentNetwork.networkName ||
+                    prevVm?.currentNetwork.lastCheckedTimestamp != currVm.currentNetwork.lastCheckedTimestamp ||
+                    prevVm?.currentNetwork.addresses.length != currVm.currentNetwork.addresses.length);
+            if (shouldRefresh) refreshBalances(currVm);
+          },
+          builder: (BuildContext context, WalletBalanceViewModel vm) => _failedToFetchBalances
+              ? Center(
+                  child: ErrorSection(
+                    onTryAgain: () => refreshBalances(vm),
+                  ),
+                )
+              : RefreshIndicator(
+                  backgroundColor: RibnColors.primary,
+                  color: RibnColors.secondaryDark,
+                  onRefresh: () async {
+                    return refreshBalances(vm);
                   },
-                  child: Column(
-                    children: _fetchingBalances
-                        ? [const WalletBalanceShimmer()]
-                        : [
-                            _buildPolyContainer(vm),
-                            _buildAssetsListView(vm),
-                          ],
+                  child: SingleChildScrollView(
+                    child: Listener(
+                      onPointerDown: (_) {
+                        if (mounted) setState(() {});
+                      },
+                      child: Column(
+                        children: _fetchingBalances
+                            ? [const WalletBalanceShimmer()]
+                            : [
+                                _buildPolyContainer(vm, ref),
+                                _buildAssetsListView(vm),
+                              ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
+        );
+      },
     );
   }
 
   /// Builds the top-half container on the balance page.
   /// Displays the balance in Polys and send/receive buttons.
-  Widget _buildPolyContainer(WalletBalanceViewModel vm) {
+  Widget _buildPolyContainer(WalletBalanceViewModel vm, WidgetRef ref) {
     // final Uri url = Uri.parse(tooltipUrl);
 
     CustomToolTip renderTooltip() {
       final bool hasPolys = vm.polyBalance > 0;
       return CustomToolTip(
         borderColor: Border.all(color: const Color(0xffE9E9E9)),
-        offsetPositionLeftValue: 180,
+        offsetPositionLeftValue: 210,
+        onOpen: (OverlayEntry overlayEntry) {
+          ref.read(appBarToolTipOverlayEntryProvider.notifier).state = overlayEntry;
+        },
         toolTipIcon: Image.asset(
           RibnAssets.circleInfo,
           width: 24,
