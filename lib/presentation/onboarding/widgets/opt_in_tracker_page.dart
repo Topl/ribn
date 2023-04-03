@@ -33,7 +33,7 @@ class OptInTracker extends HookConsumerWidget {
   }
 
   _handleIAgree(AnalyticsNotifier analyticsNotifier) async {
-    await analyticsNotifier.optIn();
+    await analyticsNotifier.toggleAnalytics(overrideValue: true);
     Keys.navigatorKey.currentState?.pushNamed(Routes.selectAction);
   }
 

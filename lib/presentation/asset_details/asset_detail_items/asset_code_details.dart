@@ -9,7 +9,7 @@ import 'package:ribn_toolkit/widgets/molecules/custom_tooltip.dart';
 // Project imports:
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/extensions.dart';
 
 /// One of the asset details displayed on [AssetDetailsPage].
 ///
@@ -51,7 +51,7 @@ class AssetCodeDetails extends StatelessWidget {
         Row(
           children: [
             Text(
-              formatAddrString(assetCode),
+              assetCode.formatAddressString(),
               style: RibnToolkitTextStyles.smallBody,
             ),
             const SizedBox(width: 8),

@@ -68,6 +68,11 @@ analyze:
 ditto:
 	echo "hello world"
 
+validate_packages:
+	@echo "╠ Validating packages..."
+	@flutter pub get
+	@flutter pub run dependency_validator
+
 arm_mac_hard_clean:
 	flutter clean && \
 	flutter pub get && \

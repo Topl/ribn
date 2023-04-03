@@ -23,7 +23,7 @@ import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/from_address_field.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/utils.dart';
 import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/fee_info.dart';
 
@@ -100,7 +100,10 @@ class _AssetTransferSectionState extends State<AssetTransferSection> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // fee info for the tx
-              FeeInfo(fee: widget.vm.networkFee),
+              FeeInfo(
+                fee: widget.vm.networkFee,
+                currentNetworkName: widget.vm.currentNetwork.networkName,
+              ),
               _buildReviewButton(widget.vm),
             ],
           ),

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 // Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
@@ -14,6 +13,7 @@ import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:ribn/utils/error_handling_utils.dart';
 
 class RibnAppBarContainer extends StatelessWidget {
   const RibnAppBarContainer({
@@ -64,7 +64,7 @@ class RibnAppBarViewModel {
       updateNetwork: (String network) {
         store.dispatch(UpdateCurrentNetworkAction(network));
       },
-      selectSettingsOption: (String selectedOption) {
+      selectSettingsOption: (String selectedOption) async {
         switch (selectedOption) {
           case Strings.settings:
             {
@@ -73,7 +73,7 @@ class RibnAppBarViewModel {
             }
           case Strings.support:
             {
-              launchUrlString(Strings.supportEmailLink);
+              await handleContactSupport();
               break;
             }
           default:

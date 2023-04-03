@@ -38,9 +38,9 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
 
   /// Web-only: Saves [key] in `chrome.storage.session`
   @override
-  Future<void> saveKeyInSessionStorage(String key) async {
+  Future<void> saveKeyInSessionStorage(String value, {String? key}) async {
     try {
-      final String data = jsonEncode({'toplKey': key});
+      final String data = (key == null ? jsonEncode({'toplKey': value}) : jsonEncode({key: value}));
       await saveToSessionStorage(data);
     } catch (e) {
       if (!Keys.isTestingEnvironment) {
@@ -51,10 +51,10 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
 
   /// Web-only: Gets toplKey from `chrome.storage.session` if it exists
   @override
-  Future<String?> getKeyFromSessionStorage() async {
+  Future<String?> getKeyFromSessionStorage({String? key}) async {
     try {
       final Map<String, dynamic> sessionStorage = jsonDecode(await promiseToFuture(getFromSessionStorage()));
-      return sessionStorage['toplKey'];
+      return key == null ? sessionStorage['toplKey'] : sessionStorage[key];
     } catch (e) {
       if (!Keys.isTestingEnvironment) {
         rethrow;
@@ -80,16 +80,17 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   @override
   Future<String?> getKeyFromSecureStorage({FlutterSecureStorage? override}) => throw UnimplementedError();
 
-  /// Mobile-only
+  /// Implementation forwards to extension storage feature
   @override
   Future<void> saveKeyInSecureStorage(String key, {FlutterSecureStorage? override}) => throw UnimplementedError();
 
-  /// Mobile-only
+  /// Implementation forwards to extension storage feature
   @override
-  Future<String> getKVInSecureStorage(String key, {FlutterSecureStorage? override}) => throw UnimplementedError();
+  Future<String> getKVInSecureStorage(String key, {FlutterSecureStorage? override}) async =>
+      await getKeyFromSessionStorage(key: key) ?? "";
 
-  /// Mobile-only
+  /// Implementation forwards to extension storage feature
   @override
   Future<void> saveKVInSecureStorage(String key, String value, {FlutterSecureStorage? override}) =>
-      throw UnimplementedError();
+      saveKeyInSessionStorage(value, key: key);
 }

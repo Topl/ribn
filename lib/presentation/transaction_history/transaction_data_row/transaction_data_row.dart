@@ -13,10 +13,10 @@ import 'package:ribn_toolkit/widgets/molecules/ribn_activity_tile.dart';
 
 // Project imports:
 import 'package:ribn/constants/assets.dart';
+import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/asset_details.dart';
-import 'package:ribn/utils.dart';
-import '../../../constants/routes.dart';
+import 'package:ribn/utils/extensions.dart';
 
 class TransactionDataRow extends StatefulWidget {
   final List<AssetAmount> assets;
@@ -121,7 +121,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
         return RibnActivityTile(
           tileColor: RibnColors.whiteColor,
           assetIcon: isPolyTransaction ? renderPolyIcon() : renderAssetIcon(assetDetails?.icon),
-          assetBalance: '${transactionAmountForAssetTransfer()} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
+          assetBalance: '${transactionAmountForAssetTransfer()} ${(assetDetails?.unit ?? 'Unit').formatAssetUnit()}',
           assetShortName: isPolyTransaction
               ? 'POLY'
               : filteredAsset.isNotEmpty
@@ -144,7 +144,7 @@ class _TransactionDataRowState extends State<TransactionDataRow> {
               'transactionStatus': transactionStatus,
               'transactionAmount': isPolyTransaction
                   ? transactionAmountForPolyTransfer
-                  : '${transactionAmountForAssetTransfer()} ${formatAssetUnit(assetDetails?.unit ?? 'Unit')}',
+                  : '${transactionAmountForAssetTransfer()} ${(assetDetails?.unit ?? 'Unit').formatAssetUnit()}',
               'fee': fee,
               'myRibnWalletAddress': widget.myRibnWalletAddress,
               'transactionSenderAddress': transactionSenderAddress.senderAddress.toBase58(),

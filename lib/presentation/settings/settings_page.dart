@@ -2,7 +2,6 @@
 import 'dart:async';
 
 // Flutter imports:
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -13,13 +12,13 @@ import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 // Project imports:
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/platform/platform.dart';
+import 'package:ribn/presentation/settings/sections/analytics_section.dart';
 import 'package:ribn/presentation/settings/sections/biometrics_section.dart';
 import 'package:ribn/presentation/settings/sections/danger_container_section.dart';
 import 'package:ribn/presentation/settings/sections/delete_wallet_confirmation_dialog.dart';
 import 'package:ribn/presentation/settings/sections/delete_wallet_section.dart';
 import 'package:ribn/presentation/settings/sections/disconnect_dapps_section.dart';
 import 'package:ribn/presentation/settings/sections/disconnect_wallet_confirmation_dialog.dart';
-import 'package:ribn/presentation/settings/sections/export_topl_main_key_section.dart';
 import 'package:ribn/presentation/settings/sections/links_section.dart';
 import 'package:ribn/presentation/settings/sections/ribn_version_section.dart';
 import 'package:ribn/providers/biometrics_provider.dart';
@@ -59,8 +58,6 @@ class SettingsListItems extends ConsumerWidget {
     final biometrics = ref.watch(biometricsProvider);
     final appVersion = ref.watch(appVersionProvider);
 
-    final settings = ref.read(settingsProvider);
-
     return Container(
         color: RibnColors.background,
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
@@ -69,7 +66,7 @@ class SettingsListItems extends ConsumerWidget {
             children: [
               RibnVersionSection(appVersion: appVersion),
               const LinksSection(),
-              if (kIsWeb) ExportToplMainKeySection(onExportPressed: settings.ExportToplMainKey),
+              AnalyticsSection(),
               if (biometrics.value?.isSupported ?? false) BiometricsSection(),
               DangerContainerSection(children: [
                 //Disconnect DApps

@@ -28,7 +28,7 @@ Future<List<TransactionReceipt>> fetchTransactionHistory(
   String filterSelectedItem,
   List<TransactionReceipt> filteredTransactions,
 ) async {
-  final List<TransactionReceipt> response = await transactionHistoryViewmodel.getTransactions(pageNum: currentPage);
+  final List<TransactionReceipt> response = await transactionHistoryViewmodel.getTransactions();
   // Filters transactions by sent or received
   if (filterSelectedItem != 'Transaction types') {
     final List<TransactionReceipt> transactions = response;
@@ -53,13 +53,4 @@ Future<List<TransactionReceipt>> fetchTransactionHistory(
     return filteredTransactions;
   }
   return response;
-}
-
-extension Unique<E, Id> on List<E> {
-  List<E> unique([Id Function(E element)? id, bool inplace = true]) {
-    final ids = <dynamic>{};
-    final list = inplace ? this : List<E>.from(this);
-    list.retainWhere((x) => ids.add(id != null ? id(x) : x as Id));
-    return list;
-  }
 }

@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.5.0+5
+version: 1.0.0+6
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -58,9 +58,7 @@ dependencies:
   path_provider: ^2.0.9
   flutter_secure_storage: ^7.0.1
   app_settings: ^4.1.8
-  get_it: ^7.2.0
-  image_picker: ^0.8.6+2
-  email_validator: ^2.1.17
+
   # Topl
   bip_topl: ^0.0.2
   ribn_toolkit:
@@ -71,8 +69,7 @@ dependencies:
     git:
       url: https://github.com/Topl/BramblDart
       ref: TSDK-133
-      # Remove the ref once Selby's branch above has been merged into main
-
+      # TODO Remove the ref once Selby's branch above has been merged into main
 
 
 dev_dependencies:
@@ -93,8 +90,9 @@ dev_dependencies:
   dependency_validator: ^3.2.2
 
 
-#  custom_lint: ^0.2.5
-#  riverpod_lint: ^1.0.1
+  #  custom_lint: ^0.2.5
+  #  riverpod_lint: ^1.0.1
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
