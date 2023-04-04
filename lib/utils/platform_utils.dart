@@ -4,7 +4,7 @@ import 'dart:io' show Platform;
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 
-String getPlatform() {
+String getOperatingSystem() {
   if (kIsWeb) return "Web";
 
   switch (Platform.operatingSystem) {

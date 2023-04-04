@@ -3,52 +3,43 @@ import 'dart:async';
 
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 // Project imports:
 import 'package:ribn/models/state/analytics_state.dart';
 import 'package:ribn/platform/platform.dart';
 import 'package:ribn/providers/analytics/analytics_events.dart';
-import 'package:ribn/providers/analytics/analytics_screen_tracker_provider.dart';
 import 'package:ribn/providers/analytics/analytics_service.dart';
-import 'package:ribn/providers/analytics/analytics_user_type.dart';
 import 'package:ribn/providers/logger_provider.dart';
 import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 import 'package:ribn/utils/extensions.dart';
-import 'analytics_interactions_provider.dart';
 
-final analyticsProvider = StateNotifierProvider<AnalyticsNotifier, AsyncValue<AnalyticsState>>((ref) {
+final analyticsProvider =
+    StateNotifierProvider<AnalyticsNotifier, AnalyticsState>((ref) {
   return AnalyticsNotifier(ref);
 });
 
-class AnalyticsNotifier extends StateNotifier<AsyncValue<AnalyticsState>> {
+class AnalyticsNotifier extends StateNotifier<AnalyticsState> {
   final Ref ref;
 
   // Load no analytics tracking as default
   AnalyticsService _service = VoidAnalyticsService();
 
-  AnalyticsNotifier(this.ref) : super(AsyncLoading()) {
+  AnalyticsNotifier(this.ref) : super(AnalyticsState()) {
     _isAnalyticsEnabled().then((isEnabled) {
-      state = AsyncData(AnalyticsState(isEnabled: isEnabled));
+      state = state.copyWith(isEnabled: isEnabled);
       if (isEnabled) {
-        // instantiate the following dependencies
-        ref.read(analyticsUserTypeProvider); //
-        ref.read(analyticsInteractionsProvider);
-        ref.read(analyticsScreenTrackerProvider);
-        ;
-
         _service = FirebaseAnalyticsService(ref);
       }
     });
   }
 
-  void log(String name, Map<String, dynamic> parameters) {
+  Future<void> log(String name, Map<String, dynamic> parameters) async {
     if (_service is VoidAnalyticsService) return;
-    _service.logCustomEvent(name, parameters);
+    await _service.logCustomEvent(name, parameters);
   }
 
-  void logEventWithBuilder(AnalyticsEventData data) {
+  Future<void> logEventWithBuilder(AnalyticsEventData data) async {
     if (_service is VoidAnalyticsService) return;
-    _service.logEventWithBuilder(data);
+    await _service.logEventWithBuilder(data);
   }
 
   static const _analyticsEnabledKey = "biometricsEnabled";
@@ -60,20 +51,10 @@ class AnalyticsNotifier extends StateNotifier<AsyncValue<AnalyticsState>> {
   Future toggleAnalytics({bool? overrideValue}) async {
     final logger = ref.read(loggerProvider);
 
-    final analytics = state.value; // setup for type promotion
-    if (analytics == null) {
-      logger.log(
-        logLevel: LogLevel.Warning,
-        loggerClass: LoggerClass.Analytics,
-        message: "Tried to modify analytics state, before initialization was completed",
-      );
-      state = AsyncError(Exception("Biometrics not initialized"), StackTrace.current);
-      return;
-    }
+    final isEnabled = overrideValue ?? !state.isEnabled;
 
-    final isEnabled = overrideValue ?? !analytics.isEnabled;
-
-    await PlatformLocalStorage.instance.saveKVInSecureStorage(_analyticsEnabledKey, (isEnabled).toString(),
+    await PlatformLocalStorage.instance.saveKVInSecureStorage(
+        _analyticsEnabledKey, (isEnabled).toString(),
         override: ref.read(flutterSecureStorageProvider)());
 
     if (isEnabled) {
@@ -92,12 +73,23 @@ class AnalyticsNotifier extends StateNotifier<AsyncValue<AnalyticsState>> {
       );
     }
 
-    state = AsyncValue.data(analytics.copyWith(isEnabled: isEnabled));
+    state = state.copyWith(isEnabled: isEnabled);
   }
 
   Future<bool> _isAnalyticsEnabled() async {
-    return (await PlatformLocalStorage.instance
-            .getKVInSecureStorage(_analyticsEnabledKey, override: ref.read(flutterSecureStorageProvider)()))
+    return (await PlatformLocalStorage.instance.getKVInSecureStorage(
+            _analyticsEnabledKey,
+            override: ref.read(flutterSecureStorageProvider)()))
         .toBooleanWithNullableDefault(false);
+  }
+
+  void setUserType(UserType type) {
+    ref.read(loggerProvider).log(
+          logLevel: LogLevel.Info,
+          loggerClass: LoggerClass.Analytics,
+          message: "User type set to: ${type.toString()}",
+        );
+
+    state = state.copyWith(userType: type);
   }
 }
