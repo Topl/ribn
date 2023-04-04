@@ -45,6 +45,9 @@ dependencies:
   loader_overlay: ^2.0.7
   flutter_native_splash: #^2.2.3+1
 
+  # V2 UI
+  pinput: ^2.2.31
+
   # Code generation
   grpc: ^3.0.2
   freezed_annotation: ^2.2.0
@@ -114,7 +117,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/icons/
+    - assets/v2/icons/
+    - assets/v1/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -133,11 +137,11 @@ flutter:
 
 # Splash screen config
 flutter_native_splash:
-  image: assets/launch/ribn_logo_2.png
+  image: assets/v1/launch/ribn_logo_2.png
   color: "#185E6B"
   android_12:
     color: "#185E6B"
-    image: assets/launch/android12.png
+    image: assets/v1/launch/android12.png
     icon_background_color: "#185E6B"
   web: false
   android: true
@@ -152,4 +156,4 @@ flutter_native_splash:
 flutter_icons:
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/launch/launcher_icon.png"
+  image_path: "assets/v1/launch/launcher_icon.png"

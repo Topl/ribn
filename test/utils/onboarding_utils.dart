@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
-import 'package:ribn/models/onboarding_state.dart';
-import 'package:ribn/presentation/onboarding/create_wallet/seed_phrase_confirmation_page.dart';
-import 'package:ribn/presentation/onboarding/restore_wallet/restore_wallet_page.dart';
-import 'package:ribn/presentation/onboarding/widgets/password_section.dart';
+import 'package:ribn/v1/models/onboarding_state.dart';
+import 'package:ribn/v1/presentation/onboarding/create_wallet/seed_phrase_confirmation_page.dart';
+import 'package:ribn/v1/presentation/onboarding/restore_wallet/restore_wallet_page.dart';
+import 'package:ribn/v1/presentation/onboarding/widgets/password_section.dart';
 import '../constants/onboarding_constants.dart';
 import '../essential_test_provider_widget.dart';
 

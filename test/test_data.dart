@@ -2,9 +2,9 @@
 import 'package:brambldart/credentials.dart';
 
 // Project imports:
-import 'package:ribn/constants/network_utils.dart';
-import 'package:ribn/constants/rules.dart';
-import 'package:ribn/models/ribn_address.dart';
+import 'package:ribn/v1/constants/network_utils.dart';
+import 'package:ribn/v1/constants/rules.dart';
+import 'package:ribn/v1/models/ribn_address.dart';
 
 Map<String, dynamic> testData = {
   'mnemonic': 'napkin they pupil disorder junior tonight harsh mobile equal explain allow fancy',

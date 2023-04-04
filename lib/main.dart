@@ -5,36 +5,38 @@ import 'dart:convert';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:redux/redux.dart';
-
+import 'package:ribn/v1/actions/internal_message_actions.dart';
 // Project imports:
-import 'package:ribn/actions/internal_message_actions.dart';
-import 'package:ribn/constants/keys.dart';
-import 'package:ribn/constants/routes.dart';
-import 'package:ribn/constants/rules.dart';
-import 'package:ribn/models/app_state.dart';
-import 'package:ribn/models/internal_message.dart';
-import 'package:ribn/platform/platform.dart';
-import 'package:ribn/presentation/authorize_and_sign/connect_dapp.dart';
-import 'package:ribn/presentation/authorize_and_sign/review_and_sign.dart';
-import 'package:ribn/presentation/enable_page.dart';
-import 'package:ribn/presentation/external_signing_page.dart';
-import 'package:ribn/presentation/home/home_page.dart';
-import 'package:ribn/presentation/login/login_page.dart';
-import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
-import 'package:ribn/providers/store_provider.dart';
-import 'package:ribn/redux.dart';
-import 'package:ribn/router/root_router.dart';
+import 'package:ribn/v1/constants/keys.dart';
+import 'package:ribn/v1/constants/routes.dart' as v1Routes;
+import 'package:ribn/v1/constants/rules.dart';
+import 'package:ribn/v1/models/app_state.dart';
+import 'package:ribn/v1/models/internal_message.dart';
+import 'package:ribn/v1/platform/platform.dart';
+import 'package:ribn/v1/presentation/authorize_and_sign/connect_dapp.dart';
+import 'package:ribn/v1/presentation/authorize_and_sign/review_and_sign.dart';
+import 'package:ribn/v1/presentation/enable_page.dart';
+import 'package:ribn/v1/presentation/external_signing_page.dart';
+import 'package:ribn/v1/presentation/home/home_page.dart';
+import 'package:ribn/v1/presentation/login/login_page.dart';
+import 'package:ribn/v1/presentation/onboarding/create_wallet/welcome_page.dart' as v1WelcomePage;
+// import 'package:ribn/v2/presentation/onboarding/welcome_page.dart' as v2WelcomePage;
+import 'package:ribn/v1/providers/store_provider.dart';
+import 'package:ribn/v1/redux.dart';
+import 'package:ribn/v1/router/root_router.dart';
+import 'package:ribn/v2/constants/routes.dart' as v2Routes;
+import 'package:ribn/v2/presentation/onboarding/create_pin_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Redux.initStore(initTestStore: kDebugMode ? true : false);
-  final AppViews currentAppView = await PlatformUtils.instance.getCurrentAppView();
+  final AppViews currentAppView =
+      await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
   // Open app in new tab if user needs onboarding
   if (currentAppView == AppViews.extension && needsOnboarding) {
@@ -58,6 +60,7 @@ void main() async {
 class RibnApp extends StatelessWidget {
   final Store<AppState> store;
   final RootRouter rootRouter = RootRouter();
+
   RibnApp(this.store, {Key? key}) : super(key: key);
 
   @override
@@ -68,9 +71,11 @@ class RibnApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Ribn',
-          navigatorObservers: [Routes.routeObserver],
+          navigatorObservers: [v1Routes.Routes.routeObserver],
+          // onGenerateRoute: rootRouter.generateRoutes,
           onGenerateRoute: rootRouter.generateRoutes,
-          onGenerateInitialRoutes: (initialRoute) => onGenerateInitialRoute(initialRoute, store),
+          onGenerateInitialRoutes: (initialRoute) =>
+              onGenerateInitialRoute(initialRoute, store),
           initialRoute: getInitialRoute(store),
           navigatorKey: Keys.navigatorKey,
         ),
@@ -80,26 +85,30 @@ class RibnApp extends StatelessWidget {
 }
 
 String getInitialRoute(Store<AppState> store) {
-  if (store.state.needsOnboarding()) {
-    return Routes.welcome;
-  } else if (store.state.needsLogin()) {
-    return Routes.login;
-  } else if (store.state.internalMessage?.method == InternalMethods.enable) {
-    return Routes.enable;
-  } else if (store.state.internalMessage?.method == InternalMethods.signTx) {
-    return Routes.externalSigning;
-  }
+  return v2Routes.Routes.welcome;
 
-  //v2
-  else if (store.state.internalMessage?.method == InternalMethods.authorize) {
-    return Routes.connectDApp;
-  } else if (store.state.internalMessage?.method == InternalMethods.getBalance) {
-    return Routes.reviewAndSignDApp;
-  } else if (store.state.internalMessage?.method == InternalMethods.signTransaction) {
-    return Routes.reviewAndSignDApp;
-  }
-
-  return Routes.home;
+  // if (store.state.needsOnboarding()) {
+  //   return v1Routes.Routes.welcome;
+  // } else if (store.state.needsLogin()) {
+  //   return v1Routes.Routes.login;
+  // } else if (store.state.internalMessage?.method == InternalMethods.enable) {
+  //   return v1Routes.Routes.enable;
+  // } else if (store.state.internalMessage?.method == InternalMethods.signTx) {
+  //   return v1Routes.Routes.externalSigning;
+  // }
+  //
+  // //v2
+  // else if (store.state.internalMessage?.method == InternalMethods.authorize) {
+  //   return v1Routes.Routes.connectDApp;
+  // } else if (store.state.internalMessage?.method ==
+  //     InternalMethods.getBalance) {
+  //   return v1Routes.Routes.reviewAndSignDApp;
+  // } else if (store.state.internalMessage?.method ==
+  //     InternalMethods.signTransaction) {
+  //   return v1Routes.Routes.reviewAndSignDApp;
+  // }
+  //
+  // return v1Routes.Routes.home;
 }
 
 /// Handles routing based on [initialRoute].
@@ -108,52 +117,67 @@ String getInitialRoute(Store<AppState> store) {
 /// to ensure consistent navigation in the app.
 List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
   switch (initialRoute) {
-    case Routes.login:
+    case v2Routes.Routes.welcome:
+      return [
+        MaterialPageRoute(
+            // builder: (context) => const v2WelcomePage.WelcomePage(),
+            builder: (context) => const CreatePinPage(),
+            settings: RouteSettings(name: v2Routes.Routes.welcome))
+      ];
+
+      //v1
+    case v1Routes.Routes.login:
       return [
         MaterialPageRoute(
           builder: (context) => const LoginPage(),
-          settings: const RouteSettings(name: Routes.login),
+          settings: const RouteSettings(name: v1Routes.Routes.login),
         )
       ];
-    case Routes.home:
-      return [MaterialPageRoute(builder: (context) => const HomePage(), settings: RouteSettings(name: Routes.home))];
-    case Routes.enable:
+    case v1Routes.Routes.home:
+      return [
+        MaterialPageRoute(
+            builder: (context) => const HomePage(),
+            settings: RouteSettings(name: v1Routes.Routes.home))
+      ];
+    case v1Routes.Routes.enable:
       return [
         MaterialPageRoute(
           builder: (context) => EnablePage(store.state.internalMessage!),
-          settings: const RouteSettings(name: Routes.enable),
+          settings: const RouteSettings(name: v1Routes.Routes.enable),
         )
       ];
-    case Routes.externalSigning:
+    case v1Routes.Routes.externalSigning:
       return [
         MaterialPageRoute(
-          builder: (context) => ExternalSigningPage(store.state.internalMessage!),
-          settings: const RouteSettings(name: Routes.externalSigning),
+          builder: (context) =>
+              ExternalSigningPage(store.state.internalMessage!),
+          settings: const RouteSettings(name: v1Routes.Routes.externalSigning),
         )
       ];
 
     //v2
-    case Routes.connectDApp:
+    case v1Routes.Routes.connectDApp:
       return [
         MaterialPageRoute(
           builder: (context) => ConnectDApp(store.state.internalMessage!),
-          settings: const RouteSettings(name: Routes.connectDApp),
+          settings: const RouteSettings(name: v1Routes.Routes.connectDApp),
         )
       ];
-    case Routes.reviewAndSignDApp:
+    case v1Routes.Routes.reviewAndSignDApp:
       return [
         MaterialPageRoute(
           builder: (context) => ReviewAndSignDApp(store.state.internalMessage!),
-          settings: const RouteSettings(name: Routes.reviewAndSignDApp),
+          settings:
+              const RouteSettings(name: v1Routes.Routes.reviewAndSignDApp),
         )
       ];
 
-    case Routes.welcome:
+    case v1Routes.Routes.welcome:
     default:
       return [
         MaterialPageRoute(
-          builder: (context) => const WelcomePage(),
-          settings: const RouteSettings(name: Routes.welcome),
+          builder: (context) => const v1WelcomePage.WelcomePage(),
+          settings: const RouteSettings(name: v1Routes.Routes.welcome),
         )
       ];
   }
@@ -168,11 +192,13 @@ Future<void> initBgConnection(Store<AppState> store) async {
   try {
     Messenger.instance.connect();
     Messenger.instance.initMsgListener((String msgFromBgScript) {
-      final InternalMessage pendingRequest = InternalMessage.fromJson(msgFromBgScript);
+      final InternalMessage pendingRequest =
+          InternalMessage.fromJson(msgFromBgScript);
       store.dispatch(ReceivedInternalMsgAction(pendingRequest));
       completer.complete();
     });
-    Messenger.instance.sendMsg(jsonEncode({'method': InternalMethods.checkPendingRequest}));
+    Messenger.instance
+        .sendMsg(jsonEncode({'method': InternalMethods.checkPendingRequest}));
   } catch (e) {
     completer.complete();
     PlatformUtils.instance.closeWindow();

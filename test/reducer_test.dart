@@ -10,13 +10,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:redux/redux.dart';
 
 // Project imports:
-import 'package:ribn/actions/keychain_actions.dart';
-import 'package:ribn/constants/network_utils.dart';
-import 'package:ribn/constants/rules.dart';
-import 'package:ribn/models/app_state.dart';
-import 'package:ribn/models/ribn_address.dart';
-import 'package:ribn/redux.dart';
-import 'package:ribn/repositories/keychain_repository.dart';
+import 'package:ribn/v1/actions/keychain_actions.dart';
+import 'package:ribn/v1/constants/network_utils.dart';
+import 'package:ribn/v1/constants/rules.dart';
+import 'package:ribn/v1/models/app_state.dart';
+import 'package:ribn/v1/models/ribn_address.dart';
+import 'package:ribn/v1/redux.dart';
+import 'package:ribn/v1/repositories/keychain_repository.dart';
 import 'test_data.dart';
 
 void main() {

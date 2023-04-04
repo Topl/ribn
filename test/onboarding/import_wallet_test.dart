@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
-import 'package:ribn/models/onboarding_state.dart';
-import 'package:ribn/presentation/home/home_page.dart';
-import 'package:ribn/presentation/onboarding/create_wallet/select_action_page.dart';
-import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
-import 'package:ribn/presentation/onboarding/restore_wallet/create_new_wallet_password_page.dart';
-import 'package:ribn/presentation/onboarding/restore_wallet/restore_wallet_page.dart';
-import 'package:ribn/presentation/onboarding/widgets/opt_in_tracker_page.dart';
-import 'package:ribn/providers/packages/entropy_provider.dart';
-import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
+import 'package:ribn/v1/models/onboarding_state.dart';
+import 'package:ribn/v1/presentation/home/home_page.dart';
+import 'package:ribn/v1/presentation/onboarding/create_wallet/select_action_page.dart';
+import 'package:ribn/v1/presentation/onboarding/create_wallet/welcome_page.dart';
+import 'package:ribn/v1/presentation/onboarding/restore_wallet/create_new_wallet_password_page.dart';
+import 'package:ribn/v1/presentation/onboarding/restore_wallet/restore_wallet_page.dart';
+import 'package:ribn/v1/presentation/onboarding/widgets/opt_in_tracker_page.dart';
+import 'package:ribn/v1/providers/packages/entropy_provider.dart';
+import 'package:ribn/v1/providers/packages/flutter_secure_storage_provider.dart';
 import '../essential_test_provider_widget.dart';
 import '../mocks/flutter_secure_storage_mocks.dart';
 import '../mocks/store_mocks.dart';
