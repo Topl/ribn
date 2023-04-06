@@ -2,13 +2,15 @@
 import 'dart:async';
 import 'dart:convert';
 
-// Package imports:
-import 'package:bip_topl/bip_topl.dart';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+
+// Package imports:
+import 'package:bip_topl/bip_topl.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:redux/src/store.dart';
+
 // Project imports:
 import 'package:ribn/actions/keychain_actions.dart';
 import 'package:ribn/actions/misc_actions.dart';
@@ -18,6 +20,8 @@ import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/state/login_state.dart';
 import 'package:ribn/platform/platform.dart';
+import 'package:ribn/providers/analytics/analytics_events.dart';
+import 'package:ribn/providers/analytics/analytics_provider.dart';
 import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn/providers/logger_provider.dart';
 import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
@@ -91,6 +95,9 @@ class LoginNotifier extends StateNotifier<LoginState> {
     store.dispatch(GenerateInitialAddressesAction());
 
     state = state.copyWith(isLoggedIn: true);
+
+    // Send To analytics
+    ref.read(analyticsProvider.notifier).setUserType(UserType.Returning);
   }
 
   /// Handler for when there is an attempt to login using [password].

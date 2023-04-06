@@ -1,13 +1,15 @@
-// Package imports:
+// Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 // Project imports:
 import 'package:ribn/constants/routes.dart';
+import 'package:ribn/constants/strings.dart';
 import 'package:ribn/providers/logger_provider.dart';
 import 'package:ribn/utils/navigation_utils.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-import 'package:ribn/constants/strings.dart';
 
 /// This will handle an error and navigate to an error page
 Future<void> handleApiError({
@@ -29,7 +31,7 @@ Future<void> handleApiError({
 
 Future<void> handleContactSupport() async {
   kIsWeb
-  //Go to google docs link
-  ? await launchUrlString(Strings.supportDocsURL)
-  : await launchUrlString(Strings.supportEmailLink);
+      //Go to google docs link
+      ? await launchUrlString(Strings.supportDocsURL)
+      : await launchUrlString(Strings.supportEmailLink);
 }
