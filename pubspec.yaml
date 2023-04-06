@@ -64,7 +64,7 @@ dependencies:
   ribn_toolkit:
     git:
       url: https://github.com/Topl/ribn-toolkit
-      ref: main
+      ref: 8121ad9 # Hash of the tag
   brambldart:
     git:
       url: https://github.com/Topl/BramblDart
