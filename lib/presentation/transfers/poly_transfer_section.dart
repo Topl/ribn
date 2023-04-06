@@ -17,7 +17,6 @@ import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 
 // Project imports:
 import 'package:ribn/constants/assets.dart';
-import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/containers/poly_transfer_input_container.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
