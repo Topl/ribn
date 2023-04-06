@@ -91,9 +91,9 @@ class EnableBiometrics extends HookConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               mainAxisSize: MainAxisSize.max,
               children: [
-                  Container(
-                    height: 50,
-                  )
+                Container(
+                  height: 50,
+                )
               ],
             ),
             Text(

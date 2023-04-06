@@ -8,7 +8,6 @@ import 'package:flutter/widgets.dart';
 
 // Package imports:
 import 'package:bip_topl/bip_topl.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:redux/src/store.dart';
 
@@ -21,12 +20,13 @@ import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/state/login_state.dart';
 import 'package:ribn/platform/platform.dart';
+import 'package:ribn/providers/analytics/analytics_events.dart';
+import 'package:ribn/providers/analytics/analytics_provider.dart';
 import 'package:ribn/providers/biometrics_provider.dart';
 import 'package:ribn/providers/logger_provider.dart';
 import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/repositories/login_repository.dart';
-import 'package:ribn/repositories/misc_repository.dart';
 import 'package:ribn/utils/extensions.dart';
 
 final loginProvider = StateNotifierProvider<LoginNotifier, LoginState>((ref) {
@@ -95,6 +95,9 @@ class LoginNotifier extends StateNotifier<LoginState> {
     store.dispatch(GenerateInitialAddressesAction());
 
     state = state.copyWith(isLoggedIn: true);
+
+    // Send To analytics
+    ref.read(analyticsProvider.notifier).setUserType(UserType.Returning);
   }
 
   /// Handler for when there is an attempt to login using [password].
@@ -110,14 +113,14 @@ class LoginNotifier extends StateNotifier<LoginState> {
         onIncorrectPasswordEntered();
         return;
       }
-
-      if (store.state.internalMessage?.additionalNavigation == Routes.connectDApp &&
-          store.state.internalMessage != null) {
-        await MiscRepository().persistAppState(StoreProvider.of<AppState>(context).state.toJson());
-        Keys.navigatorKey.currentState?.pushNamed(Routes.connectDApp, arguments: store.state.internalMessage);
-      } else {
-        Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home);
-      }
+      //
+      // if (store.state.internalMessage?.additionalNavigation == Routes.connectDApp &&
+      //     store.state.internalMessage != null) {
+      //   await MiscRepository().persistAppState(StoreProvider.of<AppState>(context).state.toJson());
+      //   Keys.navigatorKey.currentState?.pushNamed(Routes.connectDApp, arguments: store.state.internalMessage);
+      // } else {
+      Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home);
+      // }
     });
   }
 

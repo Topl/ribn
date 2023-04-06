@@ -33,6 +33,7 @@ import 'package:ribn/router/root_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Redux.initStore(initTestStore: kDebugMode ? true : false);
   final AppViews currentAppView = await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
@@ -58,6 +59,7 @@ void main() async {
 class RibnApp extends StatelessWidget {
   final Store<AppState> store;
   final RootRouter rootRouter = RootRouter();
+
   RibnApp(this.store, {Key? key}) : super(key: key);
 
   @override
