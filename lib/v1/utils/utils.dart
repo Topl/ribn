@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:brambldart/utils.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:ribn/v1/utils/extensions.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/custom_copy_button.dart';
@@ -23,6 +22,7 @@ import 'package:ribn/v1/constants/strings.dart';
 import 'package:ribn/v1/models/app_state.dart';
 import 'package:ribn/v1/models/ribn_address.dart';
 import 'package:ribn/v1/platform/platform.dart';
+import 'package:ribn/v1/utils/extensions.dart';
 import 'package:ribn/v1/widgets/custom_divider.dart';
 
 /// Validates the [address] passed in by the user.

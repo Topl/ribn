@@ -1,19 +1,26 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:pinput/pinput.dart';
-import 'package:ribn/v2/constants/colors.dart';
-import 'package:ribn/v2/constants/ribn_text_style.dart';
+
+// Project imports:
+import 'package:ribn/v2/core/constants/colors.dart';
+import 'package:ribn/v2/core/constants/ribn_text_style.dart';
 
 /// Renders a pin input field with a fixed length according to [Ribn] style.
-///
-/// @required [controller] - The [TextEditingController] used to control the input.
 ///
 /// @required [length] - The length of the PIN.
 ///
 /// @required [isPinValid] - The [ValueNotifier] used to determine the state of the PIN.
 ///
+/// @optional [controller] - The [TextEditingController] used to control the input.
+///
 /// @optional [validator] - The validator function used to validate the PIN.
 ///
 /// @optional [onCompleted] - The callback function called when the PIN is completed.
+///
+/// @optional [focusNode] - The [FocusNode] used to control the focus of the PIN input.
 ///
 /// The default style of the PIN input is defined by [defaultPinTheme], and the focused style is defined by
 /// [focusedPinTheme]. When the PIN is submitted, the submitted style is determined by [submittedPinTheme], which
@@ -42,23 +49,23 @@ import 'package:ribn/v2/constants/ribn_text_style.dart';
 ///
 class PinInput extends StatelessWidget {
   const PinInput(
-      {Key? key,
-      required this.controller,
-      required this.isPinValid,
-      required this.length,
-      this.validator,
-      this.onCompleted})
+      {Key? key, required this.isPinValid, required this.length, this.validator, this.controller, this.onCompleted, this.focusNode})
       : assert(length > 0, 'Length must be a positive integer.'),
         super(key: key);
 
   /// The [TextEditingController] for managing the text input of the PIN.
-  final TextEditingController controller;
+  final TextEditingController? controller;
+
+  /// The [FocusNode] for granular handling of the focus of the PIN input.
+  final FocusNode? focusNode;
 
   /// A [ValueNotifier] that indicates whether the entered PIN is valid and is used for managing the success state.
   final ValueNotifier<bool> isPinValid;
 
   /// The length of the PIN.
   final int length;
+
+
 
   /// An optional [String? Function(String?)] validator function to validate the PIN input.
   final String? Function(String?)? validator;
@@ -68,7 +75,6 @@ class PinInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     /// The default style of the PIN input.
     final defaultPinTheme = PinTheme(
       width: 48,
@@ -76,7 +82,7 @@ class PinInput extends StatelessWidget {
       // textStyle: TextStyle(fontSize: 20, color: Color.fromRGBO(30, 60, 87, 1), fontWeight: FontWeight.w600),
       textStyle: RibnTextStyle.h3,
       decoration: BoxDecoration(
-        border: Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
+        border: Border.all(color: RibnColors.grey),
         borderRadius: BorderRadius.circular(8),
       ),
     );
@@ -104,7 +110,9 @@ class PinInput extends StatelessWidget {
       closeKeyboardWhenCompleted: false,
       validator: validator,
       onCompleted: onCompleted,
-
+      onSubmitted: onCompleted,
+      autofocus: true,
+      focusNode: focusNode,
       // Theming
       defaultPinTheme: defaultPinTheme,
       focusedPinTheme: focusedPinTheme,

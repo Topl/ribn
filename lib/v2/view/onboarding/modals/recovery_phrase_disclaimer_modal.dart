@@ -1,0 +1,100 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+// Package imports:
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/v2/core/providers/biometrics_provider.dart';
+import 'package:ribn/v2/core/constants/assets.dart';
+// Project imports:
+import 'package:ribn/v2/core/constants/colors.dart';
+import 'package:ribn/v2/core/constants/ribn_text_style.dart';
+import 'package:ribn/v2/core/constants/strings.dart';
+import 'package:ribn/v2/view/widgets/ribn_button.dart';
+
+class BiometricsModal extends HookConsumerWidget {
+  static const biometricsModalAgreeKey = Key('biometricsModalAgreeKey');
+  static const biometricsModalDisagreeKey = Key('biometricsModalDisagreeKey');
+
+  BiometricsModal({
+    Key? key,
+  }) : super(key: key);
+
+  final subTextStyle = RibnTextStyle.h3.copyWith(color: RibnColors.greyText);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final notifier = ref.read(biometricsProvider.notifier);
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, mainAxisSize: MainAxisSize.max, children: [
+        IconButton(
+          alignment: Alignment.centerRight,
+          icon: Icon(Icons.close, color: RibnColors.greyedOut),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        SizedBox(height: 20),
+        SvgPicture.asset(
+          Assets.fingerprint,
+          semanticsLabel: Strings.semanticFingerprint,
+        ),
+        SizedBox(height: 70),
+        Text(Strings.enableFingerprint,
+            textAlign: TextAlign.center,
+            style: RibnTextStyle.h1.copyWith(
+              // color: RibnColors.lightGreyTitle,
+                fontWeight: FontWeight.w700)),
+        SizedBox(height: 20),
+        Text(
+          Strings.enableFingerprintDisclaimer,
+          textAlign: TextAlign.center,
+          style: subTextStyle,
+        ),
+        SizedBox(height: 90),
+        RibnButton(
+          text: Strings.enableFingerprint,
+          key: biometricsModalDisagreeKey,
+          onPressed: () {
+            notifier.toggleBiometrics(overrideValue: true);
+          },
+        ),
+        SizedBox(height: 15),
+        Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(
+                onPressed: () => {},
+                child: Text(Strings.skipNow,
+                    style: RibnTextStyle.buttonMedium.copyWith(
+                      color: RibnColors.defaultText,
+                      fontWeight: FontWeight.w500,
+                    )))),
+      ]),
+    );
+  }
+
+  static void show(BuildContext context) {
+    final DraggableScrollableController scrollController = DraggableScrollableController();
+    showModalBottomSheet(
+      isScrollControlled: true,
+      useSafeArea: true,
+      context: context,
+      enableDrag: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (BuildContext context) {
+        return DraggableScrollableSheet(
+            initialChildSize: 0.95,
+            // near full modal on load
+            maxChildSize: 1,
+            // full screen on scroll
+            minChildSize: 0.25,
+            expand: false,
+            controller: scrollController,
+            builder: (BuildContext context, ScrollController scrollController) {
+              return BiometricsModal();
+            });
+      },
+    );
+  }
+}

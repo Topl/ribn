@@ -1,6 +1,8 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:ribn/v2/constants/colors.dart';
+
+// Project imports:
+import 'package:ribn/v2/core/constants/colors.dart';
 
 // Project imports:
 
@@ -9,16 +11,14 @@ import 'package:ribn/v2/constants/colors.dart';
 class RibnTextStyle {
   RibnTextStyle._();
 
-static const TextStyle h1 = TextStyle(
-  fontFamily: 'DM Sans',
-  fontSize: 32,
-  fontWeight: FontWeight.w700,
-  color: RibnColors.defaultText,
-  height: 1.57,
-  // letterSpacing: 1.68,
-);
-
-
+  static const TextStyle h1 = TextStyle(
+    fontFamily: 'DM Sans',
+    fontSize: 32,
+    fontWeight: FontWeight.w700,
+    color: RibnColors.defaultText,
+    height: 1.57,
+    // letterSpacing: 1.68,
+  );
 
   static const TextStyle h2 = TextStyle(
     fontFamily: 'DM Sans',
@@ -27,7 +27,6 @@ static const TextStyle h1 = TextStyle(
     color: RibnColors.defaultText,
     height: 1.34,
   );
-
 
   static const TextStyle h3 = TextStyle(
     fontFamily: 'DM Sans',
@@ -99,7 +98,6 @@ static const TextStyle h1 = TextStyle(
     color: RibnColors.defaultText,
     fontWeight: FontWeight.w300,
   );
-
 
   static const TextStyle buttonSmall = TextStyle(
     fontFamily: 'DM Sans',

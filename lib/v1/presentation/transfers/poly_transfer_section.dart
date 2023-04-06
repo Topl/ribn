@@ -7,7 +7,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:ribn/v1/constants/network_utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
@@ -17,6 +16,7 @@ import 'package:ribn_toolkit/widgets/molecules/recipient_field.dart';
 
 // Project imports:
 import 'package:ribn/v1/constants/assets.dart';
+import 'package:ribn/v1/constants/network_utils.dart';
 import 'package:ribn/v1/constants/strings.dart';
 import 'package:ribn/v1/containers/poly_transfer_input_container.dart';
 import 'package:ribn/v1/presentation/transfers/bottom_review_action.dart';

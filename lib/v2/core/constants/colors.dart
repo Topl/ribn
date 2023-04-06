@@ -1,5 +1,7 @@
+// Dart imports:
 import 'dart:ui';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 class RibnColors {
@@ -14,12 +16,12 @@ class RibnColors {
   static const Color secondaryDark = Color(0xFF18CCAB);
   static const Color tertiary = Color(0xFF259E95);
 
-
   static const Color defaultText = Color(0xFF323232);
   static const Color greyText = Color(0xFF979797);
 
   static const Color success = Color(0xFF2AC68E);
   static const Color error = Color(0xFFF07575);
+  static const Color grey = Color(0xFFE0E0E0);
 
   static const Color inactive = Color(0xFF7795A0);
   static const Color active = Color(0xFF8AE3CF);

@@ -1,6 +1,9 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:ribn/v2/constants/colors.dart';
-import 'package:ribn/v2/constants/ribn_text_style.dart';
+
+// Project imports:
+import 'package:ribn/v2/core/constants/colors.dart';
+import 'package:ribn/v2/core/constants/ribn_text_style.dart';
 
 /// The primary styled button used for [Ribn]
 ///
@@ -46,7 +49,7 @@ class RibnButton extends StatelessWidget {
       dropShadowColor: RibnColors.whiteButtonShadow,
       buttonChild: Text(
         text,
-        style: RibnTextStyle.buttonLarge.copyWith(
+        style: RibnTextStyle.buttonMedium.copyWith(
           color: disabled ? RibnColors.transparentGreyText : Colors.white,
           fontWeight: FontWeight.w400,
         ),

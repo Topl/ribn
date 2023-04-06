@@ -1,11 +1,16 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ribn/v2/constants/assets.dart';
-import 'package:ribn/v2/constants/colors.dart';
-import 'package:ribn/v2/constants/ribn_text_style.dart';
-import 'package:ribn/v2/constants/strings.dart';
-import 'package:ribn/v2/presentation/onboarding/onboarding_modal.dart';
-import 'package:ribn/v2/presentation/widgets/ribn_button.dart';
+
+// Project imports:
+import 'package:ribn/v2/core/constants/assets.dart';
+import 'package:ribn/v2/core/constants/colors.dart';
+import 'package:ribn/v2/core/constants/ribn_text_style.dart';
+import 'package:ribn/v2/core/constants/strings.dart';
+import 'package:ribn/v2/view/onboarding/modals/onboarding_modal.dart';
+import 'package:ribn/v2/view/widgets/ribn_button.dart';
 
 class WelcomePage extends HookConsumerWidget {
   static const welcomePageKey = Key('welcomePageKey');
@@ -18,6 +23,7 @@ class WelcomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -47,17 +53,18 @@ class WelcomePage extends HookConsumerWidget {
               key: welcomePageCreateButtonKey,
               text: Strings.createWallet,
               onPressed: () {
-                showOnboardingModal(context);
+                OnboardingModal.show(context);
                 // Keys.navigatorKey.currentState?.pushNamed(Routes.optIn);
               },
             ),
+
             Align(
                 alignment: Alignment.centerLeft,
                 child: TextButton(
                     key: welcomePageImportButtonKey,
                     onPressed: () => {},
                     child: Text("Import Wallet",
-                        style: RibnTextStyle.buttonLarge.copyWith(
+                        style: RibnTextStyle.buttonMedium.copyWith(
                           color: RibnColors.defaultText,
                           fontWeight: FontWeight.w500,
                         )))),
@@ -68,28 +75,3 @@ class WelcomePage extends HookConsumerWidget {
   }
 }
 
-void showOnboardingModal(BuildContext context) {
-  final DraggableScrollableController scrollController = DraggableScrollableController();
-  showModalBottomSheet(
-    isScrollControlled: true,
-    useSafeArea: true,
-    context: context,
-    enableDrag: true,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-    ),
-    builder: (BuildContext context) {
-      return DraggableScrollableSheet(
-          initialChildSize: 0.9,
-          // near full modal on load
-          maxChildSize: 1,
-          // full screen on scroll
-          minChildSize: 0.25,
-          expand: false,
-          controller: scrollController,
-          builder: (BuildContext context, ScrollController scrollController) {
-            return OnboardingModal();
-          });
-    },
-  );
-}

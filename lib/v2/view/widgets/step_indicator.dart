@@ -1,3 +1,4 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 /// A widget that displays a sequence of indicators to indicate progress through a series of steps.
@@ -27,7 +28,8 @@ class StepIndicator extends StatelessWidget {
     this.indicatorSpacing = 3.0,
     this.indicatorColor = Colors.grey,
     this.currentIndicatorColor = Colors.blue,
-  })  : assert(currentStep >= 0 && currentStep < totalSteps, 'The current step must be greater than or equal to 0 and less than the total number of steps.'),
+  })  : assert(currentStep >= 0 && currentStep < totalSteps,
+            'The current step must be greater than or equal to 0 and less than the total number of steps.'),
         assert(totalSteps > 0, 'The total number of steps must be greater than 0.'),
         assert(indicatorSize > 0, 'The indicator size must be greater than 0.'),
         assert(indicatorSpacing >= 0, 'The indicator spacing must be greater than or equal to 0.'),
@@ -51,10 +53,8 @@ class StepIndicator extends StatelessWidget {
   /// The color of the active indicator. Defaults to Colors.blue
   final Color currentIndicatorColor;
 
-
   @override
   Widget build(BuildContext context) {
-
     // Create the list of indicators.
     final indicators = List.generate(totalSteps, (index) {
       final isCurrentStep = index == currentStep;
