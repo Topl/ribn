@@ -31,7 +31,7 @@ import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
 import 'package:ribn/presentation/transfers/widgets/issuer_address_field.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/utils.dart';
 import 'package:ribn/widgets/address_display_container.dart';
 import 'package:ribn/widgets/fee_info.dart';
 
@@ -45,10 +45,8 @@ class MintInputPage extends StatefulWidget {
 
 class _MintInputPageState extends State<MintInputPage> {
   final TextEditingController _noteController = TextEditingController();
-  final TextEditingController _assetLongNameController =
-      TextEditingController();
-  final TextEditingController _assetShortNameController =
-      TextEditingController();
+  final TextEditingController _assetLongNameController = TextEditingController();
+  final TextEditingController _assetShortNameController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _recipientController = TextEditingController();
   late List<TextEditingController> _controllers;
@@ -187,8 +185,7 @@ class _MintInputPageState extends State<MintInputPage> {
                     if (_validRecipientAddress.isNotEmpty) {
                       _recipientController.text = _validRecipientAddress;
                       _recipientController
-                        ..text = _recipientController.text
-                            .substring(0, _recipientController.text.length)
+                        ..text = _recipientController.text.substring(0, _recipientController.text.length)
                         ..selection = TextSelection.collapsed(
                           offset: _recipientController.text.length,
                         );
@@ -249,16 +246,14 @@ class _MintInputPageState extends State<MintInputPage> {
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Text(
                             Strings.mintAsset,
-                            style: RibnToolkitTextStyles.btnMedium
-                                .copyWith(color: RibnColors.defaultText),
+                            style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
                           ),
                         ),
                         1: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Text(
                             Strings.mintExistingAsset,
-                            style: RibnToolkitTextStyles.btnMedium
-                                .copyWith(color: RibnColors.defaultText),
+                            style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.defaultText),
                           ),
                         ),
                       },
@@ -281,7 +276,10 @@ class _MintInputPageState extends State<MintInputPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // fee info for the tx
-                  FeeInfo(fee: vm.networkFee),
+                  FeeInfo(
+                    fee: vm.networkFee,
+                    currentNetworkName: vm.currentNetwork.networkName,
+                  ),
                   _buildReviewButton(vm),
                 ],
               ),
@@ -321,16 +319,13 @@ class _MintInputPageState extends State<MintInputPage> {
         : AssetSelectionField(
             formattedSelectedAsset: {
               'assetCode': _selectedAsset?.assetCode.toString(),
-              'longName': vm
-                  .assetDetails[_selectedAsset?.assetCode.toString()]?.longName,
+              'longName': vm.assetDetails[_selectedAsset?.assetCode.toString()]?.longName,
               'shortName': _selectedAsset?.assetCode.shortName.show,
-              'assetIcon':
-                  vm.assetDetails[_selectedAsset?.assetCode.toString()]?.icon,
+              'assetIcon': vm.assetDetails[_selectedAsset?.assetCode.toString()]?.icon,
             },
             formattedAsset: (asset) {
               return {
-                'longName':
-                    vm.assetDetails[asset!.assetCode.toString()]?.longName,
+                'longName': vm.assetDetails[asset!.assetCode.toString()]?.longName,
                 'shortName': asset.assetCode.shortName.show,
                 'assetIcon': vm.assetDetails[asset!.assetCode.toString()]?.icon,
               };
@@ -339,8 +334,7 @@ class _MintInputPageState extends State<MintInputPage> {
             onSelected: (AssetAmount? asset) {
               setState(() {
                 _selectedAsset = asset;
-                _selectedUnit =
-                    vm.assetDetails[asset!.assetCode.toString()]?.unit;
+                _selectedUnit = vm.assetDetails[asset!.assetCode.toString()]?.unit;
                 _assetShortNameController.text = asset.assetCode.shortName.show;
               });
             },

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 
@@ -15,14 +16,16 @@ import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/utils.dart';
 
 /// This page shows intructions on how to keep the seed phrase secure.
-class SeedPhraseInstructionsPage extends StatelessWidget {
-  const SeedPhraseInstructionsPage({Key? key}) : super(key: key);
+class SeedPhraseInstructionsPage extends HookConsumerWidget {
+  static const Key seedPhraseInstructionsPageKey = Key('SeedPhraseInstructionsPageKey');
+  static const Key seedPhraseInstructionsConfirmationButtonKey = Key('seedPhraseInstructionsConfirmationButtonKey');
+  const SeedPhraseInstructionsPage({Key key = seedPhraseInstructionsPageKey}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: OnboardingContainer(
         child: SingleChildScrollView(
@@ -72,10 +75,10 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
                 ),
                 SizedBox(height: adaptHeight(0.1)),
                 ConfirmationButton(
+                  key: seedPhraseInstructionsConfirmationButtonKey,
                   text: Strings.iUnderstand,
                   onPressed: () {
-                    Keys.navigatorKey.currentState
-                        ?.pushNamed(Routes.generateSeedPhrase);
+                    Keys.navigatorKey.currentState?.pushNamed(Routes.generateSeedPhrase);
                   },
                 )
               ],
@@ -119,8 +122,7 @@ class SeedPhraseInstructionsPage extends StatelessWidget {
                 width: kIsWeb ? 500 : 295,
                 child: Text(
                   text,
-                  textHeightBehavior:
-                      const TextHeightBehavior(applyHeightToFirstAscent: false),
+                  textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
                   style: RibnToolkitTextStyles.h3.copyWith(
                     color: RibnColors.lightGreyTitle,
                     fontSize: 18,

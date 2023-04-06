@@ -1,14 +1,16 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:ribn_toolkit/constants/assets.dart';
+
 // Project imports:
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/ribn_address.dart';
 import 'package:ribn/presentation/transfers/widgets/custom_input_field.dart';
 import 'package:ribn/widgets/address_display_container.dart';
-// Package imports:
-import 'package:ribn_toolkit/constants/assets.dart';
 
 /// Custom display for the sender's address.
 ///
@@ -19,8 +21,7 @@ class FromAddressField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, RibnAddress>(
-      converter: (store) =>
-          store.state.keychainState.currentNetwork.addresses.first,
+      converter: (store) => store.state.keychainState.currentNetwork.addresses.first,
       builder: (context, ribnAddress) => CustomInputField(
         itemLabel: Strings.from,
         item: AddressDisplayContainer(
@@ -34,8 +35,7 @@ class FromAddressField extends StatelessWidget {
   }
 
   String toShortAddress(String base) {
-    if (base.isEmpty)
-      throw FormatException("WalletAddress was returned as empty");
+    if (base.isEmpty) throw FormatException("WalletAddress was returned as empty");
 
     final start = base.substring(0, 4);
     final end = base.substring(base.length - 5);

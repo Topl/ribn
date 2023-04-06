@@ -16,7 +16,7 @@ import 'package:ribn/constants/routes.dart';
 import 'package:ribn/constants/rules.dart';
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/models/transfer_details.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/extensions.dart';
 
 /// The transaction confirmation page.
 ///
@@ -112,15 +112,13 @@ class TxConfirmationPage extends StatelessWidget {
   ///
   /// Different for minting asset and asset/poly transfer.
   Widget _buildsPageTitle() {
-    final String text =
-        mintedAsset ? Strings.assetIsBeingMinted : Strings.txWasBroadcasted;
+    final String text = mintedAsset ? Strings.assetIsBeingMinted : Strings.txWasBroadcasted;
 
     return SizedBox(
       width: 220,
       child: Text(
         text,
-        style:
-            RibnToolkitTextStyles.h2.copyWith(color: RibnColors.lightGreyTitle),
+        style: RibnToolkitTextStyles.h2.copyWith(color: RibnColors.lightGreyTitle),
         textAlign: TextAlign.center,
       ),
     );
@@ -128,8 +126,7 @@ class TxConfirmationPage extends StatelessWidget {
 
   /// Displays information about the tx that was broadcasted.
   Widget _buildTxInfo() {
-    final String txInfo = transferDetails.transferType ==
-            TransferType.polyTransfer
+    final String txInfo = transferDetails.transferType == TransferType.polyTransfer
         ? '${transferDetails.amount} ${'POLY'}'
         : '${transferDetails.amount} of ${transferDetails.assetCode!.shortName.show}';
 
@@ -181,7 +178,7 @@ class TxConfirmationPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Transaction ID: ${formatAddrString(transferDetails.transactionId!, charsToDisplay: 4)}',
+          'Transaction ID: ${transferDetails.transactionId!.formatAddressString(charsToDisplay: 4)}',
           style: RibnToolkitTextStyles.h4.copyWith(
             fontWeight: FontWeight.w400,
             color: RibnColors.lightGreyTitle,

@@ -5,11 +5,13 @@ import 'dart:convert';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:redux/redux.dart';
+
 // Project imports:
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/keys.dart';
@@ -25,13 +27,13 @@ import 'package:ribn/presentation/external_signing_page.dart';
 import 'package:ribn/presentation/home/home_page.dart';
 import 'package:ribn/presentation/login/login_page.dart';
 import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
-import 'package:ribn/presentation/transaction_history/service_locator/locator.dart';
 import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/redux.dart';
 import 'package:ribn/router/root_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Redux.initStore(initTestStore: kDebugMode ? true : false);
   final AppViews currentAppView = await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
@@ -43,10 +45,7 @@ void main() async {
     await initBgConnection(Redux.store!);
     // Wallet().setJSCallbackFunction(_test());
     // initialize();
-  }
-  setupLocator(
-    Redux.store!,
-  ); //@dev call this function to setup any singletons required by app
+  } //@dev call this function to setup any singletons required by app
   runApp(
     ProviderScope(
       child: RibnApp(Redux.store!),
@@ -60,6 +59,7 @@ void main() async {
 class RibnApp extends StatelessWidget {
   final Store<AppState> store;
   final RootRouter rootRouter = RootRouter();
+
   RibnApp(this.store, {Key? key}) : super(key: key);
 
   @override
@@ -118,10 +118,7 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
         )
       ];
     case Routes.home:
-      return [
-        MaterialPageRoute(
-            builder: (context) => const HomePage(), settings: RouteSettings(name: Routes.home))
-      ];
+      return [MaterialPageRoute(builder: (context) => const HomePage(), settings: RouteSettings(name: Routes.home))];
     case Routes.enable:
       return [
         MaterialPageRoute(

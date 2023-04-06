@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:convert';
 
 // Package imports:
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:js/js.dart';
 import 'package:js/js_util.dart';
 
@@ -30,17 +31,16 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
   static PlatformLocalStorage get instance => PlatformLocalStorage();
 
   @override
-  Future<void> saveState(String data) =>
-      promiseToFuture(persistToLocalStorage(data));
+  Future<void> saveState(String data) => promiseToFuture(persistToLocalStorage(data));
 
   @override
   Future<String> getState() => promiseToFuture(getFromLocalStorage());
 
   /// Web-only: Saves [key] in `chrome.storage.session`
   @override
-  Future<void> saveKeyInSessionStorage(String key) async {
+  Future<void> saveKeyInSessionStorage(String value, {String? key}) async {
     try {
-      final String data = jsonEncode({'toplKey': key});
+      final String data = (key == null ? jsonEncode({'toplKey': value}) : jsonEncode({key: value}));
       await saveToSessionStorage(data);
     } catch (e) {
       if (!Keys.isTestingEnvironment) {
@@ -51,11 +51,10 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
 
   /// Web-only: Gets toplKey from `chrome.storage.session` if it exists
   @override
-  Future<String?> getKeyFromSessionStorage() async {
+  Future<String?> getKeyFromSessionStorage({String? key}) async {
     try {
-      final Map<String, dynamic> sessionStorage =
-          jsonDecode(await promiseToFuture(getFromSessionStorage()));
-      return sessionStorage['toplKey'];
+      final Map<String, dynamic> sessionStorage = jsonDecode(await promiseToFuture(getFromSessionStorage()));
+      return key == null ? sessionStorage['toplKey'] : sessionStorage[key];
     } catch (e) {
       if (!Keys.isTestingEnvironment) {
         rethrow;
@@ -79,9 +78,19 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
 
   /// Mobile-only
   @override
-  Future<String?> getKeyFromSecureStorage() => throw UnimplementedError();
+  Future<String?> getKeyFromSecureStorage({FlutterSecureStorage? override}) => throw UnimplementedError();
 
-  /// Mobile-only
+  /// Implementation forwards to extension storage feature
   @override
-  Future<void> saveKeyInSecureStorage(String key) => throw UnimplementedError();
+  Future<void> saveKeyInSecureStorage(String key, {FlutterSecureStorage? override}) => throw UnimplementedError();
+
+  /// Implementation forwards to extension storage feature
+  @override
+  Future<String> getKVInSecureStorage(String key, {FlutterSecureStorage? override}) async =>
+      await getKeyFromSessionStorage(key: key) ?? "";
+
+  /// Implementation forwards to extension storage feature
+  @override
+  Future<void> saveKVInSecureStorage(String key, String value, {FlutterSecureStorage? override}) =>
+      saveKeyInSessionStorage(value, key: key);
 }

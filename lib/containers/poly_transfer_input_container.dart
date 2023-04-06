@@ -21,8 +21,7 @@ import 'package:ribn/models/transfer_details.dart';
 
 /// Intended to wrap the [PolyTransferInputPage] and provide it with the the [PolyTransferInputViewModel].
 class PolyTransferInputContainer extends StatelessWidget {
-  const PolyTransferInputContainer({Key? key, required this.builder})
-      : super(key: key);
+  const PolyTransferInputContainer({Key? key, required this.builder}) : super(key: key);
   final ViewModelBuilder<PolyTransferInputViewModel> builder;
 
   @override
@@ -67,9 +66,7 @@ class PolyTransferInputViewModel {
   });
 
   static PolyTransferInputViewModel fromStore(Store<AppState> store) {
-    final num networkFee = NetworkUtils
-        .networkFees[store.state.keychainState.currentNetwork.networkId]!
-        .getInNanopoly;
+    final num networkFee = NetworkUtils.networkFees[store.state.keychainState.currentNetwork.networkId]!.getInNanopoly;
     return PolyTransferInputViewModel(
       initiateTx: ({
         required String amount,
@@ -82,27 +79,25 @@ class PolyTransferInputViewModel {
           transferType: TransferType.polyTransfer,
           senders: [store.state.keychainState.currentNetwork.myWalletAddress!],
           recipient: recipient,
+          // recipient: "AUEUa7j7DspZqVD728WRZCvdPCvqUNfddnEKBrSQhFCsFK1o285W", // OVERWRITE RECIPIENT
           amount: amount,
           data: note,
         );
+
         final Completer<TransferDetails?> rawTxCompleter = Completer();
         store.dispatch(InitiateTxAction(transferDetails, rawTxCompleter));
         await rawTxCompleter.future.then(
           (TransferDetails? transferDetails) {
             final success = transferDetails != null;
             onRawTxCreated(success);
-            Keys.navigatorKey.currentState
-                ?.pushNamed(Routes.txReview, arguments: transferDetails);
+            Keys.navigatorKey.currentState?.pushNamed(Routes.txReview, arguments: transferDetails);
           },
         );
       },
       currentNetwork: store.state.keychainState.currentNetwork,
       networkFee: networkFee,
-      maxTransferrableAmount:
-          store.state.keychainState.currentNetwork.getPolysInWallet() -
-              networkFee,
-      navigateToSendAssets: () =>
-          store.dispatch(NavigateToRoute(Routes.assetsTransferInput)),
+      maxTransferrableAmount: store.state.keychainState.currentNetwork.getPolysInWallet() - networkFee,
+      navigateToSendAssets: () => store.dispatch(NavigateToRoute(Routes.assetsTransferInput)),
     );
   }
 

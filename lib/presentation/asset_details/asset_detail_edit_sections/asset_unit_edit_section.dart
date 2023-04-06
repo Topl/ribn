@@ -13,7 +13,7 @@ import 'package:ribn/actions/user_details_actions.dart';
 import 'package:ribn/constants/assets.dart';
 import 'package:ribn/constants/ui_constants.dart';
 import 'package:ribn/models/app_state.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/extensions.dart';
 
 /// The section for editing asset unit.
 ///
@@ -72,7 +72,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
             dropDownAlignment: Alignment.topCenter,
             visible: dropdownOpened,
             onDismissed: () {
-              Overlay.of(context)!.setState(() {
+              Overlay.of(context).setState(() {
                 dropdownOpened = false;
               });
             },
@@ -82,9 +82,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
             ),
             hintText: 'Select Unit',
             selectedItem: Text(
-              formatAssetUnit(
-                selectedUnit ?? widget.currentUnit,
-              ),
+              (selectedUnit ?? widget.currentUnit).formatAssetUnit(),
               style: RibnToolkitTextStyles.dropdownButtonStyle,
             ),
           ),
@@ -96,8 +94,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Save',
-                  style: RibnToolkitTextStyles.btnMedium
-                      .copyWith(color: Colors.white),
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
                 ),
                 backgroundColor: RibnColors.primary,
                 onPressed: () {
@@ -116,8 +113,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Cancel',
-                  style: RibnToolkitTextStyles.btnMedium
-                      .copyWith(color: RibnColors.ghostButtonText),
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.ghostButtonText),
                 ),
                 backgroundColor: Colors.transparent,
                 hoverColor: Colors.transparent,
@@ -165,7 +161,7 @@ class _AssetUnitEditSectionState extends State<AssetUnitEditSection> {
                       setState(() {
                         dropdownOpened = false;
                       });
-                      Overlay.of(context)!.setState(() {
+                      Overlay.of(context).setState(() {
                         selectedUnit = unit;
                         dropdownOpened = false;
                       });

@@ -1,132 +1,114 @@
+// Dart imports:
+import 'dart:async';
+
 // Flutter imports:
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:local_auth/local_auth.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_text_title.dart';
 
 // Project imports:
 import 'package:ribn/constants/strings.dart';
-import 'package:ribn/containers/settings_container.dart';
 import 'package:ribn/platform/platform.dart';
+import 'package:ribn/presentation/settings/sections/analytics_section.dart';
 import 'package:ribn/presentation/settings/sections/biometrics_section.dart';
+import 'package:ribn/presentation/settings/sections/danger_container_section.dart';
+import 'package:ribn/presentation/settings/sections/delete_wallet_confirmation_dialog.dart';
 import 'package:ribn/presentation/settings/sections/delete_wallet_section.dart';
-import 'package:ribn/presentation/settings/sections/export_topl_main_key_section.dart';
+import 'package:ribn/presentation/settings/sections/disconnect_dapps_section.dart';
+import 'package:ribn/presentation/settings/sections/disconnect_wallet_confirmation_dialog.dart';
 import 'package:ribn/presentation/settings/sections/links_section.dart';
 import 'package:ribn/presentation/settings/sections/ribn_version_section.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/providers/biometrics_provider.dart';
+import 'package:ribn/providers/settings_provider.dart';
+import 'package:ribn/providers/utility_provider.dart';
+import 'package:ribn/utils/extensions.dart';
 
 /// The settings page of the application.
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
-  bool isBioSupported = false;
-
-  bool canDisconnect = false;
-
-  late VoidCallback onUpdated;
-
-  @override
-  initState() {
-    if (!kIsWeb) {
-      runBiometrics();
-    } else {
-      loadDApps();
-    }
-    super.initState();
-  }
-
-  loadDApps() async {
-    final List<String> dApps =
-        await PlatformUtils.instance.convertToFuture(PlatformUtils.instance.getDAppList());
-    await PlatformUtils.instance.consoleLog(dApps.toString());
-
-    setState(() {
-      canDisconnect = dApps.isNotEmpty;
-    });
-  }
-
-  runBiometrics() async {
-    final LocalAuthentication localAuthentication = LocalAuthentication();
-
-    final bool isBioAuthenticationSupported =
-        await isBiometricsAuthenticationSupported(localAuthentication);
-
-    setState(() {
-      isBioSupported = isBioAuthenticationSupported ? true : false;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return SettingsContainer(
-      builder: (BuildContext context, SettingsViewModel vm) {
-        vm.canDisconnect = canDisconnect;
-        return Scaffold(
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                const CustomPageTextTitle(
-                  title: Strings.settings,
-                  hideBackArrow: true,
-                ),
-                _buildSettingsListItems(vm, context),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  /// Builds the divider intended for separating the items on the settings page.
-  Widget _buildDivider() => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15.0),
-        child: Container(
-          height: 1,
-          color: const Color(0xFFE9E9E9),
-        ),
-      );
-
-  /// Builds the list of items on the settings page.
-  Widget _buildSettingsListItems(SettingsViewModel vm, BuildContext context) {
-    return Container(
-      color: RibnColors.background,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+    return Scaffold(
+      body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            RibnVersionSection(appVersion: vm.appVersion),
-            _buildDivider(),
-            const LinksSection(),
-            kIsWeb ? _buildDivider() : const SizedBox(),
-            kIsWeb
-                ? ExportToplMainKeySection(
-                    onExportPressed: vm.exportToplMainKey,
-                  )
-                : const SizedBox(),
-            isBioSupported ? _buildDivider() : const SizedBox(),
-            isBioSupported
-                ? BiometricsSection(isBiometricsEnabled: vm.isBiometricsEnabled)
-                : const SizedBox(),
-            _buildDivider(),
-            DeleteWalletSection(
-              onDeletePressed: vm.onDeletePressed,
-              onDisconnectPressed: vm.onDisconnectPressed,
-              canDisconnect: canDisconnect,
+            const CustomPageTextTitle(
+              title: Strings.settings,
+              hideBackArrow: true,
             ),
-            const SizedBox(height: 20),
+            SettingsListItems()
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Builds the list of items on the settings page.
+class SettingsListItems extends ConsumerWidget {
+  const SettingsListItems({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final canDisconnectDApp = ref.watch(canDisconnectDAppsProvider);
+    final biometrics = ref.watch(biometricsProvider);
+    final appVersion = ref.watch(appVersionProvider);
+
+    return Container(
+        color: RibnColors.background,
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              RibnVersionSection(appVersion: appVersion),
+              const LinksSection(),
+              AnalyticsSection(),
+              if (biometrics.value?.isSupported ?? false) BiometricsSection(),
+              DangerContainerSection(children: [
+                //Disconnect DApps
+                canDisconnectDApp.when(
+                    data: (data) => data
+                        ? DisconnectDAppsSection(onDisconnectPressed: _onDisconnectPressed, canDisconnect: data)
+                        : Container(),
+                    error: (_, __) => Container(),
+                    loading: () => Container()),
+                SizedBox(height: 10),
+                //Delete Wallet Section
+                DeleteWalletSection(onDeletePressed: (_) => onDeletePressed(_, ref)),
+              ]),
+            ].separator(element: const Divider(height: 32)).toList()));
+  }
+
+  void onDeletePressed(BuildContext context, ref) async {
+    final settingsNotifier = ref.read(settingsProvider);
+
+    await showDialog(
+      context: context,
+      builder: (context) => DeleteWalletConfirmationDialog(
+        onConfirmDeletePressed: (
+          String password,
+          VoidCallback onIncorrectPasswordEntered,
+        ) async {
+          final Completer<bool> completer = Completer();
+          settingsNotifier.DeleteWallet(password, completer);
+          // onIncorrectPasswordEntered called if response returned is false
+          await completer.future.then((value) {
+            if (!value) onIncorrectPasswordEntered();
+          });
+        },
+      ),
+    );
+  }
+
+  static Future<void> _onDisconnectPressed(BuildContext context) async {
+    final dApps = await PlatformUtils.instance.convertToFuture(PlatformUtils.instance.getDAppList());
+    await showDialog(
+      context: context,
+      builder: (context) => DisconnectWalletConfirmationDialog(dApps: dApps),
     );
   }
 }

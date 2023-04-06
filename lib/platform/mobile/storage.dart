@@ -3,25 +3,30 @@ import 'dart:io';
 
 // Package imports:
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 
 // Project imports:
 import 'package:ribn/constants/keys.dart';
 import 'package:ribn/platform/interfaces.dart';
+import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 
 class PlatformLocalStorage implements IPlatformLocalStorage {
   PlatformLocalStorage._internal();
+
   static PlatformLocalStorage? _instance;
+
   factory PlatformLocalStorage() {
     _instance ??= PlatformLocalStorage._internal();
     return _instance!;
   }
+
   static PlatformLocalStorage get instance => PlatformLocalStorage();
 
   /// Allows securely storing credentials on mobile.
   /// Uses keychain for iOS; AES encryption and KeyStore for android
   /// Ref: https://pub.dev/packages/flutter_secure_storage
-  final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
+  final FlutterSecureStorage secureStorage = ProviderContainer().read(flutterSecureStorageProvider)();
 
   @override
   Future<String> getState() async {
@@ -41,26 +46,24 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
 
   /// Mobile-only: Gets toplKey from encrypted device storage.
   @override
-  Future<String?>? getKeyFromSecureStorage() {
+  Future<String?>? getKeyFromSecureStorage({FlutterSecureStorage? override}) async {
     try {
-      return secureStorage.read(key: 'toplKey');
+      return (override != null) ? await override.read(key: 'toplKey') : await secureStorage.read(key: 'toplKey');
     } catch (e) {
-      if (!Keys.isTestingEnvironment) {
-        rethrow;
-      }
+      if (!Keys.isTestingEnvironment) rethrow;
     }
     return null;
   }
 
   /// Mobile-only: Saves [key] in encrypted device storage.
   @override
-  Future<void> saveKeyInSecureStorage(String key) async {
+  Future<void> saveKeyInSecureStorage(String key, {FlutterSecureStorage? override}) async {
     try {
-      await secureStorage.write(key: 'toplKey', value: key);
+      return (override != null)
+          ? override.write(key: 'toplKey', value: key)
+          : await secureStorage.write(key: 'toplKey', value: key);
     } catch (e) {
-      if (!Keys.isTestingEnvironment) {
-        rethrow;
-      }
+      if (!Keys.isTestingEnvironment) rethrow;
     }
   }
 
@@ -79,10 +82,30 @@ class PlatformLocalStorage implements IPlatformLocalStorage {
 
   /// Web-only
   @override
-  Future<String?> getKeyFromSessionStorage() => throw UnimplementedError();
+  Future<String?> getKeyFromSessionStorage({String? key}) => throw UnimplementedError();
 
   /// Web-only
   @override
-  Future<void> saveKeyInSessionStorage(String key) =>
-      throw UnimplementedError();
+  Future<void> saveKeyInSessionStorage(String value, {String? key}) => throw UnimplementedError();
+
+  @override
+  Future<String?> getKVInSecureStorage(String key, {FlutterSecureStorage? override}) async {
+    try {
+      return (override != null) ? await override.read(key: key) : await secureStorage.read(key: key);
+    } catch (e) {
+      if (!Keys.isTestingEnvironment) rethrow;
+    }
+    return null;
+  }
+
+  @override
+  Future<void> saveKVInSecureStorage(String key, String value, {FlutterSecureStorage? override}) async {
+    try {
+      return (override != null)
+          ? await override.write(key: key, value: value)
+          : await secureStorage.write(key: key, value: value);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

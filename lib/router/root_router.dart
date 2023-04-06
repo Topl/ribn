@@ -4,6 +4,10 @@ import 'dart:convert';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:ribn_toolkit/models/transactions/ribn_activity_details_model.dart';
+
 // Project imports:
 import 'package:ribn/constants/routes.dart';
 import 'package:ribn/models/internal_message.dart';
@@ -33,6 +37,7 @@ import 'package:ribn/presentation/onboarding/restore_wallet/create_new_wallet_pa
 import 'package:ribn/presentation/onboarding/restore_wallet/enter_wallet_password_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/restore_wallet_page.dart';
 import 'package:ribn/presentation/onboarding/restore_wallet/restore_with_topl_key_page.dart';
+import 'package:ribn/presentation/onboarding/widgets/opt_in_tracker_page.dart';
 import 'package:ribn/presentation/settings/settings_page.dart';
 import 'package:ribn/presentation/transaction_history/transaction_history_details_page/transaction_history_details_page.dart';
 import 'package:ribn/presentation/transaction_history/transaction_history_page.dart';
@@ -40,8 +45,8 @@ import 'package:ribn/presentation/transfers/asset_transfer_page.dart';
 import 'package:ribn/presentation/transfers/mint_input_page.dart';
 import 'package:ribn/presentation/transfers/tx_confirmation_page.dart';
 import 'package:ribn/presentation/transfers/tx_review_page.dart';
-// Package imports:
-import 'package:ribn_toolkit/models/transactions/ribn_activity_details_model.dart';
+
+// import 'package:ribn/models/transaction_history_entry.dart';
 
 // import 'package:ribn/models/transaction_history_entry.dart';
 
@@ -56,6 +61,13 @@ class RootRouter {
             return pageRouteNotAnimated(const WelcomePage(), settings);
           }
           return pageRoute(const WelcomePage(), settings);
+        }
+      case Routes.optIn:
+        {
+          if (kIsWeb) {
+            return pageRouteNotAnimated(const OptInTracker(), settings);
+          }
+          return pageRoute(const OptInTracker(), settings);
         }
       case Routes.selectAction:
         {
@@ -75,12 +87,12 @@ class RootRouter {
         {
           if (kIsWeb) {
             return pageRouteNotAnimated(
-              const SeedPhraseInfoChecklistPage(),
+              SeedPhraseInfoChecklistPage(),
               settings,
             );
           }
           return pageRoute(
-            const SeedPhraseInfoChecklistPage(),
+            SeedPhraseInfoChecklistPage(),
             settings,
           );
         }
@@ -118,11 +130,11 @@ class RootRouter {
         {
           if (kIsWeb) {
             return pageRouteNotAnimated(
-              const SeedPhraseConfirmationPage(),
+              SeedPhraseConfirmationPage(),
               settings,
             );
           }
-          return pageRoute(const SeedPhraseConfirmationPage(), settings);
+          return pageRoute(SeedPhraseConfirmationPage(), settings);
         }
       case Routes.walletInfoChecklist:
         {
@@ -137,9 +149,9 @@ class RootRouter {
       case Routes.createPassword:
         {
           if (kIsWeb) {
-            return pageRouteNotAnimated(const CreatePasswordPage(), settings);
+            return pageRouteNotAnimated(CreatePasswordPage(), settings);
           }
-          return pageRoute(const CreatePasswordPage(), settings);
+          return pageRoute(CreatePasswordPage(), settings);
         }
       case Routes.extensionInfo:
         {
@@ -232,8 +244,7 @@ class RootRouter {
         }
       case Routes.txReview:
         {
-          final TransferDetails transferDetails =
-              settings.arguments as TransferDetails;
+          final TransferDetails transferDetails = settings.arguments as TransferDetails;
 
           if (kIsWeb) {
             return pageRouteNotAnimated(
@@ -248,8 +259,7 @@ class RootRouter {
         }
       case Routes.txConfirmation:
         {
-          final TransferDetails transferDetails =
-              settings.arguments as TransferDetails;
+          final TransferDetails transferDetails = settings.arguments as TransferDetails;
           if (kIsWeb) {
             return pageRouteNotAnimated(
               TxConfirmationPage(transferDetails: transferDetails),
@@ -273,8 +283,7 @@ class RootRouter {
         }
       case Routes.txHistoryDetails:
         final Map transactionDetailsMap = settings.arguments as Map;
-        final RibnActivityDetailsModel transactionDetails =
-            RibnActivityDetailsModel.fromJson(
+        final RibnActivityDetailsModel transactionDetails = RibnActivityDetailsModel.fromJson(
           jsonEncode(transactionDetailsMap),
         );
         {
@@ -285,8 +294,7 @@ class RootRouter {
         }
       case Routes.assetDetails:
         {
-          final Map<String, dynamic> assetDetailsPageArgs =
-              settings.arguments as Map<String, dynamic>;
+          final Map<String, dynamic> assetDetailsPageArgs = settings.arguments as Map<String, dynamic>;
           if (kIsWeb) {
             return pageRouteNotAnimated(
               AssetDetailsPage(asset: assetDetailsPageArgs['assetAmount']!),
@@ -312,8 +320,7 @@ class RootRouter {
         }
       case Routes.enable:
         {
-          final InternalMessage pendingRequest =
-              settings.arguments as InternalMessage;
+          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
           if (kIsWeb) {
             return pageRouteNotAnimated(EnablePage(pendingRequest), settings);
           }
@@ -321,8 +328,7 @@ class RootRouter {
         }
       case Routes.externalSigning:
         {
-          final InternalMessage pendingRequest =
-              settings.arguments as InternalMessage;
+          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
           if (kIsWeb) {
             return pageRouteNotAnimated(
               ExternalSigningPage(pendingRequest),
@@ -333,20 +339,17 @@ class RootRouter {
         }
       case Routes.error:
         {
-          final String errorMessage =
-              (settings.arguments ?? 'Unknown error occurred') as String;
+          final String errorMessage = (settings.arguments ?? 'Unknown error occurred') as String;
           return errorRoute(errorMsg: errorMessage);
         }
       case Routes.connectDApp:
         {
-          final InternalMessage pendingRequest =
-              settings.arguments as InternalMessage;
+          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
           return pageRouteNotAnimated(ConnectDApp(pendingRequest), settings);
         }
       case Routes.reviewAndSignDApp:
         {
-          final InternalMessage pendingRequest =
-              settings.arguments as InternalMessage;
+          final InternalMessage pendingRequest = settings.arguments as InternalMessage;
           if (kIsWeb) {
             return pageRouteNotAnimated(
               ReviewAndSignDApp(pendingRequest),
@@ -357,8 +360,7 @@ class RootRouter {
         }
       case Routes.loadingDApp:
         {
-          final InternalMessage response =
-              settings.arguments as InternalMessage;
+          final InternalMessage response = settings.arguments as InternalMessage;
           return pageRouteNotAnimated(
             LoadingDApp(response: response),
             settings,

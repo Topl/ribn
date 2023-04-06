@@ -111,4 +111,16 @@ platform :ios do
 
     delete_temp_keychain(keychain_name)
   end
+
+  lane :distribute do
+
+        firebase_app_distribution(
+            app: "TODO_CHANGE",
+            groups: 'topl',
+            release_notes: "Speedy recent transactions",
+            ipa_path: '../build/ios/ipa/Ribn.ipa',
+            service_credentials_file: '../service_account_key.json',
+        )
+
+    end
 end

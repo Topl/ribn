@@ -22,6 +22,7 @@ class AssetIconEditSection extends StatefulWidget {
 
   /// A callback function for handling save/cancel actions.
   final VoidCallback onActionTaken;
+
   const AssetIconEditSection({
     Key? key,
     required this.assetCode,
@@ -64,8 +65,7 @@ class _AssetIconEditSectionState extends State<AssetIconEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Save',
-                  style: RibnToolkitTextStyles.btnMedium
-                      .copyWith(color: Colors.white),
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: Colors.white),
                 ),
                 backgroundColor: RibnColors.primary,
                 onPressed: () {
@@ -84,8 +84,7 @@ class _AssetIconEditSectionState extends State<AssetIconEditSection> {
                 buttonHeight: 33,
                 buttonChild: Text(
                   'Cancel',
-                  style: RibnToolkitTextStyles.btnMedium
-                      .copyWith(color: RibnColors.ghostButtonText),
+                  style: RibnToolkitTextStyles.btnMedium.copyWith(color: RibnColors.ghostButtonText),
                 ),
                 backgroundColor: Colors.transparent,
                 hoverColor: Colors.transparent,
@@ -118,13 +117,15 @@ class _AssetIconEditSectionState extends State<AssetIconEditSection> {
         ),
         children: UIConstants.assetIconsList
             .map(
-              (icon) => PortalEntry(
-                portal: Image.asset(
+              (icon) => PortalTarget(
+                portalFollower: Image.asset(
                   icon,
                   width: 31,
                 ),
-                portalAnchor: Alignment.bottomCenter,
-                childAnchor: Alignment.topCenter,
+                anchor: Aligned(
+                  follower: Alignment.bottomCenter,
+                  target: Alignment.topCenter,
+                ),
                 visible: _selectedIcon == icon,
                 child: MaterialButton(
                   padding: EdgeInsets.zero,

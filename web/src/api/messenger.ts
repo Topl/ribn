@@ -1,7 +1,7 @@
-import { API_ERRORS, API_METHODS, INTERNAL_METHODS, SENDERS, TARGET } from "../utils/configs";
-import { APIRequest, InternalMessage } from "../utils/types";
-import { createPopup } from "./popup";
-import { ExtensionStorage } from "./storage";
+import {API_ERRORS, API_METHODS, INTERNAL_METHODS, SENDERS, TARGET} from "../utils/configs";
+import {APIRequest, InternalMessage} from "../utils/types";
+import {createPopup} from "./popup";
+import {ExtensionStorage} from "./storage";
 
 
 export const Messenger = {
@@ -9,7 +9,7 @@ export const Messenger = {
      * Forwards request from the web-page to the content-script.
      * Attaches a listener to listen for response from the content-script.
      */
-    forwardToContentScript: ({ method, data }: APIRequest): Promise<InternalMessage> => {
+    forwardToContentScript: ({method, data}: APIRequest): Promise<InternalMessage> => {
         return new Promise((resolve, reject) => {
             const requestId: string = Math.random().toString(36).substr(2);
             // listen for message-events from the content-script
@@ -99,7 +99,6 @@ class ContentMessenger {
             });
             const isOriginAllowed = (isEnabledResponse.data as Record<string, any>)["enabled"];
             const permissionRequired = ![API_METHODS.enable, API_METHODS.isEnabled, API_METHODS.authorize].includes(request.method);
-
             if (request.method == API_METHODS.isEnabled) {
                 window.postMessage(isEnabledResponse);
             } else if (!isOriginAllowed && permissionRequired) {
@@ -170,14 +169,12 @@ class BackgroundMessenger {
         authorize: (request: InternalMessage, sendResponse: (response?: InternalMessage) => void) => {
             ExtensionStorage.isOriginAllowed(request.origin as string).then((isAllowed) => {
                 if (!isAllowed) {
-                    request.additionalNavigation = "/connect-dapp"
                     createPopup()
                         .then((tab) => this.handlePopupConnection(request, tab))
                         .then(async (result) => {
                             if (result.data && result.data["enabled"] == true) {
                                 await ExtensionStorage.addToAllowList(request.origin as string);
                             }
-                            result.additionalNavigation = "/connect-dapp"
                             sendResponse(result);
                         });
                 } else {
@@ -203,10 +200,9 @@ class BackgroundMessenger {
                 ...request,
                 sender: SENDERS.ribn,
                 data: {
-                    //                     message: window.randomFunctionName(),
+//                     message: window.randomFunctionName(),
                     message: "",
-                }
-            });
+                }});
         },
         signTransaction: async (request: InternalMessage, sendResponse: (response?: InternalMessage) => void) => {
             createPopup()
@@ -305,7 +301,6 @@ class BackgroundMessenger {
                 }
                 // v2
                 case API_METHODS.authorize: {
-                    request.additionalNavigation = ""
                     this.responders.authorize(request, sendResponse);
                     break;
                 }

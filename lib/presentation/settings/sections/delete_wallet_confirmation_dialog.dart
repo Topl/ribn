@@ -10,6 +10,7 @@ import 'package:ribn_toolkit/widgets/molecules/password_text_field.dart';
 
 // Project imports:
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/utils/input_utils.dart';
 
 /// The confimation dialog that is displayed before deleting the wallet.
 ///
@@ -27,12 +28,10 @@ class DeleteWalletConfirmationDialog extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _DeleteWalletConfirmationDialogState createState() =>
-      _DeleteWalletConfirmationDialogState();
+  _DeleteWalletConfirmationDialogState createState() => _DeleteWalletConfirmationDialogState();
 }
 
-class _DeleteWalletConfirmationDialogState
-    extends State<DeleteWalletConfirmationDialog> {
+class _DeleteWalletConfirmationDialogState extends State<DeleteWalletConfirmationDialog> {
   final TextEditingController _passwordController = TextEditingController();
 
   /// True if incorrect password was entered.
@@ -44,7 +43,7 @@ class _DeleteWalletConfirmationDialogState
   Widget build(BuildContext context) {
     return CustomModal.renderCustomModal(
       title: const Text(
-        Strings.deleteRibnWallet,
+        Strings.removeFromDevice,
         style: RibnToolkitTextStyles.extH2,
       ),
       context: context,
@@ -52,9 +51,9 @@ class _DeleteWalletConfirmationDialogState
         children: [
           SizedBox(
             width: 228,
-            height: 125,
+            height: 160,
             child: Text(
-              Strings.deleteRibnWalletDesc,
+              Strings.removeRibnWalletDesc,
               style: RibnToolkitTextStyles.smallBody.copyWith(fontSize: 15),
             ),
           ),
@@ -96,12 +95,13 @@ class _DeleteWalletConfirmationDialogState
             // confirm delete
             LargeButton(
               buttonChild: Text(
-                Strings.yesIWantToDelete,
+                Strings.yesIWantToRemove,
                 style: RibnToolkitTextStyles.btnMedium.copyWith(
                   color: Colors.white,
                 ),
               ),
               onPressed: () {
+                dismissKeyboard(context);
                 widget.onConfirmDeletePressed(
                   _passwordController.text,
                   () {

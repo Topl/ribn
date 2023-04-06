@@ -21,6 +21,8 @@ analyzer:
     dead_code: error
   strong-mode:
     implicit-casts: true
+  plugins:
+      - custom_lint
 
 
 linter:

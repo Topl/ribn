@@ -26,7 +26,7 @@ import 'package:ribn/models/app_state.dart';
 import 'package:ribn/models/transfer_details.dart';
 import 'package:ribn/presentation/transfers/bottom_review_action.dart';
 import 'package:ribn/presentation/transfers/transfer_utils.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/extensions.dart';
 import 'package:ribn/widgets/asset_info.dart';
 import 'package:ribn/widgets/custom_divider.dart';
 import 'package:ribn/widgets/fee_info.dart';
@@ -77,8 +77,7 @@ class TxReviewPage extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(11.6),
                         color: RibnColors.whiteBackground,
-                        border:
-                            Border.all(color: RibnColors.lightGrey, width: 1),
+                        border: Border.all(color: RibnColors.lightGrey, width: 1),
                         boxShadow: const [
                           BoxShadow(
                             color: RibnColors.greyShadow,
@@ -108,8 +107,9 @@ class TxReviewPage extends StatelessWidget {
                       child: SizedBox(
                         width: 310,
                         child: FeeInfo(
-                          fee: transferDetails
-                              .transactionReceipt!.fee!.getInNanopoly,
+                          fee: transferDetails.transactionReceipt!.fee!.getInNanopoly,
+                          currentNetworkName:
+                              StoreProvider.of<AppState>(context).state.keychainState.currentNetwork.networkName,
                         ),
                       ),
                     ),
@@ -140,8 +140,7 @@ class TxReviewPage extends StatelessWidget {
                   StoreProvider.of<AppState>(context).dispatch(
                     SignAndBroadcastTxAction(transferDetails, txCompleter),
                   );
-                  await txCompleter.future
-                      .then((TransferDetails? transferDetails) {
+                  await txCompleter.future.then((TransferDetails? transferDetails) {
                     if (transferDetails != null) {
                       Keys.navigatorKey.currentState?.pushNamed(
                         Routes.txConfirmation,
@@ -170,8 +169,7 @@ class TxReviewPage extends StatelessWidget {
                 dropShadowColor: Colors.transparent,
                 borderColor: RibnColors.ghostButtonText,
                 onPressed: () {
-                  Keys.navigatorKey.currentState!
-                      .popUntil((route) => route.settings.name == Routes.home);
+                  Keys.navigatorKey.currentState!.popUntil((route) => route.settings.name == Routes.home);
                 },
               ),
               const SizedBox(height: 13),
@@ -267,8 +265,7 @@ class TxReviewPage extends StatelessWidget {
             ),
           ),
           CustomCopyButton(
-            textToBeCopied:
-                transferDetails.senders.first.toplAddress.toBase58(),
+            textToBeCopied: transferDetails.senders.first.toplAddress.toBase58(),
             icon: Image.asset(
               RibnAssets.copyIcon,
               width: 26,
@@ -296,13 +293,12 @@ class TxReviewPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
-              formatAddrString(transferDetails.recipient),
+              transferDetails.recipient.formatAddressString(),
               style: defaultTextStyle,
             ),
           ),
           CustomCopyButton(
-            textToBeCopied:
-                transferDetails.senders.first.toplAddress.toBase58(),
+            textToBeCopied: transferDetails.senders.first.toplAddress.toBase58(),
             icon: Image.asset(
               RibnAssets.copyIcon,
               width: 26,

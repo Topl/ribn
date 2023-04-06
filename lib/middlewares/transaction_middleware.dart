@@ -53,8 +53,7 @@ void Function(
   return (store, action, next) async {
     try {
       /// The sender defaults to the first address in the list of locally stored addresses
-      final RibnAddress sender =
-          store.state.keychainState.currentNetwork.addresses.first;
+      final RibnAddress sender = store.state.keychainState.currentNetwork.addresses.first;
       final RibnNetwork currNetwork = store.state.keychainState.currentNetwork;
       final TransferDetails transferDetails = action.transferDetails.copyWith(
         senders: [sender],
@@ -85,8 +84,7 @@ void Function(
         store.state.keychainState.currentNetwork.client!,
         action.transferDetails,
       );
-      final TransactionReceipt transactionReceipt =
-          result['rawTx'] as TransactionReceipt;
+      final TransactionReceipt transactionReceipt = result['rawTx'] as TransactionReceipt;
       final Uint8List messageToSign = result['messageToSign'] as Uint8List;
       final TransferDetails transferDetails = action.transferDetails.copyWith(
         transactionReceipt: transactionReceipt,
@@ -123,8 +121,7 @@ void Function(
         action.transferDetails.transactionReceipt!,
         action.transferDetails.messageToSign!,
       );
-      final TransferDetails transferDetails =
-          action.transferDetails.copyWith(transactionId: transactionId);
+      final TransferDetails transferDetails = action.transferDetails.copyWith(transactionId: transactionId);
 
       /// Update the locally stored asset details if minting a new asset
       if (transferDetails.transferType == TransferType.mintingAsset) {
@@ -160,20 +157,16 @@ void Function(
         action.pendingRequest.data!['messageToSign'] as String,
       ).value;
 
-      final TransactionReceipt transactionReceipt =
-          TransactionReceipt.fromJson(action.pendingRequest.data!['rawTx']);
+      final TransactionReceipt transactionReceipt = TransactionReceipt.fromJson(action.pendingRequest.data!['rawTx']);
 
       transferDetails['rawTx'] = transactionReceipt;
 
-      final List<String> rawTxSenders = transactionReceipt.from!
-          .map((e) => e.senderAddress.toBase58())
-          .toList();
+      final List<String> rawTxSenders = transactionReceipt.from!.map((e) => e.senderAddress.toBase58()).toList();
 
-      final List<RibnAddress> sendersInWallet =
-          List.from(store.state.keychainState.currentNetwork.addresses)
-            ..retainWhere(
-              (addr) => rawTxSenders.contains(addr.toplAddress.toBase58()),
-            );
+      final List<RibnAddress> sendersInWallet = List.from(store.state.keychainState.currentNetwork.addresses)
+        ..retainWhere(
+          (addr) => rawTxSenders.contains(addr.toplAddress.toBase58()),
+        );
 
       if (sendersInWallet.isEmpty) {
         final InternalMessage response = InternalMessage(

@@ -7,8 +7,7 @@ import 'package:ribn/constants/rules.dart';
 import 'package:ribn/models/ribn_address.dart';
 
 Map<String, dynamic> testData = {
-  'mnemonic':
-      'napkin they pupil disorder junior tonight harsh mobile equal explain allow fancy',
+  'mnemonic': 'napkin they pupil disorder junior tonight harsh mobile equal explain allow fancy',
   'rootExtendedPrvKey':
       '64, 152, 147, 162, 27, 218, 199, 183, 63, 203, 225, 8, 66, 19, 70, 136, 195, 167, 2, 80, 205, 2, 101, 184, 123, 4, 1, 243, 211, 71, 151, 94, 55, 233, 205, 8, 240, 57, 245, 113, 25, 135, 174, 17, 19, 89, 46, 188, 137, 86, 233, 16, 223, 41, 177, 217, 128, 221, 55, 128, 147, 74, 229, 221, 235, 233, 231, 45, 1, 34, 13, 37, 45, 17, 170, 166, 208, 154, 59, 17, 179, 13, 219, 191, 21, 64, 115, 19, 223, 133, 72, 255, 45, 171, 47, 108',
   'toplExtendedPrvKey':

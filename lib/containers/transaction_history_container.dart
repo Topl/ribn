@@ -7,14 +7,19 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:brambldart/brambldart.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:grpc/service_api.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:redux/redux.dart';
 
 // Project imports:
+import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/genus/generated/filters.pb.dart';
 import 'package:ribn/genus/generated/services_types.pb.dart';
 import 'package:ribn/genus/generated/transactions_query.pbgrpc.dart';
 import 'package:ribn/models/app_state.dart';
+import 'package:ribn/models/ribn_network.dart';
 import 'package:ribn/platform/platform.dart';
+import 'package:ribn/providers/logger_provider.dart';
 
 /// Intended to wrap the [TransactionHistoryPage] and provide it with the the [TransactionHistoryViewmodel].
 class TransactionHistoryContainer extends StatelessWidget {
@@ -45,7 +50,7 @@ class TransactionHistoryViewmodel {
   final Future<String>? blockHeight;
 
   /// Gets transactions associated with my wallet address from the Mempool and Genus
-  final Future<List<TransactionReceipt>> Function({int pageNum}) getTransactions;
+  final Future<List<TransactionReceipt>> Function() getTransactions;
 
   TransactionHistoryViewmodel({
     required this.toplAddress,
@@ -62,13 +67,13 @@ class TransactionHistoryViewmodel {
       networkId: store.state.keychainState.currentNetwork.networkId,
       assets: store.state.keychainState.currentNetwork.getAllAssetsInWallet(),
       blockHeight: store.state.keychainState.currentNetwork.client!.getBlockNumber(),
-      getTransactions: ({int pageNum = 0}) async {
+      getTransactions: () async {
         final myWalletAddress = currNetwork.myWalletAddress!.toplAddress.toBase58();
         final mempoolTxs = await getMempoolTxs(
           client: currNetwork.client!,
           walletAddress: myWalletAddress,
         );
-        final genusTxs = await getGenusTxs(walletAddress: myWalletAddress);
+        final genusTxs = await getGenusTxs(walletAddress: myWalletAddress, currentNetwork: currNetwork);
         return [...mempoolTxs, ...genusTxs];
       },
     );
@@ -85,8 +90,7 @@ class TransactionHistoryViewmodel {
           ) ??
           false;
       // simple recipient or asset recipient
-      final walletAddrInRecipients =
-          tx.to.any((recipient) => recipient.toJson()[0] == walletAddress);
+      final walletAddrInRecipients = tx.to.any((recipient) => recipient.toJson()[0] == walletAddress);
       return walletAddrInSenders || walletAddrInRecipients;
     }).toList();
     final List<TransactionReceipt> formattedTxs = [];
@@ -113,8 +117,11 @@ class TransactionHistoryViewmodel {
   static Future<List<TransactionReceipt>> getGenusTxs({
     required String walletAddress,
     int pageNumber = 0,
+    required RibnNetwork currentNetwork,
   }) async {
-    final txQueryClient = TransactionsQueryClient(PlatformGenusConfig.channel);
+    ClientChannel channel = _getClientChannel(currentNetwork);
+
+    final txQueryClient = TransactionsQueryClient(channel);
     final txQueryResult = await txQueryClient.query(
       QueryTxsReq(
         filter: TransactionFilter(
@@ -129,6 +136,7 @@ class TransactionHistoryViewmodel {
         confirmationDepth: 1,
       ),
     );
+
     final Map<String, dynamic> txResultJson = txQueryResult.toProto3Json() as Map<String, dynamic>;
     final List<TransactionReceipt> txs = [];
     for (var element in (txResultJson['success']['transactions'] as List)) {
@@ -136,8 +144,7 @@ class TransactionHistoryViewmodel {
       try {
         final outputs = formatRecipients(element['outputs'] as List);
         final newBoxes = formatNewBoxes(element['newBoxes']);
-        final inputs =
-            (element['inputs'] as List).map((input) => [input['address'], input['nonce']]).toList();
+        final inputs = (element['inputs'] as List).map((input) => [input['address'], input['nonce']]).toList();
         if (inputs.isEmpty) continue;
         // get tx per recipient
         outputs.toList().forEach((output) {
@@ -235,5 +242,21 @@ class TransactionHistoryViewmodel {
         assets.hashCode ^
         blockHeight.hashCode ^
         getTransactions.hashCode;
+  }
+
+  static ClientChannel _getClientChannel(RibnNetwork currentNetwork) {
+    try {
+      final network = NetworkConfig.fromNetwork(Networks.values.byName(currentNetwork.networkName));
+      return PlatformGenusConfig.getNetworkConfig(network.genusIP);
+    } catch (e) {
+      ProviderContainer().read(loggerProvider).log(
+            logLevel: LogLevel.Warning,
+            loggerClass: LoggerClass.ApiError,
+            message: "Error parsing clientChannel from Network config",
+            stackTrace: StackTrace.current,
+            error: e,
+          );
+      throw (e);
+    }
   }
 }

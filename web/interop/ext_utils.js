@@ -22,15 +22,15 @@ var ext_utils = {
 	 * Clears AllowList
 	 */
 	deleteAllowList: async () => {
-		await chrome.storage.local.set({ 'allowList': [] });
+       await chrome.storage.local.set({'allowList': []});
 	},
 	/**
 	 * Gets full AllowList
 	 */
 	retrieveAllowList: async () => {
-		let storage = await chrome.storage.local.get(undefined);
-		storage = storage ? storage.allowList : [];
-		return (storage);
+            let storage = await chrome.storage.local.get(undefined);
+            storage = storage ? storage.allowList : [];
+			return(storage);
 	},
 	/**
 	 *

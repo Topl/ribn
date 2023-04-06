@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/molecules/checkbox_wrappable_text.dart';
@@ -16,27 +17,23 @@ import 'package:ribn/presentation/onboarding/utils.dart';
 import 'package:ribn/presentation/onboarding/widgets/confirmation_button.dart';
 import 'package:ribn/presentation/onboarding/widgets/onboarding_container.dart';
 import 'package:ribn/presentation/onboarding/widgets/web_onboarding_app_bar.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/utils.dart';
 
 /// Builds checks to ensure that the user understands the importance of the seed phrase.
-class SeedPhraseInfoChecklistPage extends StatefulWidget {
-  const SeedPhraseInfoChecklistPage({Key? key}) : super(key: key);
+class SeedPhraseInfoChecklistPage extends HookWidget {
+  static const Key seedPhraseInfoChecklistPageKey = Key('seedPhraseInfoChecklistPageKey');
+  static const Key seedPhraseInfoChecklistConfirmationButtonKey = Key('seedPhraseInfoChecklistConfirmationButtonKey');
+  static const Key neverShareMySeedPhraseKey = Key('neverShareMySeedPhraseKey');
+  static const Key walletRecoveryUsingSeedPhraseKey = Key('walletRecoveryUsingSeedPhraseKey');
 
-  @override
-  State<SeedPhraseInfoChecklistPage> createState() =>
-      _SeedPhraseInfoChecklistPageState();
-}
-
-class _SeedPhraseInfoChecklistPageState
-    extends State<SeedPhraseInfoChecklistPage> {
-  /// Checkboxes and their corresponding checked value
-  final Map<String, bool> checkboxesState = {
-    Strings.neverShareMySeedPhrase: false,
-    Strings.walletRecoveryUsingSeedPhrase: false,
-  };
+  const SeedPhraseInfoChecklistPage({Key key = seedPhraseInfoChecklistPageKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    /// Checkboxes and their corresponding checked value
+    final neverShareMySeedPhrase = useState(false);
+    final walletRecoveryUsingSeedPhrase = useState(false);
+
     return Scaffold(
       body: OnboardingContainer(
         child: SingleChildScrollView(
@@ -55,33 +52,30 @@ class _SeedPhraseInfoChecklistPageState
                   child: Image.asset(RibnAssets.warningPng, width: 76),
                 ),
                 _buildCheckboxListTile(
-                  checked: checkboxesState[Strings.neverShareMySeedPhrase]!,
+                  checked: neverShareMySeedPhrase.value,
                   activeText: true,
                   text: Strings.neverShareMySeedPhrase,
-                  onChanged: (bool? val) =>
-                      onChecked(val ?? false, Strings.neverShareMySeedPhrase),
+                  onChanged: (bool? val) => neverShareMySeedPhrase.value = val ?? false,
+                  checkboxKey: neverShareMySeedPhraseKey,
                 ),
                 const SizedBox(height: 40),
                 _buildCheckboxListTile(
-                  checked:
-                      checkboxesState[Strings.walletRecoveryUsingSeedPhrase]!,
-                  activeText: checkboxesState[Strings.neverShareMySeedPhrase]!,
+                  checked: walletRecoveryUsingSeedPhrase.value,
+                  activeText: neverShareMySeedPhrase.value,
                   text: Strings.walletRecoveryUsingSeedPhrase,
-                  onChanged: checkboxesState[Strings.neverShareMySeedPhrase]!
-                      ? (bool? val) => onChecked(
-                            val ?? false,
-                            Strings.walletRecoveryUsingSeedPhrase,
-                          )
+                  onChanged: neverShareMySeedPhrase.value
+                      ? (bool? val) => walletRecoveryUsingSeedPhrase.value = val ?? false
                       : null,
+                  checkboxKey: walletRecoveryUsingSeedPhraseKey,
                 ),
                 SizedBox(height: adaptHeight(0.1)),
                 ConfirmationButton(
+                  key: seedPhraseInfoChecklistConfirmationButtonKey,
                   text: Strings.iUnderstand,
                   onPressed: () {
-                    Keys.navigatorKey.currentState
-                        ?.pushNamed(Routes.seedPhraseInstructions);
+                    Keys.navigatorKey.currentState?.pushNamed(Routes.seedPhraseInstructions);
                   },
-                  disabled: checkboxesState.containsValue(false),
+                  disabled: !walletRecoveryUsingSeedPhrase.value || !neverShareMySeedPhrase.value,
                 )
               ],
             ),
@@ -96,10 +90,12 @@ class _SeedPhraseInfoChecklistPageState
     required bool activeText,
     required String text,
     required Function(bool?)? onChanged,
+    required Key checkboxKey,
   }) {
     return SizedBox(
       width: kIsWeb ? 600 : 350,
       child: CheckboxWrappableText(
+        checkboxKey: checkboxKey,
         fillColor: Colors.transparent,
         checkColor: const Color(0xff80FF00),
         borderColor: checked
@@ -114,20 +110,5 @@ class _SeedPhraseInfoChecklistPageState
         wrapText: true,
       ),
     );
-  }
-
-  void onChecked(bool val, String key) {
-    setState(() {
-      // Uncheck all checkboxes underneath if unselected
-      if (!val) {
-        bool shouldUncheck = false;
-        checkboxesState.keys.toList().forEach((element) {
-          if (element == key) shouldUncheck = true;
-          if (shouldUncheck) checkboxesState[element] = false;
-        });
-      } else {
-        checkboxesState[key] = true;
-      }
-    });
   }
 }

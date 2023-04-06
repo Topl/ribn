@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:brambldart/brambldart.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:ribn/utils/transaction_utils.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/widgets/organisms/custom_page_dropdown_title.dart';
 
@@ -17,7 +16,8 @@ import 'package:ribn/containers/transaction_history_container.dart';
 import 'package:ribn/presentation/empty_state_screen.dart';
 import 'package:ribn/presentation/transaction_history/dashed_list_separator/dashed_list_separator.dart';
 import 'package:ribn/presentation/transaction_history/transaction_data_row/transaction_data_row.dart';
-import 'package:ribn/utils.dart';
+import 'package:ribn/utils/transaction_utils.dart';
+import 'package:ribn/utils/utils.dart';
 
 class TxHistoryPage extends StatefulWidget {
   final Future<String>? blockHeight;
@@ -44,26 +44,11 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     });
   }
 
-  final _scrollController = ScrollController();
-
-  int pageNum = 0;
-
   String startingFilterValue = 'Transaction types';
 
   @override
   void initState() {
     super.initState();
-
-    _scrollController.addListener(() {
-      if (_scrollController.position.atEdge) {
-        final bool isTop = _scrollController.position.pixels == 0;
-        if (!isTop) {
-          setState(() {
-            pageNum += 1;
-          });
-        }
-      }
-    });
   }
 
   Future<List> fetchTxHistory(
@@ -72,8 +57,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
     int networkId,
     TransactionHistoryViewmodel vm,
   ) async {
-    final List<TransactionReceipt> response =
-        filterOutChangeUTxO(await vm.getTransactions(pageNum: pageNum));
+    final List<TransactionReceipt> response = filterOutChangeUTxO(await vm.getTransactions());
 
     // Filters transactions by sent or received
     if (filterSelectedItem != 'Transaction types') {
@@ -89,9 +73,7 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
           filteredTransactions.add(transaction);
         }
 
-        if (filterSelectedItem == 'Received' &&
-            transactionReceiverAddress == myRibnAddress &&
-            !wasMinted) {
+        if (filterSelectedItem == 'Received' && transactionReceiverAddress == myRibnAddress && !wasMinted) {
           filteredTransactions.add(transaction);
         }
 
@@ -116,115 +98,105 @@ class _TxHistoryPageState extends State<TxHistoryPage> {
         overlayColor: Colors.transparent,
         child: Scaffold(
           backgroundColor: RibnColors.background,
-          body: RefreshIndicator(
-            backgroundColor: RibnColors.primary,
-            color: RibnColors.secondaryDark,
-            onRefresh: () async {
-              setState(() {});
-            },
-            child: Scrollbar(
-              thumbVisibility: true,
-              controller: _scrollController,
-              child: SingleChildScrollView(
-                controller: _scrollController,
-                child: Column(
-                  children: [
-                    CustomPageDropdownTitle(
-                      title: Strings.recentActivity,
-                      chevronIconLink: RibnAssets.chevronDown,
-                      currentSelectedItem: filterSelectedItem,
-                      itemsToSelectFrom: itemsToSelectFrom,
-                      updateSelectedItem: updateSelectedItem,
+          body: Scrollbar(
+            thumbVisibility: true,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  CustomPageDropdownTitle(
+                    title: Strings.recentActivity,
+                    chevronIconLink: RibnAssets.chevronDown,
+                    currentSelectedItem: filterSelectedItem,
+                    itemsToSelectFrom: itemsToSelectFrom,
+                    updateSelectedItem: updateSelectedItem,
+                  ),
+                  FutureBuilder(
+                    future: fetchTxHistory(
+                      context,
+                      vm.toplAddress,
+                      vm.networkId,
+                      vm,
                     ),
-                    FutureBuilder(
-                      future: fetchTxHistory(
-                        context,
-                        vm.toplAddress,
-                        vm.networkId,
-                        vm,
-                      ),
-                      builder: (context, AsyncSnapshot snapshot) {
-                        switch (snapshot.connectionState) {
-                          case ConnectionState.done:
-                            context.loaderOverlay.hide();
+                    builder: (context, AsyncSnapshot snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.done:
+                          context.loaderOverlay.hide();
 
-                            if (!snapshot.hasData || snapshot.data.isEmpty) {
-                              return EmptyStateScreen(
-                                icon: RibnAssets.clockWithBorder,
-                                title: Strings.noActivityToReview,
-                                body: emptyStateBody,
-                                buttonOneText: 'Share',
-                                buttonOneAction: () async => await showReceivingAddress(),
-                                mobileHeight: MediaQuery.of(context).size.height * 0.63,
-                                desktopHeight: 360,
-                              );
-                            }
+                          if (!snapshot.hasData || snapshot.data.isEmpty) {
+                            return EmptyStateScreen(
+                              icon: RibnAssets.clockWithBorder,
+                              title: Strings.noActivityToReview,
+                              body: emptyStateBody,
+                              buttonOneText: 'Share',
+                              buttonOneAction: () async => await showReceivingAddress(),
+                              mobileHeight: MediaQuery.of(context).size.height * 0.63,
+                              desktopHeight: 360,
+                            );
+                          }
 
-                            return Padding(
-                              padding: const EdgeInsets.only(top: 20, bottom: 20),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width - 40,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 8,
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 20, bottom: 20),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width - 40,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(11.6),
+                                color: RibnColors.whiteBackground,
+                                border: Border.all(
+                                  color: RibnColors.lightGrey,
+                                  width: 1,
                                 ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(11.6),
-                                  color: RibnColors.whiteBackground,
-                                  border: Border.all(
-                                    color: RibnColors.lightGrey,
-                                    width: 1,
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: RibnColors.greyShadow,
+                                    spreadRadius: 0,
+                                    blurRadius: 37.5,
+                                    offset: Offset(0, -6),
                                   ),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: RibnColors.greyShadow,
-                                      spreadRadius: 0,
-                                      blurRadius: 37.5,
-                                      offset: Offset(0, -6),
-                                    ),
-                                  ],
-                                ),
-                                child: SingleChildScrollView(
-                                  child: ListView.separated(
-                                    reverse: true,
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: filterSelectedItem == startingFilterValue
-                                        ? snapshot.data?.length
-                                        : filteredTransactions.length,
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) {
-                                      final TransactionReceipt transaction =
-                                          filterSelectedItem == startingFilterValue
-                                              ? snapshot.data[index]
-                                              : filteredTransactions[index];
+                                ],
+                              ),
+                              child: SingleChildScrollView(
+                                child: ListView.separated(
+                                  reverse: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: filterSelectedItem == startingFilterValue
+                                      ? snapshot.data?.length
+                                      : filteredTransactions.length,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    final TransactionReceipt transaction = filterSelectedItem == startingFilterValue
+                                        ? snapshot.data[index]
+                                        : filteredTransactions[index];
 
-                                      return TransactionDataRow(
-                                        transactionReceipt: transaction,
-                                        assets: vm.assets,
-                                        myRibnWalletAddress: vm.toplAddress.toBase58(),
-                                        blockHeight: vm.blockHeight,
-                                        networkId: vm.networkId,
-                                      );
-                                    },
-                                    separatorBuilder: (context, index) {
-                                      return const DashedListSeparator(
-                                        color: RibnColors.lightGreyDivider,
-                                      );
-                                    },
-                                  ),
+                                    return TransactionDataRow(
+                                      transactionReceipt: transaction,
+                                      assets: vm.assets,
+                                      myRibnWalletAddress: vm.toplAddress.toBase58(),
+                                      blockHeight: vm.blockHeight,
+                                      networkId: vm.networkId,
+                                    );
+                                  },
+                                  separatorBuilder: (context, index) {
+                                    return const DashedListSeparator(
+                                      color: RibnColors.lightGreyDivider,
+                                    );
+                                  },
                                 ),
                               ),
-                            );
+                            ),
+                          );
 
-                          default:
-                            context.loaderOverlay.show();
-                            return const SizedBox();
-                        }
-                      },
-                    ),
-                  ],
-                ),
+                        default:
+                          context.loaderOverlay.show();
+                          return const SizedBox();
+                      }
+                    },
+                  ),
+                ],
               ),
             ),
           ),

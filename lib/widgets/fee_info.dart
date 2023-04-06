@@ -2,19 +2,32 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 
 // Project imports:
+import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/strings.dart';
 
 /// A widget that displays the fee info during the transfer flows in Ribn.
-class FeeInfo extends StatelessWidget {
-  const FeeInfo({required this.fee, Key? key}) : super(key: key);
+class FeeInfo extends HookWidget {
+  final String currentNetworkName;
+  const FeeInfo({
+    required this.fee,
+    required this.currentNetworkName,
+    Key? key,
+  }) : super(key: key);
   final num fee;
 
   @override
   Widget build(BuildContext context) {
+    final bool isValhalla = currentNetworkName == NetworkUtils.valhalla;
+    final bool isMainnet = currentNetworkName == NetworkUtils.toplNet;
+
+    final feeState = useState(isMainnet ? fee ~/ 1000000000 : fee);
+    final unitState = useState(isValhalla ? 'nanoPOLY' : 'POLY');
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -25,26 +38,28 @@ class FeeInfo extends StatelessWidget {
         const SizedBox(
           height: 5,
         ),
-        Row(children: [
-          Text(
-            '$fee POLY',
-            style: const TextStyle(
-              fontFamily: 'DM Sans',
-              fontSize: 11,
-              color: RibnColors.primary,
-              fontWeight: FontWeight.w600,
+        Row(
+          children: [
+            Text(
+              '${feeState.value} ${unitState.value}',
+              style: const TextStyle(
+                fontFamily: 'DM Sans',
+                fontSize: 11,
+                color: RibnColors.primary,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-          // Spacer(),
-          // Text('${convertPolyToUsd(fee)} USD',
-          //   style: const TextStyle(
-          //     fontFamily: 'DM Sans',
-          //     fontSize: 11,
-          //     color: RibnColors.greyText,
-          //     fontWeight: FontWeight.w600,
-          //   ),
-          // ),
-        ],)
+            // Spacer(),
+            // Text('${convertPolyToUsd(fee)} USD',
+            //   style: const TextStyle(
+            //     fontFamily: 'DM Sans',
+            //     fontSize: 11,
+            //     color: RibnColors.greyText,
+            //     fontWeight: FontWeight.w600,
+            //   ),
+            // ),
+          ],
+        )
       ],
     );
   }
