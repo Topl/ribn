@@ -3,6 +3,7 @@ import 'dart:async';
 
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 // Project imports:
 import 'package:ribn/models/state/analytics_state.dart';
 import 'package:ribn/platform/platform.dart';
@@ -12,8 +13,7 @@ import 'package:ribn/providers/logger_provider.dart';
 import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 import 'package:ribn/utils/extensions.dart';
 
-final analyticsProvider =
-    StateNotifierProvider<AnalyticsNotifier, AnalyticsState>((ref) {
+final analyticsProvider = StateNotifierProvider<AnalyticsNotifier, AnalyticsState>((ref) {
   return AnalyticsNotifier(ref);
 });
 
@@ -53,8 +53,7 @@ class AnalyticsNotifier extends StateNotifier<AnalyticsState> {
 
     final isEnabled = overrideValue ?? !state.isEnabled;
 
-    await PlatformLocalStorage.instance.saveKVInSecureStorage(
-        _analyticsEnabledKey, (isEnabled).toString(),
+    await PlatformLocalStorage.instance.saveKVInSecureStorage(_analyticsEnabledKey, (isEnabled).toString(),
         override: ref.read(flutterSecureStorageProvider)());
 
     if (isEnabled) {
@@ -77,9 +76,8 @@ class AnalyticsNotifier extends StateNotifier<AnalyticsState> {
   }
 
   Future<bool> _isAnalyticsEnabled() async {
-    return (await PlatformLocalStorage.instance.getKVInSecureStorage(
-            _analyticsEnabledKey,
-            override: ref.read(flutterSecureStorageProvider)()))
+    return (await PlatformLocalStorage.instance
+            .getKVInSecureStorage(_analyticsEnabledKey, override: ref.read(flutterSecureStorageProvider)()))
         .toBooleanWithNullableDefault(false);
   }
 

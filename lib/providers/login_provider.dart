@@ -2,13 +2,12 @@
 import 'dart:async';
 import 'dart:convert';
 
-// Package imports:
-import 'package:bip_topl/bip_topl.dart';
-
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+
+// Package imports:
+import 'package:bip_topl/bip_topl.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:redux/src/store.dart';
 
@@ -28,7 +27,6 @@ import 'package:ribn/providers/logger_provider.dart';
 import 'package:ribn/providers/packages/flutter_secure_storage_provider.dart';
 import 'package:ribn/providers/store_provider.dart';
 import 'package:ribn/repositories/login_repository.dart';
-import 'package:ribn/repositories/misc_repository.dart';
 import 'package:ribn/utils/extensions.dart';
 
 final loginProvider = StateNotifierProvider<LoginNotifier, LoginState>((ref) {
@@ -115,14 +113,14 @@ class LoginNotifier extends StateNotifier<LoginState> {
         onIncorrectPasswordEntered();
         return;
       }
-
-      if (store.state.internalMessage?.additionalNavigation == Routes.connectDApp &&
-          store.state.internalMessage != null) {
-        await MiscRepository().persistAppState(StoreProvider.of<AppState>(context).state.toJson());
-        Keys.navigatorKey.currentState?.pushNamed(Routes.connectDApp, arguments: store.state.internalMessage);
-      } else {
-        Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home);
-      }
+      //
+      // if (store.state.internalMessage?.additionalNavigation == Routes.connectDApp &&
+      //     store.state.internalMessage != null) {
+      //   await MiscRepository().persistAppState(StoreProvider.of<AppState>(context).state.toJson());
+      //   Keys.navigatorKey.currentState?.pushNamed(Routes.connectDApp, arguments: store.state.internalMessage);
+      // } else {
+      Keys.navigatorKey.currentState?.pushReplacementNamed(Routes.home);
+      // }
     });
   }
 

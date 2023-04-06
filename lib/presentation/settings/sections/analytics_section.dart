@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
+import 'package:ribn_toolkit/widgets/atoms/custom_toggle.dart';
 
 // Project imports:
 import 'package:ribn/constants/strings.dart';
 import 'package:ribn/providers/analytics/analytics_provider.dart';
-import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn_toolkit/widgets/atoms/custom_toggle.dart';
 
 class AnalyticsSection extends ConsumerWidget {
   const AnalyticsSection({

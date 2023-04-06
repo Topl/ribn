@@ -1,7 +1,8 @@
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ribn/providers/analytics/analytics_provider.dart';
+
 // Project imports:
+import 'package:ribn/providers/analytics/analytics_provider.dart';
 import 'package:ribn/providers/utility_provider.dart';
 import 'package:ribn/utils/extensions.dart';
 import 'package:ribn/utils/platform_utils.dart';
@@ -46,9 +47,7 @@ class AnalyticsEventBuilders {
   AnalyticsEventBuilders(this._ref, this._event);
 
   AnalyticsEventData buildDAppAuthenticatedEvent(
-          {String dAppName = 'Unknown',
-          String dAppUrl = 'Unknown',
-          bool authenticatedState = false}) =>
+          {String dAppName = 'Unknown', String dAppUrl = 'Unknown', bool authenticatedState = false}) =>
       AnalyticsEventData._(
           _event,
           _optionsBuilder(walletAddress: true, userType: true, parameters: {
@@ -89,41 +88,31 @@ class AnalyticsEventBuilders {
     required int endTime,
     String sessionType = "Active",
     int contractInteractions = 0,
-    double totalAmountTransferred =
-        0, //TODO: consider refactoring to a Map that will hold multiple currencies
+    double totalAmountTransferred = 0, //TODO: consider refactoring to a Map that will hold multiple currencies
   }) =>
       AnalyticsEventData._(
           _event,
-          _optionsBuilder(
-              walletAddress: true,
-              userType: true,
-              screens: true,
-              parameters: {
-                "startTime": startTime,
-                "endTime": endTime,
-                "duration": endTime - startTime,
-                "sessionType": sessionType,
-                "totalAmountTransferred": totalAmountTransferred,
-                "contractInteractions": contractInteractions,
-              }));
+          _optionsBuilder(walletAddress: true, userType: true, screens: true, parameters: {
+            "startTime": startTime,
+            "endTime": endTime,
+            "duration": endTime - startTime,
+            "sessionType": sessionType,
+            "totalAmountTransferred": totalAmountTransferred,
+            "contractInteractions": contractInteractions,
+          }));
 
   AnalyticsEventData buildBounceRateEvent({
     String sessionType = "Active",
     int contractInteractions = 0,
-    double totalAmountTransferred =
-        0, //TODO: consider refactoring to a Map that will hold multiple currencies
+    double totalAmountTransferred = 0, //TODO: consider refactoring to a Map that will hold multiple currencies
   }) =>
       AnalyticsEventData._(
           _event,
-          _optionsBuilder(
-              walletAddress: true,
-              userType: true,
-              screens: true,
-              parameters: {
-                "sessionType": sessionType,
-                "totalAmountTransferred": totalAmountTransferred,
-                "contractInteractions": contractInteractions,
-              }));
+          _optionsBuilder(walletAddress: true, userType: true, screens: true, parameters: {
+            "sessionType": sessionType,
+            "totalAmountTransferred": totalAmountTransferred,
+            "contractInteractions": contractInteractions,
+          }));
 
   AnalyticsEventData buildAbandonTransactionEvent(
           {int contractInteractions = 0,
@@ -140,21 +129,15 @@ class AnalyticsEventBuilders {
           }));
 
   AnalyticsEventData buildUserInteractionEvent(
-      {required int startTime,
-      required int endTime,
-      int contractInteractions = 0}) {
+      {required int startTime, required int endTime, int contractInteractions = 0}) {
     return AnalyticsEventData._(
         _event,
-        _optionsBuilder(
-            walletAddress: true,
-            userType: true,
-            userInteractions: true,
-            parameters: {
-              "startTime": startTime,
-              "endTime": endTime,
-              "duration": endTime - startTime,
-              "contractInteractions": contractInteractions,
-            }));
+        _optionsBuilder(walletAddress: true, userType: true, userInteractions: true, parameters: {
+          "startTime": startTime,
+          "endTime": endTime,
+          "duration": endTime - startTime,
+          "contractInteractions": contractInteractions,
+        }));
   }
 
   Map<String, dynamic> _optionsBuilder(
@@ -173,38 +156,28 @@ class AnalyticsEventBuilders {
           .addIf(userType, _addUserType())
           .addIf(network, _addNetwork());
 
-  static Map<String, dynamic> _addDefaultMetrics(
-          {Map<String, dynamic> parameters = const {}}) =>
-      {
+  static Map<String, dynamic> _addDefaultMetrics({Map<String, dynamic> parameters = const {}}) => {
         'timestamp': DateTime.now().millisecondsSinceEpoch,
         'platform': getOperatingSystem(),
         ...parameters,
       };
 
-  Map<String, dynamic> _addWalletAddress(
-          {Map<String, dynamic> parameters = const {}}) =>
-      {
+  Map<String, dynamic> _addWalletAddress({Map<String, dynamic> parameters = const {}}) => {
         'walletAddress': _ref.read(currentWalletAddressProvider).toHashSha256(),
         ...parameters,
       };
 
-  Map<String, dynamic> _addUserType(
-          {Map<String, dynamic> parameters = const {}}) =>
-      {
+  Map<String, dynamic> _addUserType({Map<String, dynamic> parameters = const {}}) => {
         'userType': _ref.read(analyticsProvider).userType.name,
         ...parameters,
       };
 
-  Map<String, dynamic> _addEventName(
-          {Map<String, dynamic> parameters = const {}}) =>
-      {
+  Map<String, dynamic> _addEventName({Map<String, dynamic> parameters = const {}}) => {
         'event': _event.name.toString(),
         ...parameters,
       };
 
-  Map<String, dynamic> _addNetwork(
-          {Map<String, dynamic> parameters = const {}}) =>
-      {
+  Map<String, dynamic> _addNetwork({Map<String, dynamic> parameters = const {}}) => {
         'network': _ref.read(currentNetworkProvider),
         ...parameters,
       };

@@ -5,11 +5,13 @@ import 'dart:convert';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:redux/redux.dart';
+
 // Project imports:
 import 'package:ribn/actions/internal_message_actions.dart';
 import 'package:ribn/constants/keys.dart';
@@ -57,6 +59,7 @@ void main() async {
 class RibnApp extends StatelessWidget {
   final Store<AppState> store;
   final RootRouter rootRouter = RootRouter();
+
   RibnApp(this.store, {Key? key}) : super(key: key);
 
   @override

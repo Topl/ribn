@@ -1,13 +1,13 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:ribn/constants/network_utils.dart';
 
 // Package imports:
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 
 // Project imports:
+import 'package:ribn/constants/network_utils.dart';
 import 'package:ribn/constants/strings.dart';
 
 /// A widget that displays the fee info during the transfer flows in Ribn.

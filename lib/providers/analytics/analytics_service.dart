@@ -1,6 +1,7 @@
 // Package imports:
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 // Project imports:
 import 'package:ribn/providers/analytics/analytics_events.dart';
 
@@ -18,8 +19,7 @@ abstract class AnalyticsService {
 class VoidAnalyticsService implements AnalyticsService {
   VoidAnalyticsService();
 
-  Future<void> logCustomEvent(
-      String name, Map<String, dynamic> parameters) async {
+  Future<void> logCustomEvent(String name, Map<String, dynamic> parameters) async {
     // do nothing
   }
 

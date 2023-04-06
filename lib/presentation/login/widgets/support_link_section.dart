@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
-import 'package:ribn/utils/error_handling_utils.dart';
 
 // Project imports:
 import 'package:ribn/constants/strings.dart';
+import 'package:ribn/utils/error_handling_utils.dart';
 
 /// Widget to redirect user to the support email.
 class SupportLinkSection extends StatelessWidget {
