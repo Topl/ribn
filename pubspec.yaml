@@ -64,12 +64,11 @@ dependencies:
   ribn_toolkit:
     git:
       url: https://github.com/Topl/ribn-toolkit
-      ref: 8121ad9 # Hash of the tag
+      ref: 8121ad9 # Hash of 1.0 tag
   brambldart:
     git:
       url: https://github.com/Topl/BramblDart
-      ref: TSDK-133
-      # TODO Remove the ref once Selby's branch above has been merged into main
+      ref: 1f73931 # Hash of 1.0 tag
 
 
 dev_dependencies:
