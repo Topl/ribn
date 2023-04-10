@@ -1,9 +1,7 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 // Project imports:
 import 'package:ribn/v2/core/constants/colors.dart';
 import 'package:ribn/v2/core/providers/onboarding_provider.dart';
@@ -17,7 +15,7 @@ class OnboardingFlowPage extends HookConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  static const _pageCount = 5;
+  // static const _pageCount = 5;
 
   final _pages = [
     CreatePinPage(),
