@@ -23,7 +23,6 @@ class WelcomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -57,7 +56,6 @@ class WelcomePage extends HookConsumerWidget {
                 // Keys.navigatorKey.currentState?.pushNamed(Routes.optIn);
               },
             ),
-
             Align(
                 alignment: Alignment.centerLeft,
                 child: TextButton(
@@ -74,4 +72,3 @@ class WelcomePage extends HookConsumerWidget {
     );
   }
 }
-

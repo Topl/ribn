@@ -34,44 +34,50 @@ class Strings {
 
   // Biometrics
   static const String enableFingerprint = 'Enable Fingerprint';
-  static const String enableFingerprintDisclaimer = 'Login to your wallet with your fingerprint. \nFast, simple and safe.';
+  static const String enableFingerprintDisclaimer =
+      'Login to your wallet with your fingerprint. \nFast, simple and safe.';
   static const String skipNow = 'Skip now';
 
   // Ready Recovery Phrase
   static const String readyRecoveryPhrase = 'Ready to record the recovery phrase?';
-  static const String readyRecoveryPhraseHead = 'This phrase will help restore access to your wallet. Even if you lose your phone or delete an app.';
-  static const String readyRecoveryPhraseListHead = 'Please prepare at least one of the following to record your seed phrase safely.';
+  static const String readyRecoveryPhraseHead =
+      'This phrase will help restore access to your wallet. Even if you lose your phone or delete an app.';
+  static const String readyRecoveryPhraseListHead =
+      'Please prepare at least one of the following to record your seed phrase safely.';
   static const String readyRecoveryPhraseList1 = 'A paper and pen.';
   static const String readyRecoveryPhraseList2 = 'A secure password manager.';
   static const String readyRecoveryPhraseList3 = 'A program such as PGP to encrypt your text\n   file.';
 
   // Recovery Phrase  before you start
   static const String beforeYouStart = 'Before you start';
-  static const String beforeYouStartDisclaimer = 'Please, don’t take a screenshot or share your recovery phrase with anyone.';
-  static const String beforeYouStartListHead = 'Please keep your recovery phrase in a safe place. If you show it to anyone, you may lose access to your funds.';
-  static const String beforeYouStartList1= 'Do not share this phrase with anyone\n (not even Ribn tech support).';
+  static const String beforeYouStartDisclaimer =
+      'Please, don’t take a screenshot or share your recovery phrase with anyone.';
+  static const String beforeYouStartListHead =
+      'Please keep your recovery phrase in a safe place. If you show it to anyone, you may lose access to your funds.';
+  static const String beforeYouStartList1 = 'Do not share this phrase with anyone\n (not even Ribn tech support).';
   static const String beforeYouStartList2 = 'We cannot help you regain access if you\n lose your passphrase.';
   static const String imReady = 'I\'m ready';
 
   // Recovery Phrase
   static const String recoveryPhrase = 'This is your recovery phrase';
-  static const String recoveryPhraseSub = 'Write all these words down on a piece of paper or secure program, and keep in a safe place.';
+  static const String recoveryPhraseSub =
+      'Write all these words down on a piece of paper or secure program, and keep in a safe place.';
   static const String setRecoveryPhrase = 'Set recovery phrase';
 
   // Recovery Phrase check
-  static const  String letsCheckIt = 'Let’s check it';
-  static const  String letsCheckItSub = 'Please make sure your recovery phrase is written down correctly.';
+  static const String letsCheckIt = 'Let’s check it';
+  static const String letsCheckItSub = 'Please make sure your recovery phrase is written down correctly.';
   static const String selectWordNum = 'Select word #';
 
   // Onboarding Finish
   static const String onboardingFinish = 'Congrats on creating your Ribn wallet!';
-  static const String onboardingFinishSub = 'You can now securely store, manage, and interact with your digital assets and DApps in the Topl ecosystem.';
-  static const String onboardingFinishDisclaimer = 'You can now securely store, manage, and interact with your digital assets and DApps in the Topl ecosystem.';
+  static const String onboardingFinishSub =
+      'You can now securely store, manage, and interact with your digital assets and DApps in the Topl ecosystem.';
+  static const String onboardingFinishDisclaimer =
+      'You can now securely store, manage, and interact with your digital assets and DApps in the Topl ecosystem.';
   static const String startEcosystem = 'Start by getting to know Topl ecosystem';
   static const String goToWallet = 'Go to wallet';
 
   // Semantic Labels for Accessibility
   static const String semanticFingerprint = 'Fingerprint';
-
-
 }

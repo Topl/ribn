@@ -37,6 +37,7 @@ import 'package:ribn/v2/view/onboarding/onboarding_flow_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Redux.initStore(initTestStore: kDebugMode ? true : false);
   final AppViews currentAppView = await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();

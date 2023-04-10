@@ -49,7 +49,13 @@ import 'package:ribn/v2/core/constants/ribn_text_style.dart';
 ///
 class PinInput extends StatelessWidget {
   const PinInput(
-      {Key? key, required this.isPinValid, required this.length, this.validator, this.controller, this.onCompleted, this.focusNode})
+      {Key? key,
+      required this.isPinValid,
+      required this.length,
+      this.validator,
+      this.controller,
+      this.onCompleted,
+      this.focusNode})
       : assert(length > 0, 'Length must be a positive integer.'),
         super(key: key);
 
@@ -64,8 +70,6 @@ class PinInput extends StatelessWidget {
 
   /// The length of the PIN.
   final int length;
-
-
 
   /// An optional [String? Function(String?)] validator function to validate the PIN input.
   final String? Function(String?)? validator;

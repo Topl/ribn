@@ -1,8 +1,12 @@
 // Dart imports:
+import 'dart:convert';
 import 'dart:typed_data';
 
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
+
+// Package imports:
+import 'package:crypto/crypto.dart';
 
 extension StringExtensions on String {
   bool toBoolean() {
@@ -23,6 +27,14 @@ extension StringExtensions on String {
   }
 
   String capitalize() => this[0].toUpperCase() + this.substring(1);
+
+  // TODO: Evaluate lifting this functionality to BramblDart to remove direct dependencies on crypto in Ribn
+  /// Returns a Hashed representation of the [String] object.
+  String toHashSha256() {
+    var bytes = utf8.encode(this); // Convert the string to UTF8-encoded bytes
+    var digest = sha256.convert(bytes); // Hash the bytes using SHA-256
+    return digest.toString(); // Return the hexadecimal representation of the hash
+  }
 }
 
 extension NullableStringExtension on String? {
@@ -79,5 +91,15 @@ extension Unique<E, Id> on List<E> {
 extension dynamicExtensions on dynamic {
   Uint8List toUint8List() {
     return Uint8List.fromList((this as List).cast<int>());
+  }
+}
+
+extension MapExtensions on Map<String, dynamic> {
+  /**
+   * Returns a new [Map] with [toAdd] added if [condition] is true.
+   */
+  Map<String, dynamic> addIf(bool condition, Map<String, dynamic> toAdd) {
+    if (!condition) return this;
+    return {...this, ...toAdd};
   }
 }

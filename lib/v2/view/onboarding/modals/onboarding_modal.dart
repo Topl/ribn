@@ -115,7 +115,6 @@ class OnboardingModal extends HookConsumerWidget {
     );
   }
 
-
   static void show(BuildContext context) {
     final DraggableScrollableController scrollController = DraggableScrollableController();
     showModalBottomSheet(
@@ -141,5 +140,4 @@ class OnboardingModal extends HookConsumerWidget {
       },
     );
   }
-
 }

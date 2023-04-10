@@ -1,12 +1,16 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+// Project imports:
 import 'package:ribn/v2/core/constants/colors.dart';
 import 'package:ribn/v2/core/constants/ribn_text_style.dart';
 import 'package:ribn/v2/core/constants/strings.dart';
 import 'package:ribn/v2/core/providers/onboarding_provider.dart';
 import 'package:ribn/v2/view/widgets/pin_input_widget.dart';
-
 
 /// A "Page" to allow the user to confirm a PIN for onboarding.
 /// This is intended to be used inside of a [PageView] widget.
@@ -26,8 +30,6 @@ class ConfirmPinPage extends HookConsumerWidget {
 
     /// Will be set to invalid when Pin does not match state password
     final isPinValid = useState(false);
-
-
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),

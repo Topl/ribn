@@ -64,8 +64,7 @@ class OnboardingFlowPage extends HookConsumerWidget {
           physics: const NeverScrollableScrollPhysics(), // Disable swiping
           children: _pages,
         )),
-        floatingActionButton: FloatingActionButton(
-            onPressed: () {
+        floatingActionButton: FloatingActionButton(onPressed: () {
           BiometricsModal.show(context);
         }),
       ),

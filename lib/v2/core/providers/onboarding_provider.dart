@@ -4,12 +4,15 @@
 import 'dart:math';
 
 // Flutter imports:
-import 'package:bip_topl/bip_topl.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:bip_topl/bip_topl.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 // Project imports:
-import 'package:ribn/v2/core/providers/logger_provider.dart';
 import 'package:ribn/v2/core/models/onboarding_state.dart';
+import 'package:ribn/v2/core/providers/logger_provider.dart';
 import 'package:ribn/v2/core/providers/packages/entropy_provider.dart';
 import 'package:ribn/v2/core/providers/packages/random_provider.dart';
 

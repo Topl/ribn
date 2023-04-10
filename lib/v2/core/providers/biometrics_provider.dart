@@ -13,7 +13,6 @@ import 'package:ribn/v1/providers/packages/local_authentication_provider.dart';
 import 'package:ribn/v1/utils/extensions.dart';
 import 'logger_provider.dart';
 
-
 // TODO: Refactor completely for v2
 /// Provides biometrics state and functions
 final biometricsProvider = StateNotifierProvider<BiometricsNotifier, AsyncValue<BiometricsState>>((ref) {

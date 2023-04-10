@@ -1,14 +1,16 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 // Package imports:
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ribn/v2/core/providers/biometrics_provider.dart';
-import 'package:ribn/v2/core/constants/assets.dart';
+
 // Project imports:
+import 'package:ribn/v2/core/constants/assets.dart';
 import 'package:ribn/v2/core/constants/colors.dart';
 import 'package:ribn/v2/core/constants/ribn_text_style.dart';
 import 'package:ribn/v2/core/constants/strings.dart';
+import 'package:ribn/v2/core/providers/biometrics_provider.dart';
 import 'package:ribn/v2/view/widgets/ribn_button.dart';
 
 class BiometricsModal extends HookConsumerWidget {
@@ -42,7 +44,7 @@ class BiometricsModal extends HookConsumerWidget {
         Text(Strings.enableFingerprint,
             textAlign: TextAlign.center,
             style: RibnTextStyle.h1.copyWith(
-              // color: RibnColors.lightGreyTitle,
+                // color: RibnColors.lightGreyTitle,
                 fontWeight: FontWeight.w700)),
         SizedBox(height: 20),
         Text(
