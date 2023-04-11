@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 class RibnColors {
   RibnColors._();
+
   static const Color redColor = Colors.red;
   static const Color lighterGrey = Color.fromARGB(0, 114, 115, 114);
   static const Color whiteColor = Colors.white;
@@ -13,7 +14,9 @@ class RibnColors {
   static const Color accent = Color(0xFF175F6B);
   static const Color secondary = Color(0xFF0DC8D4);
   static const Color secondaryDark = Color(0xFF18CCAB);
-  static const Color tertiary = Color(0xFF259E95);
+
+  static const Color somewhatPurple = Color(0xFFF9F7FE);
+  static const Color somewhatBlue = Color(0xFFF4FCFC);
 
   static const Color defaultText = Color(0xFF323232);
   static const Color greyText = Color(0xFF979797);

@@ -1,10 +1,8 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 // Project imports:
 import 'package:ribn/v2/core/constants/assets.dart';
 import 'package:ribn/v2/core/constants/colors.dart';
@@ -71,32 +69,6 @@ class BiometricsModal extends HookConsumerWidget {
                       fontWeight: FontWeight.w500,
                     )))),
       ]),
-    );
-  }
-
-  static void show(BuildContext context) {
-    final DraggableScrollableController scrollController = DraggableScrollableController();
-    showModalBottomSheet(
-      isScrollControlled: true,
-      useSafeArea: true,
-      context: context,
-      enableDrag: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (BuildContext context) {
-        return DraggableScrollableSheet(
-            initialChildSize: 0.95,
-            // near full modal on load
-            maxChildSize: 1,
-            // full screen on scroll
-            minChildSize: 0.25,
-            expand: false,
-            controller: scrollController,
-            builder: (BuildContext context, ScrollController scrollController) {
-              return BiometricsModal();
-            });
-      },
     );
   }
 }

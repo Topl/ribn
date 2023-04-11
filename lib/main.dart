@@ -5,13 +5,11 @@ import 'dart:convert';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:redux/redux.dart';
-
 // Project imports:
 import 'package:ribn/v1/actions/internal_message_actions.dart';
 import 'package:ribn/v1/constants/keys.dart';
@@ -31,7 +29,7 @@ import 'package:ribn/v1/providers/store_provider.dart';
 import 'package:ribn/v1/redux.dart';
 import 'package:ribn/v1/router/root_router.dart';
 import 'package:ribn/v2/core/constants/routes.dart' as v2Routes;
-import 'package:ribn/v2/view/onboarding/onboarding_flow_page.dart';
+import 'package:ribn/v2/view/onboarding/welcome_page.dart' as v2WelcomePage;
 
 // import 'package:ribn/v2/presentation/onboarding/welcome_page.dart' as v2WelcomePage;
 
@@ -122,8 +120,9 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
     case v2Routes.Routes.welcome:
       return [
         MaterialPageRoute(
-            // builder: (context) => const v2WelcomePage.WelcomePage(),
-            builder: (context) => OnboardingFlowPage(),
+            builder: (context) => v2WelcomePage.WelcomePage(),
+            // builder: (context) => OnboardingFlowPage(),
+            // builder: (context) => CongratsPage(),
             settings: RouteSettings(name: v2Routes.Routes.welcome))
       ];
 

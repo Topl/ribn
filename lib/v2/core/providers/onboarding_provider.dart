@@ -3,11 +3,11 @@
 // Dart imports:
 import 'dart:math';
 
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:bip_topl/bip_topl.dart';
+
+// Flutter imports:
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Project imports:
@@ -26,6 +26,9 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
   final Ref ref;
   final pageController = PageController(initialPage: 0);
   final pinLength = 6;
+
+  final createPinController = TextEditingController();
+  final confirmPinController = TextEditingController();
 
   OnboardingNotifier(this.ref) : super(_initializeOnboardingState(ref)) {}
 
@@ -103,7 +106,12 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
     }
   }
 
+  finish() {
+    // TODO SDK
+  }
+
   regenerateMnemonic() {
+    // TODO SDK
     final OnboardingState onboardingState = _initializeOnboardingState(ref);
     state = state.copyWith(
       recoveryPhrase: onboardingState.recoveryPhrase,
@@ -116,7 +124,7 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
 
   Future<void> setBiometrics() async {
     try {
-      // TODO Biometrics logic
+      // TODO SDK Biometrics logic
     } catch (e) {
       print(e);
     }
@@ -124,7 +132,7 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
 
   Future<void> saveOnboardingData() async {
     try {
-      // TODO Password storing logic
+      // TODO SDK Password storing logic
     } catch (e) {
       print(e);
     }
@@ -155,7 +163,7 @@ class CredentialsNotifier {
     try {
       assert(password.isNotEmpty, 'Password should not be empty');
 
-      // TODO Password storing logic
+      // TODO SDK Password storing logic
     } catch (e) {
       print(e);
       rethrow;

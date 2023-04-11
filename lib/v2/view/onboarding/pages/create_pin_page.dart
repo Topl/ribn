@@ -1,16 +1,14 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 // Project imports:
 import 'package:ribn/v2/core/constants/colors.dart';
 import 'package:ribn/v2/core/constants/ribn_text_style.dart';
 import 'package:ribn/v2/core/constants/strings.dart';
 import 'package:ribn/v2/core/providers/onboarding_provider.dart';
-import 'package:ribn/v2/view/widgets/pin_input_widget.dart';
+import 'package:ribn/v2/view/widgets/pin_input.dart';
 
 /// A "Page" to allow the user to create a PIN for onboarding.
 /// This is intended to be used inside of a [PageView] widget.
@@ -24,7 +22,6 @@ class CreatePinPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.watch(onboardingProvider.notifier);
 
-    final controller = useTextEditingController();
     final focusNode = useFocusNode();
     final isPinValid = useState(false);
 
@@ -49,7 +46,7 @@ class CreatePinPage extends HookConsumerWidget {
           Center(
             child: PinInput(
               length: notifier.pinLength,
-              controller: controller,
+              controller: notifier.createPinController,
               isPinValid: isPinValid,
               focusNode: focusNode,
               validator: (value) {
@@ -63,6 +60,9 @@ class CreatePinPage extends HookConsumerWidget {
                 return null;
               },
               onCompleted: (value) async {
+                // if the pin is not valid, return
+                if (!isPinValid.value) return;
+
                 ref.read(onboardingProvider.notifier).setPassword(value);
                 focusNode.unfocus(); //unfocus the pin input
                 notifier.navigate(context);

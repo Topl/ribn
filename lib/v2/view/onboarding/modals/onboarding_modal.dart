@@ -1,16 +1,14 @@
 // Flutter imports:
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 // Project imports:
 import 'package:ribn/v2/core/constants/colors.dart';
 import 'package:ribn/v2/core/constants/ribn_text_style.dart';
 import 'package:ribn/v2/core/constants/strings.dart';
 import 'package:ribn/v2/view/widgets/ribn_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OnboardingModal extends HookConsumerWidget {
   static const onboardingModalAgreeKey = Key('onboardingModalAgreeKey');
@@ -112,32 +110,6 @@ class OnboardingModal extends HookConsumerWidget {
           ]),
         ),
       ],
-    );
-  }
-
-  static void show(BuildContext context) {
-    final DraggableScrollableController scrollController = DraggableScrollableController();
-    showModalBottomSheet(
-      isScrollControlled: true,
-      useSafeArea: true,
-      context: context,
-      enableDrag: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (BuildContext context) {
-        return DraggableScrollableSheet(
-            initialChildSize: 0.9,
-            // near full modal on load
-            maxChildSize: 1,
-            // full screen on scroll
-            minChildSize: 0.25,
-            expand: false,
-            controller: scrollController,
-            builder: (BuildContext context, ScrollController scrollController) {
-              return OnboardingModal();
-            });
-      },
     );
   }
 }

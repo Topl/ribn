@@ -1,13 +1,21 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 // Project imports:
 import 'package:ribn/v2/core/constants/colors.dart';
+import 'package:ribn/v2/core/constants/ribn_text_style.dart';
+import 'package:ribn/v2/core/constants/strings.dart';
+import 'package:ribn/v2/core/extensions/widget_extensions.dart';
 import 'package:ribn/v2/core/providers/onboarding_provider.dart';
 import 'package:ribn/v2/view/onboarding/modals/biometrics_modal.dart';
 import 'package:ribn/v2/view/onboarding/pages/confirm_pin_page.dart';
+import 'package:ribn/v2/view/onboarding/pages/confirm_recovery_phrase_page.dart';
 import 'package:ribn/v2/view/onboarding/pages/create_pin_page.dart';
+import 'package:ribn/v2/view/onboarding/pages/ready_recovery_phrase_page.dart';
+import 'package:ribn/v2/view/onboarding/pages/recovery_phrase_page.dart';
 import 'package:ribn/v2/view/widgets/step_indicator.dart';
 
 class OnboardingFlowPage extends HookConsumerWidget {
@@ -15,15 +23,14 @@ class OnboardingFlowPage extends HookConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  // static const _pageCount = 5;
+  static const _pageCount = 5;
 
   final _pages = [
     CreatePinPage(),
     ConfirmPinPage(),
-    // EnrollBiometricsPage(),
-    // RecoveryPhraseInstructionsPage(),
-    // RecoveryPhrasePage(),
-    // RecoveryPhraseConfirmationPage()
+    RecoveryPhraseInstructionsPage(),
+    RecoveryPhrasePage(),
+    ConfirmRecoveryPhrasePage()
   ];
 
   @override
@@ -45,6 +52,20 @@ class OnboardingFlowPage extends HookConsumerWidget {
                 notifier.navigate(context, reverse: true);
               },
             ),
+            actions: [
+              // Only show finalize  button when on last page
+              if (onboarding.pageIndex == _pageCount - 1)
+                Padding(
+                  padding: EdgeInsets.only(right: 20.0),
+                  child: InkWell(
+                      onTap: () {
+                        notifier.finish();
+                      },
+                      child: Align(
+                          alignment: Alignment.center,
+                          child: Text(Strings.done, style: RibnTextStyle.h3.copyWith(color: RibnColors.secondary)))),
+                ),
+            ],
             centerTitle: true,
             title: Container(
               padding: const EdgeInsets.fromLTRB(40, 5, 80, 5),
@@ -63,7 +84,7 @@ class OnboardingFlowPage extends HookConsumerWidget {
           children: _pages,
         )),
         floatingActionButton: FloatingActionButton(onPressed: () {
-          BiometricsModal.show(context);
+          BiometricsModal().showAsModal(context);
         }),
       ),
     );

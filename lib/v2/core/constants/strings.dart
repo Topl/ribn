@@ -20,6 +20,7 @@ class Strings {
   static const String dataDisclaimerFooterPrivacyPolicyText = "Privacy policy here.";
   static const String noThanks = "No, thanks";
   static const String iAgree = "I agree";
+  static const String done = "Done";
 
   // Create Pin Flow
   static const String createPin = 'Create a PIN';
@@ -51,7 +52,7 @@ class Strings {
   // Recovery Phrase  before you start
   static const String beforeYouStart = 'Before you start';
   static const String beforeYouStartDisclaimer =
-      'Please, don’t take a screenshot or share your recovery phrase with anyone.';
+      'We are about to show you 12 words to write down and keep in a safe place. Write down the each word in the exact order it is presented.';
   static const String beforeYouStartListHead =
       'Please keep your recovery phrase in a safe place. If you show it to anyone, you may lose access to your funds.';
   static const String beforeYouStartList1 = 'Do not share this phrase with anyone\n (not even Ribn tech support).';
@@ -63,6 +64,7 @@ class Strings {
   static const String recoveryPhraseSub =
       'Write all these words down on a piece of paper or secure program, and keep in a safe place.';
   static const String setRecoveryPhrase = 'Set recovery phrase';
+  static const String copy = 'Copy';
 
   // Recovery Phrase check
   static const String letsCheckIt = 'Let’s check it';
@@ -73,11 +75,10 @@ class Strings {
   static const String onboardingFinish = 'Congrats on creating your Ribn wallet!';
   static const String onboardingFinishSub =
       'You can now securely store, manage, and interact with your digital assets and DApps in the Topl ecosystem.';
-  static const String onboardingFinishDisclaimer =
-      'You can now securely store, manage, and interact with your digital assets and DApps in the Topl ecosystem.';
-  static const String startEcosystem = 'Start by getting to know Topl ecosystem';
+  static const String onboardingFinishDisclaimer = 'Keep your wallet secure to protect your assets.';
   static const String goToWallet = 'Go to wallet';
 
   // Semantic Labels for Accessibility
   static const String semanticFingerprint = 'Fingerprint';
+  static const String semanticCopy = 'Copy';
 }
