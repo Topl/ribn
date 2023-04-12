@@ -1,6 +1,10 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/v2/core/models/transaction.dart';
-import 'package:ribn/v2/core/providers/transactions/transaction_provider_class.dart';
+import 'package:ribn/v2/core/providers/transactions/keychain_transaction_providers/transaction_provider_class.dart';
+
+final valhallaTransactionLoadedProvider = StateProvider.autoDispose<bool>((ref) {
+  return false;
+});
 
 final valhallaTransactionNotifierProvider =
     StateNotifierProvider.autoDispose<ValhallaTransactionProvider, AsyncValue<List<Transaction>>>((ref) {
@@ -27,5 +31,10 @@ class ValhallaTransactionProvider extends TransactionNotifier {
   Stream<List<Transaction>> streamTransactions() {
     // TODO: implement streamTransactions
     throw UnimplementedError();
+  }
+
+  @override
+  void onProviderLoad() {
+    ref.read(valhallaTransactionLoadedProvider.notifier).state = true;
   }
 }

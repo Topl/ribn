@@ -19,7 +19,9 @@ class AssetListItem extends StatelessWidget {
     return Container(
       child: Row(
         children: [
-          _Icon(),
+          _Icon(
+            assetType: assetType,
+          ),
           SizedBox(width: 10),
           Text(
             assetName,
@@ -37,7 +39,11 @@ class AssetListItem extends StatelessWidget {
 }
 
 class _Icon extends StatelessWidget {
-  const _Icon({Key? key}) : super(key: key);
+  final AssetType assetType;
+  const _Icon({
+    required this.assetType,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +55,9 @@ class _Icon extends StatelessWidget {
           color: RibnColors.grey,
         ),
         borderRadius: BorderRadius.circular(15),
+      ),
+      child: Center(
+        child: assetType.iconData,
       ),
     );
   }

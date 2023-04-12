@@ -1,11 +1,14 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/v2/core/models/asset_type.dart';
 import 'package:ribn/v2/core/models/transaction.dart';
-import 'package:ribn/v2/core/providers/transactions/transaction_provider_class.dart';
+import 'package:ribn/v2/core/providers/transactions/keychain_transaction_providers/transaction_provider_class.dart';
+
+final mainnetTransactionLoadedProvider = StateProvider.autoDispose<bool>((ref) {
+  return false;
+});
 
 final mainnetTransactionNotifierProvider =
     StateNotifierProvider.autoDispose<MainnetTransactionProvider, AsyncValue<List<Transaction>>>((ref) {
-  print('QQQQ q');
   return MainnetTransactionProvider(ref);
 });
 
@@ -34,5 +37,10 @@ class MainnetTransactionProvider extends TransactionNotifier {
   Stream<List<Transaction>> streamTransactions() {
     // TODO: implement streamTransactions
     throw UnimplementedError();
+  }
+
+  @override
+  void onProviderLoad() {
+    ref.read(mainnetTransactionLoadedProvider.notifier).state = true;
   }
 }
