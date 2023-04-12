@@ -9,4 +9,5 @@ class Routes {
 
   /// Routes used throughout the application.
   static const welcome = '/welcome';
+  static const home = '/home';
 }

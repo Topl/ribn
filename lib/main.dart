@@ -32,6 +32,7 @@ import 'package:ribn/v1/redux.dart';
 import 'package:ribn/v1/router/root_router.dart';
 import 'package:ribn/v2/core/constants/routes.dart' as v2Routes;
 import 'package:ribn/v2/view/onboarding/onboarding_flow_page.dart';
+import 'package:ribn/v2/view/screens/asset_managment/asset_managment_screen.dart';
 
 // import 'package:ribn/v2/presentation/onboarding/welcome_page.dart' as v2WelcomePage;
 
@@ -87,7 +88,7 @@ class RibnApp extends StatelessWidget {
 }
 
 String getInitialRoute(Store<AppState> store) {
-  return v2Routes.Routes.welcome;
+  return v2Routes.Routes.home;
 
   // if (store.state.needsOnboarding()) {
   //   return v1Routes.Routes.welcome;
@@ -125,6 +126,13 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
             // builder: (context) => const v2WelcomePage.WelcomePage(),
             builder: (context) => OnboardingFlowPage(),
             settings: RouteSettings(name: v2Routes.Routes.welcome))
+      ];
+    case v2Routes.Routes.home:
+      return [
+        MaterialPageRoute(
+          builder: (context) => AssetManagementScreen(),
+          settings: RouteSettings(name: v2Routes.Routes.home),
+        ),
       ];
 
     //v1

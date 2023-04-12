@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:ribn/v2/view/widgets/shared/buttons/selectable_text_button.dart';
 
 class AssetListHeader extends StatelessWidget {
   final bool isShowingNfts;
-  final Function() onCryptoNftToggle;
+  final Function() onToggleShowNft;
+  final Function() onToggleShowCrypto;
   final Function(String searchQuery) onSearch;
   const AssetListHeader({
     required this.isShowingNfts,
-    required this.onCryptoNftToggle,
+    required this.onToggleShowNft,
+    required this.onToggleShowCrypto,
     required this.onSearch,
     Key? key,
   }) : super(key: key);
@@ -16,17 +19,19 @@ class AssetListHeader extends StatelessWidget {
     return Container(
       child: Row(
         children: [
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              'Crypto',
-            ),
+          SelectableTextButton(
+            onPressed: () {
+              onToggleShowCrypto();
+            },
+            text: 'Crypto',
+            isSelected: !isShowingNfts,
           ),
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              'NFTs',
-            ),
+          SelectableTextButton(
+            onPressed: () {
+              onToggleShowNft();
+            },
+            text: 'NFTs',
+            isSelected: isShowingNfts,
           ),
           Spacer(),
           IconButton(

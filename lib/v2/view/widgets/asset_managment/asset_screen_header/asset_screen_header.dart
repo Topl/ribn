@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ribn/v2/core/constants/colors.dart';
 
 class AssetScreenHeader extends StatelessWidget {
   const AssetScreenHeader({
@@ -7,6 +8,13 @@ class AssetScreenHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      color: RibnColors.grey,
+      child: Center(
+        child: Text(
+          'Asset Header',
+        ),
+      ),
+    );
   }
 }
