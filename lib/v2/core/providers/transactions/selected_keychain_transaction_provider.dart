@@ -7,9 +7,7 @@ import 'package:ribn/v2/core/providers/transactions/keychain_transaction_provide
 import 'package:ribn/v2/core/providers/transactions/keychain_transaction_providers/valhalla_transaction_provider.dart';
 
 final selectedKeychainTransactionProvider = Provider.autoDispose<AsyncValue<List<Transaction>>>((ref) {
-  print('QQQQ here 1');
   final Keychain selectedKeychain = ref.watch(selectedKeychainNotifierProvider);
-  print('QQQQ here 2');
   switch (selectedKeychain) {
     case Keychain.topl_mainnet:
       return ref.watch(mainnetTransactionNotifierProvider);

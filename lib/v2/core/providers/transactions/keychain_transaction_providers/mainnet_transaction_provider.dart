@@ -41,6 +41,7 @@ class MainnetTransactionProvider extends TransactionNotifier {
 
   @override
   void onProviderLoad() {
+    print('QQQQ MainnetTransactionProvider.onProviderLoad');
     ref.read(mainnetTransactionLoadedProvider.notifier).state = true;
   }
 }

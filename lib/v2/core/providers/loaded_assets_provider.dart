@@ -12,23 +12,29 @@ import 'package:ribn/v2/core/providers/transactions/keychain_transaction_provide
 final loadedAssetsProvider = Provider.autoDispose<void>((ref) {
   // NFTs
   if (ref.watch(mainnetNFTLoadedProvider)) {
+    print('QQQQ mainnetNFTLoadedProvider');
     ref.watch(mainnetNFTNotifierProvider);
   }
   if (ref.watch(privateNFTLoadedProvider)) {
+    print('QQQQ privateNFTLoadedProvider');
     ref.watch(privateNFTNotifierProvider);
   }
   if (ref.watch(valhallaNFTLoadedProvider)) {
+    print('QQQQ valhallaNFTLoadedProvider');
     ref.watch(valhallaNFTNotifierProvider);
   }
 
   // Transactions
   if (ref.watch(mainnetTransactionLoadedProvider)) {
+    print('QQQQ mainnetTransactionLoadedProvider');
     ref.watch(mainnetTransactionNotifierProvider);
   }
   if (ref.watch(privateTransactionLoadedProvider)) {
+    print('QQQQ privateTransactionLoadedProvider');
     ref.watch(privateTransactionNotifierProvider);
   }
   if (ref.watch(valhallaTransactionLoadedProvider)) {
+    print('QQQQ valhallaTransactionLoadedProvider');
     ref.watch(valhallaTransactionNotifierProvider);
   }
   return;

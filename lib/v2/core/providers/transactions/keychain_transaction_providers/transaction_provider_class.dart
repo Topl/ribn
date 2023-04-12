@@ -6,6 +6,7 @@ abstract class TransactionNotifier extends StateNotifier<AsyncValue<List<Transac
   TransactionNotifier() : super(AsyncLoading()) {
     getTransactions().then((value) {
       state = AsyncData(value);
+      onProviderLoad();
     });
   }
 
