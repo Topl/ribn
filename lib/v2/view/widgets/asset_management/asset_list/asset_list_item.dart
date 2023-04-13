@@ -48,8 +48,9 @@ class _Icon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
-      width: 40,
+      height: 45,
+      width: 45,
+      padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         border: Border.all(
           color: RibnColors.grey,
@@ -57,7 +58,7 @@ class _Icon extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: Center(
-        child: assetType.iconData,
+        child: Image.asset(assetType.icon),
       ),
     );
   }

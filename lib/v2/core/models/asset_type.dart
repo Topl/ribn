@@ -1,19 +1,19 @@
-import 'package:flutter/material.dart';
+import 'package:ribn/v2/core/constants/assets.dart';
 
 enum AssetType {
   poly(
     abbreviation: 'POLY',
-    iconData: Icon(null),
+    icon: Assets.cryptoAsset1,
     name: 'Topl',
   );
 
   const AssetType({
     required this.abbreviation,
-    required this.iconData,
+    required this.icon,
     required this.name,
   });
 
   final String abbreviation;
-  final Icon iconData;
+  final String icon;
   final String name;
 }

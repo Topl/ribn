@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ribn/v2/core/constants/colors.dart';
 import 'package:ribn/v2/core/models/transaction.dart';
-import 'package:ribn/v2/view/widgets/asset_managment/asset_list/asset_list_header.dart';
-import 'package:ribn/v2/view/widgets/asset_managment/asset_list/asset_list_item.dart';
+import 'package:ribn/v2/view/widgets/asset_management/asset_list/asset_list_header.dart';
+import 'package:ribn/v2/view/widgets/asset_management/asset_list/asset_list_item.dart';
 
 class AssetList extends HookWidget {
   final List<Transaction> transactions;
@@ -60,6 +60,11 @@ class AssetList extends HookWidget {
                 );
               },
             ),
+          ),
+          OutlinedButton(
+            style: ButtonStyle(),
+            onPressed: () {},
+            child: Text('See all assets'),
           ),
         ],
       ),

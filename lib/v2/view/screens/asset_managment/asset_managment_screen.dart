@@ -4,8 +4,8 @@ import 'package:ribn/v2/core/constants/colors.dart';
 import 'package:ribn/v2/core/models/transaction.dart';
 import 'package:ribn/v2/core/providers/loaded_assets_provider.dart';
 import 'package:ribn/v2/core/providers/transactions/selected_keychain_transaction_provider.dart';
-import 'package:ribn/v2/view/widgets/asset_managment/asset_list/asset_list.dart';
-import 'package:ribn/v2/view/widgets/asset_managment/asset_screen_header/asset_screen_header.dart';
+import 'package:ribn/v2/view/widgets/asset_management/asset_list/asset_list.dart';
+import 'package:ribn/v2/view/widgets/asset_management/asset_screen_header/asset_screen_header.dart';
 
 class AssetManagementScreen extends HookConsumerWidget {
   static const Key assetManagementScreenKey = Key('assetManagementScreenKey');
