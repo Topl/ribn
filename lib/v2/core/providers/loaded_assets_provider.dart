@@ -9,33 +9,41 @@ import 'package:ribn/v2/core/providers/transactions/keychain_transaction_provide
 /// This provider is used to keep loaded assets in memory
 /// That way get requests are not made every time the user switches between NFTs and Crypto
 /// as well as when the user switches between networks
-final loadedAssetsProvider = Provider.autoDispose<void>((ref) {
+/// NOT CURRENTLY WORKING
+final loadedAssetsProvider = Provider.autoDispose<bool>((ref) {
+  ref.onDispose(() {});
   // NFTs
-  if (ref.watch(mainnetNFTLoadedProvider)) {
-    print('QQQQ mainnetNFTLoadedProvider');
+  final mainnetNFTLoaded = ref.watch(mainnetNFTLoadedProvider);
+  if (mainnetNFTLoaded) {
     ref.watch(mainnetNFTNotifierProvider);
   }
-  if (ref.watch(privateNFTLoadedProvider)) {
-    print('QQQQ privateNFTLoadedProvider');
+  final privateNFTLoaded = ref.watch(privateNFTLoadedProvider);
+  if (privateNFTLoaded) {
     ref.watch(privateNFTNotifierProvider);
   }
-  if (ref.watch(valhallaNFTLoadedProvider)) {
-    print('QQQQ valhallaNFTLoadedProvider');
+  final valhallaNFTLoaded = ref.watch(valhallaNFTLoadedProvider);
+  if (valhallaNFTLoaded) {
     ref.watch(valhallaNFTNotifierProvider);
   }
 
   // Transactions
-  if (ref.watch(mainnetTransactionLoadedProvider)) {
-    print('QQQQ mainnetTransactionLoadedProvider');
+  final mainnetTransactionLoaded = ref.watch(mainnetTransactionLoadedProvider);
+  if (mainnetTransactionLoaded) {
     ref.watch(mainnetTransactionNotifierProvider);
   }
-  if (ref.watch(privateTransactionLoadedProvider)) {
-    print('QQQQ privateTransactionLoadedProvider');
+  final privateTransactionLoaded = ref.watch(privateTransactionLoadedProvider);
+  if (privateTransactionLoaded) {
     ref.watch(privateTransactionNotifierProvider);
   }
-  if (ref.watch(valhallaTransactionLoadedProvider)) {
-    print('QQQQ valhallaTransactionLoadedProvider');
+  final valhallaTransactionLoaded = ref.watch(valhallaTransactionLoadedProvider);
+  if (valhallaTransactionLoaded) {
     ref.watch(valhallaTransactionNotifierProvider);
   }
-  return;
+
+  return mainnetNFTLoaded &&
+      privateNFTLoaded &&
+      valhallaNFTLoaded &&
+      mainnetTransactionLoaded &&
+      privateTransactionLoaded &&
+      valhallaTransactionLoaded;
 });

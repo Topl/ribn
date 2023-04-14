@@ -4,6 +4,7 @@ import 'package:ribn/v2/core/models/transaction.dart';
 import 'package:ribn/v2/core/providers/transactions/keychain_transaction_providers/transaction_provider_class.dart';
 
 final mainnetTransactionLoadedProvider = StateProvider.autoDispose<bool>((ref) {
+  ref.onDispose(() {});
   return false;
 });
 
@@ -20,7 +21,7 @@ class MainnetTransactionProvider extends TransactionNotifier {
   Future<List<Transaction>> getTransactions() async {
     return [
       Transaction(
-        assetName: 'Fake',
+        assetName: 'Topl',
         assetType: AssetType.poly,
         assetAmount: 69,
       )
@@ -41,7 +42,6 @@ class MainnetTransactionProvider extends TransactionNotifier {
 
   @override
   void onProviderLoad() {
-    print('QQQQ MainnetTransactionProvider.onProviderLoad');
     ref.read(mainnetTransactionLoadedProvider.notifier).state = true;
   }
 }

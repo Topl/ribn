@@ -4,6 +4,7 @@ import 'package:ribn/v2/core/providers/nfts/keychain_nft_providers/nft_provider_
 
 /// This provider is used to tell the app mainnet NFTs have been loaded
 final mainnetNFTLoadedProvider = StateProvider.autoDispose<bool>((ref) {
+  ref.onDispose(() {});
   return false;
 });
 
@@ -16,9 +17,13 @@ class MainnetNFTProvider extends NFTNotifier {
   MainnetNFTProvider(this.ref) : super();
 
   @override
-  Future<List<NFT>> getNFTs() {
-    // TODO: implement getNFTs
-    throw UnimplementedError();
+  Future<List<NFT>> getNFTs() async {
+    return [
+      NFT(
+        assetName: 'Whimsical Octoplus Oasis Club',
+        assetUrl: 'assets/v2/icons/octoplus.png',
+      ),
+    ];
   }
 
   @override
@@ -35,6 +40,6 @@ class MainnetNFTProvider extends NFTNotifier {
 
   @override
   void onProviderLoad() {
-    ref.read(mainnetNFTLoadedProvider.notifier).state = true;
+    ref.read(mainnetNFTLoadedProvider.notifier).update((state) => true);
   }
 }
