@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ribn/v2/core/constants/assets.dart';
+import 'package:ribn/v2/core/utils/ui_utils.dart';
 import 'package:ribn/v2/view/widgets/shared/buttons/selectable_text_button.dart';
 
 class AssetListHeader extends StatelessWidget {
@@ -35,8 +37,16 @@ class AssetListHeader extends StatelessWidget {
           ),
           Spacer(),
           IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.search),
+            onPressed: () {
+              showToast(
+                context: context,
+                message: 'Implementation Needed',
+              );
+            },
+            icon: Image.asset(
+              Assets.searchLogo,
+              width: 20,
+            ),
           ),
         ],
       ),
