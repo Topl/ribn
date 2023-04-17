@@ -67,6 +67,9 @@ dependencies:
   flutter_secure_storage: ^7.0.1
   app_settings: ^4.1.8
 
+  #V2 UI
+  secure_application: ^3.8.0
+
   # Topl
   bip_topl: ^0.0.2
   ribn_toolkit:

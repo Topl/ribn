@@ -50,7 +50,7 @@ class BiometricsModal extends HookConsumerWidget {
           textAlign: TextAlign.center,
           style: subTextStyle,
         ),
-        SizedBox(height: 90),
+        SizedBox(height: 70),
         RibnButton(
           text: Strings.enableFingerprint,
           key: biometricsModalDisagreeKey,

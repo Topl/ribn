@@ -43,7 +43,7 @@ class CongratsPage extends StatelessWidget {
                 child: RibnButton(
                     text: Strings.goToWallet,
                     onPressed: () {
-                      //TODO: Inset Home route
+                      //TODO: Insert Home route
                       context.pushReplacementNamed("HOME");
                     }))
           ],

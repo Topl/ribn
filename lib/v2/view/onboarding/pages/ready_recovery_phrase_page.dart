@@ -65,7 +65,7 @@ class RecoveryPhraseInstructionsPage extends HookConsumerWidget {
           ),
           Spacer(),
           Padding(
-              padding: const EdgeInsets.symmetric(vertical: 40),
+              padding: const EdgeInsets.symmetric(vertical: 20),
               child: RibnButton(
                   text: Strings.setRecoveryPhrase,
                   onPressed: () {
