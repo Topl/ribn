@@ -25,18 +25,14 @@ import 'package:ribn/v1/presentation/external_signing_page.dart';
 import 'package:ribn/v1/presentation/home/home_page.dart';
 import 'package:ribn/v1/presentation/login/login_page.dart';
 import 'package:ribn/v1/presentation/onboarding/create_wallet/welcome_page.dart' as v1WelcomePage;
-// import 'package:ribn/v2/presentation/onboarding/welcome_page.dart' as v2WelcomePage;
 import 'package:ribn/v1/providers/store_provider.dart';
 import 'package:ribn/v1/redux.dart';
 import 'package:ribn/v1/router/root_router.dart';
-import 'package:ribn/v2/constants/routes.dart' as v2Routes;
-import 'package:ribn/v2/presentation/onboarding/create_pin_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Redux.initStore(initTestStore: kDebugMode ? true : false);
-  final AppViews currentAppView =
-      await PlatformUtils.instance.getCurrentAppView();
+  final AppViews currentAppView = await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
   // Open app in new tab if user needs onboarding
   if (currentAppView == AppViews.extension && needsOnboarding) {
@@ -74,8 +70,7 @@ class RibnApp extends StatelessWidget {
           navigatorObservers: [v1Routes.Routes.routeObserver],
           // onGenerateRoute: rootRouter.generateRoutes,
           onGenerateRoute: rootRouter.generateRoutes,
-          onGenerateInitialRoutes: (initialRoute) =>
-              onGenerateInitialRoute(initialRoute, store),
+          onGenerateInitialRoutes: (initialRoute) => onGenerateInitialRoute(initialRoute, store),
           initialRoute: getInitialRoute(store),
           navigatorKey: Keys.navigatorKey,
         ),
@@ -85,30 +80,29 @@ class RibnApp extends StatelessWidget {
 }
 
 String getInitialRoute(Store<AppState> store) {
-  return v2Routes.Routes.welcome;
 
-  // if (store.state.needsOnboarding()) {
-  //   return v1Routes.Routes.welcome;
-  // } else if (store.state.needsLogin()) {
-  //   return v1Routes.Routes.login;
-  // } else if (store.state.internalMessage?.method == InternalMethods.enable) {
-  //   return v1Routes.Routes.enable;
-  // } else if (store.state.internalMessage?.method == InternalMethods.signTx) {
-  //   return v1Routes.Routes.externalSigning;
-  // }
-  //
-  // //v2
-  // else if (store.state.internalMessage?.method == InternalMethods.authorize) {
-  //   return v1Routes.Routes.connectDApp;
-  // } else if (store.state.internalMessage?.method ==
-  //     InternalMethods.getBalance) {
-  //   return v1Routes.Routes.reviewAndSignDApp;
-  // } else if (store.state.internalMessage?.method ==
-  //     InternalMethods.signTransaction) {
-  //   return v1Routes.Routes.reviewAndSignDApp;
-  // }
-  //
-  // return v1Routes.Routes.home;
+  if (store.state.needsOnboarding()) {
+    return v1Routes.Routes.welcome;
+  } else if (store.state.needsLogin()) {
+    return v1Routes.Routes.login;
+  } else if (store.state.internalMessage?.method == InternalMethods.enable) {
+    return v1Routes.Routes.enable;
+  } else if (store.state.internalMessage?.method == InternalMethods.signTx) {
+    return v1Routes.Routes.externalSigning;
+  }
+
+  //v2
+  else if (store.state.internalMessage?.method == InternalMethods.authorize) {
+    return v1Routes.Routes.connectDApp;
+  } else if (store.state.internalMessage?.method ==
+      InternalMethods.getBalance) {
+    return v1Routes.Routes.reviewAndSignDApp;
+  } else if (store.state.internalMessage?.method ==
+      InternalMethods.signTransaction) {
+    return v1Routes.Routes.reviewAndSignDApp;
+  }
+
+  return v1Routes.Routes.home;
 }
 
 /// Handles routing based on [initialRoute].
@@ -117,15 +111,8 @@ String getInitialRoute(Store<AppState> store) {
 /// to ensure consistent navigation in the app.
 List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
   switch (initialRoute) {
-    case v2Routes.Routes.welcome:
-      return [
-        MaterialPageRoute(
-            // builder: (context) => const v2WelcomePage.WelcomePage(),
-            builder: (context) => const CreatePinPage(),
-            settings: RouteSettings(name: v2Routes.Routes.welcome))
-      ];
 
-      //v1
+    //v1
     case v1Routes.Routes.login:
       return [
         MaterialPageRoute(
@@ -135,9 +122,7 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
       ];
     case v1Routes.Routes.home:
       return [
-        MaterialPageRoute(
-            builder: (context) => const HomePage(),
-            settings: RouteSettings(name: v1Routes.Routes.home))
+        MaterialPageRoute(builder: (context) => const HomePage(), settings: RouteSettings(name: v1Routes.Routes.home))
       ];
     case v1Routes.Routes.enable:
       return [
@@ -149,8 +134,7 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
     case v1Routes.Routes.externalSigning:
       return [
         MaterialPageRoute(
-          builder: (context) =>
-              ExternalSigningPage(store.state.internalMessage!),
+          builder: (context) => ExternalSigningPage(store.state.internalMessage!),
           settings: const RouteSettings(name: v1Routes.Routes.externalSigning),
         )
       ];
@@ -167,8 +151,7 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
       return [
         MaterialPageRoute(
           builder: (context) => ReviewAndSignDApp(store.state.internalMessage!),
-          settings:
-              const RouteSettings(name: v1Routes.Routes.reviewAndSignDApp),
+          settings: const RouteSettings(name: v1Routes.Routes.reviewAndSignDApp),
         )
       ];
 
@@ -192,13 +175,11 @@ Future<void> initBgConnection(Store<AppState> store) async {
   try {
     Messenger.instance.connect();
     Messenger.instance.initMsgListener((String msgFromBgScript) {
-      final InternalMessage pendingRequest =
-          InternalMessage.fromJson(msgFromBgScript);
+      final InternalMessage pendingRequest = InternalMessage.fromJson(msgFromBgScript);
       store.dispatch(ReceivedInternalMsgAction(pendingRequest));
       completer.complete();
     });
-    Messenger.instance
-        .sendMsg(jsonEncode({'method': InternalMethods.checkPendingRequest}));
+    Messenger.instance.sendMsg(jsonEncode({'method': InternalMethods.checkPendingRequest}));
   } catch (e) {
     completer.complete();
     PlatformUtils.instance.closeWindow();

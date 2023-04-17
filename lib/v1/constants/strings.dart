@@ -192,7 +192,8 @@ Write down the each word in the exact order it is presented.''';
   static const String typeSomething = 'Type something';
   static const String supportEmail = 'support@topl.me';
   static const String supportEmailLink = 'mailto:$supportEmail?subject=Ribn Support&body=';
-  static const String supportDocsURL = 'https://docs.google.com/forms/d/e/1FAIpQLSdq0ex4BRPkRMt7HLaI9vHZJJ757Prsw9Mtbk4MU5zttCH3vg/viewform';
+  static const String supportDocsURL =
+      'https://docs.google.com/forms/d/e/1FAIpQLSdq0ex4BRPkRMt7HLaI9vHZJJ757Prsw9Mtbk4MU5zttCH3vg/viewform';
   static const String sendAssets = 'Send assets';
   static const String sendNativeCoins = 'Send native coins';
   static const String yourRibnWalletAddress = 'Your Ribn Wallet address';

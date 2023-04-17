@@ -29,7 +29,7 @@ Future<void> handleApiError({
 
 Future<void> handleContactSupport() async {
   kIsWeb
-  //Go to google docs link
-  ? await launchUrlString(Strings.supportDocsURL)
-  : await launchUrlString(Strings.supportEmailLink);
+      //Go to google docs link
+      ? await launchUrlString(Strings.supportDocsURL)
+      : await launchUrlString(Strings.supportEmailLink);
 }
