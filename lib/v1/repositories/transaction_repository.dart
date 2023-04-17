@@ -10,8 +10,6 @@ import 'package:ribn/v1/constants/rules.dart';
 import 'package:ribn/v1/constants/strings.dart';
 import 'package:ribn/v1/models/transfer_details.dart';
 
-// import 'package:brambldart/src/model/box/token_value_holder.dart';
-
 class TransactionRepository {
   const TransactionRepository();
 

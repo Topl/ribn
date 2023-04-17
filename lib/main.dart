@@ -5,13 +5,15 @@ import 'dart:convert';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:redux/redux.dart';
-import 'package:ribn/v1/actions/internal_message_actions.dart';
+
 // Project imports:
+import 'package:ribn/v1/actions/internal_message_actions.dart';
 import 'package:ribn/v1/constants/keys.dart';
 import 'package:ribn/v1/constants/routes.dart' as v1Routes;
 import 'package:ribn/v1/constants/rules.dart';
@@ -31,6 +33,7 @@ import 'package:ribn/v1/router/root_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Redux.initStore(initTestStore: kDebugMode ? true : false);
   final AppViews currentAppView = await PlatformUtils.instance.getCurrentAppView();
   final bool needsOnboarding = Redux.store!.state.needsOnboarding();
@@ -80,7 +83,6 @@ class RibnApp extends StatelessWidget {
 }
 
 String getInitialRoute(Store<AppState> store) {
-
   if (store.state.needsOnboarding()) {
     return v1Routes.Routes.welcome;
   } else if (store.state.needsLogin()) {
@@ -94,11 +96,9 @@ String getInitialRoute(Store<AppState> store) {
   //v2
   else if (store.state.internalMessage?.method == InternalMethods.authorize) {
     return v1Routes.Routes.connectDApp;
-  } else if (store.state.internalMessage?.method ==
-      InternalMethods.getBalance) {
+  } else if (store.state.internalMessage?.method == InternalMethods.getBalance) {
     return v1Routes.Routes.reviewAndSignDApp;
-  } else if (store.state.internalMessage?.method ==
-      InternalMethods.signTransaction) {
+  } else if (store.state.internalMessage?.method == InternalMethods.signTransaction) {
     return v1Routes.Routes.reviewAndSignDApp;
   }
 
@@ -111,7 +111,6 @@ String getInitialRoute(Store<AppState> store) {
 /// to ensure consistent navigation in the app.
 List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
   switch (initialRoute) {
-
     //v1
     case v1Routes.Routes.login:
       return [

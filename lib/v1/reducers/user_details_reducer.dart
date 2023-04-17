@@ -2,9 +2,9 @@
 import 'package:redux/redux.dart';
 
 // Project imports:
+import 'package:ribn/v1/actions/user_details_actions.dart';
 import 'package:ribn/v1/models/asset_details.dart';
 import 'package:ribn/v1/models/user_details_state.dart';
-import 'package:ribn/v1/actions/user_details_actions.dart';
 
 final userDetailsReducer = combineReducers<UserDetailsState>(
   [

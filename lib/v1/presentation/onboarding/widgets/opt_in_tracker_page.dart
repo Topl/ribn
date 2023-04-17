@@ -16,7 +16,7 @@ import 'package:ribn/v1/constants/keys.dart';
 import 'package:ribn/v1/constants/routes.dart';
 import 'package:ribn/v1/constants/strings.dart';
 import 'package:ribn/v1/presentation/onboarding/widgets/onboarding_container.dart';
-import 'package:ribn/v1/providers/analytics_provider.dart';
+import 'package:ribn/v1/providers/analytics/analytics_provider.dart';
 import 'package:ribn/v1/utils/url_utils.dart';
 
 class OptInTracker extends HookConsumerWidget {

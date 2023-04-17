@@ -53,6 +53,11 @@ dependencies:
   freezed_annotation: ^2.2.0
   json_annotation: ^4.7.0
 
+  # Firebase
+  firebase_core: ^2.9.0
+  firebase_analytics: ^10.1.6
+
+
   #Utilities
   logging: ^1.1.1
   intl: ^0.18.0
@@ -67,12 +72,11 @@ dependencies:
   ribn_toolkit:
     git:
       url: https://github.com/Topl/ribn-toolkit
-      ref: main
+      ref: 8121ad9 # Hash of 1.0 tag
   brambldart:
     git:
       url: https://github.com/Topl/BramblDart
-      ref: TSDK-133
-      # TODO Remove the ref once Selby's branch above has been merged into main
+      ref: 1f73931 # Hash of 1.0 tag
 
 
 dev_dependencies:
@@ -117,7 +121,6 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/v2/icons/
     - assets/v1/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see

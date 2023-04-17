@@ -4,10 +4,10 @@ import 'package:brambldart/credentials.dart';
 import 'package:redux/redux.dart';
 
 // Project imports:
+import 'package:ribn/v1/actions/keychain_actions.dart';
 import 'package:ribn/v1/constants/rules.dart';
 import 'package:ribn/v1/models/keychain_state.dart';
 import 'package:ribn/v1/models/ribn_network.dart';
-import 'package:ribn/v1/actions/keychain_actions.dart';
 
 /// Reducer responsible for updating [KeyChainState]
 final keychainReducer = combineReducers<KeychainState>(

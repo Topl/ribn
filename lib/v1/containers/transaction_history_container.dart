@@ -10,9 +10,9 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:grpc/service_api.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:redux/redux.dart';
-import 'package:ribn/v1/constants/loggers.dart';
 
 // Project imports:
+import 'package:ribn/v1/constants/loggers.dart';
 import 'package:ribn/v1/constants/network_utils.dart';
 import 'package:ribn/v1/genus/generated/filters.pb.dart';
 import 'package:ribn/v1/genus/generated/services_types.pb.dart';

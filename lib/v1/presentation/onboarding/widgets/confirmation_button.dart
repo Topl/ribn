@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:ribn_toolkit/constants/colors.dart';
+import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
 
-import '../../../../v2/constants/ribn_text_style.dart';
+// Project imports:
 
 class ConfirmationButton extends StatelessWidget {
   final String text;
@@ -34,7 +35,7 @@ class ConfirmationButton extends StatelessWidget {
         dropShadowColor: RibnColors.whiteButtonShadow,
         buttonChild: Text(
           text,
-          style: RibnTextStyle.buttonLarge.copyWith(
+          style: RibnToolkitTextStyles.btnLarge.copyWith(
             color: disabled ? RibnColors.transparentGreyText : Colors.white,
             fontWeight: FontWeight.w400,
           ),

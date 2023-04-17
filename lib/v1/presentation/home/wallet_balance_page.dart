@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:brambldart/brambldart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ribn/v1/providers/app_bar_provider.dart';
 import 'package:ribn_toolkit/constants/colors.dart';
 import 'package:ribn_toolkit/constants/styles.dart';
 import 'package:ribn_toolkit/widgets/atoms/large_button.dart';
@@ -24,6 +23,7 @@ import 'package:ribn/v1/models/asset_details.dart';
 import 'package:ribn/v1/presentation/empty_state_screen.dart';
 import 'package:ribn/v1/presentation/error_section.dart';
 import 'package:ribn/v1/presentation/home/wallet_balance_shimmer.dart';
+import 'package:ribn/v1/providers/app_bar_provider.dart';
 import 'package:ribn/v1/utils/extensions.dart';
 import 'package:ribn/v1/utils/utils.dart';
 
