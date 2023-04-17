@@ -3,8 +3,10 @@ import 'package:ribn/v2/core/models/NFT.dart';
 import 'package:ribn/v2/core/providers/nfts/keychain_nft_providers/nft_provider_class.dart';
 
 /// This provider is used to tell the app mainnet NFTs have been loaded
-final mainnetNFTLoadedProvider = StateProvider.autoDispose<bool>((ref) {
-  ref.onDispose(() {});
+final mainnetNFTLoadedProvider = StateProvider<bool>((ref) {
+  ref.onDispose(() {
+    print('QQQQ mainnetNFTLoadedProvider disposed');
+  });
   return false;
 });
 
@@ -40,6 +42,8 @@ class MainnetNFTProvider extends NFTNotifier {
 
   @override
   void onProviderLoad() {
-    ref.read(mainnetNFTLoadedProvider.notifier).update((state) => true);
+    ref.read(mainnetNFTLoadedProvider.notifier).state = true;
+    ref.refresh(mainnetNFTLoadedProvider);
+    print('QQQQ mainnetNFTLoadedProvider ${ref.read(mainnetNFTLoadedProvider)}');
   }
 }

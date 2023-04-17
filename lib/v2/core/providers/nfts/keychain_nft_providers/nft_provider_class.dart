@@ -5,7 +5,6 @@ abstract class NFTNotifier extends StateNotifier<AsyncValue<List<NFT>>> {
   NFTNotifier() : super(AsyncLoading()) {
     getNFTs().then((value) {
       state = AsyncData(value);
-      onProviderLoad();
     });
   }
 
