@@ -1,5 +1,7 @@
 // Package imports:
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+// Project imports:
 import 'package:ribn/v1/providers/analytics/analytics_events.dart';
 
 // Project imports:

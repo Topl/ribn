@@ -15,7 +15,6 @@ import 'package:redux/src/store.dart';
 import 'package:ribn/v1/actions/keychain_actions.dart';
 import 'package:ribn/v1/actions/misc_actions.dart';
 import 'package:ribn/v1/constants/keys.dart';
-import 'package:ribn/v1/constants/loggers.dart';
 import 'package:ribn/v1/constants/routes.dart';
 import 'package:ribn/v1/constants/rules.dart';
 import 'package:ribn/v1/models/app_state.dart';
