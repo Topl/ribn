@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
-import 'package:ribn/constants/strings.dart';
-import 'package:ribn/presentation/onboarding/create_wallet/select_action_page.dart';
-import 'package:ribn/presentation/onboarding/create_wallet/welcome_page.dart';
-import 'package:ribn/presentation/onboarding/widgets/opt_in_tracker_page.dart';
-import 'package:ribn/providers/packages/url_launcher_provider.dart';
+import 'package:ribn/v1/constants/strings.dart';
+import 'package:ribn/v1/presentation/onboarding/create_wallet/select_action_page.dart';
+import 'package:ribn/v1/presentation/onboarding/create_wallet/welcome_page.dart';
+import 'package:ribn/v1/presentation/onboarding/widgets/opt_in_tracker_page.dart';
+import 'package:ribn/v1/providers/packages/url_launcher_provider.dart';
 import '../essential_test_provider_widget.dart';
 import '../mocks/store_mocks.dart';
 import '../utils/text_utils.dart';
