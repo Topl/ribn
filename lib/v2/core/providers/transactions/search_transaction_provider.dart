@@ -9,7 +9,7 @@ final searchTransactionNotifierProvider =
 class SearchTransactionNotifier extends StateNotifier<AsyncValue<List<Transaction>>> {
   SearchTransactionNotifier() : super(AsyncLoading());
 
-  /// QQQQ TODO - Implement searchTransactions
+  /// TODO SDK - Implement searchTransactions
   Future<void> searchTransactions(String query) async {
     state = AsyncLoading();
     try {} catch (e) {}

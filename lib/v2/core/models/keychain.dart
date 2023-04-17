@@ -1,4 +1,4 @@
-// QQQQ TODO, I dont think Keychain is the proper term
+// TODO SDK, I dont think Keychain is the proper term
 enum Keychain {
   topl_mainnet(
     name: 'Topl Mainnet',

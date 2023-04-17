@@ -8,7 +8,7 @@ final searchNftNotifierProvider = StateNotifierProvider.autoDispose<SearchNftNot
 class SearchNftNotifier extends StateNotifier<AsyncValue<List<NFT>>> {
   SearchNftNotifier() : super(AsyncLoading());
 
-  /// QQQQ TODO - Implement searchNfts
+  /// TODO SDK - Implement searchNfts
   Future<void> searchNFTs(String query) async {
     state = AsyncLoading();
     try {} catch (e) {}
