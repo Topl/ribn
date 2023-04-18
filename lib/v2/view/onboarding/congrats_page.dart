@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_svg/svg.dart';
+
+// Project imports:
 import 'package:ribn/v2/core/constants/assets.dart';
 import 'package:ribn/v2/core/constants/ribn_text_style.dart';
 import 'package:ribn/v2/core/constants/strings.dart';

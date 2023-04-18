@@ -46,10 +46,6 @@ import 'package:ribn/v1/presentation/transfers/mint_input_page.dart';
 import 'package:ribn/v1/presentation/transfers/tx_confirmation_page.dart';
 import 'package:ribn/v1/presentation/transfers/tx_review_page.dart';
 
-// import 'package:ribn/v1/models/transaction_history_entry.dart';
-
-// import 'package:ribn/v1/models/transaction_history_entry.dart';
-
 class RootRouter {
   Route<MaterialPageRoute> generateRoutes(
     RouteSettings settings,

@@ -1,14 +1,16 @@
 // Flutter imports:
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 // Project imports:
 import 'package:ribn/v2/core/constants/colors.dart';
 import 'package:ribn/v2/core/constants/ribn_text_style.dart';
 import 'package:ribn/v2/core/constants/strings.dart';
 import 'package:ribn/v2/view/widgets/ribn_button.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class OnboardingModal extends HookConsumerWidget {
   static const onboardingModalAgreeKey = Key('onboardingModalAgreeKey');

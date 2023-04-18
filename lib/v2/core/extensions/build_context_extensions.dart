@@ -19,7 +19,6 @@ extension BuildContextExtensions on BuildContext {
   /// context.showSnackBar('Hello, world!');
   /// ```
   void showSnackBar(String message) {
-    assert(message != null, 'A non-null message must be provided.');
     ScaffoldMessenger.of(this).showSnackBar(
       SnackBar(
         content: Text(message),

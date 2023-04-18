@@ -2,13 +2,15 @@
 import 'dart:async';
 import 'dart:convert';
 
-// Package imports:
-import 'package:bip_topl/bip_topl.dart';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+
+// Package imports:
+import 'package:bip_topl/bip_topl.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:redux/src/store.dart';
+
 // Project imports:
 import 'package:ribn/v1/actions/keychain_actions.dart';
 import 'package:ribn/v1/actions/misc_actions.dart';
@@ -25,7 +27,6 @@ import 'package:ribn/v1/providers/packages/flutter_secure_storage_provider.dart'
 import 'package:ribn/v1/providers/store_provider.dart';
 import 'package:ribn/v1/repositories/login_repository.dart';
 import 'package:ribn/v1/utils/extensions.dart';
-
 import 'analytics/analytics_provider.dart';
 
 final loginProvider = StateNotifierProvider<LoginNotifier, LoginState>((ref) {

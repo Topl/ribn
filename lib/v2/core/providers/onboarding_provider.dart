@@ -3,11 +3,11 @@
 // Dart imports:
 import 'dart:math';
 
-// Package imports:
-import 'package:bip_topl/bip_topl.dart';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:bip_topl/bip_topl.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Project imports:

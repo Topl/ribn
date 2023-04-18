@@ -5,11 +5,13 @@ import 'dart:convert';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:redux/redux.dart';
+
 // Project imports:
 import 'package:ribn/v1/actions/internal_message_actions.dart';
 import 'package:ribn/v1/constants/keys.dart';
@@ -29,19 +31,11 @@ import 'package:ribn/v1/providers/store_provider.dart';
 import 'package:ribn/v1/redux.dart';
 import 'package:ribn/v1/router/root_router.dart';
 import 'package:ribn/v2/core/constants/routes.dart' as v2Routes;
-import 'package:ribn/v2/view/onboarding/congrats_page.dart';
 import 'package:ribn/v2/view/onboarding/onboarding_flow_page.dart';
 import 'package:ribn/v2/view/onboarding/welcome_page.dart' as v2WelcomePage;
-import 'package:secure_application/secure_application.dart';
-
-
-// import 'package:ribn/v2/presentation/onboarding/welcome_page.dart' as v2WelcomePage;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-
-
 
   await Redux.initStore(initTestStore: kDebugMode ? true : false);
   final AppViews currentAppView = await PlatformUtils.instance.getCurrentAppView();
@@ -77,14 +71,6 @@ class RibnApp extends StatelessWidget {
       store: store,
       child: Portal(
         child: MaterialApp(
-
-          builder: (context, child) {
-            return SecureApplication(
-              child: child!,
-              rules: rules,
-            );
-          },
-
           debugShowCheckedModeBanner: false,
           title: 'Ribn',
           navigatorObservers: [v1Routes.Routes.routeObserver],
@@ -103,41 +89,34 @@ Navigator getNavigator() {
   return Navigator(
     pages: const [
       MaterialPage(
-
-          child: v2WelcomePage.WelcomePage(),
+        child: v2WelcomePage.WelcomePage(),
       ),
-
     ],
-    onPopPage: (route, result)=> route.didPop(result),
+    onPopPage: (route, result) => route.didPop(result),
   );
 }
 
-
 String getInitialRoute(Store<AppState> store) {
-  return v2Routes.Routes.welcome;
+  if (store.state.needsOnboarding()) {
+    return v1Routes.Routes.welcome;
+  } else if (store.state.needsLogin()) {
+    return v1Routes.Routes.login;
+  } else if (store.state.internalMessage?.method == InternalMethods.enable) {
+    return v1Routes.Routes.enable;
+  } else if (store.state.internalMessage?.method == InternalMethods.signTx) {
+    return v1Routes.Routes.externalSigning;
+  }
 
-  // if (store.state.needsOnboarding()) {
-  //   return v1Routes.Routes.welcome;
-  // } else if (store.state.needsLogin()) {
-  //   return v1Routes.Routes.login;
-  // } else if (store.state.internalMessage?.method == InternalMethods.enable) {
-  //   return v1Routes.Routes.enable;
-  // } else if (store.state.internalMessage?.method == InternalMethods.signTx) {
-  //   return v1Routes.Routes.externalSigning;
-  // }
-  //
-  // //v2
-  // else if (store.state.internalMessage?.method == InternalMethods.authorize) {
-  //   return v1Routes.Routes.connectDApp;
-  // } else if (store.state.internalMessage?.method ==
-  //     InternalMethods.getBalance) {
-  //   return v1Routes.Routes.reviewAndSignDApp;
-  // } else if (store.state.internalMessage?.method ==
-  //     InternalMethods.signTransaction) {
-  //   return v1Routes.Routes.reviewAndSignDApp;
-  // }
-  //
-  // return v1Routes.Routes.home;
+  //v2
+  else if (store.state.internalMessage?.method == InternalMethods.authorize) {
+    return v1Routes.Routes.connectDApp;
+  } else if (store.state.internalMessage?.method == InternalMethods.getBalance) {
+    return v1Routes.Routes.reviewAndSignDApp;
+  } else if (store.state.internalMessage?.method == InternalMethods.signTransaction) {
+    return v1Routes.Routes.reviewAndSignDApp;
+  }
+
+  return v1Routes.Routes.home;
 }
 
 /// Handles routing based on [initialRoute].
@@ -154,7 +133,6 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
             // builder: (context) => CongratsPage(),
             settings: RouteSettings(name: v2Routes.Routes.welcome))
       ];
-
     //v1
     case v1Routes.Routes.login:
       return [
