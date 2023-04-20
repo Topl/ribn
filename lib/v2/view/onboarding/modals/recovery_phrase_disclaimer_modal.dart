@@ -2,22 +2,20 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Project imports:
-import 'package:ribn/v2/core/constants/assets.dart';
 import 'package:ribn/v2/core/constants/colors.dart';
 import 'package:ribn/v2/core/constants/ribn_text_style.dart';
 import 'package:ribn/v2/core/constants/strings.dart';
-import 'package:ribn/v2/core/providers/biometrics_provider.dart';
+import 'package:ribn/v2/core/extensions/build_context_extensions.dart';
+import 'package:ribn/v2/core/providers/onboarding_provider.dart';
 import 'package:ribn/v2/view/widgets/ribn_button.dart';
 
-class BiometricsModal extends HookConsumerWidget {
-  static const biometricsModalAgreeKey = Key('biometricsModalAgreeKey');
-  static const biometricsModalDisagreeKey = Key('biometricsModalDisagreeKey');
+class RecoveryPhraseDisclaimerModal extends HookConsumerWidget {
+  static const imReadyModalAgreeKey = Key('imReadyModalAgreeKey');
 
-  BiometricsModal({
+  RecoveryPhraseDisclaimerModal({
     Key? key,
   }) : super(key: key);
 
@@ -25,10 +23,10 @@ class BiometricsModal extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(biometricsProvider.notifier);
+    final notifier = ref.read(onboardingProvider.notifier);
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, mainAxisSize: MainAxisSize.max, children: [
         IconButton(
           alignment: Alignment.centerRight,
@@ -36,67 +34,55 @@ class BiometricsModal extends HookConsumerWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
         SizedBox(height: 20),
-        SvgPicture.asset(
-          Assets.fingerprint,
-          semanticsLabel: Strings.semanticFingerprint,
-        ),
-        SizedBox(height: 70),
-        Text(Strings.enableFingerprint,
-            textAlign: TextAlign.center,
-            style: RibnTextStyle.h1.copyWith(
+        Text(Strings.beforeYouStart,
+            textAlign: TextAlign.left,
+            style: RibnTextStyle.h2.copyWith(
                 // color: RibnColors.lightGreyTitle,
                 fontWeight: FontWeight.w700)),
         SizedBox(height: 20),
         Text(
-          Strings.enableFingerprintDisclaimer,
-          textAlign: TextAlign.center,
+          Strings.beforeYouStartDisclaimer,
+          textAlign: TextAlign.left,
           style: subTextStyle,
         ),
-        SizedBox(height: 90),
+        SizedBox(height: 20),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: RibnColors.somewhatPurple,
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: "${Strings.beforeYouStartListHead}\n\n",
+                    style: subTextStyle,
+                  ),
+                  TextSpan(
+                    text: '• ${Strings.beforeYouStartList1}\n\n',
+                    style: subTextStyle,
+                  ),
+                  TextSpan(
+                    text: '• ${Strings.beforeYouStartList2}',
+                    style: subTextStyle,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Spacer(),
         RibnButton(
-          text: Strings.enableFingerprint,
-          key: biometricsModalDisagreeKey,
+          text: Strings.imReady,
+          key: imReadyModalAgreeKey,
           onPressed: () {
-            notifier.toggleBiometrics(overrideValue: true);
+            context.close();
+            notifier.navigate(context);
           },
         ),
-        SizedBox(height: 15),
-        Align(
-            alignment: Alignment.centerLeft,
-            child: TextButton(
-                onPressed: () => {},
-                child: Text(Strings.skipNow,
-                    style: RibnTextStyle.buttonMedium.copyWith(
-                      color: RibnColors.defaultText,
-                      fontWeight: FontWeight.w500,
-                    )))),
       ]),
-    );
-  }
-
-  static void show(BuildContext context) {
-    final DraggableScrollableController scrollController = DraggableScrollableController();
-    showModalBottomSheet(
-      isScrollControlled: true,
-      useSafeArea: true,
-      context: context,
-      enableDrag: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (BuildContext context) {
-        return DraggableScrollableSheet(
-            initialChildSize: 0.95,
-            // near full modal on load
-            maxChildSize: 1,
-            // full screen on scroll
-            minChildSize: 0.25,
-            expand: false,
-            controller: scrollController,
-            builder: (BuildContext context, ScrollController scrollController) {
-              return BiometricsModal();
-            });
-      },
     );
   }
 }

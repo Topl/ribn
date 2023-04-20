@@ -16,7 +16,6 @@ import 'package:redux/redux.dart';
 import 'package:ribn/v1/actions/internal_message_actions.dart';
 import 'package:ribn/v1/constants/keys.dart';
 import 'package:ribn/v1/constants/routes.dart' as v1Routes;
-import 'package:ribn/v2/core/constants/routes.dart' as v2Routes;
 import 'package:ribn/v1/constants/rules.dart';
 import 'package:ribn/v1/models/app_state.dart';
 import 'package:ribn/v1/models/internal_message.dart';
@@ -31,7 +30,8 @@ import 'package:ribn/v1/presentation/onboarding/create_wallet/welcome_page.dart'
 import 'package:ribn/v1/providers/store_provider.dart';
 import 'package:ribn/v1/redux.dart';
 import 'package:ribn/v1/router/root_router.dart';
-import 'package:ribn/v2/view/onboarding/onboarding_flow_page.dart';
+import 'package:ribn/v2/core/constants/routes.dart' as v2Routes;
+import 'package:ribn/v2/view/onboarding/welcome_page.dart' as v2WelcomePage;
 import 'package:ribn/v2/view/screens/asset_managment/asset_managment_screen.dart';
 
 void main() async {
@@ -85,6 +85,17 @@ class RibnApp extends StatelessWidget {
   }
 }
 
+Navigator getNavigator() {
+  return Navigator(
+    pages: const [
+      MaterialPage(
+        child: v2WelcomePage.WelcomePage(),
+      ),
+    ],
+    onPopPage: (route, result) => route.didPop(result),
+  );
+}
+
 String getInitialRoute(Store<AppState> store) {
   return v2Routes.Routes.home;
 }
@@ -98,8 +109,9 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
     case v2Routes.Routes.welcome:
       return [
         MaterialPageRoute(
-            // builder: (context) => const v2WelcomePage.WelcomePage(),
-            builder: (context) => OnboardingFlowPage(),
+            builder: (context) => v2WelcomePage.WelcomePage(),
+            // builder: (context) => OnboardingFlowPage(),
+            // builder: (context) => CongratsPage(),
             settings: RouteSettings(name: v2Routes.Routes.welcome))
       ];
     case v2Routes.Routes.home:
@@ -109,7 +121,6 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
           settings: RouteSettings(name: v2Routes.Routes.home),
         ),
       ];
-
     //v1
     case v1Routes.Routes.login:
       return [

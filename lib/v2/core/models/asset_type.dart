@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:ribn/v2/core/constants/assets.dart';
 
 enum AssetType {

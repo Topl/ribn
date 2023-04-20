@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// Package imports:
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+// Project imports:
 import 'package:ribn/v2/core/models/asset_type.dart';
 
 part 'transaction.freezed.dart';

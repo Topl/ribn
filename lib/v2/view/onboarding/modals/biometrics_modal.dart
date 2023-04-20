@@ -52,7 +52,7 @@ class BiometricsModal extends HookConsumerWidget {
           textAlign: TextAlign.center,
           style: subTextStyle,
         ),
-        SizedBox(height: 90),
+        SizedBox(height: 70),
         RibnButton(
           text: Strings.enableFingerprint,
           key: biometricsModalDisagreeKey,
@@ -71,32 +71,6 @@ class BiometricsModal extends HookConsumerWidget {
                       fontWeight: FontWeight.w500,
                     )))),
       ]),
-    );
-  }
-
-  static void show(BuildContext context) {
-    final DraggableScrollableController scrollController = DraggableScrollableController();
-    showModalBottomSheet(
-      isScrollControlled: true,
-      useSafeArea: true,
-      context: context,
-      enableDrag: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (BuildContext context) {
-        return DraggableScrollableSheet(
-            initialChildSize: 0.95,
-            // near full modal on load
-            maxChildSize: 1,
-            // full screen on scroll
-            minChildSize: 0.25,
-            expand: false,
-            controller: scrollController,
-            builder: (BuildContext context, ScrollController scrollController) {
-              return BiometricsModal();
-            });
-      },
     );
   }
 }

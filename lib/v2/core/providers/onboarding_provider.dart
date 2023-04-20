@@ -27,6 +27,9 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
   final pageController = PageController(initialPage: 0);
   final pinLength = 6;
 
+  final createPinController = TextEditingController();
+  final confirmPinController = TextEditingController();
+
   OnboardingNotifier(this.ref) : super(_initializeOnboardingState(ref)) {}
 
   static OnboardingState _initializeOnboardingState(ref) {
@@ -95,15 +98,20 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
       return false;
     } catch (e) {
       ref.read(loggerProvider).log(
-            logLevel: LogLevel.Info,
-            loggerClass: LoggerClass.Analytics,
-            message: "Analytics enabled",
+            logLevel: LogLevel.Severe,
+            loggerClass: LoggerClass.Navigation,
+            message: "Failed to navigate to page $index with error: $e",
           );
       return false;
     }
   }
 
+  finish() {
+    // TODO SDK
+  }
+
   regenerateMnemonic() {
+    // TODO SDK
     final OnboardingState onboardingState = _initializeOnboardingState(ref);
     state = state.copyWith(
       recoveryPhrase: onboardingState.recoveryPhrase,
@@ -116,7 +124,7 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
 
   Future<void> setBiometrics() async {
     try {
-      // TODO Biometrics logic
+      // TODO SDK Biometrics logic
     } catch (e) {
       print(e);
     }
@@ -124,7 +132,7 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
 
   Future<void> saveOnboardingData() async {
     try {
-      // TODO Password storing logic
+      // TODO SDK Password storing logic
     } catch (e) {
       print(e);
     }
@@ -155,7 +163,7 @@ class CredentialsNotifier {
     try {
       assert(password.isNotEmpty, 'Password should not be empty');
 
-      // TODO Password storing logic
+      // TODO SDK Password storing logic
     } catch (e) {
       print(e);
       rethrow;
