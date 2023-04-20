@@ -21,13 +21,13 @@ import 'package:ribn/v1/models/app_state.dart';
 import 'package:ribn/v1/models/state/login_state.dart';
 import 'package:ribn/v1/platform/platform.dart';
 import 'package:ribn/v1/providers/analytics/analytics_events.dart';
-import 'package:ribn/v1/providers/analytics/analytics_provider.dart';
 import 'package:ribn/v1/providers/biometrics_provider.dart';
 import 'package:ribn/v1/providers/logger_provider.dart';
 import 'package:ribn/v1/providers/packages/flutter_secure_storage_provider.dart';
 import 'package:ribn/v1/providers/store_provider.dart';
 import 'package:ribn/v1/repositories/login_repository.dart';
 import 'package:ribn/v1/utils/extensions.dart';
+import 'analytics/analytics_provider.dart';
 
 final loginProvider = StateNotifierProvider<LoginNotifier, LoginState>((ref) {
   final store = ref.read(storeProvider);

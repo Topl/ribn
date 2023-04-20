@@ -30,6 +30,9 @@ import 'package:ribn/v1/presentation/onboarding/create_wallet/welcome_page.dart'
 import 'package:ribn/v1/providers/store_provider.dart';
 import 'package:ribn/v1/redux.dart';
 import 'package:ribn/v1/router/root_router.dart';
+import 'package:ribn/v2/core/constants/routes.dart' as v2Routes;
+import 'package:ribn/v2/view/onboarding/onboarding_flow_page.dart';
+import 'package:ribn/v2/view/onboarding/welcome_page.dart' as v2WelcomePage;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -82,6 +85,17 @@ class RibnApp extends StatelessWidget {
   }
 }
 
+Navigator getNavigator() {
+  return Navigator(
+    pages: const [
+      MaterialPage(
+        child: v2WelcomePage.WelcomePage(),
+      ),
+    ],
+    onPopPage: (route, result) => route.didPop(result),
+  );
+}
+
 String getInitialRoute(Store<AppState> store) {
   if (store.state.needsOnboarding()) {
     return v1Routes.Routes.welcome;
@@ -111,6 +125,14 @@ String getInitialRoute(Store<AppState> store) {
 /// to ensure consistent navigation in the app.
 List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
   switch (initialRoute) {
+    case v2Routes.Routes.welcome:
+      return [
+        MaterialPageRoute(
+            // builder: (context) => v2WelcomePage.WelcomePage(),
+            builder: (context) => OnboardingFlowPage(),
+            // builder: (context) => CongratsPage(),
+            settings: RouteSettings(name: v2Routes.Routes.welcome))
+      ];
     //v1
     case v1Routes.Routes.login:
       return [
