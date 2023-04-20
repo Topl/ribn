@@ -98,9 +98,9 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
       return false;
     } catch (e) {
       ref.read(loggerProvider).log(
-            logLevel: LogLevel.Info,
-            loggerClass: LoggerClass.Analytics,
-            message: "Analytics enabled",
+            logLevel: LogLevel.Severe,
+            loggerClass: LoggerClass.Navigation,
+            message: "Failed to navigate to page $index with error: $e",
           );
       return false;
     }

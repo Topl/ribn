@@ -11,8 +11,6 @@ import 'package:ribn/v2/core/extensions/widget_extensions.dart';
 import 'package:ribn/v2/view/onboarding/modals/recovery_phrase_disclaimer_modal.dart';
 import 'package:ribn/v2/view/widgets/ribn_button.dart';
 
-// import 'package:ribn/v2/core/providers/onboarding_provider.dart';
-
 class RecoveryPhraseInstructionsPage extends HookConsumerWidget {
   RecoveryPhraseInstructionsPage({
     Key? key,
@@ -20,8 +18,6 @@ class RecoveryPhraseInstructionsPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final notifier = ref.watch(onboardingProvider.notifier);
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
