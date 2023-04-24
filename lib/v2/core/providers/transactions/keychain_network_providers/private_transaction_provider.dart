@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Project imports:
 import 'package:ribn/v2/core/models/transaction.dart';
-import 'package:ribn/v2/core/providers/transactions/keychain_transaction_providers/transaction_provider_class.dart';
+import 'package:ribn/v2/core/providers/transactions/keychain_network_providers/transaction_provider_class.dart';
 
 final privateTransactionLoadedProvider = StateProvider.autoDispose<bool>((ref) {
   return false;

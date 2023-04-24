@@ -3,20 +3,19 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Project imports:
 import 'package:ribn/v2/core/models/NFT.dart';
-import 'package:ribn/v2/core/providers/nfts/keychain_nft_providers/nft_provider_class.dart';
+import 'package:ribn/v2/core/providers/nfts/network_nft_providers/nft_provider_class.dart';
 
-final valhallaNFTLoadedProvider = StateProvider.autoDispose<bool>((ref) {
+final privateNFTLoadedProvider = StateProvider.autoDispose<bool>((ref) {
   return false;
 });
 
-final valhallaNFTNotifierProvider =
-    StateNotifierProvider.autoDispose<valhallaNFTProvider, AsyncValue<List<NFT>>>((ref) {
-  return valhallaNFTProvider(ref);
+final privateNFTNotifierProvider = StateNotifierProvider.autoDispose<PrivateNFTProvider, AsyncValue<List<NFT>>>((ref) {
+  return PrivateNFTProvider(ref);
 });
 
-class valhallaNFTProvider extends NFTNotifier {
+class PrivateNFTProvider extends NFTNotifier {
   final Ref ref;
-  valhallaNFTProvider(this.ref) : super();
+  PrivateNFTProvider(this.ref) : super();
 
   @override
   Future<List<NFT>> getNFTs() {
@@ -38,6 +37,6 @@ class valhallaNFTProvider extends NFTNotifier {
 
   @override
   void onProviderLoad() {
-    ref.read(valhallaNFTLoadedProvider.notifier).state = true;
+    ref.read(privateNFTLoadedProvider.notifier).state = true;
   }
 }

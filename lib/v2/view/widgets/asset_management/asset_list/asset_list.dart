@@ -8,12 +8,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 // Project imports:
 import 'package:ribn/v2/core/constants/colors.dart';
 import 'package:ribn/v2/core/constants/ribn_text_style.dart';
+import 'package:ribn/v2/core/extensions/build_context_extensions.dart';
 import 'package:ribn/v2/core/models/NFT.dart';
 import 'package:ribn/v2/core/models/transaction.dart';
 import 'package:ribn/v2/core/providers/nfts/selected_network_nft_provider.dart';
-import 'package:ribn/v2/core/providers/transactions/keychain_transaction_providers/mainnet_transaction_provider.dart';
+import 'package:ribn/v2/core/providers/transactions/keychain_network_providers/mainnet_transaction_provider.dart';
 import 'package:ribn/v2/core/providers/transactions/selected_network_transaction_provider.dart';
-import 'package:ribn/v2/core/utils/ui_utils.dart';
 import 'package:ribn/v2/view/widgets/asset_management/asset_list/asset_list_header.dart';
 import 'package:ribn/v2/view/widgets/asset_management/asset_list/asset_list_item.dart';
 import 'package:ribn/v2/view/widgets/asset_management/asset_list/nft_list_item.dart';
@@ -103,10 +103,7 @@ class AssetList extends HookConsumerWidget {
                       ),
                       padding: EdgeInsets.all(15)),
                   onPressed: () {
-                    showToast(
-                      context: context,
-                      message: 'Needs Implementation',
-                    );
+                    context.showSnackBar('Needs Implementation');
                   },
                   child: Text(
                     'See all assets',

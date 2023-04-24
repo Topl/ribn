@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Project imports:
 import 'package:ribn/v2/core/models/NFT.dart';
-import 'package:ribn/v2/core/providers/nfts/keychain_nft_providers/nft_provider_class.dart';
+import 'package:ribn/v2/core/providers/nfts/network_nft_providers/nft_provider_class.dart';
 
 /// This provider is used to tell the app mainnet NFTs have been loaded
 final mainnetNFTLoadedProvider = StateProvider<bool>((ref) {

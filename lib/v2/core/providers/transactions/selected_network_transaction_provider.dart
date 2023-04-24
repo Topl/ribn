@@ -5,9 +5,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/v2/core/models/network.dart';
 import 'package:ribn/v2/core/models/transaction.dart';
 import 'package:ribn/v2/core/providers/network/selected_network_provider.dart';
-import 'package:ribn/v2/core/providers/transactions/keychain_transaction_providers/mainnet_transaction_provider.dart';
-import 'package:ribn/v2/core/providers/transactions/keychain_transaction_providers/private_transaction_provider.dart';
-import 'package:ribn/v2/core/providers/transactions/keychain_transaction_providers/valhalla_transaction_provider.dart';
+import 'package:ribn/v2/core/providers/transactions/keychain_network_providers/mainnet_transaction_provider.dart';
+import 'package:ribn/v2/core/providers/transactions/keychain_network_providers/private_transaction_provider.dart';
+import 'package:ribn/v2/core/providers/transactions/keychain_network_providers/valhalla_transaction_provider.dart';
 
 final selectedNetworkTransactionProvider = Provider.autoDispose<AsyncValue<List<Transaction>>>((ref) {
   final Network selectedKeychain = ref.watch(selectedNetworkNotifierProvider);
