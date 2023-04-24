@@ -1,5 +1,5 @@
-// TODO SDK, I dont think Keychain is the proper term
-enum Keychain {
+// TODO SDK, I dont think Network is the proper term
+enum Network {
   topl_mainnet(
     name: 'Topl Mainnet',
   ),
@@ -10,7 +10,7 @@ enum Keychain {
     name: 'Private Network',
   );
 
-  const Keychain({
+  const Network({
     required this.name,
   });
 

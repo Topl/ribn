@@ -10,9 +10,9 @@ import 'package:ribn/v2/core/constants/colors.dart';
 import 'package:ribn/v2/core/constants/ribn_text_style.dart';
 import 'package:ribn/v2/core/models/NFT.dart';
 import 'package:ribn/v2/core/models/transaction.dart';
-import 'package:ribn/v2/core/providers/nfts/selected_keychain_nft_provider.dart';
+import 'package:ribn/v2/core/providers/nfts/selected_network_nft_provider.dart';
 import 'package:ribn/v2/core/providers/transactions/keychain_transaction_providers/mainnet_transaction_provider.dart';
-import 'package:ribn/v2/core/providers/transactions/selected_keychain_transaction_provider.dart';
+import 'package:ribn/v2/core/providers/transactions/selected_network_transaction_provider.dart';
 import 'package:ribn/v2/core/utils/ui_utils.dart';
 import 'package:ribn/v2/view/widgets/asset_management/asset_list/asset_list_header.dart';
 import 'package:ribn/v2/view/widgets/asset_management/asset_list/asset_list_item.dart';
@@ -33,7 +33,7 @@ class AssetList extends HookConsumerWidget {
     final isShowingNfts = useState(false);
 
     final AsyncValue<List<dynamic>> assets =
-        isShowingNfts.value ? ref.watch(selectedKeychainNFTProvider) : ref.watch(selectedKeychainTransactionProvider);
+        isShowingNfts.value ? ref.watch(selectedNetworkNFTProvider) : ref.watch(selectedNetworkTransactionProvider);
 
     return Container(
         decoration: BoxDecoration(
