@@ -1,10 +1,10 @@
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ribn/v2/core/providers/NFTs/keychain_NFT_providers/mainnet_nft_provider.dart';
-import 'package:ribn/v2/core/providers/NFTs/keychain_NFT_providers/private_nft_provider.dart';
-import 'package:ribn/v2/core/providers/nfts/network_nft_providers/valhalla_nft_provider.dart';
 
 // Project imports:
+import 'package:ribn/v2/core/providers/nfts/network_nft_providers/mainnet_nft_provider.dart';
+import 'package:ribn/v2/core/providers/nfts/network_nft_providers/private_nft_provider.dart';
+import 'package:ribn/v2/core/providers/nfts/network_nft_providers/valhalla_nft_provider.dart';
 import 'package:ribn/v2/core/providers/transactions/keychain_network_providers/mainnet_transaction_provider.dart';
 import 'package:ribn/v2/core/providers/transactions/keychain_network_providers/private_transaction_provider.dart';
 import 'package:ribn/v2/core/providers/transactions/keychain_network_providers/valhalla_transaction_provider.dart';
