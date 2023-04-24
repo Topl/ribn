@@ -31,8 +31,8 @@ import 'package:ribn/v1/providers/store_provider.dart';
 import 'package:ribn/v1/redux.dart';
 import 'package:ribn/v1/router/root_router.dart';
 import 'package:ribn/v2/core/constants/routes.dart' as v2Routes;
-import 'package:ribn/v2/view/onboarding/onboarding_flow_page.dart';
 import 'package:ribn/v2/view/onboarding/welcome_page.dart' as v2WelcomePage;
+import 'package:ribn/v2/view/screens/asset_managment/asset_managment_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -97,26 +97,7 @@ Navigator getNavigator() {
 }
 
 String getInitialRoute(Store<AppState> store) {
-  if (store.state.needsOnboarding()) {
-    return v1Routes.Routes.welcome;
-  } else if (store.state.needsLogin()) {
-    return v1Routes.Routes.login;
-  } else if (store.state.internalMessage?.method == InternalMethods.enable) {
-    return v1Routes.Routes.enable;
-  } else if (store.state.internalMessage?.method == InternalMethods.signTx) {
-    return v1Routes.Routes.externalSigning;
-  }
-
-  //v2
-  else if (store.state.internalMessage?.method == InternalMethods.authorize) {
-    return v1Routes.Routes.connectDApp;
-  } else if (store.state.internalMessage?.method == InternalMethods.getBalance) {
-    return v1Routes.Routes.reviewAndSignDApp;
-  } else if (store.state.internalMessage?.method == InternalMethods.signTransaction) {
-    return v1Routes.Routes.reviewAndSignDApp;
-  }
-
-  return v1Routes.Routes.home;
+  return v2Routes.Routes.home;
 }
 
 /// Handles routing based on [initialRoute].
@@ -128,10 +109,17 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
     case v2Routes.Routes.welcome:
       return [
         MaterialPageRoute(
-            // builder: (context) => v2WelcomePage.WelcomePage(),
-            builder: (context) => OnboardingFlowPage(),
+            builder: (context) => v2WelcomePage.WelcomePage(),
+            // builder: (context) => OnboardingFlowPage(),
             // builder: (context) => CongratsPage(),
             settings: RouteSettings(name: v2Routes.Routes.welcome))
+      ];
+    case v2Routes.Routes.home:
+      return [
+        MaterialPageRoute(
+          builder: (context) => AssetManagementScreen(),
+          settings: RouteSettings(name: v2Routes.Routes.home),
+        ),
       ];
     //v1
     case v1Routes.Routes.login:

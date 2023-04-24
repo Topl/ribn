@@ -30,7 +30,7 @@ void main() {
     });
 
     group('Onboarding reducer', () {});
-    group('Keychain reducer', () {
+    group('Network reducer', () {
       test('keyStoreJson and hd wallet initialization', () async {
         final HdWallet hdWallet = HdWallet(
           rootSigningKey: bip_topl.Bip32SigningKey.fromValidBytes(
