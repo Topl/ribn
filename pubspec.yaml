@@ -80,6 +80,7 @@ dependencies:
     git:
       url: https://github.com/Topl/BramblDart
       ref: 1f73931 # Hash of 1.0 tag
+  responsive_framework: ^1.1.0
 
 
 dev_dependencies:
@@ -142,6 +143,20 @@ flutter:
           weight: 500
         - asset: packages/ribn_toolkit/fonts/DMSans-Bold.ttf
           weight: 700
+    - family: Rational Display
+      fonts:
+         - asset: assets/fonts/RationalDisplay-Book.otf
+
+    - family: Rational Display Light
+      fonts:
+         - asset: assets/fonts/RationalDisplay-Light.otf
+
+    - family: Rational Display Medium
+      fonts:
+         - asset: assets/fonts/RationalDisplay-Medium.otf
+    - family: Rational Display SemiBold
+      fonts:
+         - asset: assets/fonts/RationalDisplay-SemiBold.otf
 
 # Splash screen config
 flutter_native_splash:

@@ -33,6 +33,8 @@ import 'package:ribn/v1/router/root_router.dart';
 import 'package:ribn/v2/shared/constants/routes.dart' as v2Routes;
 import 'package:ribn/v2/onboarding/widgets/pages/welcome_page.dart';
 import 'package:ribn/v2/asset_managment/screens/asset_managment_screen.dart';
+import 'package:ribn/v2/shared/providers/app_theme_provider.dart';
+import 'package:ribn/v2/shared/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,20 +61,23 @@ void main() async {
   );
 }
 
-class RibnApp extends StatelessWidget {
+class RibnApp extends HookConsumerWidget {
   final Store<AppState> store;
   final RootRouter rootRouter = RootRouter();
 
   RibnApp(this.store, {Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return StoreProvider<AppState>(
       store: store,
       child: Portal(
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Ribn',
+          theme: lightTheme(context: context),
+          darkTheme: darkTheme(context: context),
+          themeMode: ref.watch(appThemeColorProvider),
           navigatorObservers: [v1Routes.Routes.routeObserver],
           // onGenerateRoute: rootRouter.generateRoutes,
           onGenerateRoute: rootRouter.generateRoutes,
