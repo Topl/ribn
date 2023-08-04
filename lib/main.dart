@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 // Project imports:
 import 'package:ribn/v1/constants/keys.dart';
 import 'package:ribn/v1/constants/routes.dart' as v1Routes;
 import 'package:ribn/v1/router/root_router.dart';
 import 'package:ribn/v2/onboarding/screens/welcome_screen.dart';
+import 'package:ribn/v2/shared/constants/ui.dart';
 import 'package:ribn/v2/shared/providers/app_theme_provider.dart';
 import 'package:ribn/v2/shared/theme.dart';
 import 'package:ribn/v2/shared/widgets/vnester/screen_scaffold.dart';
@@ -21,7 +23,14 @@ void main() async {
 
   runApp(
     ProviderScope(
-      child: RibnApp(),
+      child: ResponsiveBreakpoints.builder(
+        child: RibnApp(),
+        breakpoints: const [
+          Breakpoint(start: 0, end: mobileBreak, name: MOBILE),
+          Breakpoint(start: mobileBreak + 1, end: tabletBreak, name: TABLET),
+          Breakpoint(start: tabletBreak + 1, end: double.infinity, name: DESKTOP),
+        ],
+      ),
     ),
   );
 }
