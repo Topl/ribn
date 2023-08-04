@@ -48,6 +48,7 @@ class RibnApp extends HookConsumerWidget {
       navigatorKey: Keys.navigatorKey,
       initialUrl: WelcomePage().route,
       routes: [
+        // Wraps all routes in a ScreenScaffold
         VNester(
           path: '/',
           widgetBuilder: (child) => ScreenScaffold(child: child),
@@ -56,6 +57,8 @@ class RibnApp extends HookConsumerWidget {
               path: WelcomePage().route,
               widget: WelcomePage(),
             ),
+
+            // Any routes that require the user to be logged in should be nested in this VGuard
             VGuard(
               beforeEnter: (vRedirector) async {
                 // Before enter, check if the user is logged in
