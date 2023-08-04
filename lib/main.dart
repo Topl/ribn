@@ -56,6 +56,13 @@ class RibnApp extends HookConsumerWidget {
               path: WelcomePage().route,
               widget: WelcomePage(),
             ),
+            VGuard(
+              beforeEnter: (vRedirector) async {
+                // Before enter, check if the user is logged in
+                // If the user is not logged in, redirect them to the welcome page
+              },
+              stackedRoutes: [],
+            )
           ],
         ),
       ],
