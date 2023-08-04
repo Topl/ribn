@@ -3,14 +3,10 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:redux/redux.dart';
 
 // Project imports:
 import 'package:ribn/v1/constants/keys.dart';
 import 'package:ribn/v1/constants/routes.dart' as v1Routes;
-import 'package:ribn/v1/models/app_state.dart';
-
-import 'package:ribn/v1/redux.dart';
 import 'package:ribn/v1/router/root_router.dart';
 import 'package:ribn/v2/onboarding/screens/welcome_screen.dart';
 import 'package:ribn/v2/shared/providers/app_theme_provider.dart';
@@ -25,16 +21,15 @@ void main() async {
 
   runApp(
     ProviderScope(
-      child: RibnApp(Redux.store!),
+      child: RibnApp(),
     ),
   );
 }
 
 class RibnApp extends HookConsumerWidget {
-  final Store<AppState> store;
   final RootRouter rootRouter = RootRouter();
 
-  RibnApp(this.store, {Key? key}) : super(key: key);
+  RibnApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

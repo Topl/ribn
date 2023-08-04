@@ -81,7 +81,7 @@ arm_mac_hard_clean:
 	rm -r .symlinks/ && \
 	rm Podfile.lock && \
 	sudo arch -x86_64 gem install ffi && \
-	arch -x86_64 pod install && \
+	arch -x86_64 pod install --repo-update && \
 	cd ..
 
 file_test:

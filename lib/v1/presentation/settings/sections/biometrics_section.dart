@@ -70,8 +70,8 @@ class BiometricsSection extends ConsumerWidget {
                 Navigator.of(context).pop();
               },
             ),
-            const TextButton(
-              onPressed: AppSettings.openSecuritySettings,
+            TextButton(
+              onPressed: () => AppSettings.openAppSettings(),
               child: Text('Go to settings'),
             ),
           ],
