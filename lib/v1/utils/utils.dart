@@ -1,5 +1,4 @@
 // Dart imports:
-import 'dart:ui';
 
 // Flutter imports:
 import 'package:flutter/foundation.dart';
@@ -44,12 +43,14 @@ void validateRecipientAddress({
 }
 
 /// Adapt to screen height based on [scaleFactor].
-double adaptHeight(double scaleFactor) => MediaQueryData.fromWindow(window).size.height * scaleFactor;
+double adaptHeight(double scaleFactor) =>
+    MediaQuery.of(Keys.navigatorKey.currentState!.context).size.height * scaleFactor;
 
 /// Adapt to screen width based on [scaleFactor].
-double adaptWidth(double scaleFactor) => MediaQueryData.fromWindow(window).size.width * scaleFactor;
+double adaptWidth(double scaleFactor) =>
+    MediaQuery.of(Keys.navigatorKey.currentState!.context).size.width * scaleFactor;
 
-double deviceTopPadding() => MediaQueryData.fromWindow(window).padding.top;
+double deviceTopPadding() => MediaQuery.of(Keys.navigatorKey.currentState!.context).padding.top;
 
 Future<bool> isAppOpenedInExtensionView() async {
   return await PlatformUtils.instance.getCurrentAppView() == AppViews.extension;

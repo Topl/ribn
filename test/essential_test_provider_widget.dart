@@ -58,7 +58,7 @@ Future<Widget> essentialTestProviderWidget({
       debugShowCheckedModeBanner: false,
       home: DefaultAssetBundle(
         bundle: TestAssetBundle(),
-        child: RibnApp(mockStore),
+        child: RibnApp(),
       ),
     ),
   );

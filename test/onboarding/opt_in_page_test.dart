@@ -16,7 +16,7 @@ import '../utils/text_utils.dart';
 
 void main() {
   testWidgets('Clicking No Thanks Brings you to the next page', (WidgetTester tester) async {
-    tester.binding.window.physicalSizeTestValue = Size(10000, 10000);
+    tester.view.physicalSize = Size(10000, 10000);
     await tester.pumpWidget(
       await essentialTestProviderWidget(
         overrides: [],
@@ -39,7 +39,7 @@ void main() {
   });
 
   testWidgets('Clicking I Agree Brings you to the next page and inits analytics', (WidgetTester tester) async {
-    tester.binding.window.physicalSizeTestValue = Size(10000, 10000);
+    tester.view.physicalSize = Size(10000, 10000);
     await tester.pumpWidget(
       await essentialTestProviderWidget(
         overrides: [],
@@ -64,7 +64,7 @@ void main() {
   });
 
   testWidgets('Clicking Read more and privacy policy works', (WidgetTester tester) async {
-    tester.binding.window.physicalSizeTestValue = Size(10000, 10000);
+    tester.view.physicalSize = Size(10000, 10000);
 
     bool clicked = false;
     await tester.pumpWidget(
