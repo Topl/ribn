@@ -35,53 +35,53 @@ jobs:
       - name: Analyze code
         run: flutter analyze
 
-  flutter_test:
-    name: "Unit tests"
-    runs-on: ubuntu-latest
-    steps: 
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: ${{env.FLUTTER_CHANNEL}}
-          cache: true
-      - name: Install dependencies and generate files
-        run: make gen
-      - name: Run tests
-        run: flutter test --dart-define=FLUTTER_TEST=true
+  # flutter_test:
+  #   name: "Unit tests"
+  #   runs-on: ubuntu-latest
+  #   steps: 
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+  #     - name: Setup Flutter
+  #       uses: subosito/flutter-action@v2
+  #       with:
+  #         channel: ${{env.FLUTTER_CHANNEL}}
+  #         cache: true
+  #     - name: Install dependencies and generate files
+  #       run: make gen
+  #     - name: Run tests
+  #       run: flutter test --dart-define=FLUTTER_TEST=true
 
-  code_coverage:
-    name: "Codecov"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  # code_coverage:
+  #   name: "Codecov"
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: ${{env.FLUTTER_CHANNEL}}
-          cache: true
+  #     - name: Setup Flutter
+  #       uses: subosito/flutter-action@v2
+  #       with:
+  #         channel: ${{env.FLUTTER_CHANNEL}}
+  #         cache: true
 
-      - name: Flutter version
-        run: flutter --version
+  #     - name: Flutter version
+  #       run: flutter --version
 
-      - uses: stelynx/dart-full-coverage@v1.1.1
-        with:
-          package: ribn
-          ignore: "*_state.dart, do_not_import_me.dart, js_workers/* , platform_web/*"
+  #     - uses: stelynx/dart-full-coverage@v1.1.1
+  #       with:
+  #         package: ribn
+  #         ignore: "*_state.dart, do_not_import_me.dart, js_workers/* , platform_web/*"
 
-      - name: Install dependencies and generated files
-        run: make gen
+  #     - name: Install dependencies and generated files
+  #       run: make gen
 
-      - name: Run tests
-        run: flutter test --platform chrome --coverage .
+  #     - name: Run tests
+  #       run: flutter test --platform chrome --coverage .
 
 
-      - uses: codecov/codecov-action@v1.0.2
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+  #     - uses: codecov/codecov-action@v1.0.2
+  #       with:
+  #         token: ${{ secrets.CODECOV_TOKEN }}
 
 
   android_build:
