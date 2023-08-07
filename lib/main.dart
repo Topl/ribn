@@ -11,6 +11,7 @@ import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:redux/redux.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 // Project imports:
 import 'package:ribn/v1/actions/internal_message_actions.dart';
@@ -33,6 +34,9 @@ import 'package:ribn/v1/router/root_router.dart';
 import 'package:ribn/v2/shared/constants/routes.dart' as v2Routes;
 import 'package:ribn/v2/onboarding/widgets/pages/welcome_page.dart';
 import 'package:ribn/v2/asset_managment/screens/asset_managment_screen.dart';
+import 'package:ribn/v2/shared/constants/ui.dart';
+import 'package:ribn/v2/shared/providers/app_theme_provider.dart';
+import 'package:ribn/v2/shared/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,7 +55,14 @@ void main() async {
   } //@dev call this function to setup any singletons required by app
   runApp(
     ProviderScope(
-      child: RibnApp(Redux.store!),
+      child: ResponsiveBreakpoints.builder(
+        child: RibnApp(Redux.store!),
+        breakpoints: const [
+          Breakpoint(start: 0, end: mobileBreak, name: MOBILE),
+          Breakpoint(start: mobileBreak + 1, end: tabletBreak, name: TABLET),
+          Breakpoint(start: tabletBreak + 1, end: double.infinity, name: DESKTOP),
+        ],
+      ),
       overrides: [
         storeProvider.overrideWithValue(Redux.store!),
       ],
@@ -59,20 +70,23 @@ void main() async {
   );
 }
 
-class RibnApp extends StatelessWidget {
+class RibnApp extends HookConsumerWidget {
   final Store<AppState> store;
   final RootRouter rootRouter = RootRouter();
 
   RibnApp(this.store, {Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return StoreProvider<AppState>(
       store: store,
       child: Portal(
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Ribn',
+          theme: lightTheme(context: context),
+          darkTheme: darkTheme(context: context),
+          themeMode: ref.watch(appThemeColorProvider),
           navigatorObservers: [v1Routes.Routes.routeObserver],
           // onGenerateRoute: rootRouter.generateRoutes,
           onGenerateRoute: rootRouter.generateRoutes,
