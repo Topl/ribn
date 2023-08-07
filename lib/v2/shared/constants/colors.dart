@@ -18,6 +18,9 @@ class RibnColors {
   static const Color somewhatPurple = Color(0xFFF9F7FE);
   static const Color somewhatBlue = Color(0xFFF4FCFC);
 
+  static const Color lightBlue = Color.fromRGBO(13, 200, 212, 0.04);
+  static const Color layerTitleText = Color(0xFF282A2C);
+
   static const Color defaultText = Color(0xFF323232);
   static const Color greyText = Color(0xFF979797);
 

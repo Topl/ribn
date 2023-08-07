@@ -34,31 +34,33 @@ class RecoveryPhraseInstructionsPage extends HookConsumerWidget {
             textAlign: TextAlign.left,
             style: RibnTextStyle.h3Grey,
           ),
-          SizedBox(height: 40),
+          SizedBox(height: 24),
           Text(
             Strings.readyRecoveryPhraseListHead,
             textAlign: TextAlign.left,
             style: RibnTextStyle.h3Grey,
           ),
-          SizedBox(height: 20),
-          Text.rich(
-            TextSpan(
-              children: [
+          SizedBox(height: 16),
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text.rich(
                 TextSpan(
-                  text: "•  ${Strings.readyRecoveryPhraseList1}\n\n",
-                  style: RibnTextStyle.h3Grey,
+                  children: [
+                    TextSpan(
+                      text: "•  ${Strings.readyRecoveryPhraseList1}\n\n",
+                      style: RibnTextStyle.h3Grey,
+                    ),
+                    TextSpan(
+                      text: '•  ${Strings.readyRecoveryPhraseList2}\n\n',
+                      style: RibnTextStyle.h3Grey,
+                    ),
+                    TextSpan(
+                      text: '•  ${Strings.readyRecoveryPhraseList3}\n\n',
+                      style: RibnTextStyle.h3Grey,
+                    ),
+                  ],
                 ),
-                TextSpan(
-                  text: '•  ${Strings.readyRecoveryPhraseList2}\n\n',
-                  style: RibnTextStyle.h3Grey,
-                ),
-                TextSpan(
-                  text: '•  ${Strings.readyRecoveryPhraseList3}\n\n',
-                  style: RibnTextStyle.h3Grey,
-                ),
-              ],
-            ),
-          ),
+              )),
           Spacer(),
           Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
