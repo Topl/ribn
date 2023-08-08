@@ -9,18 +9,19 @@ import 'package:ribn/v2/shared/constants/assets.dart';
 import 'package:ribn/v2/shared/constants/colors.dart';
 import 'package:ribn/v2/shared/constants/ribn_text_style.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
+import 'package:ribn/v2/shared/extensions/screen_hook_widget.dart';
 import 'package:ribn/v2/shared/extensions/widget_extensions.dart';
 import 'package:ribn/v2/onboarding/widgets/modals/onboarding_modal.dart';
 import 'package:ribn/v2/shared/widgets/ribn_button.dart';
 
-class WelcomePage extends HookConsumerWidget {
+class WelcomePage extends ScreenConsumerWidget {
   static const welcomePageKey = Key('welcomePageKey');
   static const welcomePageCreateButtonKey = Key('welcomePageCreateButtonKey');
   static const welcomePageImportButtonKey = Key('welcomePageImportButtonKey');
 
   const WelcomePage({
     Key? key,
-  }) : super(key: key);
+  }) : super(key: key, route: '/welcome');
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

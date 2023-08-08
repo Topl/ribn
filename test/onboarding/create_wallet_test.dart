@@ -29,7 +29,7 @@ import '../utils/onboarding_utils.dart';
 void main() {
   testWidgets('Test Successful Create Wallet Flow', (WidgetTester tester) async {
     // TODO: Refactor styling so we don't have to override window size
-    tester.binding.window.physicalSizeTestValue = Size(10000, 10000);
+    tester.view.physicalSize = Size(10000, 10000);
     await tester.pumpWidget(
       await essentialTestProviderWidget(
         overrides: [
