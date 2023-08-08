@@ -78,6 +78,9 @@ class RibnApp extends HookConsumerWidget {
 }
 
 
+
+// LEAVING THIS COMMENTED FOR NOW
+// This will be needed in the future
 /// Initiates a long-lived connection with the background script.
 ///
 /// A port message listener is added, and a message is sent to check for pending requests.
