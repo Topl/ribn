@@ -60,14 +60,24 @@ class RecoveryPhraseDisclaimerModal extends HookConsumerWidget {
                     text: "${Strings.beforeYouStartListHead}\n\n",
                     style: subTextStyle,
                   ),
-                  TextSpan(
-                    text: '• ${Strings.beforeYouStartList1}\n\n',
-                    style: subTextStyle,
+                  WidgetSpan(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 16.0, bottom: 8.0),
+                      child: Text(
+                        '• ${Strings.beforeYouStartList1}',
+                        style: subTextStyle,
+                      ),
+                    ),
                   ),
-                  TextSpan(
-                    text: '• ${Strings.beforeYouStartList2}',
-                    style: subTextStyle,
-                  ),
+                  WidgetSpan(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 16.0, bottom: 8.0),
+                      child: Text(
+                        '• ${Strings.beforeYouStartList2}',
+                        style: subTextStyle,
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),

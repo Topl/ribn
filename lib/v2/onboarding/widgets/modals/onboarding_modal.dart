@@ -11,6 +11,7 @@ import 'package:ribn/v2/shared/constants/colors.dart';
 import 'package:ribn/v2/shared/constants/ribn_text_style.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
 import 'package:ribn/v2/shared/widgets/ribn_button.dart';
+import 'package:vrouter/vrouter.dart';
 
 class OnboardingModal extends HookConsumerWidget {
   static const onboardingModalAgreeKey = Key('onboardingModalAgreeKey');
@@ -104,6 +105,7 @@ class OnboardingModal extends HookConsumerWidget {
                     key: onboardingModalAgreeKey,
                     onPressed: () {
                       //TODO: Add Navigation
+                         context.vRouter.to('/onboarding_flow');
                     },
                   ),
                 ),

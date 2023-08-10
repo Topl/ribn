@@ -13,6 +13,7 @@ import 'package:ribn/v2/shared/widgets/ribn_button.dart';
 
 class CongratsPage extends StatelessWidget {
   const CongratsPage({Key? key}) : super(key: key);
+  static const congratsPageKey = Key('congratsPageKey');
 
   @override
   Widget build(BuildContext context) {

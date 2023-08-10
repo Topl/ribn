@@ -19,8 +19,10 @@ import 'package:ribn/v2/shared/widgets/step_indicator.dart';
 class OnboardingFlowPage extends HookConsumerWidget {
   OnboardingFlowPage({
     Key? key,
-  }) : super(key: key);
-
+  }) : super(
+          key: key,
+        );
+  static const String route = '/onboarding_flow';
   static const _pageCount = 5;
 
   final _pages = [

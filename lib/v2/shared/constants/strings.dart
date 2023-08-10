@@ -64,6 +64,7 @@ class Strings {
   static const String recoveryPhraseSub =
       'Write all these words down on a piece of paper or secure program, and keep in a safe place.';
   static const String setRecoveryPhrase = 'Set recovery phrase';
+  static const String setRecoveryPhraseButton = 'Next';
   static const String copy = 'Copy';
 
   // Recovery Phrase check

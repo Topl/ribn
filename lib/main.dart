@@ -10,11 +10,16 @@ import 'package:ribn/v1/constants/keys.dart';
 import 'package:ribn/v1/constants/routes.dart' as v1Routes;
 import 'package:ribn/v1/router/root_router.dart';
 import 'package:ribn/v2/onboarding/screens/welcome_screen.dart';
+import 'package:ribn/v2/onboarding/widgets/pages/onboarding_flow_page.dart';
 import 'package:ribn/v2/shared/constants/ui.dart';
 import 'package:ribn/v2/shared/providers/app_theme_provider.dart';
 import 'package:ribn/v2/shared/theme.dart';
 import 'package:ribn/v2/shared/widgets/vnester/screen_scaffold.dart';
 import 'package:vrouter/vrouter.dart';
+// import 'package:ribn/v2/shared/constants/routes.dart' as v2Routes;
+// //import 'package:ribn/v2/onboarding/widgets/pages/welcome_page.dart';
+// import 'package:ribn/v2/asset_managment/screens/asset_managment_screen.dart';
+// import 'v2/onboarding/widgets/pages/onboarding_flow_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,7 +66,10 @@ class RibnApp extends HookConsumerWidget {
               path: WelcomePage().route,
               widget: WelcomePage(),
             ),
-
+            VWidget(
+              path: OnboardingFlowPage.route, // Transaction details screen
+              widget: OnboardingFlowPage(),
+            ),
             // Any routes that require the user to be logged in should be nested in this VGuard
             VGuard(
               beforeEnter: (vRedirector) async {
