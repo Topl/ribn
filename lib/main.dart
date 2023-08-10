@@ -32,7 +32,6 @@ import 'package:ribn/v1/redux.dart';
 import 'package:ribn/v1/router/root_router.dart';
 import 'package:ribn/v2/shared/constants/routes.dart' as v2Routes;
 import 'package:ribn/v2/onboarding/widgets/pages/welcome_page.dart';
-import 'package:ribn/v2/asset_managment/screens/asset_managment_screen.dart';
 import 'v2/onboarding/widgets/pages/onboarding_flow_page.dart';
 
 void main() async {
@@ -110,15 +109,15 @@ List<Route> onGenerateInitialRoute(initialRoute, Store<AppState> store) {
     case v2Routes.Routes.welcome:
       return [
         MaterialPageRoute(
-            //builder: (context) => WelcomePage(),
-            builder: (context) => OnboardingFlowPage(),
+            builder: (context) => WelcomePage(),
+            //builder: (context) => OnboardingFlowPage(),
             // builder: (context) => CongratsPage(),
             settings: RouteSettings(name: v2Routes.Routes.welcome))
       ];
     case v2Routes.Routes.home:
       return [
         MaterialPageRoute(
-          builder: (context) => AssetManagementScreen(),
+          builder: (context) => OnboardingFlowPage(),
           //builder: (context) => VerifySeedPhrase(),
           settings: RouteSettings(name: v2Routes.Routes.home),
         ),

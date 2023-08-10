@@ -39,13 +39,15 @@ class RecoveryPhrasePage extends HookConsumerWidget {
             SizedBox(height: 10),
             RecoveryPhraseDisplayWidget(onboarding.recoveryPhrase),
             SizedBox(height: 10),
-            Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40),
-                child: RibnButton(
-                    text: Strings.setRecoveryPhraseButton,
-                    onPressed: () {
-                      notifier.navigate(context);
-                    }))
+            Center(
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 40),
+                  child: RibnButton(
+                      text: Strings.setRecoveryPhraseButton,
+                      onPressed: () {
+                        notifier.navigate(context);
+                      })),
+            )
           ],
         ),
       ),
