@@ -78,7 +78,7 @@ TextTheme _textTheme({
   return ThemeData().textTheme.copyWith(
         /// Headline
         headlineLarge: TextStyle(
-          fontSize: isMobile ? 18 : 30,
+          fontSize: 32,
           fontWeight: FontWeight.w600,
           color: textColor,
           fontFamily: "Rational Display",
@@ -114,11 +114,11 @@ TextTheme _textTheme({
 
         /// Body
         bodyMedium: TextStyle(
-          fontSize: 16,
-          color: altTextColor2,
-          fontWeight: FontWeight.w300,
-          fontFamily: "Rational Display",
-        ),
+            fontSize: 16,
+            color: altTextColor2,
+            fontWeight: FontWeight.w300,
+            fontFamily: "Rational Display",
+            height: 1.5),
         bodySmall: TextStyle(
           color: altTextColor,
           fontWeight: FontWeight.w400,

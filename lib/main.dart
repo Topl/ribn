@@ -10,6 +10,7 @@ import 'package:ribn/v1/constants/keys.dart';
 import 'package:ribn/v1/constants/routes.dart' as v1Routes;
 import 'package:ribn/v1/router/root_router.dart';
 import 'package:ribn/v2/onboarding/screens/welcome_screen.dart';
+import 'package:ribn/v2/receive_assets/screens/receive_asset_screen.dart';
 import 'package:ribn/v2/shared/constants/ui.dart';
 import 'package:ribn/v2/shared/providers/app_theme_provider.dart';
 import 'package:ribn/v2/shared/theme.dart';
@@ -50,7 +51,7 @@ class RibnApp extends HookConsumerWidget {
       themeMode: ref.watch(appThemeColorProvider),
       navigatorObservers: [v1Routes.Routes.routeObserver],
       navigatorKey: Keys.navigatorKey,
-      initialUrl: WelcomePage().route,
+      initialUrl: ReceiveAssets().route,
       routes: [
         // Wraps all routes in a ScreenScaffold
         VNester(
@@ -61,7 +62,10 @@ class RibnApp extends HookConsumerWidget {
               path: WelcomePage().route,
               widget: WelcomePage(),
             ),
-
+            VWidget(
+              path: ReceiveAssets().route,
+              widget: ReceiveAssets(),
+            ),
             // Any routes that require the user to be logged in should be nested in this VGuard
             VGuard(
               beforeEnter: (vRedirector) async {
@@ -76,8 +80,6 @@ class RibnApp extends HookConsumerWidget {
     );
   }
 }
-
-
 
 // LEAVING THIS COMMENTED FOR NOW
 // This will be needed in the future
