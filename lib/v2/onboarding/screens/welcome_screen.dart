@@ -14,6 +14,9 @@ import 'package:ribn/v2/shared/extensions/widget_extensions.dart';
 import 'package:ribn/v2/onboarding/widgets/modals/onboarding_modal.dart';
 import 'package:ribn/v2/shared/widgets/ribn_button.dart';
 
+import '../../../v1/constants/keys.dart';
+import '../../../v1/constants/routes.dart';
+
 class WelcomePage extends ScreenConsumerWidget {
   static const welcomePageKey = Key('welcomePageKey');
   static const welcomePageCreateButtonKey = Key('welcomePageCreateButtonKey');
@@ -49,7 +52,6 @@ class WelcomePage extends ScreenConsumerWidget {
               text: Strings.createWallet,
               onPressed: () {
                 OnboardingModal().showAsModal(context);
-                // Keys.navigatorKey.currentState?.pushNamed(Routes.optIn);
               },
             ),
             Align(

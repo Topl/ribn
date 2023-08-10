@@ -21,6 +21,7 @@ class Strings {
   static const String noThanks = "No, thanks";
   static const String iAgree = "I agree";
   static const String done = "Done";
+  static const String next = "Next";
 
   // Create Pin Flow
   static const String createPin = 'Create a PIN';

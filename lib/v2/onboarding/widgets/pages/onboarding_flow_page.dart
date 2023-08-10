@@ -14,12 +14,13 @@ import 'package:ribn/v2/onboarding/widgets/pages/confirm_recovery_phrase_page.da
 import 'package:ribn/v2/onboarding/widgets/pages/create_pin_page.dart';
 import 'package:ribn/v2/onboarding/widgets/pages/ready_recovery_phrase_page.dart';
 import 'package:ribn/v2/onboarding/widgets/pages/recovery_phrase_page.dart';
+import 'package:ribn/v2/shared/extensions/screen_hook_widget.dart';
 import 'package:ribn/v2/shared/widgets/step_indicator.dart';
 
-class OnboardingFlowPage extends HookConsumerWidget {
+class OnboardingFlowPage extends ScreenConsumerWidget {
   OnboardingFlowPage({
     Key? key,
-  }) : super(key: key);
+  }) : super(key: key, route: '/onboarding');
 
   static const _pageCount = 5;
 
