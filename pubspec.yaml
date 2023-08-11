@@ -82,7 +82,8 @@ dependencies:
       url: https://github.com/Topl/BramblDart
       ref: 1f73931 # Hash of 1.0 tag
   responsive_framework: ^1.1.0
-
+  qr_flutter: ^4.1.0
+  qr_code_scanner: ^1.0.1
 
 dev_dependencies:
   flutter_test:

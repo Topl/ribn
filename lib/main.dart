@@ -9,6 +9,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:ribn/v1/constants/keys.dart';
 import 'package:ribn/v1/constants/routes.dart' as v1Routes;
 import 'package:ribn/v1/router/root_router.dart';
+import 'package:ribn/v2/asset_managment/screens/asset_managment_screen.dart';
 import 'package:ribn/v2/onboarding/screens/welcome_screen.dart';
 import 'package:ribn/v2/onboarding/widgets/pages/onboarding_flow_page.dart';
 import 'package:ribn/v2/shared/constants/ui.dart';
@@ -16,6 +17,8 @@ import 'package:ribn/v2/shared/providers/app_theme_provider.dart';
 import 'package:ribn/v2/shared/theme.dart';
 import 'package:ribn/v2/shared/widgets/vnester/screen_scaffold.dart';
 import 'package:vrouter/vrouter.dart';
+import 'package:ribn/v2/send_assets/screens/send_asset_screen.dart';
+
 // import 'package:ribn/v2/shared/constants/routes.dart' as v2Routes;
 // //import 'package:ribn/v2/onboarding/widgets/pages/welcome_page.dart';
 // import 'package:ribn/v2/asset_managment/screens/asset_managment_screen.dart';
@@ -76,7 +79,16 @@ class RibnApp extends HookConsumerWidget {
                 // Before enter, check if the user is logged in
                 // If the user is not logged in, redirect them to the welcome page
               },
-              stackedRoutes: [],
+              stackedRoutes: [
+                VWidget(
+                  path: AssetManagementScreen.route, // Transaction details screen
+                  widget: AssetManagementScreen(),
+                ),
+                VWidget(
+                  path: SendAssetScreen().route, // Transaction details screen
+                  widget: SendAssetScreen(),
+                ),
+              ],
             )
           ],
         ),

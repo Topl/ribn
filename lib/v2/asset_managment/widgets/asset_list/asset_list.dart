@@ -11,12 +11,12 @@ import 'package:ribn/v2/asset_managment/widgets/asset_list/nft_list_item.dart';
 // Project imports:
 import 'package:ribn/v2/shared/constants/colors.dart';
 import 'package:ribn/v2/shared/constants/ribn_text_style.dart';
-import 'package:ribn/v2/shared/extensions/build_context_extensions.dart';
 import 'package:ribn/v2/asset_managment/models/NFT.dart';
 import 'package:ribn/v2/asset_managment/models/transaction.dart';
 import 'package:ribn/v2/asset_managment/providers/nfts/selected_network_nft_provider.dart';
 import 'package:ribn/v2/asset_managment/providers/transactions/keychain_network_providers/mainnet_transaction_provider.dart';
 import 'package:ribn/v2/asset_managment/providers/transactions/selected_network_transaction_provider.dart';
+import 'package:vrouter/vrouter.dart';
 
 class AssetList extends HookConsumerWidget {
   const AssetList({
@@ -103,7 +103,7 @@ class AssetList extends HookConsumerWidget {
                       ),
                       padding: EdgeInsets.all(15)),
                   onPressed: () {
-                    context.showSnackBar('Needs Implementation');
+                    context.vRouter.to('/send_asset');
                   },
                   child: Text(
                     'See all assets',

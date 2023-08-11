@@ -21,13 +21,21 @@ class Strings {
   static const String noThanks = "No, thanks";
   static const String iAgree = "I agree";
   static const String done = "Done";
+  static const String send = 'Send';
+  static const String sendAddress = 'Enter the recipient address or scan QR code';
+  static const String sendTransferAmount = 'Enter the transfer amount';
+  static const String checkSummary = 'Check the summary';
+  static const String enterAddress = 'Enter address';
+  static const String enterAddressNotification =
+      'Please make sure the address matches the one provided by the recipient.';
+  static const String search = 'Search';
 
   // Create Pin Flow
   static const String createPin = 'Create a PIN';
   static const String createPinDisclaimer =
       'Please, don’t use the same numbers in a row. \nDon’t show your PIN to anyone.';
   static const String confirmPin = 'Type your PIN again';
-  static const String confirmPinDisclaimer = 'Confirm the PIN code repeating the combination\n of numbers.';
+  static const String confirmPinDisclaimer = 'Confirm the PIN code repeating the combination of numbers.';
 
   // Pin field
   static const String pinNotLongEnough = 'PIN must be at least 6 characters long.';

@@ -15,7 +15,7 @@ class AssetManagementScreen extends HookConsumerWidget {
   const AssetManagementScreen({
     Key key = assetManagementScreenKey,
   }) : super(key: key);
-
+  static const String route = '/asset_management';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // TODO SDK: Move up to a higher level widget

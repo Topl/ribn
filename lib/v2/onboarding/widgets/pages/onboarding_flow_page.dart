@@ -15,6 +15,7 @@ import 'package:ribn/v2/onboarding/widgets/pages/create_pin_page.dart';
 import 'package:ribn/v2/onboarding/widgets/pages/ready_recovery_phrase_page.dart';
 import 'package:ribn/v2/onboarding/widgets/pages/recovery_phrase_page.dart';
 import 'package:ribn/v2/shared/widgets/step_indicator.dart';
+import 'package:vrouter/vrouter.dart';
 
 class OnboardingFlowPage extends HookConsumerWidget {
   OnboardingFlowPage({
@@ -60,6 +61,7 @@ class OnboardingFlowPage extends HookConsumerWidget {
                   child: InkWell(
                       onTap: () {
                         notifier.finish();
+                        context.vRouter.to('/asset_management');
                       },
                       child: Align(
                           alignment: Alignment.center,
@@ -83,9 +85,6 @@ class OnboardingFlowPage extends HookConsumerWidget {
           physics: const NeverScrollableScrollPhysics(), // Disable swiping
           children: _pages,
         )),
-        // floatingActionButton: FloatingActionButton(onPressed: () {
-        //   BiometricsModal().showAsModal(context);
-        // }),
       ),
     );
   }
