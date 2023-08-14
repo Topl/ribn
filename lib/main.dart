@@ -10,6 +10,7 @@ import 'package:ribn/v1/constants/keys.dart';
 import 'package:ribn/v1/constants/routes.dart' as v1Routes;
 import 'package:ribn/v1/router/root_router.dart';
 import 'package:ribn/v2/onboarding/screens/welcome_screen.dart';
+import 'package:ribn/v2/receive_assets/screens/receive_asset_screen.dart';
 import 'package:ribn/v2/shared/constants/ui.dart';
 import 'package:ribn/v2/shared/providers/app_theme_provider.dart';
 import 'package:ribn/v2/shared/theme.dart';
@@ -61,14 +62,18 @@ class RibnApp extends HookConsumerWidget {
               path: WelcomePage().route,
               widget: WelcomePage(),
             ),
-
             // Any routes that require the user to be logged in should be nested in this VGuard
             VGuard(
               beforeEnter: (vRedirector) async {
                 // Before enter, check if the user is logged in
                 // If the user is not logged in, redirect them to the welcome page
               },
-              stackedRoutes: [],
+              stackedRoutes: [
+                VWidget(
+                  path: ReceiveAssets().route,
+                  widget: ReceiveAssets(),
+                ),
+              ],
             )
           ],
         ),
@@ -76,8 +81,6 @@ class RibnApp extends HookConsumerWidget {
     );
   }
 }
-
-
 
 // LEAVING THIS COMMENTED FOR NOW
 // This will be needed in the future

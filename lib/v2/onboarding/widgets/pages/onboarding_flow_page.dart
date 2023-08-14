@@ -42,45 +42,47 @@ class OnboardingFlowPage extends HookConsumerWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.grey),
-              onPressed: () {
-                notifier.navigate(context, reverse: true);
-              },
-            ),
-            actions: [
-              // Only show finalize  button when on last page
-              if (onboarding.pageIndex == _pageCount - 1)
-                Padding(
-                  padding: EdgeInsets.only(right: 20.0),
-                  child: InkWell(
-                      onTap: () {
-                        notifier.finish();
-                      },
-                      child: Align(
-                          alignment: Alignment.center,
-                          child: Text(Strings.done, style: RibnTextStyle.h3.copyWith(color: RibnColors.secondary)))),
-                ),
-            ],
-            centerTitle: true,
-            title: Container(
-              padding: const EdgeInsets.fromLTRB(40, 5, 80, 5),
-              height: 20,
-              child: StepIndicator(
-                currentStep: onboarding.pageIndex,
-                totalSteps: 5,
-                currentIndicatorColor: RibnColors.primary,
-                indicatorColor: RibnColors.grey,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.grey),
+            onPressed: () {
+              notifier.navigate(context, reverse: true);
+            },
+          ),
+          actions: [
+            // Only show finalize  button when on last page
+            if (onboarding.pageIndex == _pageCount - 1)
+              Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: InkWell(
+                    onTap: () {
+                      notifier.finish();
+                    },
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: Text(Strings.done, style: RibnTextStyle.h3.copyWith(color: RibnColors.secondary)))),
               ),
-            )),
+          ],
+          centerTitle: true,
+          title: Container(
+            padding: const EdgeInsets.fromLTRB(40, 5, 80, 5),
+            height: 20,
+            child: StepIndicator(
+              currentStep: onboarding.pageIndex,
+              totalSteps: _pageCount,
+              currentIndicatorColor: RibnColors.primary,
+              indicatorColor: RibnColors.grey,
+            ),
+          ),
+        ),
         body: Center(
-            child: PageView(
-          controller: notifier.pageController,
-          physics: const NeverScrollableScrollPhysics(), // Disable swiping
-          children: _pages,
-        )),
+          child: PageView(
+            controller: notifier.pageController,
+            physics: const NeverScrollableScrollPhysics(), // Disable swiping
+            children: _pages,
+          ),
+        ),
         // floatingActionButton: FloatingActionButton(onPressed: () {
         //   BiometricsModal().showAsModal(context);
         // }),
