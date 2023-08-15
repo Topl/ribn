@@ -16,4 +16,5 @@ class Assets {
   static const polygonIcon = 'assets/v2/icons/polygon_icon.svg';
   static const ethereumIcon = 'assets/v2/icons/ethereum_icon.svg';
   static const bitcoinIcon = 'assets/v2/icons/bitcoin_icon.svg';
+  static const walletAccess = 'assets/v2/icons/wallet_access.svg';
 }
