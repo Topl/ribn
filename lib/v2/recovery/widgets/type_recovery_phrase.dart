@@ -5,12 +5,15 @@ import 'package:ribn/v2/recovery/widgets/recover_input.dart';
 import 'package:ribn/v2/shared/theme.dart';
 
 import '../../../v1/constants/strings.dart';
+import '../../shared/utils/utils.dart';
 
 class TypeRecoveryPhrase extends HookConsumerWidget {
   const TypeRecoveryPhrase({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final numbers = shuffle(List.generate(16, (index) => index + 1));
+    print(numbers);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -37,13 +40,12 @@ class TypeRecoveryPhrase extends HookConsumerWidget {
               mainAxisSpacing: 10,
               crossAxisSpacing: 20,
               // Generate 100 widgets that display their index in the List.
-              children: List.generate(
-                16,
-                (index) {
-                  return RecoveryInput(
-                    index: index,
-                  );
-                },
+              children: List.of(
+                numbers.map(
+                  (entry) => RecoveryInput(
+                    index: entry,
+                  ),
+                ),
               ),
             ),
           )
