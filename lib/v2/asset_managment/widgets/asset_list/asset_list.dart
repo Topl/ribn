@@ -110,6 +110,28 @@ class AssetList extends HookConsumerWidget {
                     style: RibnTextStyle.h3,
                   ),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                      minimumSize: Size.fromHeight(40),
+                      side: BorderSide(
+                        color: RibnColors.grey,
+                        width: 1,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      padding: EdgeInsets.all(15)),
+                  onPressed: () {
+                    context.vRouter.to('/activity');
+                  },
+                  child: Text(
+                    'New Activity Design',
+                    style: RibnTextStyle.h3,
+                  ),
+                ),
               ],
             );
           },

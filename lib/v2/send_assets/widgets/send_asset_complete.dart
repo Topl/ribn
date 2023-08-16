@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/v2/send_assets/providers/send_asset_provider.dart';
 import 'package:ribn/v2/shared/theme.dart';
+import 'package:vrouter/vrouter.dart';
 
 class SendAssetCompleteScreen extends HookConsumerWidget {
   SendAssetCompleteScreen({
@@ -88,6 +89,7 @@ class SendAssetCompleteScreen extends HookConsumerWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
+                    context.vRouter.to('/asset_management');
                     notifier.finish();
                   },
                   child: const Text(
