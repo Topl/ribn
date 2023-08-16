@@ -73,7 +73,11 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
   /// // Navigate to the previous page in the PageView
   /// navigate(reverse: true);
   /// ```
-  bool navigate(BuildContext context, {reverse = false, int? index}) {
+  bool navigate(
+    BuildContext context, {
+    reverse = false,
+    int? index,
+  }) {
     assert(pageController.page != null);
     try {
       int goToIndex = 0;
@@ -82,7 +86,6 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
       } else {
         // Goes to the next page, goes to previous page if reverse is true
         goToIndex = pageController.page!.toInt() + (reverse ? -1 : 1);
-        print("went to $goToIndex");
       }
 
       // catch out of bounds, return true for [WillPopScope] to handle
@@ -118,8 +121,8 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
     );
   }
 
-  setPassword(password) => state = state.copyWith(
-        password: password,
+  void setPin(pin) => state = state.copyWith(
+        pin: pin,
       );
 
   Future<void> setBiometrics() async {

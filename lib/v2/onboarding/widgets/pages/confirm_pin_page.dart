@@ -60,7 +60,7 @@ class ConfirmPinPage extends HookConsumerWidget {
                 }
 
                 // Check if pin matches the one created
-                if (input != onboarding.password) {
+                if (input != onboarding.pin) {
                   isPinValid.value = false;
                   return Strings.incorrectPin;
                 }
@@ -71,7 +71,7 @@ class ConfirmPinPage extends HookConsumerWidget {
               },
               onCompleted: (value) async {
                 if (isPinValid.value) {
-                  ref.read(onboardingProvider.notifier).setPassword(value);
+                  ref.read(onboardingProvider.notifier).setPin(value);
                   focusNode.unfocus(); //unfocus the pin input
                   notifier.navigate(context);
                 }

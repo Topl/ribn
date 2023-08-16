@@ -7,7 +7,7 @@ part 'onboarding_state.freezed.dart';
 class OnboardingState with _$OnboardingState {
   const factory OnboardingState({
     /// True if biometrics authentication is enabled for login
-    @Default("") String password,
+    @Default("") String pin,
     @Default(false) bool biometricsEnrolled,
     @Default([]) List<String> recoveryPhrase,
     @Default(0) int pageIndex,

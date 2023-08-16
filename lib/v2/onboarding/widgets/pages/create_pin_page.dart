@@ -64,7 +64,7 @@ class CreatePinPage extends HookConsumerWidget {
                 // if the pin is not valid, return
                 if (!isPinValid.value) return;
 
-                ref.read(onboardingProvider.notifier).setPassword(value);
+                ref.read(onboardingProvider.notifier).setPin(value);
                 focusNode.unfocus(); //unfocus the pin input
                 notifier.navigate(context);
               },
