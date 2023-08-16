@@ -2,20 +2,20 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../models/receive_assets_state.dart';
+import '../models/stepper_screen_state.dart';
 
-final receiveAssetsProvider = StateNotifierProvider<ReceiveAssetsNotifier, ReceiveAssetsState>((ref) {
-  return ReceiveAssetsNotifier(ref);
+final stepperScreenProvider = StateNotifierProvider<StepperScreenNotifier, StepperScreenState>((ref) {
+  return StepperScreenNotifier(ref);
 });
 
-class ReceiveAssetsNotifier extends StateNotifier<ReceiveAssetsState> {
+class StepperScreenNotifier extends StateNotifier<StepperScreenState> {
   final Ref ref;
   final pageController = PageController(initialPage: 0);
 
-  ReceiveAssetsNotifier(this.ref) : super(_initializeReceiveAssetsState(ref)) {}
+  StepperScreenNotifier(this.ref) : super(_initializeStepperScreenState(ref)) {}
 
-  static ReceiveAssetsState _initializeReceiveAssetsState(ref) {
-    return ReceiveAssetsState();
+  static StepperScreenState _initializeStepperScreenState(ref) {
+    return StepperScreenState();
   }
 
   /// Navigates to a different page in the [PageView].

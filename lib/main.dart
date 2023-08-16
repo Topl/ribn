@@ -63,10 +63,7 @@ class RibnApp extends HookConsumerWidget {
               path: WelcomePage().route,
               widget: WelcomePage(),
             ),
-            VWidget(
-              path: ReceiveAssets().route,
-              widget: ReceiveAssets(),
-            ),
+
             VWidget(
               path: OnboardingFlowPage().route,
               widget: OnboardingFlowPage(),
@@ -77,7 +74,12 @@ class RibnApp extends HookConsumerWidget {
                 // Before enter, check if the user is logged in
                 // If the user is not logged in, redirect them to the welcome page
               },
-              stackedRoutes: [],
+              stackedRoutes: [
+                VWidget(
+                  path: ReceiveAssets().route,
+                  widget: ReceiveAssets(),
+                ),
+              ],
             )
           ],
         ),
