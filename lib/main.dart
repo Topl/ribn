@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -16,10 +17,13 @@ import 'package:ribn/v2/shared/constants/ui.dart';
 import 'package:ribn/v2/shared/providers/app_theme_provider.dart';
 import 'package:ribn/v2/shared/theme.dart';
 import 'package:ribn/v2/shared/widgets/vnester/screen_scaffold.dart';
+import 'package:ribn/v2/user/models/user.dart';
+import 'package:ribn/v2/user/providers/user_provider.dart';
 import 'package:vrouter/vrouter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
 
   // final AppViews currentAppView = await PlatformUtils.instance.getCurrentAppView();
 
@@ -72,6 +76,10 @@ class RibnApp extends HookConsumerWidget {
               beforeEnter: (vRedirector) async {
                 // Before enter, check if the user is logged in
                 // If the user is not logged in, redirect them to the welcome page
+                final User? user = ref.read(userProvider);
+                if (user == null) {
+                  vRedirector.to(WelcomePage().route);
+                }
               },
               stackedRoutes: [
                 VWidget(

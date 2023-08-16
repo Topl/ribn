@@ -9,6 +9,8 @@ import 'package:ribn/v2/shared/constants/strings.dart';
 import 'package:ribn/v2/shared/extensions/build_context_extensions.dart';
 import 'package:ribn/v2/shared/widgets/icon_button_text.dart';
 
+/// QQQQ move to /widgets folder
+
 /// A widget that displays the recovery phrase and allows it to be copied to the clipboard.
 class RecoveryPhraseDisplayWidget extends StatelessWidget {
   /// Creates a RecoveryPhraseDisplayWidget.

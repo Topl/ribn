@@ -17,6 +17,8 @@ import 'package:ribn/v2/onboarding/widgets/pages/recovery_phrase_page.dart';
 import 'package:ribn/v2/shared/extensions/screen_hook_widget.dart';
 import 'package:ribn/v2/shared/widgets/step_indicator.dart';
 
+/// QQQQ move to screens widget and rename to OnboardingScreen
+
 class OnboardingFlowPage extends ScreenConsumerWidget {
   OnboardingFlowPage({
     Key? key,
