@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/v2/activity/widgets/activity_transaction.dart';
 
 // Project imports:
 import 'package:ribn/v2/shared/constants/colors.dart';
@@ -16,7 +17,29 @@ class ActivityScreen extends ScreenConsumerWidget {
   const ActivityScreen({
     Key key = assetManagementScreenKey,
   }) : super(key: key, route: '/activity');
-
+  static const activityData = [
+    {
+      'transactionName': 'Topl transaction',
+      'transactionDate': 'Received at 6:24 pm',
+      'transactionLVLAmount': '+6,460',
+      'transactionUSDAmount': '+123,23',
+      'transactionType': 'received'
+    },
+    {
+      'transactionName': 'Fees',
+      'transactionDate': 'Fees at 6:24 pm',
+      'transactionLVLAmount': '-0.00089',
+      'transactionUSDAmount': '-1,49',
+      'transactionType': 'fees'
+    },
+    {
+      'transactionName': 'Ethereum',
+      'transactionDate': 'Sent at 11:04 pm',
+      'transactionLVLAmount': '-0.00089',
+      'transactionUSDAmount': '-147.24',
+      'transactionType': 'sent'
+    },
+  ];
   Widget build(BuildContext context, WidgetRef ref) {
     // TODO SDK: Move up to a higher level widget
     ref.watch(loadedAssetsProvider);
@@ -26,112 +49,79 @@ class ActivityScreen extends ScreenConsumerWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        context.vRouter.historyBack();
-                      },
-                      icon: SvgPicture.asset('assets/v2/icons/icon-filter.svg')),
-                ],
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Activity',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontFamily: 'Rational Display',
-                  height: 32 / 24,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              SizedBox(height: 16),
-              Text('Today, 03/17/2023'),
-              SizedBox(height: 16),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                              color: Color(0xFFE2E3E3),
-                            ),
-                          ),
-                          child: IconButton(
-                            icon: SvgPicture.asset('assets/v2/icons/topl-lvl.svg'),
-                            onPressed: () {},
-                          ),
-                        ),
-                        SizedBox(width: 16),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Topl Transaction',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'Rational Display',
-                                color: Colors.black,
-                                height: 20 / 16,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 4.0),
-                              child: Text(
-                                'Received at 6:24 pm',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: 'Rational Display',
-                                  height: 20 / 16,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                          Text(
-                            '+6,460 LVL',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: 'Rational Display',
-                              height: 20 / 16,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 4.0),
-                            child: Text(
-                              '+123,25 USD',
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontFamily: 'Rational Display',
-                                height: 20 / 16,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ])
-                      ],
-                    ),
+                    IconButton(
+                        onPressed: () {
+                          context.vRouter.historyBack();
+                        },
+                        iconSize: 24,
+                        icon: SvgPicture.asset('assets/v2/icons/icon-filter.svg')),
                   ],
                 ),
-              ),
-            ],
+                SizedBox(height: 20),
+                Text(
+                  'Activity',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontFamily: 'Rational Display',
+                    height: 32 / 24,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text('Today, 03/17/2023'),
+                SizedBox(height: 16),
+                ...activityData.map((e) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: ActivityTransaction(
+                      transactionName: e['transactionName']!,
+                      transactionDateTime: e['transactionDate']!,
+                      transactionAmountLVL: e['transactionLVLAmount']!,
+                      transactionAmountUSD: e['transactionUSDAmount']!,
+                      transactionType: e['transactionType']!,
+                    ),
+                  );
+                }).toList(),
+                SizedBox(height: 16),
+                Text('Yesterday, 03/16/2023'),
+                SizedBox(height: 16),
+                ...activityData.map((e) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: ActivityTransaction(
+                      transactionName: e['transactionName']!,
+                      transactionDateTime: e['transactionDate']!,
+                      transactionAmountLVL: e['transactionLVLAmount']!,
+                      transactionAmountUSD: e['transactionUSDAmount']!,
+                      transactionType: e['transactionType']!,
+                    ),
+                  );
+                }).toList(),
+                SizedBox(height: 16),
+                Text('03/14/2023'),
+                SizedBox(height: 16),
+                ...activityData.map((e) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: ActivityTransaction(
+                      transactionName: e['transactionName']!,
+                      transactionDateTime: e['transactionDate']!,
+                      transactionAmountLVL: e['transactionLVLAmount']!,
+                      transactionAmountUSD: e['transactionUSDAmount']!,
+                      transactionType: e['transactionType']!,
+                    ),
+                  );
+                }).toList(),
+              ],
+            ),
           ),
         ),
       ),

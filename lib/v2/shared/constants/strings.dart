@@ -29,7 +29,14 @@ class Strings {
   static const String enterAddressNotification =
       'Please make sure the address matches the one provided by the recipient.';
   static const String search = 'Search';
-
+// Activity
+  static const String activity = 'Activity';
+  static const String activityReceived = 'Received';
+  static const String activitySent = 'Sent';
+  static const String activityFees = 'Fees';
+  static const String currencyLVL = 'LVL';
+  static const String currencyUSD = 'USD';
+  static const String currencyETH = 'ETH';
   // Create Pin Flow
   static const String createPin = 'Create a PIN';
   static const String createPinDisclaimer =

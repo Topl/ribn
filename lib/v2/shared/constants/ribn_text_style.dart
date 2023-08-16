@@ -119,14 +119,13 @@ class RibnTextStyle {
     fontFamily: 'Rational Display',
     fontSize: 12,
   );
-//
-// static const TextStyle smallBody = TextStyle(
-//   color: RibnColors.defaultText,
-//   fontWeight: FontWeight.w300,
-//   fontFamily: 'Rational Display',
-//   fontSize: 12.0,
-//   decoration: TextDecoration.none,
-// );
+
+  static const TextStyle smallBody = TextStyle(
+    color: RibnColors.defaultText,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Rational Display',
+    fontSize: 12,
+  );
 //
 // static const TextStyle settingsSmallText = TextStyle(
 //   fontSize: 9.3,
@@ -258,11 +257,11 @@ class RibnTextStyle {
 //   wordSpacing: 1,
 // );
 //
-// static const TextStyle bodyRegular = TextStyle(
-//   fontFamily: 'Rational Display',
-//   fontSize: 14,
-//   fontWeight: FontWeight.w400,
-// );
+  // static const TextStyle bodyRegular = TextStyle(
+  //   fontFamily: 'Rational Display',
+  //   fontSize: 14,
+  //   fontWeight: FontWeight.w400,
+  // );
 //
 // static const TextStyle bodyRegularMedium = TextStyle(
 //   fontFamily: 'Rational Display',
@@ -270,11 +269,11 @@ class RibnTextStyle {
 //   fontWeight: FontWeight.w500,
 // );
 //
-// static const TextStyle bodyRegularBold = TextStyle(
-//   fontFamily: 'Rational Display',
-//   fontSize: 14,
-//   fontWeight: FontWeight.w700,
-// );
+  static const TextStyle bodyRegularBold = TextStyle(
+    fontFamily: 'Rational Display',
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
 //
 // static const TextStyle bodyRegularSpacedOut = TextStyle(
 //   fontFamily: 'Rational Display',
@@ -283,11 +282,12 @@ class RibnTextStyle {
 //   wordSpacing: 1,
 // );
 //
-// static const TextStyle bodyLarge = TextStyle(
-//   fontFamily: 'Rational Display',
-//   fontSize: 16,
-//   fontWeight: FontWeight.w400,
-// );
+  static const TextStyle bodyLarge = TextStyle(
+    fontFamily: 'Rational Display',
+    fontSize: 16,
+    color: RibnColors.layerTitleText,
+    fontWeight: FontWeight.w500,
+  );
 //
 // static const TextStyle bodyLargeMedium = TextStyle(
 //   fontFamily: 'Rational Display',
