@@ -65,7 +65,6 @@ dependencies:
   local_auth: ^2.0.0
   file_picker: ^4.3.3
   path_provider: ^2.0.9
-  flutter_secure_storage: ^7.0.1
   app_settings: ^5.0.0
 
   #V2 UI
@@ -86,6 +85,8 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   flutter_secure_storage: ^8.0.0
+  encrypt: ^5.0.1
+  crypto: ^3.0.3
 
 dev_dependencies:
   flutter_test:
