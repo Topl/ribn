@@ -14,9 +14,6 @@ import 'package:ribn/v2/shared/extensions/widget_extensions.dart';
 import 'package:ribn/v2/onboarding/widgets/modals/onboarding_modal.dart';
 import 'package:ribn/v2/shared/widgets/ribn_button.dart';
 
-import '../../../v1/constants/keys.dart';
-import '../../../v1/constants/routes.dart';
-
 class WelcomePage extends ScreenConsumerWidget {
   static const welcomePageKey = Key('welcomePageKey');
   static const welcomePageCreateButtonKey = Key('welcomePageCreateButtonKey');
@@ -55,15 +52,19 @@ class WelcomePage extends ScreenConsumerWidget {
               },
             ),
             Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                    key: welcomePageImportButtonKey,
-                    onPressed: () => {},
-                    child: Text("Import Wallet",
-                        style: RibnTextStyle.buttonMedium.copyWith(
-                          color: RibnColors.defaultText,
-                          fontWeight: FontWeight.w500,
-                        )))),
+              alignment: Alignment.centerLeft,
+              child: TextButton(
+                key: welcomePageImportButtonKey,
+                onPressed: () => {},
+                child: Text(
+                  "Import Wallet",
+                  style: RibnTextStyle.buttonMedium.copyWith(
+                    color: RibnColors.defaultText,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

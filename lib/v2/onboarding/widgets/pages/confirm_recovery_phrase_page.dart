@@ -15,6 +15,8 @@ class ConfirmRecoveryPhrasePage extends HookConsumerWidget {
     Key? key,
   }) : super(key: key);
 
+  // TODO: Should follow to CongratulationSeedPhrase when complete
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(

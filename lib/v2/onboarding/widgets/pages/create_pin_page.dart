@@ -8,6 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 // Project imports:
 import 'package:ribn/v2/shared/constants/strings.dart';
 import 'package:ribn/v2/onboarding/providers/onboarding_provider.dart';
+import 'package:ribn/v2/shared/providers/stepper_screen_provider.dart';
 import 'package:ribn/v2/shared/theme.dart';
 import 'package:ribn/v2/shared/widgets/pin_input.dart';
 
@@ -22,7 +23,7 @@ class CreatePinPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.watch(onboardingProvider.notifier);
-
+    final stepperNotifier = ref.watch(stepperScreenProvider.notifier);
     final focusNode = useFocusNode();
     final isPinValid = useState(false);
 
@@ -66,7 +67,7 @@ class CreatePinPage extends HookConsumerWidget {
 
                 ref.read(onboardingProvider.notifier).setPassword(value);
                 focusNode.unfocus(); //unfocus the pin input
-                notifier.navigate(context);
+                stepperNotifier.navigateToPage(context);
               },
             ),
           )

@@ -107,7 +107,6 @@ class OnboardingModal extends HookConsumerWidget {
                     text: Strings.iAgree,
                     key: onboardingModalAgreeKey,
                     onPressed: () {
-                      //TODO: Add Navigation
                       context.vRouter.to('/onboarding');
                     },
                   ),

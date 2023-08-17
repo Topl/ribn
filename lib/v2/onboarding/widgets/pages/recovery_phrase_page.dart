@@ -12,6 +12,8 @@ import 'package:ribn/v2/onboarding/providers/onboarding_provider.dart';
 import 'package:ribn/v2/onboarding/widgets/recovery_phrase_display_widget.dart';
 import 'package:ribn/v2/shared/widgets/ribn_button.dart';
 
+import '../../../shared/providers/stepper_screen_provider.dart';
+
 class RecoveryPhrasePage extends HookConsumerWidget {
   const RecoveryPhrasePage({
     Key? key,
@@ -20,7 +22,7 @@ class RecoveryPhrasePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final onboarding = ref.watch(onboardingProvider);
-    final notifier = ref.watch(onboardingProvider.notifier);
+    final stepperNotifier = ref.watch(stepperScreenProvider.notifier);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -40,12 +42,14 @@ class RecoveryPhrasePage extends HookConsumerWidget {
             RecoveryPhraseDisplayWidget(onboarding.recoveryPhrase),
             SizedBox(height: 10),
             Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40),
-                child: RibnButton(
-                    text: Strings.setRecoveryPhrase,
-                    onPressed: () {
-                      notifier.navigate(context);
-                    }))
+              padding: const EdgeInsets.symmetric(vertical: 40),
+              child: RibnButton(
+                text: Strings.setRecoveryPhrase,
+                onPressed: () {
+                  stepperNotifier.navigateToPage(context);
+                },
+              ),
+            )
           ],
         ),
       ),
