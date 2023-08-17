@@ -1,82 +1,54 @@
-import 'dart:convert';
-import 'dart:math';
-import 'dart:typed_data';
-import 'package:crypto/crypto.dart';
-import 'package:flutter/foundation.dart' as foundation;
-
 import 'package:encrypt/encrypt.dart';
 
-/// For encryption of filepaths and mnemonics
-String encryptString({
-  required String input,
-  required String dek,
-}) {
-  final key = Key.fromBase64(stringSha256(dek));
-  final encrypter = Encrypter(AES(key));
-  final iv = IV.fromBase64(base64Encode(random16Bytes()));
-  final calculatedHmac = fromBase64(stringSha256(input));
-  final encrypted = encrypter.encryptBytes(input.codeUnits + calculatedHmac, iv: iv).bytes;
-  return toBase64(Uint8List.fromList(encrypted + iv.bytes));
-}
+class EncryptionService {
+  static const ivLength = 16;
 
-/// Returns null if fails to decrypt
-String? decryptString({
-  required String base64CipherText,
-  required String dek,
-}) {
-  final key = Key.fromBase64(stringSha256(dek));
-  final encrypter = Encrypter(AES(key));
-  final encryptedFilepath = fromBase64(base64CipherText);
-  if (encryptedFilepath.length > 48) {
-    final providedIvBytes = encryptedFilepath.sublist(encryptedFilepath.length - 16);
-    final providedIv = IV.fromBase64(toBase64(providedIvBytes));
-    final encrypted = Encrypted(encryptedFilepath.sublist(0, encryptedFilepath.length - 16));
-    List<int> decrypted = [];
-    try {
-      decrypted = encrypter.decryptBytes(encrypted, iv: providedIv);
-    } on ArgumentError catch (e) {
-      //print("Failed to decrypt under new method: ${e}");
-    }
-    if (decrypted.length > 32) {
-      final assumedHmac = decrypted.sublist(decrypted.length - 32);
-      final remainder = decrypted.sublist(0, decrypted.length - 32);
-      final calculatedHmac = bytesSha256(Uint8List.fromList(remainder));
-      if (foundation.listEquals(calculatedHmac, assumedHmac)) {
-        return String.fromCharCodes(remainder);
-      }
-    }
+  /// For encryption of filepaths and mnemonics
+  String encryptString({
+    required String value,
+    required String key,
+  }) {
+    final paddedKey = padKey(key);
+    final encryptionKey = Key.fromUtf8(paddedKey);
+    final encrypter = Encrypter(AES(encryptionKey));
+    final iv = getIV();
+    final Encrypted encrypted = encrypter.encrypt(value, iv: iv);
+
+    // Append IV to encrypted string
+    final encryptedString = encrypted.base64 + iv.base64;
+
+    return encryptedString;
   }
-}
 
-/// Returns base64 encoded string
-String stringSha256(String input) {
-  final hash = sha256.convert(Uint8List.fromList(input.codeUnits)).bytes;
-  return toBase64(Uint8List.fromList(hash));
-}
+  /// Returns null if fails to decrypt
+  String? decryptString({
+    required String encryptedValue,
+    required String key,
+  }) {
+    final paddedKey = padKey(key);
+    final encryptionKey = Key.fromUtf8(paddedKey);
+    final encrypter = Encrypter(AES(encryptionKey));
 
-/// Encode raw bytes to a Base64 String
-String toBase64(Uint8List hash) {
-  return base64.encode(hash);
-}
+    // Get IV from encrypted string
+    final iv = IV.fromBase64(encryptedValue.substring(encryptedValue.length - (ivLength + 8)));
 
-Uint8List fromBase64(String encoded) {
-  return base64.decode(encoded);
-}
+    final encryptedString = encryptedValue.substring(0, encryptedValue.length - (ivLength + 8));
 
-String toBase58(Uint8List hash) {
-  return base58encode(hash.toList());
-}
-
-Uint8List random16Bytes() {
-  final random = Random.secure();
-  final builder = BytesBuilder();
-  for (var i = 0; i < 16; ++i) {
-    builder.addByte(random.nextInt(256));
+    final encryption = Encrypted.fromBase64(encryptedString);
+    final decrypted = encrypter.decrypt(encryption, iv: iv);
+    return decrypted;
   }
-  return builder.toBytes();
-}
 
-/// Runs SHA256 algorithm on raw bytes
-Uint8List bytesSha256(Uint8List byteList) {
-  return Uint8List.fromList(sha256.convert(byteList).bytes);
+  /// Initialization Vector
+
+  IV getIV() {
+    final secureRandom = SecureRandom(ivLength).base64;
+    final iv = IV.fromBase64(secureRandom);
+    return iv;
+  }
+
+  String padKey(String key) {
+    final requiredLength = 32;
+    return key.padRight(requiredLength, '0');
+  }
 }

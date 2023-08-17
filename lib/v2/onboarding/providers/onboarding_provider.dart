@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:bip_topl/bip_topl.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/v2/onboarding/constants/constants.dart';
+import 'package:ribn/v2/onboarding/models/confirm_recovery_phrase_model.dart';
 
 // Project imports:
 import 'package:ribn/v2/onboarding/models/onboarding_state.dart';
@@ -119,6 +121,18 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
     state = state.copyWith(
       recoveryPhrase: onboardingState.recoveryPhrase,
     );
+  }
+
+  List<List<ConfirmRecoveryPhraseModel>> checkItWords() {
+    final List<Map<int, bool>> confirmRecoveryPhaseIndexes = [];
+
+    for (int i = 0; i < state.recoveryPhrase.length; i++) {
+      final Map<int, bool> confirmRecoveryPhaseIndex = {};
+      final correctIndex = Random().nextInt(3);
+
+      confirmRecoveryPhaseIndex[i] = false;
+      confirmRecoveryPhaseIndexes.add(confirmRecoveryPhaseIndex);
+    }
   }
 
   void setPin(pin) => state = state.copyWith(
