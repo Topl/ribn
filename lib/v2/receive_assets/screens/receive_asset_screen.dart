@@ -22,8 +22,8 @@ class ReceiveAssets extends ScreenConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return StepperScreen(
       pages: _pages,
-      executeOnDone: () {
-        print("done");
+      onDone: () {
+        print('done');
       },
     );
   }

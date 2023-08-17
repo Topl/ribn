@@ -44,7 +44,7 @@ class StepperScreenNotifier extends StateNotifier<StepperScreenState> {
   /// // Navigate to the previous page in the PageView
   /// navigate(reverse: true);
   /// ```
-  bool navigateToPage({int? index, bool reverse = false}) {
+  bool navigateToPage(context, {int? index, bool reverse = false}) {
     assert(pageController.page != null);
     try {
       int goToIndex = 0;

@@ -28,30 +28,33 @@ class ConfirmationSegmentedButton extends StatelessWidget {
           Text("Select Word #${index + 1}", style: RibnTextStyle.h3.copyWith(fontWeight: FontWeight.w500)),
           SizedBox(height: 10),
           SegmentedButton(
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0))),
-                backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.selected)) {
-                      return RibnColors.primary;
-                    }
-                    return RibnColors.background;
-                  },
-                ),
-                foregroundColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.selected)) {
-                      return RibnColors.whiteColor;
-                    }
-                    return RibnColors.greyText;
-                  },
-                ),
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0))),
+              backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.selected)) {
+                    return RibnColors.primary;
+                  }
+                  return RibnColors.background;
+                },
               ),
-              showSelectedIcon: false,
-              onSelectionChanged: (p0) => print(p0),
-              segments: words.map((e) => ButtonSegment<String>(value: e, label: Text(e))).toList(),
-              selected: <String>{selected}),
+              foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.selected)) {
+                    return RibnColors.whiteColor;
+                  }
+                  return RibnColors.greyText;
+                },
+              ),
+            ),
+            showSelectedIcon: false,
+            onSelectionChanged: (newSelection) {
+              print(newSelection);
+            },
+            segments: words.map((e) => ButtonSegment<String>(value: e, label: Text(e))).toList(),
+            selected: {selected},
+          ),
         ],
       ),
     );

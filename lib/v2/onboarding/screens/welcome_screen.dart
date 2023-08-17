@@ -51,7 +51,6 @@ class WelcomePage extends ScreenConsumerWidget {
               text: Strings.createWallet,
               onPressed: () {
                 OnboardingModal().showAsModal(context);
-                // Keys.navigatorKey.currentState?.pushNamed(Routes.optIn);
               },
             ),
             Align(
