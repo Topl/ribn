@@ -21,6 +21,7 @@ class Strings {
   static const String noThanks = "No, thanks";
   static const String iAgree = "I agree";
   static const String done = "Done";
+  static const String next = "Next";
 
   // Create Pin Flow
   static const String createPin = 'Create a PIN';
@@ -81,4 +82,9 @@ class Strings {
   // Semantic Labels for Accessibility
   static const String semanticFingerprint = 'Fingerprint';
   static const String semanticCopy = 'Copy';
+
+  static const String createRibnWallet = "Congrats on creating your Ribn wallet!";
+  static const String createRibnWalletSub =
+      "You can now securely store, manage, and interact with your digital assets and DApps in the Topl ecosystem.";
+  static const String keepWalletSecure = "Keep your wallet secure to protect your assets.";
 }

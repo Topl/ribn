@@ -10,6 +10,8 @@ import 'package:ribn/v1/constants/keys.dart';
 import 'package:ribn/v1/constants/routes.dart' as v1Routes;
 import 'package:ribn/v1/router/root_router.dart';
 import 'package:ribn/v2/onboarding/screens/welcome_screen.dart';
+import 'package:ribn/v2/onboarding/widgets/pages/congratulations.dart';
+import 'package:ribn/v2/onboarding/widgets/pages/onboarding_flow_page.dart';
 import 'package:ribn/v2/receive_assets/screens/receive_asset_screen.dart';
 import 'package:ribn/v2/shared/constants/ui.dart';
 import 'package:ribn/v2/shared/providers/app_theme_provider.dart';
@@ -61,6 +63,15 @@ class RibnApp extends HookConsumerWidget {
             VWidget(
               path: WelcomePage().route,
               widget: WelcomePage(),
+            ),
+            VWidget(
+              path: OnboardingFlowPage().route,
+              widget: OnboardingFlowPage(),
+            ),
+
+            VWidget(
+              path: CongratulationSeedPhrase().route,
+              widget: CongratulationSeedPhrase(),
             ),
             // Any routes that require the user to be logged in should be nested in this VGuard
             VGuard(

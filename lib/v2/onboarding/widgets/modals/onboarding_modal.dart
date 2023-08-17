@@ -11,6 +11,7 @@ import 'package:ribn/v2/shared/constants/colors.dart';
 import 'package:ribn/v2/shared/constants/ribn_text_style.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
 import 'package:ribn/v2/shared/widgets/ribn_button.dart';
+import 'package:vrouter/vrouter.dart';
 
 class OnboardingModal extends HookConsumerWidget {
   static const onboardingModalAgreeKey = Key('onboardingModalAgreeKey');
@@ -89,13 +90,16 @@ class OnboardingModal extends HookConsumerWidget {
               children: [
                 Expanded(
                   child: TextButton(
-                      key: onboardingModalDisagreeKey,
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Text(Strings.noThanks,
-                          style: RibnTextStyle.buttonLarge.copyWith(
-                            color: RibnColors.defaultText,
-                            fontWeight: FontWeight.w400,
-                          ))),
+                    key: onboardingModalDisagreeKey,
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text(
+                      Strings.noThanks,
+                      style: RibnTextStyle.buttonLarge.copyWith(
+                        color: RibnColors.defaultText,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
                 ),
                 SizedBox(width: 20),
                 Expanded(
@@ -103,7 +107,7 @@ class OnboardingModal extends HookConsumerWidget {
                     text: Strings.iAgree,
                     key: onboardingModalAgreeKey,
                     onPressed: () {
-                      //TODO: Add Navigation
+                      context.vRouter.to('/onboarding');
                     },
                   ),
                 ),

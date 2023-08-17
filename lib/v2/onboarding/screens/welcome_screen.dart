@@ -49,19 +49,22 @@ class WelcomePage extends ScreenConsumerWidget {
               text: Strings.createWallet,
               onPressed: () {
                 OnboardingModal().showAsModal(context);
-                // Keys.navigatorKey.currentState?.pushNamed(Routes.optIn);
               },
             ),
             Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                    key: welcomePageImportButtonKey,
-                    onPressed: () => {},
-                    child: Text("Import Wallet",
-                        style: RibnTextStyle.buttonMedium.copyWith(
-                          color: RibnColors.defaultText,
-                          fontWeight: FontWeight.w500,
-                        )))),
+              alignment: Alignment.centerLeft,
+              child: TextButton(
+                key: welcomePageImportButtonKey,
+                onPressed: () => {},
+                child: Text(
+                  "Import Wallet",
+                  style: RibnTextStyle.buttonMedium.copyWith(
+                    color: RibnColors.defaultText,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

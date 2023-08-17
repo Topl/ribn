@@ -6,11 +6,12 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Project imports:
-import 'package:ribn/v2/shared/constants/colors.dart';
-import 'package:ribn/v2/shared/constants/ribn_text_style.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
 import 'package:ribn/v2/onboarding/providers/onboarding_provider.dart';
+import 'package:ribn/v2/shared/theme.dart';
 import 'package:ribn/v2/shared/widgets/pin_input.dart';
+
+import '../../../shared/providers/stepper_screen_provider.dart';
 
 /// A "Page" to allow the user to confirm a PIN for onboarding.
 /// This is intended to be used inside of a [PageView] widget.
@@ -24,6 +25,7 @@ class ConfirmPinPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final onboarding = ref.watch(onboardingProvider);
     final notifier = ref.watch(onboardingProvider.notifier);
+    final stepperNotifier = ref.watch(stepperScreenProvider.notifier);
 
     final focusNode = useFocusNode();
 
@@ -36,16 +38,16 @@ class ConfirmPinPage extends HookConsumerWidget {
         // mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(Strings.confirmPin,
-              textAlign: TextAlign.left,
-              style: RibnTextStyle.h2.copyWith(
-                  // color: RibnColors.lightGreyTitle,
-                  fontWeight: FontWeight.w700)),
+          Text(
+            Strings.confirmPin,
+            textAlign: TextAlign.left,
+            style: headlineLarge(context),
+          ),
           SizedBox(height: 20),
           Text(
             Strings.confirmPinDisclaimer,
             textAlign: TextAlign.left,
-            style: RibnTextStyle.h3.copyWith(color: RibnColors.greyText),
+            style: bodyMedium(context),
           ),
           SizedBox(height: 100),
           Center(
@@ -74,7 +76,7 @@ class ConfirmPinPage extends HookConsumerWidget {
                 if (isPinValid.value) {
                   ref.read(onboardingProvider.notifier).setPassword(value);
                   focusNode.unfocus(); //unfocus the pin input
-                  notifier.navigate(context);
+                  stepperNotifier.navigateToPage(context);
                 }
               },
             ),
