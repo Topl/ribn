@@ -11,16 +11,18 @@ class StepperScreen extends HookConsumerWidget {
   StepperScreen({
     Key? key,
     required this.pages,
+    required this.onDone,
   }) : super(key: key);
 
   final List<Widget> pages;
+  final Function onDone;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _pageCount = pages.length;
 
     final notifier = ref.watch(stepperScreenProvider.notifier);
-    final receiveAssets = ref.watch(stepperScreenProvider);
+    final stepperScreen = ref.watch(stepperScreenProvider);
     return WillPopScope(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -35,12 +37,13 @@ class StepperScreen extends HookConsumerWidget {
           ),
           actions: [
             // Only show finalize  button when on last page
-            if (receiveAssets.pageIndex == _pageCount - 1)
+            if (stepperScreen.pageIndex == _pageCount - 1)
               Padding(
                 padding: EdgeInsets.only(right: 20.0),
                 child: InkWell(
                   onTap: () {
                     notifier.finish();
+                    onDone();
                   },
                   child: Align(
                     alignment: Alignment.center,
@@ -57,7 +60,7 @@ class StepperScreen extends HookConsumerWidget {
             padding: const EdgeInsets.fromLTRB(40, 5, 80, 5),
             height: 20,
             child: StepIndicator(
-              currentStep: receiveAssets.pageIndex,
+              currentStep: stepperScreen.pageIndex,
               totalSteps: _pageCount,
               currentIndicatorColor: RibnColors.primary,
               indicatorColor: RibnColors.grey,

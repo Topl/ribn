@@ -9,7 +9,6 @@ import 'package:ribn/v2/shared/constants/colors.dart';
 import 'package:ribn/v2/shared/constants/ribn_text_style.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
 import 'package:ribn/v2/shared/extensions/build_context_extensions.dart';
-import 'package:ribn/v2/onboarding/providers/onboarding_provider.dart';
 import 'package:ribn/v2/shared/providers/stepper_screen_provider.dart';
 import 'package:ribn/v2/shared/widgets/ribn_button.dart';
 
@@ -24,7 +23,6 @@ class RecoveryPhraseDisclaimerModal extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(onboardingProvider.notifier);
     final stepperNotifier = ref.read(stepperScreenProvider.notifier);
 
     return Container(

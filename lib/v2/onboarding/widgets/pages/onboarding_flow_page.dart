@@ -12,6 +12,7 @@ import 'package:ribn/v2/onboarding/widgets/pages/ready_recovery_phrase_page.dart
 import 'package:ribn/v2/onboarding/widgets/pages/recovery_phrase_page.dart';
 import 'package:ribn/v2/shared/extensions/screen_hook_widget.dart';
 import 'package:ribn/v2/shared/widgets/stepper_screen.dart';
+import 'package:vrouter/vrouter.dart';
 
 class OnboardingFlowPage extends ScreenConsumerWidget {
   OnboardingFlowPage({
@@ -28,6 +29,12 @@ class OnboardingFlowPage extends ScreenConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return StepperScreen(pages: _pages);
+    return StepperScreen(
+      pages: _pages,
+      onDone: () {
+        print("clicked done");
+        context.vRouter.to('/seed-congratulation');
+      },
+    );
   }
 }

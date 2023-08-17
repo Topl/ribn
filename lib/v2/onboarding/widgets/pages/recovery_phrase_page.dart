@@ -22,7 +22,6 @@ class RecoveryPhrasePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final onboarding = ref.watch(onboardingProvider);
-    final notifier = ref.watch(onboardingProvider.notifier);
     final stepperNotifier = ref.watch(stepperScreenProvider.notifier);
 
     return Padding(
