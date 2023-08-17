@@ -22,7 +22,7 @@ class RestoreWalletScreen extends ScreenConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return StepperScreen(
       pages: _pages,
-      executeOnDone: () {
+      onDone: () {
         WalletAccessRestored().showAsModal(context);
       },
     );
