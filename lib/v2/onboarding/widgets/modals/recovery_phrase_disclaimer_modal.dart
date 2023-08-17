@@ -79,7 +79,6 @@ class RecoveryPhraseDisclaimerModal extends HookConsumerWidget {
           key: imReadyModalAgreeKey,
           onPressed: () {
             context.close();
-            print("clicked");
             stepperNotifier.navigateToPage(context);
           },
         ),
