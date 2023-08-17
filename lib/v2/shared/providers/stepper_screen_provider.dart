@@ -29,7 +29,7 @@ class StepperScreenNotifier extends StateNotifier<StepperScreenState> {
   ///
   /// If the result of navigation is out of the lower bounds for the page controller
   /// it will return [true] for [WillPopScope] to handle
-  bool navigateToPage({int? index, bool reverse = false}) {
+  bool navigateToPage(BuildContext context, {int? index, bool reverse = false}) {
     if (index != null) {
       pageController.animateToPage(
         index,
@@ -38,7 +38,6 @@ class StepperScreenNotifier extends StateNotifier<StepperScreenState> {
       );
       return false;
     }
-
     final currentPage = pageController.page;
     if (currentPage == null) {
       throw AssertionError('PageController.page is null');
@@ -54,13 +53,10 @@ class StepperScreenNotifier extends StateNotifier<StepperScreenState> {
       }
       return true;
     } else {
-      if (currentPage < 2) {
-        pageController.nextPage(
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-        );
-        return false;
-      }
+      pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
       return true;
     }
   }
