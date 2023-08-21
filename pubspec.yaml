@@ -76,10 +76,10 @@ dependencies:
     git:
       url: https://github.com/Topl/ribn-toolkit
       ref: 8121ad9 # Hash of 1.0 tag
-  brambldart:
+  brambl_dart:
     git:
       url: https://github.com/Topl/BramblDart
-      ref: 1f73931 # Hash of 1.0 tag
+      ref: tetra
   responsive_framework: ^1.1.0
   qr_flutter: ^4.1.0
   hive: ^2.2.3
@@ -88,8 +88,7 @@ dependencies:
   encrypt: ^5.0.1
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+
 
   # Code generation
   build_runner: ^2.4.6
