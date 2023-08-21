@@ -11,6 +11,8 @@ import 'package:ribn/v2/onboarding/providers/onboarding_provider.dart';
 import 'package:ribn/v2/shared/theme.dart';
 import 'package:ribn/v2/shared/widgets/pin_input.dart';
 
+import '../../../shared/providers/stepper_screen_provider.dart';
+
 /// A "Page" to allow the user to confirm a PIN for onboarding.
 /// This is intended to be used inside of a [PageView] widget.
 /// Does not provide scaffolding
@@ -23,6 +25,7 @@ class ConfirmPinPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final onboarding = ref.watch(onboardingProvider);
     final notifier = ref.watch(onboardingProvider.notifier);
+    final stepperNotifier = ref.watch(stepperScreenProvider.notifier);
 
     final focusNode = useFocusNode();
 
@@ -73,7 +76,7 @@ class ConfirmPinPage extends HookConsumerWidget {
                 if (isPinValid.value) {
                   ref.read(onboardingProvider.notifier).setPin(value);
                   focusNode.unfocus(); //unfocus the pin input
-                  notifier.navigate(context);
+                  stepperNotifier.navigateToPage(context);
                 }
               },
             ),

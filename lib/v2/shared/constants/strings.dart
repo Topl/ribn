@@ -82,4 +82,9 @@ class Strings {
   // Semantic Labels for Accessibility
   static const String semanticFingerprint = 'Fingerprint';
   static const String semanticCopy = 'Copy';
+
+  static const String createRibnWallet = "Congrats on creating your Ribn wallet!";
+  static const String createRibnWalletSub =
+      "You can now securely store, manage, and interact with your digital assets and DApps in the Topl ecosystem.";
+  static const String keepWalletSecure = "Keep your wallet secure to protect your assets.";
 }

@@ -29,39 +29,46 @@ class StepperScreenNotifier extends StateNotifier<StepperScreenState> {
   ///
   /// If the result of navigation is out of the lower bounds for the page controller
   /// it will return [true] for [WillPopScope] to handle
-  bool navigateToPage({int? index, bool reverse = false}) {
-    if (index != null) {
+  ///
+  /// If successful, animates the transition to the new page using [pageController.animateToPage].
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// // Navigate to the next page in the PageView
+  /// navigate();
+  ///
+  /// // Navigate to the third page in the PageView
+  /// navigate(index: 2);
+  ///
+  /// // Navigate to the previous page in the PageView
+  /// navigate(reverse: true);
+  /// ```
+  bool navigateToPage(context, {int? index, bool reverse = false}) {
+    assert(pageController.page != null);
+    try {
+      int goToIndex = 0;
+      if (index != null) {
+        goToIndex = index;
+      } else {
+        // Goes to the next page, goes to previous page if reverse is true
+        goToIndex = pageController.page!.toInt() + (reverse ? -1 : 1);
+        print("went to $goToIndex");
+      }
+
+      // catch out of bounds, return true for [WillPopScope] to handle
+      if (goToIndex < 0) return true;
+
+      state = state.copyWith(pageIndex: goToIndex);
       pageController.animateToPage(
-        index,
+        goToIndex,
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
+
       return false;
-    }
-
-    final currentPage = pageController.page;
-    if (currentPage == null) {
-      throw AssertionError('PageController.page is null');
-    }
-
-    if (reverse) {
-      if (currentPage > 0) {
-        pageController.previousPage(
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-        );
-        return false;
-      }
-      return true;
-    } else {
-      if (currentPage < 2) {
-        pageController.nextPage(
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-        );
-        return false;
-      }
-      return true;
+    } catch (e) {
+      return false;
     }
   }
 
