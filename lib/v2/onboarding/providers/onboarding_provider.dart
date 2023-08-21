@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:bip_topl/bip_topl.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ribn/v2/onboarding/constants/constants.dart';
 import 'package:ribn/v2/onboarding/models/confirm_recovery_phrase_model.dart';
 
 // Project imports:
@@ -123,16 +122,56 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
     );
   }
 
-  List<List<ConfirmRecoveryPhraseModel>> checkItWords() {
-    final List<Map<int, bool>> confirmRecoveryPhaseIndexes = [];
+  /// Returns a map of recovery phrase indexes and corresponding lists of confirm recovery phrase models.
+  ///
+  /// The function generates a map of recovery phrase indexes and corresponding lists of confirm recovery phrase models.
+  /// Each list contains one correct recovery phrase and two incorrect recovery phrases.
+  /// The correct recovery phrase is selected from the recovery phrase list at the index specified in the `wordIndexes` list.
+  /// The two incorrect recovery phrases are randomly selected from the remaining recovery phrases.
+  /// The function shuffles the list of confirm recovery phrase models before adding it to the map.
+  ///
+  /// Example usage:
+  ///
+  /// ```dart
+  /// final onboardingProvider = OnboardingProvider();
+  /// final confirmRecoveryPhrases = onboardingProvider.checkItWords();
+  /// ```
+  Map<int, List<ConfirmRecoveryPhraseModel>> checkItWords() {
+    const wordIndexes = [11, 2, 0, 7];
 
-    for (int i = 0; i < state.recoveryPhrase.length; i++) {
-      final Map<int, bool> confirmRecoveryPhaseIndex = {};
-      final correctIndex = Random().nextInt(3);
+    final Map<int, List<ConfirmRecoveryPhraseModel>> confirmRecoveryPhaseIndexes = {};
+    for (int i = 0; i < wordIndexes.length; i++) {
+      final List<ConfirmRecoveryPhraseModel> phrases = [];
+      final recoveryWords = [...state.recoveryPhrase];
 
-      confirmRecoveryPhaseIndex[i] = false;
-      confirmRecoveryPhaseIndexes.add(confirmRecoveryPhaseIndex);
+      final correctWord = recoveryWords[wordIndexes[i]];
+
+      phrases.add(ConfirmRecoveryPhraseModel(
+        phraseString: correctWord,
+        isCorrect: true,
+      ));
+
+      recoveryWords.remove(correctWord);
+
+      // Generate a list of 2 other words that are incorrect
+      final List<String> incorrectWords = [];
+      for (int j = 0; j < 2; j++) {
+        final randomWord = recoveryWords[Random().nextInt(recoveryWords.length)];
+        phrases.add(ConfirmRecoveryPhraseModel(
+          phraseString: randomWord,
+          isCorrect: false,
+        ));
+        incorrectWords.add(randomWord);
+        recoveryWords.remove(randomWord);
+      }
+
+      // Shuffle the list of phrases
+      phrases.shuffle();
+
+      confirmRecoveryPhaseIndexes[wordIndexes[i]] = phrases;
     }
+
+    return confirmRecoveryPhaseIndexes;
   }
 
   void setPin(pin) => state = state.copyWith(

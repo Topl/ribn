@@ -7,13 +7,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 // Project imports:
-import 'package:ribn/v1/constants/keys.dart';
-import 'package:ribn/v1/constants/routes.dart' as v1Routes;
-import 'package:ribn/v1/router/root_router.dart';
 import 'package:ribn/v2/onboarding/screens/welcome_screen.dart';
 import 'package:ribn/v2/onboarding/widgets/pages/congratulations.dart';
 import 'package:ribn/v2/onboarding/widgets/pages/onboarding_flow_page.dart';
 import 'package:ribn/v2/receive_assets/screens/receive_asset_screen.dart';
+import 'package:ribn/v2/shared/constants/keys.dart';
 import 'package:ribn/v2/shared/constants/ui.dart';
 import 'package:ribn/v2/shared/providers/app_theme_provider.dart';
 import 'package:ribn/v2/shared/theme.dart';
@@ -43,8 +41,6 @@ void main() async {
 }
 
 class RibnApp extends HookConsumerWidget {
-  final RootRouter rootRouter = RootRouter();
-
   RibnApp({Key? key}) : super(key: key);
 
   @override
@@ -55,7 +51,7 @@ class RibnApp extends HookConsumerWidget {
       theme: lightTheme(context: context),
       darkTheme: darkTheme(context: context),
       themeMode: ref.watch(appThemeColorProvider),
-      navigatorObservers: [v1Routes.Routes.routeObserver],
+      navigatorObservers: [],
       navigatorKey: Keys.navigatorKey,
       initialUrl: WelcomePage().route,
       routes: [

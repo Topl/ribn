@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/v2/onboarding/providers/onboarding_provider.dart';
 
 // Project imports:
 import 'package:ribn/v2/shared/constants/colors.dart';
@@ -19,6 +20,7 @@ class ConfirmRecoveryPhrasePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final checkItWords = ref.watch(onboardingProvider.notifier).checkItWords();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: SingleChildScrollView(
@@ -33,26 +35,13 @@ class ConfirmRecoveryPhrasePage extends HookConsumerWidget {
               style: RibnTextStyle.h3.copyWith(color: RibnColors.greyText),
             ),
             SizedBox(height: 40),
-            ConfirmationSegmentedButton(
-              selected: "Paint",
-              words: ["Sea", "Ultra", "Paint"],
-              index: 11,
-            ),
-            ConfirmationSegmentedButton(
-              selected: "Charge",
-              words: ["Charge", "Pacific", "Sky"],
-              index: 2,
-            ),
-            ConfirmationSegmentedButton(
-              selected: "Level",
-              words: ["Traveling", "Level", "Display"],
-              index: 0,
-            ),
-            ConfirmationSegmentedButton(
-              selected: "Easy",
-              words: ["Fall", "Ultra", "Easy"],
-              index: 7,
-            )
+            // Generate a list of ConfirmationSegmentedButton from the map of words
+            ...checkItWords.entries
+                .map((entry) => ConfirmationSegmentedButton(
+                      words: entry.value,
+                      index: entry.key,
+                    ))
+                .toList(),
           ],
         ),
       ),
