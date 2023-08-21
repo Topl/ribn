@@ -33,6 +33,7 @@ class Strings {
   // Pin field
   static const String pinNotLongEnough = 'PIN must be at least 6 characters long.';
   static const String incorrectPin = 'Incorrect PIN. Please check and try again.';
+  static const String unsafePin = 'Not a safe pin, Please try again.';
 
   // Biometrics
   static const String enableFingerprint = 'Enable Fingerprint';

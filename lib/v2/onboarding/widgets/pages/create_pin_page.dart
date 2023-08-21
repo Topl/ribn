@@ -71,8 +71,8 @@ class CreatePinPage extends HookConsumerWidget {
                   return Strings.pinNotLongEnough;
                 }
                 if (input.length >= notifier.pinLength && !isPinSafe) {
-                  //   isPinSafe = false;
-                  return Strings.incorrectPin;
+                  isPinValid.value = false;
+                  return Strings.unsafePin;
                 }
                 //set validator to true
                 isPinValid.value = true;
