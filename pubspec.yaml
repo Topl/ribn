@@ -76,10 +76,10 @@ dependencies:
     git:
       url: https://github.com/Topl/ribn-toolkit
       ref: 8121ad9 # Hash of 1.0 tag
-  brambl_dart:
+  brambldart:
     git:
       url: https://github.com/Topl/BramblDart
-      ref:  7e1e5fe # Hash of pubspec_version_fix
+      ref:  1f73931 # Hash of 1.0 tag
   responsive_framework: ^1.1.0
   qr_flutter: ^4.1.0
   hive: ^2.2.3

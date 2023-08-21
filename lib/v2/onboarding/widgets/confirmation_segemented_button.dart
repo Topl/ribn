@@ -12,14 +12,17 @@ class ConfirmationSegmentedButton extends HookWidget {
     Key? key,
     required this.words,
     required this.index,
+    required this.onSelected,
+    required this.selected,
   }) : super(key: key);
 
   final List<ConfirmRecoveryPhraseModel> words;
   final int index;
+  final Function(ConfirmRecoveryPhraseModel) onSelected;
+  final ConfirmRecoveryPhraseModel selected;
 
   @override
   Widget build(BuildContext context) {
-    final selected = useState(words[1]);
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -50,11 +53,13 @@ class ConfirmationSegmentedButton extends HookWidget {
             ),
             showSelectedIcon: false,
             onSelectionChanged: (newSelection) {
-              print(newSelection);
+              print('QQQQ ${newSelection.first}');
+              onSelected(newSelection.first);
             },
-            segments:
-                words.map((e) => ButtonSegment<String>(value: e.phraseString, label: Text(e.phraseString))).toList(),
-            selected: {selected.value},
+            segments: words
+                .map((e) => ButtonSegment<ConfirmRecoveryPhraseModel>(value: e, label: Text(e.phraseString)))
+                .toList(),
+            selected: {selected},
           ),
         ],
       ),

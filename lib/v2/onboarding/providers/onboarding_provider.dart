@@ -36,8 +36,18 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
   static OnboardingState _initializeOnboardingState(ref) {
     final String mnemonic = _generateMnemonic(ref);
     final List<String> splitMnemonic = mnemonic.split(' ').toList();
+    final Map<int, List<ConfirmRecoveryPhraseModel>> confirmationWords = _checkItWords(mnemonic: splitMnemonic);
+
+    // Makes a map of selected confirmation words from the confirmation words map
+    final selectedConfirmationWords = Map<int, ConfirmRecoveryPhraseModel>.fromIterable(
+      confirmationWords.entries,
+      key: (entry) => entry.key,
+      value: (entry) => entry.value[1],
+    );
     return OnboardingState(
       recoveryPhrase: splitMnemonic,
+      confirmationWords: confirmationWords,
+      selectedConfirmationWords: selectedConfirmationWords,
     );
   }
 
@@ -136,13 +146,15 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
   /// final onboardingProvider = OnboardingProvider();
   /// final confirmRecoveryPhrases = onboardingProvider.checkItWords();
   /// ```
-  Map<int, List<ConfirmRecoveryPhraseModel>> checkItWords() {
+  static Map<int, List<ConfirmRecoveryPhraseModel>> _checkItWords({
+    required List<String> mnemonic,
+  }) {
     const wordIndexes = [11, 2, 0, 7];
 
     final Map<int, List<ConfirmRecoveryPhraseModel>> confirmRecoveryPhaseIndexes = {};
     for (int i = 0; i < wordIndexes.length; i++) {
       final List<ConfirmRecoveryPhraseModel> phrases = [];
-      final recoveryWords = [...state.recoveryPhrase];
+      final recoveryWords = [...mnemonic];
 
       final correctWord = recoveryWords[wordIndexes[i]];
 
@@ -172,6 +184,18 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
     }
 
     return confirmRecoveryPhaseIndexes;
+  }
+
+  /// Sets the selected confirmation word for the given [index].
+  selectConfirmationWord({
+    required int index,
+    required ConfirmRecoveryPhraseModel word,
+  }) {
+    final Map<int, ConfirmRecoveryPhraseModel> selectedConfirmationWords = {...state.selectedConfirmationWords};
+    selectedConfirmationWords[index] = word;
+    state = state.copyWith(
+      selectedConfirmationWords: selectedConfirmationWords,
+    );
   }
 
   void setPin(pin) => state = state.copyWith(

@@ -20,7 +20,7 @@ class ConfirmRecoveryPhrasePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final checkItWords = ref.watch(onboardingProvider.notifier).checkItWords();
+    final checkItWords = ref.watch(onboardingProvider).confirmationWords;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: SingleChildScrollView(
@@ -40,6 +40,10 @@ class ConfirmRecoveryPhrasePage extends HookConsumerWidget {
                 .map((entry) => ConfirmationSegmentedButton(
                       words: entry.value,
                       index: entry.key,
+                      onSelected: (word) {
+                        ref.read(onboardingProvider.notifier).selectConfirmationWord(index: entry.key, word: word);
+                      },
+                      selected: ref.watch(onboardingProvider).selectedConfirmationWords[entry.key]!,
                     ))
                 .toList(),
           ],
