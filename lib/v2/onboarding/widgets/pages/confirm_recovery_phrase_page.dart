@@ -21,6 +21,7 @@ class ConfirmRecoveryPhrasePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final checkItWords = ref.watch(onboardingProvider).confirmationWords;
+    final isCorrectConfirmationWords = ref.watch(onboardingProvider).isCorrectConfirmationWords;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: SingleChildScrollView(
@@ -35,6 +36,7 @@ class ConfirmRecoveryPhrasePage extends HookConsumerWidget {
               style: RibnTextStyle.h3.copyWith(color: RibnColors.greyText),
             ),
             SizedBox(height: 40),
+
             // Generate a list of ConfirmationSegmentedButton from the map of words
             ...checkItWords.entries
                 .map((entry) => ConfirmationSegmentedButton(
@@ -46,6 +48,12 @@ class ConfirmRecoveryPhrasePage extends HookConsumerWidget {
                       selected: ref.watch(onboardingProvider).selectedConfirmationWords[entry.key]!,
                     ))
                 .toList(),
+
+            if (!isCorrectConfirmationWords)
+              Text(
+                Strings.letsCheckItError,
+                style: RibnTextStyle.h3.copyWith(color: RibnColors.error),
+              ),
           ],
         ),
       ),

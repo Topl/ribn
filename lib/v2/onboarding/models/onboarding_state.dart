@@ -19,6 +19,7 @@ class OnboardingState with _$OnboardingState {
 
     /// Map of selected confirmation words for each option
     required Map<int, ConfirmRecoveryPhraseModel> selectedConfirmationWords,
+    @Default(true) bool isCorrectConfirmationWords,
     @Default(0) int pageIndex,
   }) = _OnboardingState;
 }

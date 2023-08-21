@@ -198,6 +198,21 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
     );
   }
 
+  bool verifyConfirmationWords() {
+    bool isCorrect = true;
+    state.selectedConfirmationWords.forEach((key, value) {
+      if (!value.isCorrect) {
+        isCorrect = false;
+      }
+    });
+
+    state = state.copyWith(
+      isCorrectConfirmationWords: isCorrect,
+    );
+
+    return isCorrect;
+  }
+
   void setPin(pin) => state = state.copyWith(
         pin: pin,
       );
