@@ -5,7 +5,6 @@ import 'package:ribn/v2/user/constants/constants.dart';
 import 'package:ribn/v2/user/models/encrypt_user_data.dart';
 import 'package:ribn/v2/user/models/user.dart';
 
-// QQQQ mnemonic should really be name private key
 // Writing some thoughts here too
 /// This may seem like overkill to use both secure storage AND encryption
 /// but in reality and doesn't add much complexity and adds a lot of security

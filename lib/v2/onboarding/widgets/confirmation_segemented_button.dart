@@ -53,7 +53,6 @@ class ConfirmationSegmentedButton extends HookWidget {
             ),
             showSelectedIcon: false,
             onSelectionChanged: (newSelection) {
-              print('QQQQ ${newSelection.first}');
               onSelected(newSelection.first);
             },
             segments: words

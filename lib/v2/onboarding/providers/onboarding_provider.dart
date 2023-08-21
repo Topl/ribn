@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:bip_topl/bip_topl.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/v2/onboarding/constants/constants.dart';
 import 'package:ribn/v2/onboarding/models/confirm_recovery_phrase_model.dart';
 
 // Project imports:
@@ -149,14 +150,12 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
   static Map<int, List<ConfirmRecoveryPhraseModel>> _checkItWords({
     required List<String> mnemonic,
   }) {
-    const wordIndexes = [11, 2, 0, 7];
-
-    final Map<int, List<ConfirmRecoveryPhraseModel>> confirmRecoveryPhaseIndexes = {};
-    for (int i = 0; i < wordIndexes.length; i++) {
+    final Map<int, List<ConfirmRecoveryPhraseModel>> confirmRecoveryPhases = {};
+    for (int i = 0; i < confirmRecoveryPhaseIndexes.length; i++) {
       final List<ConfirmRecoveryPhraseModel> phrases = [];
       final recoveryWords = [...mnemonic];
 
-      final correctWord = recoveryWords[wordIndexes[i]];
+      final correctWord = recoveryWords[confirmRecoveryPhaseIndexes[i]];
 
       phrases.add(ConfirmRecoveryPhraseModel(
         phraseString: correctWord,
@@ -180,10 +179,10 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
       // Shuffle the list of phrases
       phrases.shuffle();
 
-      confirmRecoveryPhaseIndexes[wordIndexes[i]] = phrases;
+      confirmRecoveryPhases[confirmRecoveryPhaseIndexes[i]] = phrases;
     }
 
-    return confirmRecoveryPhaseIndexes;
+    return confirmRecoveryPhases;
   }
 
   /// Sets the selected confirmation word for the given [index].

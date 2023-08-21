@@ -1,1 +1,1 @@
-const List<int> confirmRecoveryPhaseIndexes = [12, 3, 1, 8];
+const List<int> confirmRecoveryPhaseIndexes = [11, 2, 0, 7];
