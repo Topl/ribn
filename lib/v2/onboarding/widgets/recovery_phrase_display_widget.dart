@@ -23,10 +23,10 @@ class RecoveryPhraseDisplayWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: RibnColors.somewhatBlue,
+        color: RibnColors.lightBlue,
         borderRadius: BorderRadius.circular(10),
       ),
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

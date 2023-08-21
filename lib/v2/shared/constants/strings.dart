@@ -28,7 +28,7 @@ class Strings {
   static const String createPinDisclaimer =
       'Please, don’t use the same numbers in a row. \nDon’t show your PIN to anyone.';
   static const String confirmPin = 'Type your PIN again';
-  static const String confirmPinDisclaimer = 'Confirm the PIN code repeating the combination\n of numbers.';
+  static const String confirmPinDisclaimer = 'Confirm the PIN code repeating the combination of numbers.';
 
   // Pin field
   static const String pinNotLongEnough = 'PIN must be at least 6 characters long.';

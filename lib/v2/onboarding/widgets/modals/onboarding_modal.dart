@@ -51,7 +51,7 @@ class OnboardingModal extends HookConsumerWidget {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: "${Strings.dataDisclaimerHeader}\n\n",
+                    text: "${Strings.dataDisclaimerListHead}\n\n",
                     style: subTextStyle,
                   ),
                   TextSpan(

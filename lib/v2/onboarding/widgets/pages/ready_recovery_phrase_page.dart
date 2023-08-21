@@ -35,13 +35,13 @@ class RecoveryPhraseInstructionsPage extends HookConsumerWidget {
             textAlign: TextAlign.left,
             style: RibnTextStyle.h3Grey,
           ),
-          SizedBox(height: 40),
+          SizedBox(height: 24),
           Text(
             Strings.readyRecoveryPhraseListHead,
             textAlign: TextAlign.left,
             style: RibnTextStyle.h3Grey,
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 16),
           Text.rich(
             TextSpan(
               children: [
@@ -61,13 +61,15 @@ class RecoveryPhraseInstructionsPage extends HookConsumerWidget {
             ),
           ),
           Spacer(),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: RibnButton(
-              text: Strings.next,
-              onPressed: () {
-                RecoveryPhraseDisclaimerModal().showAsModal(context);
-              },
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: RibnButton(
+                text: Strings.next,
+                onPressed: () {
+                  RecoveryPhraseDisclaimerModal().showAsModal(context);
+                },
+              ),
             ),
           )
         ],
