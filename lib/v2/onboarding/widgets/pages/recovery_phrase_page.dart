@@ -38,16 +38,18 @@ class RecoveryPhrasePage extends HookConsumerWidget {
               textAlign: TextAlign.left,
               style: RibnTextStyle.h3.copyWith(color: RibnColors.greyText),
             ),
-            SizedBox(height: 40),
+            SizedBox(height: 20),
             RecoveryPhraseDisplayWidget(onboarding.recoveryPhrase),
             SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 40),
-              child: RibnButton(
-                text: Strings.setRecoveryPhrase,
-                onPressed: () {
-                  stepperNotifier.navigateToPage(context);
-                },
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 40),
+                child: RibnButton(
+                  text: Strings.setRecoveryPhrase,
+                  onPressed: () {
+                    stepperNotifier.navigateToPage(context);
+                  },
+                ),
               ),
             )
           ],
