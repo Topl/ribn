@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:vrouter/vrouter.dart';
 
 import '../../../v1/constants/strings.dart';
 import '../../shared/constants/colors.dart';
@@ -32,6 +33,10 @@ class StepperScreen extends HookConsumerWidget {
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.grey),
             onPressed: () {
+              if (stepperScreen.pageIndex <= 0) {
+                context.vRouter.historyBack();
+                return;
+              }
               notifier.navigateToPage(context, reverse: true);
             },
           ),
