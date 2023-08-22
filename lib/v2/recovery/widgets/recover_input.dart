@@ -15,7 +15,7 @@ class RecoveryInput extends HookWidget {
   final int index;
   @override
   Widget build(BuildContext context) {
-    final _controller = TextEditingController();
+    final _controller = useTextEditingController();
     return GridTile(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
