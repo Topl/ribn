@@ -1,19 +1,18 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/v2/recovery/providers/recovery_provider.dart';
 import 'package:ribn/v2/recovery/widgets/recover_input.dart';
 import 'package:ribn/v2/shared/theme.dart';
 
 import '../../../v1/constants/strings.dart';
-import '../../shared/utils/utils.dart';
 
 class TypeRecoveryPhrase extends HookConsumerWidget {
   const TypeRecoveryPhrase({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final numbers = shuffle(List.generate(16, (index) => index + 1));
-    print(numbers);
+    final recoveryPhrase = ref.watch(recoveryProvider).recoveryPhrase;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -40,11 +39,18 @@ class TypeRecoveryPhrase extends HookConsumerWidget {
               mainAxisSpacing: 10,
               crossAxisSpacing: 20,
               // Generate 100 widgets that display their index in the List.
-              children: List.of(
-                numbers.map(
-                  (entry) => RecoveryInput(
-                    index: entry,
-                  ),
+              children: List.generate(
+                recoveryPhrase.length,
+                (index) => RecoveryInput(
+                  index: index,
+                  value: recoveryPhrase[index],
+                  onChanged: (value) {
+                    if (value != null && value.isEmpty) value = null;
+                    ref.read(recoveryProvider.notifier).updateRecoveryPhrase(
+                          index: index,
+                          word: value,
+                        );
+                  },
                 ),
               ),
             ),

@@ -10,12 +10,15 @@ class RecoveryInput extends HookWidget {
   const RecoveryInput({
     Key? key,
     required this.index,
+    required this.value,
+    required this.onChanged,
   }) : super(key: key);
 
   final int index;
+  final String? value;
+  final Function(String?) onChanged;
   @override
   Widget build(BuildContext context) {
-    final _controller = useTextEditingController();
     return GridTile(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -27,8 +30,8 @@ class RecoveryInput extends HookWidget {
           Expanded(
             flex: 8,
             child: TextFormField(
-              controller: _controller,
               style: bodyMedium(context),
+              onChanged: onChanged,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                 focusedBorder: OutlineInputBorder(
@@ -46,7 +49,7 @@ class RecoveryInput extends HookWidget {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: BorderSide(
-                    color: _controller.text.toString() == 'test' ? RibnColors.success : Color(0xFFE2E3E3),
+                    color: value != null ? RibnColors.success : Color(0xFFE2E3E3),
                   ),
                 ),
                 hintText: Strings.typeWord,

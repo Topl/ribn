@@ -32,6 +32,7 @@ class OnboardingFlowPage extends ScreenConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(onboardingProvider);
     return StepperScreen(
       pages: _pages,
       onDone: () {

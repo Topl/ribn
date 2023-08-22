@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/v2/recovery/providers/recovery_provider.dart';
 import 'package:ribn/v2/shared/extensions/widget_extensions.dart';
 import 'package:ribn/v2/shared/widgets/stepper_screen.dart';
 
@@ -20,6 +21,7 @@ class RestoreWalletScreen extends ScreenConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(recoveryProvider);
     return StepperScreen(
       pages: _pages,
       onDone: () {

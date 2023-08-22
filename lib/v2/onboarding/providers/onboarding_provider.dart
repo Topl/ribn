@@ -20,7 +20,7 @@ import 'package:ribn/v2/shared/providers/packages/random_provider.dart';
 
 // Project imports:
 
-final onboardingProvider = StateNotifierProvider<OnboardingNotifier, OnboardingState>((ref) {
+final onboardingProvider = StateNotifierProvider.autoDispose<OnboardingNotifier, OnboardingState>((ref) {
   return OnboardingNotifier(ref);
 });
 

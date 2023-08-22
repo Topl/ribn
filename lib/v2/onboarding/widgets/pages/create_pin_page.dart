@@ -16,7 +16,9 @@ import 'package:ribn/v2/shared/widgets/pin_input.dart';
 /// This is intended to be used inside of a [PageView] widget.
 /// Does not provide scaffolding
 class CreatePinPage extends HookConsumerWidget {
+  final StateNotifier notifier;
   const CreatePinPage({
+    required this.notifier,
     Key? key,
   }) : super(key: key);
 
