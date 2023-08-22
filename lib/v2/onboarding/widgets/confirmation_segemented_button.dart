@@ -1,22 +1,25 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:ribn/v2/onboarding/models/confirm_recovery_phrase_model.dart';
 
 // Project imports:
 import 'package:ribn/v2/shared/constants/colors.dart';
 import 'package:ribn/v2/shared/constants/ribn_text_style.dart';
 
-class ConfirmationSegmentedButton extends StatelessWidget {
+class ConfirmationSegmentedButton extends HookWidget {
   ConfirmationSegmentedButton({
     Key? key,
-    this.selected,
     required this.words,
-    this.index,
-  })  : assert(words.contains(selected), "Selected needs to be available in word list"),
-        super(key: key);
+    required this.index,
+    required this.onSelected,
+    required this.selected,
+  }) : super(key: key);
 
-  final selected;
-  final List<String> words;
-  final index;
+  final List<ConfirmRecoveryPhraseModel> words;
+  final int index;
+  final Function(ConfirmRecoveryPhraseModel) onSelected;
+  final ConfirmRecoveryPhraseModel selected;
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +53,11 @@ class ConfirmationSegmentedButton extends StatelessWidget {
             ),
             showSelectedIcon: false,
             onSelectionChanged: (newSelection) {
-              print(newSelection);
+              onSelected(newSelection.first);
             },
-            segments: words.map((e) => ButtonSegment<String>(value: e, label: Text(e))).toList(),
+            segments: words
+                .map((e) => ButtonSegment<ConfirmRecoveryPhraseModel>(value: e, label: Text(e.phraseString)))
+                .toList(),
             selected: {selected},
           ),
         ],
