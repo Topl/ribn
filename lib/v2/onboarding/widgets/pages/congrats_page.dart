@@ -8,8 +8,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ribn/v2/shared/constants/assets.dart';
 import 'package:ribn/v2/shared/constants/ribn_text_style.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
-import 'package:ribn/v2/shared/extensions/build_context_extensions.dart';
 import 'package:ribn/v2/shared/widgets/ribn_button.dart';
+import 'package:vrouter/vrouter.dart';
 
 class CongratsPage extends StatelessWidget {
   const CongratsPage({Key? key}) : super(key: key);
@@ -48,8 +48,7 @@ class CongratsPage extends StatelessWidget {
                 child: RibnButton(
                     text: Strings.goToWallet,
                     onPressed: () {
-                      //TODO: Insert Home route
-                      context.pushReplacementNamed("HOME");
+                      context.vRouter.to('/asset_management');
                     }))
           ],
         ),
