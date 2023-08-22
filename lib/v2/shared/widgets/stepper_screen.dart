@@ -53,7 +53,23 @@ class StepperScreen extends HookConsumerWidget {
                     ),
                   ),
                 ),
-              ),
+              )
+            else if (stepperScreen.pageIndex < _pageCount - 1)
+              Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: InkWell(
+                  onTap: () {
+                    notifier.navigateToPage(context);
+                  },
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      Strings.next,
+                      style: RibnTextStyle.h3.copyWith(color: RibnColors.secondary),
+                    ),
+                  ),
+                ),
+              )
           ],
           centerTitle: true,
           title: Container(

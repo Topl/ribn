@@ -1,44 +1,31 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../v1/constants/strings.dart';
 import '../../shared/constants/colors.dart';
 import '../../shared/theme.dart';
 
-class RecoveryInput extends StatefulWidget {
-  const RecoveryInput({super.key, required this.index});
+class RecoveryInput extends HookWidget {
+  const RecoveryInput({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
 
   final int index;
-
-  @override
-  State<RecoveryInput> createState() => _RecoveryInputState();
-}
-
-class _RecoveryInputState extends State<RecoveryInput> {
-  final _controller = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final _controller = TextEditingController();
     return GridTile(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding: EdgeInsets.only(right: 10),
-            child: Text("${widget.index + 1}."),
+          Expanded(
+            flex: 2,
+            child: Text("${index + 1}."),
           ),
-          Flexible(
+          Expanded(
+            flex: 8,
             child: TextFormField(
               controller: _controller,
               style: bodyMedium(context),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/v2/recovery/screens/recover_wallet_screen.dart';
 import 'package:ribn/v2/shared/theme.dart';
 import 'package:ribn/v2/shared/widgets/ribn_button.dart';
 import 'package:vrouter/vrouter.dart';
@@ -60,7 +61,7 @@ class RestoreAccess extends ConsumerWidget {
               RibnButton(
                 text: Strings.next,
                 onPressed: () {
-                  context.vRouter.to('/restore');
+                  context.vRouter.to(RestoreWalletScreen().route);
                 },
               )
             ],
