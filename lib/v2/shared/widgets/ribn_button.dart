@@ -51,7 +51,7 @@ class RibnButton extends StatelessWidget {
         text,
         style: RibnTextStyle.buttonMedium.copyWith(
           color: disabled ? RibnColors.transparentGreyText : Colors.white,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w500,
         ),
       ),
       onPressed: onPressed,

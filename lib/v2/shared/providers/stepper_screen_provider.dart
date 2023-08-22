@@ -75,6 +75,7 @@ class StepperScreenNotifier extends StateNotifier<StepperScreenState> {
   finish() {
     // TODO
   }
+
   void reset() {
     pageController.jumpToPage(0);
   }

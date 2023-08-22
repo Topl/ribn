@@ -315,4 +315,17 @@ Ribn Wallet does not control the functionality of biometrics and does not have a
   static const String participateInAnalytics = "Participate in Ribn Analytics";
   static const String participateInAnalyticsDescription =
       "Participate in Ribn analytics to help us \nimprove the Ribn wallet user experience.";
+  static const String restoreAccess = "Restore Access";
+  static const String restoreAccessDescription =
+      "To restore access to your wallet, please prepare your recovery phrase. The recovery phrase is the 16 words you received when you registered your wallet.";
+// Recovery
+  static const String typeYourRecoveryPhrase = 'Type your recovery phrase';
+  static const String typeYourRecoveryPhraseDesc =
+      'Type the words from your recovery phrase in the appropriate fields.';
+  static const String typeWord = 'Type Word';
+
+  static const String walletAccessRestored = 'Wallet access restored';
+  static const String walletAccessRestoredDesc =
+      'You can now securely store, manage, and interact with your digital assets and DApps in the Topl ecosystem.';
+  static const String keepSafeAndProtectAssets = 'Keep your wallet secure to protect your assets.';
 }

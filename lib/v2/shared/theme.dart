@@ -78,11 +78,11 @@ TextTheme _textTheme({
   return ThemeData().textTheme.copyWith(
         /// Headline
         headlineLarge: TextStyle(
-          fontSize: 32,
-          fontWeight: FontWeight.w600,
-          color: textColor,
-          fontFamily: "Rational Display",
-        ),
+            fontSize: 32,
+            fontWeight: FontWeight.w600,
+            color: textColor,
+            fontFamily: "Rational Display",
+            height: 44 / 32),
 
         /// Title
         titleLarge: TextStyle(
@@ -108,6 +108,12 @@ TextTheme _textTheme({
         labelLarge: TextStyle(
           fontSize: 14.0,
           fontWeight: FontWeight.w600,
+          color: altTextColor,
+          fontFamily: "Rational Display",
+        ),
+        labelMedium: TextStyle(
+          fontSize: 14.0,
+          fontWeight: FontWeight.w300,
           color: altTextColor,
           fontFamily: "Rational Display",
         ),
@@ -152,6 +158,11 @@ TextStyle? titleSmall(BuildContext context) {
 /// Returns [Theme.of(context).textTheme.labelLarge]
 TextStyle? labelLarge(BuildContext context) {
   return Theme.of(context).textTheme.labelLarge;
+}
+
+/// Returns [Theme.of(context).textTheme.labelLarge]
+TextStyle? labelMedium(BuildContext context) {
+  return Theme.of(context).textTheme.labelMedium;
 }
 
 /// Returns [Theme.of(context).textTheme.bodyMedium]
