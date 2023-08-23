@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/v2/recovery/providers/recovery_state.dart';
+import 'package:ribn/v2/user/providers/user_provider.dart';
 
 final recoveryProvider = StateNotifierProvider.autoDispose<RecoveryNotifier, RecoveryState>((ref) {
   return RecoveryNotifier(ref);
@@ -36,6 +37,7 @@ class RecoveryNotifier extends StateNotifier<RecoveryState> {
   }
 
   Future<void> saveWallet() async {
-    // Implement SDK
+    // TODO: Implement SDK
+    await ref.read(userProvider.notifier).saveUser(pin: state.pin, mnemonic: state.recoveryPhrase.join(' '));
   }
 }
