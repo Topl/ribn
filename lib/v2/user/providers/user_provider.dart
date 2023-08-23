@@ -2,7 +2,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/v2/shared/services/encryption_service.dart';
 import 'package:ribn/v2/shared/services/secure_storage_service.dart';
 import 'package:ribn/v2/user/constants/constants.dart';
-import 'package:ribn/v2/user/models/encrypt_user_data.dart';
 import 'package:ribn/v2/user/models/user.dart';
 
 // Writing some thoughts here too
@@ -13,42 +12,74 @@ import 'package:ribn/v2/user/models/user.dart';
 /// One concern is that the key for encryption is only a 6 digit pin
 /// Maybe we should require a longer and more complex password on web for more security?
 
-final setUserMnemonicProvider = FutureProvider.family<void, EncryptUserData>((ref, userData) async {
-  final encryptedMnemonic = EncryptionService().encryptString(value: userData.mnemonic, key: userData.pin);
-  await SecureStorage().setItem(
-    key: mnemonicSecureStorageKey,
-    value: encryptedMnemonic,
-  );
-  ref.read(userProvider.notifier).setUserMnemonic(userData.mnemonic);
-  return;
+final userProvider = StateNotifierProvider<UserNotifier, AsyncValue<User?>>((ref) {
+  return UserNotifier(ref);
 });
 
-final loadUserProvider = FutureProvider.family<void, String>((ref, pin) async {
-  final String? encryptedMnemonic = await SecureStorage().getItem(key: mnemonicSecureStorageKey);
-  if (encryptedMnemonic != null) {
-    final String? mnemonic = EncryptionService().decryptString(encryptedValue: encryptedMnemonic, key: pin);
+class UserNotifier extends StateNotifier<AsyncValue<User?>> {
+  final Ref ref;
 
-    if (mnemonic == null) {
-      throw Exception('Invalid PIN');
-    }
-    ref.read(userProvider.notifier).setUserMnemonic(mnemonic);
+  UserNotifier(this.ref) : super(AsyncLoading());
+
+  Future<void> saveUser({
+    required String pin,
+    required String mnemonic,
+  }) async {
+    state = AsyncLoading();
+
+    // Save mnemonic
+    final encryptedMnemonic = EncryptionService().encryptString(value: mnemonic, key: pin);
+    await SecureStorage().setItem(
+      key: mnemonicSecureStorageKey,
+      value: encryptedMnemonic,
+    );
+
+    // Set State
+    state = AsyncData(User(mnemonic: mnemonic));
   }
 
-  return;
-});
+  Future<void> logUserIn({
+    required String pin,
+  }) async {
+    state = AsyncLoading();
 
-final userProvider = StateNotifierProvider<UserNotifier, User?>((ref) {
-  return UserNotifier();
-});
+    final String? encryptedMnemonic = await SecureStorage().getItem(key: mnemonicSecureStorageKey);
 
-class UserNotifier extends StateNotifier<User?> {
-  UserNotifier() : super(null);
+    if (encryptedMnemonic == null) {
+      state = AsyncError('No mnemonic found', StackTrace.current);
+      throw Exception('No mnemonic found');
+    }
 
-  void setUserMnemonic(String mnemonic) {
-    state = User(mnemonic: mnemonic);
+    try {
+      final String? mnemonic = EncryptionService().decryptString(encryptedValue: encryptedMnemonic, key: pin);
+
+      if (mnemonic == null) {
+        state = AsyncError('Invalid PIN', StackTrace.current);
+        throw Exception('Invalid PIN');
+      }
+      state = AsyncData(User(
+        mnemonic: mnemonic,
+      ));
+    } catch (e) {
+      state = AsyncError('Invalid PIN', StackTrace.current);
+      throw Exception('Invalid PIN');
+    }
+  }
+
+  /// Checks if the user is saved
+  Future<bool> isUserSaved() async {
+    try {
+      final String? encryptedMnemonic = await SecureStorage().getItem(key: mnemonicSecureStorageKey);
+      return encryptedMnemonic != null;
+    } catch (e) {
+      print('Error checking if user is saved: $e');
+      return false;
+    }
   }
 
   void logOut() {
     // TODO Implement
+    state = AsyncValue.data(null);
+    ;
   }
 }

@@ -83,7 +83,7 @@ class RibnApp extends HookConsumerWidget {
               beforeEnter: (vRedirector) async {
                 // Before enter, check if the user is logged in
                 // If the user is not logged in, redirect them to the welcome page
-                final User? user = ref.read(userProvider);
+                final User? user = ref.read(userProvider).asData?.value;
                 if (user == null) {
                   vRedirector.to(WelcomePage().route);
                 }

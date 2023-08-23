@@ -34,4 +34,8 @@ class RecoveryNotifier extends StateNotifier<RecoveryState> {
     recoveryPhrase[index] = word;
     state = state.copyWith(recoveryPhrase: recoveryPhrase);
   }
+
+  Future<void> saveWallet() async {
+    // Implement SDK
+  }
 }
