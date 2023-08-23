@@ -20,6 +20,8 @@ class RibnColors {
 
   static const Color defaultText = Color(0xFF323232);
   static const Color greyText = Color(0xFF979797);
+  static const Color lightBlue = Color.fromRGBO(13, 200, 212, 0.04);
+  static const Color layerTitleText = Color(0xFF282A2C);
 
   static const Color success = Color(0xFF2AC68E);
   static const Color error = Color(0xFFF07575);

@@ -27,6 +27,18 @@ class CreatePinPage extends HookConsumerWidget {
     final focusNode = useFocusNode();
     final isPinValid = useState(false);
 
+    bool isSafePin(int? pin) {
+      List<int> unsafePins = [123456, 654321, 987654]; // Add more unsafe PINs if needed
+
+      // Check if the input pin is in the list of unsafePins
+      if (unsafePins.contains(pin)) {
+        return false;
+      }
+
+      // Otherwise, the PIN is safe
+      return true;
+    }
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -53,9 +65,14 @@ class CreatePinPage extends HookConsumerWidget {
               focusNode: focusNode,
               validator: (value) {
                 final input = value;
-                if (input == null || input.length < notifier.pinLength) {
+                final isPinSafe = isSafePin(int.parse(input!));
+                if (input.isEmpty || input.length < notifier.pinLength) {
                   isPinValid.value = false;
                   return Strings.pinNotLongEnough;
+                }
+                if (input.length >= notifier.pinLength && !isPinSafe) {
+                  isPinValid.value = false;
+                  return Strings.unsafePin;
                 }
                 //set validator to true
                 isPinValid.value = true;

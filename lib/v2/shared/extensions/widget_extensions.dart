@@ -36,14 +36,15 @@ extension WidgetExtensions on Widget {
       ),
       builder: (BuildContext context) {
         return DraggableScrollableSheet(
-            initialChildSize: initialChildSize,
-            maxChildSize: maxChildSize,
-            minChildSize: minChildSize,
-            expand: false,
-            controller: scrollController,
-            builder: (BuildContext context, ScrollController scrollController) {
-              return this;
-            });
+          initialChildSize: initialChildSize,
+          maxChildSize: maxChildSize,
+          minChildSize: minChildSize,
+          expand: false,
+          controller: scrollController,
+          builder: (BuildContext context, ScrollController scrollController) {
+            return this;
+          },
+        );
       },
     );
   }
