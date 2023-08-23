@@ -53,6 +53,7 @@ class OnboardingFlowPage extends ScreenConsumerWidget {
       ],
       onDone: () {
         if (ref.read(onboardingProvider.notifier).verifyConfirmationWords()) {
+          ref.read(onboardingProvider.notifier).saveWallet();
           context.vRouter.to('/seed-congratulation');
         }
         print("clicked done");

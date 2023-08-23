@@ -158,7 +158,7 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
     }
   }
 
-  Future<void> saveOnboardingData() async {
+  Future<void> saveWallet() async {
     await ref.read(userProvider.notifier).saveUser(pin: state.pin, mnemonic: state.recoveryPhrase.join(' '));
   }
 }

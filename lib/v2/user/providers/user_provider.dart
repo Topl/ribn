@@ -21,6 +21,7 @@ class UserNotifier extends StateNotifier<AsyncValue<User?>> {
 
   UserNotifier(this.ref) : super(AsyncLoading());
 
+  // TODO: Implement SDK
   Future<void> saveUser({
     required String pin,
     required String mnemonic,
@@ -35,7 +36,9 @@ class UserNotifier extends StateNotifier<AsyncValue<User?>> {
     );
 
     // Set State
-    state = AsyncData(User(mnemonic: mnemonic));
+    Future.delayed(const Duration(seconds: 1), () {
+      state = AsyncData(User(mnemonic: mnemonic));
+    });
   }
 
   Future<void> logUserIn({

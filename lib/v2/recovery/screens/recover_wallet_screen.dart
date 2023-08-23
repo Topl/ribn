@@ -46,6 +46,7 @@ class RestoreWalletScreen extends ScreenConsumerWidget {
         ),
       ],
       onDone: () {
+        ref.read(recoveryProvider.notifier).saveWallet();
         WalletAccessRestored().showAsModal(context);
       },
     );
