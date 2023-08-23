@@ -12,6 +12,7 @@ import 'package:ribn/v2/onboarding/widgets/pages/create_pin_page.dart';
 import 'package:ribn/v2/onboarding/widgets/pages/ready_recovery_phrase_page.dart';
 import 'package:ribn/v2/onboarding/widgets/pages/recovery_phrase_page.dart';
 import 'package:ribn/v2/shared/extensions/screen_hook_widget.dart';
+import 'package:ribn/v2/shared/providers/stepper_screen_provider.dart';
 import 'package:ribn/v2/shared/widgets/stepper_screen.dart';
 import 'package:vrouter/vrouter.dart';
 
@@ -22,19 +23,34 @@ class OnboardingFlowPage extends ScreenConsumerWidget {
     Key? key,
   }) : super(key: key, route: '/onboarding');
 
-  final _pages = [
-    CreatePinPage(),
-    ConfirmPinPage(),
-    RecoveryPhraseInstructionsPage(),
-    RecoveryPhrasePage(),
-    ConfirmRecoveryPhrasePage()
-  ];
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(onboardingProvider);
+    final onboardingState = ref.watch(onboardingProvider);
+    final onboardingNotifier = ref.watch(onboardingProvider.notifier);
+    final stepperNotifier = ref.watch(stepperScreenProvider.notifier);
     return StepperScreen(
-      pages: _pages,
+      pages: [
+        CreatePinPage(
+          pin: onboardingState.pin,
+          pinController: onboardingNotifier.createPinController,
+          onCompleted: (pin) {
+            ref.read(onboardingProvider.notifier).setPin(pin);
+            stepperNotifier.navigateToPage(context);
+          },
+        ),
+        ConfirmPinPage(
+          createPin: onboardingState.pin,
+          createPinController: onboardingNotifier.createPinController,
+          confirmPinController: onboardingNotifier.confirmPinController,
+          onCompleted: (pin) {
+            ref.read(onboardingProvider.notifier).setPin(pin);
+            stepperNotifier.navigateToPage(context);
+          },
+        ),
+        RecoveryPhraseInstructionsPage(),
+        RecoveryPhrasePage(),
+        ConfirmRecoveryPhrasePage()
+      ],
       onDone: () {
         if (ref.read(onboardingProvider.notifier).verifyConfirmationWords()) {
           context.vRouter.to('/seed-congratulation');

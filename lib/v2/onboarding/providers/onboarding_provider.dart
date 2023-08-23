@@ -27,7 +27,7 @@ final onboardingProvider = StateNotifierProvider.autoDispose<OnboardingNotifier,
 class OnboardingNotifier extends StateNotifier<OnboardingState> {
   final Ref ref;
   final pageController = PageController(initialPage: 0);
-  final pinLength = 6;
+  static const pinLength = 6;
 
   final createPinController = TextEditingController();
   final confirmPinController = TextEditingController();

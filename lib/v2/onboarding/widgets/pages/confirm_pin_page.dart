@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Project imports:
 import 'package:ribn/v2/shared/constants/strings.dart';
@@ -11,22 +10,25 @@ import 'package:ribn/v2/onboarding/providers/onboarding_provider.dart';
 import 'package:ribn/v2/shared/theme.dart';
 import 'package:ribn/v2/shared/widgets/pin_input.dart';
 
-import '../../../shared/providers/stepper_screen_provider.dart';
-
 /// A "Page" to allow the user to confirm a PIN for onboarding.
 /// This is intended to be used inside of a [PageView] widget.
 /// Does not provide scaffolding
-class ConfirmPinPage extends HookConsumerWidget {
+class ConfirmPinPage extends HookWidget {
+  final String createPin;
+  final TextEditingController createPinController;
+  final TextEditingController confirmPinController;
+  final Function(String) onCompleted;
+
   const ConfirmPinPage({
+    required this.createPin,
+    required this.createPinController,
+    required this.confirmPinController,
+    required this.onCompleted,
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final onboarding = ref.watch(onboardingProvider);
-    final notifier = ref.watch(onboardingProvider.notifier);
-    final stepperNotifier = ref.watch(stepperScreenProvider.notifier);
-
+  Widget build(BuildContext context) {
     final focusNode = useFocusNode();
 
     /// Will be set to invalid when Pin does not match state password
@@ -52,18 +54,18 @@ class ConfirmPinPage extends HookConsumerWidget {
           SizedBox(height: 100),
           Center(
             child: PinInput(
-              length: notifier.pinLength,
+              length: OnboardingNotifier.pinLength,
               isPinValid: isPinValid,
-              controller: notifier.confirmPinController,
+              controller: confirmPinController,
               validator: (value) {
                 final input = value;
-                if (input == null || input.length < notifier.pinLength) {
+                if (input == null || input.length < OnboardingNotifier.pinLength) {
                   isPinValid.value = false;
                   return Strings.pinNotLongEnough;
                 }
 
                 // Check if pin matches the one created
-                if (input != onboarding.pin) {
+                if (input != createPin) {
                   isPinValid.value = false;
                   return Strings.incorrectPin;
                 }
@@ -74,9 +76,9 @@ class ConfirmPinPage extends HookConsumerWidget {
               },
               onCompleted: (value) async {
                 if (isPinValid.value) {
-                  ref.read(onboardingProvider.notifier).setPin(value);
                   focusNode.unfocus(); //unfocus the pin input
-                  stepperNotifier.navigateToPage(context);
+
+                  onCompleted(value);
                 }
               },
             ),

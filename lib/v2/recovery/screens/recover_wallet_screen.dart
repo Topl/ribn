@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/v2/recovery/providers/recovery_provider.dart';
 import 'package:ribn/v2/shared/extensions/widget_extensions.dart';
+import 'package:ribn/v2/shared/providers/stepper_screen_provider.dart';
 import 'package:ribn/v2/shared/widgets/stepper_screen.dart';
 
 import '../../onboarding/widgets/pages/confirm_pin_page.dart';
@@ -17,13 +18,33 @@ class RestoreWalletScreen extends ScreenConsumerWidget {
     Key? key,
   }) : super(key: key, route: '/restore');
 
-  final _pages = [TypeRecoveryPhrase(), CreatePinPage(), ConfirmPinPage()];
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final recoveryState = ref.watch(recoveryProvider);
+    final recoveryNotifier = ref.watch(recoveryProvider.notifier);
+    final stepperNotifier = ref.watch(stepperScreenProvider.notifier);
     ref.watch(recoveryProvider);
     return StepperScreen(
-      pages: _pages,
+      pages: [
+        TypeRecoveryPhrase(),
+        CreatePinPage(
+          pin: recoveryState.pin,
+          pinController: recoveryNotifier.createPinController,
+          onCompleted: (pin) {
+            recoveryNotifier.setPin(pin);
+            stepperNotifier.navigateToPage(context);
+          },
+        ),
+        ConfirmPinPage(
+          createPin: recoveryState.pin,
+          createPinController: recoveryNotifier.createPinController,
+          confirmPinController: recoveryNotifier.confirmPinController,
+          onCompleted: (pin) {
+            recoveryNotifier.setPin(pin);
+            stepperNotifier.navigateToPage(context);
+          },
+        ),
+      ],
       onDone: () {
         WalletAccessRestored().showAsModal(context);
       },

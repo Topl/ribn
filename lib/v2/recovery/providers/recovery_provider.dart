@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/v2/recovery/providers/recovery_state.dart';
 
@@ -7,6 +8,9 @@ final recoveryProvider = StateNotifierProvider.autoDispose<RecoveryNotifier, Rec
 
 class RecoveryNotifier extends StateNotifier<RecoveryState> {
   final Ref ref;
+
+  final createPinController = TextEditingController();
+  final confirmPinController = TextEditingController();
 
   RecoveryNotifier(this.ref) : super(_initializeRecoveryState());
 
