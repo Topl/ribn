@@ -71,6 +71,7 @@ class Strings {
   // Recovery Phrase check
   static const String letsCheckIt = 'Let’s check it';
   static const String letsCheckItSub = 'Please make sure your recovery phrase is written down correctly.';
+  static const String letsCheckItError = 'One of the selected words is incorrect';
   static const String selectWordNum = 'Select word #';
 
   // Onboarding Finish
