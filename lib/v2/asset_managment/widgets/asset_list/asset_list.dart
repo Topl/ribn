@@ -7,10 +7,11 @@ import 'package:ribn/v2/asset_managment/widgets/asset_list/asset_list_item.dart'
 
 // Project imports:
 import 'package:ribn/v2/shared/constants/colors.dart';
-import 'package:ribn/v2/shared/extensions/build_context_extensions.dart';
 import 'package:ribn/v2/asset_managment/models/asset_details.dart';
 import 'package:ribn/v2/asset_managment/providers/transactions/selected_network_assets_provider.dart';
-import 'package:ribn/v2/shared/theme.dart';
+import 'package:ribn/v2/shared/constants/ribn_text_style.dart';
+import 'package:ribn/v2/shared/constants/strings.dart';
+import 'package:vrouter/vrouter.dart';
 
 class AssetList extends HookConsumerWidget {
   const AssetList({
@@ -72,11 +73,31 @@ class AssetList extends HookConsumerWidget {
                       ),
                       padding: EdgeInsets.all(15)),
                   onPressed: () {
-                    context.showSnackBar('Needs Implementation');
+                    context.vRouter.to('/send_asset');
                   },
                   child: Text(
-                    'See all assets',
-                    style: bodyMedium(context),
+                    Strings.sendAssets,
+                    style: RibnTextStyle.h3,
+                  ),
+                ),
+                SizedBox(height: 20),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                      minimumSize: Size.fromHeight(40),
+                      side: BorderSide(
+                        color: RibnColors.grey,
+                        width: 1,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      padding: EdgeInsets.all(15)),
+                  onPressed: () {
+                    context.vRouter.to('/receive');
+                  },
+                  child: Text(
+                    Strings.receiveAssets,
+                    style: RibnTextStyle.h3,
                   ),
                 ),
               ],

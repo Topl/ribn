@@ -14,6 +14,7 @@ import 'package:ribn/v2/onboarding/widgets/pages/onboarding_flow_page.dart';
 import 'package:ribn/v2/receive_assets/screens/receive_asset_screen.dart';
 import 'package:ribn/v2/recovery/screens/recover_wallet_screen.dart';
 import 'package:ribn/v2/shared/constants/keys.dart';
+import 'package:ribn/v2/send_assets/screens/send_asset_screen.dart';
 import 'package:ribn/v2/shared/constants/ui.dart';
 import 'package:ribn/v2/shared/providers/app_theme_provider.dart';
 import 'package:ribn/v2/shared/theme.dart';
@@ -97,6 +98,10 @@ class RibnApp extends HookConsumerWidget {
                 VWidget(
                   path: AssetManagementScreen().route,
                   widget: AssetManagementScreen(),
+                ),
+                VWidget(
+                  path: SendAssetScreen().route, // Transaction details screen
+                  widget: SendAssetScreen(),
                 ),
               ],
             )

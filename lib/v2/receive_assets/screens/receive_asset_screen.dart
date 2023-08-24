@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/v2/receive_assets/widgets/receive_assets_address_screen.dart';
+import 'package:ribn/v2/receive_assets/widgets/select_asset.dart';
+import 'package:ribn/v2/shared/extensions/screen_hook_widget.dart';
 import 'package:ribn/v2/shared/widgets/stepper_screen.dart';
-
-import '../../shared/extensions/screen_hook_widget.dart';
-import '../widgets/receive_assets_address_screen.dart';
-import '../widgets/select_asset.dart';
 
 class ReceiveAssets extends ScreenConsumerWidget {
   static const receiveAssetsKey = Key('receiveAssetsKey');
