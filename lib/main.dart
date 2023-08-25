@@ -11,8 +11,8 @@ import 'package:ribn/v2/onboarding/screens/welcome_screen.dart';
 import 'package:ribn/v2/onboarding/widgets/pages/congratulations.dart';
 import 'package:ribn/v2/onboarding/widgets/pages/onboarding_flow_page.dart';
 import 'package:ribn/v2/receive_assets/screens/receive_asset_screen.dart';
-import 'package:ribn/v2/shared/constants/keys.dart';
 import 'package:ribn/v2/recovery/screens/recover_wallet_screen.dart';
+import 'package:ribn/v2/shared/constants/keys.dart';
 import 'package:ribn/v2/shared/constants/ui.dart';
 import 'package:ribn/v2/shared/providers/app_theme_provider.dart';
 import 'package:ribn/v2/shared/theme.dart';
@@ -83,7 +83,7 @@ class RibnApp extends HookConsumerWidget {
               beforeEnter: (vRedirector) async {
                 // Before enter, check if the user is logged in
                 // If the user is not logged in, redirect them to the welcome page
-                final User? user = ref.read(userProvider);
+                final User? user = ref.read(userProvider).asData?.value;
                 if (user == null) {
                   vRedirector.to(WelcomePage().route);
                 }
