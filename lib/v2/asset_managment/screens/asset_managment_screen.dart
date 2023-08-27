@@ -9,12 +9,16 @@ import 'package:ribn/v2/asset_managment/widgets/asset_screen_header/asset_screen
 // Project imports:
 import 'package:ribn/v2/shared/constants/colors.dart';
 import 'package:ribn/v2/asset_managment/providers/loaded_assets_provider.dart';
+import 'package:ribn/v2/shared/extensions/screen_hook_widget.dart';
 
-class AssetManagementScreen extends HookConsumerWidget {
+import '../widgets/asset_footer/asset_bottom_nav.dart';
+import '../widgets/asset_footer/footer_button.dart';
+
+class AssetManagementScreen extends ScreenConsumerWidget {
   static const Key assetManagementScreenKey = Key('assetManagementScreenKey');
   const AssetManagementScreen({
     Key key = assetManagementScreenKey,
-  }) : super(key: key);
+  }) : super(key: key, route: '/assets');
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,21 +29,25 @@ class AssetManagementScreen extends HookConsumerWidget {
       backgroundColor: RibnColors.grey,
       body: SafeArea(
         child: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: AssetScreenHeader(),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: AssetList(),
-                ),
-              ],
-            )),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            children: [
+              Expanded(
+                flex: 3,
+                child: AssetScreenHeader(),
+              ),
+              Expanded(
+                flex: 6,
+                child: AssetList(),
+              ),
+            ],
+          ),
+        ),
       ),
+      bottomNavigationBar: AssetBottomNavigation(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FooterFloatingButton(),
     );
   }
 }

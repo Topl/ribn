@@ -78,19 +78,11 @@ TextTheme _textTheme({
   return ThemeData().textTheme.copyWith(
         /// Headline
         headlineLarge: TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.w600,
-            color: textColor,
-            fontFamily: "Rational Display",
-            height: 44 / 32),
+            fontSize: 32, fontWeight: FontWeight.w600, color: textColor, fontFamily: "Rational Display", height: 1.5),
 
         /// Title
         titleLarge: TextStyle(
-          color: textColor2,
-          fontWeight: FontWeight.w600,
-          fontSize: 24,
-          fontFamily: "Rational Display",
-        ),
+            color: textColor2, fontWeight: FontWeight.w600, fontSize: 24, fontFamily: "Rational Display", height: 2.0),
         titleMedium: TextStyle(
           color: altTextColor,
           fontSize: 16,

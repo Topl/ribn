@@ -2,21 +2,15 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ribn/v2/asset_managment/widgets/asset_list/asset_list_header.dart';
 import 'package:ribn/v2/asset_managment/widgets/asset_list/asset_list_item.dart';
-import 'package:ribn/v2/asset_managment/widgets/asset_list/nft_list_item.dart';
 
 // Project imports:
 import 'package:ribn/v2/shared/constants/colors.dart';
-import 'package:ribn/v2/shared/constants/ribn_text_style.dart';
 import 'package:ribn/v2/shared/extensions/build_context_extensions.dart';
-import 'package:ribn/v2/asset_managment/models/NFT.dart';
-import 'package:ribn/v2/asset_managment/models/transaction.dart';
-import 'package:ribn/v2/asset_managment/providers/nfts/selected_network_nft_provider.dart';
-import 'package:ribn/v2/asset_managment/providers/transactions/keychain_network_providers/mainnet_transaction_provider.dart';
-import 'package:ribn/v2/asset_managment/providers/transactions/selected_network_transaction_provider.dart';
+import 'package:ribn/v2/asset_managment/models/asset_details.dart';
+import 'package:ribn/v2/asset_managment/providers/transactions/selected_network_assets_provider.dart';
+import 'package:ribn/v2/shared/theme.dart';
 
 class AssetList extends HookConsumerWidget {
   const AssetList({
@@ -25,15 +19,7 @@ class AssetList extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    useEffect(() {
-      return () {
-        ref.read(mainnetTransactionLoadedProvider.notifier).state = false;
-      };
-    }, const []);
-    final isShowingNfts = useState(false);
-
-    final AsyncValue<List<dynamic>> assets =
-        isShowingNfts.value ? ref.watch(selectedNetworkNFTProvider) : ref.watch(selectedNetworkTransactionProvider);
+    final AsyncValue<List<AssetDetails>> assets = ref.watch(selectedNetworkAssetProvider);
 
     return Container(
         decoration: BoxDecoration(
@@ -47,47 +33,30 @@ class AssetList extends HookConsumerWidget {
           top: 10,
           left: 10,
           right: 10,
-          bottom: 15,
+          bottom: 40,
         ),
         child: assets.when(
           data: (data) {
             return Column(
               children: [
-                AssetListHeader(
-                  isShowingNfts: isShowingNfts.value,
-                  onToggleShowNft: () {
-                    isShowingNfts.value = true;
-                  },
-                  onToggleShowCrypto: () {
-                    isShowingNfts.value = false;
-                  },
-                  onSearch: (String searchQuery) {
-                    print(searchQuery);
-                  },
-                ),
                 Expanded(
-                  child: ListView.builder(
+                  child: ListView.separated(
                     itemCount: data.length,
                     padding: EdgeInsets.only(
                       top: 10,
                       left: 10,
                       right: 10,
                     ),
+                    separatorBuilder: (context, index) => SizedBox(
+                      height: 20,
+                    ),
                     itemBuilder: (BuildContext context, int index) {
-                      if (isShowingNfts.value) {
-                        final NFT nft = data[index];
-                        return NFTListItem(
-                          assetName: nft.assetName,
-                          assetUrl: nft.assetUrl,
-                        );
-                      } else {
-                        final Transaction transaction = data[index];
-                        return AssetListItem(
-                          assetName: transaction.assetName,
-                          assetType: transaction.assetType,
-                          assetAmount: transaction.assetAmount,
-                        );
-                      }
+                      final AssetDetails asset = data[index];
+                      return AssetListItem(
+                        assetName: asset.assetName,
+                        assetType: asset.assetType,
+                        assetAmount: asset.assetAmount,
+                      );
                     },
                   ),
                 ),
@@ -107,7 +76,7 @@ class AssetList extends HookConsumerWidget {
                   },
                   child: Text(
                     'See all assets',
-                    style: RibnTextStyle.h3,
+                    style: bodyMedium(context),
                   ),
                 ),
               ],

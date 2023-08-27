@@ -5,9 +5,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/v2/asset_managment/providers/nfts/network_nft_providers/mainnet_nft_provider.dart';
 import 'package:ribn/v2/asset_managment/providers/nfts/network_nft_providers/private_nft_provider.dart';
 import 'package:ribn/v2/asset_managment/providers/nfts/network_nft_providers/valhalla_nft_provider.dart';
-import 'package:ribn/v2/asset_managment/providers/transactions/keychain_network_providers/mainnet_transaction_provider.dart';
-import 'package:ribn/v2/asset_managment/providers/transactions/keychain_network_providers/private_transaction_provider.dart';
-import 'package:ribn/v2/asset_managment/providers/transactions/keychain_network_providers/valhalla_transaction_provider.dart';
+import 'package:ribn/v2/asset_managment/providers/transactions/keychain_network_providers/mainnet_assets_provider.dart';
+import 'package:ribn/v2/asset_managment/providers/transactions/keychain_network_providers/private_assets_provider.dart';
+import 'package:ribn/v2/asset_managment/providers/transactions/keychain_network_providers/valhalla_assets_provider.dart';
 
 /// This provider is used to keep loaded assets in memory
 /// That way get requests are not made every time the user switches between NFTs and Crypto
@@ -30,17 +30,17 @@ final loadedAssetsProvider = Provider.autoDispose<bool>((ref) {
   }
 
   // Transactions
-  final mainnetTransactionLoaded = ref.watch(mainnetTransactionLoadedProvider);
+  final mainnetTransactionLoaded = ref.watch(mainnetAssetsLoadedProvider);
   if (mainnetTransactionLoaded) {
-    ref.watch(mainnetTransactionNotifierProvider);
+    ref.watch(mainnetAssetsNotifierProvider);
   }
-  final privateTransactionLoaded = ref.watch(privateTransactionLoadedProvider);
+  final privateTransactionLoaded = ref.watch(privateAssetsLoadedProvider);
   if (privateTransactionLoaded) {
-    ref.watch(privateTransactionNotifierProvider);
+    ref.watch(privateAssetsNotifierProvider);
   }
-  final valhallaTransactionLoaded = ref.watch(valhallaTransactionLoadedProvider);
+  final valhallaTransactionLoaded = ref.watch(valhallaAssetsLoadedProvider);
   if (valhallaTransactionLoaded) {
-    ref.watch(valhallaTransactionNotifierProvider);
+    ref.watch(valhallaAssetsNotifierProvider);
   }
 
   return mainnetNFTLoaded &&

@@ -1,10 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ribn/v2/asset_managment/models/asset_type.dart';
 
 // Project imports:
 import 'package:ribn/v2/shared/constants/colors.dart';
-import 'package:ribn/v2/shared/constants/ribn_text_style.dart';
+import 'package:ribn/v2/shared/theme.dart';
 
 class AssetListItem extends StatelessWidget {
   final String assetName;
@@ -28,7 +29,7 @@ class AssetListItem extends StatelessWidget {
           SizedBox(width: 10),
           Text(
             assetName,
-            style: RibnTextStyle.h3,
+            style: titleSmall(context),
           ),
           Spacer(),
           _Amount(
@@ -61,7 +62,7 @@ class _Icon extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: Center(
-        child: Image.asset(assetType.icon),
+        child: SvgPicture.asset(assetType.icon),
       ),
     );
   }
@@ -82,11 +83,11 @@ class _Amount extends StatelessWidget {
       children: [
         Text(
           assetAmount.toString(),
-          style: RibnTextStyle.h3,
+          style: titleSmall(context),
         ),
         Text(
           assetType.abbreviation,
-          style: RibnTextStyle.h3.copyWith(color: RibnColors.inactive),
+          style: labelLarge(context),
         )
       ],
     );
