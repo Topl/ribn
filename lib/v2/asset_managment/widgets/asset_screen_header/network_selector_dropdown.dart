@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ribn/v2/shared/theme.dart';
 
-const List<String> list = [
+final List<String> list = [
   'Toplnet',
   'Valhalla',
   'Private',
