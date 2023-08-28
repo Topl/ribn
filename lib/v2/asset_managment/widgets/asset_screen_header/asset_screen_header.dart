@@ -27,12 +27,12 @@ class AssetScreenHeader extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              flex: 1,
+              flex: 2,
               child: Row(
                 children: [
                   // Green dot
@@ -49,7 +49,7 @@ class AssetScreenHeader extends StatelessWidget {
                   IconButton(
                     icon: const Icon(
                       Icons.settings_outlined,
-                      size: 28,
+                      size: 24,
                       color: RibnColors.iconGrey,
                     ),
                     tooltip: 'settings',
@@ -60,7 +60,7 @@ class AssetScreenHeader extends StatelessWidget {
                   IconButton(
                     icon: const Icon(
                       Icons.power_settings_new_outlined,
-                      size: 28,
+                      size: 24,
                       color: RibnColors.iconGrey,
                     ),
                     tooltip: 'Shutdown',
@@ -72,7 +72,7 @@ class AssetScreenHeader extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 9,
+              flex: 8,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
