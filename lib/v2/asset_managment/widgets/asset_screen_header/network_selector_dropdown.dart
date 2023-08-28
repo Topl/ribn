@@ -10,17 +10,16 @@ final List<String> list = [
 ];
 
 class NetworkSelectorDropDown extends HookWidget {
-  String dropdownValue = list.first;
-
   @override
   Widget build(BuildContext context) {
+    final dropdownValue = useState(list.first);
     return DropdownButton<String>(
-      value: dropdownValue,
+      value: dropdownValue.value,
       icon: const Icon(Icons.expand_more),
       style: bodyMedium(context),
       underline: SizedBox(),
       onChanged: (String? value) {
-        dropdownValue = value!;
+        dropdownValue.value = value!;
       },
       items: list.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
