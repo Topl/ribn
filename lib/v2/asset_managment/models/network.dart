@@ -1,7 +1,7 @@
 // TODO SDK, I dont think Network is the proper term
 enum Network {
   topl_mainnet(
-    name: 'Topl',
+    name: 'Mainnet',
   ),
   valhalla_testnet(
     name: 'Valhalla',

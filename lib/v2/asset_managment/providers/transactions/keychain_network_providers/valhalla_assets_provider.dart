@@ -5,6 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/v2/asset_managment/models/asset_details.dart';
 import 'package:ribn/v2/asset_managment/providers/transactions/keychain_network_providers/assets_provider_class.dart';
 
+import '../../../models/asset_type.dart';
+
 final valhallaAssetsLoadedProvider = StateProvider.autoDispose<bool>((ref) {
   return false;
 });
@@ -19,9 +21,19 @@ class ValhallaTransactionProvider extends AssetsNotifier {
   ValhallaTransactionProvider(this.ref) : super();
 
   @override
-  Future<List<AssetDetails>> getAssets() {
-    // TODO: implement getTransactions
-    throw UnimplementedError();
+  Future<List<AssetDetails>> getAssets() async {
+    return [
+      AssetDetails(
+        assetName: 'Valhala Topl Governance',
+        assetType: AssetType.governance,
+        assetAmount: 8437,
+      ),
+      AssetDetails(
+        assetName: 'Valhalla Topl Transaction',
+        assetType: AssetType.transaction,
+        assetAmount: 4012,
+      ),
+    ];
   }
 
   @override
