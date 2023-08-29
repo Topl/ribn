@@ -13,6 +13,8 @@ final selectedNetworkNotifierProvider = StateNotifierProvider.autoDispose<Select
 class SelectedNetworkNotifier extends StateNotifier<Network> {
   SelectedNetworkNotifier() : super(Network.topl_mainnet);
 
+  List<String> networks() => Network.values.map((e) => e.name).toList();
+
   changeKeychain(Network keychain) {
     state = keychain;
   }
