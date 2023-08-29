@@ -55,7 +55,7 @@ class RibnApp extends HookConsumerWidget {
       themeMode: ref.watch(appThemeColorProvider),
       navigatorObservers: [],
       navigatorKey: Keys.navigatorKey,
-      initialUrl: AssetManagementScreen().route,
+      initialUrl: WelcomePage().route,
       routes: [
         // Wraps all routes in a ScreenScaffold
         VNester(
@@ -84,10 +84,10 @@ class RibnApp extends HookConsumerWidget {
               beforeEnter: (vRedirector) async {
                 // Before enter, check if the user is logged in
                 // If the user is not logged in, redirect them to the welcome page
-                // final User? user = ref.read(userProvider).asData?.value;
-                // if (user == null) {
-                //   vRedirector.to(WelcomePage().route);
-                // }
+                final User? user = ref.read(userProvider).asData?.value;
+                if (user == null) {
+                  vRedirector.to(WelcomePage().route);
+                }
               },
               stackedRoutes: [
                 VWidget(
