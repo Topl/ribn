@@ -80,7 +80,7 @@ class AssetList extends HookConsumerWidget {
                     style: RibnTextStyle.h3,
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
                       minimumSize: Size.fromHeight(40),

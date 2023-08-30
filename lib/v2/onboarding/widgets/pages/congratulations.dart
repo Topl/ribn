@@ -47,7 +47,7 @@ class CongratulationSeedPhrase extends ScreenWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    context.vRouter.to('/asset_management');
+                    context.vRouter.to('/assets');
                   },
                   child: const Text(
                     Strings.goToWallet,
