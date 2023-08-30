@@ -76,7 +76,7 @@ class SendAssetsAddressScreen extends HookConsumerWidget {
                   icon: SvgPicture.asset('assets/v2/icons/scan.svg'),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const QRViewScanner(),
+                      builder: (context) => QRViewScanner(),
                     ));
                   },
                 ),
