@@ -6,6 +6,7 @@ import 'package:ribn/v2/shared/constants/strings.dart';
 
 import '../../shared/theme.dart';
 
+// ignore: must_be_immutable
 class SendTransferAmountScreen extends HookConsumerWidget {
   SendTransferAmountScreen({
     super.key,

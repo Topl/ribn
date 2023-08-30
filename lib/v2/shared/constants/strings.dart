@@ -105,4 +105,13 @@ class Strings {
       'Please make sure the address matches the one provided by the recipient.';
   static const String search = 'Search';
   static const String setRecoveryPhraseButton = 'Next';
+
+  // Activity
+  static const String activity = 'Activity';
+  static const String activityReceived = 'Received';
+  static const String activitySent = 'Sent';
+  static const String activityFees = 'Fees';
+  static const String currencyLVL = 'LVL';
+  static const String currencyUSD = 'USD';
+  static const String currencyETH = 'ETH';
 }

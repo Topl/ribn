@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:ribn/v2/activity/screens/activity_screen.dart';
 import 'package:ribn/v2/asset_managment/screens/asset_managment_screen.dart';
 
 // Project imports:
@@ -21,6 +22,7 @@ import 'package:ribn/v2/shared/theme.dart';
 import 'package:ribn/v2/shared/widgets/vnester/screen_scaffold.dart';
 import 'package:ribn/v2/user/models/user.dart';
 import 'package:ribn/v2/user/providers/user_provider.dart';
+
 import 'package:vrouter/vrouter.dart';
 
 void main() async {
@@ -102,6 +104,10 @@ class RibnApp extends HookConsumerWidget {
                 VWidget(
                   path: SendAssetScreen().route, // Transaction details screen
                   widget: SendAssetScreen(),
+                ),
+                VWidget(
+                  path: ActivityScreen().route, // Activity screen
+                  widget: ActivityScreen(),
                 ),
               ],
             )

@@ -21,5 +21,7 @@ class Assets {
   static const walletAccess = 'assets/v2/icons/wallet_access.svg';
   static const toplLvl = 'assets/v2/icons/topl_lvl.svg';
   static const walletIcon = 'assets/v2/icons/wallet_icon.svg';
+  static const wallet = 'assets/v2/icons/wallet.svg';
+  static const schedule = 'assets/v2/icons/schedule.svg';
   static const scheduleIcon = 'assets/v2/icons/schedule_icon.svg';
 }

@@ -48,7 +48,7 @@ class CongratsPage extends StatelessWidget {
                 child: RibnButton(
                     text: Strings.goToWallet,
                     onPressed: () {
-                      context.vRouter.to('assets');
+                      context.vRouter.to('asset_management');
                     }))
           ],
         ),

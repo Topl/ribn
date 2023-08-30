@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/v2/asset_managment/widgets/asset_list/asset_list.dart';
+import 'package:ribn/v2/asset_managment/widgets/asset_footer/footer_button.dart';
+import 'package:ribn/v2/asset_managment/widgets/asset_footer/asset_bottom_nav.dart';
 import 'package:ribn/v2/asset_managment/widgets/asset_screen_header/asset_screen_header.dart';
 
 // Project imports:
 import 'package:ribn/v2/shared/constants/colors.dart';
-import 'package:ribn/v2/asset_managment/providers/loaded_assets_provider.dart';
 import 'package:ribn/v2/shared/extensions/screen_hook_widget.dart';
-
-import '../widgets/asset_footer/asset_bottom_nav.dart';
-import '../widgets/asset_footer/footer_button.dart';
+import 'package:ribn/v2/asset_managment/providers/loaded_assets_provider.dart';
 
 class AssetManagementScreen extends ScreenConsumerWidget {
   static const Key assetManagementScreenKey = Key('assetManagementScreenKey');
