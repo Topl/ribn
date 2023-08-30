@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:ribn/v2/asset_managment/screens/asset_managment_screen.dart';
 
 // Project imports:
 import 'package:ribn/v2/onboarding/screens/welcome_screen.dart';
@@ -92,6 +93,10 @@ class RibnApp extends HookConsumerWidget {
                 VWidget(
                   path: ReceiveAssets().route,
                   widget: ReceiveAssets(),
+                ),
+                VWidget(
+                  path: AssetManagementScreen().route,
+                  widget: AssetManagementScreen(),
                 ),
               ],
             )

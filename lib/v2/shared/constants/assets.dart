@@ -19,4 +19,7 @@ class Assets {
 
   static const walletWithOutline = 'assets/v2/icons/wallet_with_outline.svg';
   static const walletAccess = 'assets/v2/icons/wallet_access.svg';
+  static const toplLvl = 'assets/v2/icons/topl_lvl.svg';
+  static const walletIcon = 'assets/v2/icons/wallet_icon.svg';
+  static const scheduleIcon = 'assets/v2/icons/schedule_icon.svg';
 }
