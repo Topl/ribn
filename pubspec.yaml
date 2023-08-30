@@ -86,6 +86,8 @@ dependencies:
   hive_flutter: ^1.1.0
   flutter_secure_storage: ^8.0.0
   encrypt: ^5.0.1
+  qr_code_scanner: ^1.0.1
+
 
 dev_dependencies:
 

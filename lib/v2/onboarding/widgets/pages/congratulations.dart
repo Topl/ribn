@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
 import 'package:ribn/v2/shared/extensions/screen_hook_widget.dart';
 import 'package:ribn/v2/shared/theme.dart';
+import 'package:vrouter/vrouter.dart';
 
 import '../../../shared/constants/assets.dart';
 
@@ -45,7 +46,9 @@ class CongratulationSeedPhrase extends ScreenWidget {
               Container(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.vRouter.to('/asset_management');
+                  },
                   child: const Text(
                     Strings.goToWallet,
                     style: TextStyle(

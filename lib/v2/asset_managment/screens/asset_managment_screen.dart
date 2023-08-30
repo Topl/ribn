@@ -9,12 +9,13 @@ import 'package:ribn/v2/asset_managment/widgets/asset_screen_header/asset_screen
 // Project imports:
 import 'package:ribn/v2/shared/constants/colors.dart';
 import 'package:ribn/v2/asset_managment/providers/loaded_assets_provider.dart';
+import 'package:ribn/v2/shared/extensions/screen_hook_widget.dart';
 
-class AssetManagementScreen extends HookConsumerWidget {
+class AssetManagementScreen extends ScreenConsumerWidget {
   static const Key assetManagementScreenKey = Key('assetManagementScreenKey');
   const AssetManagementScreen({
     Key key = assetManagementScreenKey,
-  }) : super(key: key);
+  }) : super(key: key, route: '/asset_management');
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
