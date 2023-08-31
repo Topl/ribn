@@ -33,11 +33,7 @@ class SendAssetCompleteScreen extends HookConsumerWidget {
           SizedBox(height: 20),
           Text(
             'Your transaction completed',
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF282A2C),
-            ),
+            style: headlineLarge(context),
           ),
           SizedBox(height: 16),
           Row(
@@ -60,15 +56,9 @@ class SendAssetCompleteScreen extends HookConsumerWidget {
                   onPressed: () {
                     // notifier.navigateToPage(context);
                   },
-                  child: const Text(
+                  child: Text(
                     'See in Annulus Explorer',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Color(0xFF535757),
-                      fontFamily: 'Rational Display',
-                      height: 24 / 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: titleSmall(context),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFFE2E3E3),
@@ -91,15 +81,9 @@ class SendAssetCompleteScreen extends HookConsumerWidget {
                   onPressed: () {
                     notifier.finish();
                   },
-                  child: const Text(
+                  child: Text(
                     Strings.close,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Color(0xFF535757),
-                      fontFamily: 'Rational Display',
-                      height: 24 / 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: titleSmall(context),
                   ),
                   style: ElevatedButton.styleFrom(
                     elevation: 0,

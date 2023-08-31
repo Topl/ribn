@@ -103,12 +103,8 @@ class SendAssetsAddressScreen extends HookConsumerWidget {
                   ),
                 ),
                 Expanded(
-                  child: Text(
-                    Strings.enterAddressNotification,
-                    style: TextStyle(
-                        fontSize: 14, color: Color(0xFF7040EC), fontFamily: 'Rational Display', height: 20 / 16),
-                  ),
-                ),
+                  child: Text(Strings.enterAddressNotification, style: labelMedium(context)),
+                )
               ],
             ),
           ),
@@ -121,15 +117,9 @@ class SendAssetsAddressScreen extends HookConsumerWidget {
                   onPressed: () {
                     notifier.navigateToPage(context);
                   },
-                  child: const Text(
+                  child: Text(
                     'Share Address',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontFamily: 'Rational Display',
-                      height: 24 / 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: titleSmall(context),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF0DC8D4),
