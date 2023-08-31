@@ -144,16 +144,7 @@ class ReceiveAssetsAddressScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: const Text(
-                    'Share Address',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontFamily: 'Rational Display',
-                      height: 24 / 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: Text('Share Address', style: titleSmall(context)),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF0DC8D4),
                     shape: RoundedRectangleBorder(

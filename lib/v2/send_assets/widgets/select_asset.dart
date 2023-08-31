@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ribn/v2/receive_assets/models/asset_details.dart';
-import 'package:ribn/v2/shared/constants/assets.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
 import 'package:ribn/v2/shared/theme.dart';
+
+import '../../shared/constants/assets.dart';
+import '../models/asset_details.dart';
 import 'asset_card.dart';
 
 final assets = [
@@ -53,7 +54,7 @@ class SelectAssetsScreen extends HookWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            Strings.receive,
+            Strings.send,
             style: headlineLarge(context),
           ),
           SizedBox(height: 16),
@@ -70,7 +71,7 @@ class SelectAssetsScreen extends HookWidget {
             constraints: BoxConstraints(
               minHeight: 40,
             ),
-            hintText: "Search",
+            hintText: Strings.search,
             hintStyle: MaterialStateProperty.all(
               labelLarge(context),
             ),
@@ -86,7 +87,7 @@ class SelectAssetsScreen extends HookWidget {
             shadowColor: MaterialStateProperty.all(Colors.transparent),
             onChanged: (value) {
               //TODO: implement search
-              print(value);
+              print('${value} value add');
             },
           ),
           SizedBox(height: 16),

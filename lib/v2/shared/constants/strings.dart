@@ -84,9 +84,38 @@ class Strings {
   // Semantic Labels for Accessibility
   static const String semanticFingerprint = 'Fingerprint';
   static const String semanticCopy = 'Copy';
-
+  static const String sendAssets = 'Send assets';
+  static const String receive = 'Receive';
+  static const String close = 'Close';
+  static const String receiveAssets = 'Receive assets';
+  static const String totalBalance = 'Total Balance';
+  static const String assetHeader = 'Asset Header';
+  static const String chooseAnAsset = 'Choose an asset';
   static const String createRibnWallet = "Congrats on creating your Ribn wallet!";
   static const String createRibnWalletSub =
       "You can now securely store, manage, and interact with your digital assets and DApps in the Topl ecosystem.";
   static const String keepWalletSecure = "Keep your wallet secure to protect your assets.";
+
+  static const String send = 'Send';
+  static const String sendAddress = 'Enter the recipient address or scan QR code';
+  static const String sendTransferAmount = 'Enter the transfer amount';
+  static const String checkSummary = 'Check the summary';
+  static const String enterAddress = 'Enter address';
+  static const String enterAddressNotification =
+      'Please make sure the address matches the one provided by the recipient.';
+  static const String search = 'Search';
+  static const String setRecoveryPhraseButton = 'Next';
+  static const String totalAvailable = 'Total available';
+  static const String useMax = 'Use max';
+  static const String cont = 'Continue';
+  static const String estimatedFee = 'Estimated Fee';
+  static const String amount = 'Amount';
+  // Activity
+  static const String activity = 'Activity';
+  static const String activityReceived = 'Received';
+  static const String activitySent = 'Sent';
+  static const String activityFees = 'Fees';
+  static const String currencyLVL = 'LVL';
+  static const String currencyUSD = 'USD';
+  static const String currencyETH = 'ETH';
 }
