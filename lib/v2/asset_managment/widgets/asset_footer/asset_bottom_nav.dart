@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/v2/activity/screens/activity_screen.dart';
 import 'package:ribn/v2/asset_managment/providers/bottom_nav_provider.dart';
+import 'package:ribn/v2/asset_managment/screens/asset_managment_screen.dart';
 import 'package:ribn/v2/shared/constants/assets.dart';
 import 'package:ribn/v2/shared/constants/colors.dart';
 import 'package:vrouter/vrouter.dart';
@@ -18,10 +20,10 @@ class AssetBottomNavigation extends HookConsumerWidget {
       ref.watch(currentIndexProvider.notifier).setIndex(index);
       if (currentIndex == 0) {
         // Navigate to Assets screen
-        context.vRouter.to('/assets');
+        context.vRouter.to(AssetManagementScreen().route);
       } else if (currentIndex == 1) {
         // Navigate to Activity screen
-        context.vRouter.to('/activity');
+        context.vRouter.to(ActivityScreen().route);
       }
     }
 

@@ -74,23 +74,14 @@ class SendTransferAmountScreen extends HookConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Total available',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Rational Display',
-                        height: 20 / 16,
-                      ),
+                      Strings.totalAvailable,
+                      style: labelMedium(context),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 4.0),
                       child: Text(
-                        '$fullAmount LVL',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'Rational Display',
-                          height: 20 / 16,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        '$fullAmount ${Strings.currencyLVL}',
+                        style: labelLarge(context),
                       ),
                     ),
                   ],
@@ -98,8 +89,8 @@ class SendTransferAmountScreen extends HookConsumerWidget {
                 Row(
                   children: [
                     Text(
-                      'Use max',
-                      style: TextStyle(fontSize: 14, fontFamily: 'Rational Display', height: 20 / 16),
+                      Strings.useMax,
+                      style: labelMedium(context),
                     ),
                     Switch(
                       // make switch size bigger
@@ -133,15 +124,9 @@ class SendTransferAmountScreen extends HookConsumerWidget {
                   onPressed: () {
                     notifier.navigateToPage(context);
                   },
-                  child: const Text(
-                    'Continue',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontFamily: 'Rational Display',
-                      height: 24 / 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  child: Text(
+                    Strings.cont,
+                    style: labelLarge(context),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF0DC8D4),

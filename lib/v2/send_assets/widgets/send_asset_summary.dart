@@ -60,22 +60,13 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
                       children: [
                         Text(
                           'From',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'Rational Display',
-                            height: 20 / 16,
-                          ),
+                          style: labelMedium(context),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 4.0),
                           child: Text(
                             'Topl transaction (LVL)',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: 'Rational Display',
-                              height: 20 / 16,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style: labelLarge(context),
                           ),
                         ),
                       ],
@@ -120,22 +111,13 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
                       children: [
                         Text(
                           'To',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'Rational Display',
-                            height: 20 / 16,
-                          ),
+                          style: labelSmall(context),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 4.0),
                           child: Text(
                             '0q1We2rTy34a5SD6fZX7',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: 'Rational Display',
-                              height: 20 / 16,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style: labelLarge(context),
                           ),
                         ),
                       ],
@@ -166,23 +148,14 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Amount',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'Rational Display',
-                            height: 20 / 16,
-                          ),
+                          Strings.amount,
+                          style: labelMedium(context),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 4.0),
                           child: Text(
                             '4,012 LVL',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: 'Rational Display',
-                              height: 20 / 16,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style: labelLarge(context),
                           ),
                         ),
                       ],
@@ -205,23 +178,14 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Estimated Fee',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'Rational Display',
-                  height: 20 / 16,
-                ),
+                Strings.estimatedFee,
+                style: bodyMedium(context),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 4.0),
                 child: Text(
                   '0.004 LVL',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontFamily: 'Rational Display',
-                    height: 20 / 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: labelLarge(context),
                 ),
               ),
             ],
@@ -235,15 +199,9 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
                   onPressed: () {
                     notifier.navigateToPage(context);
                   },
-                  child: const Text(
-                    'Send',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontFamily: 'Rational Display',
-                      height: 24 / 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  child: Text(
+                    Strings.send,
+                    style: labelLarge(context),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF0DC8D4),

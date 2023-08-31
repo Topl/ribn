@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_svg/svg.dart';
+import 'package:ribn/v2/send_assets/screens/send_asset_screen.dart';
 
 // Project imports:
 import 'package:ribn/v2/shared/constants/assets.dart';
@@ -48,7 +49,7 @@ class CongratsPage extends StatelessWidget {
                 child: RibnButton(
                     text: Strings.goToWallet,
                     onPressed: () {
-                      context.vRouter.to('asset_management');
+                      context.vRouter.to(SendAssetScreen().route);
                     }))
           ],
         ),

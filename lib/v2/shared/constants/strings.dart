@@ -105,7 +105,11 @@ class Strings {
       'Please make sure the address matches the one provided by the recipient.';
   static const String search = 'Search';
   static const String setRecoveryPhraseButton = 'Next';
-
+  static const String totalAvailable = 'Total available';
+  static const String useMax = 'Use max';
+  static const String cont = 'Continue';
+  static const String estimatedFee = 'Estimated Fee';
+  static const String amount = 'Amount';
   // Activity
   static const String activity = 'Activity';
   static const String activityReceived = 'Received';

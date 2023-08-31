@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ribn/v2/shared/constants/ribn_text_style.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
-
+import 'package:ribn/v2/shared/theme.dart';
 
 class ActivityTransaction extends HookWidget {
   const ActivityTransaction(
@@ -58,12 +57,12 @@ class ActivityTransaction extends HookWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(transactionName, style: RibnTextStyle.bodyLarge),
+                  Text(transactionName, style: titleSmall(context)),
                   Padding(
                     padding: const EdgeInsets.only(top: 4.0),
                     child: Text(
                       transactionDateTime,
-                      style: RibnTextStyle.smallBody,
+                      style: labelSmall(context),
                     ),
                   ),
                 ],
@@ -86,15 +85,15 @@ class ActivityTransaction extends HookWidget {
                             color: (transactionAmountUSD!.contains('-') || transactionAmountLVL.contains('-'))
                                 ? Color(0xFFEB5757)
                                 : Color(0xFF27AE60),
-                            fontSize: RibnTextStyle.bodyLarge.fontSize,
-                            fontFamily: RibnTextStyle.bodyLarge.fontFamily,
-                            fontWeight: RibnTextStyle.bodyLarge.fontWeight),
+                            fontSize: titleSmall(context)?.fontSize,
+                            fontFamily: titleSmall(context)?.fontFamily,
+                            fontWeight: titleSmall(context)?.fontWeight),
                       )),
                   Padding(
                     padding: const EdgeInsets.only(top: 4.0),
                     child: Text(
                       '$transactionAmountUSD  ${Strings.currencyUSD}',
-                      style: RibnTextStyle.smallBody,
+                      style: labelSmall(context),
                     ),
                   ),
                 ]),

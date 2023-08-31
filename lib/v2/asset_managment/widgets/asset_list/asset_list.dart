@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/v2/asset_managment/widgets/asset_list/asset_list_item.dart';
+import 'package:ribn/v2/receive_assets/screens/receive_asset_screen.dart';
+import 'package:ribn/v2/send_assets/screens/send_asset_screen.dart';
 
 // Project imports:
 import 'package:ribn/v2/shared/constants/colors.dart';
@@ -73,7 +75,7 @@ class AssetList extends HookConsumerWidget {
                       ),
                       padding: EdgeInsets.all(15)),
                   onPressed: () {
-                    context.vRouter.to('/send_asset');
+                    context.vRouter.to(SendAssetScreen().route);
                   },
                   child: Text(
                     Strings.sendAssets,
@@ -93,7 +95,7 @@ class AssetList extends HookConsumerWidget {
                       ),
                       padding: EdgeInsets.all(15)),
                   onPressed: () {
-                    context.vRouter.to('/receive');
+                    context.vRouter.to(ReceiveAssets().route);
                   },
                   child: Text(
                     Strings.receiveAssets,

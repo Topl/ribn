@@ -109,6 +109,8 @@ TextTheme _textTheme({
           color: altTextColor,
           fontFamily: "Rational Display",
         ),
+        labelSmall:
+            TextStyle(color: altTextColor, fontWeight: FontWeight.w400, fontFamily: 'Rational Display', fontSize: 12),
 
         /// Body
         bodyMedium: TextStyle(
@@ -155,6 +157,11 @@ TextStyle? labelLarge(BuildContext context) {
 /// Returns [Theme.of(context).textTheme.labelLarge]
 TextStyle? labelMedium(BuildContext context) {
   return Theme.of(context).textTheme.labelMedium;
+}
+
+/// Returns [Theme.of(context).textTheme.labelSmall]
+TextStyle? labelSmall(BuildContext context) {
+  return Theme.of(context).textTheme.labelSmall;
 }
 
 /// Returns [Theme.of(context).textTheme.bodyMedium]
