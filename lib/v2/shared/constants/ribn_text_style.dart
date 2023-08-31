@@ -120,13 +120,6 @@ class RibnTextStyle {
     fontSize: 12,
   );
 
-   static const TextStyle smallBody = TextStyle(
-    color: RibnColors.defaultText,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'Rational Display',
-    fontSize: 12,
-  );
-
   static const TextStyle bodyLarge = TextStyle(
     fontFamily: 'Rational Display',
     fontSize: 16,
@@ -134,19 +127,12 @@ class RibnTextStyle {
     fontWeight: FontWeight.w500,
   );
 
-    static const TextStyle bodyRegularBold = TextStyle(
+  static const TextStyle bodyRegularBold = TextStyle(
     fontFamily: 'Rational Display',
     fontSize: 14,
     fontWeight: FontWeight.w500,
   );
 //
-// static const TextStyle smallBody = TextStyle(
-//   color: RibnColors.defaultText,
-//   fontWeight: FontWeight.w300,
-//   fontFamily: 'DM Sans',
-//   fontSize: 12.0,
-//   decoration: TextDecoration.none,
-// );
 //
 // static const TextStyle settingsSmallText = TextStyle(
 //   fontSize: 9.3,

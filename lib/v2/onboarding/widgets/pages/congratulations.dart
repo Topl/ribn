@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ribn/v2/asset_managment/screens/asset_managment_screen.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
 import 'package:ribn/v2/shared/extensions/screen_hook_widget.dart';
 import 'package:ribn/v2/shared/theme.dart';
@@ -47,17 +48,11 @@ class CongratulationSeedPhrase extends ScreenWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    context.vRouter.to('/assets');
+                    context.vRouter.to(AssetManagementScreen().route);
                   },
-                  child: const Text(
+                  child: Text(
                     Strings.goToWallet,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontFamily: 'Rational Display',
-                      height: 24 / 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: labelLarge(context),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF0DC8D4),
