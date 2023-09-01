@@ -100,7 +100,7 @@ TextTheme _textTheme({
         labelLarge: TextStyle(
           fontSize: 14.0,
           fontWeight: FontWeight.w600,
-          color: altTextColor,
+          color: Color(0xFFFEFEFE),
           fontFamily: "Rational Display",
         ),
         labelMedium: TextStyle(

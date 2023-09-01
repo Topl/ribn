@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/v2/onboarding/widgets/pages/confirm_pin_page.dart';
+import 'package:ribn/v2/onboarding/widgets/pages/create_pin_page.dart';
 import 'package:ribn/v2/recovery/providers/recovery_provider.dart';
+import 'package:ribn/v2/recovery/widgets/type_recovery_phrase.dart';
+import 'package:ribn/v2/recovery/widgets/wallet_restored.dart';
+import 'package:ribn/v2/shared/extensions/screen_hook_widget.dart';
 import 'package:ribn/v2/shared/extensions/widget_extensions.dart';
 import 'package:ribn/v2/shared/providers/stepper_screen_provider.dart';
+import 'package:ribn/v2/shared/widgets/custom_loading_dialog.dart';
 import 'package:ribn/v2/shared/widgets/stepper_screen.dart';
-
-import '../../onboarding/widgets/pages/confirm_pin_page.dart';
-import '../../onboarding/widgets/pages/create_pin_page.dart';
-import '../../shared/extensions/screen_hook_widget.dart';
-import '../widgets/type_recovery_phrase.dart';
-import '../widgets/wallet_restored.dart';
+import 'package:vrouter/vrouter.dart';
 
 class RestoreWalletScreen extends ScreenConsumerWidget {
   static const restoreWalletKey = Key('restoreWalletKey');
+
+  Future<void> showCustomDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (context) => CustomLoadingDialog(), // Use the custom dialog widget
+    );
+  }
 
   RestoreWalletScreen({
     Key? key,
@@ -45,8 +53,11 @@ class RestoreWalletScreen extends ScreenConsumerWidget {
           },
         ),
       ],
-      onDone: () {
-        ref.read(recoveryProvider.notifier).saveWallet();
+      onDone: () async {
+        // ref.read(recoveryProvider.notifier).saveWallet();
+        showCustomDialog(context);
+        await Future.delayed(Duration(seconds: 3));
+        context.vRouter.to('/restore');
         WalletAccessRestored().showAsModal(context);
       },
     );
