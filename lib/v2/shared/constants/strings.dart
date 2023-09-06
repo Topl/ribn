@@ -4,9 +4,12 @@ class Strings {
 
   // Onboarding
   static const String welcomeToRibn = 'Welcome To Ribn';
+  static const String welcomeToBack = 'Welcome back';
   static const String welcomeToRibnSubheader = 'Topl’s blockchain wallet used to track, tokenize, and transact impact.';
   static const String createWallet = 'Create wallet';
-  static const String importWallet = 'Import wallet';
+  static const String importWallet = 'Forgot PIN?';
+  static const String pin = 'PIN';
+  static const String forgotPin = 'Import wallet';
   static const String helpUsImprove = 'Help us improve Ribn';
   static const String dataDisclaimerHeader =
       'Ribn Wallet would like to gather usage data to better understand user interactions. This data will be used to continually improve user experience and Topl\'s ecosystem.';
@@ -25,6 +28,7 @@ class Strings {
 
   // Create Pin Flow
   static const String createPin = 'Create a PIN';
+  static const String unlock = 'Unlock';
   static const String createPinDisclaimer =
       'Please, don’t use the same numbers in a row. \nDon’t show your PIN to anyone.';
   static const String confirmPin = 'Type your PIN again';

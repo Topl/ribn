@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:ribn/v2/activity/screens/activity_screen.dart';
 import 'package:ribn/v2/asset_managment/screens/asset_managment_screen.dart';
+import 'package:ribn/v2/onboarding/screens/login_screen.dart';
 
 // Project imports:
 import 'package:ribn/v2/onboarding/screens/welcome_screen.dart';
@@ -70,6 +71,10 @@ class RibnApp extends HookConsumerWidget {
               widget: WelcomePage(),
             ),
             VWidget(
+              path: LoginScreen().route,
+              widget: LoginScreen(),
+            ),
+            VWidget(
               path: OnboardingFlowPage().route,
               widget: OnboardingFlowPage(),
             ),
@@ -89,7 +94,7 @@ class RibnApp extends HookConsumerWidget {
                 // If the user is not logged in, redirect them to the welcome page
                 final User? user = ref.read(userProvider).asData?.value;
                 if (user == null) {
-                  vRedirector.to(WelcomePage().route);
+                  vRedirector.to(LoginScreen().route);
                 }
               },
               stackedRoutes: [

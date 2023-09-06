@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
+import 'package:ribn/v2/onboarding/widgets/modals/onboarding_modal.dart';
+import 'package:ribn/v2/recovery/widgets/modals/restore_access.dart';
 // Project imports:
 import 'package:ribn/v2/shared/constants/assets.dart';
 import 'package:ribn/v2/shared/constants/colors.dart';
@@ -11,10 +12,7 @@ import 'package:ribn/v2/shared/constants/ribn_text_style.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
 import 'package:ribn/v2/shared/extensions/screen_hook_widget.dart';
 import 'package:ribn/v2/shared/extensions/widget_extensions.dart';
-import 'package:ribn/v2/onboarding/widgets/modals/onboarding_modal.dart';
 import 'package:ribn/v2/shared/widgets/ribn_button.dart';
-
-import '../../recovery/widgets/modals/restore_access.dart';
 
 class WelcomePage extends ScreenConsumerWidget {
   static const welcomePageKey = Key('welcomePageKey');
