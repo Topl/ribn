@@ -21,13 +21,6 @@ class OnboardingFlowPage extends ScreenConsumerWidget {
     Key? key,
   }) : super(key: key, route: '/onboarding');
 
-  Future<void> showCustomDialog(BuildContext context) async {
-    return showDialog(
-      context: context,
-      builder: (context) => CustomLoadingDialog(), // Use the custom dialog widget
-    );
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final onboardingState = ref.watch(onboardingProvider);

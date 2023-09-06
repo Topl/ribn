@@ -15,13 +15,6 @@ import 'package:vrouter/vrouter.dart';
 class RestoreWalletScreen extends ScreenConsumerWidget {
   static const restoreWalletKey = Key('restoreWalletKey');
 
-  Future<void> showCustomDialog(BuildContext context) async {
-    return showDialog(
-      context: context,
-      builder: (context) => CustomLoadingDialog(), // Use the custom dialog widget
-    );
-  }
-
   RestoreWalletScreen({
     Key? key,
   }) : super(key: key, route: '/restore');

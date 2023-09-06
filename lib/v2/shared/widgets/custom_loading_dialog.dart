@@ -4,6 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ribn/v2/shared/constants/assets.dart';
 
+Future<void> showCustomDialog(BuildContext context) async {
+  return showDialog(
+    context: context,
+    builder: (context) => CustomLoadingDialog(), // Use the custom dialog widget
+  );
+}
+
 class CustomLoadingDialog extends HookWidget {
   @override
   Widget build(BuildContext context) {
