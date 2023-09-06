@@ -14,6 +14,7 @@ import 'package:ribn/v2/shared/widgets/ribn_button.dart';
 /// Builds the login page.
 ///
 /// Prompts the user to unlock their wallet by entering their wallet-locking password.
+// ignore: must_be_immutable
 class LoginScreen extends ScreenConsumerWidget {
   static const loginPageKey = Key('loginPageKey');
   static const loginPageCreateButtonKey = Key('loginPageCreateButtonKey');
