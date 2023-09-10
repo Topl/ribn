@@ -33,6 +33,14 @@ class CreatePinPage extends HookConsumerWidget {
     final focusNode = useFocusNode();
     final isPinValid = useState(false);
     final nextButtonNotifier = ref.watch(stepperNavigationControlProvider.notifier);
+    useEffect(() {
+      print(isPinValid.value);
+      Future.delayed(Duration.zero, () {
+        if (isPinValid.value) {
+          nextButtonNotifier.setNextButton(true);
+        }
+      });
+    }, [isPinValid.value]);
 
     bool isSafePin(int? pin) {
       List<int> unsafePins = [123456, 654321, 987654]; // Add more unsafe PINs if needed
@@ -40,10 +48,8 @@ class CreatePinPage extends HookConsumerWidget {
       // Check if the input pin is in the list of unsafePins
       if (unsafePins.contains(pin)) {
         // disable next button
-        nextButtonNotifier.setNextButton(false);
         return false;
       }
-      nextButtonNotifier.setNextButton(true);
       // Otherwise, the PIN is safe
       return true;
     }
@@ -77,7 +83,6 @@ class CreatePinPage extends HookConsumerWidget {
                 final isPinSafe = isSafePin(int.parse(input!));
                 if (input.isEmpty || input.length < OnboardingNotifier.pinLength) {
                   isPinValid.value = false;
-                  nextButtonNotifier.setNextButton(false);
                   return Strings.pinNotLongEnough;
                 }
                 if (input.length >= OnboardingNotifier.pinLength && !isPinSafe) {

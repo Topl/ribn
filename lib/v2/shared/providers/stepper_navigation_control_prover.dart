@@ -1,36 +1,32 @@
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-enum StepperNavigationControl {
-  done,
-  next,
-}
+import '../models/stepper_navigation_state.dart';
 
 final stepperNavigationControlProvider =
-    StateNotifierProvider.autoDispose<StepperNavigationControlNotifier, Map<StepperNavigationControl, bool>>(
+    StateNotifierProvider.autoDispose<StepperNavigationControlNotifier, StepperNavigationState>(
   (ref) {
     return StepperNavigationControlNotifier();
   },
 );
 
-class StepperNavigationControlNotifier extends StateNotifier<Map<StepperNavigationControl, bool>> {
+class StepperNavigationControlNotifier extends StateNotifier<StepperNavigationState> {
   StepperNavigationControlNotifier()
-      : super({
-          StepperNavigationControl.done: true,
-          StepperNavigationControl.next: true,
-        });
+      : super(
+          StepperNavigationState(),
+        );
 
   void setNextButton(bool value) {
-    state = {
-      StepperNavigationControl.done: false,
-      StepperNavigationControl.next: value,
-    };
+    state = StepperNavigationState(
+      next: value,
+      done: false,
+    );
   }
 
   void setDoneButton(bool value) {
-    state = {
-      StepperNavigationControl.done: value,
-      StepperNavigationControl.next: false,
-    };
+    state = StepperNavigationState(
+      next: false,
+      done: value,
+    );
   }
 }
