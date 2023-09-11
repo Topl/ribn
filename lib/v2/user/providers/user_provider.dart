@@ -41,7 +41,7 @@ class UserNotifier extends StateNotifier<AsyncValue<User?>> {
     });
   }
 
-  Future<void> logUserIn({
+  Future<bool> logUserIn({
     required String pin,
   }) async {
     state = AsyncLoading();
@@ -58,14 +58,17 @@ class UserNotifier extends StateNotifier<AsyncValue<User?>> {
 
       if (mnemonic == null) {
         state = AsyncError('Invalid PIN', StackTrace.current);
-        throw Exception('Invalid PIN');
+        // throw Exception('Invalid PIN');
+        return false;
       }
       state = AsyncData(User(
         mnemonic: mnemonic,
       ));
+      return true;
     } catch (e) {
       state = AsyncError('Invalid PIN', StackTrace.current);
-      throw Exception('Invalid PIN');
+      // throw Exception('Invalid PIN');
+      return false;
     }
   }
 
@@ -80,9 +83,11 @@ class UserNotifier extends StateNotifier<AsyncValue<User?>> {
     }
   }
 
-  void logOut() {
-    // TODO Implement
+  void logOut() async {
+    // Clear the mnemonic from SecureStorage
+    await SecureStorage().deleteItem(key: mnemonicSecureStorageKey);
+
+    // Sets the state to null to indicate that the user is logged out
     state = AsyncValue.data(null);
-    ;
   }
 }

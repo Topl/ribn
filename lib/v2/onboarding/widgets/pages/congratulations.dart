@@ -50,10 +50,7 @@ class CongratulationSeedPhrase extends ScreenWidget {
                   onPressed: () {
                     context.vRouter.to(AssetManagementScreen().route);
                   },
-                  child: Text(
-                    Strings.goToWallet,
-                    style: labelLarge(context),
-                  ),
+                  child: Text(Strings.goToWallet, style: labelLarge(context)?.copyWith(color: Colors.white)),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF0DC8D4),
                     shape: RoundedRectangleBorder(

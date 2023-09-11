@@ -21,9 +21,9 @@ import 'package:ribn/v2/shared/constants/ui.dart';
 import 'package:ribn/v2/shared/providers/app_theme_provider.dart';
 import 'package:ribn/v2/shared/theme.dart';
 import 'package:ribn/v2/shared/widgets/vnester/screen_scaffold.dart';
-import 'package:ribn/v2/user/models/user.dart';
-import 'package:ribn/v2/user/providers/user_provider.dart';
 
+import 'package:ribn/v2/shared/widgets/loading_screen.dart';
+import 'package:ribn/v2/user/providers/user_provider.dart';
 import 'package:vrouter/vrouter.dart';
 
 void main() async {
@@ -59,8 +59,27 @@ class RibnApp extends HookConsumerWidget {
       themeMode: ref.watch(appThemeColorProvider),
       navigatorObservers: [],
       navigatorKey: Keys.navigatorKey,
-      initialUrl: WelcomePage().route,
+      initialUrl: '/',
       routes: [
+        // Loading screen while waiting for user data
+        VWidget(
+            path: '/',
+            widget: FutureBuilder<UserNotifier?>(
+                future: _loadUser(ref),
+                builder: (context, snapshot) {
+                  final user = snapshot.data;
+                  Future<Widget> widgetFuture = _buildWidget(user);
+                  return FutureBuilder<Widget>(
+                    future: widgetFuture,
+                    builder: (context, widgetSnapshot) {
+                      if (widgetSnapshot.connectionState == ConnectionState.waiting) {
+                        return LoadingScreen();
+                      } else {
+                        return widgetSnapshot.data ?? WelcomePage();
+                      }
+                    },
+                  );
+                })),
         // Wraps all routes in a ScreenScaffold
         VNester(
           path: '/',
@@ -89,14 +108,7 @@ class RibnApp extends HookConsumerWidget {
             ),
             // Any routes that require the user to be logged in should be nested in this VGuard
             VGuard(
-              beforeEnter: (vRedirector) async {
-                // Before enter, check if the user is logged in
-                // If the user is not logged in, redirect them to the welcome page
-                final User? user = ref.read(userProvider).asData?.value;
-                if (user == null) {
-                  vRedirector.to(LoginScreen().route);
-                }
-              },
+              beforeEnter: (vRedirector) async {},
               stackedRoutes: [
                 VWidget(
                   path: ReceiveAssets().route,
@@ -120,6 +132,21 @@ class RibnApp extends HookConsumerWidget {
         ),
       ],
     );
+  }
+
+// This function loads user data asynchronously and returns a Future<UserNotifier>.
+  Future<UserNotifier> _loadUser(WidgetRef ref) async {
+    final userProviderState = await ref.watch(userProvider.notifier);
+    return userProviderState;
+  }
+}
+
+// This function builds and returns a Future<Widget> based on the provided UserNotifier data.
+Future<Widget> _buildWidget(UserNotifier? user) async {
+  if (await user?.isUserSaved() ?? false) {
+    return LoginScreen();
+  } else {
+    return WelcomePage();
   }
 }
 
