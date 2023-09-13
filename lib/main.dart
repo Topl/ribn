@@ -58,7 +58,7 @@ class RibnApp extends HookConsumerWidget {
       themeMode: ref.watch(appThemeColorProvider),
       navigatorObservers: [],
       navigatorKey: Keys.navigatorKey,
-      initialUrl: SendAssetScreen().route,
+      initialUrl: WelcomePage().route,
       routes: [
         // Wraps all routes in a ScreenScaffold
         VNester(
