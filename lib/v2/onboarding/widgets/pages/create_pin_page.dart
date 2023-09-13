@@ -38,6 +38,8 @@ class CreatePinPage extends HookConsumerWidget {
       Future.delayed(Duration.zero, () {
         if (isPinValid.value) {
           nextButtonNotifier.setNextButton(true);
+        } else {
+          nextButtonNotifier.setNextButton(false);
         }
       });
     }, [isPinValid.value]);
