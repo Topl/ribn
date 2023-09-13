@@ -24,6 +24,9 @@ class TypeRecoveryPhrase extends HookConsumerWidget {
       Future.delayed(Duration.zero, () {
         nextButtonNotifier.setNextButton(true);
       });
+      return () {
+        null;
+      };
     }, []);
 
     return Padding(

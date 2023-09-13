@@ -35,6 +35,9 @@ class ConfirmRecoveryPhrasePage extends HookConsumerWidget {
           nextButtonNotifier.setNextButton(false);
         }
       });
+      return () {
+        null;
+      };
     }, [isCorrectConfirmationWords]);
 
     return Padding(

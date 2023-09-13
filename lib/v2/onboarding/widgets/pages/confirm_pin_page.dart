@@ -46,6 +46,9 @@ class ConfirmPinPage extends HookConsumerWidget {
           nextButtonNotifier.setNextButton(false);
         }
       });
+      return () {
+        null;
+      };
     }, [isPinValid.value]);
 
     return Padding(

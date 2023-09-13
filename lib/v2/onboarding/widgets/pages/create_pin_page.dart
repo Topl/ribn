@@ -42,6 +42,10 @@ class CreatePinPage extends HookConsumerWidget {
           nextButtonNotifier.setNextButton(false);
         }
       });
+      // fix build errors
+      return () {
+        null;
+      };
     }, [isPinValid.value]);
 
     bool isSafePin(int? pin) {
