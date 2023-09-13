@@ -63,24 +63,7 @@ class RibnApp extends HookConsumerWidget {
       initialUrl: '/',
       routes: [
         // Loading screen while waiting for user data
-        VWidget(
-            path: '/',
-            widget: FutureBuilder<UserNotifier?>(
-                future: _loadUser(ref),
-                builder: (context, snapshot) {
-                  final user = snapshot.data;
-                  Future<Widget> widgetFuture = _buildWidget(user);
-                  return FutureBuilder<Widget>(
-                    future: widgetFuture,
-                    builder: (context, widgetSnapshot) {
-                      if (widgetSnapshot.connectionState == ConnectionState.waiting) {
-                        return LoadingScreen();
-                      } else {
-                        return widgetSnapshot.data ?? WelcomePage();
-                      }
-                    },
-                  );
-                })),
+        VWidget(path: '/', widget: LoadingScreen()),
         // Wraps all routes in a ScreenScaffold
         VNester(
           path: '/',
@@ -140,28 +123,12 @@ class RibnApp extends HookConsumerWidget {
     );
   }
 
-// This function loads user data asynchronously and returns a Future<UserNotifier>.
-  Future<UserNotifier> _loadUser(WidgetRef ref) async {
-    final userProviderState = await ref.watch(userProvider.notifier);
-    return userProviderState;
-  }
-}
-
-// This function builds and returns a Future<Widget> based on the provided UserNotifier data.
-Future<Widget> _buildWidget(UserNotifier? user) async {
-  if (await user?.isUserSaved() ?? false) {
-    return LoginScreen();
-  } else {
-    return WelcomePage();
-  }
-}
-
 // LEAVING THIS COMMENTED FOR NOW
 // This will be needed in the future
-/// Initiates a long-lived connection with the background script.
-///
-/// A port message listener is added, and a message is sent to check for pending requests.
-/// The future completes upon receiving a response.
+  /// Initiates a long-lived connection with the background script.
+  ///
+  /// A port message listener is added, and a message is sent to check for pending requests.
+  /// The future completes upon receiving a response.
 // Future<void> initBgConnection(Store<AppState> store) async {
 //   final Completer<void> completer = Completer<void>();
 //   try {
@@ -178,3 +145,4 @@ Future<Widget> _buildWidget(UserNotifier? user) async {
 //   }
 //   return completer.future;
 // }
+}
