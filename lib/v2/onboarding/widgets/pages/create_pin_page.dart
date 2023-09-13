@@ -33,8 +33,8 @@ class CreatePinPage extends HookConsumerWidget {
     final focusNode = useFocusNode();
     final isPinValid = useState(false);
     final nextButtonNotifier = ref.watch(stepperNavigationControlProvider.notifier);
+
     useEffect(() {
-      print(isPinValid.value);
       Future.delayed(Duration.zero, () {
         if (isPinValid.value) {
           nextButtonNotifier.setNextButton(true);
