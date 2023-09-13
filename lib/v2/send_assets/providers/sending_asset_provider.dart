@@ -38,6 +38,6 @@ class SendingAssetNotifier extends StateNotifier<SendingAssetState> {
   /// Gets the details from the state
   /// and sends the transaction
   Future<void> sendTransaction() async {
-    final sendingAssetState = await ref.read(sendingAssetProvider.notifier);
+    // final sendingAssetState = await ref.read(sendingAssetProvider.notifier);
   }
 }
