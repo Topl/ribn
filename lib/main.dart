@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:ribn/v2/activity/screens/activity_screen.dart';
 import 'package:ribn/v2/asset_managment/screens/asset_managment_screen.dart';
+import 'package:ribn/v2/onboarding/screens/app_introduction.dart';
 import 'package:ribn/v2/onboarding/screens/login_screen.dart';
 
 // Project imports:
@@ -76,6 +77,10 @@ class RibnApp extends HookConsumerWidget {
             VWidget(
               path: LoginScreen().route,
               widget: LoginScreen(),
+            ),
+            VWidget(
+              path: AppTutorialScreen().route,
+              widget: AppTutorialScreen(),
             ),
             VWidget(
               path: OnboardingFlowPage().route,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/v1/constants/strings.dart';
-import 'package:ribn/v2/asset_managment/screens/asset_managment_screen.dart';
+import 'package:ribn/v2/onboarding/screens/app_introduction.dart';
 import 'package:ribn/v2/shared/theme.dart';
 import 'package:vrouter/vrouter.dart';
 
@@ -46,7 +46,7 @@ class WalletAccessRestored extends ConsumerWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                context.vRouter.to(AssetManagementScreen().route);
+                context.vRouter.to(AppTutorialScreen().route);
               },
               child: const Text(
                 'Go to Wallet',
