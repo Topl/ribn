@@ -1,9 +1,10 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 // Package imports:
 import 'package:flutter_svg/svg.dart';
-import 'package:ribn/v2/send_assets/screens/send_asset_screen.dart';
+import 'package:ribn/v2/onboarding/screens/app_introduction.dart';
 
 // Project imports:
 import 'package:ribn/v2/shared/constants/assets.dart';
@@ -12,7 +13,7 @@ import 'package:ribn/v2/shared/constants/strings.dart';
 import 'package:ribn/v2/shared/widgets/ribn_button.dart';
 import 'package:vrouter/vrouter.dart';
 
-class CongratsPage extends StatelessWidget {
+class CongratsPage extends HookWidget {
   const CongratsPage({Key? key}) : super(key: key);
 
   @override
@@ -49,7 +50,7 @@ class CongratsPage extends StatelessWidget {
                 child: RibnButton(
                     text: Strings.goToWallet,
                     onPressed: () {
-                      context.vRouter.to(SendAssetScreen().route);
+                      context.vRouter.to(AppTutorialScreen().route);
                     }))
           ],
         ),

@@ -88,6 +88,7 @@ dependencies:
   encrypt: ^5.0.1
   qr_code_scanner: ^1.0.1
   collection: ^1.17.1
+  smooth_page_indicator: ^1.1.0
 
 
 dev_dependencies:
