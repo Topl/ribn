@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:ribn/v2/activity/screens/activity_screen.dart';
 import 'package:ribn/v2/asset_managment/screens/asset_managment_screen.dart';
+import 'package:ribn/v2/onboarding/screens/login_screen.dart';
 
 // Project imports:
 import 'package:ribn/v2/onboarding/screens/welcome_screen.dart';
@@ -20,9 +21,10 @@ import 'package:ribn/v2/shared/constants/ui.dart';
 import 'package:ribn/v2/shared/providers/app_theme_provider.dart';
 import 'package:ribn/v2/shared/theme.dart';
 import 'package:ribn/v2/shared/widgets/vnester/screen_scaffold.dart';
+
+import 'package:ribn/v2/shared/widgets/loading_screen.dart';
 import 'package:ribn/v2/user/models/user.dart';
 import 'package:ribn/v2/user/providers/user_provider.dart';
-
 import 'package:vrouter/vrouter.dart';
 
 void main() async {
@@ -58,8 +60,10 @@ class RibnApp extends HookConsumerWidget {
       themeMode: ref.watch(appThemeColorProvider),
       navigatorObservers: [],
       navigatorKey: Keys.navigatorKey,
-      initialUrl: WelcomePage().route,
+      initialUrl: '/',
       routes: [
+        // Loading screen while waiting for user data
+        VWidget(path: '/', widget: LoadingScreen()),
         // Wraps all routes in a ScreenScaffold
         VNester(
           path: '/',
@@ -68,6 +72,10 @@ class RibnApp extends HookConsumerWidget {
             VWidget(
               path: WelcomePage().route,
               widget: WelcomePage(),
+            ),
+            VWidget(
+              path: LoginScreen().route,
+              widget: LoginScreen(),
             ),
             VWidget(
               path: OnboardingFlowPage().route,
@@ -85,8 +93,6 @@ class RibnApp extends HookConsumerWidget {
             // Any routes that require the user to be logged in should be nested in this VGuard
             VGuard(
               beforeEnter: (vRedirector) async {
-                // Before enter, check if the user is logged in
-                // If the user is not logged in, redirect them to the welcome page
                 final User? user = ref.read(userProvider).asData?.value;
                 if (user == null) {
                   vRedirector.to(WelcomePage().route);
@@ -116,14 +122,13 @@ class RibnApp extends HookConsumerWidget {
       ],
     );
   }
-}
 
 // LEAVING THIS COMMENTED FOR NOW
 // This will be needed in the future
-/// Initiates a long-lived connection with the background script.
-///
-/// A port message listener is added, and a message is sent to check for pending requests.
-/// The future completes upon receiving a response.
+  /// Initiates a long-lived connection with the background script.
+  ///
+  /// A port message listener is added, and a message is sent to check for pending requests.
+  /// The future completes upon receiving a response.
 // Future<void> initBgConnection(Store<AppState> store) async {
 //   final Completer<void> completer = Completer<void>();
 //   try {
@@ -140,3 +145,4 @@ class RibnApp extends HookConsumerWidget {
 //   }
 //   return completer.future;
 // }
+}

@@ -1,19 +1,23 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Project imports:
 import 'package:ribn/v2/shared/constants/colors.dart';
+import 'package:ribn/v2/user/providers/user_provider.dart';
+import 'package:vrouter/vrouter.dart';
 
 import '../../../shared/theme.dart';
 import 'network_selector_dropdown.dart';
 
-class AssetScreenHeader extends StatelessWidget {
+class AssetScreenHeader extends HookConsumerWidget {
   const AssetScreenHeader({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(userProvider.notifier);
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -65,7 +69,8 @@ class AssetScreenHeader extends StatelessWidget {
                     ),
                     tooltip: 'Shutdown',
                     onPressed: () {
-                      //   TODO SDK: Implement shutdown
+                      user.logOut();
+                      context.vRouter.to('/');
                     },
                   ),
                 ],
