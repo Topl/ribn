@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,6 +11,8 @@ import 'package:ribn/v2/shared/constants/colors.dart';
 import 'package:ribn/v2/shared/constants/ribn_text_style.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
 import 'package:ribn/v2/onboarding/widgets/confirmation_segemented_button.dart';
+
+import '../../../shared/providers/stepper_navigation_control_prover.dart';
 
 class ConfirmRecoveryPhrasePage extends HookConsumerWidget {
   const ConfirmRecoveryPhrasePage({
@@ -22,6 +25,21 @@ class ConfirmRecoveryPhrasePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final checkItWords = ref.watch(onboardingProvider).confirmationWords;
     final isCorrectConfirmationWords = ref.watch(onboardingProvider).isCorrectConfirmationWords;
+    final nextButtonNotifier = ref.watch(stepperNavigationControlProvider.notifier);
+
+    useEffect(() {
+      Future.delayed(Duration.zero, () {
+        if (isCorrectConfirmationWords) {
+          nextButtonNotifier.setNextButton(true);
+        } else {
+          nextButtonNotifier.setNextButton(false);
+        }
+      });
+      return () {
+        null;
+      };
+    }, [isCorrectConfirmationWords]);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: SingleChildScrollView(

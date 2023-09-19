@@ -1,11 +1,13 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/v2/recovery/providers/recovery_provider.dart';
 import 'package:ribn/v2/recovery/widgets/recover_input.dart';
 import 'package:ribn/v2/shared/theme.dart';
 
 import '../../../v1/constants/strings.dart';
+import '../../shared/providers/stepper_navigation_control_prover.dart';
 
 class TypeRecoveryPhrase extends HookConsumerWidget {
   const TypeRecoveryPhrase({super.key});
@@ -13,6 +15,20 @@ class TypeRecoveryPhrase extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final recoveryPhrase = ref.watch(recoveryProvider).recoveryPhrase;
+    final nextButtonNotifier = ref.watch(stepperNavigationControlProvider.notifier);
+
+    /// Will be used to set conditions which the
+    /// next button will be enabled or
+    /// disabled
+    useEffect(() {
+      Future.delayed(Duration.zero, () {
+        nextButtonNotifier.setNextButton(true);
+      });
+      return () {
+        null;
+      };
+    }, []);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(

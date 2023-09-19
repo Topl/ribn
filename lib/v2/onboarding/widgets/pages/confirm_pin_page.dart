@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Project imports:
 import 'package:ribn/v2/shared/constants/strings.dart';
@@ -10,10 +11,12 @@ import 'package:ribn/v2/onboarding/providers/onboarding_provider.dart';
 import 'package:ribn/v2/shared/theme.dart';
 import 'package:ribn/v2/shared/widgets/pin_input.dart';
 
+import '../../../shared/providers/stepper_navigation_control_prover.dart';
+
 /// A "Page" to allow the user to confirm a PIN for onboarding.
 /// This is intended to be used inside of a [PageView] widget.
 /// Does not provide scaffolding
-class ConfirmPinPage extends HookWidget {
+class ConfirmPinPage extends HookConsumerWidget {
   final String createPin;
   final TextEditingController createPinController;
   final TextEditingController confirmPinController;
@@ -28,11 +31,25 @@ class ConfirmPinPage extends HookWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final focusNode = useFocusNode();
 
     /// Will be set to invalid when Pin does not match state password
     final isPinValid = useState(false);
+    final nextButtonNotifier = ref.watch(stepperNavigationControlProvider.notifier);
+
+    useEffect(() {
+      Future.delayed(Duration.zero, () {
+        if (isPinValid.value) {
+          nextButtonNotifier.setNextButton(true);
+        } else {
+          nextButtonNotifier.setNextButton(false);
+        }
+      });
+      return () {
+        null;
+      };
+    }, [isPinValid.value]);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
