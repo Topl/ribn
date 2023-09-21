@@ -51,8 +51,9 @@ class WelcomePage extends ScreenConsumerWidget {
                 OnboardingModal().showAsModal(context);
               },
             ),
+            SizedBox(height: 10),
             Align(
-              alignment: Alignment.centerLeft,
+              alignment: Alignment.center,
               child: TextButton(
                 key: welcomePageImportButtonKey,
                 onPressed: () => {
@@ -67,6 +68,7 @@ class WelcomePage extends ScreenConsumerWidget {
                 ),
               ),
             ),
+            SizedBox(height: 10),
           ],
         ),
       ),
