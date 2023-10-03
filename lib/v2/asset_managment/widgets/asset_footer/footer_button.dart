@@ -1,10 +1,14 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:ribn/v2/onboarding/widgets/modals/send_receive_modal.dart';
+import 'package:ribn/v2/shared/extensions/widget_extensions.dart';
 
 class FooterFloatingButton extends StatelessWidget {
   const FooterFloatingButton({
     super.key,
   });
+  static const welcomeButtonKey = Key('welcomePageCreateButtonKey');
+  static const welcomePageImportButtonKey = Key('welcomePageImportButtonKey');
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +18,12 @@ class FooterFloatingButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
       ),
+      key: welcomeButtonKey,
       onPressed: () {
-        // TODO SDK: Implement show send and receive screens
+        SendReceiveModal().showAsModal(
+          context,
+          initialChildSize: 0.30,
+        );
       },
       child: new Icon(Icons.sync_alt_outlined),
     );

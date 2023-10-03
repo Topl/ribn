@@ -24,4 +24,6 @@ class Assets {
   static const wallet = 'assets/v2/icons/wallet.svg';
   static const schedule = 'assets/v2/icons/schedule.svg';
   static const scheduleIcon = 'assets/v2/icons/schedule_icon.svg';
+  static const received = 'assets/v2/icons/received.svg';
+  static const send = 'assets/v2/icons/sent.svg';
 }
