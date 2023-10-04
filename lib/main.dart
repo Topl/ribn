@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -61,7 +62,9 @@ class RibnApp extends HookConsumerWidget {
       themeMode: ref.watch(appThemeColorProvider),
       navigatorObservers: [],
       navigatorKey: Keys.navigatorKey,
-      initialUrl: '/',
+
+      // QQQQ revert
+      initialUrl: AssetManagementScreen().route,
       routes: [
         // Loading screen while waiting for user data
         VWidget(path: '/', widget: LoadingScreen()),
@@ -99,7 +102,7 @@ class RibnApp extends HookConsumerWidget {
             VGuard(
               beforeEnter: (vRedirector) async {
                 final User? user = ref.read(userProvider).asData?.value;
-                if (user == null) {
+                if (user == null && !kDebugMode) {
                   vRedirector.to(WelcomePage().route);
                 }
               },

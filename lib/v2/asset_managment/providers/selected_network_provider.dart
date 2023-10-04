@@ -1,21 +1,24 @@
-// Package imports:
+import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-// Project imports:
-import 'package:ribn/v2/asset_managment/models/network.dart';
+import 'package:ribn/v2/asset_managment/models/chains.dart';
 
-// Project imports:
-
-final selectedNetworkNotifierProvider = StateNotifierProvider.autoDispose<SelectedNetworkNotifier, Network>((ref) {
-  return SelectedNetworkNotifier();
+final selectedChainProvider = StateProvider<Chains>((ref) {
+  return kDebugMode ? const Chains.private_network() : const Chains.topl_mainnet();
 });
 
-class SelectedNetworkNotifier extends StateNotifier<Network> {
-  SelectedNetworkNotifier() : super(Network.topl_mainnet);
+final chainsProvider = StateNotifierProvider<ChainsNotifier, List<Chains>>((ref) {
+  return ChainsNotifier(ref);
+});
 
-  List<String> networks() => Network.values.map((e) => e.name).toList();
-
-  changeKeychain(Network keychain) {
-    state = keychain;
-  }
+class ChainsNotifier extends StateNotifier<List<Chains>> {
+  final Ref ref;
+  ChainsNotifier(this.ref)
+      : super([
+          const Chains.topl_mainnet(),
+          const Chains.valhalla_testnet(),
+          const Chains.private_network(),
+          const Chains.dev_network(),
+          const Chains.mock(),
+        ]) {}
 }
