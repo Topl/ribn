@@ -99,6 +99,7 @@ class Strings {
   static const String createRibnWalletSub =
       "You can now securely store, manage, and interact with your digital assets and DApps in the Topl ecosystem.";
   static const String keepWalletSecure = "Keep your wallet secure to protect your assets.";
+  static const String seeAllAssets = "See all assets";
 
   static const String send = 'Send';
   static const String sendAddress = 'Enter the recipient address or scan QR code';
