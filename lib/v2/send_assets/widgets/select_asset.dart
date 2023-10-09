@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
 import 'package:ribn/v2/shared/theme.dart';
 
@@ -41,13 +41,13 @@ final assets = [
   )
 ];
 
-class SelectAssetsScreen extends HookWidget {
+class SelectAssetsScreen extends HookConsumerWidget {
   const SelectAssetsScreen({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(

@@ -12,9 +12,10 @@ class SendingAssetNotifier extends StateNotifier<SendingAssetState> {
 
   static SendingAssetState _initializeSendingAssetState(ref) {
     return SendingAssetState(
+      assetName: "",
       from: "",
       to: "",
-      amount: "",
+      amount: 0.0,
       fee: "",
     );
   }
@@ -23,11 +24,15 @@ class SendingAssetNotifier extends StateNotifier<SendingAssetState> {
     state = state.copyWith(from: from);
   }
 
+  void setAssetName(String assetName) {
+    state = state.copyWith(assetName: assetName);
+  }
+
   void updateTo(String to) {
     state = state.copyWith(to: to);
   }
 
-  void updateAmount(String amount) {
+  void updateAmount(double amount) {
     state = state.copyWith(amount: amount);
   }
 
@@ -35,9 +40,14 @@ class SendingAssetNotifier extends StateNotifier<SendingAssetState> {
     state = state.copyWith(fee: fee);
   }
 
+  void reset() {
+    state = SendingAssetState.initial();
+  }
+
   /// Gets the details from the state
   /// and sends the transaction
   Future<void> sendTransaction() async {
+    // access state details below to send transaction
     // final sendingAssetState = await ref.read(sendingAssetProvider.notifier);
   }
 }

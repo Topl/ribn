@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ribn/v2/send_assets/providers/send_asset_provider.dart';
+import 'package:ribn/v2/send_assets/providers/sending_asset_provider.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
+import 'package:ribn/v2/shared/providers/stepper_screen_provider.dart';
+import 'package:ribn/v2/shared/theme.dart';
 
-import '../../shared/theme.dart';
 import 'qr_code_scanner.dart';
 
 class SendAssetsAddressScreen extends HookConsumerWidget {
@@ -14,7 +16,10 @@ class SendAssetsAddressScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(sendAssetProvider.notifier);
+    final stepperNotifier = ref.watch(stepperScreenProvider.notifier);
+    final sendAsset = ref.watch(sendingAssetProvider.notifier);
+    final addressAdded = useState(false);
+
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -48,7 +53,7 @@ class SendAssetsAddressScreen extends HookConsumerWidget {
                   constraints: BoxConstraints(minHeight: 40, minWidth: 120),
                   hintText: Strings.enterAddress,
                   hintStyle: MaterialStateProperty.all(
-                    labelLarge(context),
+                    labelLarge(context)?.copyWith(color: Color(0xFFBDBDBD)),
                   ),
                   elevation: MaterialStateProperty.all(1),
                   shape: MaterialStateProperty.all(
@@ -61,8 +66,11 @@ class SendAssetsAddressScreen extends HookConsumerWidget {
                   ),
                   shadowColor: MaterialStateProperty.all(Colors.transparent),
                   onChanged: (value) {
-                    //TODO: implement search
-                    print(value);
+                    addressAdded.value = false;
+                    sendAsset.updateTo(value);
+                    if (value.length > 10) {
+                      addressAdded.value = false;
+                    }
                   },
                 ),
               ),
@@ -83,6 +91,15 @@ class SendAssetsAddressScreen extends HookConsumerWidget {
               ),
             ],
           ),
+          SizedBox(height: 10),
+          addressAdded.value
+              ? Text(
+                  'Enter address, address has to be more than 10 characters long',
+                  style: bodyMedium(context)?.copyWith(
+                    color: Color(0xFFE74C3C),
+                  ),
+                )
+              : SizedBox(),
           SizedBox(height: 20),
           Container(
             width: MediaQuery.of(context).size.width,
@@ -115,11 +132,17 @@ class SendAssetsAddressScreen extends HookConsumerWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    notifier.navigateToPage(context);
+                    if (sendAsset.state.to.length > 10) {
+                      stepperNotifier.navigateToPage(context);
+                    } else {
+                      addressAdded.value = true;
+                    }
                   },
                   child: Text(
-                    'Share Address',
-                    style: titleSmall(context),
+                    Strings.cont,
+                    style: titleSmall(context)?.copyWith(
+                      color: Colors.white,
+                    ),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF0DC8D4),

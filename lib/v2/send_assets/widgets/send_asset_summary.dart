@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ribn/v2/send_assets/providers/send_asset_provider.dart';
+import 'package:ribn/v2/send_assets/providers/sending_asset_provider.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
+import 'package:ribn/v2/shared/providers/stepper_screen_provider.dart';
 import 'package:ribn/v2/shared/theme.dart';
 
 class SendAssetSummaryScreen extends HookConsumerWidget {
@@ -12,7 +13,8 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(sendAssetProvider.notifier);
+    final stepperNotifier = ref.watch(stepperScreenProvider.notifier);
+    final sendAsset = ref.watch(sendingAssetProvider.notifier);
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -65,8 +67,8 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 4.0),
                           child: Text(
-                            'Topl transaction (LVL)',
-                            style: labelLarge(context),
+                            sendAsset.state.assetName,
+                            style: labelLarge(context)?.copyWith(color: Color(0xFF282A2C)),
                           ),
                         ),
                       ],
@@ -116,8 +118,8 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 4.0),
                           child: Text(
-                            '0q1We2rTy34a5SD6fZX7',
-                            style: labelLarge(context),
+                            sendAsset.state.to,
+                            style: labelLarge(context)?.copyWith(color: Color(0xFF282A2C)),
                           ),
                         ),
                       ],
@@ -154,8 +156,8 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 4.0),
                           child: Text(
-                            '4,012 LVL',
-                            style: labelLarge(context),
+                            sendAsset.state.amount.toString(),
+                            style: labelLarge(context)?.copyWith(color: Color(0xFF282A2C)),
                           ),
                         ),
                       ],
@@ -185,7 +187,7 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
                 padding: const EdgeInsets.only(top: 4.0),
                 child: Text(
                   '0.004 LVL',
-                  style: labelLarge(context),
+                  style: labelLarge(context)?.copyWith(color: Color(0xFF282A2C)),
                 ),
               ),
             ],
@@ -197,11 +199,11 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    notifier.navigateToPage(context);
+                    stepperNotifier.navigateToPage(context);
                   },
                   child: Text(
                     Strings.send,
-                    style: labelLarge(context),
+                    style: labelLarge(context)?.copyWith(color: Colors.white),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF0DC8D4),
