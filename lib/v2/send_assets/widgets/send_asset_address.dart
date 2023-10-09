@@ -18,6 +18,7 @@ class SendAssetsAddressScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final stepperNotifier = ref.watch(stepperScreenProvider.notifier);
     final sendAsset = ref.watch(sendingAssetProvider.notifier);
+    final to = ref.watch(sendingAssetProvider).to;
     final addressAdded = useState(false);
 
     return Padding(
@@ -132,8 +133,7 @@ class SendAssetsAddressScreen extends HookConsumerWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    // ignore: invalid_use_of_protected_member
-                    if (sendAsset.state.to.length > 10) {
+                    if (to.length > 10) {
                       stepperNotifier.navigateToPage(context);
                     } else {
                       addressAdded.value = true;

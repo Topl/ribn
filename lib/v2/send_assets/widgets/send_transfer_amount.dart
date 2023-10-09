@@ -18,6 +18,7 @@ class SendTransferAmountScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final stepperNotifier = ref.watch(stepperScreenProvider.notifier);
     final sendAsset = ref.watch(sendingAssetProvider.notifier);
+    final amount = ref.watch(sendingAssetProvider).amount;
     final isAvailableBalance = useState(false);
     final switcher = useState(false);
     return Padding(
@@ -82,8 +83,7 @@ class SendTransferAmountScreen extends HookConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      // ignore: invalid_use_of_protected_member
-                      '${Strings.totalAvailable}' + ':' + '${fullAmount - sendAsset.state.amount}',
+                      '${Strings.totalAvailable}' + ':' + '${fullAmount - amount}',
                       style: labelMedium(context),
                     ),
                     Padding(
