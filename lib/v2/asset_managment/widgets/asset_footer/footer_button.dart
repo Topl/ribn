@@ -9,7 +9,6 @@ class FooterFloatingButton extends StatelessWidget {
   });
   static const welcomeButtonKey = Key('welcomePageCreateButtonKey');
   static const welcomePageImportButtonKey = Key('welcomePageImportButtonKey');
-
   @override
   Widget build(BuildContext context) {
     return new FloatingActionButton(
@@ -22,7 +21,7 @@ class FooterFloatingButton extends StatelessWidget {
       onPressed: () {
         SendReceiveModal().showAsModal(
           context,
-          initialChildSize: 0.30,
+          initialChildSize: 0.33,
         );
       },
       child: new Icon(Icons.sync_alt_outlined),

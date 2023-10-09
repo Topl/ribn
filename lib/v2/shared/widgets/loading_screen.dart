@@ -50,7 +50,8 @@ class LoadingScreen extends ScreenConsumerWidget {
 
 // This function builds and returns a Future<Widget> based on the provided UserNotifier data.
 Future<Widget> _buildWidget(UserNotifier? user) async {
-  if (await user?.isUserSaved() ?? false) {
+  final userState = await user?.isUserSaved();
+  if (userState ?? false) {
     return LoginScreen();
   } else {
     return WelcomePage();
