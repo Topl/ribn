@@ -132,6 +132,7 @@ class SendAssetsAddressScreen extends HookConsumerWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
+                    // ignore: invalid_use_of_protected_member
                     if (sendAsset.state.to.length > 10) {
                       stepperNotifier.navigateToPage(context);
                     } else {

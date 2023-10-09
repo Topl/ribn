@@ -14,7 +14,7 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final stepperNotifier = ref.watch(stepperScreenProvider.notifier);
-    final sendAsset = ref.watch(sendingAssetProvider.notifier);
+    final sendAsset = ref.watch(sendingAssetProvider);
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -67,7 +67,7 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 4.0),
                           child: Text(
-                            sendAsset.state.assetName,
+                            sendAsset.assetName,
                             style: labelLarge(context)?.copyWith(color: Color(0xFF282A2C)),
                           ),
                         ),
@@ -118,7 +118,7 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 4.0),
                           child: Text(
-                            sendAsset.state.to,
+                            sendAsset.to,
                             style: labelLarge(context)?.copyWith(color: Color(0xFF282A2C)),
                           ),
                         ),
@@ -156,7 +156,8 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 4.0),
                           child: Text(
-                            sendAsset.state.amount.toString(),
+                            // ignore: invalid_use_of_protected_member
+                            sendAsset.amount.toString(),
                             style: labelLarge(context)?.copyWith(color: Color(0xFF282A2C)),
                           ),
                         ),

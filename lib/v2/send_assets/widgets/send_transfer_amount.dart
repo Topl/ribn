@@ -82,6 +82,7 @@ class SendTransferAmountScreen extends HookConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
+                      // ignore: invalid_use_of_protected_member
                       '${Strings.totalAvailable}' + ':' + '${fullAmount - sendAsset.state.amount}',
                       style: labelMedium(context),
                     ),
