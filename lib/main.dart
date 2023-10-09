@@ -24,7 +24,6 @@ import 'package:ribn/v2/shared/theme.dart';
 import 'package:ribn/v2/shared/widgets/vnester/screen_scaffold.dart';
 
 import 'package:ribn/v2/shared/widgets/loading_screen.dart';
-import 'package:ribn/v2/user/models/user.dart';
 import 'package:ribn/v2/user/providers/user_provider.dart';
 import 'package:vrouter/vrouter.dart';
 
@@ -98,8 +97,8 @@ class RibnApp extends HookConsumerWidget {
             // Any routes that require the user to be logged in should be nested in this VGuard
             VGuard(
               beforeEnter: (vRedirector) async {
-                final User? user = ref.read(userProvider).asData?.value;
-                if (user == null) {
+                final user = await ref.watch(userProvider.notifier);
+                if (!await user.isUserSaved()) {
                   vRedirector.to(WelcomePage().route);
                 }
               },

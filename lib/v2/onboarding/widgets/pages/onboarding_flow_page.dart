@@ -51,6 +51,7 @@ class OnboardingFlowPage extends ScreenConsumerWidget {
       ],
       onDone: () async {
         if (ref.read(onboardingProvider.notifier).verifyConfirmationWords()) {
+          ref.read(onboardingProvider.notifier).saveWallet();
           showCustomDialog(context);
           await Future.delayed(Duration(seconds: 3));
           context.vRouter.to(CongratulationSeedPhrase().route);
