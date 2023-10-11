@@ -46,7 +46,7 @@ class AssetCard extends HookConsumerWidget {
                   ),
                   Text(
                     assetName,
-                    style: labelMedium(context)?.copyWith(color: Color(0xFF282A2C)),
+                    style: titleSmall(context),
                   ),
                 ],
               ),
@@ -54,7 +54,7 @@ class AssetCard extends HookConsumerWidget {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
                   assetShortName,
-                  style: labelSmall(context)?.copyWith(color: Color(0xFF858E8E)),
+                  style: titleSmall(context),
                 ),
               ),
             ],

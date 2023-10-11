@@ -68,7 +68,7 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
                           padding: const EdgeInsets.only(top: 4.0),
                           child: Text(
                             sendAsset.assetName,
-                            style: labelLarge(context)?.copyWith(color: Color(0xFF282A2C)),
+                            style: titleSmall(context),
                           ),
                         ),
                       ],
@@ -119,7 +119,7 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
                           padding: const EdgeInsets.only(top: 4.0),
                           child: Text(
                             sendAsset.to,
-                            style: labelLarge(context)?.copyWith(color: Color(0xFF282A2C)),
+                            style: titleSmall(context),
                           ),
                         ),
                       ],
@@ -158,7 +158,7 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
                           child: Text(
                             // ignore: invalid_use_of_protected_member
                             sendAsset.amount.toString(),
-                            style: labelLarge(context)?.copyWith(color: Color(0xFF282A2C)),
+                            style: titleSmall(context),
                           ),
                         ),
                       ],
@@ -188,7 +188,7 @@ class SendAssetSummaryScreen extends HookConsumerWidget {
                 padding: const EdgeInsets.only(top: 4.0),
                 child: Text(
                   '0.004 LVL',
-                  style: labelLarge(context)?.copyWith(color: Color(0xFF282A2C)),
+                  style: titleSmall(context),
                 ),
               ),
             ],
