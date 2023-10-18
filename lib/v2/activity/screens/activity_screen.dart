@@ -7,12 +7,12 @@ import 'package:intl/intl.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/v2/activity/providers/activity_provider.dart';
 import 'package:ribn/v2/activity/widgets/activity_transaction.dart';
+import 'package:ribn/v2/asset_managment/providers/transactions/transaction_provider.dart';
 import 'package:ribn/v2/asset_managment/widgets/asset_footer/asset_bottom_nav.dart';
 import 'package:ribn/v2/asset_managment/widgets/asset_footer/footer_button.dart';
 
 // Project imports:
 import 'package:ribn/v2/shared/constants/colors.dart';
-import 'package:ribn/v2/asset_managment/providers/loaded_assets_provider.dart';
 import 'package:ribn/v2/shared/constants/ribn_text_style.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
 import 'package:ribn/v2/shared/extensions/screen_hook_widget.dart';
@@ -48,7 +48,7 @@ class ActivityScreen extends ScreenConsumerWidget {
   ];
   Widget build(BuildContext context, WidgetRef ref) {
     // TODO SDK: Move up to a higher level widget
-    ref.watch(loadedAssetsProvider);
+    ref.watch(transactionNotifierProvider);
     final activities = ref.watch(activityProvider);
 
     return activities.when(

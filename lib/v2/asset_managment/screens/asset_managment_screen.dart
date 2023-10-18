@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/v2/asset_managment/providers/transactions/transaction_provider.dart';
 import 'package:ribn/v2/asset_managment/widgets/asset_list/asset_list.dart';
 import 'package:ribn/v2/asset_managment/widgets/asset_footer/footer_button.dart';
 import 'package:ribn/v2/asset_managment/widgets/asset_footer/asset_bottom_nav.dart';
@@ -11,7 +12,6 @@ import 'package:ribn/v2/asset_managment/widgets/asset_screen_header/asset_screen
 // Project imports:
 import 'package:ribn/v2/shared/constants/colors.dart';
 import 'package:ribn/v2/shared/extensions/screen_hook_widget.dart';
-import 'package:ribn/v2/asset_managment/providers/loaded_assets_provider.dart';
 
 class AssetManagementScreen extends ScreenConsumerWidget {
   static const Key assetManagementScreenKey = Key('assetManagementScreenKey');
@@ -22,7 +22,7 @@ class AssetManagementScreen extends ScreenConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // TODO SDK: Move up to a higher level widget
-    ref.watch(loadedAssetsProvider);
+    ref.watch(transactionNotifierProvider);
 
     return Scaffold(
       backgroundColor: RibnColors.grey,

@@ -4,23 +4,20 @@ import 'package:ribn/v2/asset_managment/models/asset_type.dart';
 
 // Project imports:
 import 'package:ribn/v2/asset_managment/models/asset_details.dart';
-import 'package:ribn/v2/asset_managment/providers/transactions/keychain_network_providers/assets_provider_class.dart';
 
-final mainnetAssetsLoadedProvider = StateProvider.autoDispose<bool>((ref) {
-  ref.onDispose(() {});
-  return false;
+final transactionNotifierProvider =
+    StateNotifierProvider.autoDispose<TransactionNotifier, AsyncValue<List<AssetDetails>>>((ref) {
+  return TransactionNotifier(ref);
 });
 
-final mainnetAssetsNotifierProvider =
-    StateNotifierProvider.autoDispose<MainnetTransactionProvider, AsyncValue<List<AssetDetails>>>((ref) {
-  return MainnetTransactionProvider(ref);
-});
-
-class MainnetTransactionProvider extends AssetsNotifier {
+class TransactionNotifier extends StateNotifier<AsyncValue<List<AssetDetails>>> {
   final Ref ref;
-  MainnetTransactionProvider(this.ref) : super();
+  TransactionNotifier(this.ref) : super(AsyncLoading()) {
+    getAssets().then((value) {
+      state = AsyncData(value);
+    });
+  }
 
-  @override
   Future<List<AssetDetails>> getAssets() async {
     return [
       AssetDetails(
@@ -56,20 +53,13 @@ class MainnetTransactionProvider extends AssetsNotifier {
     ];
   }
 
-  @override
   Future<List<AssetDetails>> refreshAssets() {
     // TODO: implement refreshTransactions
     throw UnimplementedError();
   }
 
-  @override
   Stream<List<AssetDetails>> streamAssets() {
     // TODO: implement streamTransactions
     throw UnimplementedError();
-  }
-
-  @override
-  void onProviderLoad() {
-    ref.read(mainnetAssetsLoadedProvider.notifier).state = true;
   }
 }
