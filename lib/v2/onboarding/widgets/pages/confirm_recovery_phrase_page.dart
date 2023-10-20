@@ -25,14 +25,16 @@ class ConfirmRecoveryPhrasePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final checkItWords = ref.watch(onboardingProvider).confirmationWords;
     final isCorrectConfirmationWords = ref.watch(onboardingProvider).isCorrectConfirmationWords;
-    final nextButtonNotifier = ref.watch(stepperNavigationControlProvider.notifier);
+    final buttonNotifier = ref.watch(stepperNavigationControlProvider.notifier);
 
     useEffect(() {
       Future.delayed(Duration.zero, () {
         if (isCorrectConfirmationWords) {
-          nextButtonNotifier.setNextButton(true);
+          buttonNotifier.setNextButton(true);
+          buttonNotifier.setDoneButton(true);
         } else {
-          nextButtonNotifier.setNextButton(false);
+          buttonNotifier.setNextButton(false);
+          buttonNotifier.setDoneButton(false);
         }
       });
       return () {

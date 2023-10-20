@@ -5,15 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ribn/v2/asset_managment/providers/transactions/transaction_provider.dart';
 import 'package:ribn/v2/asset_managment/widgets/asset_list/asset_list_item.dart';
-import 'package:ribn/v2/receive_assets/screens/receive_asset_screen.dart';
-import 'package:ribn/v2/send_assets/screens/send_asset_screen.dart';
 
 // Project imports:
 import 'package:ribn/v2/shared/constants/colors.dart';
 import 'package:ribn/v2/asset_managment/models/asset_details.dart';
 import 'package:ribn/v2/shared/constants/ribn_text_style.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
-import 'package:vrouter/vrouter.dart';
 
 class AssetList extends HookConsumerWidget {
   const AssetList({
@@ -63,25 +60,6 @@ class AssetList extends HookConsumerWidget {
                     },
                   ),
                 ),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                      minimumSize: Size.fromHeight(40),
-                      side: BorderSide(
-                        color: RibnColors.grey,
-                        width: 1,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      padding: EdgeInsets.all(15)),
-                  onPressed: () {
-                    context.vRouter.to(SendAssetScreen().route);
-                  },
-                  child: Text(
-                    Strings.sendAssets,
-                    style: RibnTextStyle.h3,
-                  ),
-                ),
                 SizedBox(height: 10),
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
@@ -94,11 +72,9 @@ class AssetList extends HookConsumerWidget {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       padding: EdgeInsets.all(15)),
-                  onPressed: () {
-                    context.vRouter.to(ReceiveAssets().route);
-                  },
+                  onPressed: () {},
                   child: Text(
-                    Strings.receiveAssets,
+                    Strings.seeAllAssets,
                     style: RibnTextStyle.h3,
                   ),
                 ),

@@ -86,6 +86,7 @@ class DoneButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDoneEnabled = ref.watch(stepperNavigationControlProvider).done;
+
     return Padding(
       padding: EdgeInsets.only(right: 20.0),
       child: InkWell(
