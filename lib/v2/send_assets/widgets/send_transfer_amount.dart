@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ribn/v2/send_assets/providers/send_asset_provider.dart';
+import 'package:ribn/v2/send_assets/providers/sending_asset_provider.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
+import 'package:ribn/v2/shared/providers/stepper_screen_provider.dart';
 
 import '../../shared/theme.dart';
 
@@ -11,11 +12,14 @@ class SendTransferAmountScreen extends HookConsumerWidget {
   SendTransferAmountScreen({
     super.key,
   });
-  final fullAmount = 4012;
+  final fullAmount = 4012.0; //TODO: remove this when we have the real amount from the API
   double _amount = 0.00;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(sendAssetProvider.notifier);
+    final stepperNotifier = ref.watch(stepperScreenProvider.notifier);
+    final sendAsset = ref.watch(sendingAssetProvider.notifier);
+    final amount = ref.watch(sendingAssetProvider).amount;
+    final isAvailableBalance = useState(false);
     final switcher = useState(false);
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -42,7 +46,7 @@ class SendTransferAmountScreen extends HookConsumerWidget {
             padding: MaterialStateProperty.all(
               EdgeInsets.symmetric(horizontal: 12),
             ),
-            trailing: [Text('LVL', style: labelLarge(context))],
+            trailing: [Text('LVL', style: labelLarge(context)?.copyWith(color: Color(0xFFBDBDBD)))],
             controller: TextEditingController(text: '$_amount'),
             constraints: BoxConstraints(minHeight: 40, minWidth: 120),
             hintText: '0.00',
@@ -60,8 +64,13 @@ class SendTransferAmountScreen extends HookConsumerWidget {
             ),
             shadowColor: MaterialStateProperty.all(Colors.transparent),
             onChanged: (value) {
-              //TODO: implement search
-              print(value);
+              // has to take only numbers
+              _amount = double.parse(value);
+              sendAsset.updateAmount(_amount);
+              // amount should not be more than fullAmount
+              if (_amount > fullAmount) {
+                isAvailableBalance.value = true;
+              }
             },
           ),
           Container(
@@ -74,7 +83,7 @@ class SendTransferAmountScreen extends HookConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      Strings.totalAvailable,
+                      '${Strings.totalAvailable}' + ':' + '${fullAmount - amount}',
                       style: labelMedium(context),
                     ),
                     Padding(
@@ -93,13 +102,12 @@ class SendTransferAmountScreen extends HookConsumerWidget {
                       style: labelMedium(context),
                     ),
                     Switch(
-                      // make switch size bigger
-
                       value: switcher.value,
                       onChanged: (bool value) {
                         switcher.value = value;
                         if (value) {
                           _amount = double.parse(fullAmount.toString());
+                          sendAsset.updateAmount(_amount);
                         } else {
                           _amount = 0.00;
                         }
@@ -122,7 +130,7 @@ class SendTransferAmountScreen extends HookConsumerWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    notifier.navigateToPage(context);
+                    stepperNotifier.navigateToPage(context);
                   },
                   child: Text(
                     Strings.cont,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ribn/v2/send_assets/providers/send_asset_provider.dart';
+import 'package:ribn/v2/send_assets/providers/sending_asset_provider.dart';
+import 'package:ribn/v2/shared/providers/stepper_screen_provider.dart';
 import 'package:ribn/v2/shared/theme.dart';
 
 class AssetCard extends HookConsumerWidget {
@@ -12,7 +13,8 @@ class AssetCard extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(sendAssetProvider.notifier);
+    final stepperNotifier = ref.watch(stepperScreenProvider.notifier);
+    final sendAsset = ref.watch(sendingAssetProvider.notifier);
     return Card(
       margin: EdgeInsets.zero,
       elevation: 0,
@@ -27,31 +29,32 @@ class AssetCard extends HookConsumerWidget {
       child: InkWell(
         splashColor: Colors.grey.withAlpha(30),
         onTap: () {
-          // TODO: implement card tap
-          notifier.navigateToPage(context);
-          print(
-            'card tapped - $assetName',
-          );
+          stepperNotifier.navigateToPage(context);
+          sendAsset.setAssetName('${assetName} ${assetShortName}');
         },
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: assetIcon,
-              ),
-              Expanded(
-                child: Text(
-                  assetName,
-                  style: bodyMedium(context),
-                ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: assetIcon,
+                  ),
+                  Text(
+                    assetName,
+                    style: titleSmall(context),
+                  ),
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
                   assetShortName,
-                  style: bodySmall(context),
+                  style: titleSmall(context),
                 ),
               ),
             ],
