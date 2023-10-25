@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ribn/v2/asset_managment/providers/transactions/transaction_provider.dart';
 import 'package:ribn/v2/asset_managment/widgets/asset_list/asset_list_item.dart';
 
 // Project imports:
 import 'package:ribn/v2/shared/constants/colors.dart';
 import 'package:ribn/v2/asset_managment/models/asset_details.dart';
-import 'package:ribn/v2/asset_managment/providers/transactions/selected_network_assets_provider.dart';
 import 'package:ribn/v2/shared/constants/ribn_text_style.dart';
 import 'package:ribn/v2/shared/constants/strings.dart';
 
@@ -19,7 +19,7 @@ class AssetList extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AsyncValue<List<AssetDetails>> assets = ref.watch(selectedNetworkAssetProvider);
+    final AsyncValue<List<AssetDetails>> assets = ref.watch(transactionNotifierProvider);
 
     return Container(
         decoration: BoxDecoration(
