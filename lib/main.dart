@@ -60,12 +60,13 @@ class RibnApp extends HookConsumerWidget {
       themeMode: ref.watch(appThemeColorProvider),
       navigatorObservers: [],
       navigatorKey: Keys.navigatorKey,
-
-      // QQQQ revert
-      initialUrl: AssetManagementScreen().route,
+      initialUrl: LoadingScreen().route,
       routes: [
         // Loading screen while waiting for user data
-        VWidget(path: '/', widget: LoadingScreen()),
+        VWidget(
+          path: LoadingScreen().route,
+          widget: LoadingScreen(),
+        ),
         // Wraps all routes in a ScreenScaffold
         VNester(
           path: '/',
